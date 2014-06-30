@@ -19,10 +19,10 @@
             </objects>
             <point key="canvasLocation" x="-392" y="889"/>
         </scene>
-        <!--View Controller - Food Hero-->
+        <!--Conversation View Controller - Food Hero-->
         <scene sceneID="qo0-gW-NQz">
             <objects>
-                <viewController id="Xf7-7W-WAu" sceneMemberID="viewController">
+                <viewController id="Xf7-7W-WAu" customClass="ConversationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t8J-Rf-q7T"/>
                         <viewControllerLayoutGuide type="bottom" id="AQl-Q3-OdL"/>
