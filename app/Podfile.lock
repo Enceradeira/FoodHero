@@ -1,0 +1,15 @@
+PODS:
+  - OCHamcrest (4.0.1)
+  - Typhoon (2.1.0):
+    - Typhoon/no-arc
+  - Typhoon/no-arc (2.1.0)
+
+DEPENDENCIES:
+  - OCHamcrest (~> 4.0)
+  - Typhoon
+
+SPEC CHECKSUMS:
+  OCHamcrest: b464725bbb48d0f1cd9c6f4ec3cb35fe0c4f2b94
+  Typhoon: 5af23b4d01c3aee0f3ba72464a1d92e7f93b3552
+
+COCOAPODS: 0.33.1

@@ -2,11 +2,11 @@
 
 platform :ios, "7.1"
 
-target :HelloWorldApp do
+target :FoodHero do
     pod "Typhoon"
 end
 
-target :HelloWorldAppTests do
+target :FoodHeroTests do
     pod 'OCHamcrest', '~> 4.0'
 end
 

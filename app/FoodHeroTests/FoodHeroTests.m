@@ -7,6 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
+#define HC_SHORTHAND
+#import <OCHamcrest/OCHamcrest.h>
+#import <Typhoon.h>
 
 @interface FoodHeroTests : XCTestCase
 
@@ -29,6 +32,7 @@
 - (void)testExample
 {
     XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    assertThatBool(false,equalToBool(true));
 }
 
 @end
