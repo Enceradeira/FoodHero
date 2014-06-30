@@ -1,30 +1,40 @@
-=begin
-def click_me_button
-  button 'click me!'
-end
-
-Given(/^I start the Hello\-World app$/) do
-  expect(click_me_button).to be_truthy
-end
-
-When(/^I click the button$/) do
-  click_me_button.click
-end
-
-Then(/^the app says 'Hello World'$/) do
-  expect(text 'Hello World').to be_truthy
-end
-=end
-
 def expect_conversation_view
   expect(text 'Conversation is under construction').to be_truthy
+end
+
+def expect_map_view
+  expect(text 'Map is under construction').to be_truthy
+end
+
+def expect_login_view
+  expect(text 'Login is under construction').to be_truthy
+end
+
+Given(/^FoodHero has started$/) do
+  expect_conversation_view
+end
+
+When(/^I go to the map view$/) do
+  button('Map').click
+end
+
+When(/^I go back$/) do
+  button('Food Hero').click
+end
+
+When(/^I go to the login view$/) do
+  button('Login').click
 end
 
 Then(/^I see the conversation view$/) do
   expect_conversation_view
 end
 
-
-Given(/^FoodHero has started$/) do
-  expect_conversation_view
+Then(/^I see the map view$/) do
+  expect_map_view
 end
+
+Then(/^I see the login view$/) do
+  expect_login_view
+end
+

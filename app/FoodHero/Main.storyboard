@@ -49,6 +49,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="hAm-k5-Xt9" kind="push" id="O9N-fu-SQl"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="1zU-uV-THH">
@@ -59,6 +62,9 @@
                                 <state key="normal" title="Map">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="f14-hB-uXh" kind="push" id="UFj-i6-g0O"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -88,10 +94,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="rx0-ft-OGy"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdP-I1-wYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="172" y="-460"/>
+            <point key="canvasLocation" x="721" y="391"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="fxC-fX-uGw">
@@ -106,7 +113,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map is under construction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRx-8c-Z9d">
-                                <rect key="frame" x="60" y="273" width="201" height="21"/>
+                                <rect key="frame" x="60" y="260" width="201" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -114,10 +121,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="nQw-3r-qpc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvE-HK-cfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="177" y="204"/>
+            <point key="canvasLocation" x="721" y="1140"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
