@@ -1,1108 +1,537 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>0A30424296DB45F0AA881B71</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-FoodHeroTests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1DE023594DEB40C1880156F6</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>2B62F4A5BA724C0883A67471</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-FoodHero.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Pods-FoodHero.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3D709FDF2C4B4D118D6EB3B1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>87CDF585A9494C2ABFC31D2C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>826E68EA9FCE4383A482A031</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>87CDF585A9494C2ABFC31D2C</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-FoodHero.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>8FCBADC019614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADD219614B83001ED357</string>
-				<string>8FCBADEB19614B83001ED357</string>
-				<string>8FCBADCB19614B83001ED357</string>
-				<string>8FCBADCA19614B83001ED357</string>
-				<string>2B62F4A5BA724C0883A67471</string>
-				<string>A5B12E02E3AA41E69D7C0516</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADC119614B83001ED357</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>JENNIUS LTD</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>8FCBADE319614B83001ED357</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>8FCBADC819614B83001ED357</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>8FCBADC419614B83001ED357</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>8FCBADC019614B83001ED357</string>
-			<key>productRefGroup</key>
-			<string>8FCBADCA19614B83001ED357</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>8FCBADC819614B83001ED357</string>
-				<string>8FCBADE319614B83001ED357</string>
-			</array>
-		</dict>
-		<key>8FCBADC419614B83001ED357</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>8FCBADF319614B83001ED357</string>
-				<string>8FCBADF419614B83001ED357</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>8FCBADC519614B83001ED357</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8FCBADDD19614B83001ED357</string>
-				<string>8FCBADD919614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8FCBADC619614B83001ED357</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8FCBADCF19614B83001ED357</string>
-				<string>8FCBADD119614B83001ED357</string>
-				<string>8FCBADCD19614B83001ED357</string>
-				<string>3D709FDF2C4B4D118D6EB3B1</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8FCBADC719614B83001ED357</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8FCBADD719614B83001ED357</string>
-				<string>8FCBADDF19614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8FCBADC819614B83001ED357</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>8FCBADF519614B83001ED357</string>
-			<key>buildPhases</key>
-			<array>
-				<string>826E68EA9FCE4383A482A031</string>
-				<string>8FCBADC519614B83001ED357</string>
-				<string>8FCBADC619614B83001ED357</string>
-				<string>8FCBADC719614B83001ED357</string>
-				<string>F7D2460F0C594202AD6E4F0A</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>FoodHero</string>
-			<key>productName</key>
-			<string>FoodHero</string>
-			<key>productReference</key>
-			<string>8FCBADC919614B83001ED357</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>8FCBADC919614B83001ED357</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>FoodHero.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>8FCBADCA19614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADC919614B83001ED357</string>
-				<string>8FCBADE419614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADCB19614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADCC19614B83001ED357</string>
-				<string>8FCBADCE19614B83001ED357</string>
-				<string>8FCBADD019614B83001ED357</string>
-				<string>8FCBADE519614B83001ED357</string>
-				<string>87CDF585A9494C2ABFC31D2C</string>
-				<string>0A30424296DB45F0AA881B71</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADCC19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>8FCBADCD19614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADCC19614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADCE19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>CoreGraphics.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/CoreGraphics.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>8FCBADCF19614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADCE19614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADD019614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>8FCBADD119614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADD019614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADD219614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADDB19614B83001ED357</string>
-				<string>8FCBADDC19614B83001ED357</string>
-				<string>8FCBADDE19614B83001ED357</string>
-				<string>8FCBADD319614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>FoodHero</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADD319614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADD419614B83001ED357</string>
-				<string>8FCBADD519614B83001ED357</string>
-				<string>8FCBADD819614B83001ED357</string>
-				<string>8FCBADDA19614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADD419614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>FoodHero-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADD519614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADD619614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADD619614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADD719614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADD519614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADD819614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADD919614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADD819614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADDA19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>FoodHero-Prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADDB19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>AppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADDC19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>AppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADDD19614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADDC19614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADDE19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADDF19614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADDE19614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADE019614B83001ED357</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8FCBADF219614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8FCBADE119614B83001ED357</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8FCBADE619614B83001ED357</string>
-				<string>8FCBADE819614B83001ED357</string>
-				<string>8FCBADE719614B83001ED357</string>
-				<string>CCBEFC2AA51A4FBDA79617D3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8FCBADE219614B83001ED357</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8FCBADF019614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8FCBADE319614B83001ED357</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>8FCBADF819614B83001ED357</string>
-			<key>buildPhases</key>
-			<array>
-				<string>1DE023594DEB40C1880156F6</string>
-				<string>8FCBADE019614B83001ED357</string>
-				<string>8FCBADE119614B83001ED357</string>
-				<string>8FCBADE219614B83001ED357</string>
-				<string>9F5313A7313C405691A29AAA</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>8FCBADEA19614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>FoodHeroTests</string>
-			<key>productName</key>
-			<string>FoodHeroTests</string>
-			<key>productReference</key>
-			<string>8FCBADE419614B83001ED357</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>8FCBADE419614B83001ED357</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>FoodHeroTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>8FCBADE519614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>XCTest.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/XCTest.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>8FCBADE619614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADE519614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADE719614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADCC19614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADE819614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADD019614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADE919614B83001ED357</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>8FCBADC119614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>8FCBADC819614B83001ED357</string>
-			<key>remoteInfo</key>
-			<string>FoodHero</string>
-		</dict>
-		<key>8FCBADEA19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>8FCBADC819614B83001ED357</string>
-			<key>targetProxy</key>
-			<string>8FCBADE919614B83001ED357</string>
-		</dict>
-		<key>8FCBADEB19614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADF119614B83001ED357</string>
-				<string>8FCBADEC19614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>FoodHeroTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADEC19614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADED19614B83001ED357</string>
-				<string>8FCBADEE19614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADED19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>FoodHeroTests-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADEE19614B83001ED357</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8FCBADEF19614B83001ED357</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADEF19614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADF019614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADEE19614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADF119614B83001ED357</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>FoodHeroTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8FCBADF219614B83001ED357</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCBADF119614B83001ED357</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FCBADF319614B83001ED357</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>8FCBADF419614B83001ED357</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>8FCBADF519614B83001ED357</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>8FCBADF619614B83001ED357</string>
-				<string>8FCBADF719614B83001ED357</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>8FCBADF619614B83001ED357</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>2B62F4A5BA724C0883A67471</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>FoodHero/FoodHero-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>FoodHero/FoodHero-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>8FCBADF719614B83001ED357</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>2B62F4A5BA724C0883A67471</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>FoodHero/FoodHero-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>FoodHero/FoodHero-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>8FCBADF819614B83001ED357</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>8FCBADF919614B83001ED357</string>
-				<string>8FCBADFA19614B83001ED357</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>8FCBADF919614B83001ED357</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>A5B12E02E3AA41E69D7C0516</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>FoodHero/FoodHero-Prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>FoodHeroTests/FoodHeroTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>8FCBADFA19614B83001ED357</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>A5B12E02E3AA41E69D7C0516</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>FoodHero/FoodHero-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>FoodHeroTests/FoodHeroTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>9F5313A7313C405691A29AAA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Pods-FoodHeroTests-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>A5B12E02E3AA41E69D7C0516</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-FoodHeroTests.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Pods-FoodHeroTests.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CCBEFC2AA51A4FBDA79617D3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>0A30424296DB45F0AA881B71</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F7D2460F0C594202AD6E4F0A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Pods-FoodHero-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>8FCBADC119614B83001ED357</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
+		8FCBADCD19614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
+		8FCBADCF19614B83001ED357 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCE19614B83001ED357 /* CoreGraphics.framework */; };
+		8FCBADD119614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
+		8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADD519614B83001ED357 /* InfoPlist.strings */; };
+		8FCBADD919614B83001ED357 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADD819614B83001ED357 /* main.m */; };
+		8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADDC19614B83001ED357 /* AppDelegate.m */; };
+		8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADDE19614B83001ED357 /* Images.xcassets */; };
+		8FCBADE619614B83001ED357 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADE519614B83001ED357 /* XCTest.framework */; };
+		8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
+		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
+		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
+		8FCBADF219614B83001ED357 /* FoodHeroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* FoodHeroTests.m */; };
+		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8FCBADE919614B83001ED357 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FCBADC119614B83001ED357 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8FCBADC819614B83001ED357;
+			remoteInfo = FoodHero;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.xcconfig"; path = "Pods/Pods-FoodHero.xcconfig"; sourceTree = "<group>"; };
+		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FCBADC919614B83001ED357 /* FoodHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FCBADCC19614B83001ED357 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8FCBADCE19614B83001ED357 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8FCBADD019614B83001ED357 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8FCBADD419614B83001ED357 /* FoodHero-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHero-Info.plist"; sourceTree = "<group>"; };
+		8FCBADD619614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8FCBADD819614B83001ED357 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHero-Prefix.pch"; sourceTree = "<group>"; };
+		8FCBADDB19614B83001ED357 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8FCBADDC19614B83001ED357 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8FCBADDE19614B83001ED357 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8FCBADE419614B83001ED357 /* FoodHeroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodHeroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FCBADE519614B83001ED357 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
+		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8FCBADF119614B83001ED357 /* FoodHeroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodHeroTests.m; sourceTree = "<group>"; };
+		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8FCBADC619614B83001ED357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FCBADCF19614B83001ED357 /* CoreGraphics.framework in Frameworks */,
+				8FCBADD119614B83001ED357 /* UIKit.framework in Frameworks */,
+				8FCBADCD19614B83001ED357 /* Foundation.framework in Frameworks */,
+				3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FCBADE119614B83001ED357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FCBADE619614B83001ED357 /* XCTest.framework in Frameworks */,
+				8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */,
+				8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */,
+				CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8FCBADC019614B83001ED357 = {
+			isa = PBXGroup;
+			children = (
+				8FCBADD219614B83001ED357 /* FoodHero */,
+				8FCBADEB19614B83001ED357 /* FoodHeroTests */,
+				8FCBADCB19614B83001ED357 /* Frameworks */,
+				8FCBADCA19614B83001ED357 /* Products */,
+				2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */,
+				A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		8FCBADCA19614B83001ED357 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBADC919614B83001ED357 /* FoodHero.app */,
+				8FCBADE419614B83001ED357 /* FoodHeroTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8FCBADCB19614B83001ED357 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBADCC19614B83001ED357 /* Foundation.framework */,
+				8FCBADCE19614B83001ED357 /* CoreGraphics.framework */,
+				8FCBADD019614B83001ED357 /* UIKit.framework */,
+				8FCBADE519614B83001ED357 /* XCTest.framework */,
+				87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */,
+				0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8FCBADD219614B83001ED357 /* FoodHero */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBADDB19614B83001ED357 /* AppDelegate.h */,
+				8FCBADDC19614B83001ED357 /* AppDelegate.m */,
+				8FCBADDE19614B83001ED357 /* Images.xcassets */,
+				8FCBADD319614B83001ED357 /* Supporting Files */,
+			);
+			path = FoodHero;
+			sourceTree = "<group>";
+		};
+		8FCBADD319614B83001ED357 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBADD419614B83001ED357 /* FoodHero-Info.plist */,
+				8FCBADD519614B83001ED357 /* InfoPlist.strings */,
+				8FCBADD819614B83001ED357 /* main.m */,
+				8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8FCBADEB19614B83001ED357 /* FoodHeroTests */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBADF119614B83001ED357 /* FoodHeroTests.m */,
+				8FCBADEC19614B83001ED357 /* Supporting Files */,
+			);
+			path = FoodHeroTests;
+			sourceTree = "<group>";
+		};
+		8FCBADEC19614B83001ED357 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */,
+				8FCBADEE19614B83001ED357 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8FCBADC819614B83001ED357 /* FoodHero */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FCBADF519614B83001ED357 /* Build configuration list for PBXNativeTarget "FoodHero" */;
+			buildPhases = (
+				826E68EA9FCE4383A482A031 /* Check Pods Manifest.lock */,
+				8FCBADC519614B83001ED357 /* Sources */,
+				8FCBADC619614B83001ED357 /* Frameworks */,
+				8FCBADC719614B83001ED357 /* Resources */,
+				F7D2460F0C594202AD6E4F0A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FoodHero;
+			productName = FoodHero;
+			productReference = 8FCBADC919614B83001ED357 /* FoodHero.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8FCBADE319614B83001ED357 /* FoodHeroTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FCBADF819614B83001ED357 /* Build configuration list for PBXNativeTarget "FoodHeroTests" */;
+			buildPhases = (
+				1DE023594DEB40C1880156F6 /* Check Pods Manifest.lock */,
+				8FCBADE019614B83001ED357 /* Sources */,
+				8FCBADE119614B83001ED357 /* Frameworks */,
+				8FCBADE219614B83001ED357 /* Resources */,
+				9F5313A7313C405691A29AAA /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8FCBADEA19614B83001ED357 /* PBXTargetDependency */,
+			);
+			name = FoodHeroTests;
+			productName = FoodHeroTests;
+			productReference = 8FCBADE419614B83001ED357 /* FoodHeroTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8FCBADC119614B83001ED357 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "JENNIUS LTD";
+				TargetAttributes = {
+					8FCBADE319614B83001ED357 = {
+						TestTargetID = 8FCBADC819614B83001ED357;
+					};
+				};
+			};
+			buildConfigurationList = 8FCBADC419614B83001ED357 /* Build configuration list for PBXProject "FoodHero" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8FCBADC019614B83001ED357;
+			productRefGroup = 8FCBADCA19614B83001ED357 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8FCBADC819614B83001ED357 /* FoodHero */,
+				8FCBADE319614B83001ED357 /* FoodHeroTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8FCBADC719614B83001ED357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
+				8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FCBADE219614B83001ED357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1DE023594DEB40C1880156F6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		826E68EA9FCE4383A482A031 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9F5313A7313C405691A29AAA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-FoodHeroTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7D2460F0C594202AD6E4F0A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-FoodHero-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8FCBADC519614B83001ED357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,
+				8FCBADD919614B83001ED357 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FCBADE019614B83001ED357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FCBADF219614B83001ED357 /* FoodHeroTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8FCBADEA19614B83001ED357 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8FCBADC819614B83001ED357 /* FoodHero */;
+			targetProxy = 8FCBADE919614B83001ED357 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8FCBADD519614B83001ED357 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FCBADD619614B83001ED357 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8FCBADEE19614B83001ED357 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FCBADEF19614B83001ED357 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8FCBADF319614B83001ED357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8FCBADF419614B83001ED357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8FCBADF619614B83001ED357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
+				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8FCBADF719614B83001ED357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
+				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8FCBADF919614B83001ED357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FoodHeroTests/FoodHeroTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8FCBADFA19614B83001ED357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
+				INFOPLIST_FILE = "FoodHeroTests/FoodHeroTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8FCBADC419614B83001ED357 /* Build configuration list for PBXProject "FoodHero" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FCBADF319614B83001ED357 /* Debug */,
+				8FCBADF419614B83001ED357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8FCBADF519614B83001ED357 /* Build configuration list for PBXNativeTarget "FoodHero" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FCBADF619614B83001ED357 /* Debug */,
+				8FCBADF719614B83001ED357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8FCBADF819614B83001ED357 /* Build configuration list for PBXNativeTarget "FoodHeroTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FCBADF919614B83001ED357 /* Debug */,
+				8FCBADFA19614B83001ED357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8FCBADC119614B83001ED357 /* Project object */;
+}

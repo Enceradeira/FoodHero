@@ -29,6 +29,10 @@ task :xc_unit_tests do
   XCodeBuildAction.new(:test).execute!
 end
 
+desc 'Run Cucumber acceptance-tests'
+task :acceptance_tests => [:check_appium_server, :install, :cucumber] do
+end
+
 desc 'Build everything'
 task :build do
   XCodeBuildAction.new(:build).execute!
@@ -40,7 +44,7 @@ task :install do
 end
 
 desc 'Run all tests'
-task :test => [:clean, :check_appium_server, :xc_unit_tests, :install, :cucumber, :notify_build_succeeded] do
+task :test => [:clean, :check_appium_server, :xc_unit_tests, :acceptance_tests, :notify_build_succeeded] do
 end
 
 desc 'checks appium-server'

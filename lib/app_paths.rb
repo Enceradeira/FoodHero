@@ -1,10 +1,10 @@
 module AppPaths
   def self.workspace_file
-    @workspace_file ||=File.expand_path 'app/HelloWorldApp.xcworkspace'
+    @workspace_file ||=File.expand_path 'app/FoodHero.xcworkspace'
   end
 
   def self.app_path
-    @app_path ||= File.expand_path 'Applications/HelloWorldApp.app', self.dst_root
+    @app_path ||= File.expand_path 'Applications/FoodHero.app', self.dst_root
   end
 
   def self.dst_root
@@ -12,6 +12,6 @@ module AppPaths
   end
 
   def self.scheme
-    @scheme ||= 'HelloWorldApp'
+    @scheme ||= 'FoodHero'
   end
 end
