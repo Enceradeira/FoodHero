@@ -93,6 +93,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F54745C1961A36200843FEE /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				8F54745319619A2300843FEE /* TyphoonBuilder.h */,
+				8F54745419619A2300843FEE /* TyphoonBuilder.m */,
+				8F54745619619AA300843FEE /* ApplicationAssembly.h */,
+				8F54745719619AA300843FEE /* ApplicationAssembly.m */,
+				8FCBADDB19614B83001ED357 /* AppDelegate.h */,
+				8FCBADDC19614B83001ED357 /* AppDelegate.m */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
+		};
 		8FCBADC019614B83001ED357 = {
 			isa = PBXGroup;
 			children = (
@@ -130,12 +143,7 @@
 		8FCBADD219614B83001ED357 /* FoodHero */ = {
 			isa = PBXGroup;
 			children = (
-				8F54745319619A2300843FEE /* TyphoonBuilder.h */,
-				8F54745419619A2300843FEE /* TyphoonBuilder.m */,
-				8F54745619619AA300843FEE /* ApplicationAssembly.h */,
-				8F54745719619AA300843FEE /* ApplicationAssembly.m */,
-				8FCBADDB19614B83001ED357 /* AppDelegate.h */,
-				8FCBADDC19614B83001ED357 /* AppDelegate.m */,
+				8F54745C1961A36200843FEE /* Infrastructure */,
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
