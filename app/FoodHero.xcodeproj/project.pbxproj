@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
+		8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745419619A2300843FEE /* TyphoonBuilder.m */; };
+		8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745719619AA300843FEE /* ApplicationAssembly.m */; };
+		8F54745B19619C0D00843FEE /* FoodHeroNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* FoodHeroNavigationController.m */; };
 		8FCBADCD19614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADCF19614B83001ED357 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCE19614B83001ED357 /* CoreGraphics.framework */; };
 		8FCBADD119614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
@@ -39,6 +42,12 @@
 		2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.xcconfig"; path = "Pods/Pods-FoodHero.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		8F54745319619A2300843FEE /* TyphoonBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TyphoonBuilder.h; sourceTree = "<group>"; };
+		8F54745419619A2300843FEE /* TyphoonBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonBuilder.m; sourceTree = "<group>"; };
+		8F54745619619AA300843FEE /* ApplicationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAssembly.h; sourceTree = "<group>"; };
+		8F54745719619AA300843FEE /* ApplicationAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssembly.m; sourceTree = "<group>"; };
+		8F54745919619C0D00843FEE /* FoodHeroNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHeroNavigationController.h; sourceTree = "<group>"; };
+		8F54745A19619C0D00843FEE /* FoodHeroNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodHeroNavigationController.m; sourceTree = "<group>"; };
 		8FCBADC919614B83001ED357 /* FoodHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FCBADCC19614B83001ED357 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8FCBADCE19614B83001ED357 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -121,11 +130,17 @@
 		8FCBADD219614B83001ED357 /* FoodHero */ = {
 			isa = PBXGroup;
 			children = (
+				8F54745319619A2300843FEE /* TyphoonBuilder.h */,
+				8F54745419619A2300843FEE /* TyphoonBuilder.m */,
+				8F54745619619AA300843FEE /* ApplicationAssembly.h */,
+				8F54745719619AA300843FEE /* ApplicationAssembly.m */,
 				8FCBADDB19614B83001ED357 /* AppDelegate.h */,
 				8FCBADDC19614B83001ED357 /* AppDelegate.m */,
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
+				8F54745919619C0D00843FEE /* FoodHeroNavigationController.h */,
+				8F54745A19619C0D00843FEE /* FoodHeroNavigationController.m */,
 			);
 			path = FoodHero;
 			sourceTree = "<group>";
@@ -322,6 +337,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F54745B19619C0D00843FEE /* FoodHeroNavigationController.m in Sources */,
+				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
+				8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */,
 				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,
 				8FCBADD919614B83001ED357 /* main.m in Sources */,
 			);

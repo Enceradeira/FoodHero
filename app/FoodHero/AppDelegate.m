@@ -6,16 +6,21 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <Typhoon.h>
 #import "AppDelegate.h"
+#import "ApplicationAssembly.h"
+#import "TyphoonBuilder.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    TyphoonAssembly* assembly = [ApplicationAssembly assembly];
+    TyphoonComponentFactory* factory = [TyphoonBuilder createFactory:assembly];
+    TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboard:factory];
+    
+    self.window.rootViewController = [storyboard instantiateInitialViewController];
+    
     return YES;
 }
 

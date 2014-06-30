@@ -1,3 +1,4 @@
+=begin
 def click_me_button
   button 'click me!'
 end
@@ -12,4 +13,18 @@ end
 
 Then(/^the app says 'Hello World'$/) do
   expect(text 'Hello World').to be_truthy
+end
+=end
+
+def expect_conversation_view
+  expect(text 'Conversation is under construction').to be_truthy
+end
+
+Then(/^I see the conversation view$/) do
+  expect_conversation_view
+end
+
+
+Given(/^FoodHero has started$/) do
+  expect_conversation_view
 end
