@@ -20,6 +20,7 @@
     TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboard:factory];
     
     self.window.rootViewController = [storyboard instantiateInitialViewController];
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
