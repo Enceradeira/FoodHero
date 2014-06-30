@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FoodHeroNavigationController : UINavigationController
+@interface NavigationController : UINavigationController
 
 @end

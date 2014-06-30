@@ -7,11 +7,11 @@
 //
 
 #import "ApplicationAssembly.h"
-#import "FoodHeroNavigationController.h"
+#import "NavigationController.h"
 
 @implementation ApplicationAssembly
 - (id)helloWorldController
 {
-    return [TyphoonDefinition withClass:[FoodHeroNavigationController class]];
+    return [TyphoonDefinition withClass:[NavigationController class]];
 }
 @end

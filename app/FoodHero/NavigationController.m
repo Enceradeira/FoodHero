@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "FoodHeroNavigationController.h"
+#import "NavigationController.h"
 
-@interface FoodHeroNavigationController ()
+@interface NavigationController ()
 
 @end
 
-@implementation FoodHeroNavigationController
+@implementation NavigationController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
