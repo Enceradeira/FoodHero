@@ -13,6 +13,7 @@
 		8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745719619AA300843FEE /* ApplicationAssembly.m */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745E1961F0DA00843FEE /* ConversationViewController.m */; };
+		8F5474621961F21300843FEE /* ConversationBubbleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5474611961F21300843FEE /* ConversationBubbleTableViewController.m */; };
 		8FCBADCD19614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADCF19614B83001ED357 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCE19614B83001ED357 /* CoreGraphics.framework */; };
 		8FCBADD119614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
@@ -51,6 +52,8 @@
 		8F54745A19619C0D00843FEE /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		8F54745D1961F0D900843FEE /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		8F54745E1961F0DA00843FEE /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		8F5474601961F21300843FEE /* ConversationBubbleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleTableViewController.h; sourceTree = "<group>"; };
+		8F5474611961F21300843FEE /* ConversationBubbleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleTableViewController.m; sourceTree = "<group>"; };
 		8FCBADC919614B83001ED357 /* FoodHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FCBADCC19614B83001ED357 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8FCBADCE19614B83001ED357 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,8 @@
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
+				8F5474601961F21300843FEE /* ConversationBubbleTableViewController.h */,
+				8F5474611961F21300843FEE /* ConversationBubbleTableViewController.m */,
 				8F54745919619C0D00843FEE /* NavigationController.h */,
 				8F54745A19619C0D00843FEE /* NavigationController.m */,
 				8F54745D1961F0D900843FEE /* ConversationViewController.h */,
@@ -355,6 +360,7 @@
 				8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */,
 				8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */,
 				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,
+				8F5474621961F21300843FEE /* ConversationBubbleTableViewController.m in Sources */,
 				8FCBADD919614B83001ED357 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

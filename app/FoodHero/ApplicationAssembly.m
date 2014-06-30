@@ -8,10 +8,22 @@
 
 #import "ApplicationAssembly.h"
 #import "NavigationController.h"
+#import "ConversationBubbleTableViewController.h"
+#import "ConversationViewController.h"
 
 @implementation ApplicationAssembly
-- (id)helloWorldController
+- (id)navigationViewController
 {
     return [TyphoonDefinition withClass:[NavigationController class]];
+}
+
+- (id) conversationBubbleViewController
+{
+    return [TyphoonDefinition withClass:[ConversationBubbleTableViewController class]];
+}
+
+- (id) conversationViewController
+{
+    return [TyphoonDefinition withClass:[ConversationViewController class]];
 }
 @end
