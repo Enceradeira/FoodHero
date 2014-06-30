@@ -6,7 +6,7 @@ require_relative 'lib/x_code_build_action'
 require_relative 'lib/appium_server'
 
 Cucumber::Rake::Task.new do |t|
-  t.cucumber_opts = %w{--format pretty}
+  t.cucumber_opts = %w{--format pretty --tags ~@ignore}
 end
 
 task :notify_build_succeeded do
