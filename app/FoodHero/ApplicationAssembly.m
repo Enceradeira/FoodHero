@@ -10,6 +10,7 @@
 #import "NavigationController.h"
 #import "ConversationBubbleTableViewController.h"
 #import "ConversationViewController.h"
+#import "ConversationInputViewController.h"
 
 @implementation ApplicationAssembly
 - (id)navigationViewController
@@ -22,12 +23,18 @@
     return [TyphoonDefinition withClass:[ConversationBubbleTableViewController class]];
 }
 
+- (id) conversationInputViewController
+{
+    return [TyphoonDefinition withClass:[ConversationInputViewController class]];
+}
+
 - (id) conversationViewController
 {
     return [TyphoonDefinition
                 withClass:[ConversationViewController class]
                 configuration:^(TyphoonDefinition* definition) {
                     [definition injectProperty:@selector(conversationBubbleController) with:[self conversationBubbleViewController]];
+                    [definition injectProperty:@selector(conversationInputController) with:[self conversationInputViewController]];
                 }
             ];
 }

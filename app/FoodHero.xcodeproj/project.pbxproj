@@ -26,6 +26,7 @@
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
+		8FD2771F1965C0CA00245A21 /* ConversationInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD2771E1965C0CA00245A21 /* ConversationInputViewController.m */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
+		8FD2771D1965C0CA00245A21 /* ConversationInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationInputViewController.h; sourceTree = "<group>"; };
+		8FD2771E1965C0CA00245A21 /* ConversationInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationInputViewController.m; sourceTree = "<group>"; };
 		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +162,8 @@
 				8F54745A19619C0D00843FEE /* NavigationController.m */,
 				8F54745D1961F0D900843FEE /* ConversationViewController.h */,
 				8F54745E1961F0DA00843FEE /* ConversationViewController.m */,
+				8FD2771D1965C0CA00245A21 /* ConversationInputViewController.h */,
+				8FD2771E1965C0CA00245A21 /* ConversationInputViewController.m */,
 			);
 			path = FoodHero;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 			files = (
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
 				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
+				8FD2771F1965C0CA00245A21 /* ConversationInputViewController.m in Sources */,
 				8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */,
 				8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */,
 				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,

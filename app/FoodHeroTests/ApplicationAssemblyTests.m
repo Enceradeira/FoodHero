@@ -29,7 +29,7 @@
     
     assertThat(ctrl, is(notNilValue()));
     assertThat(ctrl.conversationBubbleController,is(notNilValue()));
-
+    assertThat(ctrl.conversationInputController,is(notNilValue()));
 }
 
 @end
