@@ -24,6 +24,12 @@
 
 - (id) conversationViewController
 {
-    return [TyphoonDefinition withClass:[ConversationViewController class]];
+    return [TyphoonDefinition
+                withClass:[ConversationViewController class]
+                configuration:^(TyphoonDefinition* definition) {
+                    [definition injectProperty:@selector(conversationBubbleController) with:[self conversationBubbleViewController]];
+                }
+            ];
 }
+                                                           
 @end

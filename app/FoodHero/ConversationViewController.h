@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConversationBubbleTableViewController.h"
 
 @interface ConversationViewController : UIViewController
-
+@property (weak) ConversationBubbleTableViewController* conversationBubbleController;
 @end

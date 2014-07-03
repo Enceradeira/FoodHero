@@ -13,8 +13,14 @@
 {
     return [[TyphoonBlockComponentFactory alloc] initWithAssemblies:@[assembly]];
 }
-+ (TyphoonStoryboard*) createStoryboard:(TyphoonComponentFactory*) factory{
++ (TyphoonStoryboard*) createStoryboardFromFactory:(TyphoonComponentFactory*) factory{
     NSString *storyboardName = @"Main";
     return [TyphoonStoryboard storyboardWithName:storyboardName factory:factory bundle:nil];
+}
++ (TyphoonStoryboard *)createStoryboardFromAssembly:(TyphoonAssembly *)assembly
+{
+    TyphoonComponentFactory* factory = [TyphoonBuilder createFactory:assembly];
+    TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromFactory:factory];
+    return storyboard;
 }
 @end

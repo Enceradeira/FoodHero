@@ -25,7 +25,7 @@
 		8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
-		8FCBADF219614B83001ED357 /* FoodHeroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* FoodHeroTests.m */; };
+		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +69,7 @@
 		8FCBADE519614B83001ED357 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8FCBADF119614B83001ED357 /* FoodHeroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodHeroTests.m; sourceTree = "<group>"; };
+		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
 		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,7 +177,7 @@
 		8FCBADEB19614B83001ED357 /* FoodHeroTests */ = {
 			isa = PBXGroup;
 			children = (
-				8FCBADF119614B83001ED357 /* FoodHeroTests.m */,
+				8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
 			);
 			path = FoodHeroTests;
@@ -369,7 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FCBADF219614B83001ED357 /* FoodHeroTests.m in Sources */,
+				8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

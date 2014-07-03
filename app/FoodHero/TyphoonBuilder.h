@@ -10,8 +10,7 @@
 #import <Typhoon.h>
 
 @interface TyphoonBuilder : NSObject
-
 + (TyphoonComponentFactory*) createFactory:(TyphoonAssembly*) assembly;
-+ (TyphoonStoryboard*) createStoryboard:(TyphoonComponentFactory*) factory;
-
++ (TyphoonStoryboard*) createStoryboardFromFactory:(TyphoonComponentFactory*) factory;
++ (TyphoonStoryboard *)createStoryboardFromAssembly:(TyphoonAssembly *)assembly;
 @end

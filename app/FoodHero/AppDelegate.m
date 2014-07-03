@@ -16,8 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     TyphoonAssembly* assembly = [ApplicationAssembly assembly];
-    TyphoonComponentFactory* factory = [TyphoonBuilder createFactory:assembly];
-    TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboard:factory];
+    TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromAssembly:assembly];
     
     self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
