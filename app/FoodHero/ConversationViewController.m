@@ -33,7 +33,7 @@
     _conversationBubbleView.delegate = self;
     _conversationBubbleView.dataSource = self;
     
-    _foodHeroBubble = [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?"];
+    _foodHeroBubble = [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion"];
 }
 
 - (void)didReceiveMemoryWarning

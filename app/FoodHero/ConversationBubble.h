@@ -14,8 +14,9 @@
 @property (readonly) NSString* cellId;
 @property (readonly) UIImage* image;
 @property (readonly) NSString* text;
+@property (readonly) NSString* semanticId;
 
--(id) initWithText: (NSString*) text;
+-(id) initWithText:(NSString*) text semanticId: (NSString*)semanticId;
 - (NSString*) getBubbleViewConstraint;
 
 @end

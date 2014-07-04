@@ -33,10 +33,11 @@
     _bubbleView = [[UIImageView alloc] initWithImage: bubble.image];
     [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
+    // following makes element accessable from acceptance tests
     [self setIsAccessibilityElement:YES];
     self.accessibilityLabel = bubble.text;
-    self.accessibilityIdentifier = @"ConversationBubble-Greeting&OpeningQuestion";
-    
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", bubble.semanticId];
+
      _bubbleView.layer.borderColor = [UIColor redColor].CGColor;
      _bubbleView.layer.borderWidth = 1.0f;
      self.layer.borderColor = [UIColor blueColor].CGColor;
