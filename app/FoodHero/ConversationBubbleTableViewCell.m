@@ -33,6 +33,9 @@
     _bubbleView = [[UIImageView alloc] initWithImage: bubble.image];
     [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
+    [self setIsAccessibilityElement:YES];
+    self.accessibilityLabel = bubble.text;
+    self.accessibilityIdentifier = @"ConversationBubble-Greeting&OpeningQuestion";
     
      _bubbleView.layer.borderColor = [UIColor redColor].CGColor;
      _bubbleView.layer.borderWidth = 1.0f;

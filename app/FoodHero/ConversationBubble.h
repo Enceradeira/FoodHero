@@ -13,6 +13,7 @@
 @property (readonly) CGFloat height;
 @property (readonly) NSString* cellId;
 @property (readonly) UIImage* image;
+@property (readonly) NSString* text;
 
 -(id) initWithText: (NSString*) text;
 - (NSString*) getBubbleViewConstraint;

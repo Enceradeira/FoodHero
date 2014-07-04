@@ -84,7 +84,8 @@
     self =[super init];
     if( self == nil)
         return nil;
-    
+ 
+    _text = text;
     _font = [UIFont systemFontOfSize:16];
     _textAttritbutes = [NSDictionary dictionaryWithObjectsAndKeys:
                         _font ,NSFontAttributeName,
