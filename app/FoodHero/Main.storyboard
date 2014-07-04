@@ -10,6 +10,7 @@
                 <navigationController definesPresentationContext="YES" id="Nxg-Xv-lPP" customClass="NavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JvR-cH-F3H">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Xf7-7W-WAu" kind="relationship" relationship="rootViewController" id="Cdd-kV-dbe"/>
@@ -64,6 +65,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Login">
+                                    <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -77,6 +79,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Map">
+                                    <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
