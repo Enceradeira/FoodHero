@@ -13,35 +13,37 @@
 @end
 
 @implementation ConversationViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)decoder
-{
-    self = [super initWithCoder:decoder];
-    if(self){
-        
-    }
-    return self;
+    UITableView *_conversationBubbleView;
+    UIView *_userInputView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    _conversationBubbleView = (UITableView*)[self.view viewWithTag:100];
+    _userInputView = [self.view viewWithTag:101];
+    
+    _conversationBubbleView.delegate = self;
+    _conversationBubbleView.dataSource = self;
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 /*

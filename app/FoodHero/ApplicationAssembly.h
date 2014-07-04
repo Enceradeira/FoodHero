@@ -10,7 +10,6 @@
 
 @protocol ApplicationAssembly
 - (id) navigationViewController;
-- (id) conversationBubbleViewController;
 - (id) conversationViewController;
 @end
 
