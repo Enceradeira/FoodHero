@@ -13,6 +13,9 @@
 		8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745719619AA300843FEE /* ApplicationAssembly.m */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745E1961F0DA00843FEE /* ConversationViewController.m */; };
+		8F6F3D6D1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F3D6C1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m */; };
+		8F6F3D701966ABDE003F7AC0 /* ConversationBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */; };
+		8F6F3D731966ACDA003F7AC0 /* ConversationBubbleFoodHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F3D721966ACDA003F7AC0 /* ConversationBubbleFoodHero.m */; };
 		8FCBADCD19614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADCF19614B83001ED357 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCE19614B83001ED357 /* CoreGraphics.framework */; };
 		8FCBADD119614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
@@ -25,6 +28,7 @@
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
+		8FD6191C1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +55,12 @@
 		8F54745A19619C0D00843FEE /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		8F54745D1961F0D900843FEE /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		8F54745E1961F0DA00843FEE /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		8F6F3D6B1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleTableViewCell.h; sourceTree = "<group>"; };
+		8F6F3D6C1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleTableViewCell.m; sourceTree = "<group>"; };
+		8F6F3D6E1966ABDE003F7AC0 /* ConversationBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubble.h; sourceTree = "<group>"; };
+		8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
+		8F6F3D711966ACDA003F7AC0 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
+		8F6F3D721966ACDA003F7AC0 /* ConversationBubbleFoodHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleFoodHero.m; sourceTree = "<group>"; };
 		8FCBADC919614B83001ED357 /* FoodHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FCBADCC19614B83001ED357 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8FCBADCE19614B83001ED357 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -67,6 +77,7 @@
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
+		8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
 		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +161,12 @@
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
+				8F6F3D6B1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.h */,
+				8F6F3D6C1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m */,
+				8F6F3D711966ACDA003F7AC0 /* ConversationBubbleFoodHero.h */,
+				8F6F3D721966ACDA003F7AC0 /* ConversationBubbleFoodHero.m */,
+				8F6F3D6E1966ABDE003F7AC0 /* ConversationBubble.h */,
+				8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */,
 				8F54745919619C0D00843FEE /* NavigationController.h */,
 				8F54745A19619C0D00843FEE /* NavigationController.m */,
 				8F54745D1961F0D900843FEE /* ConversationViewController.h */,
@@ -162,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				8FCBADD419614B83001ED357 /* FoodHero-Info.plist */,
+				8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */,
 				8FCBADD519614B83001ED357 /* InfoPlist.strings */,
 				8FCBADD819614B83001ED357 /* main.m */,
 				8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */,
@@ -267,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F5474521961797F00843FEE /* Main.storyboard in Resources */,
+				8FD6191C1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
 				8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */,
 			);
@@ -352,9 +371,12 @@
 			files = (
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
 				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
+				8F6F3D6D1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m in Sources */,
 				8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */,
 				8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */,
+				8F6F3D731966ACDA003F7AC0 /* ConversationBubbleFoodHero.m in Sources */,
 				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,
+				8F6F3D701966ABDE003F7AC0 /* ConversationBubble.m in Sources */,
 				8FCBADD919614B83001ED357 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

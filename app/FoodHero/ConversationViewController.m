@@ -7,6 +7,8 @@
 //
 
 #import "ConversationViewController.h"
+#import "ConversationBubbleFoodHero.h"
+#import "ConversationBubbleTableViewCell.h"
 
 @interface ConversationViewController ()
 
@@ -16,6 +18,9 @@
 {
     UITableView *_conversationBubbleView;
     UIView *_userInputView;
+    
+    
+    ConversationBubbleFoodHero *_foodHeroBubble;
 }
 
 - (void)viewDidLoad
@@ -28,6 +33,7 @@
     _conversationBubbleView.delegate = self;
     _conversationBubbleView.dataSource = self;
     
+    _foodHeroBubble = [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,14 +42,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return _foodHeroBubble.height;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_foodHeroBubble.cellId forIndexPath:indexPath];
+    
+    cell.bubble = _foodHeroBubble;
+    return cell;
 }
 
 /*
