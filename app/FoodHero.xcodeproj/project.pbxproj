@@ -28,7 +28,7 @@
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
-		8FD0E050196876AF002128EB /* Cuttlery-Background-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E04F196876AF002128EB /* Cuttlery-Background-Portrait@2x.png */; };
+		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD6191C1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */; };
 		8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */; };
 		8FD619211966F01500B57343 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD619201966F01500B57343 /* ControllerFactory.m */; };
@@ -80,7 +80,7 @@
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
-		8FD0E04F196876AF002128EB /* Cuttlery-Background-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background-Portrait@2x.png"; sourceTree = "<group>"; };
+		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
 		8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		8FD6191F1966F01500B57343 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 				8FCBADD419614B83001ED357 /* FoodHero-Info.plist */,
 				8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */,
 				8FCBADD519614B83001ED357 /* InfoPlist.strings */,
-				8FD0E04F196876AF002128EB /* Cuttlery-Background-Portrait@2x.png */,
+				8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */,
 				8FCBADD819614B83001ED357 /* main.m */,
 				8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */,
 			);
@@ -295,10 +295,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */,
 				8F5474521961797F00843FEE /* Main.storyboard in Resources */,
 				8FD6191C1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
-				8FD0E050196876AF002128EB /* Cuttlery-Background-Portrait@2x.png in Resources */,
 				8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

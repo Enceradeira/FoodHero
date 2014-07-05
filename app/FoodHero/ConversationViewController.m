@@ -21,7 +21,7 @@
 
 - (UIImageView *)createBackgroundImage
 {
-    UIImage *backgroundImage = [UIImage imageNamed:@"Cuttlery-Background-Portrait.png"];
+    UIImage *backgroundImage = [UIImage imageNamed:@"Cuttlery-Background.png"];
     backgroundImage = [backgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(0,0,0,0) resizingMode:UIImageResizingModeTile]; // otherwise picture is displayed compressed if to big
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];

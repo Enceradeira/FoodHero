@@ -28,7 +28,7 @@
                         <viewControllerLayoutGuide type="top" id="t8J-Rf-q7T"/>
                         <viewControllerLayoutGuide type="bottom" id="AQl-Q3-OdL"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="THN-YY-zNG">
+                    <view key="view" contentMode="scaleAspectFit" id="THN-YY-zNG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
