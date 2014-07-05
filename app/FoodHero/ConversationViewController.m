@@ -19,6 +19,15 @@
     ConversationBubbleFoodHero *_foodHeroBubble;
 }
 
+- (UIImageView *)createBackgroundImage
+{
+    UIImage *backgroundImage = [UIImage imageNamed:@"Cuttlery-Background-Portrait.png"];
+    backgroundImage = [backgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(0,0,0,0) resizingMode:UIImageResizingModeTile]; // otherwise picture is displayed compressed if to big
+    
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    return backgroundView;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -28,6 +37,14 @@
     
     _conversationBubbleView.delegate = self;
     _conversationBubbleView.dataSource = self;
+    
+    _conversationBubbleView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIImageView *backgroundView;
+    backgroundView = [self createBackgroundImage];
+    
+    [backgroundView setFrame:_conversationBubbleView.frame];
+    _conversationBubbleView.backgroundView = backgroundView;
     
     _foodHeroBubble = [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion"];
 }
