@@ -31,8 +31,7 @@
     TyphoonAssembly* assembly = [ApplicationAssembly assembly];
     _ctrl= [ControllerFactory createConversationViewController:assembly];
     
-    [_ctrl performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-
+    _ctrl.view.hidden = NO;
 }
 
 - (void)test_Controller_ShouldInitializeConversationBubbleView
@@ -42,8 +41,12 @@
 
 - (void)test_Controller_ShouldGreatUserOnFirstRow
 {
-    UITableView *tableView = (UITableView*)_ctrl.conversationBubbleView;
-    ConversationBubbleTableViewCell *firstRow = (ConversationBubbleTableViewCell*)[tableView cellForRowAtIndexPath: [NSIndexPath indexPathWithIndex:0]];
+    UITableView *bubbleView = (UITableView*)_ctrl.conversationBubbleView;
+   
+    NSInteger num = [bubbleView numberOfRowsInSection:0]; // this forces the cells to be loaded somehose
+    assertThatInteger(num, is(equalToInteger(1)));
+    
+    ConversationBubbleTableViewCell* firstRow = (ConversationBubbleTableViewCell*)[bubbleView visibleCells][0];
     
     assertThat(firstRow, is(notNilValue()));
     assertThat(firstRow.bubble, is(notNilValue()));
