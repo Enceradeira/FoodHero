@@ -12,7 +12,7 @@
 #import <Typhoon.h>
 #import "ConversationViewController.h"
 #import "ApplicationAssembly.h"
-#import "TyphoonBuilder.h"
+#import "ControllerFactory.h"
 
 @interface ApplicationAssemblyTests : XCTestCase
 
@@ -23,9 +23,7 @@
 - (void)test_Storyboard_ShouldLoadConversationViewControllerCorrectly
 {
     TyphoonAssembly* assembly = [ApplicationAssembly assembly];
-    TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromAssembly:assembly];
-    
-    ConversationViewController *ctrl = [storyboard instantiateViewControllerWithIdentifier:@"ConversationViewController"];
+    ConversationViewController *ctrl = [ControllerFactory createConversationViewController:assembly];
     
     assertThat(ctrl, is(notNilValue()));
 }

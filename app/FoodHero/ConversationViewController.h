@@ -9,4 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ConversationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@property (readonly) UITableView *conversationBubbleView;
+@property (readonly) UIView *userInputView;
 @end

@@ -29,6 +29,8 @@
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
 		8FD6191C1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */; };
+		8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */; };
+		8FD619211966F01500B57343 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD619201966F01500B57343 /* ControllerFactory.m */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +80,9 @@
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
 		8FD6191B1966B6E300B57343 /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
+		8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
+		8FD6191F1966F01500B57343 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
+		8FD619201966F01500B57343 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
 		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +121,8 @@
 				8F54745719619AA300843FEE /* ApplicationAssembly.m */,
 				8FCBADDB19614B83001ED357 /* AppDelegate.h */,
 				8FCBADDC19614B83001ED357 /* AppDelegate.m */,
+				8FD6191F1966F01500B57343 /* ControllerFactory.h */,
+				8FD619201966F01500B57343 /* ControllerFactory.m */,
 			);
 			name = Infrastructure;
 			sourceTree = "<group>";
@@ -192,6 +199,7 @@
 			children = (
 				8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
+				8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */,
 			);
 			path = FoodHeroTests;
 			sourceTree = "<group>";
@@ -369,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FD619211966F01500B57343 /* ControllerFactory.m in Sources */,
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
 				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
 				8F6F3D6D1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m in Sources */,
@@ -386,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */,
+				8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

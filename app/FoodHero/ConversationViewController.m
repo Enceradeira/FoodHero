@@ -16,10 +16,6 @@
 
 @implementation ConversationViewController
 {
-    UITableView *_conversationBubbleView;
-    UIView *_userInputView;
-    
-    
     ConversationBubbleFoodHero *_foodHeroBubble;
 }
 

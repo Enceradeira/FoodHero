@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Typhoon.h>
+#import "ConversationViewController.h"
 
 @interface TyphoonBuilder : NSObject
 + (TyphoonComponentFactory*) createFactory:(TyphoonAssembly*) assembly;
