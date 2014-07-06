@@ -29,6 +29,12 @@
 
 - (void)setBubble:(ConversationBubble *)bubble
 {
+    UIView *containerView = [self contentView];
+    if(_bubbleView != nil){
+        [_bubbleView removeFromSuperview];
+        _bubbleView = nil;
+    }
+    
     _bubble = bubble;
     _bubbleView = [[UIImageView alloc] initWithImage: bubble.image];
     [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -43,7 +49,7 @@
      self.layer.borderColor = [UIColor blueColor].CGColor;
      self.layer.borderWidth = 1.0f;
     
-    UIView *containerView = [self contentView];
+
     [containerView addSubview:_bubbleView];
     
     NSArray *bubbleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[bubble getBubbleViewConstraint] options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bubbleView)];

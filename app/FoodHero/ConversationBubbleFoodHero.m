@@ -45,9 +45,9 @@
     return 30;
 }
 
-- (CGFloat) width
+- (CGFloat) width: (CGFloat) viewWidth
 {
-    return 280;
+    return viewWidth*0.875;
 }
 
 - (CGFloat) paddingForDropshadow

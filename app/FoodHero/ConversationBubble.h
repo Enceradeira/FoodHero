@@ -16,7 +16,7 @@
 @property (readonly) NSString* text;
 @property (readonly) NSString* semanticId;
 
--(id) initWithText:(NSString*) text semanticId: (NSString*)semanticId;
+-(id) initWithText:(NSString*) text semanticId: (NSString*)semanticId viewWitdh: (CGFloat) viewWidth;
 - (NSString*) getBubbleViewConstraint;
 
 @end

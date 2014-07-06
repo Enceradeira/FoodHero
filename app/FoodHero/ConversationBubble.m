@@ -53,7 +53,7 @@
     return nil;
 }
 
-- (CGFloat) width
+- (CGFloat) width: (CGFloat) viewWidth
 {
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
@@ -79,7 +79,7 @@
     return _image.size.height;
 }
 
--(id) initWithText:(NSString*) text semanticId: (NSString*)semanticId
+-(id) initWithText:(NSString*) text semanticId: (NSString*)semanticId viewWitdh: (CGFloat) viewWidth;
 {
     self =[super init];
     if( self == nil)
@@ -94,7 +94,7 @@
                         nil];
     _textDrawingOptions = NSStringDrawingUsesLineFragmentOrigin;
     
-    _image = [self renderTextIntoImage:[self getImage] text:text];
+    _image = [self renderTextIntoImage:[self getImage] text:text viewWitdh:viewWidth];
     return self;
 }
 
@@ -105,14 +105,14 @@
     return ceil(rectWithWidthAndHeight.size.height);
 }
 
-- (UIImage *)renderTextIntoImage:(UIImage *)bubble text:(NSString *)text
+- (UIImage *)renderTextIntoImage:(UIImage *)bubble text:(NSString *)text viewWitdh: (CGFloat) viewWidth
 {
     CGFloat minHeight = bubble.size.height;
-    CGFloat textHeight = [self calculateTextHeightFromImageWidth:[self width] text:text];
+    CGFloat textHeight = [self calculateTextHeightFromImageWidth:[self width:viewWidth] text:text];
     
     CGFloat height = textHeight + [self paddingForDropshadow] + (2*[self paddingTopAndBottomText]);
     height = fmax(height,minHeight);
-    CGRect resizedImageRect = CGRectMake(0, 0, [self width], height);
+    CGRect resizedImageRect = CGRectMake(0, 0, [self width:viewWidth], height);
     
     CGFloat textX = resizedImageRect.origin.x+[self textPaddingLeft];
     CGFloat textY = resizedImageRect.origin.y+[self paddingTopAndBottomText];

@@ -28,6 +28,11 @@
     return backgroundView;
 }
 
+- (ConversationBubbleFoodHero*)createFoodHeroBubble
+{
+   return [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" viewWitdh:_conversationBubbleView.frame.size.width];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,13 +45,19 @@
     
     _conversationBubbleView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIImageView *backgroundView;
-    backgroundView = [self createBackgroundImage];
+    UIImageView *backgroundView = [self createBackgroundImage];
     
     [backgroundView setFrame:_conversationBubbleView.frame];
     _conversationBubbleView.backgroundView = backgroundView;
     
-    _foodHeroBubble = [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion"];
+    _foodHeroBubble = [self createFoodHeroBubble];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [_conversationBubbleView reloadData];
+    
+    [super viewWillLayoutSubviews];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,6 +80,7 @@
 {
     ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_foodHeroBubble.cellId forIndexPath:indexPath];
     
+    _foodHeroBubble = [self createFoodHeroBubble]; // update bubble in case width has changed
     cell.bubble = _foodHeroBubble;
     return cell;
 }
