@@ -32,8 +32,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ObO-54-Z7x">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="483"/>
+                            <tableView clipsSubviews="YES" tag="100" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ObO-54-Z7x">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="507"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -48,8 +48,8 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Conversation is under construction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf1-ac-5yM">
-                                <rect key="frame" x="31" y="512" width="269" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conversation is under construction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf1-ac-5yM">
+                                <rect key="frame" x="26" y="527" width="269" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -57,6 +57,14 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ObO-54-Z7x" secondAttribute="trailing" id="A6i-pb-5bW"/>
+                            <constraint firstItem="Zf1-ac-5yM" firstAttribute="top" secondItem="ObO-54-Z7x" secondAttribute="bottom" constant="20" id="UzB-BX-HdA"/>
+                            <constraint firstItem="AQl-Q3-OdL" firstAttribute="top" secondItem="Zf1-ac-5yM" secondAttribute="bottom" constant="20" id="VVY-G5-hg8"/>
+                            <constraint firstItem="ObO-54-Z7x" firstAttribute="leading" secondItem="THN-YY-zNG" secondAttribute="leading" id="bmO-b0-Qwl"/>
+                            <constraint firstItem="ObO-54-Z7x" firstAttribute="top" secondItem="THN-YY-zNG" secondAttribute="top" id="kZh-td-xD0"/>
+                            <constraint firstItem="ObO-54-Z7x" firstAttribute="centerX" secondItem="Zf1-ac-5yM" secondAttribute="centerX" id="rPO-Xz-JCH"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Food Hero" id="oLs-7S-vQK">
                         <barButtonItem key="leftBarButtonItem" id="aqt-fu-P02">
