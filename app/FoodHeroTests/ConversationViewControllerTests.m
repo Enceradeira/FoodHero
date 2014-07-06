@@ -53,4 +53,9 @@
     assertThat(firstRow.bubble.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
 }
 
+-(void)test_Controller_ShouldRedrawFoodHerosBubble_WhenRotated
+{
+    
+}
+
 @end

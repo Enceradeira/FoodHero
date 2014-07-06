@@ -12,22 +12,22 @@
 - (UIImage*)getImage
 {
     /*
-     *  <------------112------------>
+     *  <------------76------------->
      *  |                   |       |
      *  |                   |       |
-     *  |         x         |-- 9---|
-     *  92                  |       |
+     *  |         x         |-- 11--|
+     *  52                  |       |
      *  |                   |       |
      *  |----------------------------
      *  |           |               |
-     *  |           20              |
+     *  |           8               |
      *  |           |               |
      *  |---------------------------¦
      */
     
      
-    // image is 224x184 @2 or 112x92 @1 -> mask (defined @1) (51+1+(51+9))x(35+1+(36+20))
-    return [[UIImage imageNamed:@"ConversationBubble-FoodHero.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(35,51,36+20,51+9) ];
+    // image is 152x104 @2 or 76x52 @1 -> mask (defined @1) (32+1+(32+11))x(21+1+(22+8))
+    return [[UIImage imageNamed:@"ConversationBubble-FoodHero.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21,32,22+8,32+11) ];
 }
 
 - (NSString*) getBubbleViewConstraint
@@ -37,12 +37,12 @@
 
 - (CGFloat)textPaddingLeft
 {
-    return 30;
+    return 25;
 }
 
 - (CGFloat)textPaddingRight
 {
-    return 30;
+    return 15;
 }
 
 - (CGFloat) width: (CGFloat) viewWidth
@@ -52,12 +52,12 @@
 
 - (CGFloat) paddingForDropshadow
 {
-    return 20;
+    return 6;
 }
 
 - (CGFloat) paddingTopAndBottomText
 {
-    return 10;
+    return 8;
 }
 
 - (NSString*) cellId
