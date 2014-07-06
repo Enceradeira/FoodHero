@@ -42,7 +42,7 @@
 
 - (CGFloat)textPaddingRight
 {
-    return 15;
+    return 20;
 }
 
 - (CGFloat) width: (CGFloat) viewWidth

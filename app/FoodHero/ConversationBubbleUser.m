@@ -11,38 +11,23 @@
 @implementation ConversationBubbleUser
 - (UIImage*)getImage
 {
-    /*
-     *  <------------76------------->
-     *  |                   |       |
-     *  |                   |       |
-     *  |         x         |-- 11--|
-     *  52                  |       |
-     *  |                   |       |
-     *  |----------------------------
-     *  |           |               |
-     *  |           8               |
-     *  |           |               |
-     *  |---------------------------¦
-     */
-    
-    
-    // image is 152x104 @2 or 76x52 @1 -> mask (defined @1) (32+1+(32+11))x(21+1+(22+8))
+    // the same mask as in ConversationBubbleFoodHero can be used since they have same vertical structure
     return [[UIImage imageNamed:@"ConversationBubble-User.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21,32,22+8,32+11) ];
 }
 
 - (NSString*) getBubbleViewConstraint
 {
-    return  @"H:|-5-[_bubbleView]";
+    return  @"H:[_bubbleView]-5-|";
 }
 
 - (CGFloat)textPaddingLeft
 {
-    return 25;
+    return 18;
 }
 
 - (CGFloat)textPaddingRight
 {
-    return 15;
+    return 30;
 }
 
 - (CGFloat) width: (CGFloat) viewWidth
