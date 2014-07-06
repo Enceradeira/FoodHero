@@ -35,14 +35,14 @@
     return viewWidth*0.875;
 }
 
-- (CGFloat) paddingForDropshadow
+- (CGFloat) paddingTopText
 {
-    return 6;
+    return 7;
 }
 
-- (CGFloat) paddingTopAndBottomText
+- (CGFloat) paddingBottomText
 {
-    return 8;
+    return [self paddingTopText] + 2;
 }
 
 - (NSString*) cellId

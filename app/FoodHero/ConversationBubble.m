@@ -60,14 +60,14 @@
     return 0;
 }
 
-- (CGFloat) paddingForDropshadow
+- (CGFloat) paddingTopText
 {
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
     return 0;
 }
 
-- (CGFloat) paddingTopAndBottomText
+- (CGFloat) paddingBottomText
 {
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
@@ -110,19 +110,23 @@
     CGFloat minHeight = bubble.size.height;
     CGFloat textHeight = [self calculateTextHeightFromImageWidth:[self width:viewWidth] text:text];
     
-    CGFloat height = textHeight + [self paddingForDropshadow] + (2*[self paddingTopAndBottomText]);
+    CGFloat height = textHeight + [self paddingTopText] + [self paddingBottomText];
     height = fmax(height,minHeight);
     CGRect resizedImageRect = CGRectMake(0, 0, [self width:viewWidth], height);
     
     CGFloat textX = resizedImageRect.origin.x+[self textPaddingLeft];
-    CGFloat textY = resizedImageRect.origin.y+[self paddingTopAndBottomText];
+    CGFloat textY = resizedImageRect.origin.y+[self paddingTopText];
     CGFloat textWidth = resizedImageRect.size.width-[self textPaddingLeft]-[self textPaddingRight];
     CGRect resizedTextRect = CGRectMake(textX, textY, textWidth, height);
+    CGRect calculatedTextRect = CGRectMake(textX,textY,textWidth,textHeight);
     
     UIGraphicsBeginImageContextWithOptions(resizedImageRect.size, NO, bubble.scale);
     
     [bubble drawInRect:resizedImageRect];
     [text drawWithRect:resizedTextRect options:_textDrawingOptions attributes:_textAttritbutes context:nil];
+    
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0, 0, 0, 1);
+    CGContextStrokeRect(UIGraphicsGetCurrentContext(),calculatedTextRect);
     
     UIImage *bubbleWithText = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
