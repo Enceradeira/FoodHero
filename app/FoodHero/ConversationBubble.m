@@ -111,22 +111,27 @@
     CGFloat textHeight = [self calculateTextHeightFromImageWidth:[self width:viewWidth] text:text];
     
     CGFloat height = textHeight + [self paddingTopText] + [self paddingBottomText];
+    // if textHeight was smaller the minHeight there is an y-offset otherwise text won't appear vertically centered
+    CGFloat yOffset = height<minHeight?(minHeight-height)/2:0;
     height = fmax(height,minHeight);
     CGRect resizedImageRect = CGRectMake(0, 0, [self width:viewWidth], height);
     
     CGFloat textX = resizedImageRect.origin.x+[self textPaddingLeft];
-    CGFloat textY = resizedImageRect.origin.y+[self paddingTopText];
+    CGFloat textY = resizedImageRect.origin.y+[self paddingTopText] + yOffset;
     CGFloat textWidth = resizedImageRect.size.width-[self textPaddingLeft]-[self textPaddingRight];
     CGRect resizedTextRect = CGRectMake(textX, textY, textWidth, height);
-    CGRect calculatedTextRect = CGRectMake(textX,textY,textWidth,textHeight);
     
     UIGraphicsBeginImageContextWithOptions(resizedImageRect.size, NO, bubble.scale);
     
     [bubble drawInRect:resizedImageRect];
     [text drawWithRect:resizedTextRect options:_textDrawingOptions attributes:_textAttritbutes context:nil];
     
+    /*
+    // Draw a rectangle showing border of text-rectangle
+    CGRect calculatedTextRect = CGRectMake(textX,textY,textWidth,textHeight);
     CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0, 0, 0, 1);
     CGContextStrokeRect(UIGraphicsGetCurrentContext(),calculatedTextRect);
+    */
     
     UIImage *bubbleWithText = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

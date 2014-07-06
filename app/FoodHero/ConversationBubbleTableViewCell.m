@@ -44,11 +44,13 @@
     self.accessibilityLabel = bubble.text;
     self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", bubble.semanticId];
 
+    /*
+     // Draw border around bubble image and cell
      _bubbleView.layer.borderColor = [UIColor redColor].CGColor;
      _bubbleView.layer.borderWidth = 1.0f;
      self.layer.borderColor = [UIColor blueColor].CGColor;
      self.layer.borderWidth = 1.0f;
-    
+    */
 
     [containerView addSubview:_bubbleView];
     
