@@ -34,6 +34,14 @@
     _ctrl.view.hidden = NO;
 }
 
+- (ConversationBubbleTableViewCell *)assertLastRow:(UITableView *)bubbleView expectedNrOfRows:(NSInteger) expectedNrOfRows
+{
+    NSInteger num = [bubbleView numberOfRowsInSection:0]; // this forces the cells to be loaded somehow
+    assertThatInteger(num, is(equalToInteger(expectedNrOfRows)));
+    ConversationBubbleTableViewCell* userAnswer = (ConversationBubbleTableViewCell*)[bubbleView visibleCells][expectedNrOfRows-1];
+    return userAnswer;
+}
+
 - (void)test_Controller_ShouldInitializeConversationBubbleView
 {
     assertThat(_ctrl.conversationBubbleView, is(notNilValue()));
@@ -43,19 +51,25 @@
 {
     UITableView *bubbleView = (UITableView*)_ctrl.conversationBubbleView;
    
-    NSInteger num = [bubbleView numberOfRowsInSection:0]; // this forces the cells to be loaded somehose
-    assertThatInteger(num, is(equalToInteger(1)));
-    
-    ConversationBubbleTableViewCell* firstRow = (ConversationBubbleTableViewCell*)[bubbleView visibleCells][0];
+    ConversationBubbleTableViewCell *firstRow = [self assertLastRow:bubbleView expectedNrOfRows:1];
     
     assertThat(firstRow, is(notNilValue()));
     assertThat(firstRow.bubble, is(notNilValue()));
     assertThat(firstRow.bubble.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
 }
 
--(void)test_Controller_ShouldRedrawFoodHerosBubble_WhenRotated
+
+-(void)test_Controller_ShouldDisplayUserAnswerOnSecondRow
 {
+    UITableView *bubbleView = (UITableView*)_ctrl.conversationBubbleView;
     
+    [_ctrl userChoosesIndianOrBritishFood:self];
+    
+    ConversationBubbleTableViewCell *userAnswer = [self assertLastRow:bubbleView expectedNrOfRows:2];
+    
+    assertThat(userAnswer, is(notNilValue()));
+    assertThat(userAnswer.bubble, is(notNilValue()));
+    assertThat(userAnswer.bubble.semanticId, is(equalTo(@"UserAnswer:British or Indian food")));
 }
 
 @end

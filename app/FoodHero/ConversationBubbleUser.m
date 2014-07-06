@@ -1,14 +1,14 @@
 //
-//  ConversationBubbleFoodHero.m
+//  ConversationBubbleUser.m
 //  FoodHero
 //
-//  Created by Jorg on 04/07/2014.
+//  Created by Jorg on 06/07/2014.
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationBubbleFoodHero.h"
+#import "ConversationBubbleUser.h"
 
-@implementation ConversationBubbleFoodHero
+@implementation ConversationBubbleUser
 - (UIImage*)getImage
 {
     /*
@@ -25,9 +25,9 @@
      *  |---------------------------¦
      */
     
-     
+    
     // image is 152x104 @2 or 76x52 @1 -> mask (defined @1) (32+1+(32+11))x(21+1+(22+8))
-    return [[UIImage imageNamed:@"ConversationBubble-FoodHero.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21,32,22+8,32+11) ];
+    return [[UIImage imageNamed:@"ConversationBubble-User.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21,32,22+8,32+11) ];
 }
 
 - (NSString*) getBubbleViewConstraint
@@ -64,5 +64,4 @@
 {
     return @"Bubble";
 }
-
 @end

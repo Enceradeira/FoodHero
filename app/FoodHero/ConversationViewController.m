@@ -9,6 +9,7 @@
 #import "ConversationViewController.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleTableViewCell.h"
+#import "ConversationBubbleUser.h"
 
 @interface ConversationViewController ()
 
@@ -17,6 +18,7 @@
 @implementation ConversationViewController
 {
     ConversationBubbleFoodHero *_foodHeroBubble;
+    ConversationBubbleUser *_userBubble;
 }
 
 - (UIImageView *)createBackgroundImage
@@ -31,6 +33,11 @@
 - (ConversationBubbleFoodHero*)createFoodHeroBubble
 {
    return [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" viewWitdh:_conversationBubbleView.frame.size.width];
+}
+
+- (ConversationBubbleUser*)createUserBubble
+{
+    return [[ConversationBubbleUser alloc] initWithText:@"British or Indian food" semanticId:@"UserAnswer:British or Indian food" viewWitdh:_conversationBubbleView.frame.size.width];
 }
 
 - (void)viewDidLoad
@@ -73,27 +80,46 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 1+(_userBubble==nil?0:1);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_foodHeroBubble.cellId forIndexPath:indexPath];
-    
-    _foodHeroBubble = [self createFoodHeroBubble]; // update bubble in case width has changed
-    cell.bubble = _foodHeroBubble;
+    ConversationBubbleTableViewCell *cell;
+    if( indexPath.row == 0){
+        cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_foodHeroBubble.cellId forIndexPath:indexPath];
+        _foodHeroBubble = [self createFoodHeroBubble]; // update bubble in case width has changed
+        cell.bubble = _foodHeroBubble;
+    }
+    else
+    {
+        cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_userBubble.cellId forIndexPath:indexPath];
+        _userBubble = [self createUserBubble];
+        cell.bubble = _userBubble;
+    }
     return cell;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)userChoosesIndianOrBritishFood:(id)sender {
+    if(_userBubble != nil)
+    {
+        return;
+    }
+    _userBubble = [self createUserBubble];
+    NSIndexPath *indexNewRow = [NSIndexPath indexPathForItem:1 inSection:0];
+    NSArray *newRows = [NSArray arrayWithObject:indexNewRow];
+   
+    [_conversationBubbleView insertRowsAtIndexPaths: newRows withRowAnimation: UITableViewRowAnimationFade];
 }
-*/
 
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 @end

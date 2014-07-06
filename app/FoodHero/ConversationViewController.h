@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ConversationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+- (IBAction)userChoosesIndianOrBritishFood:(id)sender;
 @property (readonly) UITableView *conversationBubbleView;
 @property (readonly) UIView *userInputView;
 @end
