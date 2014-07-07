@@ -37,7 +37,7 @@
 
 - (CGFloat) paddingTopText
 {
-    return 7;
+    return 12;
 }
 
 - (CGFloat) paddingBottomText
