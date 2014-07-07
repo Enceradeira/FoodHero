@@ -10,6 +10,7 @@
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationBubbleUser.h"
+#import "ConversationAppService.h"
 
 @interface ConversationViewController ()
 
@@ -19,6 +20,12 @@
 {
     ConversationBubbleFoodHero *_foodHeroBubble;
     ConversationBubbleUser *_userBubble;
+    ConversationAppService *_appService;
+}
+
+- (void)setConversationAppService:(ConversationAppService*) service
+{
+    _appService = service;
 }
 
 - (UIImageView *)createBackgroundImage

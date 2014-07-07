@@ -21,8 +21,17 @@
     return [TyphoonDefinition
                 withClass:[ConversationViewController class]
                 configuration:^(TyphoonDefinition* definition) {
+                    [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+                        [method injectParameterWith:[self conversationAppService]];
+
+                    }];
                 }
             ];
+}
+
+- (id) conversationAppService
+{
+    return [TyphoonDefinition withClass:[ConversationAppService class]];
 }
                                                            
 @end

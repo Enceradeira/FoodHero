@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConversationAppService.h"
 
 @interface ConversationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-- (IBAction)userChoosesIndianOrBritishFood:(id)sender;
+
 @property (readonly) UITableView *conversationBubbleView;
 @property (readonly) UIView *userInputView;
+
+- (IBAction)userChoosesIndianOrBritishFood:(id)sender;
+- (void)setConversationAppService:(ConversationAppService*) service;
+
 @end

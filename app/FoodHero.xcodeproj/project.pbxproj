@@ -31,6 +31,8 @@
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
 		8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */; };
+		8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC764E196A852400AA9A6F /* ConversationAppService.m */; };
+		8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */; };
 		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */; };
 		8FD619211966F01500B57343 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD619201966F01500B57343 /* ControllerFactory.m */; };
@@ -86,6 +88,9 @@
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
 		8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
+		8FCC764D196A852400AA9A6F /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
+		8FCC764E196A852400AA9A6F /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
+		8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceTests.m; sourceTree = "<group>"; };
 		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		8FD6191F1966F01500B57343 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
@@ -171,18 +176,13 @@
 		8FCBADD219614B83001ED357 /* FoodHero */ = {
 			isa = PBXGroup;
 			children = (
+				8FCC764C196A84DF00AA9A6F /* Conversation */,
 				8F54745C1961A36200843FEE /* Infrastructure */,
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
 				8F6F3D6B1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.h */,
 				8F6F3D6C1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m */,
-				8F6F3D711966ACDA003F7AC0 /* ConversationBubbleFoodHero.h */,
-				8F6F3D721966ACDA003F7AC0 /* ConversationBubbleFoodHero.m */,
-				8F60D0E41969ABE0007324B6 /* ConversationBubbleUser.h */,
-				8F60D0E51969ABE0007324B6 /* ConversationBubbleUser.m */,
-				8F6F3D6E1966ABDE003F7AC0 /* ConversationBubble.h */,
-				8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */,
 				8F54745919619C0D00843FEE /* NavigationController.h */,
 				8F54745A19619C0D00843FEE /* NavigationController.m */,
 				8F54745D1961F0D900843FEE /* ConversationViewController.h */,
@@ -208,6 +208,7 @@
 		8FCBADEB19614B83001ED357 /* FoodHeroTests */ = {
 			isa = PBXGroup;
 			children = (
+				8FCC7652196A874F00AA9A6F /* Conversation */,
 				8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
 				8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */,
@@ -222,6 +223,29 @@
 				8FCBADEE19614B83001ED357 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8FCC764C196A84DF00AA9A6F /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				8F6F3D711966ACDA003F7AC0 /* ConversationBubbleFoodHero.h */,
+				8F6F3D721966ACDA003F7AC0 /* ConversationBubbleFoodHero.m */,
+				8F60D0E41969ABE0007324B6 /* ConversationBubbleUser.h */,
+				8F60D0E51969ABE0007324B6 /* ConversationBubbleUser.m */,
+				8F6F3D6E1966ABDE003F7AC0 /* ConversationBubble.h */,
+				8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */,
+				8FCC764D196A852400AA9A6F /* ConversationAppService.h */,
+				8FCC764E196A852400AA9A6F /* ConversationAppService.m */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
+		8FCC7652196A874F00AA9A6F /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */,
+			);
+			name = Conversation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */,
 				8FD619211966F01500B57343 /* ControllerFactory.m in Sources */,
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
 				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
@@ -409,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */,
+				8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */,
 				8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

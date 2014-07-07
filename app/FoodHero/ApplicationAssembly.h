@@ -11,6 +11,7 @@
 @protocol ApplicationAssembly
 - (id) navigationViewController;
 - (id) conversationViewController;
+- (id) conversationAppService;
 @end
 
 @interface ApplicationAssembly : TyphoonAssembly<ApplicationAssembly>
