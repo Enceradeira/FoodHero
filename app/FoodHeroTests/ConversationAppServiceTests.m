@@ -14,6 +14,8 @@
 #import "ApplicationAssembly.h"
 #import "ConversationAppService.h"
 #import "ConversationBubble.h"
+#import "ConversationBubbleFoodHero.h"
+#import "ConversationBubbleUser.h"
 #import "DesignByContractException.h"
 
 @interface ConversationAppServiceTests : XCTestCase
@@ -49,6 +51,7 @@ const CGFloat landscapeWidth = 400;
     
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
+    assertThat(bubble.class, is(equalTo(ConversationBubbleFoodHero.class)));
     
 }
 
@@ -87,6 +90,7 @@ const CGFloat landscapeWidth = 400;
     
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"UserAnswer:British or Indian Food")));
+    assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
 -(void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation
@@ -99,6 +103,5 @@ const CGFloat landscapeWidth = 400;
     [_service addStatement:@"It's too far away"];
     assertThatInteger([_service getStatementCount], is(equalToInteger(3)));
 }
-
 
 @end

@@ -35,6 +35,10 @@
 		8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */; };
 		8FCC7659196A994700AA9A6F /* DesignByContractException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7654196A95D300AA9A6F /* DesignByContractException.m */; };
 		8FCC765C196A9B9100AA9A6F /* Statement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC765B196A9B9100AA9A6F /* Statement.m */; };
+		8FCC765F196AA43600AA9A6F /* FoodHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC765E196AA43600AA9A6F /* FoodHero.m */; };
+		8FCC7662196AA45300AA9A6F /* AnonymousUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7661196AA45300AA9A6F /* AnonymousUser.m */; };
+		8FCC7665196AA47D00AA9A6F /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7664196AA47D00AA9A6F /* Persona.m */; };
+		8FCC7668196AA58200AA9A6F /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7667196AA58200AA9A6F /* Personas.m */; };
 		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */; };
 		8FD619211966F01500B57343 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD619201966F01500B57343 /* ControllerFactory.m */; };
@@ -97,6 +101,14 @@
 		8FCC7654196A95D300AA9A6F /* DesignByContractException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DesignByContractException.m; path = FoodHeroTests/DesignByContractException.m; sourceTree = SOURCE_ROOT; };
 		8FCC765A196A9B9100AA9A6F /* Statement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statement.h; sourceTree = "<group>"; };
 		8FCC765B196A9B9100AA9A6F /* Statement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statement.m; sourceTree = "<group>"; };
+		8FCC765D196AA43600AA9A6F /* FoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHero.h; sourceTree = "<group>"; };
+		8FCC765E196AA43600AA9A6F /* FoodHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodHero.m; sourceTree = "<group>"; };
+		8FCC7660196AA45300AA9A6F /* AnonymousUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymousUser.h; sourceTree = "<group>"; };
+		8FCC7661196AA45300AA9A6F /* AnonymousUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnonymousUser.m; sourceTree = "<group>"; };
+		8FCC7663196AA47D00AA9A6F /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
+		8FCC7664196AA47D00AA9A6F /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
+		8FCC7666196AA58200AA9A6F /* Personas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Personas.h; sourceTree = "<group>"; };
+		8FCC7667196AA58200AA9A6F /* Personas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Personas.m; sourceTree = "<group>"; };
 		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		8FD6191F1966F01500B57343 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
@@ -246,6 +258,14 @@
 				8FCC764E196A852400AA9A6F /* ConversationAppService.m */,
 				8FCC765A196A9B9100AA9A6F /* Statement.h */,
 				8FCC765B196A9B9100AA9A6F /* Statement.m */,
+				8FCC765D196AA43600AA9A6F /* FoodHero.h */,
+				8FCC765E196AA43600AA9A6F /* FoodHero.m */,
+				8FCC7660196AA45300AA9A6F /* AnonymousUser.h */,
+				8FCC7661196AA45300AA9A6F /* AnonymousUser.m */,
+				8FCC7663196AA47D00AA9A6F /* Persona.h */,
+				8FCC7664196AA47D00AA9A6F /* Persona.m */,
+				8FCC7666196AA58200AA9A6F /* Personas.h */,
+				8FCC7667196AA58200AA9A6F /* Personas.m */,
 			);
 			name = Conversation;
 			sourceTree = "<group>";
@@ -426,16 +446,20 @@
 			files = (
 				8FCC7659196A994700AA9A6F /* DesignByContractException.m in Sources */,
 				8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */,
+				8FCC7662196AA45300AA9A6F /* AnonymousUser.m in Sources */,
 				8FD619211966F01500B57343 /* ControllerFactory.m in Sources */,
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
 				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
+				8FCC7665196AA47D00AA9A6F /* Persona.m in Sources */,
 				8F6F3D6D1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m in Sources */,
 				8F60D0E61969ABE0007324B6 /* ConversationBubbleUser.m in Sources */,
 				8F54745819619AA300843FEE /* ApplicationAssembly.m in Sources */,
+				8FCC7668196AA58200AA9A6F /* Personas.m in Sources */,
 				8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */,
 				8F6F3D731966ACDA003F7AC0 /* ConversationBubbleFoodHero.m in Sources */,
 				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,
 				8FCC765C196A9B9100AA9A6F /* Statement.m in Sources */,
+				8FCC765F196AA43600AA9A6F /* FoodHero.m in Sources */,
 				8F6F3D701966ABDE003F7AC0 /* ConversationBubble.m in Sources */,
 				8FCBADD919614B83001ED357 /* main.m in Sources */,
 			);

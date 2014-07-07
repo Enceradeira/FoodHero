@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Persona.h"
 
 @interface Statement : NSObject
 
 @property NSString* text;
 @property NSString* semanticId;
+@property Persona* persona;
 
--(id)initWithText:(NSString*)text semanticId:(NSString*)semanticId;
+-(id)initWithText:(NSString*)text semanticId:(NSString*)semanticId persona:(Persona*)persona;
 
 @end

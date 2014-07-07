@@ -11,6 +11,7 @@
 #import "ConversationBubbleUser.h"
 #import "DesignByContractException.h"
 #import "Statement.h"
+#import "Personas.h"
 
 @implementation ConversationAppService
 {
@@ -25,14 +26,14 @@
     {
         _bubbles = [NSMutableDictionary new];
         _statements = [NSMutableArray new];
-        [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion"]];
+        [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" persona: Personas.foodHero]];
     }
     return self;
 }
 
 -(void) addStatement:(NSString*)statement
 {
-    [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@",statement]]];
+    [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@",statement] persona:Personas.user]];
 }
 
 -(NSInteger)getStatementCount
@@ -51,7 +52,14 @@
     if(bubble == nil ){
         Statement *statement = (Statement*)_statements[index];
         
-        bubble = [[ConversationBubbleFoodHero alloc] initWithText:statement.text semanticId:statement.semanticId viewWitdh:bubbleWidth];
+        if(statement.persona == Personas.foodHero)
+        {
+            bubble = [[ConversationBubbleFoodHero alloc] initWithText:statement.text semanticId:statement.semanticId viewWitdh:bubbleWidth];
+        }
+        else
+        {
+            bubble = [[ConversationBubbleUser alloc] initWithText:statement.text semanticId:statement.semanticId viewWitdh:bubbleWidth];
+        }
     
         [_bubbles setObject:bubble forKey:key];
     }
