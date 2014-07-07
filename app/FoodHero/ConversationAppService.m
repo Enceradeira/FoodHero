@@ -17,7 +17,7 @@
 @implementation ConversationAppService
 {
     NSMutableDictionary *_bubbles;
-    NSMutableArray *_statements;
+    Conversation *_conversation;
 }
 
 -(id)initWithService:(ConversationRepository*) conversationRepository
@@ -26,32 +26,27 @@
     if(self != nil)
     {
         _bubbles = [NSMutableDictionary new];
-        _statements = [NSMutableArray new];
-        [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" persona: Personas.foodHero]];
+        _conversation = conversationRepository.get;
     }
     return self;
 }
 
 -(void) addStatement:(NSString*)statement
 {
-    [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@",statement] persona:Personas.user]];
+    [_conversation addStatement:statement];
 }
 
 -(NSInteger)getStatementCount
 {
-    return [_statements count];
+    return _conversation.getStatementCount;
 }
 
 -(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth
 {
-    if (index > [_statements count]-1)
-    {
-        @throw [[DesignByContractException alloc] initWithReason:[NSString stringWithFormat:@"no conversation exists at index %ld", (long)index]];
-    }
     NSString *key = [NSString stringWithFormat:@"%ld-%ld", (long)index, (long)bubbleWidth];
     ConversationBubble *bubble = [_bubbles objectForKey: key];
     if(bubble == nil ){
-        Statement *statement = (Statement*)_statements[index];
+        Statement *statement = [_conversation getStatement:index];
         
         if(statement.persona == Personas.foodHero)
         {
@@ -61,7 +56,7 @@
         {
             bubble = [[ConversationBubbleUser alloc] initWithText:statement.text semanticId:statement.semanticId viewWitdh:bubbleWidth];
         }
-    
+        
         [_bubbles setObject:bubble forKey:key];
     }
     return bubble;

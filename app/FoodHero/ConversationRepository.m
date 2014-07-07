@@ -8,9 +8,10 @@
 
 #import "ConversationRepository.h"
 
-Conversation *_onlyConversation;
-
 @implementation ConversationRepository
+{
+    Conversation *_onlyConversation;
+}
 -(Conversation*)get
 {
     if( _onlyConversation == nil )

@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Statement.h"
 
 @interface Conversation : NSObject
+
+-(Statement*)getStatement:(NSInteger)index;
+-(void) addStatement:(NSString*)statement;
+-(NSInteger)getStatementCount;
 
 @end

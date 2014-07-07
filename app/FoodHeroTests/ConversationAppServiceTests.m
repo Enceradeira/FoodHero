@@ -16,7 +16,6 @@
 #import "ConversationBubble.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
-#import "DesignByContractException.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -41,18 +40,8 @@ const CGFloat landscapeWidth = 400;
 
 - (ConversationBubble *)getStatement:(NSInteger)index
 {
-    ConversationBubble *bubble1 = [_service getStatement:index bubbleWidth:portraitWidth];
-    return bubble1;
-}
-
-- (void)test_getFirstStatement_ShouldReturnFoodHerosGreeting
-{
-    ConversationBubble *bubble = [self getStatement:0];
-    
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
-    assertThat(bubble.class, is(equalTo(ConversationBubbleFoodHero.class)));
-    
+    ConversationBubble *bubble = [_service getStatement:index bubbleWidth:portraitWidth];
+    return bubble;
 }
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble
@@ -71,17 +60,6 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble1, isNot(sameInstance(bubble2)));
 }
 
-- (void)test_getSecondStatement_ShouldReturnException_WhenHasNeverSaidAnything
-{
-    @try {
-        [self getStatement:1];
-        XCTFail(@"An exception must be thrown");
-    }
-    @catch (DesignByContractException *exception)
-    {
-    }
-}
-
 -(void)test_getSecondStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
     [_service addStatement:@"British or Indian Food"];
@@ -91,17 +69,6 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"UserAnswer:British or Indian Food")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
-}
-
--(void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation
-{
-    assertThatInteger([_service getStatementCount], is(equalToInteger(1)));
-    
-    [_service addStatement:@"British or Indian Food"];
-    assertThatInteger([_service getStatementCount], is(equalToInteger(2)));
-    
-    [_service addStatement:@"It's too far away"];
-    assertThatInteger([_service getStatementCount], is(equalToInteger(3)));
 }
 
 @end
