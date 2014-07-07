@@ -12,9 +12,6 @@
 #import <Typhoon.h>
 #import "TyphoonBuilder.h"
 #import "ApplicationAssembly.h"
-#import "ConversationAppService.h"
-#import "ConversationBubble.h"
-#import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 
 @interface ConversationAppServiceTests : XCTestCase

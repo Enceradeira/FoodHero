@@ -10,7 +10,6 @@
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import "Conversation.h"
-#import "Statement.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
 
@@ -27,12 +26,6 @@
     [super setUp];
     
     _conversation = [Conversation new];
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
 }
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
