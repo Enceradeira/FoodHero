@@ -69,7 +69,7 @@
     
     assertThat(userAnswer, is(notNilValue()));
     assertThat(userAnswer.bubble, is(notNilValue()));
-    assertThat(userAnswer.bubble.semanticId, is(equalTo(@"UserAnswer:British or Indian food")));
+    assertThat(userAnswer.bubble.semanticId, is(equalTo(@"UserAnswer:British food")));
 }
 
 @end

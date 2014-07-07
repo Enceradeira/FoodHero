@@ -3,11 +3,15 @@ Then(/^FoodHero greets users and asks what they wished to eat$/) do
   expect(greeting_bubble).not_to be_nil
 end
 
-When(/^User wishes to eat British or Indian food$/) do
-  button('British or Indian food').click
+When(/^User wishes to eat British food$/) do
+  button('British food').click
 end
 
-Then(/^User answers with British or Indian food$/) do
-  greeting_bubble = find_element :accessibility_id, 'ConversationBubble-UserAnswer:British or Indian food'
+Then(/^User answers with British food$/) do
+  greeting_bubble = find_element :accessibility_id, 'ConversationBubble-UserAnswer:British food'
   expect(greeting_bubble).not_to be_nil
+end
+
+Then(/^FoodHero suggests 'King Head, Norwich'$/) do
+  pending
 end

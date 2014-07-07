@@ -1,5 +1,5 @@
 def expect_conversation_view
-  expect(button 'British or Indian food').not_to be_nil
+  expect(button 'British food').not_to be_nil
 end
 
 def expect_map_view

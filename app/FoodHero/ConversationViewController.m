@@ -78,7 +78,7 @@
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
-    [_appService addStatement:@"British or Indian food"];
+    [_appService addStatement:@"British food"];
 
     NSInteger newIndex = [_appService getStatementCount] - 1;
 
