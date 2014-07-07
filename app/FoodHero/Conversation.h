@@ -1,5 +1,5 @@
 //
-//  ConcersationService.h
+//  Conversation.h
 //  FoodHero
 //
 //  Created by Jorg on 07/07/2014.
@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Conversation.h"
 
-@interface ConversationRepository : NSObject
-
--(Conversation*)get;
+@interface Conversation : NSObject
 
 @end

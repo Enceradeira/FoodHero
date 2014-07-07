@@ -41,6 +41,8 @@
 		8FCC7668196AA58200AA9A6F /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7667196AA58200AA9A6F /* Personas.m */; };
 		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD2FFE0196AFB2F002E922E /* ConversationRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD2FFDF196AFB2F002E922E /* ConversationRepository.m */; };
+		8FD2FFE2196AFF9D002E922E /* ConversationRepositoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD2FFE1196AFF9D002E922E /* ConversationRepositoryTests.m */; };
+		8FD2FFE6196B0092002E922E /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD2FFE5196B0092002E922E /* Conversation.m */; };
 		8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */; };
 		8FD619211966F01500B57343 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD619201966F01500B57343 /* ControllerFactory.m */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
@@ -113,6 +115,9 @@
 		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD2FFDE196AFB2F002E922E /* ConversationRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationRepository.h; sourceTree = "<group>"; };
 		8FD2FFDF196AFB2F002E922E /* ConversationRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRepository.m; sourceTree = "<group>"; };
+		8FD2FFE1196AFF9D002E922E /* ConversationRepositoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRepositoryTests.m; sourceTree = "<group>"; };
+		8FD2FFE4196B0092002E922E /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
+		8FD2FFE5196B0092002E922E /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
 		8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		8FD6191F1966F01500B57343 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
 		8FD619201966F01500B57343 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
@@ -149,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				8FCC7653196A95D300AA9A6F /* DesignByContractException.h */,
+				8FD2FFDE196AFB2F002E922E /* ConversationRepository.h */,
+				8FD2FFDF196AFB2F002E922E /* ConversationRepository.m */,
 				8FCC7654196A95D300AA9A6F /* DesignByContractException.m */,
 				8F54745319619A2300843FEE /* TyphoonBuilder.h */,
 				8F54745419619A2300843FEE /* TyphoonBuilder.m */,
@@ -255,6 +262,7 @@
 		8FCC7652196A874F00AA9A6F /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				8FD2FFE3196B006F002E922E /* Infrastructure */,
 				8FCC766C196AAB4400AA9A6F /* Domain */,
 				8FCC766B196AAB3A00AA9A6F /* UserInterface */,
 			);
@@ -293,8 +301,8 @@
 				8FCC7664196AA47D00AA9A6F /* Persona.m */,
 				8FCC7666196AA58200AA9A6F /* Personas.h */,
 				8FCC7667196AA58200AA9A6F /* Personas.m */,
-				8FD2FFDE196AFB2F002E922E /* ConversationRepository.h */,
-				8FD2FFDF196AFB2F002E922E /* ConversationRepository.m */,
+				8FD2FFE4196B0092002E922E /* Conversation.h */,
+				8FD2FFE5196B0092002E922E /* Conversation.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -313,6 +321,14 @@
 			children = (
 			);
 			name = Domain;
+			sourceTree = "<group>";
+		};
+		8FD2FFE3196B006F002E922E /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				8FD2FFE1196AFF9D002E922E /* ConversationRepositoryTests.m */,
+			);
+			name = Infrastructure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FD2FFE6196B0092002E922E /* Conversation.m in Sources */,
 				8FCC7659196A994700AA9A6F /* DesignByContractException.m in Sources */,
 				8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */,
 				8FCC7662196AA45300AA9A6F /* AnonymousUser.m in Sources */,
@@ -509,6 +526,7 @@
 			files = (
 				8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */,
 				8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */,
+				8FD2FFE2196AFF9D002E922E /* ConversationRepositoryTests.m in Sources */,
 				8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
