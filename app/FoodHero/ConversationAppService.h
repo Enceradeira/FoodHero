@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationBubble.h"
+#import "ConversationRepository.h"
 
 @interface ConversationAppService : NSObject
+
+-(id)initWithService:(ConversationRepository*) conversationRepository;
 -(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 -(void) addStatement:(NSString*)statement;
 -(NSInteger)getStatementCount;
+
 @end

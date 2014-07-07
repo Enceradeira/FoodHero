@@ -12,6 +12,7 @@
 - (id) navigationViewController;
 - (id) conversationViewController;
 - (id) conversationAppService;
+- (id) conversationRepository;
 @end
 
 @interface ApplicationAssembly : TyphoonAssembly<ApplicationAssembly>

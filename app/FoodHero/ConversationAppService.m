@@ -12,6 +12,7 @@
 #import "DesignByContractException.h"
 #import "Statement.h"
 #import "Personas.h"
+#import "ConversationRepository.h"
 
 @implementation ConversationAppService
 {
@@ -19,7 +20,7 @@
     NSMutableArray *_statements;
 }
 
--(id)init
+-(id)initWithService:(ConversationRepository*) conversationRepository
 {
     self = [super init];
     if(self != nil)
