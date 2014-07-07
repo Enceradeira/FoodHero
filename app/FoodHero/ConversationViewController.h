@@ -12,7 +12,6 @@
 @interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property(readonly) UITableView *conversationBubbleView;
-@property(readonly) UIView *userInputView;
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender;
 

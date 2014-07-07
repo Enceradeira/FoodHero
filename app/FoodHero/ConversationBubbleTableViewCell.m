@@ -50,7 +50,7 @@
 
     [containerView addSubview:_bubbleView];
 
-    NSArray *bubbleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[bubble getBubbleViewConstraint] options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bubbleView)];
+    NSArray *bubbleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[bubble getBubbleViewConstraint] options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:NSDictionaryOfVariableBindings(_bubbleView)];
     [containerView addConstraints:bubbleConstraints];
 }
 

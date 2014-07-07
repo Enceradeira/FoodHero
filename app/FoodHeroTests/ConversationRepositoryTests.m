@@ -7,13 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCDFAInspection"
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
 #import "TyphoonBuilder.h"
 #import "ApplicationAssembly.h"
-#import "ConversationRepository.h"
-#import "Conversation.h"
 
 @interface ConversationRepositoryTests : XCTestCase
 
@@ -23,6 +23,8 @@
 {
     ConversationRepository *_repository;
 }
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "objc_incompatible_pointers"
 - (void)setUp
 {
     [super setUp];
@@ -30,6 +32,7 @@
     TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[ApplicationAssembly new]];
     _repository =  [(ApplicationAssembly*)factory conversationRepository ];
 }
+#pragma clang diagnostic pop
 
 - (void)test_get_shouldAlwaysReturnSameConversation
 {
@@ -41,3 +44,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

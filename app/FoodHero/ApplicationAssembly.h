@@ -8,6 +8,8 @@
 
 #import "TyphoonAssembly.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedMethodInspection"
 @protocol ApplicationAssembly
 - (id)navigationViewController;
 
@@ -20,3 +22,5 @@
 
 @interface ApplicationAssembly : TyphoonAssembly <ApplicationAssembly>
 @end
+
+#pragma clang diagnostic pop

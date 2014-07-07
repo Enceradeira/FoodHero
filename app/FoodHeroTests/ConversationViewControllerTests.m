@@ -34,7 +34,7 @@
     _ctrl.view.hidden = NO;
 }
 
-- (ConversationBubbleTableViewCell *)assertLastRow:(UITableView *)bubbleView expectedNrOfRows:(NSInteger) expectedNrOfRows
+- (ConversationBubbleTableViewCell *)assertLastRow:(UITableView *)bubbleView expectedNrOfRows:(NSUInteger) expectedNrOfRows
 {
     NSInteger num = [bubbleView numberOfRowsInSection:0]; // this forces the cells to be loaded somehow
     assertThatInteger(num, is(equalToInteger(expectedNrOfRows)));
@@ -49,7 +49,7 @@
 
 - (void)test_Controller_ShouldGreatUserOnFirstRow
 {
-    UITableView *bubbleView = (UITableView*)_ctrl.conversationBubbleView;
+    UITableView *bubbleView = _ctrl.conversationBubbleView;
    
     ConversationBubbleTableViewCell *firstRow = [self assertLastRow:bubbleView expectedNrOfRows:1];
     
@@ -61,7 +61,7 @@
 
 -(void)test_Controller_ShouldDisplayUserAnswerOnSecondRow
 {
-    UITableView *bubbleView = (UITableView*)_ctrl.conversationBubbleView;
+    UITableView *bubbleView = _ctrl.conversationBubbleView;
     
     [_ctrl userChoosesIndianOrBritishFood:self];
     

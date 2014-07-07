@@ -8,6 +8,8 @@
 
 #import "ConversationBubble.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCDFAInspection"
 @implementation ConversationBubble {
     UIImage *_image;
     UIFont *_font;
@@ -16,7 +18,7 @@
 
 }
 
-- (UIImage *)getImage {
+-  (UIImage *)getImage {
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
     return nil;
@@ -32,7 +34,6 @@
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
     return 0;
-
 }
 
 - (CGFloat)textPaddingRight {
@@ -90,7 +91,7 @@
 - (CGFloat)calculateTextHeightFromImageWidth:(CGFloat)imageWidth text:(NSString *)text {
     CGSize rectWithFixedWidth = CGSizeMake(imageWidth - [self textPaddingLeft] - [self textPaddingRight], 0);
     CGRect rectWithWidthAndHeight = [text boundingRectWithSize:rectWithFixedWidth options:_textDrawingOptions attributes:_textAttritbutes context:nil];
-    return ceil(rectWithWidthAndHeight.size.height);
+    return (CGFloat) ceil(rectWithWidthAndHeight.size.height);
 }
 
 - (UIImage *)renderTextIntoImage:(UIImage *)bubble text:(NSString *)text viewWitdh:(CGFloat)viewWidth {
@@ -100,7 +101,7 @@
     CGFloat height = textHeight + [self paddingTopText] + [self paddingBottomText];
     // if textHeight was smaller the minHeight there is an y-offset otherwise text won't appear vertically centered
     CGFloat yOffset = height < minHeight ? (minHeight - height) / 2 : 0;
-    height = fmax(height, minHeight);
+    height = (CGFloat) fmax(height, minHeight);
     CGRect resizedImageRect = CGRectMake(0, 0, [self width:viewWidth], height);
 
     CGFloat textX = resizedImageRect.origin.x + [self textPaddingLeft];
@@ -126,3 +127,5 @@
     return bubbleWithText;
 }
 @end
+
+#pragma clang diagnostic pop

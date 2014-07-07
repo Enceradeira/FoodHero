@@ -33,7 +33,6 @@
     [super viewDidLoad];
 
     _conversationBubbleView = (UITableView *) [self.view viewWithTag:100];
-    _userInputView = [self.view viewWithTag:101];
 
     _conversationBubbleView.delegate = self;
     _conversationBubbleView.dataSource = self;

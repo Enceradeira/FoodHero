@@ -27,7 +27,7 @@
 }
 
 - (CGFloat)width:(CGFloat)viewWidth {
-    return viewWidth * 0.875;
+    return viewWidth * (CGFloat)0.875;
 }
 
 - (CGFloat)paddingTopText {

@@ -16,6 +16,18 @@
 @property(readonly) NSString *text;
 @property(readonly) NSString *semanticId;
 
+- (CGFloat)textPaddingLeft;
+
+- (UIImage *)getImage;
+
+- (CGFloat)textPaddingRight;
+
+- (CGFloat)width:(CGFloat)viewWidth;
+
+- (CGFloat)paddingBottomText;
+
+- (CGFloat)paddingTopText;
+
 - (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth;
 
 - (NSString *)getBubbleViewConstraint;
