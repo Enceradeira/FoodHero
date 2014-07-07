@@ -18,8 +18,6 @@
 
 @implementation ConversationViewController
 {
-    ConversationBubbleFoodHero *_foodHeroBubble;
-    ConversationBubbleUser *_userBubble;
     ConversationAppService *_appService;
 }
 
@@ -35,16 +33,6 @@
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
     return backgroundView;
-}
-
-- (ConversationBubbleFoodHero*)createFoodHeroBubble
-{
-   return [[ConversationBubbleFoodHero alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" viewWitdh:_conversationBubbleView.frame.size.width];
-}
-
-- (ConversationBubbleUser*)createUserBubble
-{
-    return [[ConversationBubbleUser alloc] initWithText:@"British or Indian food" semanticId:@"UserAnswer:British or Indian food" viewWitdh:_conversationBubbleView.frame.size.width];
 }
 
 - (void)viewDidLoad
@@ -63,8 +51,6 @@
     
     [backgroundView setFrame:_conversationBubbleView.frame];
     _conversationBubbleView.backgroundView = backgroundView;
-    
-    _foodHeroBubble = [self createFoodHeroBubble];
 }
 
 - (void)viewWillLayoutSubviews
@@ -80,43 +66,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (ConversationBubble *)getStatement:(NSIndexPath *)indexPath
+{
+    ConversationBubble* bubble = [_appService getStatement:indexPath.row bubbleWidth:_conversationBubbleView.frame.size.width];
+    return bubble;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return _foodHeroBubble.height;
+    return [self getStatement:indexPath].height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1+(_userBubble==nil?0:1);
+    return [_appService getStatementCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ConversationBubbleTableViewCell *cell;
-    if( indexPath.row == 0){
-        cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_foodHeroBubble.cellId forIndexPath:indexPath];
-        _foodHeroBubble = [self createFoodHeroBubble]; // update bubble in case width has changed
-        cell.bubble = _foodHeroBubble;
-    }
-    else
-    {
-        cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:_userBubble.cellId forIndexPath:indexPath];
-        _userBubble = [self createUserBubble];
-        cell.bubble = _userBubble;
-    }
+    ConversationBubble *bubble = [self getStatement:indexPath];
+    ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
+    cell.bubble = bubble;
     return cell;
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
-    if(_userBubble != nil)
-    {
-        return;
-    }
-    _userBubble = [self createUserBubble];
-    NSIndexPath *indexNewRow = [NSIndexPath indexPathForItem:1 inSection:0];
-    NSArray *newRows = [NSArray arrayWithObject:indexNewRow];
-   
-    [_conversationBubbleView insertRowsAtIndexPaths: newRows withRowAnimation: UITableViewRowAnimationFade];
+    [_appService addStatement:@"British or Indian food"];
+    
+    NSInteger newIndex = [_appService getStatementCount]-1;
+    
+    NSIndexPath *indexNewRow = [NSIndexPath indexPathForItem:newIndex inSection:0];
+    NSArray *indexNewRows = [NSArray arrayWithObject:indexNewRow];
+    [_conversationBubbleView insertRowsAtIndexPaths: indexNewRows withRowAnimation: UITableViewRowAnimationFade];
 }
 
 /*

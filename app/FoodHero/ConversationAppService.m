@@ -35,6 +35,11 @@
     [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@",statement]]];
 }
 
+-(NSInteger)getStatementCount
+{
+    return [_statements count];
+}
+
 -(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth
 {
     if (index > [_statements count]-1)

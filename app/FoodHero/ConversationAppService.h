@@ -12,4 +12,5 @@
 @interface ConversationAppService : NSObject
 -(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 -(void) addStatement:(NSString*)statement;
+-(NSInteger)getStatementCount;
 @end

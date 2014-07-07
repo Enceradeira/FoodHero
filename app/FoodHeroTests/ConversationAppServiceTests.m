@@ -89,4 +89,16 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble.semanticId, is(equalTo(@"UserAnswer:British or Indian Food")));
 }
 
+-(void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation
+{
+    assertThatInteger([_service getStatementCount], is(equalToInteger(1)));
+    
+    [_service addStatement:@"British or Indian Food"];
+    assertThatInteger([_service getStatementCount], is(equalToInteger(2)));
+    
+    [_service addStatement:@"It's too far away"];
+    assertThatInteger([_service getStatementCount], is(equalToInteger(3)));
+}
+
+
 @end
