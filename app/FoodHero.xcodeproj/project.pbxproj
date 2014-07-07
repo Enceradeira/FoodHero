@@ -201,12 +201,8 @@
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
-				8F6F3D6B1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.h */,
-				8F6F3D6C1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m */,
 				8F54745919619C0D00843FEE /* NavigationController.h */,
 				8F54745A19619C0D00843FEE /* NavigationController.m */,
-				8F54745D1961F0D900843FEE /* ConversationViewController.h */,
-				8F54745E1961F0DA00843FEE /* ConversationViewController.m */,
 			);
 			path = FoodHero;
 			sourceTree = "<group>";
@@ -231,7 +227,6 @@
 				8FCC7652196A874F00AA9A6F /* Conversation */,
 				8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
-				8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */,
 			);
 			path = FoodHeroTests;
 			sourceTree = "<group>";
@@ -248,14 +243,43 @@
 		8FCC764C196A84DF00AA9A6F /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				8FCC766A196AAAE000AA9A6F /* Domain */,
+				8FCC7669196AAACC00AA9A6F /* UserInterface */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
+		8FCC7652196A874F00AA9A6F /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				8FCC766C196AAB4400AA9A6F /* Domain */,
+				8FCC766B196AAB3A00AA9A6F /* UserInterface */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
+		8FCC7669196AAACC00AA9A6F /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
 				8F6F3D711966ACDA003F7AC0 /* ConversationBubbleFoodHero.h */,
 				8F6F3D721966ACDA003F7AC0 /* ConversationBubbleFoodHero.m */,
 				8F60D0E41969ABE0007324B6 /* ConversationBubbleUser.h */,
+				8F6F3D6B1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.h */,
+				8F6F3D6C1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m */,
+				8F54745D1961F0D900843FEE /* ConversationViewController.h */,
+				8F54745E1961F0DA00843FEE /* ConversationViewController.m */,
 				8F60D0E51969ABE0007324B6 /* ConversationBubbleUser.m */,
 				8F6F3D6E1966ABDE003F7AC0 /* ConversationBubble.h */,
 				8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */,
 				8FCC764D196A852400AA9A6F /* ConversationAppService.h */,
 				8FCC764E196A852400AA9A6F /* ConversationAppService.m */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		8FCC766A196AAAE000AA9A6F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
 				8FCC765A196A9B9100AA9A6F /* Statement.h */,
 				8FCC765B196A9B9100AA9A6F /* Statement.m */,
 				8FCC765D196AA43600AA9A6F /* FoodHero.h */,
@@ -267,15 +291,23 @@
 				8FCC7666196AA58200AA9A6F /* Personas.h */,
 				8FCC7667196AA58200AA9A6F /* Personas.m */,
 			);
-			name = Conversation;
+			name = Domain;
 			sourceTree = "<group>";
 		};
-		8FCC7652196A874F00AA9A6F /* Conversation */ = {
+		8FCC766B196AAB3A00AA9A6F /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */,
 				8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */,
 			);
-			name = Conversation;
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		8FCC766C196AAB4400AA9A6F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
