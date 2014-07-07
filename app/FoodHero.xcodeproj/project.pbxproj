@@ -33,6 +33,8 @@
 		8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */; };
 		8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC764E196A852400AA9A6F /* ConversationAppService.m */; };
 		8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */; };
+		8FCC7659196A994700AA9A6F /* DesignByContractException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7654196A95D300AA9A6F /* DesignByContractException.m */; };
+		8FCC765C196A9B9100AA9A6F /* Statement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC765B196A9B9100AA9A6F /* Statement.m */; };
 		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */; };
 		8FD619211966F01500B57343 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD619201966F01500B57343 /* ControllerFactory.m */; };
@@ -91,6 +93,10 @@
 		8FCC764D196A852400AA9A6F /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
 		8FCC764E196A852400AA9A6F /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
 		8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceTests.m; sourceTree = "<group>"; };
+		8FCC7653196A95D300AA9A6F /* DesignByContractException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DesignByContractException.h; path = FoodHeroTests/DesignByContractException.h; sourceTree = SOURCE_ROOT; };
+		8FCC7654196A95D300AA9A6F /* DesignByContractException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DesignByContractException.m; path = FoodHeroTests/DesignByContractException.m; sourceTree = SOURCE_ROOT; };
+		8FCC765A196A9B9100AA9A6F /* Statement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statement.h; sourceTree = "<group>"; };
+		8FCC765B196A9B9100AA9A6F /* Statement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statement.m; sourceTree = "<group>"; };
 		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD6191D1966EEDE00B57343 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		8FD6191F1966F01500B57343 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
@@ -127,6 +133,8 @@
 		8F54745C1961A36200843FEE /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				8FCC7653196A95D300AA9A6F /* DesignByContractException.h */,
+				8FCC7654196A95D300AA9A6F /* DesignByContractException.m */,
 				8F54745319619A2300843FEE /* TyphoonBuilder.h */,
 				8F54745419619A2300843FEE /* TyphoonBuilder.m */,
 				8F54745619619AA300843FEE /* ApplicationAssembly.h */,
@@ -236,6 +244,8 @@
 				8F6F3D6F1966ABDE003F7AC0 /* ConversationBubble.m */,
 				8FCC764D196A852400AA9A6F /* ConversationAppService.h */,
 				8FCC764E196A852400AA9A6F /* ConversationAppService.m */,
+				8FCC765A196A9B9100AA9A6F /* Statement.h */,
+				8FCC765B196A9B9100AA9A6F /* Statement.m */,
 			);
 			name = Conversation;
 			sourceTree = "<group>";
@@ -414,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FCC7659196A994700AA9A6F /* DesignByContractException.m in Sources */,
 				8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */,
 				8FD619211966F01500B57343 /* ControllerFactory.m in Sources */,
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
@@ -424,6 +435,7 @@
 				8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */,
 				8F6F3D731966ACDA003F7AC0 /* ConversationBubbleFoodHero.m in Sources */,
 				8FCBADDD19614B83001ED357 /* AppDelegate.m in Sources */,
+				8FCC765C196A9B9100AA9A6F /* Statement.m in Sources */,
 				8F6F3D701966ABDE003F7AC0 /* ConversationBubble.m in Sources */,
 				8FCBADD919614B83001ED357 /* main.m in Sources */,
 			);

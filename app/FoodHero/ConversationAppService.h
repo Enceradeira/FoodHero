@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ConversationBubble.h"
 
 @interface ConversationAppService : NSObject
-
+-(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
+-(void) addStatement:(NSString*)statement;
 @end
