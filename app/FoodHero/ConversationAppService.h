@@ -12,9 +12,12 @@
 
 @interface ConversationAppService : NSObject
 
--(id)initWithService:(ConversationRepository*) conversationRepository;
--(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
--(void) addStatement:(NSString*)statement;
--(NSInteger)getStatementCount;
+- (id)initWithService:(ConversationRepository *)conversationRepository;
+
+- (ConversationBubble *)getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
+
+- (void)addStatement:(NSString *)statement;
+
+- (NSInteger)getStatementCount;
 
 @end

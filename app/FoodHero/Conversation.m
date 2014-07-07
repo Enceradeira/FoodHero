@@ -10,39 +10,32 @@
 #import "Personas.h"
 #import "DesignByContractException.h"
 
-@implementation Conversation
-{
-        NSMutableArray *_statements;
+@implementation Conversation {
+    NSMutableArray *_statements;
 }
 
--(id)init
-{
+- (id)init {
     self = [super init];
-    if(self != nil)
-    {
+    if (self != nil) {
         _statements = [NSMutableArray new];
-        [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" persona: Personas.foodHero]];
+        [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" persona:Personas.foodHero]];
     }
     return self;
 }
 
--(Statement*)getStatement:(NSInteger)index
-{
-    if (index > [_statements count]-1)
-    {
-        @throw [[DesignByContractException alloc] initWithReason:[NSString stringWithFormat:@"no conversation exists at index %ld", (long)index]];
+- (Statement *)getStatement:(NSInteger)index {
+    if (index > [_statements count] - 1) {
+        @throw [[DesignByContractException alloc] initWithReason:[NSString stringWithFormat:@"no conversation exists at index %ld", (long) index]];
     }
 
     return _statements[index];
 }
 
--(void) addStatement:(NSString*)statement
-{
-    [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@",statement] persona:Personas.user]];
+- (void)addStatement:(NSString *)statement {
+    [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement] persona:Personas.user]];
 }
 
--(NSInteger)getStatementCount
-{
+- (NSInteger)getStatementCount {
     return _statements.count;
 }
 

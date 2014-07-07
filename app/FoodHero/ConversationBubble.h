@@ -10,13 +10,14 @@
 
 @interface ConversationBubble : NSObject
 
-@property (readonly) CGFloat height;
-@property (readonly) NSString* cellId;
-@property (readonly) UIImage* image;
-@property (readonly) NSString* text;
-@property (readonly) NSString* semanticId;
+@property(readonly) CGFloat height;
+@property(readonly) NSString *cellId;
+@property(readonly) UIImage *image;
+@property(readonly) NSString *text;
+@property(readonly) NSString *semanticId;
 
--(id) initWithText:(NSString*) text semanticId: (NSString*)semanticId viewWitdh: (CGFloat) viewWidth;
-- (NSString*) getBubbleViewConstraint;
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth;
+
+- (NSString *)getBubbleViewConstraint;
 
 @end

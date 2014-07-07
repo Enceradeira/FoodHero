@@ -11,7 +11,9 @@
 #import "ConversationViewController.h"
 
 @interface TyphoonBuilder : NSObject
-+ (TyphoonComponentFactory*) createFactory:(TyphoonAssembly*) assembly;
-+ (TyphoonStoryboard*) createStoryboardFromFactory:(TyphoonComponentFactory*) factory;
++ (TyphoonComponentFactory *)createFactory:(TyphoonAssembly *)assembly;
+
++ (TyphoonStoryboard *)createStoryboardFromFactory:(TyphoonComponentFactory *)factory;
+
 + (TyphoonStoryboard *)createStoryboardFromAssembly:(TyphoonAssembly *)assembly;
 @end

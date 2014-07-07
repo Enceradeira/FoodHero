@@ -10,10 +10,9 @@
 #import "ControllerFactory.h"
 
 @implementation ControllerFactory
-+ (ConversationViewController *)createConversationViewController:(TyphoonAssembly *)assembly
-{
++ (ConversationViewController *)createConversationViewController:(TyphoonAssembly *)assembly {
     TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromAssembly:assembly];
-    
+
     return [storyboard instantiateViewControllerWithIdentifier:@"ConversationViewController"];
 }
 @end

@@ -10,6 +10,7 @@
 #import "Persona.h"
 
 @interface Personas : NSObject
-+(Persona*) foodHero;
-+(Persona*) user;
++ (Persona *)foodHero;
+
++ (Persona *)user;
 @end

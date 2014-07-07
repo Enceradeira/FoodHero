@@ -11,6 +11,6 @@
 
 @interface ConversationRepository : NSObject
 
--(Conversation*)get;
+- (Conversation *)get;
 
 @end

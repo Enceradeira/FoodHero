@@ -14,17 +14,15 @@ FoodHero *_foodHero;
 AnonymousUser *_user;
 
 @implementation Personas
-+(Persona*) foodHero
-{
-    if (_foodHero==nil) {
++ (Persona *)foodHero {
+    if (_foodHero == nil) {
         _foodHero = [FoodHero new];
     }
     return _foodHero;
 }
-+(Persona*) user
-{
-    if (_user==nil)
-    {
+
++ (Persona *)user {
+    if (_user == nil) {
         _user = [AnonymousUser new];
     }
     return _user;

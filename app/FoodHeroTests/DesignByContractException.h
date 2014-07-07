@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface DesignByContractException : NSException
--(id)initWithReason:(NSString*) reason;
+- (id)initWithReason:(NSString *)reason;
 @end

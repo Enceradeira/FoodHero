@@ -8,14 +8,11 @@
 
 #import "ConversationRepository.h"
 
-@implementation ConversationRepository
-{
+@implementation ConversationRepository {
     Conversation *_onlyConversation;
 }
--(Conversation*)get
-{
-    if( _onlyConversation == nil )
-    {
+- (Conversation *)get {
+    if (_onlyConversation == nil) {
         _onlyConversation = [Conversation new];
     }
     return _onlyConversation;

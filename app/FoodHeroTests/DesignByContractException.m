@@ -9,8 +9,7 @@
 #import "DesignByContractException.h"
 
 @implementation DesignByContractException
--(id)initWithReason:(NSString*) reason
-{
+- (id)initWithReason:(NSString *)reason {
     self = [super initWithName:@"DesignByContractException" reason:reason userInfo:nil];
     return self;
 }

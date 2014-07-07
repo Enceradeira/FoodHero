@@ -9,42 +9,37 @@
 #import "ApplicationAssembly.h"
 #import "NavigationController.h"
 #import "ConversationViewController.h"
-#import "ConversationRepository.h"
 
 @implementation ApplicationAssembly
-- (id)navigationViewController
-{
+- (id)navigationViewController {
     return [TyphoonDefinition withClass:[NavigationController class]];
 }
 
-- (id) conversationViewController
-{
+- (id)conversationViewController {
     return [TyphoonDefinition
             withClass:[ConversationViewController class]
-            configuration:^(TyphoonDefinition* definition) {
+        configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
                     [method injectParameterWith:[self conversationAppService]];
-                    
+
                 }];
             }
-            ];
+    ];
 }
 
-- (id) conversationAppService
-{
+- (id)conversationAppService {
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
-            configuration:^(TyphoonDefinition* definition) {
+        configuration:^(TyphoonDefinition *definition) {
                 [definition useInitializer:@selector(initWithService:) parameters:^(TyphoonMethod *method) {
                     [method injectParameterWith:[self conversationRepository]];
-                    
+
                 }];
             }
-            ];
+    ];
 }
 
--(id)conversationRepository
-{
+- (id)conversationRepository {
     return [TyphoonDefinition withClass:[ConversationRepository class]];
 }
 @end

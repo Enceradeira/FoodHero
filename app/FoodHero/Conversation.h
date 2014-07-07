@@ -11,8 +11,10 @@
 
 @interface Conversation : NSObject
 
--(Statement*)getStatement:(NSInteger)index;
--(void) addStatement:(NSString*)statement;
--(NSInteger)getStatementCount;
+- (Statement *)getStatement:(NSInteger)index;
+
+- (void)addStatement:(NSString *)statement;
+
+- (NSInteger)getStatementCount;
 
 @end

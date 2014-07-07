@@ -7,6 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
+#pragma ide diagnostic ignored "objc_incompatible_pointers"
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCDFAInspection"
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
@@ -69,3 +72,5 @@ const CGFloat landscapeWidth = 400;
 }
 
 @end
+
+#pragma clang diagnostic pop

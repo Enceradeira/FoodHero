@@ -9,17 +9,17 @@
 #import "TyphoonBuilder.h"
 
 @implementation TyphoonBuilder
-+ (TyphoonComponentFactory*) createFactory:(TyphoonAssembly*) assembly
-{
++ (TyphoonComponentFactory *)createFactory:(TyphoonAssembly *)assembly {
     return [[TyphoonBlockComponentFactory alloc] initWithAssemblies:@[assembly]];
 }
-+ (TyphoonStoryboard*) createStoryboardFromFactory:(TyphoonComponentFactory*) factory{
+
++ (TyphoonStoryboard *)createStoryboardFromFactory:(TyphoonComponentFactory *)factory {
     NSString *storyboardName = @"Main";
     return [TyphoonStoryboard storyboardWithName:storyboardName factory:factory bundle:nil];
 }
-+ (TyphoonStoryboard *)createStoryboardFromAssembly:(TyphoonAssembly *)assembly
-{
-    TyphoonComponentFactory* factory = [TyphoonBuilder createFactory:assembly];
+
++ (TyphoonStoryboard *)createStoryboardFromAssembly:(TyphoonAssembly *)assembly {
+    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:assembly];
     TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromFactory:factory];
     return storyboard;
 }

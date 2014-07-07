@@ -9,54 +9,43 @@
 #import "ConversationAppService.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
-#import "DesignByContractException.h"
-#import "Statement.h"
 #import "Personas.h"
-#import "ConversationRepository.h"
 
-@implementation ConversationAppService
-{
+@implementation ConversationAppService {
     NSMutableDictionary *_bubbles;
     Conversation *_conversation;
 }
 
--(id)initWithService:(ConversationRepository*) conversationRepository
-{
+- (id)initWithService:(ConversationRepository *)conversationRepository {
     self = [super init];
-    if(self != nil)
-    {
+    if (self != nil) {
         _bubbles = [NSMutableDictionary new];
         _conversation = conversationRepository.get;
     }
     return self;
 }
 
--(void) addStatement:(NSString*)statement
-{
+- (void)addStatement:(NSString *)statement {
     [_conversation addStatement:statement];
 }
 
--(NSInteger)getStatementCount
-{
+- (NSInteger)getStatementCount {
     return _conversation.getStatementCount;
 }
 
--(ConversationBubble*) getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth
-{
-    NSString *key = [NSString stringWithFormat:@"%ld-%ld", (long)index, (long)bubbleWidth];
-    ConversationBubble *bubble = [_bubbles objectForKey: key];
-    if(bubble == nil ){
+- (ConversationBubble *)getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth {
+    NSString *key = [NSString stringWithFormat:@"%ld-%ld", (long) index, (long) bubbleWidth];
+    ConversationBubble *bubble = [_bubbles objectForKey:key];
+    if (bubble == nil) {
         Statement *statement = [_conversation getStatement:index];
-        
-        if(statement.persona == Personas.foodHero)
-        {
+
+        if (statement.persona == Personas.foodHero) {
             bubble = [[ConversationBubbleFoodHero alloc] initWithText:statement.text semanticId:statement.semanticId viewWitdh:bubbleWidth];
         }
-        else
-        {
+        else {
             bubble = [[ConversationBubbleUser alloc] initWithText:statement.text semanticId:statement.semanticId viewWitdh:bubbleWidth];
         }
-        
+
         [_bubbles setObject:bubble forKey:key];
     }
     return bubble;

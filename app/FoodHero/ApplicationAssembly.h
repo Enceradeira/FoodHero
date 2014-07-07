@@ -9,11 +9,14 @@
 #import "TyphoonAssembly.h"
 
 @protocol ApplicationAssembly
-- (id) navigationViewController;
-- (id) conversationViewController;
-- (id) conversationAppService;
-- (id) conversationRepository;
+- (id)navigationViewController;
+
+- (id)conversationViewController;
+
+- (id)conversationAppService;
+
+- (id)conversationRepository;
 @end
 
-@interface ApplicationAssembly : TyphoonAssembly<ApplicationAssembly>
+@interface ApplicationAssembly : TyphoonAssembly <ApplicationAssembly>
 @end

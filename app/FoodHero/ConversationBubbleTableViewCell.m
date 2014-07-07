@@ -8,37 +8,33 @@
 
 #import "ConversationBubbleTableViewCell.h"
 
-@implementation ConversationBubbleTableViewCell
-{
+@implementation ConversationBubbleTableViewCell {
     UIImageView *_bubbleView;
     ConversationBubble *_bubble;
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
+
     // Configure the view for the selected state
 }
 
-- (void)setBubble:(ConversationBubble *)bubble
-{
+- (void)setBubble:(ConversationBubble *)bubble {
     UIView *containerView = [self contentView];
-    if(_bubbleView != nil){
+    if (_bubbleView != nil) {
         [_bubbleView removeFromSuperview];
         _bubbleView = nil;
     }
-    
+
     _bubble = bubble;
-    _bubbleView = [[UIImageView alloc] initWithImage: bubble.image];
+    _bubbleView = [[UIImageView alloc] initWithImage:bubble.image];
     [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
     // following makes element accessable from acceptance tests
     [self setIsAccessibilityElement:YES];
     self.accessibilityLabel = bubble.text;
@@ -53,13 +49,12 @@
     */
 
     [containerView addSubview:_bubbleView];
-    
+
     NSArray *bubbleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[bubble getBubbleViewConstraint] options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bubbleView)];
     [containerView addConstraints:bubbleConstraints];
 }
 
-- (ConversationBubble*)bubble
-{
+- (ConversationBubble *)bubble {
     return _bubble;
 }
 @end

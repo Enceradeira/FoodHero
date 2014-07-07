@@ -11,10 +11,10 @@
 
 @interface Statement : NSObject
 
-@property NSString* text;
-@property NSString* semanticId;
-@property Persona* persona;
+@property NSString *text;
+@property NSString *semanticId;
+@property Persona *persona;
 
--(id)initWithText:(NSString*)text semanticId:(NSString*)semanticId persona:(Persona*)persona;
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona;
 
 @end
