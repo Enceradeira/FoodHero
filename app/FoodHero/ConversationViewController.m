@@ -77,13 +77,19 @@
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
+    NSInteger oldCount = [_appService getStatementCount];
+
     [_appService addStatement:@"British food"];
 
-    NSInteger newIndex = [_appService getStatementCount] - 1;
+    NSInteger newCount = [_appService getStatementCount];
+    NSInteger nrNewStatements = newCount - oldCount;
 
-    NSIndexPath *indexNewRow = [NSIndexPath indexPathForItem:newIndex inSection:0];
-    NSArray *indexNewRows = [NSArray arrayWithObject:indexNewRow];
-    [_conversationBubbleView insertRowsAtIndexPaths:indexNewRows withRowAnimation:UITableViewRowAnimationFade];
+    NSMutableArray *newIndexes = [NSMutableArray new];
+    for (int i = 0; i < nrNewStatements; i++) {
+        [newIndexes addObject:[NSIndexPath indexPathForItem:oldCount+i inSection:0]];
+    }
+
+    [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
 }
 
 /*

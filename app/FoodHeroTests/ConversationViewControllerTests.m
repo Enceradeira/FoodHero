@@ -22,6 +22,7 @@
 @implementation ConversationViewControllerTests
 {
     ConversationViewController *_ctrl;
+    UITableView *_bubbleView;
 }
 
 - (void)setUp
@@ -32,44 +33,43 @@
     _ctrl= [ControllerFactory createConversationViewController:assembly];
     
     _ctrl.view.hidden = NO;
+    _bubbleView = _ctrl.conversationBubbleView;
 }
 
-- (ConversationBubbleTableViewCell *)assertLastRow:(UITableView *)bubbleView expectedNrOfRows:(NSUInteger) expectedNrOfRows
-{
-    NSInteger num = [bubbleView numberOfRowsInSection:0]; // this forces the cells to be loaded somehow
-    assertThatInteger(num, is(equalToInteger(expectedNrOfRows)));
-    ConversationBubbleTableViewCell* userAnswer = (ConversationBubbleTableViewCell*)[bubbleView visibleCells][expectedNrOfRows-1];
+- (ConversationBubbleTableViewCell *)assertRow:(NSUInteger)index {
+    NSInteger num = [_bubbleView numberOfRowsInSection:0]; // this forces the cells to be loaded somehow
+    assertThatInteger(num, is(greaterThan(@(index))));
+    ConversationBubbleTableViewCell* userAnswer = (ConversationBubbleTableViewCell*)[_bubbleView visibleCells][index];
+    assertThat(userAnswer, is(notNilValue()));
+    assertThat(userAnswer.bubble, is(notNilValue()));
     return userAnswer;
 }
 
-- (void)test_Controller_ShouldInitializeConversationBubbleView
-{
-    assertThat(_ctrl.conversationBubbleView, is(notNilValue()));
+- (void)test_Controller_ShouldInitializeConversationBubbleView {
+    assertThat(_bubbleView, is(notNilValue()));
 }
 
-- (void)test_Controller_ShouldGreatUserOnFirstRow
-{
-    UITableView *bubbleView = _ctrl.conversationBubbleView;
-   
-    ConversationBubbleTableViewCell *firstRow = [self assertLastRow:bubbleView expectedNrOfRows:1];
+- (void)test_Controller_ShouldGreatUserOnFirstRow {
+    ConversationBubbleTableViewCell *firstRow = [self assertRow:0];
     
-    assertThat(firstRow, is(notNilValue()));
-    assertThat(firstRow.bubble, is(notNilValue()));
     assertThat(firstRow.bubble.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
 }
 
 
--(void)test_Controller_ShouldDisplayUserAnswerOnSecondRow
-{
-    UITableView *bubbleView = _ctrl.conversationBubbleView;
-    
+-(void)test_userChoosesCuisine_ShouldDisplayUserAnswerOnSecondRow {
     [_ctrl userChoosesIndianOrBritishFood:self];
     
-    ConversationBubbleTableViewCell *userAnswer = [self assertLastRow:bubbleView expectedNrOfRows:2];
-    
-    assertThat(userAnswer, is(notNilValue()));
-    assertThat(userAnswer.bubble, is(notNilValue()));
+    ConversationBubbleTableViewCell *userAnswer = [self assertRow:1];
+
     assertThat(userAnswer.bubble.semanticId, is(equalTo(@"UserAnswer:British food")));
+}
+
+-(void)test_userChoosesCuisine_ShouldDisplaySuggestionOnThirdRow {
+    [_ctrl userChoosesIndianOrBritishFood:self];
+
+    ConversationBubbleTableViewCell *suggestion = [self assertRow:2];
+
+     assertThat(suggestion.bubble.semanticId, is(equalTo(@"Suggestion:King's Head, Norwich")));
 }
 
 @end

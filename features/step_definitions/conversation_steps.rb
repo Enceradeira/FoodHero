@@ -13,5 +13,6 @@ Then(/^User answers with British food$/) do
 end
 
 Then(/^FoodHero suggests 'King Head, Norwich'$/) do
-  pending
+  greeting_bubble = find_element :accessibility_id, "ConversationBubble-Suggestion:King's Head, Norwich"
+  expect(greeting_bubble).not_to be_nil
 end

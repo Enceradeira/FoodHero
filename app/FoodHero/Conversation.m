@@ -23,7 +23,7 @@
     return self;
 }
 
-- (Statement *)getStatement:(NSInteger)index {
+- (Statement *)getStatement:(NSUInteger)index {
     if (index > [_statements count] - 1) {
         @throw [[DesignByContractException alloc] initWithReason:[NSString stringWithFormat:@"no conversation exists at index %ld", (long) index]];
     }
@@ -33,9 +33,10 @@
 
 - (void)addStatement:(NSString *)statement {
     [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement] persona:Personas.user]];
+    [_statements addObject:[[Statement alloc] initWithText:@"Maybe you like the 'King's Head, Norwich'?" semanticId:[NSString stringWithFormat:@"Suggestion:%@", @"King's Head, Norwich"] persona:Personas.foodHero]];
 }
 
-- (NSInteger)getStatementCount {
+- (NSUInteger)getStatementCount {
     return _statements.count;
 }
 

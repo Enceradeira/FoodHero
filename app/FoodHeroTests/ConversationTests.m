@@ -1,4 +1,4 @@
-//
+ //
 //  ConversationTests.m
 //  FoodHero
 //
@@ -64,10 +64,19 @@
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(1)));
     
     [_conversation addStatement:@"British or Indian Food"];
-    assertThatInteger([_conversation getStatementCount], is(equalToInteger(2)));
-    
-    [_conversation addStatement:@"It's too far away"];
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(3)));
+}
+
+-(void)test_addStatement_ShouldCauseFoodHeroToRespond{
+    NSUInteger lastIndex = [_conversation getStatementCount]-1;
+    [_conversation addStatement:@"British Food"];
+
+    Statement *userStatement = [_conversation getStatement:lastIndex+1];
+    Statement *foodHeroResponse = [_conversation getStatement:lastIndex+2];
+
+    assertThat(foodHeroResponse, is(notNilValue()));
+    assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
+    assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:King's Head, Norwich")));
 }
 
 @end

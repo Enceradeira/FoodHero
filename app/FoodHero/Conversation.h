@@ -11,10 +11,10 @@
 
 @interface Conversation : NSObject
 
-- (Statement *)getStatement:(NSInteger)index;
+- (Statement *)getStatement:(NSUInteger)index;
 
 - (void)addStatement:(NSString *)statement;
 
-- (NSInteger)getStatementCount;
+- (NSUInteger)getStatementCount;
 
 @end
