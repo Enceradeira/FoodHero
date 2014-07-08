@@ -14,6 +14,7 @@
 #import "DefaultAssembly.h"
 #import "ControllerFactory.h"
 #import "ConversationBubbleTableViewCell.h"
+#import "TyphoonComponents.h"
 
 @interface ConversationViewControllerTests : XCTestCase
 
@@ -28,9 +29,9 @@
 - (void)setUp
 {
     [super setUp];
-    
-    TyphoonAssembly* assembly = [DefaultAssembly assembly];
-    _ctrl= [ControllerFactory createConversationViewController:assembly];
+
+    [TyphoonComponents configure:[DefaultAssembly assembly]];
+    _ctrl= [ControllerFactory createConversationViewController];
     
     _ctrl.view.hidden = NO;
     _bubbleView = _ctrl.conversationBubbleView;

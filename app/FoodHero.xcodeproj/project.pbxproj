@@ -12,7 +12,6 @@
 		23525FBEDE7B4732549F7342 /* TyphoonComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525143574F075BFDBD70B5 /* TyphoonComponents.m */; };
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
-		8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745419619A2300843FEE /* TyphoonBuilder.m */; };
 		8F54745819619AA300843FEE /* DefaultAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745719619AA300843FEE /* DefaultAssembly.m */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745E1961F0DA00843FEE /* ConversationViewController.m */; };
@@ -33,7 +32,6 @@
 		8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
-		8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */; };
 		8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */; };
 		8FCC764F196A852400AA9A6F /* ConversationAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC764E196A852400AA9A6F /* ConversationAppService.m */; };
 		8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC7650196A874800AA9A6F /* ConversationAppServiceTests.m */; };
@@ -76,8 +74,6 @@
 		2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.xcconfig"; path = "Pods/Pods-FoodHero.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		8F54745319619A2300843FEE /* TyphoonBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TyphoonBuilder.h; sourceTree = "<group>"; };
-		8F54745419619A2300843FEE /* TyphoonBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonBuilder.m; sourceTree = "<group>"; };
 		8F54745619619AA300843FEE /* DefaultAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultAssembly.h; sourceTree = "<group>"; };
 		8F54745719619AA300843FEE /* DefaultAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultAssembly.m; sourceTree = "<group>"; };
 		8F54745919619C0D00843FEE /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -109,7 +105,6 @@
 		8FCBADE519614B83001ED357 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationAssemblyTests.m; sourceTree = "<group>"; };
 		8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
 		8FCC764D196A852400AA9A6F /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
 		8FCC764E196A852400AA9A6F /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
@@ -172,8 +167,6 @@
 				8FD2FFDE196AFB2F002E922E /* ConversationRepository.h */,
 				8FD2FFDF196AFB2F002E922E /* ConversationRepository.m */,
 				8FCC7654196A95D300AA9A6F /* DesignByContractException.m */,
-				8F54745319619A2300843FEE /* TyphoonBuilder.h */,
-				8F54745419619A2300843FEE /* TyphoonBuilder.m */,
 				8F54745619619AA300843FEE /* DefaultAssembly.h */,
 				8F54745719619AA300843FEE /* DefaultAssembly.m */,
 				8FCBADDB19614B83001ED357 /* AppDelegate.h */,
@@ -255,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				8FCC7652196A874F00AA9A6F /* Conversation */,
-				8FCBADF119614B83001ED357 /* ApplicationAssemblyTests.m */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
 			);
 			path = FoodHeroTests;
@@ -528,7 +520,6 @@
 				8FCC7662196AA45300AA9A6F /* AnonymousUser.m in Sources */,
 				8FD619211966F01500B57343 /* ControllerFactory.m in Sources */,
 				8F54745B19619C0D00843FEE /* NavigationController.m in Sources */,
-				8F54745519619A2300843FEE /* TyphoonBuilder.m in Sources */,
 				8FCC7665196AA47D00AA9A6F /* Persona.m in Sources */,
 				8F6F3D6D1966ABB6003F7AC0 /* ConversationBubbleTableViewCell.m in Sources */,
 				8FD2FFE0196AFB2F002E922E /* ConversationRepository.m in Sources */,
@@ -552,7 +543,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FCBADF219614B83001ED357 /* ApplicationAssemblyTests.m in Sources */,
 				8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */,
 				8FD2FFE2196AFF9D002E922E /* ConversationRepositoryTests.m in Sources */,
 				8FD2FFE8196B01F7002E922E /* ConversationTests.m in Sources */,

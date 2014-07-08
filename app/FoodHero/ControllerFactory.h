@@ -10,5 +10,5 @@
 #import "ConversationViewController.h"
 
 @interface ControllerFactory : NSObject
-+ (ConversationViewController *)createConversationViewController:(TyphoonAssembly *)assembly;
++ (ConversationViewController *)createConversationViewController;
 @end

@@ -8,12 +8,12 @@
 
 #import <XCTest/XCTest.h>
 #pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCDFAInspection"
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
-#import "TyphoonBuilder.h"
 #import "DefaultAssembly.h"
+#import "TyphoonComponents.h"
+#import "ConversationRepository.h"
 
 @interface ConversationRepositoryTests : XCTestCase
 
@@ -28,9 +28,9 @@
 - (void)setUp
 {
     [super setUp];
-    
-    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[DefaultAssembly new]];
-    _repository =  [(DefaultAssembly *)factory conversationRepository ];
+
+    [TyphoonComponents configure:[DefaultAssembly new]];
+    _repository =  [(DefaultAssembly *)[TyphoonComponents factory] conversationRepository ];
 }
 #pragma clang diagnostic pop
 
@@ -44,5 +44,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop

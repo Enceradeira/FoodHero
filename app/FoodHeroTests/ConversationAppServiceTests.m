@@ -7,15 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
-#pragma ide diagnostic ignored "objc_incompatible_pointers"
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCDFAInspection"
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
-#import "TyphoonBuilder.h"
 #import "DefaultAssembly.h"
 #import "ConversationBubbleUser.h"
+#import "TyphoonComponents.h"
+#import "ConversationAppService.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -27,16 +25,18 @@ const CGFloat landscapeWidth = 400;
 @implementation ConversationAppServiceTests
 {
     ConversationAppService* _service;
-
 }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "objc_incompatible_pointers"
 - (void)setUp
 {
     [super setUp];
-    
-    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[DefaultAssembly new]];
-    _service =  [(DefaultAssembly *)factory conversationAppService ];
+
+    [TyphoonComponents configure:[DefaultAssembly new]];
+    _service =  [(DefaultAssembly *) [TyphoonComponents factory] conversationAppService];
 }
+#pragma clang diagnostic pop
 
 - (ConversationBubble *)getStatement:(NSInteger)index
 {
@@ -72,5 +72,3 @@ const CGFloat landscapeWidth = 400;
 }
 
 @end
-
-#pragma clang diagnostic pop

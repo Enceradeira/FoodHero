@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "TyphoonBuilder.h"
 #import "ControllerFactory.h"
+#import "TyphoonComponents.h"
 
 @implementation ControllerFactory
-+ (ConversationViewController *)createConversationViewController:(TyphoonAssembly *)assembly {
-    TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromAssembly:assembly];
++ (ConversationViewController *)createConversationViewController {
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
 
     return [storyboard instantiateViewControllerWithIdentifier:@"ConversationViewController"];
 }

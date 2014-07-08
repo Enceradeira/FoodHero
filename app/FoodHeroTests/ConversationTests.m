@@ -7,17 +7,14 @@
 //
 
 #import <XCTest/XCTest.h>
-#pragma ide diagnostic ignored "OCDFAInspection"
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "objc_incompatible_pointers"
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "TyphoonComponentFactory.h"
-#import "TyphoonBuilder.h"
 #import "DefaultAssembly.h"
+#import "TyphoonComponents.h"
 
  @interface ConversationTests : XCTestCase
 
@@ -27,14 +24,17 @@
 {
     Conversation *_conversation;
 }
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "objc_incompatible_pointers"
 - (void)setUp
 {
     [super setUp];
     
     _conversation = [Conversation new];
-    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[DefaultAssembly new]];
-    _conversation =  [(DefaultAssembly *)factory conversation];
+    [TyphoonComponents configure:[DefaultAssembly new]];
+    _conversation =  [(DefaultAssembly *)[TyphoonComponents factory] conversation ];
 }
+#pragma clang diagnostic pop
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
 {
@@ -79,7 +79,7 @@
     NSUInteger lastIndex = [_conversation getStatementCount]-1;
     [_conversation addStatement:@"British Food"];
 
-    Statement *userStatement = [_conversation getStatement:lastIndex+1];
+    // Statement *userStatement = [_conversation getStatement:lastIndex+1];
     Statement *foodHeroResponse = [_conversation getStatement:lastIndex+2];
 
     assertThat(foodHeroResponse, is(notNilValue()));
@@ -88,5 +88,3 @@
 }
 
 @end
-
-#pragma clang diagnostic pop
