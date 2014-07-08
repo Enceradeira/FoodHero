@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#pragma clang diagnostic push
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>

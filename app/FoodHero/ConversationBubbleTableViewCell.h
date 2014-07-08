@@ -11,6 +11,6 @@
 
 @interface ConversationBubbleTableViewCell : UITableViewCell
 
-@property ConversationBubble *bubble;
+@property(nonatomic) ConversationBubble *bubble;
 
 @end

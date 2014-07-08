@@ -8,26 +8,41 @@
 
 
 id <ApplicationAssembly> _assembly;
+TyphoonComponentFactory *_factory;
+TyphoonStoryboard *_storyboard;
 
 @implementation TyphoonComponents {
 
 }
 + (void)reset {
     _assembly = nil;
+    _factory = nil;
+    _storyboard = nil;
 }
 
 + (void)configure:(id <ApplicationAssembly>)assembly {
+    [self reset];
     _assembly = assembly;
 }
 
 + (TyphoonComponentFactory *)factory {
+    if (_factory != nil) {
+        return _factory;
+    }
+
     [self ensureAssembly];
-    return [self createFactory:_assembly];
+    _factory = [self createFactory:_assembly];
+    return _factory;
 }
 
 + (TyphoonStoryboard *)storyboard {
+    if (_storyboard != nil) {
+        return _storyboard;
+    }
+
     [self ensureAssembly];
-    return [self createStoryboardFromAssembly:_assembly];
+    _storyboard = [self createStoryboardFromAssembly:_assembly];
+    return _storyboard;
 }
 
 + (TyphoonComponentFactory *)createFactory:(id <ApplicationAssembly>)assembly {

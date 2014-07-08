@@ -3,7 +3,6 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-
 @protocol ApplicationAssembly
 - (id)navigationViewController;
 

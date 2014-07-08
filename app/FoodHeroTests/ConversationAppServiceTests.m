@@ -14,6 +14,7 @@
 #import "ConversationBubbleUser.h"
 #import "TyphoonComponents.h"
 #import "ConversationAppService.h"
+#import "StubAssembly.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -31,7 +32,7 @@ const CGFloat landscapeWidth = 400;
 {
     [super setUp];
 
-    [TyphoonComponents configure:[DefaultAssembly new]];
+    [TyphoonComponents configure:[StubAssembly new]];
     _service =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
 }
 

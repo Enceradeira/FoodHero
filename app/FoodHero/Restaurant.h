@@ -7,4 +7,9 @@
 
 
 @interface Restaurant : NSObject
+@property(nonatomic) NSString *place;
+
+@property(nonatomic) NSString *name;
+
++ (Restaurant *)createWithName:(NSString *)string place:(NSString *)place;
 @end

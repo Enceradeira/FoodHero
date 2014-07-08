@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Restaurant.h"
 
-@protocol RestaurantSearch <NSObject>
+@interface RestaurantSearch : NSObject
+- (Restaurant *)findBest;
 @end

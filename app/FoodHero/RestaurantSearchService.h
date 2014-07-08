@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RestaurantSearchService.h"
+#import "Restaurant.h"
 
-
-@interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
+@protocol RestaurantSearchService <NSObject>
+- (NSArray *)find;
 @end

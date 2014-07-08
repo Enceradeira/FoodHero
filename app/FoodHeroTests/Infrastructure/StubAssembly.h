@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RestaurantSearchService.h"
+#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 
-
-@interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
+@interface StubAssembly : DefaultAssembly<ApplicationAssembly>
 @end

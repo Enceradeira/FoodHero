@@ -14,10 +14,10 @@
 
 @implementation Conversation {
     NSMutableArray *_statements;
-    NSObject <RestaurantSearch> *_restaurantSearch;
+    RestaurantSearch *_restaurantSearch;
 }
 
-- (id)initWithDependencies: (NSObject <RestaurantSearch> *) restaurantSearch {
+- (id)initWithDependencies:(RestaurantSearch *)restaurantSearch {
     self = [super init];
     if (self != nil) {
         _restaurantSearch = restaurantSearch;
@@ -37,7 +37,12 @@
 
 - (void)addStatement:(NSString *)statement {
     [_statements addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement] persona:Personas.user]];
-    [_statements addObject:[[Statement alloc] initWithText:@"Maybe you like the 'King's Head, Norwich'?" semanticId:[NSString stringWithFormat:@"Suggestion:%@", @"King's Head, Norwich"] persona:Personas.foodHero]];
+
+    Restaurant *restaurant = [_restaurantSearch findBest];
+    NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.place];
+    NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
+
+    [_statements addObject:[[Statement alloc] initWithText:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", nameAndPlace] persona:Personas.foodHero]];
 }
 
 - (NSUInteger)getStatementCount {

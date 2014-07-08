@@ -10,11 +10,11 @@
 
 @interface ConversationBubble : NSObject
 
-@property(readonly) CGFloat height;
-@property(readonly) NSString *cellId;
-@property(readonly) UIImage *image;
-@property(readonly) NSString *text;
-@property(readonly) NSString *semanticId;
+@property(nonatomic, readonly) CGFloat height;
+@property(nonatomic, readonly) NSString *cellId;
+@property(nonatomic, readonly) UIImage *image;
+@property(nonatomic, readonly) NSString *text;
+@property(nonatomic, readonly) NSString *semanticId;
 
 - (CGFloat)textPaddingLeft;
 

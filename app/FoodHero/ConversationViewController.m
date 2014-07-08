@@ -86,7 +86,7 @@
 
     NSMutableArray *newIndexes = [NSMutableArray new];
     for (int i = 0; i < nrNewStatements; i++) {
-        [newIndexes addObject:[NSIndexPath indexPathForItem:oldCount+i inSection:0]];
+        [newIndexes addObject:[NSIndexPath indexPathForItem:oldCount + i inSection:0]];
     }
 
     [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];

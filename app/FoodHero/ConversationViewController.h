@@ -11,7 +11,7 @@
 
 @interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property(readonly) UITableView *conversationBubbleView;
+@property(nonatomic, readonly) UITableView *conversationBubbleView;
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender;
 

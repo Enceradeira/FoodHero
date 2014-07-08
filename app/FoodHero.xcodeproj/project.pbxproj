@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23525313440D10B31672E9A6 /* RestaurantSearchServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259B55AEBFD17D9B7D455 /* RestaurantSearchServiceStub.m */; };
 		2352555AE3624473A5BC7BC2 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352538EB4AA25171FB6F2A9 /* Restaurant.m */; };
+		2352559832C086E25ACC8F70 /* RestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FB4724DB232A46C11B2 /* RestaurantSearch.m */; };
 		23525A5A6472E304F48914DF /* GoogleRestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525CA018C27D04A8260B18 /* GoogleRestaurantSearch.m */; };
 		23525FBEDE7B4732549F7342 /* TyphoonComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525143574F075BFDBD70B5 /* TyphoonComponents.m */; };
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
@@ -15,6 +17,7 @@
 		8F54745819619AA300843FEE /* DefaultAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745719619AA300843FEE /* DefaultAssembly.m */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F54745F1961F0DA00843FEE /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745E1961F0DA00843FEE /* ConversationViewController.m */; };
+		8F5B7E75196C2F9A00F12328 /* StubAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C36BAE0B3164CAB1E14 /* StubAssembly.m */; };
 		8F60D0E31969ABC3007324B6 /* ConversationBubble-User@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */; };
 		8F60D0E61969ABE0007324B6 /* ConversationBubbleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F60D0E51969ABE0007324B6 /* ConversationBubbleUser.m */; };
 		8F6A2A1C196C216F00464A6E /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A2A1B196C216F00464A6E /* TyphoonComponentsTests.m */; };
@@ -64,13 +67,19 @@
 /* Begin PBXFileReference section */
 		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23525143574F075BFDBD70B5 /* TyphoonComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponents.m; sourceTree = "<group>"; };
+		2352537F4257B8FC2FFF8B66 /* RestaurantSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchService.h; sourceTree = "<group>"; };
 		2352538EB4AA25171FB6F2A9 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		235253A10E05499EAAA367D4 /* ApplicationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAssembly.h; sourceTree = "<group>"; };
 		2352543B711ACCA09E6C7623 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
-		235257DFD35891710A4B6D90 /* RestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearch.h; sourceTree = "<group>"; };
+		235259B55AEBFD17D9B7D455 /* RestaurantSearchServiceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchServiceStub.m; sourceTree = "<group>"; };
+		23525C36BAE0B3164CAB1E14 /* StubAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubAssembly.m; sourceTree = "<group>"; };
 		23525CA018C27D04A8260B18 /* GoogleRestaurantSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleRestaurantSearch.m; sourceTree = "<group>"; };
 		23525CC73861BAFAB099C3C0 /* GoogleRestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleRestaurantSearch.h; sourceTree = "<group>"; };
+		23525CC9AAC2504398E12E17 /* StubAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubAssembly.h; sourceTree = "<group>"; };
 		23525E072F5208D0FF8131D1 /* TyphoonComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TyphoonComponents.h; sourceTree = "<group>"; };
+		23525EDD826733085683A7C0 /* RestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearch.h; sourceTree = "<group>"; };
+		23525F37993AE5342CAB7B22 /* RestaurantSearchServiceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceStub.h; sourceTree = "<group>"; };
+		23525FB4724DB232A46C11B2 /* RestaurantSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearch.m; sourceTree = "<group>"; };
 		2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.xcconfig"; path = "Pods/Pods-FoodHero.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -160,6 +169,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2352548CDC3D1CE0E240A50A /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				23525C36BAE0B3164CAB1E14 /* StubAssembly.m */,
+				23525CC9AAC2504398E12E17 /* StubAssembly.h */,
+				235259B55AEBFD17D9B7D455 /* RestaurantSearchServiceStub.m */,
+				23525F37993AE5342CAB7B22 /* RestaurantSearchServiceStub.h */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
 		8F54745C1961A36200843FEE /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +269,7 @@
 			children = (
 				8FCC7652196A874F00AA9A6F /* Conversation */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
+				2352548CDC3D1CE0E240A50A /* Infrastructure */,
 			);
 			path = FoodHeroTests;
 			sourceTree = "<group>";
@@ -315,9 +336,11 @@
 				8FCC7667196AA58200AA9A6F /* Personas.m */,
 				8FD2FFE4196B0092002E922E /* Conversation.h */,
 				8FD2FFE5196B0092002E922E /* Conversation.m */,
-				235257DFD35891710A4B6D90 /* RestaurantSearch.h */,
 				2352538EB4AA25171FB6F2A9 /* Restaurant.m */,
 				2352543B711ACCA09E6C7623 /* Restaurant.h */,
+				2352537F4257B8FC2FFF8B66 /* RestaurantSearchService.h */,
+				23525FB4724DB232A46C11B2 /* RestaurantSearch.m */,
+				23525EDD826733085683A7C0 /* RestaurantSearch.h */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -536,6 +559,7 @@
 				2352555AE3624473A5BC7BC2 /* Restaurant.m in Sources */,
 				23525A5A6472E304F48914DF /* GoogleRestaurantSearch.m in Sources */,
 				23525FBEDE7B4732549F7342 /* TyphoonComponents.m in Sources */,
+				2352559832C086E25ACC8F70 /* RestaurantSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,11 +567,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F5B7E75196C2F9A00F12328 /* StubAssembly.m in Sources */,
 				8FCC7651196A874800AA9A6F /* ConversationAppServiceTests.m in Sources */,
 				8FD2FFE2196AFF9D002E922E /* ConversationRepositoryTests.m in Sources */,
 				8FD2FFE8196B01F7002E922E /* ConversationTests.m in Sources */,
 				8FD6191E1966EEDE00B57343 /* ConversationViewControllerTests.m in Sources */,
 				8F6A2A1C196C216F00464A6E /* TyphoonComponentsTests.m in Sources */,
+				23525313440D10B31672E9A6 /* RestaurantSearchServiceStub.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

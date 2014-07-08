@@ -11,22 +11,12 @@
 
 @implementation ConversationRepository {
     Conversation *_onlyConversation;
-    NSObject <RestaurantSearch> *_restaurantSearch;
-}
-
-- (id)initWithDependencies:(NSObject<RestaurantSearch>*) restaurantSearch
-{
-    self = [super init];
-    if( self != nil ){
-        _restaurantSearch = restaurantSearch;
-    }
-    return self;
 }
 
 - (Conversation *)get {
     if (_onlyConversation == nil) {
 
-        _onlyConversation = [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation];
+        _onlyConversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
     }
     return _onlyConversation;
 }

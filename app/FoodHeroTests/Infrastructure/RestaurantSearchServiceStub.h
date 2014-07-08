@@ -4,8 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Restaurant.h"
 #import "RestaurantSearchService.h"
 
-
-@interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
+@interface RestaurantSearchServiceStub : NSObject <RestaurantSearchService>
+- (void)injectSearchResult:(Restaurant *)restaurant;
 @end

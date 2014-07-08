@@ -10,6 +10,7 @@
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCDFAInspection"
+
 @implementation ConversationBubble {
     UIImage *_image;
     UIFont *_font;
@@ -18,7 +19,7 @@
 
 }
 
--  (UIImage *)getImage {
+- (UIImage *)getImage {
     [NSException raise:NSInternalInconsistencyException
                 format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
     return nil;

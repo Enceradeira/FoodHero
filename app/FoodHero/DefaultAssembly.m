@@ -10,6 +10,7 @@
 #import "NavigationController.h"
 #import "ConversationViewController.h"
 #import "GoogleRestaurantSearch.h"
+#import "RestaurantSearch.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -45,10 +46,20 @@
 }
 
 - (id)restaurantSearch {
+    return [TyphoonDefinition withClass:[RestaurantSearch class]
+                          configuration:^(TyphoonDefinition *definition) {
+                [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self restaurantSearchService]];
+
+                }];
+            }];
+}
+
+- (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
 }
 
--(id)conversation {
+- (id)conversation {
     return [TyphoonDefinition
             withClass:[Conversation class]
         configuration:^(TyphoonDefinition *definition) {

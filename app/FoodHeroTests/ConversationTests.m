@@ -15,6 +15,9 @@
 #import "TyphoonComponentFactory.h"
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
+#import "StubAssembly.h"
+#import "RestaurantSearchServiceStub.h"
+#import "Restaurant.h"
 
  @interface ConversationTests : XCTestCase
 
@@ -23,14 +26,15 @@
 @implementation ConversationTests
 {
     Conversation *_conversation;
+    RestaurantSearchServiceStub *_restaurantSearchStub;
 }
 
 - (void)setUp
 {
     [super setUp];
     
-    _conversation = [Conversation new];
-    [TyphoonComponents configure:[DefaultAssembly new]];
+    [TyphoonComponents configure:[StubAssembly new]];
+    _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
     _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
 }
 
@@ -74,6 +78,8 @@
 }
 
 -(void)test_addStatement_ShouldCauseFoodHeroToRespond{
+    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:@"King's Head" place:@"Great Yarmouth"]];
+
     NSUInteger lastIndex = [_conversation getStatementCount]-1;
     [_conversation addStatement:@"British Food"];
 
@@ -82,7 +88,7 @@
 
     assertThat(foodHeroResponse, is(notNilValue()));
     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-    assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:King's Head, Norwich")));
+    assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:King's Head, Great Yarmouth")));
 }
 
 @end
