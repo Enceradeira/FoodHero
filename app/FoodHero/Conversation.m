@@ -9,14 +9,18 @@
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
+#import "RestaurantSearch.h"
+
 
 @implementation Conversation {
     NSMutableArray *_statements;
+    NSObject <RestaurantSearch> *_restaurantSearch;
 }
 
-- (id)init {
+- (id)initWithDependencies: (NSObject <RestaurantSearch> *) restaurantSearch {
     self = [super init];
     if (self != nil) {
+        _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
         [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" persona:Personas.foodHero]];
     }

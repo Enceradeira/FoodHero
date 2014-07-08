@@ -16,7 +16,7 @@
     Conversation *_conversation;
 }
 
-- (id)initWithService:(ConversationRepository *)conversationRepository {
+- (id)initWithDependencies:(ConversationRepository *)conversationRepository {
     self = [super init];
     if (self != nil) {
         _bubbles = [NSMutableDictionary new];

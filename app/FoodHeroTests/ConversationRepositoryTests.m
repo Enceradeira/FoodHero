@@ -13,7 +13,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
 #import "TyphoonBuilder.h"
-#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 
 @interface ConversationRepositoryTests : XCTestCase
 
@@ -29,8 +29,8 @@
 {
     [super setUp];
     
-    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[ApplicationAssembly new]];
-    _repository =  [(ApplicationAssembly*)factory conversationRepository ];
+    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[DefaultAssembly new]];
+    _repository =  [(DefaultAssembly *)factory conversationRepository ];
 }
 #pragma clang diagnostic pop
 

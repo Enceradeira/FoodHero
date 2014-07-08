@@ -11,7 +11,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
 #import "ConversationViewController.h"
-#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 #import "ControllerFactory.h"
 #import "ConversationBubbleTableViewCell.h"
 
@@ -29,7 +29,7 @@
 {
     [super setUp];
     
-    TyphoonAssembly* assembly = [ApplicationAssembly assembly];
+    TyphoonAssembly* assembly = [DefaultAssembly assembly];
     _ctrl= [ControllerFactory createConversationViewController:assembly];
     
     _ctrl.view.hidden = NO;

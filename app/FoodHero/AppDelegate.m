@@ -8,13 +8,13 @@
 
 #import <Typhoon.h>
 #import "AppDelegate.h"
-#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 #import "TyphoonBuilder.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    TyphoonAssembly *assembly = [ApplicationAssembly assembly];
+    TyphoonAssembly *assembly = [DefaultAssembly assembly];
     TyphoonStoryboard *storyboard = [TyphoonBuilder createStoryboardFromAssembly:assembly];
 
     self.window.rootViewController = [storyboard instantiateInitialViewController];

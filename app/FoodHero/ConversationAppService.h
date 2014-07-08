@@ -12,7 +12,7 @@
 
 @interface ConversationAppService : NSObject
 
-- (id)initWithService:(ConversationRepository *)conversationRepository;
+- (id)initWithDependencies:(ConversationRepository *)conversationRepository;
 
 - (ConversationBubble *)getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 

@@ -11,6 +11,8 @@
 
 @interface ConversationRepository : NSObject
 
+- (id)initWithDependencies:(NSObject <RestaurantSearch> *)restaurantSearch;
+
 - (Conversation *)get;
 
 @end

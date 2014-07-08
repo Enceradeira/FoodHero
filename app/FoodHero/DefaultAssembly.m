@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 co.uk.jennius. All rights reserved.
 //
 
-#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 #import "NavigationController.h"
 #import "ConversationViewController.h"
+#import "GoogleRestaurantSearch.h"
 
-@implementation ApplicationAssembly
+@implementation DefaultAssembly
 - (id)navigationViewController {
     return [TyphoonDefinition withClass:[NavigationController class]];
 }
@@ -31,7 +32,7 @@
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
         configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithService:) parameters:^(TyphoonMethod *method) {
+                [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
                     [method injectParameterWith:[self conversationRepository]];
 
                 }];
@@ -41,5 +42,21 @@
 
 - (id)conversationRepository {
     return [TyphoonDefinition withClass:[ConversationRepository class]];
+}
+
+- (id)restaurantSearch {
+    return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
+}
+
+-(id)conversation {
+    return [TyphoonDefinition
+            withClass:[Conversation class]
+        configuration:^(TyphoonDefinition *definition) {
+                [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self restaurantSearch]];
+
+                }];
+            }
+    ];
 }
 @end

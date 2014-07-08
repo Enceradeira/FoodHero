@@ -7,13 +7,19 @@
 //
 
 #import <XCTest/XCTest.h>
+#pragma ide diagnostic ignored "OCDFAInspection"
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "objc_incompatible_pointers"
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
+#import "TyphoonComponentFactory.h"
+#import "TyphoonBuilder.h"
+#import "DefaultAssembly.h"
 
-@interface ConversationTests : XCTestCase
+ @interface ConversationTests : XCTestCase
 
 @end
 
@@ -26,6 +32,8 @@
     [super setUp];
     
     _conversation = [Conversation new];
+    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[DefaultAssembly new]];
+    _conversation =  [(DefaultAssembly *)factory conversation];
 }
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
@@ -80,3 +88,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

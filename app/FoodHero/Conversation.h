@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "Statement.h"
+#import "RestaurantSearch.h"
 
 @interface Conversation : NSObject
+
+- (id)initWithDependencies:(NSObject<RestaurantSearch> *)restaurantSearch;
 
 - (Statement *)getStatement:(NSUInteger)index;
 

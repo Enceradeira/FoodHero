@@ -1,15 +1,9 @@
 //
-//  JENAppAssembly.h
-//  HelloWorldApp
-//
-//  Created by Jorg on 10/06/2014.
-//  Copyright (c) 2014 co.uk.jennius. All rights reserved.
+// Created by Jorg on 08/07/2014.
+// Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "TyphoonAssembly.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedMethodInspection"
 @protocol ApplicationAssembly
 - (id)navigationViewController;
 
@@ -18,9 +12,8 @@
 - (id)conversationAppService;
 
 - (id)conversationRepository;
-@end
 
-@interface ApplicationAssembly : TyphoonAssembly <ApplicationAssembly>
-@end
+- (id)restaurantSearch;
 
-#pragma clang diagnostic pop
+- (id)conversation;
+@end

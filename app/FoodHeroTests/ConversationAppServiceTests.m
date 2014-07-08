@@ -14,7 +14,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
 #import "TyphoonBuilder.h"
-#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 #import "ConversationBubbleUser.h"
 
 @interface ConversationAppServiceTests : XCTestCase
@@ -34,8 +34,8 @@ const CGFloat landscapeWidth = 400;
 {
     [super setUp];
     
-    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[ApplicationAssembly new]];
-    _service =  [(ApplicationAssembly*)factory conversationAppService ];
+    TyphoonComponentFactory *factory = [TyphoonBuilder createFactory:[DefaultAssembly new]];
+    _service =  [(DefaultAssembly *)factory conversationAppService ];
 }
 
 - (ConversationBubble *)getStatement:(NSInteger)index

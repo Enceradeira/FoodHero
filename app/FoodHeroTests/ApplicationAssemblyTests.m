@@ -11,7 +11,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
 #import "ConversationViewController.h"
-#import "ApplicationAssembly.h"
+#import "DefaultAssembly.h"
 #import "ControllerFactory.h"
 
 @interface ApplicationAssemblyTests : XCTestCase
@@ -22,7 +22,7 @@
 
 - (void)test_Storyboard_ShouldLoadConversationViewControllerCorrectly
 {
-    TyphoonAssembly* assembly = [ApplicationAssembly assembly];
+    TyphoonAssembly* assembly = [DefaultAssembly assembly];
     ConversationViewController *ctrl = [ControllerFactory createConversationViewController:assembly];
     
     assertThat(ctrl, is(notNilValue()));
