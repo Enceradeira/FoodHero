@@ -27,16 +27,13 @@ const CGFloat landscapeWidth = 400;
     ConversationAppService* _service;
 }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "objc_incompatible_pointers"
 - (void)setUp
 {
     [super setUp];
 
     [TyphoonComponents configure:[DefaultAssembly new]];
-    _service =  [(DefaultAssembly *) [TyphoonComponents factory] conversationAppService];
+    _service =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
 }
-#pragma clang diagnostic pop
 
 - (ConversationBubble *)getStatement:(NSInteger)index
 {

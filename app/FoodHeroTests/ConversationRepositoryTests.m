@@ -23,16 +23,15 @@
 {
     ConversationRepository *_repository;
 }
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "objc_incompatible_pointers"
+
 - (void)setUp
 {
     [super setUp];
 
     [TyphoonComponents configure:[DefaultAssembly new]];
-    _repository =  [(DefaultAssembly *)[TyphoonComponents factory] conversationRepository ];
+    _repository =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversationRepository ];
 }
-#pragma clang diagnostic pop
+
 
 - (void)test_get_shouldAlwaysReturnSameConversation
 {

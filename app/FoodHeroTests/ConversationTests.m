@@ -24,17 +24,15 @@
 {
     Conversation *_conversation;
 }
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "objc_incompatible_pointers"
+
 - (void)setUp
 {
     [super setUp];
     
     _conversation = [Conversation new];
     [TyphoonComponents configure:[DefaultAssembly new]];
-    _conversation =  [(DefaultAssembly *)[TyphoonComponents factory] conversation ];
+    _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
 }
-#pragma clang diagnostic pop
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
 {

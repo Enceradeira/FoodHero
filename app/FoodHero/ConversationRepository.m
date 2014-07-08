@@ -7,6 +7,7 @@
 //
 
 #import "ConversationRepository.h"
+#import "TyphoonComponents.h"
 
 @implementation ConversationRepository {
     Conversation *_onlyConversation;
@@ -24,7 +25,8 @@
 
 - (Conversation *)get {
     if (_onlyConversation == nil) {
-        _onlyConversation = [[Conversation alloc] initWithDependencies:_restaurantSearch];
+
+        _onlyConversation = [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation];
     }
     return _onlyConversation;
 }
