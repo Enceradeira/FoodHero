@@ -5,7 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "Restaurant.h"
+#import "RestaurantSearchService.h"
+#import "LocationService.h"
 
 @interface RestaurantSearch : NSObject
+- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(id <LocationService>)locationService;
+
 - (Restaurant *)findBest;
 @end

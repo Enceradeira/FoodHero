@@ -6,6 +6,7 @@
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantSearch.h"
+#import "LocationServiceStub.h"
 
 
 @implementation StubAssembly
@@ -16,5 +17,13 @@
                 definition.scope = TyphoonScopeSingleton;
             }];
 }
+
+- (id)locationService {
+    return [TyphoonDefinition withClass:[LocationServiceStub class] configuration:^(TyphoonDefinition *definition)
+            {
+                definition.scope = TyphoonScopeSingleton;
+            }];
+}
+
 
 @end

@@ -10,15 +10,4 @@
 #include "ApplicationAssembly.h"
 
 @interface DefaultAssembly : TyphoonAssembly <ApplicationAssembly>
-- (id)navigationViewController;
-
-- (id)conversationViewController;
-
-- (id)conversationAppService;
-
-- (id)conversationRepository;
-
-- (id)restaurantSearch;
-
-- (id)conversation;
 @end

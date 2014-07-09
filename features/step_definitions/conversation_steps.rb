@@ -16,3 +16,7 @@ Then(/^FoodHero suggests "([^"]*)"$/) do |name|
   greeting_bubble = find_element :accessibility_id, "ConversationBubble-Suggestion:#{name}"
   expect(greeting_bubble).not_to be_nil
 end
+
+Then(/^FoodHero asks if he may get location$/) do
+  pending
+end

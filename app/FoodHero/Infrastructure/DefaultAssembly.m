@@ -11,6 +11,7 @@
 #import "ConversationViewController.h"
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantSearch.h"
+#import "IosLocationService.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -48,11 +49,16 @@
 - (id)restaurantSearch {
     return [TyphoonDefinition withClass:[RestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
+                [definition useInitializer:@selector(initWithSearchService:withLocationService:) parameters:^(TyphoonMethod *method) {
                     [method injectParameterWith:[self restaurantSearchService]];
+                    [method injectParameterWith:[self locationService]];
 
                 }];
             }];
+}
+
+- (id)locationService {
+    return [TyphoonDefinition withClass:[IosLocationService class]];;
 }
 
 - (id)restaurantSearchService {

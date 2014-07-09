@@ -5,14 +5,16 @@
 
 #import "RestaurantSearch.h"
 #import "RestaurantSearchService.h"
+#import "LocationService.h"
 
 
 @implementation RestaurantSearch {
 
     id <RestaurantSearchService> _searchService;
+    id <LocationService> _locationService;
 }
 
-- (id)initWithDependencies:(id <RestaurantSearchService>)searchService {
+- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(id <LocationService>)locationService {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;

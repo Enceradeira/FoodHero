@@ -17,4 +17,6 @@
 - (id)restaurantSearchService;
 
 - (id)conversation;
+
+- (id)locationService;
 @end
