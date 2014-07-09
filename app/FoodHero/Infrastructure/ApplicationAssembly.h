@@ -14,5 +14,7 @@
 
 - (id)restaurantSearch;
 
+- (id)restaurantSearchService;
+
 - (id)conversation;
 @end

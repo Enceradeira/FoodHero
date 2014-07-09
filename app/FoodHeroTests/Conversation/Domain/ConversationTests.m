@@ -34,7 +34,7 @@
     [super setUp];
     
     [TyphoonComponents configure:[StubAssembly new]];
-    _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
+    _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
 }
 
@@ -78,7 +78,7 @@
 }
 
 -(void)test_addStatement_ShouldCauseFoodHeroToRespond{
-    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:@"King's Head" place:@"Great Yarmouth"]];
+    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:@"King's Head" withVicinity:@"Great Yarmouth"]];
 
     NSUInteger lastIndex = [_conversation getStatementCount]-1;
     [_conversation addStatement:@"British Food"];

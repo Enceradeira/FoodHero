@@ -5,7 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Restaurant.h"
+#import "RestaurantSearchParams.h"
 
 @protocol RestaurantSearchService <NSObject>
-- (NSArray *)find;
+- (NSArray *)find:(RestaurantSearchParams *)parameter;
 @end

@@ -5,12 +5,13 @@
 
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
+#import "RestaurantSearch.h"
 
 
 @implementation StubAssembly
 
-- (id)restaurantSearch {
-    return (id <RestaurantSearchService>) [TyphoonDefinition withClass:[RestaurantSearchServiceStub class] configuration:^(TyphoonDefinition *definition)
+- (id)restaurantSearchService {
+    return [TyphoonDefinition withClass:[RestaurantSearchServiceStub class] configuration:^(TyphoonDefinition *definition)
             {
                 definition.scope = TyphoonScopeSingleton;
             }];

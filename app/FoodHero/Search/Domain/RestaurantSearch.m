@@ -21,6 +21,6 @@
 }
 
 - (Restaurant *)findBest {
-    return [_searchService find][0];
+    return [_searchService find:NULL][0];
 }
 @end

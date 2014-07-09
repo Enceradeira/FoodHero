@@ -22,8 +22,16 @@
     _searchResult = restaurant;
 }
 
-- (Restaurant *)findBest {
-    return _searchResult != nil ? _searchResult : [Restaurant createWithName:@"King's Head" place:@"Norwich"];
+- (NSArray *)find:(RestaurantSearchParams *)parameter {
+    NSMutableArray *result = [NSMutableArray new];
+    if (_searchResult != nil) {
+        [result addObject:_searchResult];
+    }
+    else {
+        [result addObject:[Restaurant createWithName:@"King's Head" withVicinity:@"Norwich"]];
+    }
+    return result;
 }
+
 
 @end
