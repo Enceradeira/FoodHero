@@ -4,8 +4,6 @@
 //
 
 #import "RestaurantSearch.h"
-#import "RestaurantSearchService.h"
-#import "LocationService.h"
 
 
 @implementation RestaurantSearch {
@@ -18,18 +16,23 @@
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
+        _locationService = locationService;
     }
     return self;
 }
 
 - (Restaurant *)findBest {
     RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-    CLLocationCoordinate2D norwich;
-    norwich.latitude =    52.6259; // The Maids Head Hotel, Tombland, Norwich
-    norwich.longitude = 1.299484;
 
-    parameter.location = norwich;
+    parameter.location = [_locationService getCurrentLocation];
     parameter.radius = 2000;
-    return [_searchService find:parameter][0];
+    NSArray *restaurants = [_searchService find:parameter];
+    if (restaurants.count > 0) {
+        return restaurants[0];
+    }
+    else {
+        return [Restaurant createWithName:@"Marsblaster" withVicinity:@"on the Moon" withTypes:[NSArray new]];
+    }
+
 }
 @end

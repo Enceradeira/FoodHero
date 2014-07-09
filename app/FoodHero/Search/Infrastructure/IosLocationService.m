@@ -9,4 +9,9 @@
 @implementation IosLocationService {
 
 }
+- (CLLocationCoordinate2D)getCurrentLocation {
+    CLLocationCoordinate2D result;
+    return result;
+}
+
 @end

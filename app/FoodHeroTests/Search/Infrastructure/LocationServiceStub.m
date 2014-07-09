@@ -8,5 +8,24 @@
 
 @implementation LocationServiceStub {
 
+    CLLocationCoordinate2D _location;
 }
+
+- (id)init {
+    self = [super init];
+    if (self != nil) {
+        _location.latitude = 52.6259; // The Maids Head Hotel, Tombland, Norwich
+        _location.longitude = 1.299484;
+    }
+    return self;
+}
+
+- (void)injectLocation:(CLLocationCoordinate2D)location {
+    _location = location;
+}
+
+- (CLLocationCoordinate2D)getCurrentLocation {
+    return _location;
+}
+
 @end

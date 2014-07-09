@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @protocol LocationService <NSObject>
+- (CLLocationCoordinate2D)getCurrentLocation;
 @end

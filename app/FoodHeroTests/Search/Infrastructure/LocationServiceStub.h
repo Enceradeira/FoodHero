@@ -4,7 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import "LocationService.h"
 
 
-@interface LocationServiceStub : NSObject
+@interface LocationServiceStub : NSObject <LocationService>
+- (void)injectLocation:(CLLocationCoordinate2D)location;
 @end
