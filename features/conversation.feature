@@ -5,4 +5,4 @@ Feature: User interacts with app through conversation
     Then FoodHero greets users and asks what they wished to eat
     When User wishes to eat British food
     Then User answers with British food
-    Then FoodHero suggests 'King Head, Norwich'
+    Then FoodHero suggests "The Maids Head Hotel, 20 Tombland, Norwich"

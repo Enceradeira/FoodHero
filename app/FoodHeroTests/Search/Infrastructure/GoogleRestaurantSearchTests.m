@@ -25,8 +25,8 @@
 {
     [super setUp];
     CLLocationCoordinate2D norwich;
-    norwich.latitude =    52.627109; // Pret a Mange, 11 Haymarket, Norwich
-    norwich.longitude = 1.293456;
+    norwich.latitude =    52.631944; // Maids Head Hotel, Tombland, Norwich
+    norwich.longitude = 1.298889;
 
     _parameter = [RestaurantSearchParams new];
     _parameter.location = norwich;

@@ -23,7 +23,7 @@
 - (Restaurant *)findBest {
     RestaurantSearchParams *parameter = [RestaurantSearchParams new];
     CLLocationCoordinate2D norwich;
-    norwich.latitude =    52.6259;
+    norwich.latitude =    52.6259; // The Maids Head Hotel, Tombland, Norwich
     norwich.longitude = 1.299484;
 
     parameter.location = norwich;

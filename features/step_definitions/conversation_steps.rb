@@ -12,7 +12,7 @@ Then(/^User answers with British food$/) do
   expect(greeting_bubble).not_to be_nil
 end
 
-Then(/^FoodHero suggests 'King Head, Norwich'$/) do
-  greeting_bubble = find_element :accessibility_id, "ConversationBubble-Suggestion:King's Head, Norwich"
+Then(/^FoodHero suggests "([^"]*)"$/) do |name|
+  greeting_bubble = find_element :accessibility_id, "ConversationBubble-Suggestion:#{name}"
   expect(greeting_bubble).not_to be_nil
 end
