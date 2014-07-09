@@ -8,4 +8,5 @@
 
 @interface RestaurantSearchParams : NSObject
 @property (nonatomic) CLLocationCoordinate2D location;
+@property(nonatomic) NSUInteger radius;
 @end

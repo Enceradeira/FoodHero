@@ -28,7 +28,7 @@
         [result addObject:_searchResult];
     }
     else {
-        [result addObject:[Restaurant createWithName:@"King's Head" withVicinity:@"Norwich"]];
+        [result addObject:[Restaurant createWithName:@"King's Head" withVicinity:@"Norwich" withTypes:nil]];
     }
     return result;
 }

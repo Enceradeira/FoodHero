@@ -1,14 +1,17 @@
 PODS:
+  - LinqToObjectiveC (2.0.0)
   - OCHamcrest (4.0.1)
   - Typhoon (2.1.0):
     - Typhoon/no-arc
   - Typhoon/no-arc (2.1.0)
 
 DEPENDENCIES:
+  - LinqToObjectiveC
   - OCHamcrest (~> 4.0)
   - Typhoon
 
 SPEC CHECKSUMS:
+  LinqToObjectiveC: db2ceec81d45192ffe971bbd8e73ef0de614723c
   OCHamcrest: b464725bbb48d0f1cd9c6f4ec3cb35fe0c4f2b94
   Typhoon: 5af23b4d01c3aee0f3ba72464a1d92e7f93b3552
 

@@ -78,7 +78,7 @@
 }
 
 -(void)test_addStatement_ShouldCauseFoodHeroToRespond{
-    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:@"King's Head" withVicinity:@"Great Yarmouth"]];
+    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:@"King's Head" withVicinity:@"Great Yarmouth" withTypes:nil]];
 
     NSUInteger lastIndex = [_conversation getStatementCount]-1;
     [_conversation addStatement:@"British Food"];

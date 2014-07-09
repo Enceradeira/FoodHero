@@ -10,6 +10,7 @@
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import "GoogleRestaurantSearch.h"
+#import <NSArray+LinqExtensions.h>
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -17,24 +18,30 @@
 
 @implementation GoogleRestaurantSearchTests {
     GoogleRestaurantSearch *_service;
-    CLLocationCoordinate2D _norwich;
+    RestaurantSearchParams *_parameter;
 }
 
 - (void)setUp
 {
     [super setUp];
-    _norwich.latitude =    52.6259;
-    _norwich.longitude = 1.299484;
+    CLLocationCoordinate2D norwich;
+    norwich.latitude =    52.627109; // Pret a Mange, 11 Haymarket, Norwich
+    norwich.longitude = 1.293456;
 
+    _parameter = [RestaurantSearchParams new];
+    _parameter.location = norwich;
+    _parameter.radius = 10000;
+    
     _service = [GoogleRestaurantSearch new];
+}
+
+- (NSArray *)find{
+    NSArray *result = [_service find:_parameter];return result;
 }
 
 - (void)test_find_ShouldReturnResultsFromGoogle
 {
-    RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-    parameter.location = _norwich;
-
-    NSArray *result = [_service find:parameter];
+    NSArray *result = [self find];
 
     assertThat(result, is(notNilValue()));
     assertThatUnsignedInt(result.count, is(greaterThan(@0U)));
@@ -45,7 +52,12 @@
 
 -(void)test_find_ShouldOnlyReturnRestaurants
 {
+    NSArray *result = [self find];
+    NSArray *allTypes = [result linq_selectMany:^(Restaurant *r){return r.types;}];
+    NSArray *types = [allTypes linq_distinct];
 
+    assertThat(types, isNot(hasItem(@"church")));
+    assertThat(types, hasItem(@"restaurant"));
 }
 
 @end

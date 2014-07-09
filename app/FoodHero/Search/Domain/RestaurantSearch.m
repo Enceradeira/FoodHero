@@ -21,6 +21,13 @@
 }
 
 - (Restaurant *)findBest {
-    return [_searchService find:NULL][0];
+    RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+    CLLocationCoordinate2D norwich;
+    norwich.latitude =    52.6259;
+    norwich.longitude = 1.299484;
+
+    parameter.location = norwich;
+    parameter.radius = 2000;
+    return [_searchService find:parameter][0];
 }
 @end
