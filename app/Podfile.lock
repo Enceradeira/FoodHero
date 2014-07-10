@@ -11,17 +11,20 @@ PODS:
   - Typhoon (2.1.0):
     - Typhoon/no-arc
   - Typhoon/no-arc (2.1.0)
+  - XCAsyncTestCase (1.0.0)
 
 DEPENDENCIES:
   - LinqToObjectiveC
   - OCHamcrest (~> 4.0)
   - ReactiveCocoa
   - Typhoon
+  - XCAsyncTestCase
 
 SPEC CHECKSUMS:
   LinqToObjectiveC: db2ceec81d45192ffe971bbd8e73ef0de614723c
   OCHamcrest: b464725bbb48d0f1cd9c6f4ec3cb35fe0c4f2b94
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
   Typhoon: 5af23b4d01c3aee0f3ba72464a1d92e7f93b3552
+  XCAsyncTestCase: 4b6a2a136d3cff7fe0b6135eb82e98446445c0e2
 
 COCOAPODS: 0.33.1

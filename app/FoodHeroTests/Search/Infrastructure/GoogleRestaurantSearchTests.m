@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import "GoogleRestaurantSearch.h"
 #import <NSArray+LinqExtensions.h>

@@ -7,9 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#define HC_SHORTHAND
-
 #import <OCHamcrest/OCHamcrest.h>
 #import "Personas.h"
 #import "DefaultAssembly.h"

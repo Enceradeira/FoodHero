@@ -16,3 +16,5 @@
 #import <Foundation/Foundation.h>
 
 #endif
+
+#define HC_SHORTHAND

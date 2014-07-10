@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_OCHamcrest 0
 #define COCOAPODS_VERSION_PATCH_OCHamcrest 1
 
+// XCAsyncTestCase
+#define COCOAPODS_POD_AVAILABLE_XCAsyncTestCase
+#define COCOAPODS_VERSION_MAJOR_XCAsyncTestCase 1
+#define COCOAPODS_VERSION_MINOR_XCAsyncTestCase 0
+#define COCOAPODS_VERSION_PATCH_XCAsyncTestCase 0
+

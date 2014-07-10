@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 #import "Conversation.h"
 #import "Personas.h"
