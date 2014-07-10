@@ -4,6 +4,7 @@
 //
 
 #import "LocationServiceStub.h"
+#import "RACSignal.h"
 
 
 @implementation LocationServiceStub {
@@ -27,5 +28,13 @@
 - (CLLocationCoordinate2D)getCurrentLocation {
     return _location;
 }
+
+- (RACSignal *)currentLocation {
+
+    //return [RACSignal empty];
+    NSValue *value = [NSValue valueWithBytes:&_location objCType:@encode(CLLocationCoordinate2D)];
+    return [RACSignal return:value];
+}
+
 
 @end

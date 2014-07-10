@@ -11,5 +11,5 @@
 @interface RestaurantSearch : NSObject
 - (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(id <LocationService>)locationService;
 
-- (Restaurant *)findBest;
+- (RACSignal *)findBest;
 @end

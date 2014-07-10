@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import "Personas.h"
+#import <ReactiveCocoa.h>
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
@@ -44,7 +44,7 @@
     
     [_locationService injectLocation:location];
 
-    [_restaurantSearch findBest];
+    [[_restaurantSearch findBest] waitUntilCompleted:nil];
 
     assertThatBool([_searchService findWasCalledWithLocation:location], is(equalToBool(YES)));
 }
