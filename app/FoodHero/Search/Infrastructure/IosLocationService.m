@@ -4,14 +4,29 @@
 //
 
 #import "IosLocationService.h"
+#import <ReactiveCocoa.h>
+#import "LocationDataManager.h"
 
 
 @implementation IosLocationService {
 
+    LocationDataManager *locationDataManager;
 }
+
+
 - (CLLocationCoordinate2D)getCurrentLocation {
-    CLLocationCoordinate2D result;
-    return result;
+    CLLocationCoordinate2D value;
+    return value;
+}
+
+- (RACSignal *)currentLocation {
+     if( locationDataManager == nil){
+         locationDataManager = [LocationDataManager new];
+     }
+       
+    return [locationDataManager.currentLocation doNext:^(id next){
+        locationDataManager = nil;
+    }];
 }
 
 @end

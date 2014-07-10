@@ -7,5 +7,5 @@
 #import "LocationService.h"
 
 
-@interface IosLocationService : NSObject<LocationService>
+@interface IosLocationService : NSObject<LocationService, CLLocationManagerDelegate>
 @end

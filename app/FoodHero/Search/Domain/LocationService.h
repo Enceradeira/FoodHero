@@ -6,6 +6,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class RACSignal;
+
 @protocol LocationService <NSObject>
 - (CLLocationCoordinate2D)getCurrentLocation;
+- (RACSignal *)currentLocation;
 @end

@@ -5,6 +5,7 @@ platform :ios, "7.1"
 target :FoodHero do
     pod "Typhoon"
     pod "LinqToObjectiveC"
+    pod "ReactiveCocoa"
 end
 
 target :FoodHeroTests do

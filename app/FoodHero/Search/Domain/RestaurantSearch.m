@@ -4,6 +4,7 @@
 //
 
 #import "RestaurantSearch.h"
+#import "RACSignal.h"
 
 
 @implementation RestaurantSearch {
@@ -23,6 +24,18 @@
 
 - (Restaurant *)findBest {
     RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+
+    /*
+    RACSignal *location = [_locationService currentLocation];
+    [location subscribeNext:^(id next){
+        NSValue *nextValue = next;
+        CLLocationCoordinate2D value;
+        [nextValue getValue:&value];
+        NSLog(@"location retrieved");
+    }];
+    [location subscribeCompleted:^{
+        NSLog(@"@location update completed");
+    }];*/
 
     parameter.location = [_locationService getCurrentLocation];
     parameter.radius = 2000;
