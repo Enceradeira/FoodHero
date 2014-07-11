@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveCocoa.h>
 #import "Restaurant.h"
 #import "RestaurantSearchService.h"
-#import "LocationService.h"
+#import "IosLocationService.h"
 
 @interface RestaurantSearch : NSObject
-- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(id <LocationService>)locationService;
+- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(IosLocationService *)locationService;
 
 - (RACSignal *)findBest;
 @end

@@ -5,14 +5,15 @@
 
 #import <ReactiveCocoa.h>
 #import "RestaurantSearch.h"
+#import "IosLocationService.h"
 
 @implementation RestaurantSearch {
 
     id <RestaurantSearchService> _searchService;
-    id <LocationService> _locationService;
+    IosLocationService *_locationService;
 }
 
-- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(id <LocationService>)locationService {
+- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(IosLocationService*)locationService {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;

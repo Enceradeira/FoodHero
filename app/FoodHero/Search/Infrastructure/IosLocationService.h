@@ -4,10 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LocationService.h"
+#import <ReactiveCocoa.h>
 #import "CLLocationManagerProxy.h"
 
 
-@interface IosLocationService : NSObject <LocationService, CLLocationManagerDelegate>
+@interface IosLocationService : NSObject <CLLocationManagerDelegate>
 - (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager;
+
+- (RACSignal *)currentLocation;
 @end

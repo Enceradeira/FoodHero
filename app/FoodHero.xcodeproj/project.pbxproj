@@ -76,7 +76,6 @@
 
 /* Begin PBXFileReference section */
 		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		23525004C05220ECD64295AA /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
 		23525012BAFFB5D43C26BBEC /* IosLocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IosLocationServiceTests.m; sourceTree = "<group>"; };
 		235250759EF52B9D1AADD6B8 /* CLLocationManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerImpl.h; sourceTree = "<group>"; };
 		2352507728AEC9931B9BEEF5 /* ConversationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTests.m; sourceTree = "<group>"; };
@@ -347,7 +346,6 @@
 				23525B80261B3766FA8C59DD /* RestaurantSearch.m */,
 				23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */,
 				2352513653EC64CAD2882E3E /* RestaurantSearchParams.h */,
-				23525004C05220ECD64295AA /* LocationService.h */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
