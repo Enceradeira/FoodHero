@@ -7,7 +7,7 @@ Feature: User interacts with app through conversation
     Then FoodHero asks for access to location-services
     When User allows access to location-services
     Then User answers with British food
-    Then FoodHero suggests "Zuni Cafe, 1658 Market St, San Francisco"
+    Then FoodHero suggests something for British food
 
   Scenario: User doesn't allow to access location-API
     Given FoodHero has started

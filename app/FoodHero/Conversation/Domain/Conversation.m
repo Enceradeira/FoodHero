@@ -50,7 +50,7 @@
         NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
         NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
 
-        [statementProxy addObject:[[Statement alloc] initWithText:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", nameAndPlace] persona:Personas.foodHero]];
+        [statementProxy addObject:[[Statement alloc] initWithText:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", statement] persona:Personas.foodHero]];
     }];
 }
 

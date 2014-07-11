@@ -19,7 +19,7 @@
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
 
- @interface ConversationTests : XCTestCase
+@interface ConversationTests : XCTestCase
 
 @end
 
@@ -92,7 +92,7 @@
     Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
     assertThat(foodHeroResponse, is(notNilValue()));
     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-    assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:King's Head, Great Yarmouth")));
+    assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:British Food")));
  }
  
  -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
