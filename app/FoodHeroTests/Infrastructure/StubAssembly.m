@@ -6,7 +6,6 @@
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantSearch.h"
-#import "LocationServiceStub.h"
 #import "CLLocationManagerProxyStub.h"
 
 
@@ -14,13 +13,6 @@
 
 - (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[RestaurantSearchServiceStub class] configuration:^(TyphoonDefinition *definition)
-            {
-                definition.scope = TyphoonScopeSingleton;
-            }];
-}
-
-- (id)locationService {
-    return [TyphoonDefinition withClass:[LocationServiceStub class] configuration:^(TyphoonDefinition *definition)
             {
                 definition.scope = TyphoonScopeSingleton;
             }];

@@ -13,18 +13,20 @@
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
-#import "LocationServiceStub.h"
 #import "RestaurantSearchServiceSpy.h"
 #import "RestaurantSearch.h"
+#import "CLLocationManagerProxyStub.h"
+#import "IosLocationService.h"
 
-@interface RestaurantSearchTests : XCTestCase
+ @interface RestaurantSearchTests : XCTestCase
 
 @end
 
 @implementation RestaurantSearchTests {
     RestaurantSearch *_restaurantSearch;
     RestaurantSearchServiceSpy *_searchService;
-    LocationServiceStub *_locationService;
+    CLLocationManagerProxyStub *_locationManagerStub;
+    IosLocationService *_locationService;
 }
 
 - (void)setUp {
@@ -33,7 +35,8 @@
     [TyphoonComponents configure:[StubAssembly new]];
 
     _searchService = [RestaurantSearchServiceSpy new];
-    _locationService = [LocationServiceStub new];
+    _locationManagerStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
+    _locationService = [(id<ApplicationAssembly>) [TyphoonComponents factory] locationService];
     _restaurantSearch = [[RestaurantSearch alloc] initWithSearchService:_searchService withLocationService:_locationService];
 }
 
@@ -41,8 +44,8 @@
     CLLocationCoordinate2D location;
     location.latitude =    12.6259;
     location.longitude = 1.33212;
-    
-    [_locationService injectLocation:location];
+
+    [_locationManagerStub injectLatitude:location.latitude longitude:location.longitude];
 
     [[_restaurantSearch findBest] waitUntilCompleted:nil];
 

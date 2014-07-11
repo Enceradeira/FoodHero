@@ -27,7 +27,6 @@
 		2352558E99B8B8C47800F507 /* CLLocationManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */; };
 		235255AEFF2DE2DAC8C6C01E /* ConversationBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252243CA79D13851B4AEE /* ConversationBubble.m */; };
 		235255D839904F11985A85C0 /* ConversationAppServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525CA4F354EFA35BCAD935 /* ConversationAppServiceTests.m */; };
-		235256780D85BC981436CA6B /* LocationServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258F1505192A5DA9BD8C3 /* LocationServiceStub.m */; };
 		2352568F08684D4936A6C5B8 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251996A185437DF584FB5 /* Personas.m */; };
 		235256F3EA0ECA4918229B35 /* CLLocationManagerProxySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D2A93EABF1059B60A3B /* CLLocationManagerProxySpy.m */; };
 		2352573B293B947B03EDF29C /* RestaurantSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525421492AF0F26931AF6F /* RestaurantSearchTests.m */; };
@@ -99,7 +98,6 @@
 		235253B6A64340A77ABE93E5 /* CLLocationManagerProxyStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxyStub.h; sourceTree = "<group>"; };
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525421492AF0F26931AF6F /* RestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchTests.m; sourceTree = "<group>"; };
-		2352542E39EB54F5AAB2036F /* LocationServiceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceStub.h; sourceTree = "<group>"; };
 		2352547F0E59A97A9CB2E058 /* ConversationRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationRepository.h; sourceTree = "<group>"; };
 		235254C333D4FB6964C8DBED /* RestaurantSearchServiceSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceSpy.h; sourceTree = "<group>"; };
 		235254FD8EE7D36F69EA631B /* GoogleRestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleRestaurantSearch.h; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 		23525871FB0563C6FA13D06F /* ConversationBubbleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleUser.h; sourceTree = "<group>"; };
 		2352588D56941DE6F99F60F9 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
 		235258F0B360233DE7BEB6E3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		235258F1505192A5DA9BD8C3 /* LocationServiceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceStub.m; sourceTree = "<group>"; };
 		235258F2C3B3885E4D2DC789 /* Personas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Personas.h; sourceTree = "<group>"; };
 		2352595115E493054E879BA9 /* ApplicationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAssembly.h; sourceTree = "<group>"; };
 		23525965D879A32525AC6718 /* RestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearch.h; sourceTree = "<group>"; };
@@ -329,8 +326,6 @@
 				2352558A0E7130A16011FDE1 /* RestaurantSearchServiceStub.h */,
 				23525D2202B3FB04852371D1 /* RestaurantSearchServiceStub.m */,
 				2352555191D12A93222B8C30 /* GoogleRestaurantSearchTests.m */,
-				235258F1505192A5DA9BD8C3 /* LocationServiceStub.m */,
-				2352542E39EB54F5AAB2036F /* LocationServiceStub.h */,
 				23525EB59DD052800CC84EE0 /* RestaurantSearchServiceSpy.m */,
 				235254C333D4FB6964C8DBED /* RestaurantSearchServiceSpy.h */,
 				23525012BAFFB5D43C26BBEC /* IosLocationServiceTests.m */,
@@ -679,7 +674,6 @@
 				23525F959DBE78F13C85AF04 /* ConversationTests.m in Sources */,
 				23525055FDF48966B5AD0B88 /* GoogleRestaurantSearchTests.m in Sources */,
 				2352573B293B947B03EDF29C /* RestaurantSearchTests.m in Sources */,
-				235256780D85BC981436CA6B /* LocationServiceStub.m in Sources */,
 				2352533521B06A1D3868FC20 /* RestaurantSearchServiceSpy.m in Sources */,
 				23525CEB9AE28C4414E7F97D /* IosLocationServiceTests.m in Sources */,
 				2352597751CD0CEE15E3561B /* CLLocationManagerProxyStub.m in Sources */,
