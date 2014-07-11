@@ -12,7 +12,7 @@
 #import "ConversationViewController.h"
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantSearch.h"
-#import "IosLocationService.h"
+#import "LocationService.h"
 #import "CLLocationManagerImpl.h"
 
 @implementation DefaultAssembly
@@ -60,7 +60,7 @@
 }
 
 - (id)locationService {
-    return [TyphoonDefinition withClass:[IosLocationService class]
+    return [TyphoonDefinition withClass:[LocationService class]
                           configuration:^(TyphoonDefinition *definition) {
                 [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
                     [method injectParameterWith:[self locationManagerProxy]];

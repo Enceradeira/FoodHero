@@ -5,7 +5,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "CLLocationManagerImpl.h"
-#import "IosLocationService.h"
+#import "LocationService.h"
 
 
 @implementation CLLocationManagerImpl {

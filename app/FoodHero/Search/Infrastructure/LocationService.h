@@ -8,7 +8,7 @@
 #import "CLLocationManagerProxy.h"
 
 
-@interface IosLocationService : NSObject <CLLocationManagerDelegate>
+@interface LocationService : NSObject <CLLocationManagerDelegate>
 - (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager;
 
 - (RACSignal *)currentLocation;

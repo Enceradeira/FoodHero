@@ -11,7 +11,7 @@
 #import <ReactiveCocoa.h>
 #import "XCTestCase+AsyncTesting.h"
 #import "GoogleRestaurantSearch.h"
-#import "IosLocationService.h"
+#import "LocationService.h"
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
 #import "CLLocationManagerProxyStub.h"
@@ -32,13 +32,13 @@
     [self service:[CLLocationManagerProxyStub new]];
 }
 
-- (IosLocationService *)service:(NSObject<CLLocationManagerProxy>*)clLocationManagerProxy {
-    return  [[IosLocationService alloc] initWithLocationManager:clLocationManagerProxy];
+- (LocationService *)service:(NSObject<CLLocationManagerProxy>*)clLocationManagerProxy {
+    return  [[LocationService alloc] initWithLocationManager:clLocationManagerProxy];
 }
 
-- (IosLocationService *)serviceWithLocationManagerStub:(double)latitude longitude:(double)longitude{
+- (LocationService *)serviceWithLocationManagerStub:(double)latitude longitude:(double)longitude{
     CLLocationManagerProxyStub *locationManagerProxy = [CLLocationManagerProxyStub new];
-    IosLocationService *service = [self service:locationManagerProxy];
+    LocationService *service = [self service:locationManagerProxy];
 
     [locationManagerProxy injectLatitude:latitude longitude:longitude];
     return service;
@@ -46,7 +46,7 @@
 
 -(void)test_currentLocation_ShouldReturnLocation
 {
-    IosLocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
+    LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     id first = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
@@ -58,7 +58,7 @@
 }
 -(void)test_currentLocation_ShouldWorkOnServeralCalls
 {
-    IosLocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
+    LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
     id result = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
@@ -67,7 +67,7 @@
 }
 
 -(void)test_currentLocation_ShouldOnlyReturnOneLocationAndComplete{
-     IosLocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
+     LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
@@ -87,7 +87,7 @@
 
 -(void)test_currentLocation_ShouldStartAndStopLocationManager{
     CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
-    IosLocationService *service = [self service:locationManagerProxy];
+    LocationService *service = [self service:locationManagerProxy];
 
     [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 

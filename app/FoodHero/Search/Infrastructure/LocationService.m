@@ -3,14 +3,13 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "IosLocationService.h"
-#import <ReactiveCocoa.h>
+#import "LocationService.h"
 
-@interface IosLocationService ()
+@interface LocationService ()
 @property(atomic, readwrite) CLLocationCoordinate2D currentLocationHolder;
 @end
 
-@implementation IosLocationService {
+@implementation LocationService {
     NSObject <CLLocationManagerProxy> *_locationManager;
     CLLocationCoordinate2D _emptyCoordinate;
 }

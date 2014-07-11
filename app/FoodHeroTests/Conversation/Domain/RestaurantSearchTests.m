@@ -16,7 +16,7 @@
 #import "RestaurantSearchServiceSpy.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
-#import "IosLocationService.h"
+#import "LocationService.h"
 
  @interface RestaurantSearchTests : XCTestCase
 
@@ -26,7 +26,7 @@
     RestaurantSearch *_restaurantSearch;
     RestaurantSearchServiceSpy *_searchService;
     CLLocationManagerProxyStub *_locationManagerStub;
-    IosLocationService *_locationService;
+    LocationService *_locationService;
 }
 
 - (void)setUp {
