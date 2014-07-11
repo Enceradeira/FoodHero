@@ -10,11 +10,15 @@
 #import "ConversationBubble.h"
 #import "ConversationRepository.h"
 
+@class RACSignal;
+
 @interface ConversationAppService : NSObject
 
 - (id)initWithDependencies:(ConversationRepository *)conversationRepository;
 
-- (ConversationBubble *)getStatement:(NSInteger)index bubbleWidth:(CGFloat)bubbleWidth;
+- (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
+
+- (RACSignal *)statementIndexes;
 
 - (void)addStatement:(NSString *)statement;
 

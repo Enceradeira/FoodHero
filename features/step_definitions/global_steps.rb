@@ -38,3 +38,11 @@ Then(/^I see the login view$/) do
   expect_login_view
 end
 
+
+Then(/^FoodHero asks for access to location\-services$/) do
+  expect(text 'Would Like to Use Your Current Location').to be_truthy
+end
+
+When(/^User allows access to location\-services$/) do
+  alert_accept
+end

@@ -6,12 +6,14 @@
 //  Copyright (c) 2014 co.uk.jennius. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "DefaultAssembly.h"
 #import "NavigationController.h"
 #import "ConversationViewController.h"
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantSearch.h"
 #import "IosLocationService.h"
+#import "CLLocationManagerImpl.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -58,7 +60,23 @@
 }
 
 - (id)locationService {
-    return [TyphoonDefinition withClass:[IosLocationService class]];;
+    return [TyphoonDefinition withClass:[IosLocationService class]
+                          configuration:^(TyphoonDefinition *definition) {
+                [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self locationManagerProxy]];
+
+                }];
+            }];
+}
+
+- (id)locationManagerProxy {
+    return [TyphoonDefinition withClass:[CLLocationManagerImpl class]
+                          configuration:^(TyphoonDefinition *definition) {
+                [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[CLLocationManager new]];
+
+                }];
+            }];
 }
 
 - (id)restaurantSearchService {

@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
+#import <ReactiveCocoa.h>
+#import <XCTestCase+AsyncTesting.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
@@ -16,7 +18,6 @@
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
-#import "Restaurant.h"
 
  @interface ConversationTests : XCTestCase
 
@@ -35,6 +36,10 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
+}
+
+- (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity{
+    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:name withVicinity:vicinity withTypes:nil]];
 }
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
@@ -77,17 +82,31 @@
 }
 
 -(void)test_addStatement_ShouldCauseFoodHeroToRespond{
-    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:@"King's Head" withVicinity:@"Great Yarmouth" withTypes:nil]];
+    [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
 
-    NSUInteger lastIndex = [_conversation getStatementCount]-1;
+    NSUInteger nrExistingStatments = [_conversation getStatementCount];
+    NSUInteger indexOfFoodHeroResponse = nrExistingStatments+1;
+
     [_conversation addStatement:@"British Food"];
 
-    // Statement *userStatement = [_conversation getStatement:lastIndex+1];
-    Statement *foodHeroResponse = [_conversation getStatement:lastIndex+2];
-
+    Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
     assertThat(foodHeroResponse, is(notNilValue()));
     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
     assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:King's Head, Great Yarmouth")));
-}
+ }
+ 
+ -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
+     NSMutableArray *receivedIndexes = [NSMutableArray new];
+     [[_conversation statementIndexes] subscribeNext:^(id next){
+         [receivedIndexes addObject:next];
+     }];
+
+     [_conversation addStatement:@"British Food"]; // adds the answer & food-heros response
+
+     assertThat(receivedIndexes, contains(
+     [NSNumber numberWithUnsignedInt:0],
+     [NSNumber numberWithUnsignedInt:1],
+     [NSNumber numberWithUnsignedInt:2],nil));
+ }
 
 @end

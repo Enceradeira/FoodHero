@@ -103,4 +103,5 @@ DEPENDENCIES
   cocoapods
   colorize
   cucumber
+  nokogiri
   rspec

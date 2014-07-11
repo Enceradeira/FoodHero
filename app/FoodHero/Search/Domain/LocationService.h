@@ -9,6 +9,5 @@
 @class RACSignal;
 
 @protocol LocationService <NSObject>
-- (CLLocationCoordinate2D)getCurrentLocation;
 - (RACSignal *)currentLocation;
 @end

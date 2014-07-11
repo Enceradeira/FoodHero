@@ -19,4 +19,7 @@
 - (id)conversation;
 
 - (id)locationService;
+
+- (id)locationManagerProxy;
+
 @end

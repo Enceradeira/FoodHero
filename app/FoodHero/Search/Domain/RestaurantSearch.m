@@ -22,8 +22,7 @@
 }
 
 - (RACSignal *)findBest {
-    RACSignal *racSignal = [_locationService currentLocation];
-    return [racSignal map:^(id value){
+    return [[_locationService currentLocation] map:^(id value){
         CLLocationCoordinate2D coordinate;
         coordinate.longitude, coordinate.latitude = 0;
         [((NSValue *) value) getValue:&coordinate];

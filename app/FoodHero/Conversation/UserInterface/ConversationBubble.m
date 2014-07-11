@@ -71,13 +71,14 @@
     return _image.size.height;
 }
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth; {
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth withIndex:(NSUInteger)index {
     self = [super init];
     if (self == nil)
         return nil;
 
     _text = text;
     _semanticId = semanticId;
+    _index = index;
 
     _font = [UIFont systemFontOfSize:16];
     _textAttritbutes = [NSDictionary dictionaryWithObjectsAndKeys:

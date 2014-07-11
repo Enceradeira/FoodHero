@@ -10,7 +10,11 @@
 #import "Statement.h"
 #import "RestaurantSearchService.h"
 
+@class RACSignal;
+
 @interface Conversation : NSObject
+
+- (void)add:(NSString *)string;
 
 - (Statement *)getStatement:(NSUInteger)index;
 
@@ -18,4 +22,5 @@
 
 - (NSUInteger)getStatementCount;
 
+- (RACSignal *)statementIndexes;
 @end

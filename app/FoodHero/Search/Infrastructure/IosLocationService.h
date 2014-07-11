@@ -5,7 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import "LocationService.h"
+#import "CLLocationManagerProxy.h"
 
 
-@interface IosLocationService : NSObject<LocationService, CLLocationManagerDelegate>
+@interface IosLocationService : NSObject <LocationService, CLLocationManagerDelegate>
+- (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager;
 @end

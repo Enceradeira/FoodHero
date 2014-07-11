@@ -1,5 +1,6 @@
 require 'colorize'
 require 'cucumber/rake/task'
+require 'nokogiri'
 require_relative 'lib/app_paths'
 require_relative 'lib/build_action'
 require_relative 'lib/x_code_build_action'
@@ -18,6 +19,20 @@ task :xcode do
   `open #{AppPaths.workspace_file}`
 end
 
+desc 'Prepare iOS-Simulator for tests'
+task :prepare_iOS_simulator do
+  builder = Nokogiri::XML::Builder.new do |xml|
+    xml.gpx(:version => '1.1', :creator => 'JJ') {
+      xml.wpt(:lat => "52.631944", :lon => "1.298889")
+    }
+  end
+
+  File.open('app/FoodHero/simulator_gps_coordinates.gpx', 'w') do |file|
+    file.write(builder.to_xml)
+  end
+
+end
+
 desc 'Clean the build'
 task :clean do
   XCodeBuildAction.new(:clean).execute!
@@ -25,12 +40,12 @@ task :clean do
 end
 
 desc 'Run XCode unit-tests'
-task :xc_unit_tests do
+task :xc_unit_tests => [:prepare_iOS_simulator] do
   XCodeBuildAction.new(:test).execute!
 end
 
 desc 'Run Cucumber acceptance-tests'
-task :acceptance_tests => [:check_appium_server, :install, :cucumber] do
+task :acceptance_tests => [:check_appium_server, :prepare_iOS_simulator, :install, :cucumber] do
 end
 
 desc 'Build everything'

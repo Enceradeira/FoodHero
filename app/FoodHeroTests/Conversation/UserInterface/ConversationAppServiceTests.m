@@ -35,7 +35,7 @@ const CGFloat landscapeWidth = 400;
     _service =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
 }
 
-- (ConversationBubble *)getStatement:(NSInteger)index
+- (ConversationBubble *)getStatement:(NSUInteger)index
 {
     ConversationBubble *bubble = [_service getStatement:index bubbleWidth:portraitWidth];
     return bubble;

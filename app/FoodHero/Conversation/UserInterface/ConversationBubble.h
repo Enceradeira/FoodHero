@@ -15,6 +15,7 @@
 @property(nonatomic, readonly) UIImage *image;
 @property(nonatomic, readonly) NSString *text;
 @property(nonatomic, readonly) NSString *semanticId;
+@property(nonatomic, readonly) NSUInteger index;
 
 - (CGFloat)textPaddingLeft;
 
@@ -28,7 +29,7 @@
 
 - (CGFloat)paddingTopText;
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth;
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth withIndex:(NSUInteger)index;
 
 - (NSString *)getBubbleViewConstraint;
 

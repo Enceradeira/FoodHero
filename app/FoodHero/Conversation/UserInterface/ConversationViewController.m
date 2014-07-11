@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
 
@@ -15,6 +16,7 @@
 
 @implementation ConversationViewController {
     ConversationAppService *_appService;
+    RACDisposable *_statementIndexesDisposable;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -33,16 +35,23 @@
     [super viewDidLoad];
 
     _conversationBubbleView = (UITableView *) [self.view viewWithTag:100];
-
     _conversationBubbleView.delegate = self;
     _conversationBubbleView.dataSource = self;
-
     _conversationBubbleView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     UIImageView *backgroundView = [self createBackgroundImage];
-
     [backgroundView setFrame:_conversationBubbleView.frame];
     _conversationBubbleView.backgroundView = backgroundView;
+
+    _statementIndexesDisposable = [[_appService statementIndexes] subscribeNext:^(id next){
+        NSUInteger index;
+        NSNumber *wrappedIndex = next;
+        [wrappedIndex getValue:&index];
+
+        NSMutableArray *newIndexes = [NSMutableArray new];
+        [newIndexes addObject:[NSIndexPath indexPathForItem:index inSection:0]];
+
+        [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
+    }];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -57,7 +66,7 @@
 }
 
 - (ConversationBubble *)getStatement:(NSIndexPath *)indexPath {
-    ConversationBubble *bubble = [_appService getStatement:indexPath.row bubbleWidth:_conversationBubbleView.frame.size.width];
+    ConversationBubble *bubble = [_appService getStatement:(NSUInteger) indexPath.row bubbleWidth:_conversationBubbleView.frame.size.width];
     return bubble;
 }
 
@@ -77,19 +86,7 @@
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
-    NSInteger oldCount = [_appService getStatementCount];
-
     [_appService addStatement:@"British food"];
-
-    NSInteger newCount = [_appService getStatementCount];
-    NSInteger nrNewStatements = newCount - oldCount;
-
-    NSMutableArray *newIndexes = [NSMutableArray new];
-    for (int i = 0; i < nrNewStatements; i++) {
-        [newIndexes addObject:[NSIndexPath indexPathForItem:oldCount + i inSection:0]];
-    }
-
-    [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
 }
 
 /*

@@ -25,10 +25,6 @@
     _location = location;
 }
 
-- (CLLocationCoordinate2D)getCurrentLocation {
-    return _location;
-}
-
 - (RACSignal *)currentLocation {
 
     //return [RACSignal empty];
