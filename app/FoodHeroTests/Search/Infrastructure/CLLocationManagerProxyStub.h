@@ -9,4 +9,6 @@
 
 @interface CLLocationManagerProxyStub : NSObject <CLLocationManagerProxy>
 - (void)injectLocations:(NSArray *)locations;
+
+- (void)injectLatitude:(double)latitude longitude:(double)longitude;
 @end

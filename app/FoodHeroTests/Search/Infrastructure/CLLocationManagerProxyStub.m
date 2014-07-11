@@ -49,4 +49,14 @@
 - (void)injectLocations:(NSArray *)locations {
     _locations = locations;
 }
+
+- (void)injectLatitude:(double)latitude longitude:(double)longitude {
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = latitude;
+    coordinate.longitude = longitude;
+
+    CLLocation *location = [[CLLocation new] initWithCoordinate:coordinate altitude:50 horizontalAccuracy:50 verticalAccuracy:50 course:0 speed:0 timestamp:[NSDate date]];
+    [self injectLocations:[NSArray arrayWithObject:location]];
+}
+
 @end

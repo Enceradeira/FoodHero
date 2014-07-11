@@ -15,6 +15,7 @@
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
 #import "CLLocationManagerProxyStub.h"
+#import "CLLocationManagerProxySpy.h"
 
 
 @interface IosLocationServiceTests : XCTestCase
@@ -22,34 +23,32 @@
 @end
 
 @implementation IosLocationServiceTests {
-    IosLocationService *_service;
-    CLLocationManagerProxyStub *_locationManagerStub;
 }
 
 - (void)setUp
 {
     [super setUp];
 
-    [TyphoonComponents configure:[StubAssembly assembly]];
-
-    _locationManagerStub =  [CLLocationManagerProxyStub new];
-    _service = [[IosLocationService alloc] initWithLocationManager:_locationManagerStub];
+    [self service:[CLLocationManagerProxyStub new]];
 }
 
-- (void)injectLatitude:(double)latitude longitude:(double)longitude {
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = latitude;
-    coordinate.longitude = longitude;
+- (IosLocationService *)service:(NSObject<CLLocationManagerProxy>*)clLocationManagerProxy {
+    return  [[IosLocationService alloc] initWithLocationManager:clLocationManagerProxy];
+}
 
-    CLLocation *location = [[CLLocation new] initWithCoordinate:coordinate altitude:50 horizontalAccuracy:50 verticalAccuracy:50 course:0 speed:0 timestamp:[NSDate date]];
-    [_locationManagerStub injectLocations:[NSArray arrayWithObject:location]];
+- (IosLocationService *)serviceWithLocationManagerStub:(double)latitude longitude:(double)longitude{
+    CLLocationManagerProxyStub *locationManagerProxy = [CLLocationManagerProxyStub new];
+    IosLocationService *service = [self service:locationManagerProxy];
+
+    [locationManagerProxy injectLatitude:latitude longitude:longitude];
+    return service;
 }
 
 -(void)test_currentLocation_ShouldReturnLocation
 {
-    [self injectLatitude:52.1234 longitude:1.298889];
+    IosLocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
-    id first = [[_service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+    id first = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
     CLLocationCoordinate2D value;
     [((NSValue*)first)getValue:&value];
@@ -59,19 +58,21 @@
 }
 -(void)test_currentLocation_ShouldWorkOnServeralCalls
 {
-    [self injectLatitude:52.1234 longitude:1.298889];
+    IosLocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
-    [[_service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
-    id result = [[_service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+    id result = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
     assertThat(result, is(notNilValue()));
 }
 
 -(void)test_currentLocation_ShouldOnlyReturnOneLocationAndComplete{
-    [self injectLatitude:52.1234 longitude:1.298889];
+     IosLocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
+
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
     __block NSUInteger nrRetrievedValues = 0;
-    RACSignal *signal = [_service currentLocation];
+    RACSignal *signal = [service currentLocation];
     [signal subscribeNext:^(id next){
          nrRetrievedValues++;
     }];
@@ -84,6 +85,20 @@
     assertThatBool(hasCompleted, is(equalToBool(YES)));
 }
 
+-(void)test_currentLocation_ShouldStartAndStopLocationManager{
+    CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
+    IosLocationService *service = [self service:locationManagerProxy];
+
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+
+    assertThatUnsignedInt(locationManagerProxy.nrCallsForStartUpdatingLocation, is(equalToUnsignedInt(1)));
+    assertThatUnsignedInt(locationManagerProxy.nrCallsForStopUpdatingLocation, is(equalToUnsignedInt(1)));
+
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+
+    assertThatUnsignedInt(locationManagerProxy.nrCallsForStartUpdatingLocation, is(equalToUnsignedInt(2)));
+    assertThatUnsignedInt(locationManagerProxy.nrCallsForStopUpdatingLocation, is(equalToUnsignedInt(2)));
+}
 
 
 

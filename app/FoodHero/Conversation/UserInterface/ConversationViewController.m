@@ -16,7 +16,6 @@
 
 @implementation ConversationViewController {
     ConversationAppService *_appService;
-    RACDisposable *_statementIndexesDisposable;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -42,7 +41,7 @@
     [backgroundView setFrame:_conversationBubbleView.frame];
     _conversationBubbleView.backgroundView = backgroundView;
 
-    _statementIndexesDisposable = [[_appService statementIndexes] subscribeNext:^(id next){
+    [[_appService statementIndexes] subscribeNext:^(id next){
         NSUInteger index;
         NSNumber *wrappedIndex = next;
         [wrappedIndex getValue:&index];
