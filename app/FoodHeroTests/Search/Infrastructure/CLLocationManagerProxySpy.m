@@ -34,7 +34,12 @@
 }
 
 - (void)stopUpdatingLocation {
-   _nrCallsForStopUpdatingLocation++;
+    _nrCallsForStopUpdatingLocation++;
 }
+
+- (CLAuthorizationStatus)authorizationStatus {
+    return kCLAuthorizationStatusAuthorized;
+}
+
 
 @end

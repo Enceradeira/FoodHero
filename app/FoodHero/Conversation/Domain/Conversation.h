@@ -7,18 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveCocoa.h>
 #import "Statement.h"
 #import "RestaurantSearchService.h"
 
-@class RACSignal;
-
 @interface Conversation : NSObject
 
-- (void)add:(NSString *)string;
+- (void)addStatement:(NSString *)string;
 
 - (Statement *)getStatement:(NSUInteger)index;
-
-- (void)addStatement:(NSString *)statement;
 
 - (NSUInteger)getStatementCount;
 

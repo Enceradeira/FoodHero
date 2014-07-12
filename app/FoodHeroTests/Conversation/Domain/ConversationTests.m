@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <ReactiveCocoa.h>
-#import <XCTestCase+AsyncTesting.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
@@ -18,8 +17,9 @@
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
+#import "CLLocationManagerProxyStub.h"
 
-@interface ConversationTests : XCTestCase
+ @interface ConversationTests : XCTestCase
 
 @end
 
@@ -27,6 +27,7 @@
 {
     Conversation *_conversation;
     RestaurantSearchServiceStub *_restaurantSearchStub;
+    CLLocationManagerProxyStub  *_locationManagerStub;
 }
 
 - (void)setUp
@@ -35,11 +36,16 @@
     
     [TyphoonComponents configure:[StubAssembly new]];
     _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
+    _locationManagerStub =  [(id<ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
 }
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity{
-    [_restaurantSearchStub injectSearchResult:[Restaurant createWithName:name withVicinity:vicinity withTypes:nil]];
+    [_restaurantSearchStub injectFindResult:[Restaurant createWithName:name withVicinity:vicinity withTypes:nil]];
+}
+
+- (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status{
+    [_locationManagerStub injectAuthorizationStatus:status];
 }
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
@@ -81,18 +87,47 @@
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(3)));
 }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespond{
+-(void)test_addStatement_ShouldCauseFoodHeroToRespondWithSuggestion{
+    NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
+
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
-
-    NSUInteger nrExistingStatments = [_conversation getStatementCount];
-    NSUInteger indexOfFoodHeroResponse = nrExistingStatments+1;
-
     [_conversation addStatement:@"British Food"];
 
     Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
     assertThat(foodHeroResponse, is(notNilValue()));
     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
     assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:British Food")));
+ }
+
+ -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
+     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
+
+     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
+     [_conversation addStatement:@"British Food"];
+
+     Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
+     assertThat(foodHeroResponse, is(notNilValue()));
+     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
+     assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService")));
+ }
+
+ -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
+     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount]+1;
+
+    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
+    [_conversation addStatement:@"British Food"];
+
+    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
+
+     Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
+
+     assertThat(foodHeroResponse, is(notNilValue()));
+     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
+     assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService")));
+ }
+
+-(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileLocationServiceIsQueried{
+    assertThatBool(YES, is(equalToBool(NO)));
  }
  
  -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {

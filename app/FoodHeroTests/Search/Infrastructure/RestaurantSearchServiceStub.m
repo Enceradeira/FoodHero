@@ -4,6 +4,7 @@
 //
 
 #import "RestaurantSearchServiceStub.h"
+#import "LocationServicesNotAvailableException.h"
 
 
 @implementation RestaurantSearchServiceStub {
@@ -18,7 +19,7 @@
     return self;
 }
 
-- (void)injectSearchResult:(Restaurant *)restaurant {
+- (void)injectFindResult:(Restaurant *)restaurant {
     _searchResult = restaurant;
 }
 

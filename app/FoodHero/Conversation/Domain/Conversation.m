@@ -11,6 +11,7 @@
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
+#import "LocationServicesNotAvailableException.h"
 
 
 @interface Conversation ()
@@ -27,9 +28,22 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        [_statements addObject:[[Statement alloc] initWithText:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion" persona:Personas.foodHero]];
+        [self addFoodHeroStatement:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion"];
     }
     return self;
+}
+
+- (void)addFoodHeroStatement:(NSString *)statement semanticId:(NSString *)semanticId {
+    [self addStatement:statement semanticId:semanticId persona:Personas.foodHero];
+}
+
+- (void)addFoodUserStatement:(NSString *)statement semanticId:(NSString *)semanticId {
+    [self addStatement:statement semanticId:semanticId persona:[Personas user]];
+}
+
+- (void)addStatement:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona {
+    NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
+    [statementProxy addObject:[[Statement alloc] initWithText:text semanticId:semanticId persona:persona]];
 }
 
 - (Statement *)getStatement:(NSUInteger)index {
@@ -41,17 +55,20 @@
 }
 
 - (void)addStatement:(NSString *)statement {
-    NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
+    [self addFoodUserStatement:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement]];
+    @try {
+        [[_restaurantSearch findBest] subscribeNext:^(id next){
+            Restaurant *restaurant = next;
+            NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
+            NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
 
-    [statementProxy addObject:[[Statement alloc] initWithText:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement] persona:Personas.user]];
-
-    [[_restaurantSearch findBest] subscribeNext:^(id next){
-        Restaurant *restaurant = next;
-        NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
-        NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
-
-        [statementProxy addObject:[[Statement alloc] initWithText:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", statement] persona:Personas.foodHero]];
-    }];
+            [self addFoodHeroStatement:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", statement]];
+        }];
+    }
+    @catch (LocationServicesNotAvailableException *exc) {
+        NSString* text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
+        [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService"];
+    }
 }
 
 - (NSUInteger)getStatementCount {

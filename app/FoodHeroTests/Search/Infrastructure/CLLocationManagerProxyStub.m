@@ -9,6 +9,7 @@
 @implementation CLLocationManagerProxyStub {
     NSObject <CLLocationManagerDelegate> *_delegate;
     NSArray *_locations;
+    CLAuthorizationStatus _authorizationStatus;
 }
 
 - (id)init {
@@ -23,6 +24,7 @@
         location = [[CLLocation new] initWithCoordinate:norwich altitude:50 horizontalAccuracy:50 verticalAccuracy:50 course:0 speed:0 timestamp:[NSDate date]];
 
         _locations = [NSArray arrayWithObject:location];
+        _authorizationStatus = kCLAuthorizationStatusAuthorized;
     }
     return self;
 }
@@ -36,14 +38,17 @@
 }
 
 - (void)startUpdatingLocation {
-    if (_delegate != nil) {
-
+    if (_delegate != nil && _authorizationStatus == kCLAuthorizationStatusAuthorized && _locations != nil) {
         [_delegate locationManager:nil didUpdateLocations:_locations];
     }
 }
 
 - (void)stopUpdatingLocation {
 
+}
+
+- (CLAuthorizationStatus)authorizationStatus {
+    return _authorizationStatus;
 }
 
 - (void)injectLocations:(NSArray *)locations {
@@ -59,4 +64,12 @@
     [self injectLocations:[NSArray arrayWithObject:location]];
 }
 
+- (void)injectAuthorizationStatus:(CLAuthorizationStatus)status {
+    CLAuthorizationStatus oldStatus = _authorizationStatus;
+    _authorizationStatus = status;
+    if (oldStatus != _authorizationStatus && _delegate != nil) {
+        [_delegate locationManager:nil didChangeAuthorizationStatus:_authorizationStatus];
+    }
+
+}
 @end

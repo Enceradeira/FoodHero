@@ -6,7 +6,9 @@
 #import <Foundation/Foundation.h>
 #import "Restaurant.h"
 #import "RestaurantSearchService.h"
+#import "LocationServicesNotAvailableException.h"
 
 @interface RestaurantSearchServiceStub : NSObject <RestaurantSearchService>
-- (void)injectSearchResult:(Restaurant *)restaurant;
+- (void)injectFindResult:(Restaurant *)restaurant;
+
 @end

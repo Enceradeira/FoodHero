@@ -46,3 +46,7 @@ end
 When(/^User allows access to location\-services$/) do
   alert_accept
 end
+
+When(/^User doesn't allow access to location\-services$/) do
+  alert_dismiss
+end

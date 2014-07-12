@@ -11,4 +11,6 @@
 - (void)injectLocations:(NSArray *)locations;
 
 - (void)injectLatitude:(double)latitude longitude:(double)longitude;
+
+- (void)injectAuthorizationStatus:(CLAuthorizationStatus)status;
 @end

@@ -5,7 +5,6 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "CLLocationManagerImpl.h"
-#import "LocationService.h"
 
 
 @implementation CLLocationManagerImpl {
@@ -24,7 +23,7 @@
     [_locationManager setDesiredAccuracy:desiredAccuracy];
 }
 
-- (void)setDelegate:(NSObject<CLLocationManagerDelegate> *)delegate {
+- (void)setDelegate:(NSObject <CLLocationManagerDelegate> *)delegate {
     [_locationManager setDelegate:delegate];
 }
 
@@ -34,6 +33,10 @@
 
 - (void)stopUpdatingLocation {
     [_locationManager stopUpdatingLocation];
+}
+
+- (CLAuthorizationStatus)authorizationStatus {
+    return [CLLocationManager authorizationStatus];
 }
 
 @end

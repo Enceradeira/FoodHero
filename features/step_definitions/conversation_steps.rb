@@ -20,3 +20,8 @@ end
 Then(/^FoodHero asks if he may get location$/) do
   pending
 end
+
+Then(/^FoodHero regrets that he can't access location$/) do
+  greeting_bubble = find_element :accessibility_id, 'ConversationBubble-CantAccessLocationService'
+  expect(greeting_bubble).not_to be_nil
+end

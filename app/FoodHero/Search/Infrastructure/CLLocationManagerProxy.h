@@ -9,9 +9,11 @@
 @protocol CLLocationManagerProxy <NSObject>
 - (void)setDesiredAccuracy:(CLLocationAccuracy const)desiredAccuracy;
 
-- (void)setDelegate:(NSObject<CLLocationManagerDelegate> *)delegate;
+- (void)setDelegate:(NSObject <CLLocationManagerDelegate> *)delegate;
 
 - (void)startUpdatingLocation;
 
 - (void)stopUpdatingLocation;
+
+- (CLAuthorizationStatus)authorizationStatus;
 @end
