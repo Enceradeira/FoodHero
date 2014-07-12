@@ -126,11 +126,7 @@
      assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService")));
  }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileLocationServiceIsQueried{
-    assertThatBool(YES, is(equalToBool(NO)));
- }
- 
- -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
+-(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
      NSMutableArray *receivedIndexes = [NSMutableArray new];
      [[_conversation statementIndexes] subscribeNext:^(id next){
          [receivedIndexes addObject:next];

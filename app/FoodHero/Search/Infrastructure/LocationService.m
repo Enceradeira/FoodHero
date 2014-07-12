@@ -4,7 +4,6 @@
 //
 
 #import "LocationService.h"
-#import "LocationServicesNotAvailableException.h"
 
 @interface LocationService ()
 @property(atomic, readwrite) CLLocationCoordinate2D currentLocationHolder;
@@ -28,16 +27,17 @@
     return self;
 }
 
-- (void)doIfNotAuthorized:(void (^)())action {
+- (BOOL)isNotAuthorized {
     CLAuthorizationStatus status = [_locationManager authorizationStatus];
     switch (status) {
         case kCLAuthorizationStatusRestricted:
             break;
         case kCLAuthorizationStatusDenied:
-            action();
+            return YES;
         default:
             break;
     }
+    return NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -46,39 +46,53 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    [self wakeUpCurrentLocationObserver];
+    [self wakeUpCurrentLocationObserverIfNotAuthorized];
 }
 
-- (void)wakeUpCurrentLocationObserver {
-    [self doIfNotAuthorized:^(){
+- (void)wakeUpCurrentLocationObserverIfNotAuthorized {
+    if (self.isNotAuthorized) {
         self.currentLocationHolder = _emptyCoordinate;
-    }];
+    }
 }
 
 - (RACSignal *)currentLocation {
-    [self throwExceptionIfNotAuthorized];
-
     [_locationManager startUpdatingLocation];
 
-    RACSignal *allCoordinates = [RACObserve(self, currentLocationHolder) filter:^(id next) {
-        [self throwExceptionIfNotAuthorized];
+    RACSignal *values = RACObserve(self, currentLocationHolder);
+
+    RACSignal *valuesWithAuthorizationError = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
+        RACSerialDisposable *serialDisposable = [[RACSerialDisposable alloc] init];
+        RACDisposable *sourceDisposable = [values subscribeNext:^(id next){
+            if (self.isNotAuthorized) {
+                NSError *error = [NSError new];
+                [subscriber sendError:error];
+            }
+            else {
+                [subscriber sendNext:next];
+            }
+
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            [subscriber sendCompleted];
+        }];
+
+        serialDisposable.disposable = sourceDisposable;
+        return serialDisposable;
+    }];
+
+    RACSignal *noneEmptyValues = [valuesWithAuthorizationError filter:^(id next) {
         CLLocationCoordinate2D value;
         [(NSValue *) next getValue:&value];
         BOOL hasBeenInitialized = !(floor(value.longitude) == 0.0 && floor(value.latitude) == 0.0);
         return hasBeenInitialized;
     }];
 
-    RACSignal *oneCoordinate = [allCoordinates take:1];
-    [oneCoordinate subscribeCompleted:^{
+    RACSignal *oneNoneEmptyValue = [noneEmptyValues take:1];
+    [oneNoneEmptyValue subscribeCompleted:^{
         [_locationManager stopUpdatingLocation];
     }];
-    return oneCoordinate;
-}
-
-- (void)throwExceptionIfNotAuthorized {
-    [self doIfNotAuthorized:^(){
-        @throw [LocationServicesNotAvailableException new];
-    }];
+    return oneNoneEmptyValue;
 }
 
 @end

@@ -11,7 +11,6 @@
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
-#import "LocationServicesNotAvailableException.h"
 
 
 @interface Conversation ()
@@ -56,19 +55,19 @@
 
 - (void)addStatement:(NSString *)statement {
     [self addFoodUserStatement:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement]];
-    @try {
-        [[_restaurantSearch findBest] subscribeNext:^(id next){
-            Restaurant *restaurant = next;
-            NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
-            NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
 
-            [self addFoodHeroStatement:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", statement]];
-        }];
-    }
-    @catch (LocationServicesNotAvailableException *exc) {
-        NSString* text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
+    RACSignal *bestRestaurant = [_restaurantSearch findBest];
+    [bestRestaurant subscribeError:^(NSError *error){
+        NSString *text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
         [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService"];
-    }
+    }];
+    [bestRestaurant subscribeNext:^(id next){
+        Restaurant *restaurant = next;
+        NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
+        NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
+
+        [self addFoodHeroStatement:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", statement]];
+    }];
 }
 
 - (NSUInteger)getStatementCount {
