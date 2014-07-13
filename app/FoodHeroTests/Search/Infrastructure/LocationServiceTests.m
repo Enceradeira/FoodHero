@@ -18,11 +18,11 @@
 #import "CLLocationManagerProxySpy.h"
 
 
-@interface IosLocationServiceTests : XCTestCase
+@interface LocationServiceTests : XCTestCase
 
 @end
 
-@implementation IosLocationServiceTests {
+@implementation LocationServiceTests {
 }
 
 - (void)setUp
