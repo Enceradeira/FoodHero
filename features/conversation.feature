@@ -15,5 +15,4 @@ Feature: User interacts with app through conversation
     When User wishes to eat British food
     Then FoodHero asks for access to location-services
     When User doesn't allow access to location-services
-    Then FoodHero regrets that he can't access location
-    Then FoodHero says goodbye
+    Then FoodHero asks to enable location-services in settings

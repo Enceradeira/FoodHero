@@ -55,16 +55,6 @@
     [_expectedStatements setObject:persona forKey:statement];
 }
 
-- (void)assertCorrectFoodHeroResponseWhenCantAccessLocationService:(CLAuthorizationStatus)authorizationStatus expectedAnswer:(NSString *)expectedAnswer {
-    NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
-
-    [self userSetsLocationAuthorizationStatus:authorizationStatus];
-    [_conversation addStatement:@"British Food"];
-
-    [self expectStatementFor:[Personas foodHero] statmentent:expectedAnswer];
-    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
-}
-
 - (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
     for(NSUInteger i=index; i<_expectedStatements.count; i++){
         NSString *expectedSemanticId = _expectedStatements.allKeys[i];
@@ -126,13 +116,23 @@
  }
 
  -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
-     [self assertCorrectFoodHeroResponseWhenCantAccessLocationService:kCLAuthorizationStatusDenied
-                                                       expectedAnswer:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
+
+     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
+     [_conversation addStatement:@"British Food"];
+
+     [self expectStatementFor:[Personas foodHero] statmentent:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
 -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
-    [self assertCorrectFoodHeroResponseWhenCantAccessLocationService:kCLAuthorizationStatusRestricted
-                                                      expectedAnswer:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
+    NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
+
+    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
+    [_conversation addStatement:@"British Food"];
+
+    [self expectStatementFor:[Personas foodHero] statmentent:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
+    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 
 -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
