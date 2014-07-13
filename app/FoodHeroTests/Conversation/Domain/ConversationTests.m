@@ -19,7 +19,8 @@
 #import "RestaurantSearchServiceStub.h"
 #import "CLLocationManagerProxyStub.h"
 
- @interface ConversationTests : XCTestCase
+
+@interface ConversationTests : XCTestCase
 
 @end
 
@@ -28,16 +29,18 @@
     Conversation *_conversation;
     RestaurantSearchServiceStub *_restaurantSearchStub;
     CLLocationManagerProxyStub  *_locationManagerStub;
+    NSMutableDictionary* _expectedStatements;
 }
 
 - (void)setUp
 {
     [super setUp];
-    
+
     [TyphoonComponents configure:[StubAssembly new]];
     _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub =  [(id<ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
+    _expectedStatements = [NSMutableDictionary new];
 }
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity{
@@ -48,16 +51,31 @@
     [_locationManagerStub injectAuthorizationStatus:status];
 }
 
+- (void)expectStatementFor:(Persona *)persona statmentent:(NSString *)statement{
+    [_expectedStatements setObject:persona forKey:statement];
+}
+
 - (void)assertCorrectFoodHeroResponseWhenCantAccessLocationService:(CLAuthorizationStatus)authorizationStatus expectedAnswer:(NSString *)expectedAnswer {
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self userSetsLocationAuthorizationStatus:authorizationStatus];
     [_conversation addStatement:@"British Food"];
 
-    Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
-    (foodHeroResponse, is(notNilValue()));
-    (foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-    (foodHeroResponse.semanticId, is(equalTo(expectedAnswer)));
+    [self expectStatementFor:[Personas foodHero] statmentent:expectedAnswer];
+    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
+}
+
+- (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
+    for(NSUInteger i=index; i<_expectedStatements.count; i++){
+        NSString *expectedSemanticId = _expectedStatements.allKeys[i];
+        Persona *expectedPersona = _expectedStatements[expectedSemanticId];
+
+        assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(i))));
+        Statement *statement = [_conversation getStatement:i];
+        assertThat(statement, is(notNilValue()));
+        assertThat(statement.semanticId, is(equalTo(expectedSemanticId)));
+        assertThat(statement.persona, is(equalTo(expectedPersona)));
+    }
 }
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
@@ -83,12 +101,10 @@
 -(void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
     [_conversation addStatement:@"British or Indian Food"];
-    
-    Statement *statement  = [_conversation getStatement:1];
-    
-    assertThat(statement, is(notNilValue()));
-    assertThat(statement.semanticId, is(equalTo(@"UserAnswer:British or Indian Food")));
-    assertThat(statement.persona, is(equalTo(Personas.user)));
+
+    [self expectStatementFor:Personas.user statmentent:@"UserAnswer:British or Indian Food"];
+
+    [self assertExpectedStatementsAtIndex:1];
 }
 
 -(void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation
@@ -105,10 +121,8 @@
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
     [_conversation addStatement:@"British Food"];
 
-    Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
-    assertThat(foodHeroResponse, is(notNilValue()));
-    assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-    assertThat(foodHeroResponse.semanticId, is(equalTo(@"Suggestion:British Food")));
+    [self expectStatementFor:Personas.foodHero statmentent:@"Suggestion:British Food"];
+    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
  -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
@@ -129,11 +143,8 @@
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
-     Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
-
-     assertThat(foodHeroResponse, is(notNilValue()));
-     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-     assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices")));
+    [self expectStatementFor:[Personas foodHero] statmentent:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
 -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {

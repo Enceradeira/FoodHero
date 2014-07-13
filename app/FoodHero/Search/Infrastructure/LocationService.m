@@ -73,9 +73,9 @@
                 [subscriber sendNext:next];
             }
 
-        }                                                 error:^(NSError *error) {
+        }   error:^(NSError *error) {
             [subscriber sendError:error];
-        }                                             completed:^{
+        }   completed:^{
             [subscriber sendCompleted];
         }];
 
