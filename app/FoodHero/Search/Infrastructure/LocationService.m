@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <RACEXTScope.h>
 #import "LocationService.h"
 #import "LocationServiceAuthorizationStatusDeniedError.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
@@ -58,19 +59,22 @@
 }
 
 - (RACSignal *)currentLocation {
+    @weakify(self);
     [_locationManager startUpdatingLocation];
 
     RACSignal *values = RACObserve(self, currentLocationHolder);
 
     RACSignal *valuesWithAuthorizationError = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
-        RACSerialDisposable *serialDisposable = [[RACSerialDisposable alloc] init];
+        RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
         RACDisposable *sourceDisposable = [values subscribeNext:^(id next){
+            @strongify(self);
             NSError *error = self.authorizationError;
             if (error != nil) {
                 [subscriber sendError:error];
             }
             else {
                 [subscriber sendNext:next];
+                //[subscriber sendCompleted];
             }
 
         }   error:^(NSError *error) {

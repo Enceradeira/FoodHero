@@ -7,12 +7,14 @@
 //
 
 #import <ReactiveCocoa.h>
+#import <RACEXTScope.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
 #import "LocationServiceAuthorizationStatusDeniedError.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
+#import "NoRestaurantsFoundError.h"
 
 
 @interface Conversation ()
@@ -59,7 +61,9 @@
     [self addFoodUserStatement:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement]];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
+    @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error){
+        @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
             NSString *text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
             [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
@@ -68,8 +72,13 @@
             NSString *text = @"I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am.";
             [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
         }
+        else if (error.class == [NoRestaurantsFoundError class]){
+            NSString *text = @"That’s weird. I can’t find any restaurants right now.";
+            [self addFoodHeroStatement:text semanticId:@"NoRestaurantsFound"];
+        }
     }];
     [bestRestaurant subscribeNext:^(id next){
+        @strongify(self);
         Restaurant *restaurant = next;
         NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
         NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];

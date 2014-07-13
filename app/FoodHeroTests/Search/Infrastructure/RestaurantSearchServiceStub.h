@@ -10,4 +10,5 @@
 @interface RestaurantSearchServiceStub : NSObject <RestaurantSearchService>
 - (void)injectFindResult:(Restaurant *)restaurant;
 
+- (void)injectFindResultNothing;
 @end

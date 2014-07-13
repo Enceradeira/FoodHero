@@ -7,6 +7,7 @@
 
 @implementation RestaurantSearchServiceStub {
     Restaurant *_searchResult;
+    BOOL _findReturnsNil;
 }
 
 - (id)init {
@@ -23,6 +24,9 @@
 
 - (NSArray *)find:(RestaurantSearchParams *)parameter {
     NSMutableArray *result = [NSMutableArray new];
+    if (_findReturnsNil) {
+        return [NSArray new];
+    }
     if (_searchResult != nil) {
         [result addObject:_searchResult];
     }
@@ -32,5 +36,7 @@
     return result;
 }
 
-
+- (void)injectFindResultNothing {
+    _findReturnsNil = YES;
+}
 @end

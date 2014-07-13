@@ -5,7 +5,7 @@
 
 #import <ReactiveCocoa.h>
 #import "RestaurantSearch.h"
-#import "LocationService.h"
+#import "NoRestaurantsFoundError.h"
 
 @implementation RestaurantSearch {
 
@@ -23,21 +23,34 @@
 }
 
 - (RACSignal *)findBest {
-    return [[_locationService currentLocation] map:^(id value){
-        CLLocationCoordinate2D coordinate;
-        coordinate.longitude, coordinate.latitude = 0;
-        [((NSValue *) value) getValue:&coordinate];
+    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
+        RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
-        RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-        parameter.location = coordinate;
-        parameter.radius = 2000;
-        NSArray *restaurants = [_searchService find:parameter];
-        if (restaurants.count > 0) {
-            return (Restaurant *) restaurants[0];
-        }
-        else {
-            return [Restaurant createWithName:@"Marsblaster" withVicinity:@"on the Moon" withTypes:[NSArray new]];
-        }
+        RACDisposable *sourceDisposable = [[_locationService currentLocation]
+            subscribeNext:^(id value){
+                CLLocationCoordinate2D coordinate;
+                coordinate.longitude, coordinate.latitude = 0;
+                [((NSValue *) value) getValue:&coordinate];
+
+                RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+                parameter.location = coordinate;
+                parameter.radius = 2000;
+                NSArray *restaurants = [_searchService find:parameter];
+                if (restaurants.count > 0) {
+                    [subscriber sendNext:restaurants[0]];
+                    [subscriber sendCompleted];
+                }
+                else {
+                    [subscriber sendError:[NoRestaurantsFoundError new]];
+                }
+        }   error:^(NSError *error) {
+                [subscriber sendError:error];
+        }   completed:^{
+                [subscriber sendCompleted];
+        }];
+
+        serialDisposable.disposable = sourceDisposable;
+        return serialDisposable;
     }];
 }
 @end

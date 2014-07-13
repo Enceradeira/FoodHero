@@ -56,12 +56,13 @@
 }
 
 - (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
-    for(NSUInteger i=index; i<_expectedStatements.count; i++){
+    for(NSUInteger i=0; i<_expectedStatements.count; i++){
         NSString *expectedSemanticId = _expectedStatements.allKeys[i];
         Persona *expectedPersona = _expectedStatements[expectedSemanticId];
 
-        assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(i))));
-        Statement *statement = [_conversation getStatement:i];
+        NSUInteger offsetIndex = i+index;
+        assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(offsetIndex))));
+        Statement *statement = [_conversation getStatement:offsetIndex];
         assertThat(statement, is(notNilValue()));
         assertThat(statement.semanticId, is(equalTo(expectedSemanticId)));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
@@ -87,6 +88,20 @@
     {
     }
 }
+
+-(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
+     NSMutableArray *receivedIndexes = [NSMutableArray new];
+     [[_conversation statementIndexes] subscribeNext:^(id next){
+         [receivedIndexes addObject:next];
+     }];
+
+     [_conversation addStatement:@"British Food"]; // adds the answer & food-heros response
+
+     assertThat(receivedIndexes, contains(
+     [NSNumber numberWithUnsignedInt:0],
+     [NSNumber numberWithUnsignedInt:1],
+     [NSNumber numberWithUnsignedInt:2],nil));
+ }
 
 -(void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
@@ -147,18 +162,16 @@
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
--(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
-     NSMutableArray *receivedIndexes = [NSMutableArray new];
-     [[_conversation statementIndexes] subscribeNext:^(id next){
-         [receivedIndexes addObject:next];
-     }];
+-(void)test_addStatement_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
+{
+    NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
+    [_restaurantSearchStub injectFindResultNothing];
 
-     [_conversation addStatement:@"British Food"]; // adds the answer & food-heros response
+    [_conversation addStatement:@"British Food"];
 
-     assertThat(receivedIndexes, contains(
-     [NSNumber numberWithUnsignedInt:0],
-     [NSNumber numberWithUnsignedInt:1],
-     [NSNumber numberWithUnsignedInt:2],nil));
- }
+    [self expectStatementFor:[Personas foodHero] statmentent:@"NoRestaurantsFound"];
+    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
+}
+
 
 @end
