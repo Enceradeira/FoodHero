@@ -4,6 +4,8 @@
 //
 
 #import "LocationService.h"
+#import "LocationServiceAuthorizationStatusDeniedError.h"
+#import "LocationServiceAuthorizationStatusRestrictedError.h"
 
 @interface LocationService ()
 @property(atomic, readwrite) CLLocationCoordinate2D currentLocationHolder;
@@ -27,17 +29,17 @@
     return self;
 }
 
-- (BOOL)isNotAuthorized {
+- (NSError *)authorizationError {
     CLAuthorizationStatus status = [_locationManager authorizationStatus];
     switch (status) {
         case kCLAuthorizationStatusRestricted:
-            break;
+            return [LocationServiceAuthorizationStatusRestrictedError new];
         case kCLAuthorizationStatusDenied:
-            return YES;
+            return [LocationServiceAuthorizationStatusDeniedError new];
         default:
             break;
     }
-    return NO;
+    return nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -50,7 +52,7 @@
 }
 
 - (void)wakeUpCurrentLocationObserverIfNotAuthorized {
-    if (self.isNotAuthorized) {
+    if (self.authorizationError != nil) {
         self.currentLocationHolder = _emptyCoordinate;
     }
 }
@@ -63,17 +65,17 @@
     RACSignal *valuesWithAuthorizationError = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
         RACSerialDisposable *serialDisposable = [[RACSerialDisposable alloc] init];
         RACDisposable *sourceDisposable = [values subscribeNext:^(id next){
-            if (self.isNotAuthorized) {
-                NSError *error = [NSError new];
+            NSError *error = self.authorizationError;
+            if (error != nil) {
                 [subscriber sendError:error];
             }
             else {
                 [subscriber sendNext:next];
             }
 
-        } error:^(NSError *error) {
+        }                                                 error:^(NSError *error) {
             [subscriber sendError:error];
-        } completed:^{
+        }                                             completed:^{
             [subscriber sendCompleted];
         }];
 

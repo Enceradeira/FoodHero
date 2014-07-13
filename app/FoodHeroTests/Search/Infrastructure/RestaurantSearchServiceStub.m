@@ -4,8 +4,6 @@
 //
 
 #import "RestaurantSearchServiceStub.h"
-#import "LocationServicesNotAvailableException.h"
-
 
 @implementation RestaurantSearchServiceStub {
     Restaurant *_searchResult;

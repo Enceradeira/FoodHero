@@ -11,6 +11,8 @@
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
+#import "LocationServiceAuthorizationStatusDeniedError.h"
+#import "LocationServiceAuthorizationStatusRestrictedError.h"
 
 
 @interface Conversation ()
@@ -58,8 +60,14 @@
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
     [bestRestaurant subscribeError:^(NSError *error){
-        NSString *text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
-        [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService"];
+        if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
+            NSString *text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
+            [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+        }
+        else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {
+            NSString *text = @"I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am.";
+            [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
+        }
     }];
     [bestRestaurant subscribeNext:^(id next){
         Restaurant *restaurant = next;

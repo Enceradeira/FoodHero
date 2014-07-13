@@ -1,4 +1,4 @@
- //
+//
 //  ConversationTests.m
 //  FoodHero
 //
@@ -46,6 +46,18 @@
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status{
     [_locationManagerStub injectAuthorizationStatus:status];
+}
+
+- (void)assertCorrectFoodHeroResponseWhenCantAccessLocationService:(CLAuthorizationStatus)authorizationStatus expectedAnswer:(NSString *)expectedAnswer {
+    NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
+
+    [self userSetsLocationAuthorizationStatus:authorizationStatus];
+    [_conversation addStatement:@"British Food"];
+
+    Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
+    (foodHeroResponse, is(notNilValue()));
+    (foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
+    (foodHeroResponse.semanticId, is(equalTo(expectedAnswer)));
 }
 
 - (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
@@ -100,18 +112,16 @@
  }
 
  -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
-     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
-
-     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-     [_conversation addStatement:@"British Food"];
-
-     Statement *foodHeroResponse = [_conversation getStatement:indexOfFoodHeroResponse];
-     assertThat(foodHeroResponse, is(notNilValue()));
-     assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-     assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService")));
+     [self assertCorrectFoodHeroResponseWhenCantAccessLocationService:kCLAuthorizationStatusDenied
+                                                       expectedAnswer:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
  }
 
- -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
+-(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
+    [self assertCorrectFoodHeroResponseWhenCantAccessLocationService:kCLAuthorizationStatusRestricted
+                                                      expectedAnswer:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
+}
+
+-(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount]+1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
@@ -123,7 +133,7 @@
 
      assertThat(foodHeroResponse, is(notNilValue()));
      assertThat(foodHeroResponse.persona, is(equalTo(Personas.foodHero)));
-     assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService")));
+     assertThat(foodHeroResponse.semanticId, is(equalTo(@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices")));
  }
 
 -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
