@@ -74,7 +74,6 @@
             }
             else {
                 [subscriber sendNext:next];
-                //[subscriber sendCompleted];
             }
 
         }   error:^(NSError *error) {
@@ -96,6 +95,9 @@
 
     RACSignal *oneNoneEmptyValue = [noneEmptyValues take:1];
     [oneNoneEmptyValue subscribeCompleted:^{
+        [_locationManager stopUpdatingLocation];
+    }];
+    [oneNoneEmptyValue subscribeError:^(NSError* error){
         [_locationManager stopUpdatingLocation];
     }];
     return oneNoneEmptyValue;

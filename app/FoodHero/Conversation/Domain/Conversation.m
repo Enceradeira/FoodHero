@@ -65,7 +65,7 @@
     [bestRestaurant subscribeError:^(NSError *error){
         @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
-            NSString *text = @"Ooops... I can't find out your current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
+            NSString *text = @"Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
             [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
         }
         else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {

@@ -5,9 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import "CLLocationManagerProxy.h"
+#import "CLLocationManagerProxyStub.h"
 
 
-@interface CLLocationManagerProxySpy : NSObject <CLLocationManagerProxy>
+@interface CLLocationManagerProxySpy : CLLocationManagerProxyStub
 @property(nonatomic) NSUInteger nrCallsForStartUpdatingLocation;
 @property(nonatomic) NSUInteger nrCallsForStopUpdatingLocation;
 @end

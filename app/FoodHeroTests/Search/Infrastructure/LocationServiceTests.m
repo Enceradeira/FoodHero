@@ -69,8 +69,6 @@
 -(void)test_currentLocation_ShouldOnlyReturnOneLocationAndComplete{
      LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
-    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
-
     __block NSUInteger nrRetrievedValues = 0;
     RACSignal *signal = [service currentLocation];
     [signal subscribeNext:^(id next){
@@ -85,7 +83,32 @@
     assertThatBool(hasCompleted, is(equalToBool(YES)));
 }
 
--(void)test_currentLocation_ShouldStartAndStopLocationManager{
+-(void)test_currentLocation_ShouldReturnNoLocationAndHaveError_WhenError{
+    CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
+    LocationService *service = [self service:locationManagerProxy];
+
+    [locationManagerProxy injectAuthorizationStatus:kCLAuthorizationStatusDenied];
+
+    __block NSUInteger nrRetrievedValues = 0;
+    RACSignal *signal = [service currentLocation];
+    [signal subscribeNext:^(id next){
+         nrRetrievedValues++;
+    }];
+    __block BOOL hasCompleted = NO;
+    [signal subscribeCompleted:^{
+        hasCompleted = YES;
+    }];
+    __block BOOL hasError = NO;
+    [signal subscribeError:^(NSError* error){
+        hasError = YES;
+    }];
+
+    assertThatUnsignedInt(nrRetrievedValues, is(equalToUnsignedInt(0)));
+    assertThatBool(hasCompleted, is(equalToBool(NO)));
+    assertThatBool(hasError, is(equalToBool(YES)));
+}
+
+-(void)test_currentLocation_ShouldStartAndStopLocationManager_WhenCompleted{
     CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
     LocationService *service = [self service:locationManagerProxy];
 
@@ -98,6 +121,17 @@
 
     assertThatUnsignedInt(locationManagerProxy.nrCallsForStartUpdatingLocation, is(equalToUnsignedInt(2)));
     assertThatUnsignedInt(locationManagerProxy.nrCallsForStopUpdatingLocation, is(equalToUnsignedInt(2)));
+}
+
+-(void)test_currentLocation_ShouldStartAndStopLocationManager_WhenError{
+    CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
+    LocationService *service = [self service:locationManagerProxy];
+
+    [locationManagerProxy injectAuthorizationStatus:kCLAuthorizationStatusDenied];
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+
+    assertThatUnsignedInt(locationManagerProxy.nrCallsForStartUpdatingLocation, is(equalToUnsignedInt(1)));
+    assertThatUnsignedInt(locationManagerProxy.nrCallsForStopUpdatingLocation, is(equalToUnsignedInt(1)));
 }
 
 
