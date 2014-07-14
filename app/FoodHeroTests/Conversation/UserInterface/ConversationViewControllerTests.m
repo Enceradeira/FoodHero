@@ -53,7 +53,7 @@
 - (void)test_Controller_ShouldGreatUserOnFirstRow {
     ConversationBubbleTableViewCell *firstRow = [self assertRow:0];
     
-    assertThat(firstRow.bubble.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
+    assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
 }
 
 
@@ -62,7 +62,7 @@
     
     ConversationBubbleTableViewCell *userAnswer = [self assertRow:1];
 
-    assertThat(userAnswer.bubble.semanticId, is(equalTo(@"UserAnswer:British food")));
+    assertThat(userAnswer.bubble.semanticId, is(equalTo(@"U:CuisinePreference=British food")));
 }
 
 -(void)test_userChoosesCuisine_ShouldDisplaySuggestionOnThirdRow {
@@ -70,7 +70,7 @@
 
     ConversationBubbleTableViewCell *suggestion = [self assertRow:2];
 
-     assertThat(suggestion.bubble.semanticId, is(equalTo(@"Suggestion:British food")));
+     assertThat(suggestion.bubble.semanticId, is(equalTo(@"FH:Suggestion=British food")));
 }
 
 @end

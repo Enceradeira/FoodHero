@@ -74,7 +74,7 @@
     Statement *statement = [_conversation getStatement:0];
     
     assertThat(statement, is(notNilValue()));
-    assertThat(statement.semanticId, is(equalTo(@"Greeting&OpeningQuestion")));
+    assertThat(statement.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
     assertThat(statement.persona, is(equalTo(Personas.foodHero)));
 }
 
@@ -107,7 +107,7 @@
 {
     [_conversation addStatement:@"British or Indian Food"];
 
-    [self expectStatementFor:Personas.user statmentent:@"UserAnswer:British or Indian Food"];
+    [self expectStatementFor:Personas.user statmentent:@"U:CuisinePreference=British or Indian Food"];
 
     [self assertExpectedStatementsAtIndex:1];
 }
@@ -126,7 +126,7 @@
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
     [_conversation addStatement:@"British Food"];
 
-    [self expectStatementFor:Personas.foodHero statmentent:@"Suggestion:British Food"];
+    [self expectStatementFor:Personas.foodHero statmentent:@"FH:Suggestion=British Food"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
@@ -136,7 +136,7 @@
      [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
      [_conversation addStatement:@"British Food"];
 
-     [self expectStatementFor:[Personas foodHero] statmentent:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+     [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
      [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
@@ -146,7 +146,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [_conversation addStatement:@"British Food"];
 
-    [self expectStatementFor:[Personas foodHero] statmentent:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
+    [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 
@@ -158,7 +158,7 @@
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
-    [self expectStatementFor:[Personas foodHero] statmentent:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+    [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
@@ -169,7 +169,7 @@
 
     [_conversation addStatement:@"British Food"];
 
-    [self expectStatementFor:[Personas foodHero] statmentent:@"NoRestaurantsFound"];
+    [self expectStatementFor:[Personas foodHero] statmentent:@"FH:NoRestaurantsFound"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 

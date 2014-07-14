@@ -64,7 +64,7 @@ const CGFloat landscapeWidth = 400;
     ConversationBubble *bubble = [self getStatement:1];
     
     assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.semanticId, is(equalTo(@"UserAnswer:British or Indian Food")));
+    assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British or Indian Food")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 

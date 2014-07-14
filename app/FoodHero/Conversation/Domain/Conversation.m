@@ -31,7 +31,7 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        [self addFoodHeroStatement:@"Hi there. What kind of food would you like to eat?" semanticId:@"Greeting&OpeningQuestion"];
+        [self addFoodHeroStatement:@"Hi there. What kind of food would you like to eat?" semanticId:@"FH:Greeting&FH:OpeningQuestion"];
     }
     return self;
 }
@@ -58,7 +58,7 @@
 }
 
 - (void)addStatement:(NSString *)statement {
-    [self addFoodUserStatement:statement semanticId:[NSString stringWithFormat:@"UserAnswer:%@", statement]];
+    [self addFoodUserStatement:statement semanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", statement]];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
     @weakify(self);
@@ -66,15 +66,15 @@
         @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
             NSString *text = @"Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
-            [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserDeniedAccessToLocationServices"];
+            [self addFoodHeroStatement:text semanticId:@"FH:BecauseUserDeniedAccessToLocationServices"];
         }
         else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {
             NSString *text = @"I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am.";
-            [self addFoodHeroStatement:text semanticId:@"CantAccessLocationService:BecauseUserIsNotAllowedToUseLocationServices"];
+            [self addFoodHeroStatement:text semanticId:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
         }
         else if (error.class == [NoRestaurantsFoundError class]){
             NSString *text = @"That’s weird. I can’t find any restaurants right now.";
-            [self addFoodHeroStatement:text semanticId:@"NoRestaurantsFound"];
+            [self addFoodHeroStatement:text semanticId:@"FH:NoRestaurantsFound"];
         }
     }];
     [bestRestaurant subscribeNext:^(id next){
@@ -83,7 +83,7 @@
         NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
         NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
 
-        [self addFoodHeroStatement:text semanticId:[NSString stringWithFormat:@"Suggestion:%@", statement]];
+        [self addFoodHeroStatement:text semanticId:[NSString stringWithFormat:@"FH:Suggestion=%@", statement]];
     }];
 }
 
