@@ -31,20 +31,21 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        [self addFoodHeroStatement:@"Hi there. What kind of food would you like to eat?" semanticId:@"FH:Greeting&FH:OpeningQuestion"];
+        [self addStatement:@"Hi there. What kind of food would you like to eat?" semanticId:@"FH:Greeting&FH:OpeningQuestion"];
     }
     return self;
 }
 
-- (void)addFoodHeroStatement:(NSString *)statement semanticId:(NSString *)semanticId {
-    [self addStatement:statement semanticId:semanticId persona:Personas.foodHero];
+- (void)addStatement:(NSString *)statement semanticId:(NSString *)semanticId {
+    if ([semanticId rangeOfString:@"FH:"].location == NSNotFound) {
+        [self addStatementWithPersona:[Personas user] text:statement semanticId:semanticId];
+    }
+    else {
+        [self addStatementWithPersona:[Personas foodHero] text:statement semanticId:semanticId];
+    }
 }
 
-- (void)addFoodUserStatement:(NSString *)statement semanticId:(NSString *)semanticId {
-    [self addStatement:statement semanticId:semanticId persona:[Personas user]];
-}
-
-- (void)addStatement:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona {
+- (void)addStatementWithPersona:(Persona *)persona text:(NSString *)text semanticId:(NSString *)semanticId {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
     [statementProxy addObject:[[Statement alloc] initWithText:text semanticId:semanticId persona:persona]];
 }
@@ -58,7 +59,7 @@
 }
 
 - (void)addStatement:(NSString *)statement {
-    [self addFoodUserStatement:statement semanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", statement]];
+    [self addStatement:statement semanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", statement]];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
     @weakify(self);
@@ -66,15 +67,15 @@
         @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
             NSString *text = @"Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
-            [self addFoodHeroStatement:text semanticId:@"FH:BecauseUserDeniedAccessToLocationServices"];
+            [self addStatement:text semanticId:@"FH:BecauseUserDeniedAccessToLocationServices"];
         }
         else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {
             NSString *text = @"I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am.";
-            [self addFoodHeroStatement:text semanticId:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
+            [self addStatement:text semanticId:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
         }
-        else if (error.class == [NoRestaurantsFoundError class]){
+        else if (error.class == [NoRestaurantsFoundError class]) {
             NSString *text = @"That’s weird. I can’t find any restaurants right now.";
-            [self addFoodHeroStatement:text semanticId:@"FH:NoRestaurantsFound"];
+            [self addStatement:text semanticId:@"FH:NoRestaurantsFound"];
         }
     }];
     [bestRestaurant subscribeNext:^(id next){
@@ -83,7 +84,7 @@
         NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
         NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
 
-        [self addFoodHeroStatement:text semanticId:[NSString stringWithFormat:@"FH:Suggestion=%@", statement]];
+        [self addStatement:text semanticId:[NSString stringWithFormat:@"FH:Suggestion=%@", statement]];
     }];
 }
 
