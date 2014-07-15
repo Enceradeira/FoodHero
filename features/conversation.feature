@@ -8,6 +8,8 @@ Feature: User interacts with app through conversation
     When User allows access to location-services
     Then User answers with British food
     Then FoodHero suggests something for British food
+    When User finds suggestion too expensive
+    Then FoodHero suggests something else for British food
 
   Scenario: User doesn't allow to access location-API
     Given FoodHero has started

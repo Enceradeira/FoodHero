@@ -84,7 +84,8 @@
         NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
         NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
 
-        [self addStatement:text semanticId:[NSString stringWithFormat:@"FH:Suggestion=%@", statement]];
+        NSString *sanitizedName = [nameAndPlace stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        [self addStatement:text semanticId:[NSString stringWithFormat:@"FH:Suggestion=%@", sanitizedName]];
     }];
 }
 

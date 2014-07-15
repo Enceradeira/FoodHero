@@ -126,7 +126,7 @@
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
     [_conversation addStatement:@"British Food"];
 
-    [self expectStatementFor:Personas.foodHero statmentent:@"FH:Suggestion=British Food"];
+    [self expectStatementFor:Personas.foodHero statmentent:@"FH:Suggestion=Kings Head, Great Yarmouth"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 

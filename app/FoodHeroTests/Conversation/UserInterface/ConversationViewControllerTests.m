@@ -70,7 +70,7 @@
 
     ConversationBubbleTableViewCell *suggestion = [self assertRow:2];
 
-     assertThat(suggestion.bubble.semanticId, is(equalTo(@"FH:Suggestion=British food")));
+     assertThat(suggestion.bubble.semanticId, is(equalTo(@"FH:Suggestion=Kings Head, Norwich")));
 }
 
 @end

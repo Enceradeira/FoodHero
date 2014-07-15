@@ -1,5 +1,12 @@
+def get_element_and_parameter(id)
+  bubble = find_element :xpath, "//*[contains(@name,'#{id}')]"
+  text = bubble.name
+  _, parameter = text.match(/^#{id}=(.*)$/).to_a
+  return bubble, parameter
+end
+
 Then(/^FoodHero greets users and asks what they wished to eat$/) do
-  bubble = find_element :accessibility_id, 'ConversationBubble-FH:Greeting&FH:OpeningQuestion'
+  bubble, _ = get_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 
@@ -8,12 +15,13 @@ When(/^User wishes to eat British food$/) do
 end
 
 Then(/^User answers with British food$/) do
-  bubble = find_element :accessibility_id, 'ConversationBubble-U:CuisinePreference=British food'
+  bubble, _ = get_element_and_parameter('ConversationBubble-U:CuisinePreference')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero suggests something for British food$/) do
-  bubble = find_element :accessibility_id, "ConversationBubble-FH:Suggestion=British food"
+  bubble, @last_suggestion = get_element_and_parameter('ConversationBubble-FH:Suggestion')
+  expect(@last_suggestion).not_to be_nil
   expect(bubble).not_to be_nil
 end
 
@@ -22,6 +30,18 @@ Then(/^FoodHero asks if he may get location$/) do
 end
 
 Then(/^FoodHero asks to enable location\-services in settings$/) do
-  buuble = find_element :accessibility_id, 'ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices'
-  expect(buuble).not_to be_nil
+  bubble, _ = get_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
+  expect(bubble).not_to be_nil
+end
+
+When(/^User finds suggestion too expensive$/) do
+  button('Too expensive').click
+end
+
+Then(/^FoodHero suggests something else for British food$/) do
+  bubble, next_suggestion = get_element_and_parameter('ConversationBubble-FH:Suggestion')
+  expect(bubble).not_to be_nil
+  expect(next_suggestion).not_to be_nil
+  expect(next_suggestion).not_to eq(@last_suggestion)
+  @last_suggestion = next_suggestion
 end

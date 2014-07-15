@@ -17,4 +17,5 @@
 
 - (void)setConversationAppService:(ConversationAppService *)service;
 
+- (IBAction)userFindsRestaurantTooExpensive:(id)sender;
 @end

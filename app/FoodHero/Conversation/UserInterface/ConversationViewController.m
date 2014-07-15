@@ -16,6 +16,8 @@
 
 @implementation ConversationViewController {
     ConversationAppService *_appService;
+    __weak IBOutlet UIButton *_userPreferesBritishFood;
+    __weak IBOutlet UIButton *_userFindsToExpensive;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -47,7 +49,8 @@
         [wrappedIndex getValue:&index];
 
         NSMutableArray *newIndexes = [NSMutableArray new];
-        [newIndexes addObject:[NSIndexPath indexPathForItem:index inSection:0]];
+        NSIndexPath *newIndex = [NSIndexPath indexPathForItem:index inSection:0];
+        [newIndexes addObject:newIndex];
 
         [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
     }];
@@ -79,13 +82,34 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ConversationBubble *bubble = [self getStatement:indexPath];
+
+    BOOL isLastRow = indexPath.row == [_appService getStatementCount] - 1;
+    if (isLastRow) {
+        [self configureUserInputFor:bubble];
+    }
+
     ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell *) [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
     cell.bubble = bubble;
     return cell;
 }
 
+- (void)configureUserInputFor:(ConversationBubble *)bubble {
+    [_userPreferesBritishFood setHidden:YES];
+    [_userFindsToExpensive setHidden:YES];
+    if ([bubble.semanticId rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
+        [_userPreferesBritishFood setHidden:NO];
+    }
+    else if ([bubble.semanticId rangeOfString:@"FH:Suggestion"].location != NSNotFound) {
+        [_userFindsToExpensive setHidden:NO];
+    }
+}
+
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
     [_appService addStatement:@"British food"];
+}
+
+- (IBAction)userFindsRestaurantTooExpensive:(id)sender {
+
 }
 
 /*
@@ -98,4 +122,4 @@
  // Pass the selected object to the new view controller.
  }
  */
-@end
+ @end
