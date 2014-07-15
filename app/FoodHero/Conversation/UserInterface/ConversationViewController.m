@@ -9,6 +9,8 @@
 #import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
+#import "UserInput.h"
+#import "UserCuisinePreference.h"
 
 @interface ConversationViewController ()
 
@@ -105,7 +107,8 @@
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
-    [_appService addStatement:@"British food"];
+    UserCuisinePreference *userInput = [UserCuisinePreference create:@"British food"];
+    [_appService addUserInput:userInput];
 }
 
 - (IBAction)userFindsRestaurantTooExpensive:(id)sender {
@@ -122,4 +125,4 @@
  // Pass the selected object to the new view controller.
  }
  */
- @end
+@end

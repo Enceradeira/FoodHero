@@ -18,6 +18,7 @@
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
 #import "CLLocationManagerProxyStub.h"
+#import "UserCuisinePreference.h"
 
 
 @interface ConversationTests : XCTestCase
@@ -95,7 +96,7 @@
          [receivedIndexes addObject:next];
      }];
 
-     [_conversation addStatement:@"British Food"]; // adds the answer & food-heros response
+     [_conversation addUserInput:[UserCuisinePreference create:@"British food"]]; // adds the answer & food-heros response
 
      assertThat(receivedIndexes, contains(
      [NSNumber numberWithUnsignedInt:0],
@@ -105,7 +106,7 @@
 
 -(void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
-    [_conversation addStatement:@"British or Indian Food"];
+    [_conversation addUserInput:[UserCuisinePreference create:@"British or Indian Food"]];
 
     [self expectStatementFor:Personas.user statmentent:@"U:CuisinePreference=British or Indian Food"];
 
@@ -116,45 +117,45 @@
 {
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(1)));
     
-    [_conversation addStatement:@"British or Indian Food"];
+    [_conversation addUserInput:[UserCuisinePreference create:@"British or Indian Food"]];
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(3)));
 }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithSuggestion{
+-(void)test_addUserInput_ShouldCauseFoodHeroToRespondWithSuggestion{
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
-    [_conversation addStatement:@"British Food"];
+    [_conversation addUserInput:[UserCuisinePreference create:@"British food"]];
 
     [self expectStatementFor:Personas.foodHero statmentent:@"FH:Suggestion=Kings Head, Great Yarmouth"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
- -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
+ -(void)test_addUserInput_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
      [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-     [_conversation addStatement:@"British Food"];
+     [_conversation addUserInput:[UserCuisinePreference create:@"British food"]];
 
      [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
      [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
+-(void)test_addUserInput_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [_conversation addStatement:@"British Food"];
+    [_conversation addUserInput:[UserCuisinePreference create:@"British food"]];
 
     [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
+-(void)test_addUserInput_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount]+1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
-    [_conversation addStatement:@"British Food"];
+    [_conversation addUserInput:[UserCuisinePreference create:@"British food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
@@ -162,12 +163,12 @@
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
+-(void)test_addUserInput_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
 {
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
     [_restaurantSearchStub injectFindResultNothing];
 
-    [_conversation addStatement:@"British Food"];
+    [_conversation addUserInput:[UserCuisinePreference create:@"British food"]];
 
     [self expectStatementFor:[Personas foodHero] statmentent:@"FH:NoRestaurantsFound"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];

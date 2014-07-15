@@ -11,6 +11,7 @@
 #import "ConversationRepository.h"
 
 @class RACSignal;
+@class UserInput;
 
 @interface ConversationAppService : NSObject
 
@@ -20,7 +21,7 @@
 
 - (RACSignal *)statementIndexes;
 
-- (void)addStatement:(NSString *)statement;
+- (void)addUserInput:(UserInput *)userInput;
 
 - (NSInteger)getStatementCount;
 

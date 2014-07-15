@@ -13,6 +13,7 @@
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
 #import "LocationServiceAuthorizationStatusDeniedError.h"
+#import "UserInput.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
 #import "NoRestaurantsFoundError.h"
 
@@ -58,8 +59,8 @@
     return _statements[index];
 }
 
-- (void)addStatement:(NSString *)statement {
-    [self addStatement:statement semanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", statement]];
+- (void)addUserInput:(UserInput *)userInput {
+    [self addStatement:userInput.parameter semanticId:[NSString stringWithFormat:@"%@=%@", userInput.semanticId, userInput.parameter]];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
     @weakify(self);

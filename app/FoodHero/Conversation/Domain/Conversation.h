@@ -11,9 +11,11 @@
 #import "Statement.h"
 #import "RestaurantSearchService.h"
 
+@class UserInput;
+
 @interface Conversation : NSObject
 
-- (void)addStatement:(NSString *)string;
+- (void)addUserInput:(UserInput *)userInput;
 
 - (Statement *)getStatement:(NSUInteger)index;
 
