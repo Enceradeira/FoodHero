@@ -16,9 +16,10 @@
 #import "ConversationToken.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
 #import "NoRestaurantsFoundError.h"
-#import "ConversationEngine.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
+#import "ConversationState.h"
+#import "FHConversationState.h"
 
 
 @interface Conversation ()
@@ -27,7 +28,7 @@
 
 @implementation Conversation {
     RestaurantSearch *_restaurantSearch;
-    ConversationEngine *_engine;
+    FHConversationState *_state;
 }
 
 - (id)initWithDependencies:(RestaurantSearch *)restaurantSearch {
@@ -36,10 +37,10 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        _engine = [ConversationEngine new];
+        _state = [FHConversationState new];
 
-        ConversationAction *greetingResponse = [_engine consume:[FHGreeting create]];
-        ConversationAction *questionResponse = [_engine consume:[FHOpeningQuestion create]];
+        ConversationAction *greetingResponse = [_state consume:[FHGreeting create]];
+        ConversationAction *questionResponse = [_state consume:[FHOpeningQuestion create]];
         ConversationAction *response = [greetingResponse concat:questionResponse];
         [self addStatementWithPersona:response.persona text:response.text semanticId:response.responseId];
     }

@@ -1,5 +1,5 @@
  //
-//  ConversationTests.m
+//  FHConversationStateTests.m
 //  FoodHero
 //
 //  Created by Jorg on 07/07/2014.
