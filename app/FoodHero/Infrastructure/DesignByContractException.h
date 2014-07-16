@@ -10,4 +10,6 @@
 
 @interface DesignByContractException : NSException
 - (id)initWithReason:(NSString *)reason;
+
++ (DesignByContractException *)createWithReason:(NSString *)reason;
 @end

@@ -12,7 +12,7 @@
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
 #import "RACSignal.h"
-#import "UserInput.h"
+#import "ConversationToken.h"
 
 @implementation ConversationAppService {
     NSMutableDictionary *_bubbles;
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (void)addUserInput:(UserInput *)userInput {
+- (void)addUserInput:(ConversationToken *)userInput {
     [_conversation addUserInput:userInput];
 }
 

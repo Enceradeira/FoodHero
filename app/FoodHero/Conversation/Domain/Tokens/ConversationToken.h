@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface UserInput : NSObject
+@interface ConversationToken : NSObject
 
 @property(nonatomic, readonly) NSString *semanticId;
 @property(nonatomic, readonly) NSString *parameter;

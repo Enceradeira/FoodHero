@@ -3,10 +3,10 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "UserInput.h"
+#import "ConversationToken.h"
 
 
-@implementation UserInput {
+@implementation ConversationToken {
 }
 
 - (id)init:(NSString *)semanticId parameter:(NSString *)parameter {

@@ -13,4 +13,8 @@
     self = [super initWithName:@"DesignByContractException" reason:reason userInfo:nil];
     return self;
 }
+
++ (DesignByContractException *)createWithReason:(NSString *)reason {
+    return [[DesignByContractException alloc] initWithReason:reason];
+}
 @end

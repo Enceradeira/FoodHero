@@ -14,7 +14,7 @@
 #import "TyphoonComponents.h"
 #import "ConversationAppService.h"
 #import "StubAssembly.h"
-#import "UserInput.h"
+#import "ConversationToken.h"
 #import "UserCuisinePreference.h"
 
 @interface ConversationAppServiceTests : XCTestCase

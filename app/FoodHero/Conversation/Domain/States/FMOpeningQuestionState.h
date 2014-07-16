@@ -4,9 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInput.h"
+#import "ConversationState.h"
 
 
-@interface UserCuisinePreference : UserInput
-+ (UserCuisinePreference *)create:(NSString *)parameter;
+@interface FMOpeningQuestionState : ConversationState
 @end

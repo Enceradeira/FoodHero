@@ -9,8 +9,9 @@
 #import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
-#import "UserInput.h"
+#import "ConversationToken.h"
 #import "UserCuisinePreference.h"
+#import "UserSuggestionFeedback.h"
 
 @interface ConversationViewController ()
 
@@ -95,9 +96,13 @@
     return cell;
 }
 
-- (void)configureUserInputFor:(ConversationBubble *)bubble {
+- (void)disableUserInput {
     [_userPreferesBritishFood setHidden:YES];
     [_userFindsToExpensive setHidden:YES];
+}
+
+- (void)configureUserInputFor:(ConversationBubble *)bubble {
+    [self disableUserInput];
     if ([bubble.semanticId rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
         [_userPreferesBritishFood setHidden:NO];
     }
@@ -107,12 +112,15 @@
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
+    [self disableUserInput];
     UserCuisinePreference *userInput = [UserCuisinePreference create:@"British food"];
     [_appService addUserInput:userInput];
 }
 
 - (IBAction)userFindsRestaurantTooExpensive:(id)sender {
-
+    [self disableUserInput];
+    UserSuggestionFeedback *userInput = [UserSuggestionFeedback create:@"too expensive"];
+    [_appService addUserInput:userInput];
 }
 
 /*

@@ -17,11 +17,11 @@
 #import "FHOpeningQuestion.h"
 #import "FHOpeningQuestionAction.h"
 
-@interface ConversationTests : XCTestCase
+@interface ConversationEngineTests : XCTestCase
 
 @end
 
-@implementation ConversationTests
+@implementation ConversationEngineTests
 {
     ConversationEngine *_engine;
 }

@@ -13,9 +13,12 @@
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
 #import "LocationServiceAuthorizationStatusDeniedError.h"
-#import "UserInput.h"
+#import "ConversationToken.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
 #import "NoRestaurantsFoundError.h"
+#import "ConversationEngine.h"
+#import "FHGreeting.h"
+#import "FHOpeningQuestion.h"
 
 
 @interface Conversation ()
@@ -24,6 +27,7 @@
 
 @implementation Conversation {
     RestaurantSearch *_restaurantSearch;
+    ConversationEngine *_engine;
 }
 
 - (id)initWithDependencies:(RestaurantSearch *)restaurantSearch {
@@ -32,7 +36,12 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        [self addStatement:@"Hi there. What kind of food would you like to eat?" semanticId:@"FH:Greeting&FH:OpeningQuestion"];
+        _engine = [ConversationEngine new];
+
+        ConversationAction *greetingResponse = [_engine consume:[FHGreeting create]];
+        ConversationAction *questionResponse = [_engine consume:[FHOpeningQuestion create]];
+        ConversationAction *response = [greetingResponse concat:questionResponse];
+        [self addStatementWithPersona:response.persona text:response.text semanticId:response.responseId];
     }
     return self;
 }
@@ -59,7 +68,7 @@
     return _statements[index];
 }
 
-- (void)addUserInput:(UserInput *)userInput {
+- (void)addUserInput:(ConversationToken *)userInput {
     [self addStatement:userInput.parameter semanticId:[NSString stringWithFormat:@"%@=%@", userInput.semanticId, userInput.parameter]];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
