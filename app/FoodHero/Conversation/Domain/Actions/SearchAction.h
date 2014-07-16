@@ -9,6 +9,6 @@
 #import "RestaurantSearch.h"
 
 
-@interface SearchAction : ConversationAction
+@interface SearchAction : NSObject<ConversationAction>
 + (SearchAction *)create:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

@@ -7,5 +7,5 @@
 #import "ConversationAction.h"
 
 @interface ConversationState : NSObject
-- (ConversationAction *)createAction;
+- (id <ConversationAction>)createAction;
 @end

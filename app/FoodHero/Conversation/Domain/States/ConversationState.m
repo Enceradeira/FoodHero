@@ -10,7 +10,7 @@
 @implementation ConversationState {
 
 }
-- (ConversationAction *)createAction {
+- (id<ConversationAction>)createAction {
     return nil;
 }
 

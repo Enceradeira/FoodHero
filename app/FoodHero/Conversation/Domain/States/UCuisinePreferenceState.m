@@ -26,7 +26,7 @@
     return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
-- (ConversationAction *)createAction {
+- (id<ConversationAction>)createAction {
     return [SearchAction create:_actionFeedback restaurantSearch:_restaurantSearch];
 }
 

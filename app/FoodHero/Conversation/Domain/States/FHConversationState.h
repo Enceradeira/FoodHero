@@ -16,5 +16,5 @@
 
 + (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 
-- (ConversationAction *)consume:(ConversationToken *)token;
+- (id <ConversationAction>)consume:(ConversationToken *)token;
 @end

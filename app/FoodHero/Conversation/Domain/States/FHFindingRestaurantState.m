@@ -10,8 +10,8 @@
 
 @implementation FHFindingRestaurantState {
 }
-- (ConversationAction *)consume:(ConversationToken *)token {
-    ConversationAction *action = [[FHCantFindRestaurantState new] consume:token];
+- (id <ConversationAction>)consume:(ConversationToken *)token {
+    id<ConversationAction> action = [[FHCantFindRestaurantState new] consume:token];
     if (action != nil) {
         return action;
     }

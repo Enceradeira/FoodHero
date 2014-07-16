@@ -10,7 +10,7 @@
 @implementation FHCantFindRestaurantState {
 
 }
-- (ConversationAction *)consume:(ConversationToken *)token {
+- (id <ConversationAction>)consume:(ConversationToken *)token {
     return [[FHCantAccessLocationServiceState new] consume:token];
 }
 @end

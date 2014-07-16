@@ -14,7 +14,7 @@
 
 @implementation FHFirstProposalState {
 }
-- (ConversationAction *)consume:(ConversationToken *)token {
+- (id <ConversationAction>)consume:(ConversationToken *)token {
     return [[FHSuggestionState new] createAction];
 }
 @end

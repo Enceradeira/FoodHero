@@ -7,5 +7,5 @@
 #import "ConversationAction.h"
 
 
-@interface AskUserSuggestionFeedbackAction : ConversationAction
+@interface AskUserSuggestionFeedbackAction : NSObject<ConversationAction>
 @end

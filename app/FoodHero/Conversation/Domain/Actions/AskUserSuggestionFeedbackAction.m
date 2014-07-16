@@ -9,4 +9,8 @@
 @implementation AskUserSuggestionFeedbackAction {
 
 }
+- (void)execute {
+
+}
+
 @end

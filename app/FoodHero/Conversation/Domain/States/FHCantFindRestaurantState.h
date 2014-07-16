@@ -9,5 +9,5 @@
 #import "ConversationToken.h"
 
 @interface FHCantFindRestaurantState : NSObject
-- (ConversationAction *)consume:(ConversationToken *)token;
+- (id <ConversationAction>)consume:(ConversationToken *)token;
 @end

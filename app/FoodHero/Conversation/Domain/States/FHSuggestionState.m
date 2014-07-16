@@ -11,7 +11,7 @@
 
 }
 
-- (ConversationAction *)createAction {
+- (id<ConversationAction>)createAction {
     return [AskUserSuggestionFeedbackAction new];
 }
 

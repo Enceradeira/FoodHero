@@ -7,5 +7,5 @@
 #import "ConversationAction.h"
 
 
-@interface AskUserIfProblemWithAccessLocationServiceResolved : ConversationAction
+@interface AskUserIfProblemWithAccessLocationServiceResolved : NSObject<ConversationAction>
 @end

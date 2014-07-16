@@ -9,5 +9,5 @@
 
 
 @interface FHCantAccessLocationServiceState : ConversationState
-- (ConversationAction *)consume:(ConversationToken *)token;
+- (id<ConversationAction>)consume:(ConversationToken *)token;
 @end

@@ -12,7 +12,6 @@
 		235250B98CAF1710BA753B24 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258238526A1C664198377 /* ConversationViewControllerTests.m */; };
 		23525119F0F8E8746B1202D0 /* UCuisinePreferenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */; };
 		235251278E3E4445D4141CD7 /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */; };
-		2352515E2A7A28FD7A8D14DA /* ConversationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255B142FF627C81511CB3 /* ConversationAction.m */; };
 		2352516CEC3A47C0BB21AB1A /* SearchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF381A642E7AA0199F5 /* SearchAction.m */; };
 		235251BEADC776B83871E835 /* RestaurantSearchServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D2202B3FB04852371D1 /* RestaurantSearchServiceStub.m */; };
 		235251C6B2444ED5F703FAC2 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B67F131FB6E4DA33D8 /* ConversationViewController.m */; };
@@ -164,7 +163,6 @@
 		23525571F0DDE4CE1AB185D9 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		23525584EDD8E2938D425A96 /* FMGreetingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMGreetingState.h; sourceTree = "<group>"; };
 		2352558A0E7130A16011FDE1 /* RestaurantSearchServiceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceStub.h; sourceTree = "<group>"; };
-		235255B142FF627C81511CB3 /* ConversationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAction.m; sourceTree = "<group>"; };
 		235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserIfProblemWithAccessLocationServiceResolved.m; sourceTree = "<group>"; };
 		235255E32B27352179C071B2 /* FHSuggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestion.m; sourceTree = "<group>"; };
 		23525603670B295A4908F3D3 /* FHOpeningQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHOpeningQuestion.h; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 		2352564B5FB1BAD16F12342B /* ConversationBubbleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleTableViewCell.h; sourceTree = "<group>"; };
 		2352568D2A237C26E4825DE9 /* DefaultAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultAssembly.m; sourceTree = "<group>"; };
 		235256B67F131FB6E4DA33D8 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
-		235256D58AE9636E84E9E967 /* ConversationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAction.h; sourceTree = "<group>"; };
 		235256D8AC6DD9D7A07140EB /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
 		23525718C284A5A291BEC9D4 /* ConversationBubbleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleTableViewCell.m; sourceTree = "<group>"; };
 		2352573782B74E2013DD4CB2 /* ConversationBubbleFoodHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleFoodHero.m; sourceTree = "<group>"; };
@@ -214,6 +211,7 @@
 		23525BF37251533AA25A553A /* ConversationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationToken.h; sourceTree = "<group>"; };
 		23525BFD9C17808C4AF9CBCC /* simulator_gps_coordinates.gpx */ = {isa = PBXFileReference; lastKnownFileType = file.gpx; path = simulator_gps_coordinates.gpx; sourceTree = "<group>"; };
 		23525C36BAE0B3164CAB1E14 /* StubAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubAssembly.m; sourceTree = "<group>"; };
+		23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAction.h; sourceTree = "<group>"; };
 		23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
 		23525C9AB1E1DF8EC1F94B94 /* FHCantAccessLocationServiceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHCantAccessLocationServiceState.h; sourceTree = "<group>"; };
 		23525CA4F354EFA35BCAD935 /* ConversationAppServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceTests.m; sourceTree = "<group>"; };
@@ -309,8 +307,6 @@
 		2352530B527C2C37016ED082 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				235255B142FF627C81511CB3 /* ConversationAction.m */,
-				235256D58AE9636E84E9E967 /* ConversationAction.h */,
 				23525DF381A642E7AA0199F5 /* SearchAction.m */,
 				235257BCFADCE4FC4575D7AB /* SearchAction.h */,
 				2352561DE5CFBCDF7583CD29 /* NoAction.m */,
@@ -322,6 +318,7 @@
 				23525F511A9BB7891239DE25 /* AskUserSuggestionFeedbackAction.h */,
 				235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */,
 				23525B657FC5D4E7788A31AC /* AskUserIfProblemWithAccessLocationServiceResolved.h */,
+				23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -875,7 +872,6 @@
 				235257BA844D58230C8E4626 /* USuggestionFeedback.m in Sources */,
 				23525CF60103BA88C933FFAB /* FHGreeting.m in Sources */,
 				235259D203AE4BA0DE34808E /* FHOpeningQuestion.m in Sources */,
-				2352515E2A7A28FD7A8D14DA /* ConversationAction.m in Sources */,
 				2352584B52670D304F9B75CF /* FHConversationState.m in Sources */,
 				235251E9944B5DC72E1571B5 /* ConversationState.m in Sources */,
 				23525C7B0EB114E8B227AC25 /* FMGreetingState.m in Sources */,

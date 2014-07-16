@@ -59,7 +59,7 @@
 }
 
 - (void)addToken:(ConversationToken *)token {
-    ConversationAction *action = [_state consume:token];
+    id<ConversationAction> action = [_state consume:token];
     [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId];
     [action execute];
 }

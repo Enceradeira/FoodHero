@@ -33,7 +33,7 @@
     return [[FHConversationState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
-- (ConversationAction *)consume:(ConversationToken *)token {
+- (id <ConversationAction>)consume:(ConversationToken *)token {
     if (_currentState == nil && token.class == FHGreeting.class) {
         _currentState = [FMGreetingState new];
     }

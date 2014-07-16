@@ -9,7 +9,7 @@
 @implementation AskUserCuisinePreferenceAction {
 
 }
-+ (ConversationAction *)create {
++ (id <ConversationAction>)create {
     return [AskUserCuisinePreferenceAction new];
 }
 @end

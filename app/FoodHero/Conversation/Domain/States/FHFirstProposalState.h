@@ -8,5 +8,5 @@
 #import "ConversationAction.h"
 
 @interface FHFirstProposalState : NSObject
-- (ConversationAction *)consume:(ConversationToken *)token;
+- (id <ConversationAction>)consume:(ConversationToken *)token;
 @end

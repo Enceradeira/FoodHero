@@ -7,6 +7,6 @@
 #import "ConversationAction.h"
 
 
-@interface AskUserCuisinePreferenceAction : ConversationAction
-+ (ConversationAction *)create;
+@interface AskUserCuisinePreferenceAction : NSObject <ConversationAction>
++ (id <ConversationAction>)create;
 @end

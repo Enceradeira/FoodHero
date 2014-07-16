@@ -9,7 +9,7 @@
 
 @implementation FMOpeningQuestionState {
 }
-- (ConversationAction *)createAction {
+- (id<ConversationAction>)createAction {
     return [AskUserCuisinePreferenceAction create];
 }
 

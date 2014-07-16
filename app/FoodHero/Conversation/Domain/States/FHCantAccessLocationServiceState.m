@@ -11,7 +11,7 @@
 
 @implementation FHCantAccessLocationServiceState {
 }
-- (ConversationAction *)consume:(ConversationToken *)token {
+- (id<ConversationAction>)consume:(ConversationToken *)token {
     if (token.class == [FHBecauseUserDeniedAccessToLocationServices class]) {
         return [AskUserIfProblemWithAccessLocationServiceResolved new];
     }

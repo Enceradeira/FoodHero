@@ -9,8 +9,9 @@
 
 @implementation NoAction {
 }
-+ (NoAction *)create {
-    return [NoAction new];
+- (void)execute {
+
 }
 
-    @end
+
+@end
