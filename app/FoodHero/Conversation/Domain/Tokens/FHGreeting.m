@@ -10,6 +10,6 @@
 
 }
 + (FHGreeting *)create {
-    return [[FHGreeting alloc] init:@"U:Greeting" parameter:nil];
+    return [[FHGreeting alloc] initWithParameter:@"FH:Greeting" parameter:@"Hi there."];
 }
 @end

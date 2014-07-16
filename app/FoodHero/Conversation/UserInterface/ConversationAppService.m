@@ -29,7 +29,7 @@
 }
 
 - (void)addUserInput:(ConversationToken *)userInput {
-    [_conversation addUserInput:userInput];
+    [_conversation addToken:userInput];
 }
 
 - (NSInteger)getStatementCount {

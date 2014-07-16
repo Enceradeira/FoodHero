@@ -10,6 +10,6 @@
 
 }
 + (UserCuisinePreference *)create:(NSString *)parameter {
-    return [[UserCuisinePreference alloc] init:@"U:CuisinePreference" parameter:parameter];
+    return [[UserCuisinePreference alloc] initWithParameter:@"U:CuisinePreference" parameter:parameter];
 }
 @end

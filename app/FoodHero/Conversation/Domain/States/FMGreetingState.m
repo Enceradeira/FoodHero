@@ -4,12 +4,12 @@
 //
 
 #import "FMGreetingState.h"
-#import "FHGreetingAction.h"
+#import "NoAction.h"
 
 
 @implementation FMGreetingState {
 }
 - (ConversationAction *)createAction {
-    return [FHGreetingAction create];
+    return [NoAction create];
 }
 @end

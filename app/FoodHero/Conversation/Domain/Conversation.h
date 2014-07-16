@@ -15,7 +15,7 @@
 
 @interface Conversation : NSObject
 
-- (void)addUserInput:(ConversationToken *)userInput;
+- (void)addToken:(ConversationToken *)token;
 
 - (Statement *)getStatement:(NSUInteger)index;
 

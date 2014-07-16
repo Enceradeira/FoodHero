@@ -4,13 +4,13 @@
 //
 
 #import "FMOpeningQuestionState.h"
-#import "FHOpeningQuestionAction.h"
+#import "AskUserCuisinePreferenceAction.h"
 
 
 @implementation FMOpeningQuestionState {
 }
 - (ConversationAction *)createAction {
-    return [FHOpeningQuestionAction create];
+    return [AskUserCuisinePreferenceAction create];
 }
 
 @end

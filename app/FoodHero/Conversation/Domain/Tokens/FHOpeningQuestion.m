@@ -10,7 +10,7 @@
 }
 
 + (FHOpeningQuestion *)create {
-    return [[FHOpeningQuestion alloc] init:@"U:OpeningQuestion" parameter:nil];
+    return [[FHOpeningQuestion alloc] initWithParameter:@"FH:OpeningQuestion" parameter:@"What kind of food would you like to eat?"];
 }
 
 @end

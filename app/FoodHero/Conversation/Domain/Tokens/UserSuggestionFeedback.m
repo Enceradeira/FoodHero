@@ -10,6 +10,6 @@
 
 }
 + (UserSuggestionFeedback *)create:(NSString *)parameter {
-    return [[UserSuggestionFeedback alloc] init:@"U:SuggestionFeedback" parameter:parameter];
+    return [[UserSuggestionFeedback alloc] initWithParameter:@"U:SuggestionFeedback" parameter:parameter];
 }
 @end

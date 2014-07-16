@@ -9,6 +9,8 @@
 #import "FMOpeningQuestionState.h"
 #import "DesignByContractException.h"
 #import "FHOpeningQuestion.h"
+#import "UserCuisinePreference.h"
+#import "UCuisinePreferenceState.h"
 
 
 @implementation FHConversationState {
@@ -20,6 +22,9 @@
     }
     else if (_currentState.class == [FMGreetingState class] && token.class == [FHOpeningQuestion class]) {
         _currentState = [FMOpeningQuestionState new];
+    }
+    else if (_currentState.class == [FMOpeningQuestionState class] && token.class == [UserCuisinePreference class]){
+        _currentState = [UCuisinePreferenceState new];
     }
     else {
         @throw [DesignByContractException createWithReason:@"invalid state"];

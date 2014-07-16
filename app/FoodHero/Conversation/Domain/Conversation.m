@@ -39,10 +39,14 @@
 
         _state = [FHConversationState new];
 
-        ConversationAction *greetingResponse = [_state consume:[FHGreeting create]];
-        ConversationAction *questionResponse = [_state consume:[FHOpeningQuestion create]];
-        ConversationAction *response = [greetingResponse concat:questionResponse];
-        [self addStatementWithPersona:response.persona text:response.text semanticId:response.responseId];
+        FHGreeting *greetingToken = [FHGreeting create];
+        FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];
+
+        [_state consume:greetingToken];
+        [_state consume:openingQuestionToken];
+
+        ConversationToken *token = [greetingToken concat:openingQuestionToken];
+        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId];
     }
     return self;
 }
@@ -69,8 +73,10 @@
     return _statements[index];
 }
 
-- (void)addUserInput:(ConversationToken *)userInput {
-    [self addStatement:userInput.parameter semanticId:[NSString stringWithFormat:@"%@=%@", userInput.semanticId, userInput.parameter]];
+- (void)addToken:(ConversationToken *)token {
+    ConversationAction *action = [_state consume:token];
+    [self addStatementWithPersona:token.persona text:token.parameter semanticId:[NSString stringWithFormat:@"%@=%@", token.semanticId, token.parameter]];
+    // [action execute];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest];
     @weakify(self);

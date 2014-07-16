@@ -4,12 +4,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Persona.h"
 
 
 @interface ConversationToken : NSObject
 
 @property(nonatomic, readonly) NSString *semanticId;
 @property(nonatomic, readonly) NSString *parameter;
+@property(nonatomic, readonly) Persona *persona;
 
-- (id)init:(NSString *)semanticId parameter:(NSString *)parameter;
+- (id)initWithParameter:(NSString *)semanticId parameter:(NSString *)parameter;
+
+- (ConversationToken *)concat:(ConversationToken *)token;
 @end

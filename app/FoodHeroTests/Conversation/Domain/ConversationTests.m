@@ -102,7 +102,7 @@
          [receivedIndexes addObject:next];
      }];
 
-     [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]]; // adds the answer & food-heros response
+     [_conversation addToken:[UserCuisinePreference create:@"British Food"]]; // adds the answer & food-heros response
 
      assertThat(receivedIndexes, contains(
      [NSNumber numberWithUnsignedInt:0],
@@ -112,7 +112,7 @@
 
 -(void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
-    [_conversation addUserInput:[UserCuisinePreference create:@"British or Indian Food"]];
+    [_conversation addToken:[UserCuisinePreference create:@"British or Indian Food"]];
 
     [self expectStatementForStatmentent:@"U:CuisinePreference=British or Indian Food"];
 
@@ -123,7 +123,7 @@
 {
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(1)));
     
-    [_conversation addUserInput:[UserCuisinePreference create:@"British or Indian Food"]];
+    [_conversation addToken:[UserCuisinePreference create:@"British or Indian Food"]];
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(3)));
 }
 
@@ -131,7 +131,7 @@
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
-    [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
+    [_conversation addToken:[UserCuisinePreference create:@"British Food"]];
 
     [self expectStatementForStatmentent:@"FH:Suggestion=Kings Head, Great Yarmouth"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
@@ -141,7 +141,7 @@
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
      [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-     [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
+     [_conversation addToken:[UserCuisinePreference create:@"British Food"]];
 
      [self expectStatementForStatmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
      [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
@@ -151,7 +151,7 @@
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
+    [_conversation addToken:[UserCuisinePreference create:@"British Food"]];
 
     [self expectStatementForStatmentent:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
@@ -161,7 +161,7 @@
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount]+1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
-    [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
+    [_conversation addToken:[UserCuisinePreference create:@"British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
@@ -174,7 +174,7 @@
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
     [_restaurantSearchStub injectFindResultNothing];
 
-    [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
+    [_conversation addToken:[UserCuisinePreference create:@"British Food"]];
 
     [self expectStatementForStatmentent:@"FH:NoRestaurantsFound"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
