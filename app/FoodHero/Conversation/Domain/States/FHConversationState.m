@@ -8,6 +8,7 @@
 #import "FMGreetingState.h"
 #import "FMOpeningQuestionState.h"
 #import "DesignByContractException.h"
+#import "FHOpeningQuestion.h"
 
 
 @implementation FHConversationState {
@@ -17,7 +18,7 @@
     if (_currentState == nil && token.class == FHGreeting.class) {
         _currentState = [FMGreetingState new];
     }
-    else if (_currentState.class == [FMGreetingState class]) {
+    else if (_currentState.class == [FMGreetingState class] && token.class == [FHOpeningQuestion class]) {
         _currentState = [FMOpeningQuestionState new];
     }
     else {

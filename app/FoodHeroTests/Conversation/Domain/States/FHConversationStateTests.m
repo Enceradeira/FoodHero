@@ -32,11 +32,22 @@
     _state = [FHConversationState new];
 }
 
--(void)test_consume_ShouldThrowException_WhenSuggestionFeedbackIsAddedAsFirstFeedback
+-(void)test_consume_ShouldThrowException_WhenSomethingOtherThenFHGreetingIsAdded
 {
-     @try {
+    @try {
         // user suggestion feedback cannot be consumed in initial state
         [_state consume:[UserSuggestionFeedback create:@""]];
+        assertThatBool(false, is(equalToBool(true)));
+    }
+    @catch(DesignByContractException * exception)
+    {}
+}
+
+-(void)test_consume_ShouldThrowException_WhenGreetingIsAddedTwice
+{
+    [_state consume:[FHGreeting new]];
+    @try {
+        [_state consume:[FHGreeting new]];
         assertThatBool(false, is(equalToBool(true)));
     }
     @catch(DesignByContractException * exception)
