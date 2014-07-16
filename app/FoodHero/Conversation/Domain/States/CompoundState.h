@@ -4,10 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationToken.h"
 #import "ConversationAction.h"
-#import "AtomicState.h"
+#import "ConversationToken.h"
 
-
-@interface FHBecauseUserDeniedAccessToLocationServicesState : NSObject<AtomicState>
+@protocol CompoundState
+- (id <ConversationAction>)consume:(ConversationToken *)token;
 @end

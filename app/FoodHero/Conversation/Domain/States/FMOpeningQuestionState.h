@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationState.h"
+#import "AtomicState.h"
 
 
-@interface FMOpeningQuestionState : ConversationState
+@interface FMOpeningQuestionState : NSObject<AtomicState>
 @end

@@ -4,10 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationState.h"
+#import "AtomicState.h"
 #import "ConversationToken.h"
+#import "CompoundState.h"
 
-
-@interface FHFindingRestaurantState : ConversationState
-- (id <ConversationAction>)consume:(ConversationToken *)token;
+@interface FHFindingRestaurantState : NSObject <CompoundState>
 @end

@@ -4,8 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationState.h"
+#import "AtomicState.h"
 
-
-@interface FHBecauseUserIsNotAllowedToUseLocationServicesState : ConversationState
+@interface FHBecauseUserIsNotAllowedToUseLocationServicesState: NSObject<AtomicState>
 @end

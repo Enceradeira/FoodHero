@@ -1,5 +1,5 @@
 //
-// Created by Jorg on 15/07/2014.
+// Created by Jorg on 16/07/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
@@ -7,5 +7,5 @@
 #import "AtomicState.h"
 
 
-@interface FMGreetingState : NSObject<AtomicState>
+@interface FHNoRestaurantFoundState : NSObject<AtomicState>
 @end

@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "ConversationAction.h"
+#import "CompoundState.h"
 
-@interface FHFirstProposalState : NSObject
-- (id <ConversationAction>)consume:(ConversationToken *)token;
+@interface FHFirstProposalState : NSObject <CompoundState>
 @end

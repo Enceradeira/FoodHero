@@ -7,7 +7,7 @@
 
 #import "ConversationAction.h"
 #import "ConversationToken.h"
+#import "CompoundState.h"
 
-@interface FHCantFindRestaurantState : NSObject
-- (id <ConversationAction>)consume:(ConversationToken *)token;
+@interface FHCantFindRestaurantState : NSObject<CompoundState>
 @end

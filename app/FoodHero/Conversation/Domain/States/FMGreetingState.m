@@ -9,7 +9,8 @@
 
 @implementation FMGreetingState {
 }
-- (id<ConversationAction>)createAction {
+- (id <ConversationAction>)createAction {
     return [NoAction new];
 }
+
 @end

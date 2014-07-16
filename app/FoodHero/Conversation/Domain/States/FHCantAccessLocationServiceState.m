@@ -6,17 +6,18 @@
 #import "FHCantAccessLocationServiceState.h"
 #import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
 #import "FHBecauseUserDeniedAccessToLocationServices.h"
-#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "FHBecauseUserDeniedAccessToLocationServicesState.h"
+#import "FHBecauseUserIsNotAllowedToUseLocationServicesState.h"
 
 
 @implementation FHCantAccessLocationServiceState {
 }
-- (id<ConversationAction>)consume:(ConversationToken *)token {
+- (id <ConversationAction>)consume:(ConversationToken *)token {
     if (token.class == [FHBecauseUserDeniedAccessToLocationServices class]) {
-        return [AskUserIfProblemWithAccessLocationServiceResolved new];
+        return [[FHBecauseUserDeniedAccessToLocationServicesState new] createAction];
     }
     else if (token.class == [FHBecauseUserIsNotAllowedToUseLocationServices class]) {
-        return [AskUserIfProblemWithAccessLocationServiceResolved new];
+        return [[FHBecauseUserIsNotAllowedToUseLocationServicesState new] createAction];
     }
     return nil;
 }

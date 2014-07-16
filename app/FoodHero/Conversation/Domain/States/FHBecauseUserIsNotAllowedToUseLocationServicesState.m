@@ -4,7 +4,11 @@
 //
 
 #import "FHBecauseUserIsNotAllowedToUseLocationServicesState.h"
+#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 
 @implementation FHBecauseUserIsNotAllowedToUseLocationServicesState {
+}
+- (id <ConversationAction>)createAction {
+    return [AskUserIfProblemWithAccessLocationServiceResolved new];
 }
 @end

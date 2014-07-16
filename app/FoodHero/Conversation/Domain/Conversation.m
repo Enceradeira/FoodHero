@@ -12,7 +12,7 @@
 #import "RestaurantSearch.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
-#import "ConversationState.h"
+#import "AtomicState.h"
 #import "FHConversationState.h"
 
 

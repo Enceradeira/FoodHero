@@ -6,15 +6,19 @@
 #import "FHFirstProposalState.h"
 #import "ConversationAction.h"
 #import "ConversationToken.h"
-#import "ConversationState.h"
+#import "AtomicState.h"
 #import "FHSuggestion.h"
 #import "FHSuggestionState.h"
 #import "DesignByContractException.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHFirstProposalState {
 }
 - (id <ConversationAction>)consume:(ConversationToken *)token {
-    return [[FHSuggestionState new] createAction];
+    if(token.class == FHSuggestion.class){
+        return [AskUserSuggestionFeedbackAction new];
+    }
+    return nil;
 }
 @end

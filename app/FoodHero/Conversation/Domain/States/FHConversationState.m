@@ -15,7 +15,7 @@
 
 
 @implementation FHConversationState {
-    ConversationState *_currentState;
+    NSObject *_currentState;
     RestaurantSearch *_restaurantSearch;
     id <ActionFeedbackTarget> _actionFeedback;
 }
@@ -43,15 +43,25 @@
     else if (_currentState.class == [FMOpeningQuestionState class] && token.class == [UserCuisinePreference class]) {
         _currentState = [UCuisinePreferenceState createWithActionFeedback:_actionFeedback restaurantSearch:_restaurantSearch];
     }
-    else if (_currentState.class == [UCuisinePreferenceState class]){
-        FHFindingRestaurantState *state = [FHFindingRestaurantState new];
-        _currentState = state;
-        return [state consume:token];
+    else if (_currentState.class == [UCuisinePreferenceState class]) {
+        _currentState = [FHFindingRestaurantState new];
     }
     else {
         @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"invalid state for %@", token.semanticId]];
     }
 
-    return [_currentState createAction];
+    id <ConversationAction> action;
+    if ([_currentState conformsToProtocol:@protocol(AtomicState)]) {
+
+        action = [(id <AtomicState>) _currentState createAction];
+    }
+    else {
+        action = [(id <CompoundState>) _currentState consume:token];
+    }
+    if( action == nil){
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"inconclusive action for %@", token.semanticId]];
+    }
+
+    return action;
 }
 @end

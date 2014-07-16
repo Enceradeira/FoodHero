@@ -4,11 +4,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationState.h"
+#import "AtomicState.h"
 #import "ActionFeedbackTarget.h"
 #import "RestaurantSearch.h"
 
-@interface UCuisinePreferenceState : ConversationState
+@interface UCuisinePreferenceState : NSObject<AtomicState>
 
 + (UCuisinePreferenceState *)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

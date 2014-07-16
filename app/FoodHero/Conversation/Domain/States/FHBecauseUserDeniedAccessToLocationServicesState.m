@@ -8,9 +8,14 @@
 #import "ConversationToken.h"
 #import "NoAction.h"
 #import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
+#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 
 
 @implementation FHBecauseUserDeniedAccessToLocationServicesState {
 
 }
+- (id <ConversationAction>)createAction {
+    return [AskUserIfProblemWithAccessLocationServiceResolved new];
+}
+
 @end

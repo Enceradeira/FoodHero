@@ -3,15 +3,9 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationState.h"
+#import <Foundation/Foundation.h>
 #import "ConversationAction.h"
 
-
-@implementation ConversationState {
-
-}
-- (id<ConversationAction>)createAction {
-    return nil;
-}
-
+@protocol AtomicState
+- (id <ConversationAction>)createAction;
 @end

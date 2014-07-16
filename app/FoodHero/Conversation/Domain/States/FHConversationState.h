@@ -6,15 +6,14 @@
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
 #import "ConversationToken.h"
-#import "ConversationState.h"
+#import "AtomicState.h"
 #import "ActionFeedbackTarget.h"
+#import "CompoundState.h"
 
 @class RestaurantSearch;
 
-@interface FHConversationState : ConversationState
+@interface FHConversationState : NSObject <CompoundState>
 - (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 
 + (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
-
-- (id <ConversationAction>)consume:(ConversationToken *)token;
 @end

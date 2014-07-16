@@ -5,12 +5,22 @@
 
 #import "FHCantFindRestaurantState.h"
 #import "FHCantAccessLocationServiceState.h"
+#import "FHNoRestaurantFoundState.h"
+#import "FHNoRestaurantsFound.h"
 
 
 @implementation FHCantFindRestaurantState {
 
 }
 - (id <ConversationAction>)consume:(ConversationToken *)token {
-    return [[FHCantAccessLocationServiceState new] consume:token];
+    id <ConversationAction> action = [[FHCantAccessLocationServiceState new] consume:token];
+    if( action != nil)
+    {
+        return action;
+    }
+    if( token.class == [FHNoRestaurantsFound class]){
+        return [[FHNoRestaurantFoundState new]createAction];
+    }
+    return nil;
 }
 @end
