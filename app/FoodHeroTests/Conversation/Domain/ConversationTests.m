@@ -30,7 +30,7 @@
     Conversation *_conversation;
     RestaurantSearchServiceStub *_restaurantSearchStub;
     CLLocationManagerProxyStub  *_locationManagerStub;
-    NSMutableDictionary* _expectedStatements;
+    NSMutableArray* _expectedStatements;
 }
 
 - (void)setUp
@@ -41,7 +41,7 @@
     _restaurantSearchStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub =  [(id<ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _conversation =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversation ];
-    _expectedStatements = [NSMutableDictionary new];
+    _expectedStatements = [NSMutableArray new];
 }
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity{
@@ -52,14 +52,20 @@
     [_locationManagerStub injectAuthorizationStatus:status];
 }
 
-- (void)expectStatementFor:(Persona *)persona statmentent:(NSString *)statement{
-    [_expectedStatements setObject:persona forKey:statement];
+- (void)expectStatementForStatmentent:(NSString *)statement {
+    [_expectedStatements addObject:statement];
 }
 
 - (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
     for(NSUInteger i=0; i<_expectedStatements.count; i++){
-        NSString *expectedSemanticId = _expectedStatements.allKeys[i];
-        Persona *expectedPersona = _expectedStatements[expectedSemanticId];
+        NSString *expectedSemanticId = _expectedStatements[i];
+        Persona *expectedPersona;
+        if ([expectedSemanticId rangeOfString:@"FH:"].location == NSNotFound)    {
+            expectedPersona = [Personas user];
+        }
+        else{
+            expectedPersona = [Personas foodHero];
+        }
 
         NSUInteger offsetIndex = i+index;
         assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(offsetIndex))));
@@ -108,7 +114,7 @@
 {
     [_conversation addUserInput:[UserCuisinePreference create:@"British or Indian Food"]];
 
-    [self expectStatementFor:Personas.user statmentent:@"U:CuisinePreference=British or Indian Food"];
+    [self expectStatementForStatmentent:@"U:CuisinePreference=British or Indian Food"];
 
     [self assertExpectedStatementsAtIndex:1];
 }
@@ -127,7 +133,7 @@
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
     [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
 
-    [self expectStatementFor:Personas.foodHero statmentent:@"FH:Suggestion=Kings Head, Great Yarmouth"];
+    [self expectStatementForStatmentent:@"FH:Suggestion=Kings Head, Great Yarmouth"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
@@ -137,7 +143,7 @@
      [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
      [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
 
-     [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
+     [self expectStatementForStatmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
      [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
@@ -147,7 +153,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
 
-    [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
+    [self expectStatementForStatmentent:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 
@@ -159,7 +165,7 @@
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
-    [self expectStatementFor:[Personas foodHero] statmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
+    [self expectStatementForStatmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
@@ -170,7 +176,7 @@
 
     [_conversation addUserInput:[UserCuisinePreference create:@"British Food"]];
 
-    [self expectStatementFor:[Personas foodHero] statmentent:@"FH:NoRestaurantsFound"];
+    [self expectStatementForStatmentent:@"FH:NoRestaurantsFound"];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 
