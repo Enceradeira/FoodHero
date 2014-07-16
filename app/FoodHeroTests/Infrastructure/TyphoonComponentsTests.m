@@ -11,8 +11,9 @@
 #import "TyphoonComponents.h"
 #import "DesignByContractException.h"
 #import "DefaultAssembly.h"
+#import "HCIsExceptionOfType.h"
 
-@interface TyphoonComponentsTests : XCTestCase
+  @interface TyphoonComponentsTests : XCTestCase
 
 @end
 
@@ -22,26 +23,13 @@
 
     [TyphoonComponents reset];
 }
-- (void)test_factory_ShouldThrowException_IfApplicationAssemblyNotConfigured
-{
-    @try {
-        [TyphoonComponents factory];
-        XCTFail(@"An exception must be thrown");
-    }
-    @catch (DesignByContractException *exception)
-    {
-    }
+- (void)test_factory_ShouldThrowException_IfApplicationAssemblyNotConfigured {
+    assertThat(^(){ [TyphoonComponents factory];}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 - (void)test_storyboard_ShouldThrowException_IfApplicationAssemblyNotConfigured
 {
-    @try {
-        [TyphoonComponents storyboard];
-        XCTFail(@"An exception must be thrown");
-    }
-    @catch (DesignByContractException *exception)
-    {
-    }
+    assertThat(^(){ [TyphoonComponents storyboard];}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 - (void)test_factory_ShouldReturnFactory_IfApplicationAssemblyConfigured

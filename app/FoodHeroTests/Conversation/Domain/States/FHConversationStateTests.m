@@ -16,6 +16,7 @@
 #import "FHOpeningQuestion.h"
 #import "FHOpeningQuestionAction.h"
 #import "FHConversationState.h"
+#import "HCIsExceptionOfType.h"
 
 @interface FHConversationStateTests : XCTestCase
 
@@ -34,24 +35,14 @@
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenFHGreetingIsAdded
 {
-    @try {
-        // user suggestion feedback cannot be consumed in initial state
-        [_state consume:[UserSuggestionFeedback create:@""]];
-        assertThatBool(false, is(equalToBool(true)));
-    }
-    @catch(DesignByContractException * exception)
-    {}
+    assertThat(^(){[_state consume:[UserSuggestionFeedback create:@""]];;}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 -(void)test_consume_ShouldThrowException_WhenGreetingIsAddedTwice
 {
     [_state consume:[FHGreeting new]];
-    @try {
-        [_state consume:[FHGreeting new]];
-        assertThatBool(false, is(equalToBool(true)));
-    }
-    @catch(DesignByContractException * exception)
-    {}
+
+    assertThat(^(){[_state consume:[FHGreeting new]];}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 -(void)test_FHGreeting_ShouldReturnFHGreetingAction{

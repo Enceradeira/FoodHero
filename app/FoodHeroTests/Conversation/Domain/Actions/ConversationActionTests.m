@@ -12,6 +12,7 @@
 #import "ConversationAction.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
+#import "HCIsExceptionOfType.h"
 
 
 @interface ConversationActionTests : XCTestCase
@@ -42,12 +43,8 @@
 -(void)test_concat_ShouldThrowException_WhenNotSamePersona{
     ConversationAction *a1 = [[ConversationAction alloc] init:[Personas foodHero] responseId:@"R1" text:@"Text1"];
     ConversationAction *a2 = [[ConversationAction alloc] init:[Personas user] responseId:@"R2" text:@"Text2"];
-     @try {
-        [a1 concat:a2];
-        assertThatBool(false,is(equalToBool(true))); // Exception should be thrown
-    }
-    @catch(DesignByContractException * exception)
-    {}
+
+    assertThat(^(){ [a1 concat:a2];}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 
