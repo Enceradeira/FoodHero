@@ -7,6 +7,6 @@
 #import "ConversationToken.h"
 
 
-@interface UserSuggestionFeedback : ConversationToken
-+ (UserSuggestionFeedback *)create:(NSString *)parameter;
+@interface USuggestionFeedback : ConversationToken
++ (USuggestionFeedback *)create:(NSString *)parameter;
 @end

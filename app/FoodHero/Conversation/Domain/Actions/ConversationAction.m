@@ -11,4 +11,7 @@
 @implementation ConversationAction {
 
 }
+- (void)execute {
+
+}
 @end

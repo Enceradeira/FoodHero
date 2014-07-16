@@ -4,9 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationAction.h"
+#import "ConversationToken.h"
 
-
-@interface NoAction : ConversationAction
-+ (NoAction *)create;
+@protocol ActionFeedbackTarget <NSObject>
+- (void)addToken:(ConversationToken *)token;
 @end

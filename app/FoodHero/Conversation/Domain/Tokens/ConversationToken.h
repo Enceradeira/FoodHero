@@ -16,4 +16,5 @@
 - (id)initWithParameter:(NSString *)semanticId parameter:(NSString *)parameter;
 
 - (ConversationToken *)concat:(ConversationToken *)token;
+
 @end

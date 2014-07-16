@@ -9,4 +9,5 @@
 
 
 @interface ConversationAction : NSObject
+- (void)execute;
 @end

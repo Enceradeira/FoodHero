@@ -10,7 +10,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import "DesignByContractException.h"
 #import "UserCuisinePreference.h"
-#import "UserSuggestionFeedback.h"
+#import "USuggestionFeedback.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
 #import "FHConversationState.h"
@@ -18,6 +18,11 @@
 #import "SearchAction.h"
 #import "NoAction.h"
 #import "AskUserCuisinePreferenceAction.h"
+#import "FHSuggestion.h"
+#import "AskUserSuggestionFeedbackAction.h"
+#import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
+#import "FHBecauseUserDeniedAccessToLocationServices.h"
+#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 
 @interface FHConversationStateTests : XCTestCase
 
@@ -36,7 +41,7 @@
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenFHGreetingIsAdded
 {
-    assertThat(^(){[_state consume:[UserSuggestionFeedback create:@""]];;}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^(){[_state consume:[USuggestionFeedback create:@""]];;}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenUserCuisinePreferenceIsAddedAfterFHOpeningQuestion
@@ -69,6 +74,40 @@
     [_state consume:[FHOpeningQuestion new]];
     ConversationAction *action = [_state consume:[UserCuisinePreference new]];
     assertThat(action.class, is(equalTo(SearchAction.class)));
+}
+
+-(void)test_FHSuggestion_ShouldReturnSuggestionFeedbackAction{
+    [_state consume:[FHGreeting new]];
+    [_state consume:[FHOpeningQuestion new]];
+    [_state consume:[UserCuisinePreference new]];
+    ConversationAction *action = [_state consume:[FHSuggestion create:@"King's Head Norwich"]];
+    assertThat(action.class, is(equalTo(AskUserSuggestionFeedbackAction.class)));
+}
+
+-(void)test_FHBecauseUserIsNotAllowedToUseLocationServices_ShouldReturnAction{
+    [_state consume:[FHGreeting new]];
+    [_state consume:[FHOpeningQuestion new]];
+    [_state consume:[UserCuisinePreference new]];
+    ConversationAction *action = [_state consume:[FHBecauseUserIsNotAllowedToUseLocationServices new]];
+    assertThat(action.class, is(equalTo(AskUserIfProblemWithAccessLocationServiceResolved.class)));
+}
+
+-(void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldReturnAction{
+    [_state consume:[FHGreeting new]];
+    [_state consume:[FHOpeningQuestion new]];
+    [_state consume:[UserCuisinePreference new]];
+    ConversationAction *action = [_state consume:[FHBecauseUserDeniedAccessToLocationServices new]];
+    assertThat(action.class, is(equalTo(AskUserIfProblemWithAccessLocationServiceResolved.class)));
+}
+
+-(void)test_consume_ShouldThrowException_WhenFHBecauseUserDeniedAccessToLocationServicesIsAddedTwice
+{
+    [_state consume:[FHGreeting new]];
+    [_state consume:[FHOpeningQuestion new]];
+    [_state consume:[UserCuisinePreference new]];
+    [_state consume:[FHBecauseUserDeniedAccessToLocationServices new]];
+
+    assertThat(^(){ [_state consume:[FHBecauseUserDeniedAccessToLocationServices new]];}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 

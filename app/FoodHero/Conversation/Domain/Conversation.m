@@ -7,15 +7,9 @@
 //
 
 #import <ReactiveCocoa.h>
-#import <RACEXTScope.h>
 #import "Conversation.h"
-#import "Personas.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
-#import "LocationServiceAuthorizationStatusDeniedError.h"
-#import "ConversationToken.h"
-#import "LocationServiceAuthorizationStatusRestrictedError.h"
-#import "NoRestaurantsFoundError.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
 #import "ConversationState.h"
@@ -37,7 +31,7 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        _state = [FHConversationState new];
+        _state = [FHConversationState createWithActionFeedback:self restaurantSearch:_restaurantSearch];
 
         FHGreeting *greetingToken = [FHGreeting create];
         FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];
@@ -49,15 +43,6 @@
         [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId];
     }
     return self;
-}
-
-- (void)addStatement:(NSString *)statement semanticId:(NSString *)semanticId {
-    if ([semanticId rangeOfString:@"FH:"].location == NSNotFound) {
-        [self addStatementWithPersona:[Personas user] text:statement semanticId:semanticId];
-    }
-    else {
-        [self addStatementWithPersona:[Personas foodHero] text:statement semanticId:semanticId];
-    }
 }
 
 - (void)addStatementWithPersona:(Persona *)persona text:(NSString *)text semanticId:(NSString *)semanticId {
@@ -75,35 +60,8 @@
 
 - (void)addToken:(ConversationToken *)token {
     ConversationAction *action = [_state consume:token];
-    [self addStatementWithPersona:token.persona text:token.parameter semanticId:[NSString stringWithFormat:@"%@=%@", token.semanticId, token.parameter]];
-    // [action execute];
-
-    RACSignal *bestRestaurant = [_restaurantSearch findBest];
-    @weakify(self);
-    [bestRestaurant subscribeError:^(NSError *error){
-        @strongify(self);
-        if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
-            NSString *text = @"Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
-            [self addStatement:text semanticId:@"FH:BecauseUserDeniedAccessToLocationServices"];
-        }
-        else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {
-            NSString *text = @"I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am.";
-            [self addStatement:text semanticId:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
-        }
-        else if (error.class == [NoRestaurantsFoundError class]) {
-            NSString *text = @"That’s weird. I can’t find any restaurants right now.";
-            [self addStatement:text semanticId:@"FH:NoRestaurantsFound"];
-        }
-    }];
-    [bestRestaurant subscribeNext:^(id next){
-        @strongify(self);
-        Restaurant *restaurant = next;
-        NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
-        NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
-
-        NSString *sanitizedName = [nameAndPlace stringByReplacingOccurrencesOfString:@"'" withString:@""];
-        [self addStatement:text semanticId:[NSString stringWithFormat:@"FH:Suggestion=%@", sanitizedName]];
-    }];
+    [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId];
+    [action execute];
 }
 
 - (NSUInteger)getStatementCount {

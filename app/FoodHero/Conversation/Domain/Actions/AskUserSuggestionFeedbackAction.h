@@ -7,6 +7,5 @@
 #import "ConversationAction.h"
 
 
-@interface NoAction : ConversationAction
-+ (NoAction *)create;
+@interface AskUserSuggestionFeedbackAction : ConversationAction
 @end

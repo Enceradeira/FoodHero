@@ -11,7 +11,7 @@
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationToken.h"
 #import "UserCuisinePreference.h"
-#import "UserSuggestionFeedback.h"
+#import "USuggestionFeedback.h"
 
 @interface ConversationViewController ()
 
@@ -119,7 +119,7 @@
 
 - (IBAction)userFindsRestaurantTooExpensive:(id)sender {
     [self disableUserInput];
-    UserSuggestionFeedback *userInput = [UserSuggestionFeedback create:@"too expensive"];
+    USuggestionFeedback *userInput = [USuggestionFeedback create:@"too expensive"];
     [_appService addUserInput:userInput];
 }
 

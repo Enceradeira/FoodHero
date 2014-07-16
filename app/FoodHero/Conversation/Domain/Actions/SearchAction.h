@@ -5,8 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "ActionFeedbackTarget.h"
+#import "RestaurantSearch.h"
 
 
 @interface SearchAction : ConversationAction
-+ (SearchAction *)create;
++ (SearchAction *)create:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

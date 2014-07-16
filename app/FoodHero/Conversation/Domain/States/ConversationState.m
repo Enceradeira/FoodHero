@@ -10,4 +10,8 @@
 @implementation ConversationState {
 
 }
+- (ConversationAction *)createAction {
+    return nil;
+}
+
 @end

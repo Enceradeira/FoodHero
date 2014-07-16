@@ -7,7 +7,14 @@
 #import "ConversationAction.h"
 #import "ConversationToken.h"
 #import "ConversationState.h"
+#import "ActionFeedbackTarget.h"
+
+@class RestaurantSearch;
 
 @interface FHConversationState : ConversationState
+- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
+
++ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
+
 - (ConversationAction *)consume:(ConversationToken *)token;
 @end

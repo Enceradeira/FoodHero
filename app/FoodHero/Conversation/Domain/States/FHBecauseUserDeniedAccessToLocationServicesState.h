@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ConversationToken.h"
 #import "ConversationAction.h"
 
 
-@interface NoAction : ConversationAction
-+ (NoAction *)create;
+@interface FHBecauseUserDeniedAccessToLocationServicesState : NSObject
 @end

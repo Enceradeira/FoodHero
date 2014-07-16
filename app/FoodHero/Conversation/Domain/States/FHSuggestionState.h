@@ -4,9 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationAction.h"
+#import "ConversationState.h"
 
 
-@interface NoAction : ConversationAction
-+ (NoAction *)create;
+@interface FHSuggestionState : ConversationState
 @end

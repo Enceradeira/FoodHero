@@ -41,5 +41,4 @@
     return [[ConversationToken alloc] initWithPersona:_persona semantidId:semanticId parameter:text];
 }
 
-
 @end

@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationAction.h"
+#import "ConversationToken.h"
 
 
-@interface NoAction : ConversationAction
-+ (NoAction *)create;
+@interface FHSuggestion : ConversationToken
++ (ConversationToken *)create:(NSString *)place;
 @end
