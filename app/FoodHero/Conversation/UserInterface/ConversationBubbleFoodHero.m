@@ -7,6 +7,7 @@
 //
 
 #import "ConversationBubbleFoodHero.h"
+#import "ConversationAction.h"
 
 @implementation ConversationBubbleFoodHero
 - (UIImage *)getImage {
@@ -27,6 +28,14 @@
 
     // image is 152x104 @2 or 76x52 @1 -> mask (defined @1) (32+1+(32+11))x(21+1+(22+8))
     return [[UIImage imageNamed:@"ConversationBubble-FoodHero.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 32, 22 + 8, 32 + 11)];
+}
+
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)width index:(NSUInteger)index inputAction:(id <UAction>)inputAction {
+    self = [super initWithText:text semanticId:semanticId width:width index:index];
+    if (self) {
+        _inputAction = inputAction;
+    }
+    return self;
 }
 
 - (NSString *)getBubbleViewConstraint {

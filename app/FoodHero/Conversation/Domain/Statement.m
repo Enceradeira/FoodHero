@@ -7,15 +7,23 @@
 //
 
 #import "Statement.h"
+#import "UAction.h"
 
-@implementation Statement
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona; {
+@implementation Statement {
+    id <ConversationAction> _inputAction;
+}
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona inputAction:(id <UAction>)inputAction {
     self = [super init];
     if (self != nil) {
-        self.text = text;
-        self.semanticId = semanticId;
-        self.persona = persona;
+        _text = text;
+        _semanticId = semanticId;
+        _persona = persona;
+        _inputAction = inputAction;
     }
     return self;
+}
+
+- (id <ConversationAction>)inputAction {
+    return _inputAction;
 }
 @end

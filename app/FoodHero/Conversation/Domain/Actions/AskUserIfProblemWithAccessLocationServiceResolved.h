@@ -5,7 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "UAction.h"
 
 
-@interface AskUserIfProblemWithAccessLocationServiceResolved : NSObject<ConversationAction>
+@interface AskUserIfProblemWithAccessLocationServiceResolved : NSObject<UAction>
 @end

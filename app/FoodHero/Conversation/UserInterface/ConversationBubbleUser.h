@@ -9,5 +9,5 @@
 #import "ConversationBubble.h"
 
 @interface ConversationBubbleUser : ConversationBubble
-
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)width index:(NSUInteger)index;
 @end

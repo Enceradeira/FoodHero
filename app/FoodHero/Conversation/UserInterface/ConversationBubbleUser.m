@@ -9,6 +9,12 @@
 #import "ConversationBubbleUser.h"
 
 @implementation ConversationBubbleUser
+
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)width index:(NSUInteger)index {
+    self = [super initWithText:text semanticId:semanticId width:width index:index];
+    return self;
+}
+
 - (UIImage *)getImage {
     // the same mask as in ConversationBubbleFoodHero can be used since they have same vertical structure
     return [[UIImage imageNamed:@"ConversationBubble-User.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 32, 22 + 8, 32 + 11)];

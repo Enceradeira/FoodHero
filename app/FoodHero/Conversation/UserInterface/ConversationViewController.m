@@ -9,9 +9,11 @@
 #import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
-#import "ConversationToken.h"
 #import "UCuisinePreference.h"
 #import "USuggestionFeedback.h"
+#import "AskUserCuisinePreferenceAction.h"
+#import "AskUserSuggestionFeedbackAction.h"
+#import "ConversationBubbleFoodHero.h"
 
 @interface ConversationViewController ()
 
@@ -103,11 +105,14 @@
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     [self disableUserInput];
-    if ([bubble.semanticId rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
-        [_userPreferesBritishFood setHidden:NO];
-    }
-    else if ([bubble.semanticId rangeOfString:@"FH:Suggestion"].location != NSNotFound) {
-        [_userFindsToExpensive setHidden:NO];
+    if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
+        ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
+        if (foodHeroBubble.inputAction.class == AskUserCuisinePreferenceAction.class) {
+            [_userPreferesBritishFood setHidden:NO];
+        }
+        else if (foodHeroBubble.inputAction.class == AskUserSuggestionFeedbackAction.class) {
+            [_userFindsToExpensive setHidden:NO];
+        }
     }
 }
 

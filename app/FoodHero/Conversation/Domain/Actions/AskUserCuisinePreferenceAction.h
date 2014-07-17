@@ -5,8 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "UAction.h"
 
 
-@interface AskUserCuisinePreferenceAction : NSObject <ConversationAction>
+@interface AskUserCuisinePreferenceAction : NSObject <UAction>
 + (id <ConversationAction>)create;
 @end

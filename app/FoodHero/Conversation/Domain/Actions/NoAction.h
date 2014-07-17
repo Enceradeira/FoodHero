@@ -5,7 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "FHAction.h"
 
 
-@interface NoAction : NSObject<ConversationAction>
+@interface NoAction : NSObject<FHAction>
 @end

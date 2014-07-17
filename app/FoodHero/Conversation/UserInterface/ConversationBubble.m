@@ -71,7 +71,7 @@
     return _image.size.height;
 }
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId viewWitdh:(CGFloat)viewWidth withIndex:(NSUInteger)index {
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)viewWidth index:(NSUInteger)index {
     self = [super init];
     if (self == nil)
         return nil;

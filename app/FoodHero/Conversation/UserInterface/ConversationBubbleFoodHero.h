@@ -7,6 +7,13 @@
 //
 
 #import "ConversationBubble.h"
+#import "UAction.h"
+
+@protocol ConversationAction;
 
 @interface ConversationBubbleFoodHero : ConversationBubble
+
+@property(nonatomic, readonly) id <UAction> inputAction;
+
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)width index:(NSUInteger)index inputAction:(id <UAction>)inputAction;
 @end

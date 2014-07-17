@@ -14,6 +14,8 @@
 #import "FHOpeningQuestion.h"
 #import "AtomicState.h"
 #import "FHConversationState.h"
+#import "UAction.h"
+#import "FHAction.h"
 
 
 @interface Conversation ()
@@ -37,17 +39,18 @@
         FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];
 
         [_state consume:greetingToken];
-        [_state consume:openingQuestionToken];
+        id <UAction> action = (id <UAction>) [_state consume:openingQuestionToken];
 
         ConversationToken *token = [greetingToken concat:openingQuestionToken];
-        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId];
+        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:action];
     }
     return self;
 }
 
-- (void)addStatementWithPersona:(Persona *)persona text:(NSString *)text semanticId:(NSString *)semanticId {
+- (void)addStatementWithPersona:(Persona *)persona text:(NSString *)text semanticId:(NSString *)semanticId inputAction:(id <UAction>)inputAction {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
-    [statementProxy addObject:[[Statement alloc] initWithText:text semanticId:semanticId persona:persona]];
+    Statement *statement = [[Statement alloc] initWithText:text semanticId:semanticId persona:persona inputAction:inputAction];
+    [statementProxy addObject:statement];
 }
 
 - (Statement *)getStatement:(NSUInteger)index {
@@ -60,8 +63,17 @@
 
 - (void)addToken:(ConversationToken *)token {
     id<ConversationAction> action = [_state consume:token];
-    [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId];
-    [action execute];
+    id<UAction> userAction;
+    if([action conformsToProtocol:@protocol(UAction)]){
+        // User has to perform next action
+        userAction = (id <UAction>) action;
+        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:userAction];
+    }
+    else{
+        // FH has to perform next action
+        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:nil];
+        [(id<FHAction>)action execute];
+    }
 }
 
 - (NSUInteger)getStatementCount {

@@ -9,8 +9,5 @@
 @implementation AskUserToTryAgainAction {
 
 }
-- (void)execute {
-
-}
 
 @end

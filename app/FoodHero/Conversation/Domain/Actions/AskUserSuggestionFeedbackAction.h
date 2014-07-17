@@ -5,7 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "UAction.h"
 
 
-@interface AskUserSuggestionFeedbackAction : NSObject<ConversationAction>
+@interface AskUserSuggestionFeedbackAction : NSObject<UAction>
 @end

@@ -7,8 +7,9 @@
 #import "ConversationAction.h"
 #import "ActionFeedbackTarget.h"
 #import "RestaurantSearch.h"
+#import "FHAction.h"
 
 
-@interface SearchAction : NSObject<ConversationAction>
+@interface SearchAction : NSObject <FHAction>
 + (SearchAction *)create:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

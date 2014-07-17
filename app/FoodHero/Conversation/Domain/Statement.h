@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "Persona.h"
+#import "ConversationAction.h"
+#import "UAction.h"
 
 @interface Statement : NSObject
 
-@property NSString *text;
-@property NSString *semanticId;
-@property Persona *persona;
+@property(nonatomic, readonly) NSString *text;
+@property(nonatomic, readonly) NSString *semanticId;
+@property(nonatomic, readonly) Persona *persona;
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona;
+- (id <UAction>)inputAction;
 
+- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona inputAction:(id <UAction>)inputAction;
 @end
