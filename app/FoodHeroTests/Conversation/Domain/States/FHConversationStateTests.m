@@ -58,48 +58,6 @@
     assertThat(^(){[_state consume:[FHGreeting new]];}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
--(void)test_FHGreeting_ShouldReturnFHGreetingAction{
-    id <ConversationAction> action = [_state consume:[FHGreeting new]];
-    assertThat(action.class, is(equalTo(NoAction.class)));
-}
-
--(void)test_FHOpeningQuestion_ShouldReturnFHOpeningAction{
-    [_state consume:[FHGreeting new]];
-    id <ConversationAction> action = [_state consume:[FHOpeningQuestion new]];
-    assertThat(action.class, is(equalTo(AskUserCuisinePreferenceAction .class)));
-}
-
--(void)test_UserCuisinePreference_ShouldReturnFHSearchAction{
-    [_state consume:[FHGreeting new]];
-    [_state consume:[FHOpeningQuestion new]];
-    id <ConversationAction> action = [_state consume:[UCuisinePreference new]];
-    assertThat(action.class, is(equalTo(SearchAction.class)));
-}
-
--(void)test_FHSuggestion_ShouldReturnSuggestionFeedbackAction{
-    [_state consume:[FHGreeting new]];
-    [_state consume:[FHOpeningQuestion new]];
-    [_state consume:[UCuisinePreference new]];
-    id <ConversationAction> action = [_state consume:[FHSuggestion create:@"King's Head Norwich"]];
-    assertThat(action.class, is(equalTo(AskUserSuggestionFeedbackAction.class)));
-}
-
--(void)test_FHBecauseUserIsNotAllowedToUseLocationServices_ShouldReturnAction{
-    [_state consume:[FHGreeting new]];
-    [_state consume:[FHOpeningQuestion new]];
-    [_state consume:[UCuisinePreference new]];
-    id <ConversationAction> action = [_state consume:[FHBecauseUserIsNotAllowedToUseLocationServices new]];
-    assertThat(action.class, is(equalTo(AskUserIfProblemWithAccessLocationServiceResolved.class)));
-}
-
--(void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldReturnAction{
-    [_state consume:[FHGreeting new]];
-    [_state consume:[FHOpeningQuestion new]];
-    [_state consume:[UCuisinePreference new]];
-    id <ConversationAction> action = [_state consume:[FHBecauseUserDeniedAccessToLocationServices new]];
-    assertThat(action.class, is(equalTo(AskUserIfProblemWithAccessLocationServiceResolved.class)));
-}
-
 -(void)test_consume_ShouldThrowException_WhenFHBecauseUserDeniedAccessToLocationServicesIsAddedTwice
 {
     [_state consume:[FHGreeting new]];

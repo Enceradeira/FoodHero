@@ -19,6 +19,29 @@
 #import "RestaurantSearchServiceStub.h"
 #import "CLLocationManagerProxyStub.h"
 #import "UCuisinePreference.h"
+#import "AskUserSuggestionFeedbackAction.h"
+#import "AskUserToTryAgainAction.h"
+#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "AskUserCuisinePreferenceAction.h"
+#import "USuggestionFeedback.h"
+
+@interface ExpectedStatement: NSObject
+@property (nonatomic, readonly) NSString* semanticId;
+@property (nonatomic, readonly) Class inputActionClass;
+-(instancetype)initWithText:(NSString*)text inputAction:(Class) inputAction;
+@end
+
+@implementation ExpectedStatement
+- (instancetype)initWithText:(NSString *)semanticId inputAction:(Class)inputAction {
+    self = [super init];
+    if( self != nil){
+        _semanticId = semanticId;
+        _inputActionClass = inputAction;
+    }
+    return self;
+}
+
+@end
 
 
 @interface ConversationTests : XCTestCase
@@ -52,48 +75,9 @@
     [_locationManagerStub injectAuthorizationStatus:status];
 }
 
-- (void)expectStatementForStatmentent:(NSString *)statement {
+- (void)expectedStatementIs:(NSString *)text userAction:(Class)action {
+    ExpectedStatement *statement = [[ExpectedStatement alloc] initWithText:text inputAction:action];
     [_expectedStatements addObject:statement];
-}
-
-- (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
-    for(NSUInteger i=0; i<_expectedStatements.count; i++){
-        NSString *expectedSemanticId = _expectedStatements[i];
-        Persona *expectedPersona;
-        if ([expectedSemanticId rangeOfString:@"FH:"].location == NSNotFound)    {
-            expectedPersona = [Personas user];
-        }
-        else{
-            expectedPersona = [Personas foodHero];
-        }
-
-        NSUInteger offsetIndex = i+index;
-        assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(offsetIndex))));
-        Statement *statement = [_conversation getStatement:offsetIndex];
-        assertThat(statement, is(notNilValue()));
-        assertThat(statement.semanticId, is(equalTo(expectedSemanticId)));
-        assertThat(statement.persona, is(equalTo(expectedPersona)));
-    }
-}
-
-- (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
-{
-    Statement *statement = [_conversation getStatement:0];
-    
-    assertThat(statement, is(notNilValue()));
-    assertThat(statement.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
-    assertThat(statement.persona, is(equalTo(Personas.foodHero)));
-}
-
-- (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForSecondStatement
-{
-    @try {
-        [_conversation getStatement:1];
-        XCTFail(@"An exception must be thrown");
-    }
-    @catch (DesignByContractException *exception)
-    {
-    }
 }
 
 -(void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
@@ -110,11 +94,56 @@
      [NSNumber numberWithUnsignedInt:2],nil));
  }
 
+- (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
+    for(NSUInteger i=0; i<_expectedStatements.count; i++){
+        ExpectedStatement *expectedStatement = _expectedStatements[i];
+        Persona *expectedPersona;
+        if ([expectedStatement.semanticId rangeOfString:@"FH:"].location == NSNotFound)    {
+            expectedPersona = [Personas user];
+        }
+        else{
+            expectedPersona = [Personas foodHero];
+        }
+
+        NSUInteger offsetIndex = i+index;
+        assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(offsetIndex))));
+        Statement *statement = [_conversation getStatement:offsetIndex];
+        assertThat(statement, is(notNilValue()));
+        assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
+        assertThat(statement.persona, is(equalTo(expectedPersona)));
+        if( statement.persona == [Personas  foodHero] && expectedStatement.inputActionClass == nil){
+            @throw [NSException exceptionWithName:@"" reason:@"inputActionClass required for statement from FoodHero" userInfo:nil];
+        }
+        assertThat(statement.inputAction.class, is(equalTo(expectedStatement.inputActionClass)));
+    }
+}
+
+- (void)test_getStatement_ShouldHaveFoodHerosGreeting_WhenAskedForFirst
+{
+    Statement *statement = [_conversation getStatement:0];
+    
+    assertThat(statement, is(notNilValue()));
+    assertThat(statement.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
+    assertThat(statement.persona, is(equalTo(Personas.foodHero)));
+    assertThat(statement.inputAction.class, is(equalTo([AskUserCuisinePreferenceAction class])));
+}
+
+- (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForSecondStatement
+{
+    @try {
+        [_conversation getStatement:1];
+        XCTFail(@"An exception must be thrown");
+    }
+    @catch (DesignByContractException *exception)
+    {
+    }
+}
+
 -(void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
     [_conversation addToken:[UCuisinePreference create:@"British or Indian Food"]];
 
-    [self expectStatementForStatmentent:@"U:CuisinePreference=British or Indian Food"];
+    [self expectedStatementIs:@"U:CuisinePreference=British or Indian Food" userAction:nil];
 
     [self assertExpectedStatementsAtIndex:1];
 }
@@ -127,37 +156,37 @@
     assertThatInteger([_conversation getStatementCount], is(equalToInteger(3)));
 }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithSuggestion{
+-(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion{
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
     [_conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    [self expectStatementForStatmentent:@"FH:Suggestion=Kings Head, Great Yarmouth"];
+    [self expectedStatementIs:@"FH:Suggestion=Kings Head, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
- -(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
+ -(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
      [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
      [_conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-     [self expectStatementForStatmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
+     [self expectedStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
      [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
+-(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [_conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    [self expectStatementForStatmentent:@"FH:BecauseUserIsNotAllowedToUseLocationServices"];
+    [self expectedStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction: [AskUserIfProblemWithAccessLocationServiceResolved class]];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
+-(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
      NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount]+1;
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
@@ -165,20 +194,31 @@
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
-    [self expectStatementForStatmentent:@"FH:BecauseUserDeniedAccessToLocationServices"];
+    [self expectedStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
--(void)test_addStatement_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
+-(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
 {
     NSUInteger indexOfFoodHeroResponse = [_conversation getStatementCount] +1;
     [_restaurantSearchStub injectFindResultNothing];
 
     [_conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    [self expectStatementForStatmentent:@"FH:NoRestaurantsFound"];
+    [self expectedStatementIs:@"FH:NoRestaurantsFound" userAction:[AskUserToTryAgainAction class]];
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
 }
+
+-(void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain{
+    [_conversation addToken:[UCuisinePreference create:@"British Food"]];
+
+    NSUInteger index = [_conversation getStatementCount] +1;
+    [_conversation addToken:[USuggestionFeedback create:@"too expensive"]];
+
+    [self expectedStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertExpectedStatementsAtIndex:index];
+}
+
 
 
 @end
