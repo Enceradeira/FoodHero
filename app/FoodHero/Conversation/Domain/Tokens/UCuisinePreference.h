@@ -7,6 +7,6 @@
 #import "ConversationToken.h"
 
 
-@interface UserCuisinePreference : ConversationToken
-+ (UserCuisinePreference *)create:(NSString *)parameter;
+@interface UCuisinePreference : ConversationToken
++ (UCuisinePreference *)create:(NSString *)parameter;
 @end

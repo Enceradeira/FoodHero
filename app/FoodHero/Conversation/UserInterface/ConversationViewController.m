@@ -10,7 +10,7 @@
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationToken.h"
-#import "UserCuisinePreference.h"
+#import "UCuisinePreference.h"
 #import "USuggestionFeedback.h"
 
 @interface ConversationViewController ()
@@ -113,7 +113,7 @@
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
     [self disableUserInput];
-    UserCuisinePreference *userInput = [UserCuisinePreference create:@"British food"];
+    UCuisinePreference *userInput = [UCuisinePreference create:@"British food"];
     [_appService addUserInput:userInput];
 }
 

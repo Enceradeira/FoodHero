@@ -15,7 +15,7 @@
 #import "ConversationAppService.h"
 #import "StubAssembly.h"
 #import "ConversationToken.h"
-#import "UserCuisinePreference.h"
+#import "UCuisinePreference.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -61,7 +61,7 @@ const CGFloat landscapeWidth = 400;
 
 -(void)test_getSecondStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
 {
-    id userInput = [UserCuisinePreference create:@"British or Indian Food"];
+    id userInput = [UCuisinePreference create:@"British or Indian Food"];
     [_service addUserInput:userInput];
     
     ConversationBubble *bubble = [self getStatement:1];

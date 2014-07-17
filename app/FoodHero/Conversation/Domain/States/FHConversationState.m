@@ -9,7 +9,7 @@
 #import "FMOpeningQuestionState.h"
 #import "DesignByContractException.h"
 #import "FHOpeningQuestion.h"
-#import "UserCuisinePreference.h"
+#import "UCuisinePreference.h"
 #import "UCuisinePreferenceState.h"
 #import "FHFindingRestaurantState.h"
 
@@ -40,7 +40,7 @@
     else if (_currentState.class == [FMGreetingState class] && token.class == [FHOpeningQuestion class]) {
         _currentState = [FMOpeningQuestionState new];
     }
-    else if (_currentState.class == [FMOpeningQuestionState class] && token.class == [UserCuisinePreference class]) {
+    else if (_currentState.class == [FMOpeningQuestionState class] && token.class == [UCuisinePreference class]) {
         _currentState = [UCuisinePreferenceState createWithActionFeedback:_actionFeedback restaurantSearch:_restaurantSearch];
     }
     else if (_currentState.class == [UCuisinePreferenceState class]) {
