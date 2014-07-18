@@ -4,21 +4,29 @@
 //
 
 #import "FHCantAccessLocationServiceState.h"
-#import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
-#import "FHBecauseUserDeniedAccessToLocationServices.h"
 #import "FHBecauseUserDeniedAccessToLocationServicesState.h"
 #import "FHBecauseUserIsNotAllowedToUseLocationServicesState.h"
+#import "Alternation.h"
+#import "RepeatOnce.h"
 
 
 @implementation FHCantAccessLocationServiceState {
+    Alternation *_alternation;
 }
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _alternation = [Alternation create:
+                [RepeatOnce create:[FHBecauseUserDeniedAccessToLocationServicesState new]],
+                [RepeatOnce create:[FHBecauseUserIsNotAllowedToUseLocationServicesState new]], nil];
+    }
+
+    return self;
+}
+
+
 - (id <ConversationAction>)consume:(ConversationToken *)token {
-    if (token.class == [FHBecauseUserDeniedAccessToLocationServices class]) {
-        return [[FHBecauseUserDeniedAccessToLocationServicesState new] createAction];
-    }
-    else if (token.class == [FHBecauseUserIsNotAllowedToUseLocationServices class]) {
-        return [[FHBecauseUserIsNotAllowedToUseLocationServicesState new] createAction];
-    }
-    return nil;
+    return [_alternation consume:token];
 }
 @end

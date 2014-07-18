@@ -5,11 +5,17 @@
 
 #import "FMOpeningQuestionState.h"
 #import "AskUserCuisinePreferenceAction.h"
+#import "FHOpeningQuestion.h"
 
 
 @implementation FMOpeningQuestionState {
 }
-- (id <ConversationAction>)createAction {
+
+- (id)init {
+    return [super initWithToken:FHOpeningQuestion.class];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserCuisinePreferenceAction new];
 }
 

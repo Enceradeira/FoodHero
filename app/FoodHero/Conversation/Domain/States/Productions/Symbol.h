@@ -7,6 +7,6 @@
 #import "ConversationAction.h"
 #import "ConversationToken.h"
 
-@protocol CompoundState
+@protocol Symbol
 - (id <ConversationAction>)consume:(ConversationToken *)token;
 @end

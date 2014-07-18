@@ -6,7 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "ConversationAction.h"
-#import "CompoundState.h"
+#import "Symbol.h"
+#import "AtomicSymbol.h"
 
-@interface FHFirstProposalState : NSObject <CompoundState>
+@interface FHFirstProposalState : AtomicSymbol
 @end

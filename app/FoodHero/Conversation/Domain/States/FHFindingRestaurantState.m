@@ -6,16 +6,29 @@
 #import "FHFindingRestaurantState.h"
 #import "FHFirstProposalState.h"
 #import "FHCantFindRestaurantState.h"
+#import "RepeatOnce.h"
+#import "Concatenation.h"
+#import "RepeatAlways.h"
 
 
 @implementation FHFindingRestaurantState {
+    Concatenation *_concatenation;
 }
-- (id <ConversationAction>)consume:(ConversationToken *)token {
-    id<ConversationAction> action = [[FHCantFindRestaurantState new] consume:token];
-    if (action != nil) {
-        return action;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _concatenation = [Concatenation create:
+                [RepeatAlways create:^(){
+                    return [FHCantFindRestaurantState new];
+                }],
+                [RepeatOnce create:[FHFirstProposalState new]], nil];
     }
 
-    return [[FHFirstProposalState new] consume:token];
+    return self;
+}
+
+- (id <ConversationAction>)consume:(ConversationToken *)token {
+    return [_concatenation consume:token];
 }
 @end

@@ -1,17 +1,15 @@
 //
-// Created by Jorg on 15/07/2014.
+// Created by Jorg on 18/07/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationAction.h"
-#import "ConversationToken.h"
-#import "ActionFeedbackTarget.h"
 #import "Symbol.h"
+#import "ActionFeedbackTarget.h"
+#import "RestaurantSearch.h"
 
-@class RestaurantSearch;
 
-@interface FHConversationState : NSObject <Symbol>
+@interface FHAskCuisinePreferenceState : NSObject <Symbol>
 - (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 
 + (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;

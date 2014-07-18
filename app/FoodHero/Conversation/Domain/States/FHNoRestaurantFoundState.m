@@ -5,12 +5,17 @@
 
 #import "FHNoRestaurantFoundState.h"
 #import "AskUserToTryAgainAction.h"
+#import "FHNoRestaurantsFound.h"
 
 
 @implementation FHNoRestaurantFoundState {
-
 }
-- (id <ConversationAction>)createAction {
+
+- (id)init {
+    return [super initWithToken:FHNoRestaurantsFound.class];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserToTryAgainAction new];
 }
 

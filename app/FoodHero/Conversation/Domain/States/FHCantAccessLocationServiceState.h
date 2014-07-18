@@ -4,9 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtomicState.h"
 #import "ConversationToken.h"
-#import "CompoundState.h"
+#import "Symbol.h"
 
-@interface FHCantAccessLocationServiceState : NSObject <CompoundState>
+@interface FHCantAccessLocationServiceState : NSObject <Symbol>
 @end

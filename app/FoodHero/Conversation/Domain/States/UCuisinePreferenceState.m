@@ -5,7 +5,7 @@
 
 #import "UCuisinePreferenceState.h"
 #import "SearchAction.h"
-#import "RestaurantSearch.h"
+#import "UCuisinePreference.h"
 
 
 @implementation UCuisinePreferenceState {
@@ -14,7 +14,7 @@
 }
 
 - (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    self = [super self];
+    self = [self initWithToken:UCuisinePreference.class];
     if (self != nil) {
         _restaurantSearch = restaurantSearch;
         _actionFeedback = actionFeedback;
@@ -26,9 +26,8 @@
     return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
-- (id<ConversationAction>)createAction {
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [SearchAction create:_actionFeedback restaurantSearch:_restaurantSearch];
 }
-
 
 @end

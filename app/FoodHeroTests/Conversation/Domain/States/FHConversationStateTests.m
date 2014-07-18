@@ -23,8 +23,10 @@
 #import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
 #import "FHBecauseUserDeniedAccessToLocationServices.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "StubAssembly.h"
+#import "TyphoonComponents.h"
 
-@interface FHConversationStateTests : XCTestCase
+@interface FHConversationStateTests : XCTestCase <ActionFeedbackTarget>
 
 @end
 
@@ -36,7 +38,12 @@
 - (void)setUp {
     [super setUp];
 
-    _state = [FHConversationState new];
+    [TyphoonComponents configure:[StubAssembly assembly]];
+    _state = [FHConversationState createWithActionFeedback:self restaurantSearch:[(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch]];
+}
+
+-(void)addToken:(ConversationToken *)token{
+
 }
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenFHGreetingIsAdded
@@ -63,10 +70,7 @@
     [_state consume:[FHGreeting new]];
     [_state consume:[FHOpeningQuestion new]];
     [_state consume:[UCuisinePreference new]];
-    [_state consume:[FHBecauseUserDeniedAccessToLocationServices new]];
 
-    assertThat(^(){ [_state consume:[FHBecauseUserDeniedAccessToLocationServices new]];}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^(){ [_state consume:[UCuisinePreference new]];}, throwsExceptionOfType([DesignByContractException class]) );
 }
-
-
 @end

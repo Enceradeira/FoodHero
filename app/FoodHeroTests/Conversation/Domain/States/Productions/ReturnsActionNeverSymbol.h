@@ -1,12 +1,13 @@
 //
-// Created by Jorg on 16/07/2014.
+// Created by Jorg on 18/07/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "Symbol.h"
+#import "RepeatSymbol.h"
 #import "AtomicSymbol.h"
 
 
-@interface FHNoRestaurantFoundState : AtomicSymbol
+@interface ReturnsActionNeverSymbol : AtomicSymbol
 @end

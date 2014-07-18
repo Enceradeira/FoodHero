@@ -5,13 +5,18 @@
 
 #import "FHSuggestionState.h"
 #import "AskUserSuggestionFeedbackAction.h"
+#import "FHSuggestion.h"
 
 
 @implementation FHSuggestionState {
 
 }
 
-- (id<ConversationAction>)createAction {
+- (id)init {
+    return [super initWithToken:FHSuggestion.class];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserSuggestionFeedbackAction new];
 }
 

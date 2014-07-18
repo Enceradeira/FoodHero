@@ -4,11 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtomicState.h"
+#import "Symbol.h"
 #import "ActionFeedbackTarget.h"
 #import "RestaurantSearch.h"
+#import "AtomicSymbol.h"
 
-@interface UCuisinePreferenceState : NSObject<AtomicState>
+@interface UCuisinePreferenceState : AtomicSymbol
 
 + (UCuisinePreferenceState *)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

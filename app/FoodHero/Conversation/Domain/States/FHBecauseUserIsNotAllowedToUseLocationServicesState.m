@@ -5,10 +5,15 @@
 
 #import "FHBecauseUserIsNotAllowedToUseLocationServicesState.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
 
 @implementation FHBecauseUserIsNotAllowedToUseLocationServicesState {
 }
-- (id <ConversationAction>)createAction {
+- (id)init {
+    return [super initWithToken:FHBecauseUserIsNotAllowedToUseLocationServices .class];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserIfProblemWithAccessLocationServiceResolved new];
 }
 @end

@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtomicState.h"
+#import "Symbol.h"
+#import "AtomicSymbol.h"
 
-@interface FHBecauseUserIsNotAllowedToUseLocationServicesState: NSObject<AtomicState>
+@interface FHBecauseUserIsNotAllowedToUseLocationServicesState: AtomicSymbol
 @end

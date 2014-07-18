@@ -5,11 +5,16 @@
 
 #import "FMGreetingState.h"
 #import "NoAction.h"
+#import "FHGreeting.h"
 
 
 @implementation FMGreetingState {
 }
-- (id <ConversationAction>)createAction {
+- (id)init {
+    return [super initWithToken:FHGreeting.class];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [NoAction new];
 }
 

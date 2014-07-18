@@ -4,8 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtomicState.h"
+#import "Symbol.h"
+#import "AtomicSymbol.h"
 
 
-@interface FMOpeningQuestionState : NSObject<AtomicState>
+@interface FMOpeningQuestionState : AtomicSymbol
 @end

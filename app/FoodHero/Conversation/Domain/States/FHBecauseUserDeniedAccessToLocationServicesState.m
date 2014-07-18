@@ -4,17 +4,17 @@
 //
 
 #import "FHBecauseUserDeniedAccessToLocationServicesState.h"
-#import "ConversationAction.h"
-#import "ConversationToken.h"
-#import "NoAction.h"
-#import "FHBecauseUserIsNotAllowedToUseLocationServices.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "FHBecauseUserDeniedAccessToLocationServices.h"
 
 
 @implementation FHBecauseUserDeniedAccessToLocationServicesState {
-
 }
-- (id <ConversationAction>)createAction {
+- (id)init {
+    return [super initWithToken:FHBecauseUserDeniedAccessToLocationServices.class];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserIfProblemWithAccessLocationServiceResolved new];
 }
 
