@@ -10,7 +10,7 @@
 #import "UAction.h"
 
 @implementation Statement {
-    id <ConversationAction> _inputAction;
+    id <UAction> _inputAction;
 }
 - (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona inputAction:(id <UAction>)inputAction {
     self = [super init];
@@ -23,7 +23,7 @@
     return self;
 }
 
-- (id <ConversationAction>)inputAction {
+- (id <UAction>)inputAction {
     return _inputAction;
 }
 @end

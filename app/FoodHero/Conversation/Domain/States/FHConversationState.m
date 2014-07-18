@@ -22,7 +22,7 @@
     if (self != nil) {
         _concatenation = [Concatenation create:[RepeatOnce create:[FMGreetingState new]],
                                                [RepeatOnce create:[FHAskCuisinePreferenceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
-                                               [RepeatOnce create:[FHFindingRestaurantState new]], nil];
+                                               [RepeatOnce create:[FHFindingRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
     }
     return self;
 }

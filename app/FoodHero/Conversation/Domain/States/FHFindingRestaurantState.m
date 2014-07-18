@@ -9,23 +9,30 @@
 #import "RepeatOnce.h"
 #import "Concatenation.h"
 #import "RepeatAlways.h"
+#import "FHProposalState.h"
 
 
 @implementation FHFindingRestaurantState {
     Concatenation *_concatenation;
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
+- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+    self = [self init];
+    if (self != nil) {
         _concatenation = [Concatenation create:
                 [RepeatAlways create:^(){
                     return [FHCantFindRestaurantState new];
                 }],
-                [RepeatOnce create:[FHFirstProposalState new]], nil];
+                [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
+                [RepeatAlways create:^(){
+                    return [FHProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+                }], nil];
     }
-
     return self;
+}
+
++ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+    return [[FHFindingRestaurantState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
 - (id <ConversationAction>)consume:(ConversationToken *)token {

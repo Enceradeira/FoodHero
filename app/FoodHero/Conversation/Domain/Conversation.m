@@ -7,6 +7,7 @@
 //
 
 #import <ReactiveCocoa.h>
+#import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearch.h"
@@ -60,17 +61,17 @@
 }
 
 - (void)addToken:(ConversationToken *)token {
-    id<ConversationAction> action = [_state consume:token];
-    id<UAction> userAction;
-    if([action conformsToProtocol:@protocol(UAction)]){
+    id <ConversationAction> action = [_state consume:token];
+    id <UAction> userAction;
+    if ([action conformsToProtocol:@protocol(UAction)]) {
         // User has to perform next action
         userAction = (id <UAction>) action;
         [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:userAction];
     }
-    else{
+    else {
         // FH has to perform next action
         [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:nil];
-        [(id<FHAction>)action execute];
+        [(id <FHAction>) action execute];
     }
 }
 
@@ -85,4 +86,11 @@
     }];
 }
 
+- (NSArray *)suggestionFeedback {
+    return [[_statements linq_where:^(Statement *s){
+        return [s.semanticId isEqualToString:@"U:SuggestionFeedback"];
+    }] linq_select:^(Statement *s){
+        return s.text;
+    }];
+}
 @end

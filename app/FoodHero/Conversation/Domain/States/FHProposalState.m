@@ -1,17 +1,20 @@
 //
-// Created by Jorg on 16/07/2014.
+// Created by Jorg on 18/07/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "FHFirstProposalState.h"
+#import "FHProposalState.h"
+#import "ActionFeedbackTarget.h"
+#import "RestaurantSearch.h"
 #import "Concatenation.h"
 #import "RepeatOnce.h"
 #import "FHSuggestionState.h"
 #import "USuggestionFeedbackState.h"
-#import "RestaurantSearch.h"
+#import "FHFirstProposalState.h"
 
 
-@implementation FHFirstProposalState {
+@implementation FHProposalState {
+
     Concatenation *_concatenation;
 }
 - (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
@@ -25,12 +28,11 @@
 }
 
 + (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHFirstProposalState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+    return [[FHProposalState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
 - (id <ConversationAction>)consume:(ConversationToken *)token {
     return [_concatenation consume:token];
 }
-
 
 @end

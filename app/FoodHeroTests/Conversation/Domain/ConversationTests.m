@@ -212,11 +212,26 @@
 -(void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain{
     [_conversation addToken:[UCuisinePreference create:@"British Food"]];
 
+    [self restaurantSearchReturnsName:@"Lion Heart" vicinity:@"Great Yarmouth"];
     NSUInteger index = [_conversation getStatementCount] +1;
     [_conversation addToken:[USuggestionFeedback create:@"too expensive"]];
 
     [self expectedStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
     [self assertExpectedStatementsAtIndex:index];
+}
+
+-(void)test_suggestionFeedback_ShouldReturnAllSuggestionFeedback{
+    NSString *feedback1 = @"too expensive";
+    NSString *feedback2 = @"too far away";
+
+    [_conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [_conversation addToken:[USuggestionFeedback create:feedback1]];
+    [_conversation addToken:[USuggestionFeedback create:feedback2]];
+
+    NSArray *feedback = [_conversation suggestionFeedback];
+    assertThatUnsignedInt(feedback.count, is(equalToUnsignedInt(2)));
+    assertThat(feedback, hasItem(feedback1));
+    assertThat(feedback, hasItem(feedback2));
 }
 
 

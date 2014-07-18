@@ -21,4 +21,6 @@
 - (NSUInteger)getStatementCount;
 
 - (RACSignal *)statementIndexes;
+
+- (NSArray *)suggestionFeedback;
 @end
