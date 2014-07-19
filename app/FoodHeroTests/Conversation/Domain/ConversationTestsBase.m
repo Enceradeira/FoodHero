@@ -76,7 +76,7 @@
         assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
         if( statement.persona == [Personas  foodHero] && expectedStatement.inputActionClass == nil){
-            @throw [NSException exceptionWithName:@"" reason:@"inputActionClass required for statement from FoodHero" userInfo:nil];
+            @throw [NSException exceptionWithName:@"" reason:@"you have to specify an inputActionClass for that test expectation (It's a statement from Food Hero)" userInfo:nil];
         }
         assertThat(statement.inputAction.class, is(equalTo(expectedStatement.inputActionClass)));
     }

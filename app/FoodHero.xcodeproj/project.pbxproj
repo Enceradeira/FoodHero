@@ -22,6 +22,7 @@
 		235252000469CDD89B3122E8 /* TestAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525CADF936A91B1DFD71CB /* TestAction.m */; };
 		2352520E2EB850F86E86E29F /* ConversationTokenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DE38CE16D4F043A8F60 /* ConversationTokenTests.m */; };
 		23525212BD94431215D98BD3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F1ADB1625EED07D1288 /* AppDelegate.m */; };
+		2352523EC8DA980EACDCEC66 /* ConversationFindingRestaurantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252A275392979B2BC9884 /* ConversationFindingRestaurantTests.m */; };
 		235252A9A6F6E9627B93F76D /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253887B7887287277D487 /* Persona.m */; };
 		2352533521B06A1D3868FC20 /* RestaurantSearchServiceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EB59DD052800CC84EE0 /* RestaurantSearchServiceSpy.m */; };
 		23525341AEBA67717DB93A76 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525571F0DDE4CE1AB185D9 /* Restaurant.m */; };
@@ -68,6 +69,7 @@
 		2352599911EB8686F0242BF4 /* FHFirstProposalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B361BB3DBF111481611 /* FHFirstProposalState.m */; };
 		235259D203AE4BA0DE34808E /* FHOpeningQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352527F46A4FF90FC8AC407 /* FHOpeningQuestion.m */; };
 		23525A14196A0D3F3340BC53 /* AskUserSuggestionFeedbackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251642AADB4F2868064E2 /* AskUserSuggestionFeedbackAction.m */; };
+		23525A21DF5C75463697C94F /* ConversationCantAccessLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */; };
 		23525AE2F17B4C65084C45A9 /* ConversationRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352517FB891133220BFA410 /* ConversationRepository.m */; };
 		23525BB9AC707BAEF02A5B8A /* FHCantAccessLocationServiceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352503F34A7F6451C87C6BB /* FHCantAccessLocationServiceState.m */; };
 		23525C1C684332E042B49F5A /* FHSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255E32B27352179C071B2 /* FHSuggestion.m */; };
@@ -92,6 +94,7 @@
 		23525F574C72C851CB541B80 /* FHProposalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E58701A6BB52FCA4A3F /* FHProposalState.m */; };
 		23525F59C409DA7F7E8A3945 /* AtomicSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525718876CDA31F43361AB /* AtomicSymbol.m */; };
 		23525F98BD25BF15E8DEA7EA /* DefaultAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352568D2A237C26E4825DE9 /* DefaultAssembly.m */; };
+		23525FAB31B1A67A1FC92BA5 /* ConversationCantFindRestaurantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */; };
 		23525FB0F8D9F6CC73DA9D82 /* ConversationRepositoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352596D6773526DDCA6F07A /* ConversationRepositoryTests.m */; };
 		23525FB13D952388B7D8FCC4 /* RepeatAlways.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525CA786E98D90271C4F6D /* RepeatAlways.m */; };
 		23525FB6ED3D8E59C80072AF /* FoodHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B1DECA512BF32AD938F /* FoodHero.m */; };
@@ -140,8 +143,10 @@
 		235250A45B37DCA998FF4B55 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		235250B0CF453E719D51919B /* LocationServiceAuthorizationStatusDeniedError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceAuthorizationStatusDeniedError.h; sourceTree = "<group>"; };
 		23525100EA07DAD1EA278A8F /* USuggestionFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedback.m; sourceTree = "<group>"; };
+		235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCantAccessLocationServiceTests.m; sourceTree = "<group>"; };
 		23525131E638473A5004B572 /* FHConversationState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConversationState.m; sourceTree = "<group>"; };
 		2352513653EC64CAD2882E3E /* RestaurantSearchParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchParams.h; sourceTree = "<group>"; };
+		2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCantFindRestaurantTests.m; sourceTree = "<group>"; };
 		235251642AADB4F2868064E2 /* AskUserSuggestionFeedbackAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserSuggestionFeedbackAction.m; sourceTree = "<group>"; };
 		2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceAuthorizationStatusDeniedError.m; sourceTree = "<group>"; };
 		2352517FB891133220BFA410 /* ConversationRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRepository.m; sourceTree = "<group>"; };
@@ -160,9 +165,11 @@
 		2352525F00EC9F617006BCED /* HCIsExceptionOfType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCIsExceptionOfType.m; sourceTree = "<group>"; };
 		2352527F46A4FF90FC8AC407 /* FHOpeningQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHOpeningQuestion.m; sourceTree = "<group>"; };
 		2352528093801CFFC74F822D /* ReturnsActionNeverSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnsActionNeverSymbol.h; sourceTree = "<group>"; };
+		235252913268EA517E58F7B5 /* ConversationCantFindRestaurantTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationCantFindRestaurantTests.h; sourceTree = "<group>"; };
 		2352529BC3EE7825D9E58B18 /* NoRestaurantsFoundError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoRestaurantsFoundError.h; sourceTree = "<group>"; };
 		2352529E2BB65F12EBDFDCB8 /* AlternationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternationTests.m; sourceTree = "<group>"; };
 		235252A06F41B6A42065D1B9 /* FHSuggestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestion.h; sourceTree = "<group>"; };
+		235252A275392979B2BC9884 /* ConversationFindingRestaurantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationFindingRestaurantTests.m; sourceTree = "<group>"; };
 		235252A8B066E47B656D34BD /* FHFindingRestaurantState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHFindingRestaurantState.h; sourceTree = "<group>"; };
 		235252B0B810B986440D1799 /* ConversationBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubble.h; sourceTree = "<group>"; };
 		235252C629BE62817E70B34D /* TestAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAction.h; sourceTree = "<group>"; };
@@ -249,6 +256,7 @@
 		23525B361BB3DBF111481611 /* FHFirstProposalState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHFirstProposalState.m; sourceTree = "<group>"; };
 		23525B43A1C011F14D77190B /* Concatenation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Concatenation.h; sourceTree = "<group>"; };
 		23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchParams.m; sourceTree = "<group>"; };
+		23525B535E0336408282F986 /* ConversationFindingRestaurantTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationFindingRestaurantTests.h; sourceTree = "<group>"; };
 		23525B606EA734C3976F26B1 /* Statement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statement.m; sourceTree = "<group>"; };
 		23525B657FC5D4E7788A31AC /* AskUserIfProblemWithAccessLocationServiceResolved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserIfProblemWithAccessLocationServiceResolved.h; sourceTree = "<group>"; };
 		23525B6956ABF86555F877A8 /* FHBecauseUserIsNotAllowedToUseLocationServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHBecauseUserIsNotAllowedToUseLocationServices.h; sourceTree = "<group>"; };
@@ -289,6 +297,7 @@
 		23525E384AF51605647C688D /* AskUserToTryAgainAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserToTryAgainAction.h; sourceTree = "<group>"; };
 		23525E50832CE14E59EF8B42 /* TyphoonComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponents.m; sourceTree = "<group>"; };
 		23525E58701A6BB52FCA4A3F /* FHProposalState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHProposalState.m; sourceTree = "<group>"; };
+		23525E8EB7E889349A7DCE08 /* ConversationCantAccessLocationServiceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationCantAccessLocationServiceTests.h; sourceTree = "<group>"; };
 		23525E90512EDBD9F85C4D1F /* FHBecauseUserDeniedAccessToLocationServicesState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHBecauseUserDeniedAccessToLocationServicesState.h; sourceTree = "<group>"; };
 		23525E948548A0AF4D603358 /* RepeatOnce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeatOnce.h; sourceTree = "<group>"; };
 		23525EB07D65C8FC4051933F /* FHBecauseUserIsNotAllowedToUseLocationServicesState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserIsNotAllowedToUseLocationServicesState.m; sourceTree = "<group>"; };
@@ -367,6 +376,12 @@
 				235253B7566895C3ED6BB54F /* ConversationTestsBase.h */,
 				23525977498ACBE7372DE645 /* ConversationAskCuisinePreferenceTests.m */,
 				23525A6601590D6FF2B88370 /* ConversationAskCuisinePreferenceTests.h */,
+				23525B535E0336408282F986 /* ConversationFindingRestaurantTests.h */,
+				235252A275392979B2BC9884 /* ConversationFindingRestaurantTests.m */,
+				2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */,
+				235252913268EA517E58F7B5 /* ConversationCantFindRestaurantTests.h */,
+				235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */,
+				23525E8EB7E889349A7DCE08 /* ConversationCantAccessLocationServiceTests.h */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1056,6 +1071,9 @@
 				23525170B3ED071688803C7F /* StatementTests.m in Sources */,
 				23525D21FC4B9C65A34B8099 /* ConversationTestsBase.m in Sources */,
 				235257F2425F28FC6D916DED /* ConversationAskCuisinePreferenceTests.m in Sources */,
+				2352523EC8DA980EACDCEC66 /* ConversationFindingRestaurantTests.m in Sources */,
+				23525FAB31B1A67A1FC92BA5 /* ConversationCantFindRestaurantTests.m in Sources */,
+				23525A21DF5C75463697C94F /* ConversationCantAccessLocationServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

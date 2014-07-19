@@ -93,38 +93,6 @@
     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
  }
 
- -(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserHasDeniedAccessToLocationServiceBefore{
-     NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount] +1;
-
-     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-
-     [self expectedStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
-     [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
- }
-
--(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserCantGrantAccessToLocationServiceBefore{
-    NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount] +1;
-
-    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-
-    [self expectedStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction: [AskUserIfProblemWithAccessLocationServiceResolved class]];
-    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
-}
-
--(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
-     NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount]+1;
-
-    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-
-    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-
-    [self expectedStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
-    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
- }
-
 -(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
 {
     NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount] +1;
