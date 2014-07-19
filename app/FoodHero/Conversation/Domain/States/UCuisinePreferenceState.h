@@ -5,11 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "Symbol.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 #import "RestaurantSearch.h"
 #import "AtomicSymbol.h"
 
 @interface UCuisinePreferenceState : AtomicSymbol
 
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

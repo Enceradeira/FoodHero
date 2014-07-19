@@ -8,10 +8,9 @@
 
 @interface Restaurant : NSObject
 @property(nonatomic, readonly) NSString *vicinity;
-
 @property(nonatomic, readonly) NSString *name;
-
 @property(nonatomic, readonly) NSArray *types;
+@property(nonatomic, readonly) NSString *placeId;
 
-+ (Restaurant *)createWithName:(NSString *)name withVicinity:(NSString *)vicinity withTypes:(NSArray *)types;
++ (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(id)placeId;
 @end

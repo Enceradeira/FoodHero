@@ -6,13 +6,13 @@
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
 #import "ConversationToken.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 #import "Symbol.h"
 
 @class RestaurantSearch;
 
 @interface FHConversationState : NSObject <Symbol>
-- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 
-+ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

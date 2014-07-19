@@ -10,10 +10,10 @@
 
 @implementation UCuisinePreferenceState {
     RestaurantSearch *_restaurantSearch;
-    id <ActionFeedbackTarget> _actionFeedback;
+    id <ConversationSource> _actionFeedback;
 }
 
-- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     self = [self initWithToken:UCuisinePreference.class];
     if (self != nil) {
         _restaurantSearch = restaurantSearch;
@@ -22,7 +22,7 @@
     return self;
 }
 
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
++ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 

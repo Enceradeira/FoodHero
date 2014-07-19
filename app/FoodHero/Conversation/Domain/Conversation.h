@@ -10,11 +10,11 @@
 #import <ReactiveCocoa.h>
 #import "Statement.h"
 #import "RestaurantSearchService.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 
 @class ConversationToken;
 
-@interface Conversation : NSObject<ActionFeedbackTarget>
+@interface Conversation : NSObject<ConversationSource>
 
 - (Statement *)getStatement:(NSUInteger)index;
 
@@ -22,5 +22,4 @@
 
 - (RACSignal *)statementIndexes;
 
-- (NSArray *)suggestionFeedback;
 @end

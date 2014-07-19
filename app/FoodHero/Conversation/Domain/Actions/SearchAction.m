@@ -18,13 +18,13 @@
 @implementation SearchAction {
 
     RestaurantSearch *_restaurantSearch;
-    id <ActionFeedbackTarget> _feedbackTarget;
+    id <ConversationSource> _feedbackTarget;
 }
-+ (SearchAction *)create:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
++ (SearchAction *)create:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     return [[SearchAction alloc] initWithFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
-- (id)initWithFeedback:(id <ActionFeedbackTarget>)feedbackTarget restaurantSearch:(RestaurantSearch *)search {
+- (id)initWithFeedback:(id <ConversationSource>)feedbackTarget restaurantSearch:(RestaurantSearch *)search {
     self = [super init];
     if (self != nil) {
         _feedbackTarget = feedbackTarget;
@@ -34,7 +34,7 @@
 }
 
 - (void)execute {
-    RACSignal *bestRestaurant = [_restaurantSearch findBest];
+    RACSignal *bestRestaurant = [_restaurantSearch findBest:_feedbackTarget.suggestionFeedback];
     @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error){
         @strongify(self);

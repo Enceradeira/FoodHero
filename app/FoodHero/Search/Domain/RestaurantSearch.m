@@ -22,7 +22,7 @@
     return self;
 }
 
-- (RACSignal *)findBest {
+- (RACSignal *)findBest:(NSArray *)feedback {
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 

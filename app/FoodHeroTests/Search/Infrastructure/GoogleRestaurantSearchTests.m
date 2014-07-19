@@ -47,6 +47,7 @@
     Restaurant *first = result[0];
     assertThatUnsignedInt(first.name.length,is(greaterThan(@0U)));
     assertThatUnsignedInt(first.vicinity.length,is(greaterThan(@0U)));
+    assertThatUnsignedInt(first.placeId.length,is(greaterThan(@0U)));
 }
 
 -(void)test_find_ShouldOnlyReturnRestaurants

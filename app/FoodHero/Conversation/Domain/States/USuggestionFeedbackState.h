@@ -7,8 +7,8 @@
 #import "Symbol.h"
 #import "AtomicSymbol.h"
 #import "RestaurantSearch.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 
 @interface USuggestionFeedbackState : AtomicSymbol
-+ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

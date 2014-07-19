@@ -60,14 +60,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jHk-5G-5Cy" fixedFrame="YES">
-                                <rect key="frame" x="74" y="518" width="172" height="30"/>
+                                <rect key="frame" x="28" y="518" width="264" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Too expensive">
+                                <state key="normal" title="I don&#39;t like that restaurant">
                                     <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="userFindsRestaurantTooExpensive:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="vDb-lX-BwF"/>
+                                    <action selector="userDoesntLikeThatRestaurant:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="vDb-lX-BwF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -114,7 +114,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="_userPreferesBritishFood" destination="KNV-hk-Xux" id="b7x-ay-1xO"/>
-                        <outlet property="_userFindsToExpensive" destination="jHk-5G-5Cy" id="7tB-0F-l9w"/>
+                        <outlet property="_userDoesntLikeThatRestaurant" destination="jHk-5G-5Cy" id="7tB-0F-l9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1t-2u-Gy7" userLabel="First Responder" sceneMemberID="firstResponder"/>

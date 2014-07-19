@@ -5,12 +5,12 @@
 
 #import <Foundation/Foundation.h>
 #import "Symbol.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 #import "RestaurantSearch.h"
 
 
 @interface FHAskCuisinePreferenceState : NSObject <Symbol>
-- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 
-+ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

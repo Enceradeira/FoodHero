@@ -128,7 +128,7 @@
 		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2352500469BE11E8E2069770 /* FHAskCuisinePreferenceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAskCuisinePreferenceState.h; sourceTree = "<group>"; };
 		23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceTests.m; sourceTree = "<group>"; };
-		2352503A7241A66B95DB1F14 /* ActionFeedbackTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionFeedbackTarget.h; sourceTree = "<group>"; };
+		2352503A7241A66B95DB1F14 /* ConversationSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSource.h; sourceTree = "<group>"; };
 		2352503F34A7F6451C87C6BB /* FHCantAccessLocationServiceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHCantAccessLocationServiceState.m; sourceTree = "<group>"; };
 		2352506F7DCC346912F1748E /* HCIsExceptionOfType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCIsExceptionOfType.h; sourceTree = "<group>"; };
 		235250759EF52B9D1AADD6B8 /* CLLocationManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerImpl.h; sourceTree = "<group>"; };
@@ -367,7 +367,7 @@
 				23525826A1685B7C449E2553 /* NoAction.h */,
 				23525FD4CA49F086C54F9548 /* AskUserCuisinePreferenceAction.m */,
 				23525CAA6B8BCA454B59363B /* AskUserCuisinePreferenceAction.h */,
-				2352503A7241A66B95DB1F14 /* ActionFeedbackTarget.h */,
+				2352503A7241A66B95DB1F14 /* ConversationSource.h */,
 				235251642AADB4F2868064E2 /* AskUserSuggestionFeedbackAction.m */,
 				23525F511A9BB7891239DE25 /* AskUserSuggestionFeedbackAction.h */,
 				235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */,

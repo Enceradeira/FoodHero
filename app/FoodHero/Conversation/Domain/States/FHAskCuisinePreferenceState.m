@@ -8,14 +8,14 @@
 #import "RepeatOnce.h"
 #import "FMOpeningQuestionState.h"
 #import "UCuisinePreferenceState.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 
 
 @implementation FHAskCuisinePreferenceState {
 
     Concatenation *_concatenation;
 }
-- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     self = [super init];
     if (self) {
         _concatenation = [Concatenation create:
@@ -26,7 +26,7 @@
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     return [[FHAskCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 

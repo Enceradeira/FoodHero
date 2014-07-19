@@ -7,17 +7,18 @@
 
 
 @implementation Restaurant
-- (id)initWithName:(NSString *)name withVicinity:(NSString *)vicinity withTypes:(NSArray *)types {
+- (id)initWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId {
     self = [super init];
     if (self != nil) {
         _name = name;
         _vicinity = vicinity;
         _types = types;
+        _placeId = placeId;
     }
     return self;
 }
 
-+ (Restaurant *)createWithName:(NSString *)name withVicinity:(NSString *)vicinity withTypes:(NSArray *)types {
-    return [[Restaurant alloc] initWithName:name withVicinity:vicinity withTypes:types];
++ (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId {
+    return [[Restaurant alloc] initWithName:name vicinity:vicinity types:types placeId:placeId];
 }
 @end

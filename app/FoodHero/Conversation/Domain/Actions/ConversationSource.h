@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 
-@protocol ActionFeedbackTarget <NSObject>
+@protocol ConversationSource <NSObject>
 - (void)addToken:(ConversationToken *)token;
+
+- (NSArray *)suggestionFeedback;
 @end

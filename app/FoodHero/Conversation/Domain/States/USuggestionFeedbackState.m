@@ -12,14 +12,14 @@
 @implementation USuggestionFeedbackState {
 
     RestaurantSearch *_restaurantSearch;
-    id <ActionFeedbackTarget> _actionFeedback;
+    id <ConversationSource> _actionFeedback;
 }
 - (id)init {
     self = [super initWithToken:[USuggestionFeedback class]];
     return self;
 }
 
-- (instancetype)initWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     self = [self initWithToken:USuggestionFeedback.class];
     if (self != nil) {
         _restaurantSearch = restaurantSearch;
@@ -28,7 +28,7 @@
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     return [[USuggestionFeedbackState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 

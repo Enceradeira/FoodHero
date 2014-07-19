@@ -47,7 +47,7 @@
 
     [_locationManagerStub injectLatitude:location.latitude longitude:location.longitude];
 
-    [[_restaurantSearch findBest] waitUntilCompleted:nil];
+    [[_restaurantSearch findBest:nil] waitUntilCompleted:nil];
 
     assertThatBool([_searchService findWasCalledWithLocation:location], is(equalToBool(YES)));
 }

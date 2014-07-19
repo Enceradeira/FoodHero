@@ -26,7 +26,7 @@
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
 
-@interface FHConversationStateTests : XCTestCase <ActionFeedbackTarget>
+@interface FHConversationStateTests : XCTestCase <ConversationSource>
 
 @end
 

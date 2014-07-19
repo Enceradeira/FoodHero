@@ -34,8 +34,8 @@ Then(/^FoodHero asks to enable location\-services in settings$/) do
   expect(bubble).not_to be_nil
 end
 
-When(/^User finds suggestion too expensive$/) do
-  button('Too expensive').click
+When(/^User doesn't like that restaurant$/) do
+  button("I don't like that restaurant").click
 end
 
 Then(/^FoodHero suggests something else for British food$/) do

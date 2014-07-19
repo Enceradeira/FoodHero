@@ -22,7 +22,7 @@
 @implementation ConversationViewController {
     ConversationAppService *_appService;
     __weak IBOutlet UIButton *_userPreferesBritishFood;
-    __weak IBOutlet UIButton *_userFindsToExpensive;
+    __weak IBOutlet UIButton *_userDoesntLikeThatRestaurant;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -100,7 +100,7 @@
 
 - (void)disableUserInput {
     [_userPreferesBritishFood setHidden:YES];
-    [_userFindsToExpensive setHidden:YES];
+    [_userDoesntLikeThatRestaurant setHidden:YES];
 }
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
@@ -111,7 +111,7 @@
             [_userPreferesBritishFood setHidden:NO];
         }
         else if (foodHeroBubble.inputAction.class == AskUserSuggestionFeedbackAction.class) {
-            [_userFindsToExpensive setHidden:NO];
+            [_userDoesntLikeThatRestaurant setHidden:NO];
         }
     }
 }
@@ -122,9 +122,9 @@
     [_appService addUserInput:userInput];
 }
 
-- (IBAction)userFindsRestaurantTooExpensive:(id)sender {
+- (IBAction)userDoesntLikeThatRestaurant:(id)sender {
     [self disableUserInput];
-    USuggestionFeedback *userInput = [USuggestionFeedback create:@"too expensive"];
+    USuggestionFeedback *userInput = [USuggestionFeedback create:@"I don't like that restaurant"];
     [_appService addUserInput:userInput];
 }
 

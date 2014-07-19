@@ -8,9 +8,9 @@
 #import "ConversationAction.h"
 #import "Symbol.h"
 #import "AtomicSymbol.h"
-#import "ActionFeedbackTarget.h"
+#import "ConversationSource.h"
 #import "RestaurantSearch.h"
 
 @interface FHFirstProposalState : NSObject <Symbol>
-+ (instancetype)createWithActionFeedback:(id <ActionFeedbackTarget>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
 @end

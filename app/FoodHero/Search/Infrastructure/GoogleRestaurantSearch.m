@@ -35,8 +35,9 @@
 
         [restaurants addObject:[Restaurant
                 createWithName:[place valueForKey:@"name"]
-                  withVicinity:[place valueForKey:@"vicinity"]
-                     withTypes:[place valueForKey:@"types"]
+                      vicinity:[place valueForKey:@"vicinity"]
+                         types:[place valueForKey:@"types"]
+                       placeId:[place valueForKey:@"place_id"]
         ]];
     }
     return restaurants;
