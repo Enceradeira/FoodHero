@@ -6,6 +6,8 @@
 #import <ReactiveCocoa.h>
 #import "RestaurantSearch.h"
 #import "NoRestaurantsFoundError.h"
+#import "NSArray+LinqExtensions.h"
+#import "USuggestionFeedback.h"
 
 @implementation RestaurantSearch {
 
@@ -22,7 +24,7 @@
     return self;
 }
 
-- (RACSignal *)findBest:(NSArray *)feedback {
+- (RACSignal *)findBest:(NSArray *)userFeedback {
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
@@ -35,8 +37,20 @@
                 RestaurantSearchParams *parameter = [RestaurantSearchParams new];
                 parameter.location = coordinate;
                 parameter.radius = 2000;
-                NSArray *restaurants = [_searchService find:parameter];
-                if (restaurants.count > 0) {
+                NSArray *candidates = [_searchService find:parameter];
+                if (candidates.count > 0) {
+                    NSArray *excludedPlaceIds = [[userFeedback linq_where:^(USuggestionFeedback *f){
+                                        return (BOOL)([f.parameter isEqualToString:@"I don't like that restaurant"]);
+                                    }] linq_select:^(USuggestionFeedback *f){
+                                        return f.restaurant.placeId;
+                                    }];
+
+                    NSArray *restaurants = [candidates linq_where:^(Restaurant *r){
+                                        return [excludedPlaceIds linq_all:^(NSString* id){
+                                            return (BOOL)(![r.placeId isEqualToString:id]);
+                                        }];
+                                    }];
+
                     [subscriber sendNext:restaurants[0]];
                     [subscriber sendCompleted];
                 }

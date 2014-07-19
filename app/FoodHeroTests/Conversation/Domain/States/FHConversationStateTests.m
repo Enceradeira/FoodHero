@@ -48,7 +48,7 @@
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenFHGreetingIsAdded
 {
-    assertThat(^(){[_state consume:[USuggestionFeedback create:@""]];;}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^(){[_state consume:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@""]];;}, throwsExceptionOfType([DesignByContractException class]) );
 }
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenUserCuisinePreferenceIsAddedAfterFHOpeningQuestion

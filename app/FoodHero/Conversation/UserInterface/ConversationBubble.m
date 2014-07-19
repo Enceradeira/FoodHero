@@ -7,6 +7,7 @@
 //
 
 #import "ConversationBubble.h"
+#import "Restaurant.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCDFAInspection"
@@ -17,6 +18,7 @@
     NSDictionary *_textAttritbutes;
     NSStringDrawingOptions _textDrawingOptions;
 
+    Statement *_statement;
 }
 
 - (UIImage *)getImage {
@@ -71,13 +73,20 @@
     return _image.size.height;
 }
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)viewWidth index:(NSUInteger)index {
+- (NSString *)text {
+    return _statement.text;
+}
+
+- (NSString *)semanticId {
+    return _statement.semanticId;
+}
+
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index {
     self = [super init];
     if (self == nil)
         return nil;
 
-    _text = text;
-    _semanticId = semanticId;
+    _statement = statement;
     _index = index;
 
     _font = [UIFont systemFontOfSize:16];
@@ -86,7 +95,7 @@
             nil];
     _textDrawingOptions = NSStringDrawingUsesLineFragmentOrigin;
 
-    _image = [self renderTextIntoImage:[self getImage] text:text viewWitdh:viewWidth];
+    _image = [self renderTextIntoImage:[self getImage] text:[self text] viewWitdh:viewWidth];
     return self;
 }
 
@@ -127,6 +136,10 @@
     UIGraphicsEndImageContext();
 
     return bubbleWithText;
+}
+
+- (Restaurant *)suggestedRestaurant {
+    return _statement.suggestedRestaurant;
 }
 @end
 

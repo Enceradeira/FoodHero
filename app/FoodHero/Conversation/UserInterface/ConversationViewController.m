@@ -14,6 +14,7 @@
 #import "AskUserCuisinePreferenceAction.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationBubbleFoodHero.h"
+#import "DesignByContractException.h"
 
 @interface ConversationViewController ()
 
@@ -23,6 +24,7 @@
     ConversationAppService *_appService;
     __weak IBOutlet UIButton *_userPreferesBritishFood;
     __weak IBOutlet UIButton *_userDoesntLikeThatRestaurant;
+    Restaurant *_lastSuggestedRestaurant;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -105,6 +107,12 @@
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     [self disableUserInput];
+
+    Restaurant* restaurant = [bubble suggestedRestaurant];
+    if( restaurant != nil){
+        _lastSuggestedRestaurant = restaurant;
+    }
+
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
         if (foodHeroBubble.inputAction.class == AskUserCuisinePreferenceAction.class) {
@@ -124,7 +132,12 @@
 
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender {
     [self disableUserInput];
-    USuggestionFeedback *userInput = [USuggestionFeedback create:@"I don't like that restaurant"];
+
+    if(_lastSuggestedRestaurant == nil){
+        @throw [DesignByContractException createWithReason:@"no last suggested Restaurant found"];
+    }
+
+    USuggestionFeedback *userInput = [USuggestionFeedback createForRestaurant:_lastSuggestedRestaurant parameter:@"I don't like that restaurant"];
     [_appService addUserInput:userInput];
 }
 

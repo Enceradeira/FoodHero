@@ -4,16 +4,25 @@
 //
 
 #import "FHSuggestion.h"
+#import "Restaurant.h"
 
 
 @implementation FHSuggestion {
 
 }
-+ (ConversationToken *)create:(NSString *)nameAndPlace {
++ (instancetype)create:(Restaurant *)restaurant {
+    return [[FHSuggestion alloc] initWithRestaurant:restaurant];
+}
 
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant {
+    NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
     NSString *text = [[NSString alloc] initWithFormat:@"Maybe you like the '%@'?", nameAndPlace];
     NSString *sanitizedName = [nameAndPlace stringByReplacingOccurrencesOfString:@"'" withString:@""];
 
-    return [[FHSuggestion alloc] initWithParameter:[NSString stringWithFormat:@"FH:Suggestion=%@", sanitizedName] parameter:text];
+    self = [super initWithParameter:[NSString stringWithFormat:@"FH:Suggestion=%@", sanitizedName] parameter:text];
+    if (self != nil) {
+        _restaurant = restaurant;
+    }
+    return self;
 }
 @end

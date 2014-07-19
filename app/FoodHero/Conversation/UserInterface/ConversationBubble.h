@@ -7,17 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Statement.h"
 
 @interface ConversationBubble : NSObject
 
 @property(nonatomic, readonly) CGFloat height;
 @property(nonatomic, readonly) NSString *cellId;
 @property(nonatomic, readonly) UIImage *image;
-@property(nonatomic, readonly) NSString *text;
-@property(nonatomic, readonly) NSString *semanticId;
 @property(nonatomic, readonly) NSUInteger index;
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)viewWidth index:(NSUInteger)index;
+- (NSString *)semanticId;
+
+- (NSString *)text;
+
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index;
 
 - (CGFloat)textPaddingLeft;
 
@@ -33,4 +36,5 @@
 
 - (NSString *)getBubbleViewConstraint;
 
+- (Restaurant *)suggestedRestaurant;
 @end

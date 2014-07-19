@@ -7,9 +7,16 @@
 
 
 @implementation USuggestionFeedback {
-
 }
-+ (USuggestionFeedback *)create:(NSString *)parameter {
-    return [[USuggestionFeedback alloc] initWithParameter:@"U:SuggestionFeedback" parameter:parameter];
++ (instancetype)createForRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter{
+    return [[USuggestionFeedback alloc] initWithRestaurant:restaurant parameter:parameter];
+}
+
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter {
+    self = [super initWithParameter:@"U:SuggestionFeedback" parameter:parameter];
+    if(self != nil){
+        _restaurant = restaurant;
+    }
+    return self;
 }
 @end

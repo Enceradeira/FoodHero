@@ -15,6 +15,7 @@
 		23525119F0F8E8746B1202D0 /* UCuisinePreferenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */; };
 		235251278E3E4445D4141CD7 /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */; };
 		2352516CEC3A47C0BB21AB1A /* SearchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF381A642E7AA0199F5 /* SearchAction.m */; };
+		23525170B3ED071688803C7F /* StatementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525606B9112D561A5FAC37 /* StatementTests.m */; };
 		235251BEADC776B83871E835 /* RestaurantSearchServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D2202B3FB04852371D1 /* RestaurantSearchServiceStub.m */; };
 		235251C6B2444ED5F703FAC2 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B67F131FB6E4DA33D8 /* ConversationViewController.m */; };
 		235251E05BE261DD1A8799D6 /* ConversationBubbleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 235257F452F3D98BEB40C034 /* ConversationBubbleUser.m */; };
@@ -193,6 +194,7 @@
 		235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserIfProblemWithAccessLocationServiceResolved.m; sourceTree = "<group>"; };
 		235255E32B27352179C071B2 /* FHSuggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestion.m; sourceTree = "<group>"; };
 		23525603670B295A4908F3D3 /* FHOpeningQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHOpeningQuestion.h; sourceTree = "<group>"; };
+		23525606B9112D561A5FAC37 /* StatementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatementTests.m; sourceTree = "<group>"; };
 		2352561DE5CFBCDF7583CD29 /* NoAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoAction.m; sourceTree = "<group>"; };
 		2352564B5FB1BAD16F12342B /* ConversationBubbleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleTableViewCell.h; sourceTree = "<group>"; };
 		2352568D2A237C26E4825DE9 /* DefaultAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultAssembly.m; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				23525489E96A6D4B4A03EAE5 /* States */,
 				235251B83ED57675395C3C84 /* ConversationTests.m */,
 				235256197905AE8BA4A136F2 /* Tokens */,
+				23525606B9112D561A5FAC37 /* StatementTests.m */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1040,6 +1043,7 @@
 				235257CA6CC1202368914D96 /* ReturnsActionForTokenSymbol.m in Sources */,
 				235256CDAF05789E3D222E0B /* TestToken.m in Sources */,
 				23525D70B621210E2EA20666 /* TestToken2.m in Sources */,
+				23525170B3ED071688803C7F /* StatementTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

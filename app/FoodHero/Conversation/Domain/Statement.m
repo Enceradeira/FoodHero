@@ -7,8 +7,8 @@
 //
 
 #import "Conversation.h"
-#import "Statement.h"
-#import "ConversationToken.h"
+#import "FHSuggestion.h"
+#import "USuggestionFeedback.h"
 
 @implementation Statement {
     id <UAction> _inputAction;
@@ -42,4 +42,15 @@
 - (id <UAction>)inputAction {
     return _inputAction;
 }
+
+- (Restaurant *)suggestedRestaurant {
+    if ([_token isKindOfClass:[FHSuggestion class]]) {
+        return ((FHSuggestion *) _token).restaurant;
+    }
+    else if ([_token isKindOfClass:[USuggestionFeedback class]]) {
+        return ((USuggestionFeedback *) _token).restaurant;
+    }
+    return nil;
+}
+
 @end

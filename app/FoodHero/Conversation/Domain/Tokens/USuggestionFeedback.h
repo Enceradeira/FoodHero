@@ -5,8 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
-
+#import "Restaurant.h"
 
 @interface USuggestionFeedback : ConversationToken
-+ (USuggestionFeedback *)create:(NSString *)parameter;
+
+@property(nonatomic, readonly) Restaurant *restaurant;
+
++ (instancetype)createForRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter;
+
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter;
 @end

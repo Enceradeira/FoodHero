@@ -1,12 +1,12 @@
-def get_element_and_parameter(id)
-  bubble = find_element :xpath, "//*[contains(@name,'#{id}')]"
+def get_last_element_and_parameter(id)
+  bubble = (find_elements :xpath, "//*[contains(@name,'#{id}')]").last
   text = bubble.name
   _, parameter = text.match(/^#{id}=(.*)$/).to_a
   return bubble, parameter
 end
 
 Then(/^FoodHero greets users and asks what they wished to eat$/) do
-  bubble, _ = get_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 
@@ -15,12 +15,12 @@ When(/^User wishes to eat British food$/) do
 end
 
 Then(/^User answers with British food$/) do
-  bubble, _ = get_element_and_parameter('ConversationBubble-U:CuisinePreference')
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-U:CuisinePreference')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero suggests something for British food$/) do
-  bubble, @last_suggestion = get_element_and_parameter('ConversationBubble-FH:Suggestion')
+  bubble, @last_suggestion = get_last_element_and_parameter('ConversationBubble-FH:Suggestion')
   expect(@last_suggestion).not_to be_nil
   expect(bubble).not_to be_nil
 end
@@ -30,7 +30,7 @@ Then(/^FoodHero asks if he may get location$/) do
 end
 
 Then(/^FoodHero asks to enable location\-services in settings$/) do
-  bubble, _ = get_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
   expect(bubble).not_to be_nil
 end
 
@@ -39,7 +39,7 @@ When(/^User doesn't like that restaurant$/) do
 end
 
 Then(/^FoodHero suggests something else for British food$/) do
-  bubble, next_suggestion = get_element_and_parameter('ConversationBubble-FH:Suggestion')
+  bubble, next_suggestion = get_last_element_and_parameter('ConversationBubble-FH:Suggestion')
   expect(bubble).not_to be_nil
   expect(next_suggestion).not_to be_nil
   expect(next_suggestion).not_to eq(@last_suggestion)

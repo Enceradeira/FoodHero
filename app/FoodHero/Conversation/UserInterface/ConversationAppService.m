@@ -44,10 +44,10 @@
         Statement *statement = [_conversation getStatement:index];
 
         if (statement.persona == Personas.foodHero) {
-            bubble = [[ConversationBubbleFoodHero alloc] initWithText:statement.text semanticId:statement.semanticId width:bubbleWidth index:index inputAction:statement.inputAction];
+            bubble = [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:bubbleWidth index:index inputAction:statement.inputAction];
         }
         else {
-            bubble = [[ConversationBubbleUser alloc] initWithText:statement.text semanticId:statement.semanticId width:bubbleWidth index:index];
+            bubble = [[ConversationBubbleUser alloc] initWithStatement:statement width:bubbleWidth index:index];
         }
 
         [_bubbles setObject:bubble forKey:key];

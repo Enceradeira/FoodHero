@@ -7,7 +7,8 @@
 //
 
 #import "ConversationBubble.h"
+#import "Statement.h"
 
 @interface ConversationBubbleUser : ConversationBubble
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)width index:(NSUInteger)index;
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index;
 @end

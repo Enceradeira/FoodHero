@@ -5,8 +5,12 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
-
+#import "Restaurant.h"
 
 @interface FHSuggestion : ConversationToken
-+ (ConversationToken *)create:(NSString *)place;
+@property(nonatomic, readonly) Restaurant *restaurant;
+
++ (instancetype)create:(Restaurant *)restaurant;
+
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant;
 @end

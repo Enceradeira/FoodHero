@@ -51,8 +51,8 @@
     [bestRestaurant subscribeNext:^(id next){
         @strongify(self);
         Restaurant *restaurant = next;
-        NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
-        [_feedbackTarget addToken:[FHSuggestion create:nameAndPlace]];
+
+        [_feedbackTarget addToken:[FHSuggestion create:restaurant]];
     }];
 }
 

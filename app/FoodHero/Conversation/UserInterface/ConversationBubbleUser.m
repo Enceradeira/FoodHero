@@ -7,11 +7,12 @@
 //
 
 #import "ConversationBubbleUser.h"
+#import "Statement.h"
 
 @implementation ConversationBubbleUser
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId width:(CGFloat)width index:(NSUInteger)index {
-    self = [super initWithText:text semanticId:semanticId width:width index:index];
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index {
+    self = [super initWithStatement:statement width:width index:index];
     return self;
 }
 

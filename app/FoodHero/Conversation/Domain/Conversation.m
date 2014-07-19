@@ -15,6 +15,7 @@
 #import "FHOpeningQuestion.h"
 #import "FHConversationState.h"
 #import "FHAction.h"
+#import "USuggestionFeedback.h"
 
 
 @interface Conversation ()
@@ -88,9 +89,9 @@
 
 - (NSArray *)suggestionFeedback {
     return [[_statements linq_where:^(Statement *s){
-        return [s.semanticId isEqualToString:@"U:SuggestionFeedback"];
+        return (BOOL)([s.token class] == [USuggestionFeedback class]);
     }] linq_select:^(Statement *s){
-        return s.text;
+        return s.token;
     }];
 }
 @end

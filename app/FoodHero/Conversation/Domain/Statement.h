@@ -10,10 +10,13 @@
 #import "Persona.h"
 #import "ConversationAction.h"
 #import "UAction.h"
+#import "Restaurant.h"
+#import "ConversationToken.h"
 
-@class ConversationToken;
 
 @interface Statement : NSObject
+
+@property(nonatomic, readonly) id token;
 
 - (NSString *)text;
 
@@ -26,5 +29,7 @@
 + (Statement *)create:(ConversationToken *)token inputAction:(id <UAction>)inputAction;
 
 - (id <UAction>)inputAction;
+
+- (Restaurant *)suggestedRestaurant;
 
 @end
