@@ -16,7 +16,6 @@
 #import "RestaurantSearchServiceSpy.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
-#import "LocationService.h"
 
  @interface RestaurantSearchTests : XCTestCase
 

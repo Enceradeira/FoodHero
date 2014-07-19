@@ -51,6 +51,7 @@
 		2352576538E45E8CF8CA5D28 /* DesignByContractException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525346FC989D1AB1AF0541 /* DesignByContractException.m */; };
 		235257BA844D58230C8E4626 /* USuggestionFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525100EA07DAD1EA278A8F /* USuggestionFeedback.m */; };
 		235257CA6CC1202368914D96 /* ReturnsActionForTokenSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AA96527DD678F2FBFCC /* ReturnsActionForTokenSymbol.m */; };
+		235257F2425F28FC6D916DED /* ConversationAskCuisinePreferenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525977498ACBE7372DE645 /* ConversationAskCuisinePreferenceTests.m */; };
 		2352580CDBCBD2268A6652CF /* AlternationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352529E2BB65F12EBDFDCB8 /* AlternationTests.m */; };
 		23525814CA48CA34E6641447 /* FHCantFindRestaurantState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253C12B805752030828BE /* FHCantFindRestaurantState.m */; };
 		2352584B52670D304F9B75CF /* FHConversationState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525131E638473A5004B572 /* FHConversationState.m */; };
@@ -77,6 +78,7 @@
 		23525CD10673BBE686F8364C /* FHBecauseUserDeniedAccessToLocationServicesState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525ABB101C59CE5F41DD89 /* FHBecauseUserDeniedAccessToLocationServicesState.m */; };
 		23525CEB9AE28C4414E7F97D /* LocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */; };
 		23525CF60103BA88C933FFAB /* FHGreeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BDB85217DFA5458D37B /* FHGreeting.m */; };
+		23525D21FC4B9C65A34B8099 /* ConversationTestsBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525546FAB7D7372E6B7E91 /* ConversationTestsBase.m */; };
 		23525D43FA4E305EAC26894E /* NoAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352561DE5CFBCDF7583CD29 /* NoAction.m */; };
 		23525D45AAE0CEAA29DCA6EE /* AskUserToTryAgainAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352532FE8C29682329D925C /* AskUserToTryAgainAction.m */; };
 		23525D70B621210E2EA20666 /* TestToken2.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258690BCFD51D6C3530DF /* TestToken2.m */; };
@@ -174,6 +176,7 @@
 		2352536ED4B9518AB50EF089 /* FHBecauseUserIsNotAllowedToUseLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserIsNotAllowedToUseLocationServices.m; sourceTree = "<group>"; };
 		235253887B7887287277D487 /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		235253B6A64340A77ABE93E5 /* CLLocationManagerProxyStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxyStub.h; sourceTree = "<group>"; };
+		235253B7566895C3ED6BB54F /* ConversationTestsBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTestsBase.h; sourceTree = "<group>"; };
 		235253C12B805752030828BE /* FHCantFindRestaurantState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHCantFindRestaurantState.m; sourceTree = "<group>"; };
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525421492AF0F26931AF6F /* RestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchTests.m; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 		235254FD8EE7D36F69EA631B /* GoogleRestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleRestaurantSearch.h; sourceTree = "<group>"; };
 		23525517558B533671E9AD0A /* FoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHero.h; sourceTree = "<group>"; };
 		2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerImpl.m; sourceTree = "<group>"; };
+		23525546FAB7D7372E6B7E91 /* ConversationTestsBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTestsBase.m; sourceTree = "<group>"; };
 		2352555191D12A93222B8C30 /* GoogleRestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleRestaurantSearchTests.m; sourceTree = "<group>"; };
 		23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponentsTests.m; sourceTree = "<group>"; };
 		23525571F0DDE4CE1AB185D9 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
@@ -224,10 +228,12 @@
 		23525965D879A32525AC6718 /* RestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearch.h; sourceTree = "<group>"; };
 		235259693DFDF431E6E18FA3 /* AtomicSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicSymbol.h; sourceTree = "<group>"; };
 		2352596D6773526DDCA6F07A /* ConversationRepositoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRepositoryTests.m; sourceTree = "<group>"; };
+		23525977498ACBE7372DE645 /* ConversationAskCuisinePreferenceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAskCuisinePreferenceTests.m; sourceTree = "<group>"; };
 		23525A1DB8B692BD12FB337A /* FHFindingRestaurantState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHFindingRestaurantState.m; sourceTree = "<group>"; };
 		23525A2E729305BB18A144C9 /* FHProposalState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHProposalState.h; sourceTree = "<group>"; };
 		23525A40E5586BAC13099BA8 /* ControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerFactory.h; sourceTree = "<group>"; };
 		23525A5710B356AE0BAF9149 /* FHAskCuisinePreferenceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHAskCuisinePreferenceState.m; sourceTree = "<group>"; };
+		23525A6601590D6FF2B88370 /* ConversationAskCuisinePreferenceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAskCuisinePreferenceTests.h; sourceTree = "<group>"; };
 		23525A73391F93A71EBD7E0E /* UCuisinePreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCuisinePreference.m; sourceTree = "<group>"; };
 		23525A908B2FABDF3608A6F6 /* FHConversationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConversationState.h; sourceTree = "<group>"; };
 		23525AA96527DD678F2FBFCC /* ReturnsActionForTokenSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnsActionForTokenSymbol.m; sourceTree = "<group>"; };
@@ -357,6 +363,10 @@
 				235251B83ED57675395C3C84 /* ConversationTests.m */,
 				235256197905AE8BA4A136F2 /* Tokens */,
 				23525606B9112D561A5FAC37 /* StatementTests.m */,
+				23525546FAB7D7372E6B7E91 /* ConversationTestsBase.m */,
+				235253B7566895C3ED6BB54F /* ConversationTestsBase.h */,
+				23525977498ACBE7372DE645 /* ConversationAskCuisinePreferenceTests.m */,
+				23525A6601590D6FF2B88370 /* ConversationAskCuisinePreferenceTests.h */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1044,6 +1054,8 @@
 				235256CDAF05789E3D222E0B /* TestToken.m in Sources */,
 				23525D70B621210E2EA20666 /* TestToken2.m in Sources */,
 				23525170B3ED071688803C7F /* StatementTests.m in Sources */,
+				23525D21FC4B9C65A34B8099 /* ConversationTestsBase.m in Sources */,
+				235257F2425F28FC6D916DED /* ConversationAskCuisinePreferenceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
