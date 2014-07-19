@@ -21,7 +21,7 @@
     if (self != nil) {
         _concatenation = [Concatenation create:
                 [RepeatAlways create:^(){
-                    return [FHCantFindRestaurantState new];
+                    return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
                 }],
                 [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
                 [RepeatAlways create:^(){

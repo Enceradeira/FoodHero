@@ -8,22 +8,32 @@
 #import "FHNoRestaurantFoundState.h"
 #import "Alternation.h"
 #import "RepeatOnce.h"
+#import "Concatenation.h"
+#import "UDidResolveProblemWithAccessLocationServiceState.h"
 
 
 @implementation FHCantFindRestaurantState {
     Alternation *_alternation;
 }
 
-- (id)init {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
     self = [super init];
     if (self) {
+
         _alternation = [Alternation create:
-                [RepeatOnce create:[FHCantAccessLocationServiceState new]],
+                [RepeatOnce create:[Concatenation create:
+                                [RepeatOnce create:[FHCantAccessLocationServiceState new]],
+                                [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil]],
                 [RepeatOnce create:[FHNoRestaurantFoundState new]], nil];
     }
 
     return self;
 }
+
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+    return [[FHCantFindRestaurantState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+}
+
 
 - (id <ConversationAction>)consume:(ConversationToken *)token {
     return [_alternation consume:token];
