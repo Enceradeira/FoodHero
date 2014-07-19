@@ -11,13 +11,20 @@
 #import "ConversationAction.h"
 #import "UAction.h"
 
+@class ConversationToken;
+
 @interface Statement : NSObject
 
-@property(nonatomic, readonly) NSString *text;
-@property(nonatomic, readonly) NSString *semanticId;
-@property(nonatomic, readonly) Persona *persona;
+- (NSString *)text;
+
+- (NSString *)semanticId;
+
+- (Persona *)persona;
+
+- (id)initWithToken:(ConversationToken *)token inputAction:(id <UAction>)inputAction;
+
++ (Statement *)create:(ConversationToken *)token inputAction:(id <UAction>)inputAction;
 
 - (id <UAction>)inputAction;
 
-- (id)initWithText:(NSString *)text semanticId:(NSString *)semanticId persona:(Persona *)persona inputAction:(id <UAction>)inputAction;
 @end

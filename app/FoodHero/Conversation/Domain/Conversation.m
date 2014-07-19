@@ -41,14 +41,14 @@
         id <UAction> action = (id <UAction>) [_state consume:openingQuestionToken];
 
         ConversationToken *token = [greetingToken concat:openingQuestionToken];
-        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:action];
+        [self addStatement:token inputAction:action];
     }
     return self;
 }
 
-- (void)addStatementWithPersona:(Persona *)persona text:(NSString *)text semanticId:(NSString *)semanticId inputAction:(id <UAction>)inputAction {
+- (void)addStatement:(ConversationToken *)token inputAction:(id <UAction>)inputAction {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
-    Statement *statement = [[Statement alloc] initWithText:text semanticId:semanticId persona:persona inputAction:inputAction];
+    Statement *statement = [Statement create:token inputAction:inputAction];
     [statementProxy addObject:statement];
 }
 
@@ -66,11 +66,11 @@
     if ([action conformsToProtocol:@protocol(UAction)]) {
         // User has to perform next action
         userAction = (id <UAction>) action;
-        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:userAction];
+        [self addStatement:token inputAction:userAction];
     }
     else {
         // FH has to perform next action
-        [self addStatementWithPersona:token.persona text:token.parameter semanticId:token.semanticId inputAction:nil];
+        [self addStatement:token inputAction:nil];
         [(id <FHAction>) action execute];
     }
 }
