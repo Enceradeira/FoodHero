@@ -5,11 +5,7 @@
 
 #import "ConversationFindingRestaurantTests.h"
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
-#import "ConversationCantFindRestaurantTests.h"
 #import "ConversationCantAccessLocationServiceTests.h"
-#import "FHBecauseUserDeniedAccessToLocationServices.h"
-#import "AskUserToTryAgainAction.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 
 
@@ -17,34 +13,27 @@
 
 }
 
--(void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldAddFHStatement{
+- (void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    NSUInteger index = self.conversation.getStatementCount-1;
-    [self expectedStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 }
 
--(void)test_FHBecauseUserIfNotAllowedToUseLocationServices_ShouldAddFHStatement{
+- (void)test_FHBecauseUserIfNotAllowedToUseLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    NSUInteger index = self.conversation.getStatementCount-1;
-    [self expectedStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 }
 
--(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow{
-    NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount]+1;
-
+- (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
-    [self expectedStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
-    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
+    [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
 }
 
 

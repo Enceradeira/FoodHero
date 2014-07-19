@@ -23,9 +23,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorized];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
 
-    NSUInteger index = self.conversation.getStatementCount - 1;
-    [self expectedStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
@@ -35,9 +33,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
 
-    NSUInteger index = self.conversation.getStatementCount - 1;
-    [self expectedStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 }
 
 @end

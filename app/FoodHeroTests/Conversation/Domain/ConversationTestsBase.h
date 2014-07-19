@@ -22,4 +22,8 @@
 - (void)expectedStatementIs:(NSString *)text userAction:(Class)action;
 
 - (void)assertExpectedStatementsAtIndex:(NSUInteger)index;
+
+- (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
+
+- (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
 @end

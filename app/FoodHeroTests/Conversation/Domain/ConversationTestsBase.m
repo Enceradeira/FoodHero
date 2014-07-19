@@ -83,4 +83,16 @@
 }
 
 
+- (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
+    [self expectedStatementIs:semanticId userAction:userAction];
+    NSUInteger index = self.conversation.getStatementCount - 1;
+    [self assertExpectedStatementsAtIndex:index];
+}
+
+- (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
+    NSUInteger index = self.conversation.getStatementCount-2;
+    [self expectedStatementIs:semanticId userAction:userAction];
+    [self assertExpectedStatementsAtIndex:index];
+}
+
 @end
