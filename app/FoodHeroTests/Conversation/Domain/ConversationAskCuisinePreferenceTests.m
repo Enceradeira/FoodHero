@@ -3,10 +3,12 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationAskCuisinePreferenceTests.h"
 #import "UCuisinePreference.h"
 #import "AskUserSuggestionFeedbackAction.h"
+#import "ConversationTestsBase.h"
 
+@interface ConversationAskCuisinePreferenceTests : ConversationTestsBase
+@end
 
 @implementation ConversationAskCuisinePreferenceTests {
 

@@ -3,11 +3,12 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationFindingRestaurantTests.h"
 #import "UCuisinePreference.h"
-#import "ConversationCantAccessLocationServiceTests.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "ConversationTestsBase.h"
 
+@interface ConversationCantAccessLocationServiceTests : ConversationTestsBase
+@end
 
 @implementation ConversationCantAccessLocationServiceTests {
 

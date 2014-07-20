@@ -3,14 +3,16 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationFindingRestaurantTests.h"
 #import "UCuisinePreference.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "UTryAgainNow.h"
 #import "AskUserToTryAgainAction.h"
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "ConversationTestsBase.h"
 
+@interface ConversationFindingRestaurantTests : ConversationTestsBase
+@end
 
 @implementation ConversationFindingRestaurantTests {
 
