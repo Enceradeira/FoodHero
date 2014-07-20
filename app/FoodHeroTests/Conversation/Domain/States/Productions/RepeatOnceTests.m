@@ -10,10 +10,13 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import "RepeatOnce.h"
 #import "TestToken.h"
-#import "ReturnsActionNeverSymbol.h"
-#import "ReturnsActionForTokenSymbol.h"
+#import "ReturnsAlwaysTokenNotConsumedSymbol.h"
+#import "ReturnsActionForTokenSymbolOnce.h"
 #import "RepeatAlways.h"
 #import "TestToken2.h"
+#import "HCIsExceptionOfType.h"
+#import "DesignByContractException.h"
+#import "ReturnsActionForTokenSymbolAlways.h"
 
 @interface RepeatOnceTests : XCTestCase
 
@@ -34,23 +37,19 @@
 - (void)test_consume_ShouldReturnSymbolResultOnce
 {
     RepeatOnce *repetition = [RepeatOnce create:
-            [RepeatAlways create:^(){
-                return [ReturnsActionForTokenSymbol create:_token1.class];}]];
+            [ReturnsActionForTokenSymbolAlways create:_token1.class]];
 
-    assertThat([repetition consume:_token2],is(nilValue()));
-    assertThat([repetition consume:_token1],is(notNilValue()));
-    assertThat([repetition consume:_token1],is(notNilValue()));
-    assertThat([repetition consume:_token2],is(nilValue()));
-    assertThat([repetition consume:_token1],is(nilValue()));
-    assertThat([repetition consume:_token1],is(nilValue()));
+    assertThatBool([repetition consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
+    assertThatBool([repetition consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
+    // begin of 1. repetition
+    assertThatBool([repetition consume:_token1].isTokenConsumed,is(equalToBool(YES)));
+    assertThatBool([repetition consume:_token1].isTokenConsumed,is(equalToBool(YES)));
+    assertThatBool([repetition consume:_token1].isTokenConsumed,is(equalToBool(YES)));
+    // end of 1. repetition
+    assertThatBool([repetition consume:_token2].isStateFinished,is(equalToBool(YES)));
+    // no more repetitions
+    assertThat(^(){[repetition consume:_token1];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[repetition consume:_token2];}, throwsExceptionOfType(DesignByContractException.class));
 }
-
--(void)test_consume_ShouldAlwaysReturnNil_WennSymbolResultNil{
-    RepeatOnce *repetition = [RepeatOnce create:[ReturnsActionNeverSymbol new]];
-
-    assertThat([repetition consume:_token1],is(nilValue()));
-    assertThat([repetition consume:_token1],is(nilValue()));
-}
-
 
 @end

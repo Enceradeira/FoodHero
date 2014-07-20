@@ -9,5 +9,5 @@
 #import "AtomicSymbol.h"
 
 
-@interface ReturnsActionNeverSymbol : AtomicSymbol
+@interface ReturnsAlwaysStateFinishedSymbol : NSObject<Symbol>
 @end

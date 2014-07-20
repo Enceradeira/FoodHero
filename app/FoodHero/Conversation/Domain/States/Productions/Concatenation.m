@@ -4,83 +4,64 @@
 //
 
 #import "Concatenation.h"
-#import "DesignByContractException.h"
 #import "NSArray+LinqExtensions.h"
-
-@interface SymbolState : NSObject
-@property(nonatomic) int count;
-@property(nonatomic, readonly) id <RepeatSymbol> symbol;
-@end
-
-@implementation SymbolState
-- (instancetype)initWithSymbol:(id <RepeatSymbol>)symbol {
-    self = [super init];
-    if (self != nil) {
-        _symbol = symbol;
-        _count = 0;
-    }
-    return self;
-}
-
-+ (instancetype)create:(id <RepeatSymbol>)symbol {
-    return [[SymbolState alloc] initWithSymbol:symbol];
-}
-@end
+#import "StateFinished.h"
+#import "DesignByContractException.h"
+#import "TokenNotConsumed.h"
 
 @implementation Concatenation {
-
-    NSArray *_symbolStates;
+    NSArray *_symbols;
+    NSUInteger _currentSymbolIdx;
+    id<ConsumeResult> _symbolState;
 }
-- (id <ConversationAction>)consume:(ConversationToken *)token {
-    // determine current state
-    SymbolState *firstSymbol = [_symbolStates linq_firstOrNil];
-    if (firstSymbol == nil) {
-        @throw [DesignByContractException createWithReason:@"concatenation is empty"];
+- (id <ConsumeResult>)consume:(ConversationToken *)token {
+    if (_symbolState.isStateFinished) {
+        @throw [DesignByContractException createWithReason:@"Consume can't be called on finished result"];
     }
-    SymbolState *currentSymbol = [[_symbolStates
-            linq_where:^(SymbolState *s){
-                return (BOOL) (s.count > 0);
-            }]
-            linq_lastOrNil];
-
-    if (currentSymbol == nil) {
-        currentSymbol = firstSymbol;
+    if(_currentSymbolIdx >= _symbols.count){
+        return [StateFinished new];
     }
 
-    // try current symbol
-    id <ConversationAction> action = [currentSymbol.symbol consume:token];
-    currentSymbol.count++;
-    if (action != nil) {
-        return action;
+    id<Symbol> currSymbol = _symbols[_currentSymbolIdx];
+    id <ConsumeResult> result = [currSymbol consume:token];
+    if (result.isTokenNotConsumed) {
+        if (!_symbolState.isTokenNotConsumed) {
+            @throw [DesignByContractException createWithReason:@"Symbol is not allowed to not consume after it has consumed once"];
+        }
+        return result;
     }
-    /*
-    else if (firstSymbol.count == 0) {
-        return nil; // state is not entered, token is not consumed
-    } */
-
-    // try next symbol
-    SymbolState *nextSymbol = [[_symbolStates
-            linq_where:^(SymbolState *s){
-                return (BOOL) (s.count == 0);
-            }]
-            linq_firstOrNil];
-    if (nextSymbol == nil) {
-        return nil; // all symbols have been consumed
+    else if (result.isTokenConsumed) {
+        _symbolState = result;
+        return result;
     }
-    id <ConversationAction> nextAction = [nextSymbol.symbol consume:token];
-    nextSymbol.count++;
-    if (nextAction != nil) {
-        return nextAction;
+    else{
+        // token has finished consuming. We therefore look at next token.
+        if( _currentSymbolIdx >= _symbols.count -1 ){
+            // there is no next symbol we therefore finish here
+            _symbolState = [StateFinished new];
+            return _symbolState;
+        }
+        else{
+            id<Symbol> nextState = _symbols[++_currentSymbolIdx];
+            id<ConsumeResult> nextResult = [nextState consume:token];
+            if( nextResult.isTokenNotConsumed){
+                @throw [DesignByContractException createWithReason:@"Next symbol in concatenation doesn't consume token. This indicates an invalid state."];
+            }
+            else {
+                // next symbol either consumed token so we stay in 'TokenConsumed'-state or next symbol finished consumption straight away therefore we enter 'state-finished' state
+                _symbolState = nextResult;
+                return nextResult;
+            }
+        }
     }
-
-    return nil;
-    // @throw [DesignByContractException createWithReason:@"next symbol didn't consume in concatenation. That indicates an invalid state."];
 }
 
-- (instancetype)initWithSymbols:(NSArray *)symbolStates {
+- (instancetype)initWithSymbols:(NSArray *)symbols {
     self = [super init];
     if (self != nil) {
-        _symbolStates = symbolStates;
+        _symbols = symbols;
+        _currentSymbolIdx = 0;
+        _symbolState = [TokenNotConsumed new];
     }
     return self;
 }
@@ -91,7 +72,7 @@
     va_list args;
     va_start(args, symbol1);
     for (id <Symbol> arg = symbol1; arg != nil; arg = va_arg(args, id < Symbol >)) {
-        [symbols addObject:[SymbolState create:arg]];
+        [symbols addObject:arg];
     }
 
     va_end(args);

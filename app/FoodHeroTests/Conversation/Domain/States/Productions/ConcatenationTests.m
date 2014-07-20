@@ -11,113 +11,138 @@
 #import "Concatenation.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
-#import "ReturnsActionNeverSymbol.h"
+#import "ReturnsAlwaysTokenNotConsumedSymbol.h"
 #import "TestAction.h"
 #import "TestToken.h"
 #import "RepeatOnce.h"
-#import "ReturnsActionForTokenSymbol.h"
+#import "ReturnsActionForTokenSymbolOnce.h"
 #import "RepeatAlways.h"
+#import "TestToken2.h"
+#import "TokenConsumed.h"
+#import "ReturnsAlwaysStateFinishedSymbol.h"
 
  @interface ConcatenationTests : XCTestCase
 
 @end
 
 @implementation ConcatenationTests {
-    TestToken *_token;
+    TestToken *_token1;
+    TestToken2 *_token2;
 }
 
 - (void)setUp {
     [super setUp];
-    _token =[TestToken new];
+    _token1 =[TestToken new];
+    _token2 =[TestToken2 new];
 }
 
-- (void)test_consume_ShouldThrowException_WhenConcatenationEmpty
+- (void)test_consume_ShouldReturnConsumeFinished_WhenConcatenationEmpty
 {
     Concatenation *concat = [Concatenation new];
-    
-    assertThat(^{[concat consume:_token];}, throwsExceptionOfType(DesignByContractException.class));
+
+    assertThatBool([concat consume:_token1].isStateFinished, equalToBool(YES));
 }
 
--(void)test_consume_ShouldReturnNil_WhenLastStateDoesntConsumeTokenOnSecondeConsume
+-(void)test_consume_ShouldReturnConsumeFinished_WhenLastStateDoesntConsumeTokenOnSecondConsume
 {
     Concatenation *concat = [Concatenation create:
-                                 [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]],
-                                 [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]],
-                                 [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]],nil];
+                                 [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],
+                                 [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],
+                                 [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],nil];
 
     // consumed by first symbol
-    assertThat([concat consume:_token], is(notNilValue()));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     // consumed by second symbol
-    assertThat([concat consume:_token], is(notNilValue()));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     // consume by third symbol
-    assertThat([concat consume:_token], is(notNilValue()));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     // not consumed by third symbol (which is last)
-    assertThat([concat consume:_token], is(nilValue()));
+    assertThatBool([concat consume:_token1].isStateFinished, is(equalToBool(YES)));
 }
 
--(void)test_consume_ShouldReturnActionFromFirstSymbol_WhenFirstSymbolConsumesToken{
+-(void)test_consume_ShouldReturnTokenConsumedForFirstSymbol_WhenFirstSymbolConsumesToken{
     Concatenation *concat = [Concatenation create:
-                                [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]],nil];
+                                [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],nil];
 
-    assertThat([concat consume:_token], is(notNilValue()));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isStateFinished, is(equalToBool(YES)));
 }
 
--(void)test_consume_ShouldReturnActionFromFirstSymbol_WhenFirstSymbolAlwaysConsumesToken{
+-(void)test_consume_ShouldReturnTokenConsumedForFirstSymbol_WhenFirstSymbolAlwaysConsumesToken{
     Concatenation *concat = [Concatenation create:
-                                [RepeatAlways create:^(){return [ReturnsActionForTokenSymbol create:_token.class];}],nil];
+                                [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token1.class];}],nil];
 
-    assertThat([concat consume:_token], is(notNilValue()));
-    assertThat([concat consume:_token], is(notNilValue()));
-    assertThat([concat consume:_token], is(notNilValue()));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
 }
 
--(void)test_consume_ShouldReturnNil_WhenFirstSymbolDoesntConsumeToken{
+-(void)test_consume_ShouldReturnTokenNotConsumed_WhenFirstSymbolDoesntConsumeToken{
     Concatenation *concat = [Concatenation create:
-                                [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],nil];
+                                [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],nil];
 
-    assertThat([concat consume:_token], is(nilValue()));
+    assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
+}
+
+-(void)test_consume_ShouldThrowException_WhenFirstSymbolConsumesTokenButSecondDoesnt{
+    Concatenation *concat = [Concatenation create:
+                                [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],
+                                [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token2.class]],nil];
+
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
+    assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(DesignByContractException.class));
 }
 
 -(void)test_consume_ShouldReturnActionFormSecondSymbol_WhenFirstSymbolDoesntConsumeTokenOnSecondConsume{
-    id<Symbol> symbolA = [ReturnsActionForTokenSymbol create:_token.class];
-    id<Symbol> symbolB = [ReturnsActionForTokenSymbol create:_token.class];
+    id<Symbol> symbolA = [ReturnsActionForTokenSymbolOnce create:_token1.class];
+    id<Symbol> symbolB = [ReturnsActionForTokenSymbolOnce create:_token1.class];
 
     Concatenation *concat = [Concatenation create:
                                  [RepeatOnce create:symbolA],
                                  [RepeatOnce create:symbolB],nil];
 
-    [concat consume:_token];
-    TestAction* action = [concat consume:_token];
+    [concat consume:_token1];
+    TestAction* action = ((TokenConsumed*)[concat consume:_token1]).action;
     assertThat(action.sender, is(equalTo(symbolB)));
 }
 
--(void)test_consume_ShouldReturnNil_WhenFirstSymbolDoesntConsumeAndSecondSymbolDoesntConsume{
+-(void)test_consume_ShouldReturnTokenNotConsumed_WhenFirstSymbolDoesntConsumeAndSecondSymbolDoesntConsume{
      Concatenation *concat = [Concatenation create:
-                                 [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
-                                 [RepeatOnce create:[ReturnsActionNeverSymbol new]],nil];
+                                 [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
+                                 [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],nil];
 
-    assertThat([concat consume:_token], is(nilValue()));
-    assertThat([concat consume:_token], is(nilValue()));
-    assertThat([concat consume:_token], is(nilValue()));
+    assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
 }
 
 -(void)test_consume_ShouldReturnActionFromSecondSymbol_WhenFirstSymbolIsOptional{
-    id<Symbol> secondSymbol = [ReturnsActionForTokenSymbol create:_token.class];
+    id<Symbol> secondSymbol = [ReturnsActionForTokenSymbolOnce create:_token1.class];
     Concatenation *concat = [Concatenation create:
-                                 [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
+                                 [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
                                  [RepeatOnce create:secondSymbol],nil];
 
-    TestAction* action = [concat consume:_token];
+    TestAction* action = ((TokenConsumed*)[concat consume:_token1]).action;
     assertThat(action.sender, is(equalTo(secondSymbol)));
     
 }
 
--(void)test_consume_ShouldReturnNil_WhenNoSymbolConsumeButAllAreOptional{
+-(void)test_consume_ShouldReturnStateFinished_WhenNoSymbolConsumeButAllAreOptional{
     Concatenation *concat = [Concatenation create:
-                                  [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
-                                  [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],nil];
+                                  [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
+                                  [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],nil];
 
-    assertThat([concat consume:_token], is(nilValue()));
+    assertThatBool([concat consume:_token1].isStateFinished, is(equalToBool(YES)));
+}
+
+-(void)test_consume_ShouldThrowException_WhenConsumeIsCalledInStateFinished
+{
+    Concatenation *concat = [Concatenation create:
+                                [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],nil];
+
+    [concat consume:_token1];
+    assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(DesignByContractException.class));
 }
 
 @end

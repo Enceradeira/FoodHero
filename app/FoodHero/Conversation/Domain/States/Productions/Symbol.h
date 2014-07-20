@@ -6,7 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
 #import "ConversationToken.h"
+#import "ConsumeResult.h"
 
 @protocol Symbol
-- (id <ConversationAction>)consume:(ConversationToken *)token;
+- (id <ConsumeResult>)consume:(ConversationToken *)token;
 @end

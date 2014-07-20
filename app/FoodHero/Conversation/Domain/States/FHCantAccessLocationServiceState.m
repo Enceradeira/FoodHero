@@ -26,7 +26,7 @@
 }
 
 
-- (id <ConversationAction>)consume:(ConversationToken *)token {
+- (id <ConsumeResult>)consume:(ConversationToken *)token {
     return [_alternation consume:token];
 }
 @end

@@ -5,29 +5,47 @@
 
 #import "AtomicSymbol.h"
 #import "DesignByContractException.h"
+#import "TokenConsumed.h"
+#import "TokenNotConsumed.h"
+#import "StateFinished.h"
 
 
 @implementation AtomicSymbol {
     Class _tokenclass;
 
-    BOOL _hasBeenConsumed;
+    id <ConsumeResult> _symbolState;
 }
 
 - (id)initWithToken:(Class)tokenclass {
     self = [super init];
     if (self) {
         _tokenclass = tokenclass;
+        _symbolState = [TokenNotConsumed new];
     }
     return self;
 }
 
 
-- (id <ConversationAction>)consume:(ConversationToken *)token {
-    if (!_hasBeenConsumed && _tokenclass == token.class) {
-        _hasBeenConsumed = YES;
-        return [self createAction:token];
+- (id <ConsumeResult>)consume:(ConversationToken *)token {
+    if (_symbolState.isStateFinished) {
+        @throw [DesignByContractException createWithReason:@"consume can't be called on finished state"];
     }
-    return nil;
+    else if (_symbolState.isTokenConsumed) {
+        // it was consumed before therefore symbol signals it
+        _symbolState = [StateFinished new];
+        return _symbolState;
+    }
+    else {
+        // token has not been consumed yet
+        if (_tokenclass == token.class) {
+            _symbolState = [TokenConsumed create:[self createAction:token]];
+            return _symbolState;
+        }
+        else{
+            // symbol state is 'token not consumed'
+            return _symbolState;
+        }
+    }
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {

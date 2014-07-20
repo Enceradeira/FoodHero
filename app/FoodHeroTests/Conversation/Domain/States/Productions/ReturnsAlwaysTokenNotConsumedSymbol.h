@@ -4,10 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationToken.h"
 #import "Symbol.h"
+#import "RepeatSymbol.h"
 #import "AtomicSymbol.h"
 
-@interface ReturnsActionForTokenSymbol : AtomicSymbol
-+(instancetype)create:(Class)token;
+
+@interface ReturnsAlwaysTokenNotConsumedSymbol : AtomicSymbol
 @end

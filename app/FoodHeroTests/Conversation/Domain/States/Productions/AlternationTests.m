@@ -10,11 +10,15 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import "Alternation.h"
 #import "TestAction.h"
-#import "ReturnsActionNeverSymbol.h"
-#import "ReturnsActionForTokenSymbol.h"
+#import "ReturnsAlwaysTokenNotConsumedSymbol.h"
+#import "ReturnsActionForTokenSymbolOnce.h"
 #import "RepeatOnce.h"
 #import "RepeatAlways.h"
 #import "TestToken.h"
+#import "TokenConsumed.h"
+#import "ReturnsAlwaysStateFinishedSymbol.h"
+#import "HCIsExceptionOfType.h"
+#import "DesignByContractException.h"
 
 @interface AlternationTests : XCTestCase
 
@@ -29,24 +33,23 @@
     _token = [TestToken new];
 }
 
-- (void)test_consume_ShouldReturnNilWhenAlternationEmpty {
+- (void)test_consume_ShouldReturnStateFinished_WhenAlternationEmpty {
     Alternation *alternation = [Alternation create:nil];
 
-    assertThat([alternation consume:_token], is(nilValue()));
-    assertThat([alternation consume:_token], is(nilValue()));
+    assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
 }
 
 - (void)test_consume_ShouldAlwaysReturnResultFromFirstAlternative_WhenTwoAlternativesYieldResults {
     __block id<Symbol> createdSymbol1;
 
     Alternation *alternation = [Alternation create:
-                                     [RepeatAlways create:^(){return createdSymbol1 = [ReturnsActionForTokenSymbol create:_token.class];}],
-                                     [RepeatAlways create:^(){return [ReturnsActionForTokenSymbol create:_token.class];}], nil];
+                                     [RepeatAlways create:^(){return createdSymbol1 = [ReturnsActionForTokenSymbolOnce create:_token.class];}],
+                                     [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
 
-    TestAction *action = [alternation consume:_token];
+    TestAction *action = ((TokenConsumed *)[alternation consume:_token]).action;
     assertThat(action.sender, is(equalTo(createdSymbol1)));
 
-    action = [alternation consume:_token];
+    action = ((TokenConsumed *)[alternation consume:_token]).action;;
     assertThat(action.sender, is(equalTo(createdSymbol1)));
 }
 
@@ -55,59 +58,75 @@
     __block id<Symbol> secondCreatedSymbol;
 
     Alternation *alternation = [Alternation create:
-                                    [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
-                                    [RepeatAlways create:^(){return secondCreatedSymbol =[ReturnsActionForTokenSymbol create:_token.class];}], nil];
+                                    [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
+                                    [RepeatAlways create:^(){return secondCreatedSymbol =[ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
 
-    TestAction *action = [alternation consume:_token];
+    TestAction *action = ((TokenConsumed *)[alternation consume:_token]).action;
     assertThat(action.sender, is(equalTo(secondCreatedSymbol)));
 
-    action = [alternation consume:_token];
+    action = ((TokenConsumed *)[alternation consume:_token]).action;
     assertThat(action.sender, is(equalTo(secondCreatedSymbol)));
 }
 
-- (void)test_consume_ShouldReturnNil_WhenNoAlternativeYieldsResults {
+- (void)test_consume_ShouldReturnTokenNotConsumed_WhenBothAlternativesDontConsumeToken {
 
     Alternation *alternation = [Alternation create:
-                                    [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
-                                    [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}], nil];
+                                    [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
+                                    [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]], nil];
 
-    assertThat([alternation consume:_token], is(nilValue()));
-    assertThat([alternation consume:_token], is(nilValue()));
+    assertThatBool([alternation consume:_token].isTokenNotConsumed, is(equalToBool(YES)));
+    assertThatBool([alternation consume:_token].isTokenNotConsumed, is(equalToBool(YES)));
+    assertThatBool([alternation consume:_token].isTokenNotConsumed, is(equalToBool(YES)));
 }
 
-- (void)test_consume_ShouldReturnNil_WhenFirstAlternativeStopsYieldingResult{
+- (void)test_consume_ShouldReturnStateFinished_WhenFirstAlternativeReturnsStateFinished {
 
     Alternation *alternation = [Alternation create:
-                                    [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]],
-                                    [RepeatAlways create:^(){return [ReturnsActionForTokenSymbol create:_token.class];}], nil];
+                                    [RepeatOnce create:[ReturnsAlwaysStateFinishedSymbol new]],
+                                    [RepeatAlways create:^(){return [ReturnsAlwaysTokenNotConsumedSymbol new];}], nil];
 
-    assertThat([alternation consume:_token], is(notNilValue()));
-    assertThat([alternation consume:_token], is(nilValue()));
+    assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
 }
 
-- (void)test_consume_ShouldReturnNil_WhenSecondAlternativeStopsYieldingResult{
+- (void)test_consume_ShouldReturnStateFinished_WhenFirstAlternativeStopsYieldingResult{
 
     Alternation *alternation = [Alternation create:
-                                    [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
-                                    [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]],
-                                    [RepeatAlways create:^(){return [ReturnsActionForTokenSymbol create:_token.class];}], nil];
+                                    [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token.class]],
+                                    [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
 
-    TestAction *action = [alternation consume:_token];
-    assertThat(action, is((notNilValue())));
-    assertThat([alternation consume:_token], is(nilValue()));
-    assertThat([alternation consume:_token], is(nilValue()));
+    assertThatBool([alternation consume:_token].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
 }
 
-- (void)test_consume_ShouldReturnNil_WhenLastAlternativeStopsYieldingResult{
+- (void)test_consume_ShouldReturnStateFinished_WhenSecondAlternativeStopsYieldingResult{
 
     Alternation *alternation = [Alternation create:
-                                    [RepeatAlways create:^(){return [ReturnsActionNeverSymbol new];}],
-                                    [RepeatOnce create:[ReturnsActionNeverSymbol new]],
-                                    [RepeatOnce create:[ReturnsActionForTokenSymbol create:_token.class]], nil];
+                                    [RepeatOnce create: [ReturnsAlwaysTokenNotConsumedSymbol new]],
+                                    [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token.class]],
+                                    [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
+
+    assertThatBool([alternation consume:_token].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
+}
+
+- (void)test_consume_ShouldReturnStateFinished_WhenLastAlternativeStopsYieldingResult{
+
+    Alternation *alternation = [Alternation create:
+                                    [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
+                                    [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
+                                    [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token.class]], nil];
 
 
-    assertThat([alternation consume:_token], is((notNilValue())));
-    assertThat([alternation consume:_token], is(nilValue()));
+    assertThatBool([alternation consume:_token].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
+}
+
+-(void)test_consume_ShouldThrowException_WhenConsumeIsCalledInStateFinished
+{
+    Alternation *alternation = [Alternation create:nil];
+
+    assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
+    assertThat(^(){[alternation consume:_token];}, throwsExceptionOfType([DesignByContractException class]));
 }
 
 @end

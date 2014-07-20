@@ -35,7 +35,7 @@
     return [[FHFindingRestaurantState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
-- (id <ConversationAction>)consume:(ConversationToken *)token {
+- (id <ConsumeResult>)consume:(ConversationToken *)token {
     return [_concatenation consume:token];
 }
 @end

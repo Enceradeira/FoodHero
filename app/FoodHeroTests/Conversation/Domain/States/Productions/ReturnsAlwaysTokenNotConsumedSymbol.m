@@ -3,10 +3,10 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ReturnsActionNeverSymbol.h"
+#import "ReturnsAlwaysTokenNotConsumedSymbol.h"
 
 
-@implementation ReturnsActionNeverSymbol {
+@implementation ReturnsAlwaysTokenNotConsumedSymbol {
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {

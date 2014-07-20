@@ -16,6 +16,7 @@
 #import "FHConversationState.h"
 #import "FHAction.h"
 #import "USuggestionFeedback.h"
+#import "TokenConsumed.h"
 
 
 @interface Conversation ()
@@ -39,7 +40,7 @@
         FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];
 
         [_state consume:greetingToken];
-        id <UAction> action = (id <UAction>) [_state consume:openingQuestionToken];
+        id <UAction> action = (id <UAction>) ((TokenConsumed *) [_state consume:openingQuestionToken]).action;
 
         ConversationToken *token = [greetingToken concat:openingQuestionToken];
         [self addStatement:token inputAction:action];
@@ -62,17 +63,23 @@
 }
 
 - (void)addToken:(ConversationToken *)token {
-    id <ConversationAction> action = [_state consume:token];
-    id <UAction> userAction;
-    if ([action conformsToProtocol:@protocol(UAction)]) {
-        // User has to perform next action
-        userAction = (id <UAction>) action;
-        [self addStatement:token inputAction:userAction];
+    id <ConsumeResult> result = [_state consume:token];
+    if (!result.isTokenConsumed) {
+        @throw [DesignByContractException createWithReason:@"token was not consumed. This indicates an invalid state"];
     }
     else {
-        // FH has to perform next action
-        [self addStatement:token inputAction:nil];
-        [(id <FHAction>) action execute];
+        id <ConversationAction> action = ((TokenConsumed *) result).action;
+        id <UAction> userAction;
+        if ([action conformsToProtocol:@protocol(UAction)]) {
+            // User has to perform next action
+            userAction = (id <UAction>) action;
+            [self addStatement:token inputAction:userAction];
+        }
+        else {
+            // FH has to perform next action
+            [self addStatement:token inputAction:nil];
+            [(id <FHAction>) action execute];
+        }
     }
 }
 
@@ -89,7 +96,7 @@
 
 - (NSArray *)suggestionFeedback {
     return [[_statements linq_where:^(Statement *s){
-        return (BOOL)([s.token class] == [USuggestionFeedback class]);
+        return (BOOL) ([s.token class] == [USuggestionFeedback class]);
     }] linq_select:^(Statement *s){
         return s.token;
     }];

@@ -4,12 +4,13 @@
 //
 
 #import "RepeatOnce.h"
+#import "DesignByContractException.h"
+#import "TokenNotConsumed.h"
 
 
 @implementation RepeatOnce {
     id <Symbol> _symbol;
-    BOOL _isConsuming;
-    BOOL _hasConsumed;
+    id <ConsumeResult> _symbolState;
 }
 
 + (RepeatOnce *)create:(id <Symbol>)symbol {
@@ -20,22 +21,30 @@
     self = [super init];
     if (self != nil) {
         _symbol = symbol;
+        _symbolState = [TokenNotConsumed new];
     }
     return self;
 }
 
-- (id <ConversationAction>)consume:(ConversationToken *)token {
-    if (_hasConsumed) {
-        return nil;
+- (id <ConsumeResult>)consume:(ConversationToken *)token {
+    if (_symbolState.isStateFinished) {
+        @throw [DesignByContractException createWithReason:@"consume can't be called on finished state"];
     }
-    id <ConversationAction> action = [_symbol consume:token];
-    if (action != nil) {
-        _isConsuming = YES;
+    id <ConsumeResult> result = [_symbol consume:token];
+    if (result.isTokenNotConsumed) {
+        if (!_symbolState.isTokenNotConsumed) {
+            @throw [DesignByContractException createWithReason:@"symbol is not allowed to not consume after it has consumed once"];
+        }
+        return result;
     }
-    else if (_isConsuming) {
-        _hasConsumed = YES;
+    else if (result.isTokenConsumed) {
+        _symbolState = result;
+        return result;
     }
-    return action;
+    else {
+        _symbolState = result;
+        return result;
+    }
 }
 
 @end

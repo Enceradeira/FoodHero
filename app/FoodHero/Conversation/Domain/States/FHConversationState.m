@@ -31,13 +31,7 @@
     return [[FHConversationState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
 }
 
-- (id <ConversationAction>)consume:(ConversationToken *)token {
-    id <ConversationAction> action = [_concatenation consume:token];
-    if (action == nil) {
-        @throw [DesignByContractException createWithReason:@"No symbol consumed token. This indicated an invalid state"];
-    }
-    else {
-        return action;
-    }
+- (id <ConsumeResult>)consume:(ConversationToken *)token {
+    return [_concatenation consume:token];
 }
 @end

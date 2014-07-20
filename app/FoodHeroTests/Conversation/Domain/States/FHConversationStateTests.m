@@ -46,9 +46,10 @@
 
 }
 
--(void)test_consume_ShouldThrowException_WhenSomethingOtherThenFHGreetingIsAdded
+-(void)test_consume_ShouldReturnTokenNotConsumed_WhenSomethingOtherThenFHGreetingIsAdded
 {
-    assertThat(^(){[_state consume:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@""]];;}, throwsExceptionOfType([DesignByContractException class]) );
+    id <ConsumeResult> result = [_state consume:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@""]];
+    assertThatBool(result.isTokenNotConsumed, is(equalToBool(YES)));
 }
 
 -(void)test_consume_ShouldThrowException_WhenSomethingOtherThenUserCuisinePreferenceIsAddedAfterFHOpeningQuestion
