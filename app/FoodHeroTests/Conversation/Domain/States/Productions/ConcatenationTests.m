@@ -117,6 +117,16 @@
     assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
 }
 
+-(void)test_consume_ShouldReturnTokenConsumed_WhenFirstTwoSymbolsAreOptional{
+    Concatenation *concat = [Concatenation create:
+            [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
+            [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
+            [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],nil];
+
+    assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
+    assertThatBool([concat consume:_token1].isStateFinished, is(equalToBool(YES)));
+}
+
 -(void)test_consume_ShouldReturnActionFromSecondSymbol_WhenFirstSymbolIsOptional{
     id<Symbol> secondSymbol = [ReturnsActionForTokenSymbolOnce create:_token1.class];
     Concatenation *concat = [Concatenation create:

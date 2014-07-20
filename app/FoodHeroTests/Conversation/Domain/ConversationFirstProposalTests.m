@@ -8,10 +8,10 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedback.h"
 
-@interface FirstProposalTests : ConversationTestsBase
+@interface ConversationFirstProposalTests : ConversationTestsBase
 @end
 
-@implementation FirstProposalTests {
+@implementation ConversationFirstProposalTests {
 
 }
 

@@ -25,8 +25,9 @@
                 }],
                 [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
                 [RepeatAlways create:^(){
-                    return [FHProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
-                }], nil];
+                    return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+                }],
+                [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
     }
     return self;
 }

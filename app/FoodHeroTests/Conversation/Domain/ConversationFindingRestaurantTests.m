@@ -10,6 +10,7 @@
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 #import "ConversationTestsBase.h"
+#import "USuggestionFeedback.h"
 
 @interface ConversationFindingRestaurantTests : ConversationTestsBase
 @end
@@ -59,6 +60,20 @@
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
 
     // Problems finally solved
+    [self.restaurantSearchStub injectFindSomething];
+    [self.conversation addToken:[UTryAgainNow new]];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+}
+
+-(void)test_USuggestionFeedback_ShouldTriggerFHNoRestaurantFound_WhenAfterFirstProposal{
+    [self.conversation addToken:[UCuisinePreference create:@"Test"]];
+
+    [self.restaurantSearchStub injectFindNothing];
+    [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self.conversation addToken:[UTryAgainNow new]];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
