@@ -54,13 +54,21 @@
 }
 
 - (void)expectedStatementIs:(NSString *)text userAction:(Class)action {
+    [self expectedStatementIs:text userAction:action inList:_expectedStatements];
+}
+
+- (void)expectedStatementIs:(NSString *)text userAction:(Class)action inList:(NSMutableArray *)list {
     ExpectedStatement *statement = [[ExpectedStatement alloc] initWithText:text inputAction:action];
-    [_expectedStatements addObject:statement];
+    [list addObject:statement];
 }
 
 - (void)assertExpectedStatementsAtIndex:(NSUInteger)index {
-    for(NSUInteger i=0; i<_expectedStatements.count; i++){
-        ExpectedStatement *expectedStatement = _expectedStatements[i];
+    [self assertExpectedStatementsAtIndex:index inList:_expectedStatements];
+}
+
+- (void)assertExpectedStatementsAtIndex:(NSUInteger)index inList:(NSMutableArray *)list{
+    for(NSUInteger i=0; i<list.count; i++){
+        ExpectedStatement *expectedStatement = list[i];
         Persona *expectedPersona;
         if ([expectedStatement.semanticId rangeOfString:@"FH:"].location == NSNotFound)    {
             expectedPersona = [Personas user];
@@ -79,20 +87,21 @@
             @throw [NSException exceptionWithName:@"" reason:@"you have to specify an inputActionClass for that test expectation (It's a statement from Food Hero)" userInfo:nil];
         }
         assertThat(statement.inputAction.class, is(equalTo(expectedStatement.inputActionClass)));
-    }
-}
+    }}
 
 
 - (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
-    [self expectedStatementIs:semanticId userAction:userAction];
+    NSMutableArray *list = [NSMutableArray new];
+    [self expectedStatementIs:semanticId userAction:userAction inList:list];
     NSUInteger index = self.conversation.getStatementCount - 1;
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertExpectedStatementsAtIndex:index inList:list];
 }
 
 - (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
     NSUInteger index = self.conversation.getStatementCount-2;
-    [self expectedStatementIs:semanticId userAction:userAction];
-    [self assertExpectedStatementsAtIndex:index];
+    NSMutableArray *list = [NSMutableArray new];
+    [self expectedStatementIs:semanticId userAction:userAction inList:list];
+    [self assertExpectedStatementsAtIndex:index inList:list];
 }
 
 @end
