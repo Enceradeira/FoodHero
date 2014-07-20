@@ -36,7 +36,11 @@
     return result;
 }
 
-- (void)injectFindResultNothing {
+- (void)injectFindNothing {
     _findReturnsNil = YES;
+}
+
+- (void)injectFindSomething {
+    _findReturnsNil = NO;
 }
 @end

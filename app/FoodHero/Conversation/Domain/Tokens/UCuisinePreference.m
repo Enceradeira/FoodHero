@@ -9,7 +9,7 @@
 @implementation UCuisinePreference {
 
 }
-+ (UCuisinePreference *)create:(NSString *)parameter {
++ (instancetype)create:(NSString *)parameter {
     return [[UCuisinePreference alloc] initWithParameter:[NSString stringWithFormat:@"U:CuisinePreference=%@", parameter] parameter:parameter];
 }
 @end

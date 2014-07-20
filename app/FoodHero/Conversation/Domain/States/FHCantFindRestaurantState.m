@@ -10,6 +10,7 @@
 #import "RepeatOnce.h"
 #import "Concatenation.h"
 #import "UDidResolveProblemWithAccessLocationServiceState.h"
+#import "UTryAgainNowState.h"
 
 
 @implementation FHCantFindRestaurantState {
@@ -22,9 +23,11 @@
 
         _alternation = [Alternation create:
                 [RepeatOnce create:[Concatenation create:
-                                [RepeatOnce create:[FHCantAccessLocationServiceState new]],
-                                [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil]],
-                [RepeatOnce create:[FHNoRestaurantFoundState new]], nil];
+                        [RepeatOnce create:[FHCantAccessLocationServiceState new]],
+                        [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil]],
+                [RepeatOnce create:[Concatenation create:
+                        [RepeatOnce create:[FHNoRestaurantFoundState new]],
+                        [RepeatOnce create:[UTryAgainNowState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil]], nil];
     }
 
     return self;

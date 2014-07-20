@@ -9,12 +9,13 @@
 #import "ConversationCantFindRestaurantTests.h"
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "UTryAgainNow.h"
+#import "AskUserToTryAgainAction.h"
 
 
 @implementation ConversationCantFindRestaurantTests {
 
 }
-
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHSuggestion_WhenProblemIsResolvedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
@@ -34,6 +35,24 @@
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
+}
+
+-(void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow{
+    [self.restaurantSearchStub injectFindNothing];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.restaurantSearchStub injectFindSomething];
+    [self.conversation addToken:[UTryAgainNow new]];
+
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
+
+-(void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound{
+    [self.restaurantSearchStub injectFindNothing];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.restaurantSearchStub injectFindNothing];
+    [self.conversation addToken:[UTryAgainNow new]];
+
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
 }
 
 @end

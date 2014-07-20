@@ -13,21 +13,15 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    NSUInteger index = self.conversation.getStatementCount;
-
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
-    [self expectedStatementIs:@"U:CuisinePreference=Test" userAction:nil];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" userAction:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    NSUInteger index = self.conversation.getStatementCount + 1;
-
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
-    [self expectedStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 @end

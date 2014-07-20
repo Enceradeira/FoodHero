@@ -70,9 +70,7 @@
 {
     [self.conversation addToken:[UCuisinePreference create:@"British or Indian Food"]];
 
-    [self expectedStatementIs:@"U:CuisinePreference=British or Indian Food" userAction:nil];
-
-    [self assertExpectedStatementsAtIndex:1];
+    [self assertSecondLastStatementIs:@"U:CuisinePreference=British or Indian Food" userAction:nil];
 }
 
 -(void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation
@@ -84,35 +82,29 @@
 }
 
 -(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion{
-    NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount] +1;
-
     [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
+
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    [self expectedStatementIs:@"FH:Suggestion=Kings Head, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
-    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
  }
 
 -(void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults
 {
-    NSUInteger indexOfFoodHeroResponse = [self.conversation getStatementCount] +1;
-    [self.restaurantSearchStub injectFindResultNothing];
+    [self.restaurantSearchStub injectFindNothing];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    [self expectedStatementIs:@"FH:NoRestaurantsFound" userAction:[AskUserToTryAgainAction class]];
-    [self assertExpectedStatementsAtIndex:indexOfFoodHeroResponse];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:[AskUserToTryAgainAction class]];
 }
 
 -(void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain{
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     [self restaurantSearchReturnsName:@"Lion Heart" vicinity:@"Great Yarmouth"];
-    NSUInteger index = [self.conversation getStatementCount] +1;
     [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
 
-    [self expectedStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
-    [self assertExpectedStatementsAtIndex:index];
+    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 -(void)test_suggestionFeedback_ShouldReturnAllSuggestionFeedback{

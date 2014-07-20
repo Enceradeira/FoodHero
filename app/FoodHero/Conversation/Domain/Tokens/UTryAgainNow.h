@@ -1,5 +1,5 @@
 //
-// Created by Jorg on 15/07/2014.
+// Created by Jorg on 19/07/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
@@ -7,6 +7,5 @@
 #import "ConversationToken.h"
 
 
-@interface UCuisinePreference : ConversationToken
-+ (instancetype)create:(NSString *)parameter;
+@interface UTryAgainNow : ConversationToken
 @end
