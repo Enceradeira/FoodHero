@@ -25,9 +25,13 @@
                 }],
                 [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
                 [RepeatAlways create:^(){
-                    return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+                    return [Concatenation create:
+                            [RepeatAlways create:^(){
+                                return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+                            }],
+                            [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
                 }],
-                [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
+                nil];
     }
     return self;
 }
