@@ -7,6 +7,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
+#import "AlternationRandomizerStub.h"
 
 
 @implementation StubAssembly
@@ -24,5 +25,13 @@
                 definition.scope = TyphoonScopeSingleton;
             }];
 }
+
+- (id)alternationRandomizer {
+    return [TyphoonDefinition withClass:[AlternationRandomizerStub class] configuration:^(TyphoonDefinition *definition)
+            {
+                definition.scope = TyphoonScopeSingleton;
+            }];
+}
+
 
 @end

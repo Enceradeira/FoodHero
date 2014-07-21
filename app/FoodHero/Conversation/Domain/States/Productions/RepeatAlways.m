@@ -41,7 +41,7 @@
         if (!_symbolState.isTokenNotConsumed) {
             @throw [DesignByContractException createWithReason:@"symbol is not allowed to not consume after it has consumed once"];
         }
-        // we take that as 0 repetition and got into 'finished' state
+        // we take that as 0 repetition and go into 'finished' state
         _symbolState = [StateFinished new];
         return _symbolState;
     }

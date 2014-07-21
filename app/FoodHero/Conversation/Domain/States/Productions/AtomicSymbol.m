@@ -16,7 +16,7 @@
     id <ConsumeResult> _symbolState;
 }
 
-- (id)initWithToken:(Class)tokenclass {
+- (instancetype)initWithToken:(Class)tokenclass {
     self = [super init];
     if (self) {
         _tokenclass = tokenclass;

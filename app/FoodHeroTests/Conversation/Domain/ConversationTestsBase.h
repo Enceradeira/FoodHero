@@ -9,11 +9,14 @@
 #import "CLLocationManagerProxyStub.h"
 #import "RestaurantSearchServiceStub.h"
 
+@class AlternationRandomizerStub;
+
 @interface ConversationTestsBase : XCTestCase
 
 @property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
+@property(nonatomic, readonly) AlternationRandomizerStub *alternationRandomizerStub;
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity;
 

@@ -15,7 +15,7 @@
 #import "TestAction.h"
 #import "TestToken.h"
 #import "RepeatOnce.h"
-#import "ReturnsActionForTokenSymbolOnce.h"
+#import "ReturnsActionForTokenOnceSymbol.h"
 #import "RepeatAlways.h"
 #import "TestToken2.h"
 #import "TokenConsumed.h"
@@ -46,9 +46,9 @@
 -(void)test_consume_ShouldReturnConsumeFinished_WhenLastStateDoesntConsumeTokenOnSecondConsume
 {
     Concatenation *concat = [Concatenation create:
-                                 [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],
-                                 [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],
-                                 [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],nil];
+                                 [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token1.class]],
+                                 [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token1.class]],
+                                 [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token1.class]],nil];
 
     // consumed by first symbol
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
@@ -62,7 +62,7 @@
 
 -(void)test_consume_ShouldReturnTokenConsumedForFirstSymbol_WhenFirstSymbolConsumesToken{
     Concatenation *concat = [Concatenation create:
-                                [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],nil];
+                                [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token1.class]],nil];
 
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     assertThatBool([concat consume:_token1].isStateFinished, is(equalToBool(YES)));
@@ -70,7 +70,7 @@
 
 -(void)test_consume_ShouldReturnTokenConsumedForFirstSymbol_WhenFirstSymbolAlwaysConsumesToken{
     Concatenation *concat = [Concatenation create:
-                                [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token1.class];}],nil];
+                                [RepeatAlways create:^(){return [ReturnsActionForTokenOnceSymbol create:_token1.class];}],nil];
 
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
@@ -86,16 +86,16 @@
 
 -(void)test_consume_ShouldThrowException_WhenFirstSymbolConsumesTokenButSecondDoesnt{
     Concatenation *concat = [Concatenation create:
-                                [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],
-                                [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token2.class]],nil];
+                                [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token1.class]],
+                                [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token2.class]],nil];
 
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(DesignByContractException.class));
 }
 
 -(void)test_consume_ShouldReturnActionFormSecondSymbol_WhenFirstSymbolDoesntConsumeTokenOnSecondConsume{
-    id<Symbol> symbolA = [ReturnsActionForTokenSymbolOnce create:_token1.class];
-    id<Symbol> symbolB = [ReturnsActionForTokenSymbolOnce create:_token1.class];
+    id<Symbol> symbolA = [ReturnsActionForTokenOnceSymbol create:_token1.class];
+    id<Symbol> symbolB = [ReturnsActionForTokenOnceSymbol create:_token1.class];
 
     Concatenation *concat = [Concatenation create:
                                  [RepeatOnce create:symbolA],
@@ -121,14 +121,14 @@
     Concatenation *concat = [Concatenation create:
             [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
             [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
-            [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token1.class]],nil];
+            [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token1.class]],nil];
 
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
     assertThatBool([concat consume:_token1].isStateFinished, is(equalToBool(YES)));
 }
 
 -(void)test_consume_ShouldReturnActionFromSecondSymbol_WhenFirstSymbolIsOptional{
-    id<Symbol> secondSymbol = [ReturnsActionForTokenSymbolOnce create:_token1.class];
+    id<Symbol> secondSymbol = [ReturnsActionForTokenOnceSymbol create:_token1.class];
     Concatenation *concat = [Concatenation create:
                                  [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],
                                  [RepeatOnce create:secondSymbol],nil];

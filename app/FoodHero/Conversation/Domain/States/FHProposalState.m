@@ -4,13 +4,12 @@
 //
 
 #import "FHProposalState.h"
-#import "ConversationSource.h"
-#import "RestaurantSearch.h"
 #import "Concatenation.h"
 #import "RepeatOnce.h"
 #import "FHSuggestionState.h"
 #import "USuggestionFeedbackState.h"
-#import "FHFirstProposalState.h"
+#import "Alternation.h"
+#import "FHSuggestionOrSuggestionFollowUpState.h"
 
 
 @implementation FHProposalState {
@@ -21,7 +20,11 @@
     self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:
-                [RepeatOnce create:[FHSuggestionState new]],
+                [RepeatOnce create:
+                        [Alternation create:
+                                [RepeatOnce create:
+                                        [Concatenation create:
+                                                [RepeatOnce create:[FHSuggestionOrSuggestionFollowUpState new]],nil]]]],
                 [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
     }
     return self;

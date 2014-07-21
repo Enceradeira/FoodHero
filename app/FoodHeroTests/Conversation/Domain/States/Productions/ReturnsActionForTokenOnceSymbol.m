@@ -3,11 +3,11 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ReturnsActionForTokenSymbolOnce.h"
+#import "ReturnsActionForTokenOnceSymbol.h"
 #import "TestAction.h"
 
 
-@implementation ReturnsActionForTokenSymbolOnce {
+@implementation ReturnsActionForTokenOnceSymbol {
 }
 
 - (id)initWithToken:(Class)tokenclass {
@@ -19,7 +19,7 @@
 }
 
 + (instancetype)create:(Class)token {
-    return [[ReturnsActionForTokenSymbolOnce alloc] initWithToken:token];
+    return [[ReturnsActionForTokenOnceSymbol alloc] initWithToken:token];
 }
 
 @end

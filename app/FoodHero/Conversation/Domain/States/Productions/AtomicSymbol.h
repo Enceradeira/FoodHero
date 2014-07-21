@@ -8,7 +8,7 @@
 
 
 @interface AtomicSymbol : NSObject<Symbol>
-- (id)initWithToken:(Class)tokenclass;
+- (instancetype)initWithToken:(Class)tokenclass;
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token;
 @end

@@ -11,7 +11,7 @@
 #import "Alternation.h"
 #import "TestAction.h"
 #import "ReturnsAlwaysTokenNotConsumedSymbol.h"
-#import "ReturnsActionForTokenSymbolOnce.h"
+#import "ReturnsActionForTokenOnceSymbol.h"
 #import "RepeatOnce.h"
 #import "RepeatAlways.h"
 #import "TestToken.h"
@@ -43,8 +43,8 @@
     __block id<Symbol> createdSymbol1;
 
     Alternation *alternation = [Alternation create:
-                                     [RepeatAlways create:^(){return createdSymbol1 = [ReturnsActionForTokenSymbolOnce create:_token.class];}],
-                                     [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
+                                     [RepeatAlways create:^(){return createdSymbol1 = [ReturnsActionForTokenOnceSymbol create:_token.class];}],
+                                     [RepeatAlways create:^(){return [ReturnsActionForTokenOnceSymbol create:_token.class];}], nil];
 
     TestAction *action = ((TokenConsumed *)[alternation consume:_token]).action;
     assertThat(action.sender, is(equalTo(createdSymbol1)));
@@ -59,7 +59,7 @@
 
     Alternation *alternation = [Alternation create:
                                     [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
-                                    [RepeatAlways create:^(){return secondCreatedSymbol =[ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
+                                    [RepeatAlways create:^(){return secondCreatedSymbol =[ReturnsActionForTokenOnceSymbol create:_token.class];}], nil];
 
     TestAction *action = ((TokenConsumed *)[alternation consume:_token]).action;
     assertThat(action.sender, is(equalTo(secondCreatedSymbol)));
@@ -91,8 +91,8 @@
 - (void)test_consume_ShouldReturnStateFinished_WhenFirstAlternativeStopsYieldingResult{
 
     Alternation *alternation = [Alternation create:
-                                    [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token.class]],
-                                    [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
+                                    [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token.class]],
+                                    [RepeatAlways create:^(){return [ReturnsActionForTokenOnceSymbol create:_token.class];}], nil];
 
     assertThatBool([alternation consume:_token].isTokenConsumed, is(equalToBool(YES)));
     assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
@@ -102,8 +102,8 @@
 
     Alternation *alternation = [Alternation create:
                                     [RepeatOnce create: [ReturnsAlwaysTokenNotConsumedSymbol new]],
-                                    [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token.class]],
-                                    [RepeatAlways create:^(){return [ReturnsActionForTokenSymbolOnce create:_token.class];}], nil];
+                                    [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token.class]],
+                                    [RepeatAlways create:^(){return [ReturnsActionForTokenOnceSymbol create:_token.class];}], nil];
 
     assertThatBool([alternation consume:_token].isTokenConsumed, is(equalToBool(YES)));
     assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
@@ -114,7 +114,7 @@
     Alternation *alternation = [Alternation create:
                                     [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
                                     [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],
-                                    [RepeatOnce create:[ReturnsActionForTokenSymbolOnce create:_token.class]], nil];
+                                    [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token.class]], nil];
 
 
     assertThatBool([alternation consume:_token].isTokenConsumed, is(equalToBool(YES)));

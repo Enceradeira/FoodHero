@@ -11,8 +11,8 @@
 #import "TestToken.h"
 #import "RepeatAlways.h"
 #import "ReturnsAlwaysTokenNotConsumedSymbol.h"
-#import "ReturnsActionForTokenSymbolOnce.h"
-#import "ReturnsActionForTokenSymbolAlways.h"
+#import "ReturnsActionForTokenOnceSymbol.h"
+#import "ReturnsActionForTokenAlwaysSymbol.h"
 #import "TestToken2.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
@@ -35,7 +35,7 @@
 - (void)test_consume_ShouldReturnSymbolResultServeralTimes
 {
     RepeatAlways *repetition = [RepeatAlways create:
-            ^(){return [ReturnsActionForTokenSymbolOnce create:_token1.class];}];
+            ^(){return [ReturnsActionForTokenOnceSymbol create:_token1.class];}];
 
     // 1. repetition
     assertThatBool([repetition consume:_token1].isTokenConsumed,is(equalToBool(YES)));
@@ -52,7 +52,7 @@
 
 -(void)test_consume_ShouldReturnTokenConsumed_WhenTokenIsAlwaysConsumed{
     RepeatAlways *repetition = [RepeatAlways create:
-            ^(){return [ReturnsActionForTokenSymbolOnce create:_token1.class];}];
+            ^(){return [ReturnsActionForTokenOnceSymbol create:_token1.class];}];
 
     assertThatBool([repetition consume:_token1].isTokenConsumed,is(equalToBool(YES)));
     assertThatBool([repetition consume:_token1].isTokenConsumed,is(equalToBool(YES)));
@@ -61,7 +61,7 @@
 
 -(void)test_consume_ShouldReturnTokenStateFinished_WhenTokenIsAlwaysNotConsumed{
     RepeatAlways *repetition = [RepeatAlways create:
-            ^(){return [ReturnsActionForTokenSymbolOnce create:_token1.class];}];
+            ^(){return [ReturnsActionForTokenOnceSymbol create:_token1.class];}];
 
     assertThatBool([repetition consume:_token2].isStateFinished,is(equalToBool(YES)));
 }

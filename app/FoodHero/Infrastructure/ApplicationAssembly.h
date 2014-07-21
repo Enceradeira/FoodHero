@@ -22,4 +22,6 @@
 
 - (id)locationManagerProxy;
 
+- (id)alternationRandomizer;
+
 @end

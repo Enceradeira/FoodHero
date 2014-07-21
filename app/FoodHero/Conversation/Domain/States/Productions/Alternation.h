@@ -5,10 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Symbol.h"
+#import "AlternationBase.h"
+#import "RepeatSymbol.h"
 
-@protocol RepeatSymbol;
 
-
-@interface Alternation : NSObject<Symbol>
+@interface Alternation : AlternationBase
 + (instancetype)create:(id <RepeatSymbol>)symbol1, ...;
 @end

@@ -11,7 +11,7 @@
 #import "RepeatOnce.h"
 #import "TestToken.h"
 #import "ReturnsAlwaysTokenNotConsumedSymbol.h"
-#import "ReturnsActionForTokenSymbolOnce.h"
+#import "ReturnsActionForTokenOnceSymbol.h"
 #import "RepeatAlways.h"
 #import "TestToken2.h"
 #import "HCIsExceptionOfType.h"
@@ -35,7 +35,7 @@
 
 - (void)test_consume_ShouldReturnSymbolResultOnce_WhenThereWouldHaveBeenMoreMatchesToBeConsumed
 {
-    ReturnsActionForTokenSymbolOnce *symbol = [ReturnsActionForTokenSymbolOnce create:TestToken.class];
+    ReturnsActionForTokenOnceSymbol *symbol = [ReturnsActionForTokenOnceSymbol create:TestToken.class];
 
     assertThatBool([symbol consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
     assertThatBool([symbol consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
@@ -47,7 +47,7 @@
 
 - (void)test_consume_ShouldReturnSymbolResultOnce_WhenThereWouldNotHaveBeenMoreMatchesToBeConsumed
 {
-    ReturnsActionForTokenSymbolOnce *symbol = [ReturnsActionForTokenSymbolOnce create:TestToken.class];
+    ReturnsActionForTokenOnceSymbol *symbol = [ReturnsActionForTokenOnceSymbol create:TestToken.class];
 
     assertThatBool([symbol consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
     assertThatBool([symbol consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));

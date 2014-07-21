@@ -8,6 +8,6 @@
 #import "Symbol.h"
 #import "AtomicSymbol.h"
 
-@interface ReturnsActionForTokenSymbolOnce : AtomicSymbol
+@interface ReturnsActionForTokenOnceSymbol : AtomicSymbol
 +(instancetype)create:(Class)token;
 @end

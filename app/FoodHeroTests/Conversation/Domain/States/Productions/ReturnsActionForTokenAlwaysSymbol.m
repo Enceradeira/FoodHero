@@ -3,7 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ReturnsActionForTokenSymbolAlways.h"
+#import "ReturnsActionForTokenAlwaysSymbol.h"
 #import "TestAction.h"
 #import "TokenConsumed.h"
 #import "DesignByContractException.h"
@@ -11,7 +11,7 @@
 #import "TokenNotConsumed.h"
 
 
-@implementation ReturnsActionForTokenSymbolAlways {
+@implementation ReturnsActionForTokenAlwaysSymbol {
     Class _tokenclass;
     id <ConsumeResult> _symbolState;
 }
@@ -43,7 +43,7 @@
 }
 
 + (instancetype)create:(Class)token {
-    return [[ReturnsActionForTokenSymbolAlways alloc] initWithToken:token];
+    return [[ReturnsActionForTokenAlwaysSymbol alloc] initWithToken:token];
 }
 
 @end

@@ -11,12 +11,12 @@
 #import "RepeatOnce.h"
 #import "TestToken.h"
 #import "ReturnsAlwaysTokenNotConsumedSymbol.h"
-#import "ReturnsActionForTokenSymbolOnce.h"
+#import "ReturnsActionForTokenOnceSymbol.h"
 #import "RepeatAlways.h"
 #import "TestToken2.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
-#import "ReturnsActionForTokenSymbolAlways.h"
+#import "ReturnsActionForTokenAlwaysSymbol.h"
 
 @interface RepeatOnceTests : XCTestCase
 
@@ -37,7 +37,7 @@
 - (void)test_consume_ShouldReturnSymbolResultOnce
 {
     RepeatOnce *repetition = [RepeatOnce create:
-            [ReturnsActionForTokenSymbolAlways create:_token1.class]];
+            [ReturnsActionForTokenAlwaysSymbol create:_token1.class]];
 
     assertThatBool([repetition consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
     assertThatBool([repetition consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));

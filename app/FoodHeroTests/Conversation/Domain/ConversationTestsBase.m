@@ -10,6 +10,7 @@
 #import "StubAssembly.h"
 #import "RestaurantSearchServiceStub.h"
 #import "Personas.h"
+#import "AlternationRandomizerStub.h"
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;
@@ -42,6 +43,7 @@
     _restaurantSearchStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _conversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
+    _alternationRandomizerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] alternationRandomizer];
     _expectedStatements = [NSMutableArray new];
 }
 

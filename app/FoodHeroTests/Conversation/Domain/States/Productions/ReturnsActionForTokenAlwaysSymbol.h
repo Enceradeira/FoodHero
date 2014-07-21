@@ -8,6 +8,6 @@
 #import "Symbol.h"
 #import "AtomicSymbol.h"
 
-@interface ReturnsActionForTokenSymbolAlways : NSObject<Symbol>
+@interface ReturnsActionForTokenAlwaysSymbol : NSObject<Symbol>
 +(instancetype)create:(Class)token;
 @end
