@@ -10,5 +10,5 @@
 #import "RestaurantSearch.h"
 
 @interface FHFindingRestaurantState : NSObject <Symbol>
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

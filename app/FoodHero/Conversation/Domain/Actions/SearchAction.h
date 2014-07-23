@@ -11,5 +11,5 @@
 
 
 @interface SearchAction : NSObject <FHAction>
-+ (SearchAction *)create:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (SearchAction *)create:(id <ConversationSource>)actionFeedback;
 @end

@@ -14,18 +14,18 @@
 @implementation FHFirstProposalState {
     Concatenation *_concatenation;
 }
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:
                 [RepeatOnce create:[FHSuggestionState new]],
-                [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
+                        [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
     }
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHFirstProposalState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[FHFirstProposalState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

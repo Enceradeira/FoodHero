@@ -11,5 +11,5 @@
 
 @interface UCuisinePreferenceState : AtomicSymbol
 
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

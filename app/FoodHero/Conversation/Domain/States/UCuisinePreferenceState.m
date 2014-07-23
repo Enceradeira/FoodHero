@@ -9,25 +9,23 @@
 
 
 @implementation UCuisinePreferenceState {
-    RestaurantSearch *_restaurantSearch;
     id <ConversationSource> _actionFeedback;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [self initWithToken:UCuisinePreference.class];
     if (self != nil) {
-        _restaurantSearch = restaurantSearch;
         _actionFeedback = actionFeedback;
     }
     return self;
 }
 
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback restaurantSearch:_restaurantSearch];
+    return [SearchAction create:_actionFeedback];
 }
 
 @end

@@ -10,25 +10,23 @@
 
 @implementation UTryAgainNowState {
 
-    RestaurantSearch *_restaurantSearch;
     id <ConversationSource> _actionFeedback;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [self initWithToken:UTryAgainNow.class];
     if (self != nil) {
-        _restaurantSearch = restaurantSearch;
         _actionFeedback = actionFeedback;
     }
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[UTryAgainNowState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[UTryAgainNowState alloc] initWithActionFeedback:actionFeedback];
 }
 
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback restaurantSearch:_restaurantSearch];
+    return [SearchAction create:_actionFeedback];
 }
 @end

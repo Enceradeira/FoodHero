@@ -16,28 +16,28 @@
     Concatenation *_concatenation;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [self init];
     if (self != nil) {
         _concatenation = [Concatenation create:
                 [RepeatAlways create:^(){
-                    return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+                    return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback];
                 }],
-                [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
+                        [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback]],
                 [RepeatAlways create:^(){
                     return [Concatenation create:
                             [RepeatAlways create:^(){
-                                return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
+                                return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback];
                             }],
-                            [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
+                                    [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback]], nil];
                 }],
                 nil];
     }
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHFindingRestaurantState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[FHFindingRestaurantState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

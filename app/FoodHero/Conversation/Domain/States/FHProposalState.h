@@ -10,5 +10,5 @@
 
 
 @interface FHProposalState : NSObject <Symbol>
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

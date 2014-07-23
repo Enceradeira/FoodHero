@@ -15,19 +15,19 @@
 
     Concatenation *_concatenation;
 }
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [super init];
     if (self) {
         _concatenation = [Concatenation create:
                 [RepeatOnce create:[FMOpeningQuestionState new]],
-                [RepeatOnce create:[UCuisinePreferenceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
+                [RepeatOnce create:[UCuisinePreferenceState createWithActionFeedback:actionFeedback]], nil];
     }
 
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHAskCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[FHAskCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

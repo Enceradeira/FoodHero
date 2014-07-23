@@ -16,7 +16,7 @@
 
     Concatenation *_concatenation;
 }
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:
@@ -25,13 +25,13 @@
                                 [RepeatOnce create:
                                         [Concatenation create:
                                                 [RepeatOnce create:[FHSuggestionOrSuggestionFollowUpState new]],nil]]]],
-                [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
+                        [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
     }
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHProposalState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[FHProposalState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

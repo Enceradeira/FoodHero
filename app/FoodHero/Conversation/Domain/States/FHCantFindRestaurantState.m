@@ -17,24 +17,24 @@
     Alternation *_alternation;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [super init];
     if (self) {
 
         _alternation = [Alternation create:
                 [RepeatOnce create:[Concatenation create:
                         [RepeatOnce create:[FHCantAccessLocationServiceState new]],
-                        [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil]],
+                                [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState createWithActionFeedback:actionFeedback]], nil]],
                 [RepeatOnce create:[Concatenation create:
                         [RepeatOnce create:[FHNoRestaurantFoundState new]],
-                        [RepeatOnce create:[UTryAgainNowState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil]], nil];
+                                [RepeatOnce create:[UTryAgainNowState createWithActionFeedback:actionFeedback]], nil]], nil];
     }
 
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHCantFindRestaurantState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[FHCantFindRestaurantState alloc] initWithActionFeedback:actionFeedback];
 }
 
 

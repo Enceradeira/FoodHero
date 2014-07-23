@@ -26,15 +26,15 @@
     id <ConversationSource> _conversation;
     id <AlternationRandomizer> _alternationRandomizer;
 }
-+ (SearchAction *)create:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[SearchAction alloc] initWithFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (SearchAction *)create:(id <ConversationSource>)actionFeedback {
+    return [[SearchAction alloc] initWithFeedback:actionFeedback];
 }
 
-- (id)initWithFeedback:(id <ConversationSource>)conversation restaurantSearch:(RestaurantSearch *)search {
+- (id)initWithFeedback:(id <ConversationSource>)conversation {
     self = [super init];
     if (self != nil) {
         _conversation = conversation;
-        _restaurantSearch = search;
+        _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         _alternationRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] alternationRandomizer];
     }
     return self;

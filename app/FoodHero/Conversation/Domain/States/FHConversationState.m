@@ -17,18 +17,18 @@
     Concatenation *_concatenation;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:[RepeatOnce create:[FMGreetingState new]],
-                                               [RepeatOnce create:[FHAskCuisinePreferenceState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]],
-                                               [RepeatOnce create:[FHFindingRestaurantState createWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch]], nil];
+                                               [RepeatOnce create:[FHAskCuisinePreferenceState createWithActionFeedback:actionFeedback]],
+                                               [RepeatOnce create:[FHFindingRestaurantState createWithActionFeedback:actionFeedback]], nil];
     }
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[FHConversationState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[FHConversationState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

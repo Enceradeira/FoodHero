@@ -11,7 +11,6 @@
 
 @implementation USuggestionFeedbackState {
 
-    RestaurantSearch *_restaurantSearch;
     id <ConversationSource> _actionFeedback;
 }
 - (id)init {
@@ -19,22 +18,21 @@
     return self;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [self initWithToken:USuggestionFeedback.class];
     if (self != nil) {
-        _restaurantSearch = restaurantSearch;
         _actionFeedback = actionFeedback;
     }
     return self;
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch {
-    return [[USuggestionFeedbackState alloc] initWithActionFeedback:actionFeedback restaurantSearch:restaurantSearch];
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
+    return [[USuggestionFeedbackState alloc] initWithActionFeedback:actionFeedback];
 }
 
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback restaurantSearch:_restaurantSearch];
+    return [SearchAction create:_actionFeedback];
 }
 
 

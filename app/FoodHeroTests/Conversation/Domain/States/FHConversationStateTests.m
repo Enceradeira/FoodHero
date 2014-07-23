@@ -39,7 +39,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly assembly]];
-    _state = [FHConversationState createWithActionFeedback:self restaurantSearch:[(id<ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch]];
+    _state = [FHConversationState createWithActionFeedback:self];
 }
 
 -(void)addToken:(ConversationToken *)token{

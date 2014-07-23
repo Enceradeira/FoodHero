@@ -10,5 +10,5 @@
 #import "ConversationSource.h"
 
 @interface USuggestionFeedbackState : AtomicSymbol
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback restaurantSearch:(RestaurantSearch *)restaurantSearch;
++ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end
