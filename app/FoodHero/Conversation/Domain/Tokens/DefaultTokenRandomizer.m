@@ -3,12 +3,12 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "DefaultAlternationRandomizer.h"
+#import "DefaultTokenRandomizer.h"
 #import "DesignByContractException.h"
 #import "TagAndToken.h"
 
 
-@implementation DefaultAlternationRandomizer {
+@implementation DefaultTokenRandomizer {
 
 }
 - (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens {

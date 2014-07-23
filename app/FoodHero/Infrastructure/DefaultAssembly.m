@@ -13,7 +13,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerImpl.h"
-#import "DefaultAlternationRandomizer.h"
+#import "DefaultTokenRandomizer.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -79,8 +79,8 @@
             }];
 }
 
-- (id)alternationRandomizer {
-    return [TyphoonDefinition withClass:[DefaultAlternationRandomizer class]];;
+- (id)tokenRandomizer {
+    return [TyphoonDefinition withClass:[DefaultTokenRandomizer class]];;
 }
 
 - (id)restaurantSearchService {

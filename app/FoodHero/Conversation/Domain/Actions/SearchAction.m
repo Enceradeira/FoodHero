@@ -14,7 +14,7 @@
 #import "FHNoRestaurantsFound.h"
 #import "FHSuggestion.h"
 #import "TyphoonComponents.h"
-#import "AlternationRandomizer.h"
+#import "TokenRandomizer.h"
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
 #import "FHFirstProposalState.h"
@@ -24,7 +24,7 @@
 
     RestaurantSearch *_restaurantSearch;
     id <ConversationSource> _conversation;
-    id <AlternationRandomizer> _alternationRandomizer;
+    id <TokenRandomizer> _alternationRandomizer;
 }
 + (SearchAction *)create:(id <ConversationSource>)actionFeedback {
     return [[SearchAction alloc] initWithFeedback:actionFeedback];
@@ -35,7 +35,7 @@
     if (self != nil) {
         _conversation = conversation;
         _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-        _alternationRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] alternationRandomizer];
+        _alternationRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
     }
     return self;
 }

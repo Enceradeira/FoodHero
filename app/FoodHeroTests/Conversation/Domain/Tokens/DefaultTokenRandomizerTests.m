@@ -8,24 +8,24 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import "DefaultAlternationRandomizer.h"
+#import "DefaultTokenRandomizer.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "ReturnsAlwaysStateFinishedSymbol.h"
 #import "TagAndToken.h"
 
-@interface DefaultAlternationRandomizerTests : XCTestCase
+@interface DefaultTokenRandomizerTests : XCTestCase
 
 @end
 
-@implementation DefaultAlternationRandomizerTests {
-    DefaultAlternationRandomizer *_randomizer;
+@implementation DefaultTokenRandomizerTests {
+    DefaultTokenRandomizer *_randomizer;
 }
 
 - (void)setUp {
     [super setUp];
 
-    _randomizer = [DefaultAlternationRandomizer new];
+    _randomizer = [DefaultTokenRandomizer new];
 }
 
 - (TagAndToken *)tagAndSymbolFor:(ReturnsAlwaysStateFinishedSymbol *)symbol{

@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AlternationRandomizer.h"
+#import "TokenRandomizer.h"
 
 
-@interface AlternationRandomizerStub : NSObject <AlternationRandomizer>
+@interface AlternationRandomizerStub: NSObject <TokenRandomizer>
 - (void)injectChoice:(NSString *)tag;
 @end

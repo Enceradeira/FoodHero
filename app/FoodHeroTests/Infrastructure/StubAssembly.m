@@ -26,7 +26,7 @@
             }];
 }
 
-- (id)alternationRandomizer {
+- (id)tokenRandomizer {
     return [TyphoonDefinition withClass:[AlternationRandomizerStub class] configuration:^(TyphoonDefinition *definition)
             {
                 definition.scope = TyphoonScopeSingleton;

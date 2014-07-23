@@ -6,6 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "Symbol.h"
 
-@protocol AlternationRandomizer <NSObject>
+@protocol TokenRandomizer <NSObject>
 - (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens;
 @end
