@@ -8,21 +8,20 @@
 #import "RepeatOnce.h"
 #import "FHSuggestionState.h"
 #import "FHSuggestionAsFollowUpState.h"
-#import "RandomAlternation.h"
 
 
 @implementation FHSuggestionOrSuggestionFollowUpState {
 
-    RandomAlternation *_alternation;
+    Alternation *_alternation;
 }
 
 
 - (id)init {
     self = [super init];
     if (self) {
-        _alternation = [RandomAlternation create:
-                @"FH:SuggestionState", [RepeatOnce create:[FHSuggestionState new]],
-                @"FH:SuggestionAsFollowUp", [RepeatOnce create:[FHSuggestionAsFollowUpState new]], nil];
+        _alternation = [Alternation create:
+                [RepeatOnce create:[FHSuggestionState new]],
+                [RepeatOnce create:[FHSuggestionAsFollowUpState new]], nil];
     }
 
     return self;

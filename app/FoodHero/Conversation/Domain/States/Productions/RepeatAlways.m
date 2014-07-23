@@ -66,4 +66,14 @@
     }
 }
 
+- (BOOL)isInState:(Class)state {
+    if (_symbolState.isTokenConsumed) {
+        return [_symbol isInState:state];
+    }
+    else {
+        return NO;
+    }
+}
+
+
 @end

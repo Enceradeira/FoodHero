@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <OCHamcrest/OCHamcrest.h>
 #import "UCuisinePreference.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
@@ -31,6 +32,5 @@
 
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
-
 
 @end

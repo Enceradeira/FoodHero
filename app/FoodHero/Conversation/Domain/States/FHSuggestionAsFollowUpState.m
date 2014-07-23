@@ -6,6 +6,7 @@
 #import "FHSuggestionAsFollowUpState.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "FHSuggestion.h"
+#import "FHSuggestionAsFollowUp.h"
 
 
 @implementation FHSuggestionAsFollowUpState {
@@ -13,7 +14,7 @@
 }
 
 - (instancetype)init {
-    self = [super initWithToken:[FHSuggestion class]];
+    self = [super initWithToken:[FHSuggestionAsFollowUp class]];
     return self;
 }
 

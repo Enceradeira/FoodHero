@@ -7,6 +7,7 @@
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedback.h"
+#import "AlternationRandomizerStub.h"
 
 @interface ConversationFirstProposalTests : ConversationTestsBase
 @end
@@ -22,5 +23,14 @@
     [self assertSecondLastStatementIs:@"U:SuggestionFeedback" userAction:nil];
 }
 
+
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenRandomizerWouldChooseFHSuggestionAsFollowUp{
+    [self.alternationRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+
+    // Because it's the first suggestion, FHSuggestionAsFollowUp is not a valid option
+    [super assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
 
 @end

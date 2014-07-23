@@ -12,7 +12,7 @@
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "ReturnsAlwaysStateFinishedSymbol.h"
-#import "TagAndSymbol.h"
+#import "TagAndToken.h"
 
 @interface DefaultAlternationRandomizerTests : XCTestCase
 
@@ -28,8 +28,8 @@
     _randomizer = [DefaultAlternationRandomizer new];
 }
 
-- (TagAndSymbol*)tagAndSymbolFor:(ReturnsAlwaysStateFinishedSymbol *)symbol{
-    return [[TagAndSymbol alloc] initWithTag:@"Tag" symbol:symbol];
+- (TagAndToken *)tagAndSymbolFor:(ReturnsAlwaysStateFinishedSymbol *)symbol{
+    return [[TagAndToken alloc] initWithTag:@"Tag" token:symbol];
 }
 
 - (void)test_chooseOneSymbol_ShouldChooseASymbolRandomly {
@@ -42,7 +42,7 @@
     NSUInteger nrSymbol2 = 0;
     for( NSUInteger i=0; i<nrTests; i++)
     {
-        id <Symbol> chosenSymbol = [_randomizer chooseOneSymbol:symbols];
+        id <Symbol> chosenSymbol = [_randomizer chooseOneToken:symbols];
         assertThat(chosenSymbol, is(notNilValue()));
         if( chosenSymbol == symbol1){
             nrSymbol1++;
@@ -60,12 +60,12 @@
     id<Symbol> onlySymbol = [ReturnsAlwaysStateFinishedSymbol new];
     NSArray *symbols = [NSArray arrayWithObjects:[self tagAndSymbolFor:onlySymbol],nil];
 
-    id <Symbol> chosenSymbol = [_randomizer chooseOneSymbol:symbols];
+    id <Symbol> chosenSymbol = [_randomizer chooseOneToken:symbols];
     assertThat(chosenSymbol, is(equalTo(onlySymbol)));
 }
 
 - (void)test_chooseOneSymbol_ShouldThrowExcepction_WhenListIsEmpty {
-    assertThat(^(){[_randomizer chooseOneSymbol:[NSArray new]];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[_randomizer chooseOneToken:[NSArray new]];}, throwsExceptionOfType(DesignByContractException.class));
 }
 
 @end

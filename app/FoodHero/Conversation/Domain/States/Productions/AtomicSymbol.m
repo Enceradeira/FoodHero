@@ -52,4 +52,8 @@
     @throw [DesignByContractException createWithReason:@"createAction must be overriden"];
 }
 
+- (BOOL)isInState:(Class)state {
+    return self.class == state && _symbolState.isTokenConsumed;
+}
+
 @end

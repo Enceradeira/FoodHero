@@ -10,4 +10,6 @@
 - (void)addToken:(ConversationToken *)token;
 
 - (NSArray *)suggestionFeedback;
+
+- (BOOL)hasState:(Class)pClass;
 @end

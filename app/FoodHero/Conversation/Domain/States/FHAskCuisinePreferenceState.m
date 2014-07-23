@@ -34,4 +34,12 @@
     return [_concatenation consume:token];
 }
 
+- (BOOL)isInState:(Class)state {
+    if( self.class == state){
+        return YES;
+    }
+    return [_concatenation isInState:state];
+}
+
+
 @end

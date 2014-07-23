@@ -5,7 +5,7 @@
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "AlternationRandomizerStub.h"
-#import "TagAndSymbol.h"
+#import "TagAndToken.h"
 
 
 @implementation AlternationRandomizerStub {
@@ -16,16 +16,16 @@
     _choosenTag = tag;
 }
 
-- (id <Symbol>)chooseOneSymbol:(NSArray *)tagAndSymbols {
-    id <Symbol> result = [[tagAndSymbols
-            linq_where:^(TagAndSymbol *t){
+- (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens {
+    ConversationToken *result = [[tagAndTokens
+            linq_where:^(TagAndToken *t){
                 return [t.tag isEqualToString:_choosenTag];
             }]
-            linq_select:^(TagAndSymbol *t){
-                return t.symbol;
+            linq_select:^(TagAndToken *t){
+                return t.token;
             }].linq_firstOrNil;
-    if( result == nil ){
-        return ((TagAndSymbol *)tagAndSymbols[0]).symbol;
+    if (result == nil) {
+        return ((TagAndToken *) tagAndTokens[0]).token;
     }
     return result;
 }

@@ -7,5 +7,5 @@
 #import "Symbol.h"
 
 @protocol AlternationRandomizer <NSObject>
-- (id <Symbol>)chooseOneSymbol:(NSArray *)tagAndSymbols;
+- (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens;
 @end

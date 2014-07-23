@@ -10,4 +10,6 @@
 
 @protocol Symbol
 - (id <ConsumeResult>)consume:(ConversationToken *)token;
+
+- (BOOL)isInState:(Class)state;
 @end
