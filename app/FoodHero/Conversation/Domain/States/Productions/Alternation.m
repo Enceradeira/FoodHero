@@ -81,12 +81,5 @@
     }
 }
 
-- (BOOL)isInState:(Class)state {
-    if (_symbolState.isTokenConsumed) {
-        [_choosenAlternative isInState:state];
-    }
-    return NO;
-}
-
 
 @end

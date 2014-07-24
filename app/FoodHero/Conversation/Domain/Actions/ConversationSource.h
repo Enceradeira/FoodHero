@@ -11,5 +11,4 @@
 
 - (NSArray *)suggestionFeedback;
 
-- (BOOL)hasState:(Class)pClass;
 @end

@@ -18,10 +18,7 @@
 #import "TokenRandomizer.h"
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
-#import "FHFindingRestaurantState.h"
 #import "USuggestionFeedback.h"
-#import "USuggestionFeedbackForTooExpensive.h"
-#import "FHConfirmationIfInNewPreferredRangeCheaper.h"
 
 
 @implementation SearchAction {

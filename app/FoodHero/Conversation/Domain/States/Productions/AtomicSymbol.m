@@ -52,8 +52,4 @@
     return nil;
 }
 
-- (BOOL)isInState:(Class)state {
-    return self.class == state && _symbolState.isTokenConsumed;
-}
-
 @end

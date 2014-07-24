@@ -42,10 +42,4 @@
     return [_alternation consume:token];
 }
 
-- (BOOL)isInState:(Class)state {
-    if( self.class == state){
-        return YES;
-    }
-    return [_alternation isInState:state];
-}
 @end

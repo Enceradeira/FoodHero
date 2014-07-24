@@ -11,5 +11,4 @@
 @interface Concatenation : NSObject<Symbol>
 + (Concatenation *)create:(id<RepeatSymbol>)symbol1, ...;
 
-- (BOOL)isInState:(Class)state;
 @end

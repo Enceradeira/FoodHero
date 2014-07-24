@@ -102,8 +102,4 @@
     }];
 }
 
-- (BOOL)hasState:(Class)state {
-    return [_state isInState:state];
-}
-
 @end

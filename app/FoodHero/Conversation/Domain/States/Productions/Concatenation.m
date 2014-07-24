@@ -82,11 +82,4 @@
     return [[Concatenation alloc] initWithSymbols:symbols];
 }
 
-- (BOOL)isInState:(Class)state {
-    if (_symbolState.isStateFinished) {
-        return NO;
-    }
-    return [_symbols[_currentSymbolIdx] isInState:state];
-}
-
 @end

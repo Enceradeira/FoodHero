@@ -47,12 +47,5 @@
     }
 }
 
-- (BOOL)isInState:(Class)state {
-    if (_symbolState.isStateFinished) {
-        return NO;
-    }
-    return [_symbol isInState:state];
-}
-
 
 @end
