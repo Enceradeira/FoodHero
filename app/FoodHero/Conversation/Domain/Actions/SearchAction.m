@@ -64,15 +64,23 @@
 
         if (lastFeedback != nil && lastFeedback.restaurant != nil) {
             // Food Hero has already suggested a restaurant before
+            ConversationToken *fhSuggestionToken = [FHSuggestion create:restaurant];
+            ConversationToken *fhSuggestionAsFollowUp = [FHSuggestionAsFollowUp create:restaurant];
+            ConversationToken *fhSuggestionWithFeedback = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
+
             NSArray *tagAndSymbols = [NSArray arrayWithObjects:
-                    [TagAndToken create:@"FH:Suggestion" token:[FHSuggestion create:restaurant]],
-                    [TagAndToken create:@"FH:SuggestionAsFollowUp" token:[FHSuggestionAsFollowUp create:restaurant]], nil];
+                    [TagAndToken create:@"FH:Suggestion" token:fhSuggestionToken],
+                    [TagAndToken create:@"FH:SuggestionAsFollowUp" token:fhSuggestionAsFollowUp],
+                    [TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionWithFeedback], nil];
 
-            [_conversation addToken:[_tokenRandomizer chooseOneToken:tagAndSymbols]];
+            ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
+            [_conversation addToken:chosenToken];
 
-            [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
-               [_conversation addToken:[lastFeedback foodHeroConfirmationToken]];
-            }];
+            if (chosenToken == fhSuggestionAsFollowUp) {
+                [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
+                    [_conversation addToken:[lastFeedback foodHeroConfirmationToken]];
+                }];
+            }
         }
         else {
             [_conversation addToken:[FHSuggestion create:restaurant]];

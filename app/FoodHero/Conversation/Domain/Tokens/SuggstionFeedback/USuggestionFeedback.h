@@ -14,4 +14,6 @@
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter;
 
 - (ConversationToken *)foodHeroConfirmationToken;
+
+- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant;
 @end

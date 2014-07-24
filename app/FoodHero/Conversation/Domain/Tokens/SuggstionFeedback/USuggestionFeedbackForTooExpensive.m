@@ -5,6 +5,7 @@
 
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "FHConfirmationIfInNewPreferredRangeCheaper.h"
+#import "FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.h"
 
 
 @implementation USuggestionFeedbackForTooExpensive {
@@ -17,6 +18,10 @@
 
 - (ConversationToken *)foodHeroConfirmationToken {
     return [FHConfirmationIfInNewPreferredRangeCheaper create];
+}
+
+- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
+    return [FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper create:restaurant];
 }
 
 @end

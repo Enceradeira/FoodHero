@@ -5,6 +5,7 @@
 
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "FHConfirmationIfInNewPreferredRangeCloser.h"
+#import "FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.h"
 
 
 @implementation USuggestionFeedbackForTooFarAway {
@@ -17,6 +18,10 @@
 
 - (ConversationToken *)foodHeroConfirmationToken {
     return [FHConfirmationIfInNewPreferredRangeCloser create];
+}
+
+- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
+    return [FHSuggestionWithConfirmationIfInNewPreferredRangeCloser create:restaurant];
 }
 
 @end

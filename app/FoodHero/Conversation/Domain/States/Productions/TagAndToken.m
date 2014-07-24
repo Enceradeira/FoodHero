@@ -4,6 +4,7 @@
 //
 
 #include "TagAndToken.h"
+#import "Restaurant.h"
 
 @implementation TagAndToken {
 }

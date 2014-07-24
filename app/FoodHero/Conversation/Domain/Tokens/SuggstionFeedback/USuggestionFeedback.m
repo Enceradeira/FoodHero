@@ -19,6 +19,10 @@
 }
 
 - (ConversationToken *)foodHeroConfirmationToken {
-    @throw [DesignByContractException createWithReason:@"method must be override in subclass"];
+    @throw [DesignByContractException createWithReason:@"method must be overriden in subclass"];
+}
+
+- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
+    @throw [DesignByContractException createWithReason:@"method must be overriden in subclass"];
 }
 @end

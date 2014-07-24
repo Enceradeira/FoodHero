@@ -5,6 +5,8 @@
 
 #include "RepeatSymbol.h"
 
+@class Restaurant;
+
 @interface TagAndToken : NSObject
 @property(nonatomic, readonly) NSString *tag;
 @property(nonatomic, readonly) ConversationToken * token;
