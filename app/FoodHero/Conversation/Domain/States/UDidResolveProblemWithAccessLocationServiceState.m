@@ -7,26 +7,14 @@
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "SearchAction.h"
 #import "RestaurantSearch.h"
+#import "UCuisinePreference.h"
 
 
 @implementation UDidResolveProblemWithAccessLocationServiceState {
-    id <ConversationSource> _actionFeedback;
-}
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    self = [self initWithToken:UDidResolveProblemWithAccessLocationService.class];
-    if (self != nil) {
-        _actionFeedback = actionFeedback;
-    }
-    return self;
 }
 
 + (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[UDidResolveProblemWithAccessLocationServiceState alloc] initWithActionFeedback:actionFeedback];
-}
-
-- (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback];
+    return [[UDidResolveProblemWithAccessLocationServiceState alloc] initWithActionFeedback:actionFeedback tokenclass:UDidResolveProblemWithAccessLocationService .class];
 }
 
 @end

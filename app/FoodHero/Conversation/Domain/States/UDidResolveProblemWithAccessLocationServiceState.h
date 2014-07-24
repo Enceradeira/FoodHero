@@ -7,7 +7,8 @@
 #import "AtomicSymbol.h"
 #import "ConversationSource.h"
 #import "RestaurantSearch.h"
+#import "SearchActionState.h"
 
-@interface UDidResolveProblemWithAccessLocationServiceState : AtomicSymbol
+@interface UDidResolveProblemWithAccessLocationServiceState : SearchActionState
 + (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

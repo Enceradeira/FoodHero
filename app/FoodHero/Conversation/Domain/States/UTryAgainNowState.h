@@ -7,8 +7,9 @@
 #import "AtomicSymbol.h"
 #import "RestaurantSearch.h"
 #import "ConversationSource.h"
+#import "SearchActionState.h"
 
 
-@interface UTryAgainNowState : AtomicSymbol
+@interface UTryAgainNowState : SearchActionState
 + (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

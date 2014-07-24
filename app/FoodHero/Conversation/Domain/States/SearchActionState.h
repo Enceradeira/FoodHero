@@ -8,9 +8,9 @@
 #import "ConversationSource.h"
 #import "RestaurantSearch.h"
 #import "AtomicSymbol.h"
-#import "SearchActionState.h"
 
-@interface UCuisinePreferenceState : SearchActionState
+@interface SearchActionState : AtomicSymbol
 
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback tokenclass:(Class)tokenclass;
+
 @end

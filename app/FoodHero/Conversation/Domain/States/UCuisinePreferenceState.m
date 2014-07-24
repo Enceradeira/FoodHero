@@ -9,23 +9,10 @@
 
 
 @implementation UCuisinePreferenceState {
-    id <ConversationSource> _actionFeedback;
-}
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    self = [self initWithToken:UCuisinePreference.class];
-    if (self != nil) {
-        _actionFeedback = actionFeedback;
-    }
-    return self;
 }
 
 + (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback];
-}
-
-- (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback];
+    return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback tokenclass:UCuisinePreference.class];
 }
 
 @end

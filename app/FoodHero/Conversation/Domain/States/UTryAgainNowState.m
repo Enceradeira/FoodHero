@@ -4,29 +4,13 @@
 //
 
 #import "UTryAgainNowState.h"
-#import "SearchAction.h"
-#import "RestaurantSearch.h"
 #import "UTryAgainNow.h"
+#import "UCuisinePreference.h"
 
 @implementation UTryAgainNowState {
-
-    id <ConversationSource> _actionFeedback;
-}
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    self = [self initWithToken:UTryAgainNow.class];
-    if (self != nil) {
-        _actionFeedback = actionFeedback;
-    }
-    return self;
 }
 
 + (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[UTryAgainNowState alloc] initWithActionFeedback:actionFeedback];
-}
-
-
-- (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback];
+    return [[UTryAgainNowState alloc] initWithActionFeedback:actionFeedback tokenclass:UTryAgainNow.class];
 }
 @end

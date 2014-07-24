@@ -5,34 +5,19 @@
 
 #import "USuggestionFeedbackState.h"
 #import "USuggestionFeedback.h"
-#import "SearchAction.h"
-#import "RestaurantSearch.h"
+#import "UCuisinePreference.h"
 
 
-@implementation USuggestionFeedbackState {
+@implementation USuggestionFeedbackState{
 
-    id <ConversationSource> _actionFeedback;
 }
 - (id)init {
     self = [super initWithToken:[USuggestionFeedback class]];
     return self;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    self = [self initWithToken:USuggestionFeedback.class];
-    if (self != nil) {
-        _actionFeedback = actionFeedback;
-    }
-    return self;
-}
-
 + (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[USuggestionFeedbackState alloc] initWithActionFeedback:actionFeedback];
-}
-
-
-- (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback];
+    return [[USuggestionFeedbackState alloc] initWithActionFeedback:actionFeedback tokenclass:USuggestionFeedback.class];
 }
 
 
