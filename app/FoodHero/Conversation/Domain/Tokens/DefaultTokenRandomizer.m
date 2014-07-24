@@ -20,4 +20,12 @@
     return ((TagAndToken *) tagAndTokens[(NSUInteger) randomIndex]).token;
 }
 
+- (void)doOptionally:(NSString *)string byCalling:(void (^)())block {
+    int randomIndex = arc4random() % 2;
+    if (randomIndex) {
+        block();
+    }
+}
+
+
 @end

@@ -68,4 +68,18 @@
     assertThat(^(){[_randomizer chooseOneToken:[NSArray new]];}, throwsExceptionOfType(DesignByContractException.class));
 }
 
+- (void)test_doOptional_ShouldCallActionOnARandomBasis{
+    __block NSUInteger nrCalls = 0;
+    void (^block)() = ^(){nrCalls++;};
+
+    NSUInteger nrTests = 10;
+     for( NSUInteger i=0; i<nrTests; i++)
+    {
+        [_randomizer doOptionally:@"Tag" byCalling:block ];
+    }
+
+    assertThatUnsignedInt(nrCalls, greaterThan(@0));
+    assertThatUnsignedInt(nrCalls, lessThan(@(nrTests)));
+}
+
 @end

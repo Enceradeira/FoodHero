@@ -4,6 +4,7 @@
 //
 
 #import "USuggestionFeedbackForTooFarAway.h"
+#import "FHConfirmationIfInNewPreferredRangeCloser.h"
 
 
 @implementation USuggestionFeedbackForTooFarAway {
@@ -12,6 +13,10 @@
 
 + (instancetype)create:(Restaurant *)restaurant {
     return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant parameter:@"It's too far away"];
+}
+
+- (ConversationToken *)foodHeroConfirmationToken {
+    return [FHConfirmationIfInNewPreferredRangeCloser create];
 }
 
 @end

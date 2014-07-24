@@ -49,7 +49,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    @throw [DesignByContractException createWithReason:@"createAction must be overriden"];
+    return nil;
 }
 
 - (BOOL)isInState:(Class)state {

@@ -27,7 +27,8 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionAsFollowUp {
-    [self.alternationRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
+    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
+    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
 
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[Restaurant new]]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];

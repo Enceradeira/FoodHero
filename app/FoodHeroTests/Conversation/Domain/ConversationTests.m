@@ -23,6 +23,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooFarAway.h"
+#import "AlternationRandomizerStub.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -101,6 +102,8 @@
 }
 
 -(void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain{
+    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
+
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     [self restaurantSearchReturnsName:@"Lion Heart" vicinity:@"Great Yarmouth"];

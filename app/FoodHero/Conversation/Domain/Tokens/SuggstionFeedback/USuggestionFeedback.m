@@ -4,6 +4,7 @@
 //
 
 #import "USuggestionFeedback.h"
+#import "DesignByContractException.h"
 
 
 @implementation USuggestionFeedback {
@@ -11,9 +12,13 @@
 
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter {
     self = [super initWithParameter:@"U:SuggestionFeedback" parameter:parameter];
-    if(self != nil){
+    if (self != nil) {
         _restaurant = restaurant;
     }
     return self;
+}
+
+- (ConversationToken *)foodHeroConfirmationToken {
+    @throw [DesignByContractException createWithReason:@"method must be override in subclass"];
 }
 @end

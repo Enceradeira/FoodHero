@@ -4,6 +4,7 @@
 //
 
 #import "USuggestionFeedbackForTooCheap.h"
+#import "FHConfirmationIfInNewPreferredRangeMoreExpensive.h"
 
 
 @implementation USuggestionFeedbackForTooCheap {
@@ -13,5 +14,10 @@
 + (instancetype)create:(Restaurant *)restaurant {
     return [[USuggestionFeedbackForTooCheap alloc] initWithRestaurant:restaurant parameter:@"It looks to cheap."];
 }
+
+- (ConversationToken *)foodHeroConfirmationToken {
+    return [FHConfirmationIfInNewPreferredRangeMoreExpensive create];
+}
+
 
 @end

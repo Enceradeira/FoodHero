@@ -16,7 +16,7 @@
 @property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
-@property(nonatomic, readonly) AlternationRandomizerStub *alternationRandomizerStub;
+@property(nonatomic, readonly) AlternationRandomizerStub *tokenRandomizerStub;
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity;
 

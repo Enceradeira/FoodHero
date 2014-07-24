@@ -11,6 +11,7 @@
 @implementation AlternationRandomizerStub {
 
     NSString *_choosenTag;
+    NSString *_dontToTag;
 }
 - (void)injectChoice:(NSString *)tag {
     _choosenTag = tag;
@@ -30,4 +31,14 @@
     return result;
 }
 
+- (void)doOptionally:(NSString *)tag byCalling:(void (^)())block {
+    if (![tag isEqualToString:_dontToTag]) {
+        block();
+    }
+}
+
+
+- (void)injectDontDo:(NSString *)tag {
+    _dontToTag = tag;
+}
 @end

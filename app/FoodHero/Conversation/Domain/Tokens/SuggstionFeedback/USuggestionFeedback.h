@@ -12,4 +12,6 @@
 @property(nonatomic, readonly) Restaurant *restaurant;
 
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter;
+
+- (ConversationToken *)foodHeroConfirmationToken;
 @end

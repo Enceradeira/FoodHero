@@ -5,6 +5,7 @@
 
 #import <ReactiveCocoa.h>
 #import <RACEXTScope.h>
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "SearchAction.h"
 #import "NoRestaurantsFoundError.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
@@ -17,15 +18,17 @@
 #import "TokenRandomizer.h"
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
-#import "FHFirstProposalState.h"
 #import "FHFindingRestaurantState.h"
+#import "USuggestionFeedback.h"
+#import "USuggestionFeedbackForTooExpensive.h"
+#import "FHConfirmationIfInNewPreferredRangeCheaper.h"
 
 
 @implementation SearchAction {
 
     RestaurantSearch *_restaurantSearch;
     id <ConversationSource> _conversation;
-    id <TokenRandomizer> _alternationRandomizer;
+    id <TokenRandomizer> _tokenRandomizer;
 }
 + (SearchAction *)create:(id <ConversationSource>)actionFeedback {
     return [[SearchAction alloc] initWithFeedback:actionFeedback];
@@ -36,12 +39,14 @@
     if (self != nil) {
         _conversation = conversation;
         _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-        _alternationRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
+        _tokenRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
     }
     return self;
 }
 
 - (void)execute {
+    USuggestionFeedback *lastFeedback = [_conversation.suggestionFeedback linq_lastOrNil];
+
     RACSignal *bestRestaurant = [_restaurantSearch findBest:_conversation.suggestionFeedback];
     @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error){
@@ -60,19 +65,22 @@
         @strongify(self);
         Restaurant *restaurant = next;
 
-        ConversationToken *symbol;
-        if ([_conversation hasState:[FHFindingRestaurantState class]]) {
+        if (lastFeedback != nil && lastFeedback.restaurant != nil) {
+            // Food Hero has already suggested a restaurant before
             NSArray *tagAndSymbols = [NSArray arrayWithObjects:
                     [TagAndToken create:@"FH:Suggestion" token:[FHSuggestion create:restaurant]],
                     [TagAndToken create:@"FH:SuggestionAsFollowUp" token:[FHSuggestionAsFollowUp create:restaurant]], nil];
 
-            symbol = [_alternationRandomizer chooseOneToken:tagAndSymbols];
+            [_conversation addToken:[_tokenRandomizer chooseOneToken:tagAndSymbols]];
+
+            [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
+               [_conversation addToken:[lastFeedback foodHeroConfirmationToken]];
+            }];
         }
         else {
-            symbol = [FHSuggestion create:restaurant];
+            [_conversation addToken:[FHSuggestion create:restaurant]];
         }
 
-        [_conversation addToken:symbol];
     }];
 }
 

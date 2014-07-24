@@ -17,6 +17,13 @@
 
 }
 
+- (void)setUp {
+    [super setUp];
+
+    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
+}
+
+
 - (void)test_USuggestionFeedback_ShouldAddUserStatement {
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
@@ -26,7 +33,7 @@
 
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenRandomizerWouldChooseFHSuggestionAsFollowUp{
-    [self.alternationRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
+    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 

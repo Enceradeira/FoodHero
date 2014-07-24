@@ -43,7 +43,7 @@
     _restaurantSearchStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _conversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
-    _alternationRandomizerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
+    _tokenRandomizerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
     _expectedStatements = [NSMutableArray new];
 }
 
@@ -85,9 +85,6 @@
         assertThat(statement, is(notNilValue()));
         assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
-        if( statement.persona == [Personas  foodHero] && expectedStatement.inputActionClass == nil){
-            @throw [NSException exceptionWithName:@"" reason:@"you have to specify an inputActionClass for that test expectation (It's a statement from Food Hero)" userInfo:nil];
-        }
         assertThat(statement.inputAction.class, is(equalTo(expectedStatement.inputActionClass)));
     }}
 

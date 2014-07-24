@@ -12,6 +12,7 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedback.h"
 #import "USuggestionFeedbackForTooCheap.h"
+#import "AlternationRandomizerStub.h"
 
 @interface ConversationFindingRestaurantTests : ConversationTestsBase
 @end
@@ -67,6 +68,8 @@
 }
 
 -(void)test_USuggestionFeedback_ShouldTriggerFHCanFindRestaurant_WhenAfterConsecutiveProposals{
+    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
+
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
     [self.restaurantSearchStub injectFindNothing];

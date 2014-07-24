@@ -9,4 +9,6 @@
 
 @interface AlternationRandomizerStub: NSObject <TokenRandomizer>
 - (void)injectChoice:(NSString *)tag;
+
+- (void)injectDontDo:(NSString *)tag;
 @end

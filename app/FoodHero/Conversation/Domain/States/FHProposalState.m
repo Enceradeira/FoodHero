@@ -10,6 +10,8 @@
 #import "USuggestionFeedbackState.h"
 #import "Alternation.h"
 #import "FHSuggestionOrSuggestionFollowUpState.h"
+#import "FHCommentState.h"
+#import "DoOptionally.h"
 
 
 @implementation FHProposalState {
@@ -24,8 +26,9 @@
                         [Alternation create:
                                 [RepeatOnce create:
                                         [Concatenation create:
-                                                [RepeatOnce create:[FHSuggestionOrSuggestionFollowUpState new]],nil]]]],
-                        [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
+                                                [RepeatOnce create:[FHSuggestionOrSuggestionFollowUpState new]],
+                                                [DoOptionally create:[FHCommentState new]], nil]]]],
+                [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
     }
     return self;
 }
@@ -39,7 +42,7 @@
 }
 
 - (BOOL)isInState:(Class)state {
-    if( self.class == state){
+    if (self.class == state) {
         return YES;
     }
     return [_concatenation isInState:state];
