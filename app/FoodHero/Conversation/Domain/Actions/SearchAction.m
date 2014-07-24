@@ -18,6 +18,7 @@
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
 #import "FHFirstProposalState.h"
+#import "FHFindingRestaurantState.h"
 
 
 @implementation SearchAction {
@@ -60,7 +61,7 @@
         Restaurant *restaurant = next;
 
         ConversationToken *symbol;
-        if ([_conversation hasState:[FHFirstProposalState class]]) {
+        if ([_conversation hasState:[FHFindingRestaurantState class]]) {
             NSArray *tagAndSymbols = [NSArray arrayWithObjects:
                     [TagAndToken create:@"FH:Suggestion" token:[FHSuggestion create:restaurant]],
                     [TagAndToken create:@"FH:SuggestionAsFollowUp" token:[FHSuggestionAsFollowUp create:restaurant]], nil];

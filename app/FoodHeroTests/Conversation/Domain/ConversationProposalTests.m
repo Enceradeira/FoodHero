@@ -29,7 +29,9 @@
     [self.alternationRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
 
     [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
+    [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
