@@ -103,4 +103,8 @@
     return oneNoneEmptyValue;
 }
 
+-(void)dealloc{
+    _locationManager.delegate = nil;
+}
+
 @end
