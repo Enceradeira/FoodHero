@@ -8,6 +8,7 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedback.h"
 #import "AlternationRandomizerStub.h"
+#import "USuggestionFeedbackForTooCheap.h"
 
 @interface ConversationFirstProposalTests : ConversationTestsBase
 @end
@@ -18,7 +19,7 @@
 
 - (void)test_USuggestionFeedback_ShouldAddUserStatement {
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-    [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
 
     [self assertSecondLastStatementIs:@"U:SuggestionFeedback" userAction:nil];
 }

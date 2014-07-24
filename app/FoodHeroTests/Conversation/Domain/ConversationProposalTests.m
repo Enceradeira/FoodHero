@@ -3,12 +3,13 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <OCHamcrest/OCHamcrest.h>
 #import "UCuisinePreference.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedback.h"
 #import "AlternationRandomizerStub.h"
+#import "USuggestionFeedbackForTooFarAway.h"
+#import "USuggestionFeedbackForTooExpensive.h"
 
 @interface ConversationProposalTests : ConversationTestsBase
 @end
@@ -17,7 +18,7 @@
 
 }
 
--(void)setUp{
+- (void)setUp {
     [super setUp];
 
     // Move Conversation into ProposalState by going through FirstProposal)
@@ -28,10 +29,10 @@
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionAsFollowUp {
     [self.alternationRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
 
-    [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[Restaurant new]]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
-    [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[Restaurant new]]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 

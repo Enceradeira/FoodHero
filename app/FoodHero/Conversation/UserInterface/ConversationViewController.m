@@ -15,6 +15,7 @@
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationBubbleFoodHero.h"
 #import "DesignByContractException.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
 
 @interface ConversationViewController ()
 
@@ -108,8 +109,8 @@
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     [self disableUserInput];
 
-    Restaurant* restaurant = [bubble suggestedRestaurant];
-    if( restaurant != nil){
+    Restaurant *restaurant = [bubble suggestedRestaurant];
+    if (restaurant != nil) {
         _lastSuggestedRestaurant = restaurant;
     }
 
@@ -133,11 +134,12 @@
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender {
     [self disableUserInput];
 
-    if(_lastSuggestedRestaurant == nil){
+    if (_lastSuggestedRestaurant == nil) {
         @throw [DesignByContractException createWithReason:@"no last suggested Restaurant found"];
     }
 
-    USuggestionFeedback *userInput = [USuggestionFeedback createForRestaurant:_lastSuggestedRestaurant parameter:@"I don't like that restaurant"];
+
+    USuggestionFeedback *userInput = [USuggestionFeedbackForNotLikingAtAll create:_lastSuggestedRestaurant];
     [_appService addUserInput:userInput];
 }
 

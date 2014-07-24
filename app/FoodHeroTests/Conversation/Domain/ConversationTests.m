@@ -21,6 +21,8 @@
 #import "USuggestionFeedback.h"
 #import "ConversationTestsBase.h"
 #import "RestaurantSearchServiceStub.h"
+#import "USuggestionFeedbackForTooExpensive.h"
+#import "USuggestionFeedbackForTooFarAway.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -102,14 +104,14 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     [self restaurantSearchReturnsName:@"Lion Heart" vicinity:@"Great Yarmouth"];
-    [self.conversation addToken:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[Restaurant new]]];
 
     [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 -(void)test_suggestionFeedback_ShouldReturnAllSuggestionFeedback{
-    USuggestionFeedback *feedback1 = [USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too expensive"];
-    USuggestionFeedback *feedback2 = [USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@"too far away"];
+    USuggestionFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[Restaurant new]];
+    USuggestionFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[Restaurant new]];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:feedback1];

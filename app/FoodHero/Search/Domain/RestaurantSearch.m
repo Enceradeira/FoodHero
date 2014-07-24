@@ -8,6 +8,7 @@
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionFeedback.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
 
 @implementation RestaurantSearch {
 
@@ -29,39 +30,39 @@
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
         RACDisposable *sourceDisposable = [[_locationService currentLocation]
-            subscribeNext:^(id value){
-                CLLocationCoordinate2D coordinate;
-                coordinate.longitude, coordinate.latitude = 0;
-                [((NSValue *) value) getValue:&coordinate];
+                subscribeNext:^(id value){
+                    CLLocationCoordinate2D coordinate;
+                    coordinate.longitude, coordinate.latitude = 0;
+                    [((NSValue *) value) getValue:&coordinate];
 
-                RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-                parameter.location = coordinate;
-                parameter.radius = 2000;
-                NSArray *candidates = [_searchService find:parameter];
-                if (candidates.count > 0) {
-                    NSArray *excludedPlaceIds = [[userFeedback linq_where:^(USuggestionFeedback *f){
-                                        return (BOOL)([f.parameter isEqualToString:@"I don't like that restaurant"]);
-                                    }] linq_select:^(USuggestionFeedback *f){
-                                        return f.restaurant.placeId;
-                                    }];
+                    RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+                    parameter.location = coordinate;
+                    parameter.radius = 2000;
+                    NSArray *candidates = [_searchService find:parameter];
+                    if (candidates.count > 0) {
+                        NSArray *excludedPlaceIds = [[userFeedback linq_where:^(USuggestionFeedback *f){
+                            return (BOOL) ([f isKindOfClass:[USuggestionFeedbackForNotLikingAtAll class]]);
+                        }] linq_select:^(USuggestionFeedback *f){
+                            return f.restaurant.placeId;
+                        }];
 
-                    NSArray *restaurants = [candidates linq_where:^(Restaurant *r){
-                                        return [excludedPlaceIds linq_all:^(NSString* id){
-                                            return (BOOL)(![r.placeId isEqualToString:id]);
-                                        }];
-                                    }];
+                        NSArray *restaurants = [candidates linq_where:^(Restaurant *r){
+                            return [excludedPlaceIds linq_all:^(NSString *id){
+                                return (BOOL) (![r.placeId isEqualToString:id]);
+                            }];
+                        }];
 
-                    [subscriber sendNext:restaurants[0]];
+                        [subscriber sendNext:restaurants[0]];
+                        [subscriber sendCompleted];
+                    }
+                    else {
+                        [subscriber sendError:[NoRestaurantsFoundError new]];
+                    }
+                } error:^(NSError *error) {
+                    [subscriber sendError:error];
+                }   completed:^{
                     [subscriber sendCompleted];
-                }
-                else {
-                    [subscriber sendError:[NoRestaurantsFoundError new]];
-                }
-        }   error:^(NSError *error) {
-                [subscriber sendError:error];
-        }   completed:^{
-                [subscriber sendCompleted];
-        }];
+                }];
 
         serialDisposable.disposable = sourceDisposable;
         return serialDisposable;

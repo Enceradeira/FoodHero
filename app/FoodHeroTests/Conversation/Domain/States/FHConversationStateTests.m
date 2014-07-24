@@ -25,6 +25,7 @@
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
+#import "USuggestionFeedbackForTooCheap.h"
 
 @interface FHConversationStateTests : XCTestCase <ConversationSource>
 
@@ -48,7 +49,7 @@
 
 -(void)test_consume_ShouldReturnTokenNotConsumed_WhenSomethingOtherThenFHGreetingIsAdded
 {
-    id <ConsumeResult> result = [_state consume:[USuggestionFeedback createForRestaurant:[Restaurant new] parameter:@""]];
+    id <ConsumeResult> result = [_state consume:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
     assertThatBool(result.isTokenNotConsumed, is(equalToBool(YES)));
 }
 

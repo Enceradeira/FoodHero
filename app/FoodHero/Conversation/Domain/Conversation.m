@@ -96,7 +96,7 @@
 
 - (NSArray *)suggestionFeedback {
     return [[_statements linq_where:^(Statement *s){
-        return (BOOL) ([s.token class] == [USuggestionFeedback class]);
+        return (BOOL) ([s.token isKindOfClass: [USuggestionFeedback class]]);
     }] linq_select:^(Statement *s){
         return s.token;
     }];

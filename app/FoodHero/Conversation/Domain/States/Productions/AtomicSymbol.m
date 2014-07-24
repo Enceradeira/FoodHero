@@ -37,7 +37,7 @@
     }
     else {
         // token has not been consumed yet
-        if (_tokenclass == token.class) {
+        if ([token isKindOfClass:_tokenclass]) {
             _symbolState = [TokenConsumed create:[self createAction:token]];
             return _symbolState;
         }

@@ -8,9 +8,6 @@
 
 @implementation USuggestionFeedback {
 }
-+ (instancetype)createForRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter{
-    return [[USuggestionFeedback alloc] initWithRestaurant:restaurant parameter:parameter];
-}
 
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter {
     self = [super initWithParameter:@"U:SuggestionFeedback" parameter:parameter];

@@ -14,6 +14,8 @@
 		2352505F6900D406A747F0A6 /* Concatenation.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252070D296286116B57FE /* Concatenation.m */; };
 		23525076AF52DEFDE042B2EB /* GoogleRestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D061BA4618AC6480CE4 /* GoogleRestaurantSearch.m */; };
 		235250B98CAF1710BA753B24 /* ConversationViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258238526A1C664198377 /* ConversationViewControllerTests.m */; };
+		235250CF67666C085DC4E611 /* USuggestionFeedbackForTooFarAway.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253024A5D540D63E9C70B /* USuggestionFeedbackForTooFarAway.m */; };
+		235250D9266A300101EC3F40 /* USuggestionFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B56F02D7CC5D01EFAF6 /* USuggestionFeedback.m */; };
 		23525119F0F8E8746B1202D0 /* UCuisinePreferenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */; };
 		235251278E3E4445D4141CD7 /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */; };
 		2352516CEC3A47C0BB21AB1A /* SearchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF381A642E7AA0199F5 /* SearchAction.m */; };
@@ -60,7 +62,6 @@
 		2352576538E45E8CF8CA5D28 /* DesignByContractException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525346FC989D1AB1AF0541 /* DesignByContractException.m */; };
 		2352576ACD99DF1B238F023C /* TagAndToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259516BF6C1A0FE48A4A8 /* TagAndToken.m */; };
 		2352578F928EFFD72A43CC1C /* ConversationProposalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251B554A8AEC0DA943F23 /* ConversationProposalTests.m */; };
-		235257BA844D58230C8E4626 /* USuggestionFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525100EA07DAD1EA278A8F /* USuggestionFeedback.m */; };
 		235257BF32FC8B6B4C9A45C9 /* FHSuggestionAsFollowUpState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F0F8461ACFB1AF34FBE /* FHSuggestionAsFollowUpState.m */; };
 		235257CA6CC1202368914D96 /* ReturnsActionForTokenOnceSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AA96527DD678F2FBFCC /* ReturnsActionForTokenOnceSymbol.m */; };
 		235257F2425F28FC6D916DED /* ConversationAskCuisinePreferenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525977498ACBE7372DE645 /* ConversationAskCuisinePreferenceTests.m */; };
@@ -72,6 +73,7 @@
 		23525894478FC1BB58EC2F0A /* RepeatAlwaysTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251CF1FDFB57A4FAD2265 /* RepeatAlwaysTests.m */; };
 		235258C9EA859EDD5FE7AAB1 /* LocationServiceAuthorizationStatusRestrictedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B22E25C79786325A51A /* LocationServiceAuthorizationStatusRestrictedError.m */; };
 		235258CA34176FF677CB184D /* FHAskCuisinePreferenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A5710B356AE0BAF9149 /* FHAskCuisinePreferenceState.m */; };
+		2352593CA12A5F94BF83536F /* USuggestionFeedbackForTooExpensive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352503CB37A03BFDC5A9F8F /* USuggestionFeedbackForTooExpensive.m */; };
 		235259429AAFEC4F8670B122 /* RepeatOnce.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251CF11BD16D54D4F72CC /* RepeatOnce.m */; };
 		2352595CC8706A7B380330A3 /* NoRestaurantsFoundError.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DDBFFF100FF3FB1B469 /* NoRestaurantsFoundError.m */; };
 		2352596DB90A8BCB6CF26E5F /* DefaultTokenRandomizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258497FD1447A340288F3 /* DefaultTokenRandomizerTests.m */; };
@@ -82,8 +84,10 @@
 		23525A14196A0D3F3340BC53 /* AskUserSuggestionFeedbackAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251642AADB4F2868064E2 /* AskUserSuggestionFeedbackAction.m */; };
 		23525A21DF5C75463697C94F /* ConversationCantAccessLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */; };
 		23525AE2F17B4C65084C45A9 /* ConversationRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352517FB891133220BFA410 /* ConversationRepository.m */; };
+		23525AF01D98E9519901061E /* USuggestionFeedbackForNotLikingAtAll.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352550872974090EA77D163 /* USuggestionFeedbackForNotLikingAtAll.m */; };
 		23525B7F6DFE497171391D4C /* ReturnsAlwaysStateFinishedSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B08F96DEAD44281E51A /* ReturnsAlwaysStateFinishedSymbol.m */; };
 		23525BB9AC707BAEF02A5B8A /* FHCantAccessLocationServiceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352503F34A7F6451C87C6BB /* FHCantAccessLocationServiceState.m */; };
+		23525C14CF25B9B01D89A1FB /* USuggestionFeedbackForTooCheap.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250E829C5E629A1126B83 /* USuggestionFeedbackForTooCheap.m */; };
 		23525C1C684332E042B49F5A /* FHSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255E32B27352179C071B2 /* FHSuggestion.m */; };
 		23525C2647B32AF58984C9AC /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352525F00EC9F617006BCED /* HCIsExceptionOfType.m */; };
 		23525C332B1CAF8849D60240 /* UDidResolveProblemWithAccessLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352580BDB1614BBA8F5A7D0 /* UDidResolveProblemWithAccessLocationService.m */; };
@@ -113,6 +117,7 @@
 		23525F59C409DA7F7E8A3945 /* AtomicSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525718876CDA31F43361AB /* AtomicSymbol.m */; };
 		23525F8C696F86A86393D677 /* DefaultTokenRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FDDB7D1DE6BEC2C9594 /* DefaultTokenRandomizer.m */; };
 		23525F98BD25BF15E8DEA7EA /* DefaultAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352568D2A237C26E4825DE9 /* DefaultAssembly.m */; };
+		23525F9DC864ADF4EF5F1050 /* USuggestionFeedbackForLiking.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255FB01E06559812CAD80 /* USuggestionFeedbackForLiking.m */; };
 		23525FAB31B1A67A1FC92BA5 /* ConversationCantFindRestaurantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */; };
 		23525FB0F8D9F6CC73DA9D82 /* ConversationRepositoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352596D6773526DDCA6F07A /* ConversationRepositoryTests.m */; };
 		23525FB13D952388B7D8FCC4 /* RepeatAlways.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525CA786E98D90271C4F6D /* RepeatAlways.m */; };
@@ -157,6 +162,7 @@
 		23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceTests.m; sourceTree = "<group>"; };
 		23525039C0022D930C4B04B8 /* FHSuggestionOrSuggestionFollowUpState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionOrSuggestionFollowUpState.h; sourceTree = "<group>"; };
 		2352503A7241A66B95DB1F14 /* ConversationSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSource.h; sourceTree = "<group>"; };
+		2352503CB37A03BFDC5A9F8F /* USuggestionFeedbackForTooExpensive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooExpensive.m; sourceTree = "<group>"; };
 		2352503F34A7F6451C87C6BB /* FHCantAccessLocationServiceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHCantAccessLocationServiceState.m; sourceTree = "<group>"; };
 		2352506D72C05A79E82BA481 /* ReturnsActionForTokenAlwaysSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnsActionForTokenAlwaysSymbol.h; sourceTree = "<group>"; };
 		2352506F7DCC346912F1748E /* HCIsExceptionOfType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCIsExceptionOfType.h; sourceTree = "<group>"; };
@@ -166,8 +172,8 @@
 		235250A45B37DCA998FF4B55 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		235250B0CF453E719D51919B /* LocationServiceAuthorizationStatusDeniedError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceAuthorizationStatusDeniedError.h; sourceTree = "<group>"; };
 		235250B379FA3C44088D24B9 /* SearchActionState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchActionState.m; sourceTree = "<group>"; };
+		235250E829C5E629A1126B83 /* USuggestionFeedbackForTooCheap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooCheap.m; sourceTree = "<group>"; };
 		235250FDC05512B0B28B7C45 /* AlternationRandomizerStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternationRandomizerStub.h; sourceTree = "<group>"; };
-		23525100EA07DAD1EA278A8F /* USuggestionFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedback.m; sourceTree = "<group>"; };
 		2352510E035822AC6DFA6D07 /* FHSuggestionAsFollowUpState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionAsFollowUpState.h; sourceTree = "<group>"; };
 		2352511F5A46FEE0261C2F1D /* ReturnsActionForTokenAlwaysSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnsActionForTokenAlwaysSymbol.m; sourceTree = "<group>"; };
 		235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCantAccessLocationServiceTests.m; sourceTree = "<group>"; };
@@ -178,7 +184,6 @@
 		2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceAuthorizationStatusDeniedError.m; sourceTree = "<group>"; };
 		2352517FB891133220BFA410 /* ConversationRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRepository.m; sourceTree = "<group>"; };
 		235251996A185437DF584FB5 /* Personas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Personas.m; sourceTree = "<group>"; };
-		235251AFF2C3702BF470EA29 /* USuggestionFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedback.h; sourceTree = "<group>"; };
 		235251B554A8AEC0DA943F23 /* ConversationProposalTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationProposalTests.m; sourceTree = "<group>"; };
 		235251B83ED57675395C3C84 /* ConversationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTests.m; sourceTree = "<group>"; };
 		235251CF11BD16D54D4F72CC /* RepeatOnce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeatOnce.m; sourceTree = "<group>"; };
@@ -186,6 +191,7 @@
 		235251D2BAF86EA8349753D9 /* FHBecauseUserDeniedAccessToLocationServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHBecauseUserDeniedAccessToLocationServices.h; sourceTree = "<group>"; };
 		235251E7D1AA18E6350323C7 /* DesignByContractException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignByContractException.h; sourceTree = "<group>"; };
 		235251EA5A0D884CB454868A /* Statement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statement.h; sourceTree = "<group>"; };
+		235251FB11B4A23E429364C1 /* USuggestionFeedbackForTooExpensive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForTooExpensive.h; sourceTree = "<group>"; };
 		2352520402E27D2DE0AC57CA /* TokenNotConsumed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenNotConsumed.h; sourceTree = "<group>"; };
 		235252070D296286116B57FE /* Concatenation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Concatenation.m; sourceTree = "<group>"; };
 		235252243CA79D13851B4AEE /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
@@ -203,7 +209,9 @@
 		235252B0B810B986440D1799 /* ConversationBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubble.h; sourceTree = "<group>"; };
 		235252C629BE62817E70B34D /* TestAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAction.h; sourceTree = "<group>"; };
 		235252CFAD5A142BE13FAFC8 /* FHNoRestaurantsFound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHNoRestaurantsFound.h; sourceTree = "<group>"; };
+		235252E9D723D0D87EB99EF8 /* USuggestionFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedback.h; sourceTree = "<group>"; };
 		235252F78FFA508D6B163634 /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
+		235253024A5D540D63E9C70B /* USuggestionFeedbackForTooFarAway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooFarAway.m; sourceTree = "<group>"; };
 		23525317ADC83C8452EA0B78 /* TokenRandomizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenRandomizer.h; sourceTree = "<group>"; };
 		2352532D2FD874BA7333409D /* DefaultAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultAssembly.h; sourceTree = "<group>"; };
 		2352532FE8C29682329D925C /* AskUserToTryAgainAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserToTryAgainAction.m; sourceTree = "<group>"; };
@@ -225,9 +233,11 @@
 		2352547F0E59A97A9CB2E058 /* ConversationRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationRepository.h; sourceTree = "<group>"; };
 		23525484692C3B36C2E5FA0A /* ConversationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationToken.m; sourceTree = "<group>"; };
 		235254933098FD42435291CF /* UDidResolveProblemWithAccessLocationServiceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDidResolveProblemWithAccessLocationServiceState.h; sourceTree = "<group>"; };
+		2352549D7823174FE723711F /* USuggestionFeedbackForTooCheap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForTooCheap.h; sourceTree = "<group>"; };
 		235254C333D4FB6964C8DBED /* RestaurantSearchServiceSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceSpy.h; sourceTree = "<group>"; };
 		235254EA73A73BE3B372896E /* FHCantFindRestaurantState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHCantFindRestaurantState.h; sourceTree = "<group>"; };
 		235254FD8EE7D36F69EA631B /* GoogleRestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleRestaurantSearch.h; sourceTree = "<group>"; };
+		2352550872974090EA77D163 /* USuggestionFeedbackForNotLikingAtAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForNotLikingAtAll.m; sourceTree = "<group>"; };
 		2352550CEA5A4791458F7D51 /* Alternation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alternation.m; sourceTree = "<group>"; };
 		23525517558B533671E9AD0A /* FoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHero.h; sourceTree = "<group>"; };
 		2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerImpl.m; sourceTree = "<group>"; };
@@ -235,12 +245,14 @@
 		2352555191D12A93222B8C30 /* GoogleRestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleRestaurantSearchTests.m; sourceTree = "<group>"; };
 		23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponentsTests.m; sourceTree = "<group>"; };
 		23525559059BEA00BC098E85 /* UTryAgainNowState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTryAgainNowState.h; sourceTree = "<group>"; };
+		2352556AE57A6943ACA5EAD4 /* USuggestionFeedbackForNotLikingAtAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForNotLikingAtAll.h; sourceTree = "<group>"; };
 		23525571F0DDE4CE1AB185D9 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		23525584EDD8E2938D425A96 /* FMGreetingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMGreetingState.h; sourceTree = "<group>"; };
 		2352558A0E7130A16011FDE1 /* RestaurantSearchServiceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceStub.h; sourceTree = "<group>"; };
 		235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserIfProblemWithAccessLocationServiceResolved.m; sourceTree = "<group>"; };
 		235255BD26185465AA3EF74A /* Alternation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alternation.h; sourceTree = "<group>"; };
 		235255E32B27352179C071B2 /* FHSuggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestion.m; sourceTree = "<group>"; };
+		235255FB01E06559812CAD80 /* USuggestionFeedbackForLiking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForLiking.m; sourceTree = "<group>"; };
 		23525603670B295A4908F3D3 /* FHOpeningQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHOpeningQuestion.h; sourceTree = "<group>"; };
 		23525605D7BB7343808F6E85 /* FHSuggestionOrSuggestionFollowUpState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionOrSuggestionFollowUpState.m; sourceTree = "<group>"; };
 		23525606B9112D561A5FAC37 /* StatementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatementTests.m; sourceTree = "<group>"; };
@@ -304,6 +316,7 @@
 		23525B361BB3DBF111481611 /* FHFirstProposalState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHFirstProposalState.m; sourceTree = "<group>"; };
 		23525B43A1C011F14D77190B /* Concatenation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Concatenation.h; sourceTree = "<group>"; };
 		23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchParams.m; sourceTree = "<group>"; };
+		23525B56F02D7CC5D01EFAF6 /* USuggestionFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedback.m; sourceTree = "<group>"; };
 		23525B606EA734C3976F26B1 /* Statement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statement.m; sourceTree = "<group>"; };
 		23525B657FC5D4E7788A31AC /* AskUserIfProblemWithAccessLocationServiceResolved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserIfProblemWithAccessLocationServiceResolved.h; sourceTree = "<group>"; };
 		23525B6956ABF86555F877A8 /* FHBecauseUserIsNotAllowedToUseLocationServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHBecauseUserIsNotAllowedToUseLocationServices.h; sourceTree = "<group>"; };
@@ -318,6 +331,8 @@
 		23525BF37251533AA25A553A /* ConversationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationToken.h; sourceTree = "<group>"; };
 		23525BFD9C17808C4AF9CBCC /* simulator_gps_coordinates.gpx */ = {isa = PBXFileReference; lastKnownFileType = file.gpx; path = simulator_gps_coordinates.gpx; sourceTree = "<group>"; };
 		23525C36BAE0B3164CAB1E14 /* StubAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubAssembly.m; sourceTree = "<group>"; };
+		23525C378B991F1E29F6D8EF /* USuggestionFeedbackForTooFarAway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForTooFarAway.h; sourceTree = "<group>"; };
+		23525C4A139EFD78754D149C /* USuggestionFeedbackForLiking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForLiking.h; sourceTree = "<group>"; };
 		23525C5BAE3B55B2B72B6070 /* USuggestionFeedbackState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackState.m; sourceTree = "<group>"; };
 		23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAction.h; sourceTree = "<group>"; };
 		23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
@@ -590,8 +605,6 @@
 				23525BF37251533AA25A553A /* ConversationToken.h */,
 				23525484692C3B36C2E5FA0A /* ConversationToken.m */,
 				23525A73391F93A71EBD7E0E /* UCuisinePreference.m */,
-				23525100EA07DAD1EA278A8F /* USuggestionFeedback.m */,
-				235251AFF2C3702BF470EA29 /* USuggestionFeedback.h */,
 				23525BDB85217DFA5458D37B /* FHGreeting.m */,
 				23525EBB6EAD61BC13BC70BD /* FHGreeting.h */,
 				2352527F46A4FF90FC8AC407 /* FHOpeningQuestion.m */,
@@ -615,6 +628,7 @@
 				235257C2C65CC319F347DE3C /* DefaultTokenRandomizer.h */,
 				235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */,
 				23525CA154B10964CC7B76D3 /* FHSuggestionBase.h */,
+				23525888667E49517F441496 /* SuggstionFeedback */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -663,6 +677,25 @@
 				235259516BF6C1A0FE48A4A8 /* TagAndToken.m */,
 			);
 			path = Productions;
+			sourceTree = "<group>";
+		};
+		23525888667E49517F441496 /* SuggstionFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				23525B56F02D7CC5D01EFAF6 /* USuggestionFeedback.m */,
+				235252E9D723D0D87EB99EF8 /* USuggestionFeedback.h */,
+				235253024A5D540D63E9C70B /* USuggestionFeedbackForTooFarAway.m */,
+				23525C378B991F1E29F6D8EF /* USuggestionFeedbackForTooFarAway.h */,
+				235251FB11B4A23E429364C1 /* USuggestionFeedbackForTooExpensive.h */,
+				2352503CB37A03BFDC5A9F8F /* USuggestionFeedbackForTooExpensive.m */,
+				235250E829C5E629A1126B83 /* USuggestionFeedbackForTooCheap.m */,
+				2352549D7823174FE723711F /* USuggestionFeedbackForTooCheap.h */,
+				2352556AE57A6943ACA5EAD4 /* USuggestionFeedbackForNotLikingAtAll.h */,
+				2352550872974090EA77D163 /* USuggestionFeedbackForNotLikingAtAll.m */,
+				23525C4A139EFD78754D149C /* USuggestionFeedbackForLiking.h */,
+				235255FB01E06559812CAD80 /* USuggestionFeedbackForLiking.m */,
+			);
+			path = SuggstionFeedback;
 			sourceTree = "<group>";
 		};
 		235258A25245C3CF14DC763D /* Domain */ = {
@@ -1096,7 +1129,6 @@
 				2352595CC8706A7B380330A3 /* NoRestaurantsFoundError.m in Sources */,
 				23525CC895BA7445E4E751F7 /* ConversationToken.m in Sources */,
 				2352559ADA5B8C0E9F315660 /* UCuisinePreference.m in Sources */,
-				235257BA844D58230C8E4626 /* USuggestionFeedback.m in Sources */,
 				23525CF60103BA88C933FFAB /* FHGreeting.m in Sources */,
 				235259D203AE4BA0DE34808E /* FHOpeningQuestion.m in Sources */,
 				2352584B52670D304F9B75CF /* FHConversationState.m in Sources */,
@@ -1143,6 +1175,12 @@
 				23525F8C696F86A86393D677 /* DefaultTokenRandomizer.m in Sources */,
 				235250447549516F84D8CB0B /* FHSuggestionBase.m in Sources */,
 				23525E2B79A75A18D4627790 /* SearchActionState.m in Sources */,
+				235250D9266A300101EC3F40 /* USuggestionFeedback.m in Sources */,
+				235250CF67666C085DC4E611 /* USuggestionFeedbackForTooFarAway.m in Sources */,
+				2352593CA12A5F94BF83536F /* USuggestionFeedbackForTooExpensive.m in Sources */,
+				23525C14CF25B9B01D89A1FB /* USuggestionFeedbackForTooCheap.m in Sources */,
+				23525AF01D98E9519901061E /* USuggestionFeedbackForNotLikingAtAll.m in Sources */,
+				23525F9DC864ADF4EF5F1050 /* USuggestionFeedbackForLiking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
