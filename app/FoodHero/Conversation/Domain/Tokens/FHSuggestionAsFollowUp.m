@@ -14,15 +14,11 @@
     return [[FHSuggestionAsFollowUp alloc] initWithRestaurant:restaurant];
 }
 
-- (instancetype)initWithRestaurant:(Restaurant *)restaurant {
-    NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
-    NSString *text = [[NSString alloc] initWithFormat:@"What about '%@' then?", nameAndPlace];
-    NSString *sanitizedName = [nameAndPlace stringByReplacingOccurrencesOfString:@"'" withString:@""];
+- (NSString *)getTokenName {
+    return @"FH:SuggestionAsFollowUp";
+}
 
-    self = [super initWithParameter:[NSString stringWithFormat:@"FH:SuggestionAsFollowUp=%@", sanitizedName] parameter:text];
-    if (self != nil) {
-        _restaurant = restaurant;
-    }
-    return self;
+- (NSString *)getText {
+    return @"What about '%@' then?";
 }
 @end

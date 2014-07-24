@@ -6,11 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "Restaurant.h"
+#import "FHSuggestionBase.h"
 
-@interface FHSuggestion : ConversationToken
-@property(nonatomic, readonly) Restaurant *restaurant;
-
+@interface FHSuggestion : FHSuggestionBase
 + (instancetype)create:(Restaurant *)restaurant;
-
-- (instancetype)initWithRestaurant:(Restaurant *)restaurant;
 @end

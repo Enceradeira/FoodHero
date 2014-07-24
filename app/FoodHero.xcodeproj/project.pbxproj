@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		235250447549516F84D8CB0B /* FHSuggestionBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */; };
 		23525046440DFB5D7DE409D1 /* AtomicSymbolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525354C70C545066BBCACB /* AtomicSymbolTests.m */; };
 		23525055FDF48966B5AD0B88 /* GoogleRestaurantSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352555191D12A93222B8C30 /* GoogleRestaurantSearchTests.m */; };
 		2352505DFC74970D74F9F0F7 /* ReturnsAlwaysTokenNotConsumedSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E36DBF297CB6085C211 /* ReturnsAlwaysTokenNotConsumedSymbol.m */; };
@@ -248,6 +249,7 @@
 		23525683ECA94DEA55A34F7B /* ConsumeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsumeResult.h; sourceTree = "<group>"; };
 		2352568D2A237C26E4825DE9 /* DefaultAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultAssembly.m; sourceTree = "<group>"; };
 		23525692C81BB8D1BD338768 /* ReturnsAlwaysStateFinishedSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnsAlwaysStateFinishedSymbol.h; sourceTree = "<group>"; };
+		235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionBase.m; sourceTree = "<group>"; };
 		235256B67F131FB6E4DA33D8 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		235256B91D0CD8332EA1540D /* TestToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestToken.m; sourceTree = "<group>"; };
 		235256D8AC6DD9D7A07140EB /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAction.h; sourceTree = "<group>"; };
 		23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
 		23525C9AB1E1DF8EC1F94B94 /* FHCantAccessLocationServiceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHCantAccessLocationServiceState.h; sourceTree = "<group>"; };
+		23525CA154B10964CC7B76D3 /* FHSuggestionBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionBase.h; sourceTree = "<group>"; };
 		23525CA4F354EFA35BCAD935 /* ConversationAppServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceTests.m; sourceTree = "<group>"; };
 		23525CA6C22B1A56E6EFCDE6 /* FHBecauseUserIsNotAllowedToUseLocationServicesState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHBecauseUserIsNotAllowedToUseLocationServicesState.h; sourceTree = "<group>"; };
 		23525CA786E98D90271C4F6D /* RepeatAlways.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeatAlways.m; sourceTree = "<group>"; };
@@ -608,6 +611,8 @@
 				23525317ADC83C8452EA0B78 /* TokenRandomizer.h */,
 				23525FDDB7D1DE6BEC2C9594 /* DefaultTokenRandomizer.m */,
 				235257C2C65CC319F347DE3C /* DefaultTokenRandomizer.h */,
+				235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */,
+				23525CA154B10964CC7B76D3 /* FHSuggestionBase.h */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -1137,6 +1142,7 @@
 				2352576ACD99DF1B238F023C /* TagAndToken.m in Sources */,
 				2352555CFC0BBB90C5B25ED1 /* FHSuggestionAsFollowUp.m in Sources */,
 				23525F8C696F86A86393D677 /* DefaultTokenRandomizer.m in Sources */,
+				235250447549516F84D8CB0B /* FHSuggestionBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
