@@ -8,7 +8,7 @@
 
 #import "Conversation.h"
 #import "FHSuggestion.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 
 @implementation Statement {
     id <UAction> _inputAction;

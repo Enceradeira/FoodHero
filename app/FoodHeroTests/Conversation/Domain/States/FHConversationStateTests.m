@@ -10,7 +10,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import "DesignByContractException.h"
 #import "UCuisinePreference.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
 #import "FHConversationState.h"

@@ -5,12 +5,11 @@
 
 #import "FHConversationState.h"
 #import "FHGreetingState.h"
-#import "UCuisinePreferenceState.h"
 #import "FHFindingRestaurantState.h"
 #import "Concatenation.h"
-#import "DesignByContractException.h"
 #import "RepeatOnce.h"
 #import "FHAskCuisinePreferenceState.h"
+#import "FHFindingRestaurantFinishedState.h"
 
 
 @implementation FHConversationState {
@@ -22,7 +21,8 @@
     if (self != nil) {
         _concatenation = [Concatenation create:[RepeatOnce create:[FHGreetingState new]],
                                                [RepeatOnce create:[FHAskCuisinePreferenceState createWithActionFeedback:actionFeedback]],
-                                               [RepeatOnce create:[FHFindingRestaurantState createWithActionFeedback:actionFeedback]], nil];
+                                               [RepeatOnce create:[FHFindingRestaurantState createWithActionFeedback:actionFeedback]],
+                                               [RepeatOnce create:[FHFindingRestaurantFinishedState new]], nil];
     }
     return self;
 }

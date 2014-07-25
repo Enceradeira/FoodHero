@@ -8,7 +8,6 @@
 #import "RepeatOnce.h"
 #import "FHSuggestionState.h"
 #import "USuggestionFeedbackState.h"
-#import "RestaurantSearch.h"
 
 
 @implementation FHFirstProposalState {
@@ -19,7 +18,7 @@
     if (self != nil) {
         _concatenation = [Concatenation create:
                 [RepeatOnce create:[FHSuggestionState new]],
-                        [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
+                [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
     }
     return self;
 }

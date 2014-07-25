@@ -23,13 +23,13 @@
                 [RepeatAlways create:^(){
                     return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback];
                 }],
-                        [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback]],
+                [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback]],
                 [RepeatAlways create:^(){
                     return [Concatenation create:
                             [RepeatAlways create:^(){
                                 return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback];
                             }],
-                                    [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback]], nil];
+                            [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback]], nil];
                 }],
                 nil];
     }

@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ConversationSource.h"
 
 @protocol FHAction <ConversationAction>
-- (void)execute;
+- (void)execute:(id <ConversationSource>)conversationSource;
 @end

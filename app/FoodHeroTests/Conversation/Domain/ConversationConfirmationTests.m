@@ -6,7 +6,7 @@
 #import <OCHamcrest.h>
 #import "UCuisinePreference.h"
 #import "ConversationTestsBase.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "AlternationRandomizerStub.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "USuggestionFeedbackForTooExpensive.h"

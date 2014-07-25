@@ -9,7 +9,8 @@
 
 @implementation NoAction {
 }
-- (void)execute {
+
+- (void)execute:(id <ConversationSource>)conversationSource {
 
 }
 

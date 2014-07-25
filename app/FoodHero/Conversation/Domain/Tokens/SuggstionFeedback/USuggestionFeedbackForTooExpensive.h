@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 
 
-@interface USuggestionFeedbackForTooExpensive : USuggestionFeedback
+@interface USuggestionFeedbackForTooExpensive : USuggestionNegativeFeedback
 + (instancetype)create:(Restaurant *)restaurant;
 @end

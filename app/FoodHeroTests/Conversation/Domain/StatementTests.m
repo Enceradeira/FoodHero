@@ -11,7 +11,7 @@
 #import "Statement.h"
 #import "FHOpeningQuestion.h"
 #import "FHSuggestion.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 
 @interface StatementTests : XCTestCase

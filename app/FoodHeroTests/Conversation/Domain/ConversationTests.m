@@ -18,7 +18,7 @@
 #import "AskUserToTryAgainAction.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 #import "AskUserCuisinePreferenceAction.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "ConversationTestsBase.h"
 #import "RestaurantSearchServiceStub.h"
 #import "USuggestionFeedbackForTooExpensive.h"
@@ -113,8 +113,8 @@
 }
 
 -(void)test_suggestionFeedback_ShouldReturnAllSuggestionFeedback{
-    USuggestionFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[Restaurant new]];
-    USuggestionFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[Restaurant new]];
+    USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[Restaurant new]];
+    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[Restaurant new]];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:feedback1];
@@ -125,5 +125,4 @@
     assertThat(feedback, hasItem(feedback1));
     assertThat(feedback, hasItem(feedback2));
 }
-
 @end

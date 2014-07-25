@@ -10,7 +10,7 @@
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
 #import "UCuisinePreference.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "AskUserCuisinePreferenceAction.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationBubbleFoodHero.h"
@@ -139,7 +139,7 @@
     }
 
 
-    USuggestionFeedback *userInput = [USuggestionFeedbackForNotLikingAtAll create:_lastSuggestedRestaurant];
+    USuggestionNegativeFeedback *userInput = [USuggestionFeedbackForNotLikingAtAll create:_lastSuggestedRestaurant];
     [_appService addUserInput:userInput];
 }
 

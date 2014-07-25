@@ -10,7 +10,7 @@
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 #import "ConversationTestsBase.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "AlternationRandomizerStub.h"
 

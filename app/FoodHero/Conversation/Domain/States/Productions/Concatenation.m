@@ -40,6 +40,11 @@
             id <Symbol> nextState = _symbols[_currentSymbolIdx];
             id <ConsumeResult> nextResult = [nextState consume:token];
             if (nextResult.isTokenNotConsumed) {
+                if (!_symbolState.isTokenConsumed) {
+                    // first token was optional (didn't consume nor did the second consume)
+                    [self resetState];
+                    return _symbolState;
+                }
                 @throw [DesignByContractException createWithReason:@"Next symbol in concatenation doesn't consume token. This indicates an invalid state."];
             }
             else if (nextResult.isTokenConsumed) {
@@ -62,10 +67,14 @@
     self = [super init];
     if (self != nil) {
         _symbols = symbols;
-        _currentSymbolIdx = 0;
-        _symbolState = [TokenNotConsumed new];
+        [self resetState];
     }
     return self;
+}
+
+- (void)resetState {
+    _currentSymbolIdx = 0;
+    _symbolState = [TokenNotConsumed new];
 }
 
 + (Concatenation *)create:(id <RepeatSymbol>)symbol1, ... {

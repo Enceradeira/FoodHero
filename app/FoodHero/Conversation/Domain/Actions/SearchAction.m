@@ -18,7 +18,7 @@
 #import "TokenRandomizer.h"
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "FHConfirmation.h"
 
 
@@ -42,8 +42,9 @@
     return self;
 }
 
-- (void)execute {
-    USuggestionFeedback *lastFeedback = [_conversation.suggestionFeedback linq_lastOrNil];
+
+- (void)execute:(id<ConversationSource>) converationSource {
+    USuggestionNegativeFeedback *lastFeedback = [_conversation.suggestionFeedback linq_lastOrNil];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest:_conversation.suggestionFeedback];
     @weakify(self);

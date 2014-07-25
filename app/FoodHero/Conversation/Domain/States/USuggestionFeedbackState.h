@@ -10,6 +10,8 @@
 #import "ConversationSource.h"
 #import "SearchActionState.h"
 
-@interface USuggestionFeedbackState : SearchActionState
+@interface USuggestionFeedbackState : AtomicSymbol
 + (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
+
+- (instancetype)initWithActionFeedback:(id <ConversationSource>)conversationSource tokenclass:(Class)tokenclass;
 @end

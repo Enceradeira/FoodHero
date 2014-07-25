@@ -7,7 +7,7 @@
 #import "RestaurantSearch.h"
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 
 @implementation RestaurantSearch {
@@ -40,9 +40,9 @@
                     parameter.radius = 2000;
                     NSArray *candidates = [_searchService find:parameter];
                     if (candidates.count > 0) {
-                        NSArray *excludedPlaceIds = [[userFeedback linq_where:^(USuggestionFeedback *f){
+                        NSArray *excludedPlaceIds = [[userFeedback linq_where:^(USuggestionNegativeFeedback *f){
                             return (BOOL) ([f isKindOfClass:[USuggestionFeedbackForNotLikingAtAll class]]);
-                        }] linq_select:^(USuggestionFeedback *f){
+                        }] linq_select:^(USuggestionNegativeFeedback *f){
                             return f.restaurant.placeId;
                         }];
 

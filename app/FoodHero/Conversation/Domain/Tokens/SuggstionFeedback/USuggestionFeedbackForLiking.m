@@ -4,14 +4,18 @@
 //
 
 #import "USuggestionFeedbackForLiking.h"
-
+#import "HandlePositiveSuggestionFeedbackTask.h"
 
 @implementation USuggestionFeedbackForLiking {
-
 }
 
 + (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant parameter:@"I like it!"];
+    NSString *text = @"I like it";
+    return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant parameter:text];
+}
+
+- (id <ConversationAction>)createAction:(id <ConversationSource>)source {
+    return [HandlePositiveSuggestionFeedbackTask create];
 }
 
 @end

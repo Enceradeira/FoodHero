@@ -155,4 +155,12 @@
     assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(DesignByContractException.class));
 }
 
+-(void)test_consume_ShouldNotConsumeToken_WhenFirstSymbolOptionalAndSecondDoesntConsume{
+          Concatenation *concat = [Concatenation create:
+                                  [RepeatAlways create:^(){return [ReturnsAlwaysTokenNotConsumedSymbol new];}],
+                                  [RepeatOnce create:[ReturnsAlwaysTokenNotConsumedSymbol new]],nil];
+
+    assertThatBool([concat consume:_token1].isTokenNotConsumed, is(equalToBool(YES)));
+}
+
 @end

@@ -15,7 +15,7 @@
 #import "FHOpeningQuestion.h"
 #import "FHConversationState.h"
 #import "FHAction.h"
-#import "USuggestionFeedback.h"
+#import "USuggestionNegativeFeedback.h"
 #import "TokenConsumed.h"
 
 
@@ -78,7 +78,7 @@
         else {
             // FH has to perform next action
             [self addStatement:token inputAction:nil];
-            [(id <FHAction>) action execute];
+            [(id <FHAction>) action execute:self];
         }
     }
 }
@@ -96,7 +96,7 @@
 
 - (NSArray *)suggestionFeedback {
     return [[_statements linq_where:^(Statement *s){
-        return (BOOL) ([s.token isKindOfClass: [USuggestionFeedback class]]);
+        return (BOOL) ([s.token isKindOfClass: [USuggestionNegativeFeedback class]]);
     }] linq_select:^(Statement *s){
         return s.token;
     }];
