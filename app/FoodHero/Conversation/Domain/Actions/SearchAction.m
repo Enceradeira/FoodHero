@@ -19,6 +19,7 @@
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
 #import "USuggestionFeedback.h"
+#import "FHConfirmation.h"
 
 
 @implementation SearchAction {
@@ -66,12 +67,12 @@
             // Food Hero has already suggested a restaurant before
             ConversationToken *fhSuggestionToken = [FHSuggestion create:restaurant];
             ConversationToken *fhSuggestionAsFollowUp = [FHSuggestionAsFollowUp create:restaurant];
-            ConversationToken *fhSuggestionWithFeedback = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
+            ConversationToken *fhSuggestionSithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
             NSArray *tagAndSymbols = [NSArray arrayWithObjects:
                     [TagAndToken create:@"FH:Suggestion" token:fhSuggestionToken],
                     [TagAndToken create:@"FH:SuggestionAsFollowUp" token:fhSuggestionAsFollowUp],
-                    [TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionWithFeedback], nil];
+                            [TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionSithComment], nil];
 
             ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
             [_conversation addToken:chosenToken];
@@ -80,6 +81,9 @@
                 [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
                     [_conversation addToken:[lastFeedback foodHeroConfirmationToken]];
                 }];
+            }
+            else if( chosenToken == fhSuggestionSithComment){
+                [_conversation addToken:[FHConfirmation create]];
             }
         }
         else {

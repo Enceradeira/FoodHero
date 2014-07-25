@@ -4,7 +4,7 @@
 //
 
 #import "FHConversationState.h"
-#import "FMGreetingState.h"
+#import "FHGreetingState.h"
 #import "UCuisinePreferenceState.h"
 #import "FHFindingRestaurantState.h"
 #import "Concatenation.h"
@@ -20,7 +20,7 @@
 - (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
     self = [super init];
     if (self != nil) {
-        _concatenation = [Concatenation create:[RepeatOnce create:[FMGreetingState new]],
+        _concatenation = [Concatenation create:[RepeatOnce create:[FHGreetingState new]],
                                                [RepeatOnce create:[FHAskCuisinePreferenceState createWithActionFeedback:actionFeedback]],
                                                [RepeatOnce create:[FHFindingRestaurantState createWithActionFeedback:actionFeedback]], nil];
     }

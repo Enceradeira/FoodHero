@@ -6,5 +6,5 @@
 #import <Foundation/Foundation.h>
 #import "AtomicSymbol.h"
 
-@interface FMGreetingState : AtomicSymbol
+@interface FHConfirmationState : AtomicSymbol
 @end

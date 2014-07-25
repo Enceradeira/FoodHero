@@ -1,5 +1,8 @@
 def get_last_element_and_parameter(id)
   bubble = (find_elements :xpath, "//*[contains(@name,'#{id}')]").last
+  if bubble.nil?
+    return nil
+  end
   text = bubble.name
   _, parameter = text.match(/^#{id}\w*=(.*)$/).to_a
   return bubble, parameter

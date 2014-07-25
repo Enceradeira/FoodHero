@@ -3,12 +3,12 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "FMGreetingState.h"
+#import "FHGreetingState.h"
 #import "NoAction.h"
 #import "FHGreeting.h"
 
 
-@implementation FMGreetingState {
+@implementation FHGreetingState {
 }
 - (id)init {
     return [super initWithToken:FHGreeting.class];

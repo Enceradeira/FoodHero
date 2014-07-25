@@ -13,6 +13,7 @@
 #import "FHCommentState.h"
 #import "DoOptionally.h"
 #import "FHSuggestionWithCommentState.h"
+#import "FHConfirmationState.h"
 
 
 @implementation FHProposalState {
@@ -31,7 +32,8 @@
                                                 [DoOptionally create:[FHCommentState new]], nil]],
                                 [RepeatOnce create:
                                         [Concatenation create:
-                                                [RepeatOnce create:[FHSuggestionWithCommentState new]], nil]], nil]],
+                                                [RepeatOnce create:[FHSuggestionWithCommentState new]],
+                                                [RepeatOnce create:[FHConfirmationState new]], nil]], nil]],
 
                 [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
     }
