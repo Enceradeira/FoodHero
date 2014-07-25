@@ -10,6 +10,7 @@
 #import "UWhatToDoNextAnswerState.h"
 #import "DoOptionally.h"
 #import "FHGoodByeAfterSuccessState.h"
+#import "UWantsToSearchForAnotherRestaurantState.h"
 
 
 @implementation FHFindingRestaurantFinishedState {
@@ -25,7 +26,8 @@
                 [RepeatOnce create:[UWhatToDoNextAnswerState new]],
                 [DoOptionally create:
                         [Concatenation create:
-                                [RepeatOnce create:[FHGoodByeAfterSuccessState new]], nil]], nil];
+                                [RepeatOnce create:[FHGoodByeAfterSuccessState new]],
+                                [RepeatOnce create:[UWantsToSearchForAnotherRestaurantState new]], nil]], nil];
     }
 
     return self;

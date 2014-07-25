@@ -37,12 +37,19 @@
     [self assertLastStatementIs:@"FH:WhatToDoNext" userAction:[AskUserWhatToDoNextAction class]];
 }
 
-- (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccess {
+- (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
     [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
-    [self.conversation addToken:[UGoodBye new]];
 
+    [self.conversation addToken:[UGoodBye new]];
     [self assertSecondLastStatementIs:@"U:GoodBye" userAction:nil];
     [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" userAction:[AskUserWhatToDoAfterGoodByeAction class]];
+
+    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
+    [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
+
+    [self.conversation addToken:[UCuisinePreference create:@"norwegian food"]];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
