@@ -7,6 +7,7 @@
 #import "Alternation.h"
 #import "FHConfirmationIfInNewPreferredRangeCheaper.h"
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState {
@@ -20,6 +21,11 @@
 + (FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState *)create {
     return [[FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState alloc] init];
 }
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
+    return [AskUserSuggestionFeedbackAction new];
+}
+
 
 
 @end

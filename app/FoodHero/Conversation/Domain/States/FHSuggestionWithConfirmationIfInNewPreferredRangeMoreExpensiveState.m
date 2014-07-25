@@ -5,6 +5,7 @@
 
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.h"
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState {
@@ -19,5 +20,8 @@
     return [[FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState alloc] init];
 }
 
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
+    return [AskUserSuggestionFeedbackAction new];
+}
 
 @end

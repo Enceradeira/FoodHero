@@ -5,6 +5,7 @@
 
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState.h"
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState {
@@ -17,6 +18,10 @@
 
 + (FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState *)create {
     return [[FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState alloc] init];
+}
+
+- (id <ConversationAction>)createAction:(ConversationToken *)token {
+    return [AskUserSuggestionFeedbackAction new];
 }
 
 
