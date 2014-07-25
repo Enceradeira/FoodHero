@@ -9,7 +9,9 @@
 #import "RestaurantSearch.h"
 #import "FHAction.h"
 
+@class FHWhatToDoNext;
 
-@interface HandlePositiveSuggestionFeedbackTask : NSObject <FHAction>
-+ (instancetype)create;
+
+@interface AddTokenAction : NSObject <FHAction>
++ (instancetype)create:(ConversationToken *)token;
 @end

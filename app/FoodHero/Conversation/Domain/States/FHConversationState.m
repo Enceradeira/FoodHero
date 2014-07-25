@@ -10,25 +10,40 @@
 #import "RepeatOnce.h"
 #import "FHAskCuisinePreferenceState.h"
 #import "FHFindingRestaurantFinishedState.h"
+#import "RepeatAlways.h"
+#import "DesignByContractException.h"
 
 
 @implementation FHConversationState {
     Concatenation *_concatenation;
 }
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
-        _concatenation = [Concatenation create:[RepeatOnce create:[FHGreetingState new]],
-                                               [RepeatOnce create:[FHAskCuisinePreferenceState new]],
-                                               [RepeatOnce create:[FHFindingRestaurantState new]],
-                                               [RepeatOnce create:[FHFindingRestaurantFinishedState new]], nil];
+
+        _concatenation = [Concatenation create:
+                [RepeatOnce create:[FHGreetingState new]],
+                [RepeatAlways create:^(){
+                    return
+                            [Concatenation create:
+                                    [RepeatOnce create:
+                                            [FHAskCuisinePreferenceState new]],
+                                    [RepeatOnce create:
+                                            [FHFindingRestaurantState new]],
+                                    [RepeatOnce create:
+                                            [FHFindingRestaurantFinishedState new]], nil];
+                }], nil];
     }
     return self;
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
-    return [_concatenation consume:token];
+    id <ConsumeResult> result = [_concatenation consume:token];
+    if (result.isStateFinished) {
+        @throw [DesignByContractException createWithReason:@"Conversation has finised. This indicates an invalid state"];
+    }
+    return result;
 }
 
 @end

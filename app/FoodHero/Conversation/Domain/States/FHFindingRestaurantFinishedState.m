@@ -7,6 +7,9 @@
 #import "Concatenation.h"
 #import "FHWhatToDoNextState.h"
 #import "RepeatOnce.h"
+#import "UWhatToDoNextAnswerState.h"
+#import "DoOptionally.h"
+#import "FHGoodByeAfterSuccessState.h"
 
 
 @implementation FHFindingRestaurantFinishedState {
@@ -17,7 +20,12 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _concatenation = [Concatenation create:[RepeatOnce create:[FHWhatToDoNextState new]], nil];
+        _concatenation = [Concatenation create:
+                [RepeatOnce create:[FHWhatToDoNextState new]],
+                [RepeatOnce create:[UWhatToDoNextAnswerState new]],
+                [DoOptionally create:
+                        [Concatenation create:
+                                [RepeatOnce create:[FHGoodByeAfterSuccessState new]], nil]], nil];
     }
 
     return self;

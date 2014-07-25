@@ -4,7 +4,8 @@
 //
 
 #import "USuggestionFeedbackForLiking.h"
-#import "HandlePositiveSuggestionFeedbackTask.h"
+#import "AddTokenAction.h"
+#import "FHWhatToDoNext.h"
 
 @implementation USuggestionFeedbackForLiking {
 }
@@ -15,7 +16,7 @@
 }
 
 - (id <ConversationAction>)createAction {
-    return [HandlePositiveSuggestionFeedbackTask create];
+    return [AddTokenAction create:[FHWhatToDoNext new]];
 }
 
 @end

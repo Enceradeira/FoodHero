@@ -9,7 +9,11 @@
 #import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForLiking.h"
 #import "AskUserWhatToDoNextAction.h"
-#import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "UGoodBye.h"
+#import "AskUserWhatToDoAfterGoodByeAction.h"
+#import "AskUserCuisinePreferenceAction.h"
+#import "UWantsToSearchForAnotherRestaurant.h"
+
 
 @interface ConversationFindingRestaurantFinishedTests : ConversationTestsBase
 @end
@@ -27,10 +31,29 @@
 
 }
 
-- (void)test_USuggestionFeedback_ShouldAskUserWhatToDoNext {
+- (void)test_USuggestionFeedbackForLiking_ShouldAskUserWhatToDoNext {
     [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
 
     [self assertLastStatementIs:@"FH:WhatToDoNext" userAction:[AskUserWhatToDoNextAction class]];
+}
+
+- (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccess {
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
+    [self.conversation addToken:[UGoodBye new]];
+
+    [self assertSecondLastStatementIs:@"U:GoodBye" userAction:nil];
+    [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" userAction:[AskUserWhatToDoAfterGoodByeAction class]];
+}
+
+- (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
+    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
+
+    [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
+
+    [self.conversation addToken:[UCuisinePreference create:@"norwegian food"]];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 @end
