@@ -16,7 +16,11 @@
 }
 
 - (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
-    return [FHSuggestion create:restaurant];
+    return nil; // no FH:SuggestionWithComment is displayed when user just didn't like restaurant
+}
+
+- (ConversationToken *)foodHeroConfirmationToken {
+    return nil; // no FH:Confirmation is displayed when user just didn't like the restaurant
 }
 
 

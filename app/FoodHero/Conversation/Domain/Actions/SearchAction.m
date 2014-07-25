@@ -69,15 +69,19 @@
             ConversationToken *fhSuggestionAsFollowUp = [FHSuggestionAsFollowUp create:restaurant];
             ConversationToken *fhSuggestionWithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
-            NSArray *tagAndSymbols = [NSArray arrayWithObjects:
-                    [TagAndToken create:@"FH:Suggestion" token:fhSuggestionToken],
-                    [TagAndToken create:@"FH:SuggestionAsFollowUp" token:fhSuggestionAsFollowUp],
-                    [TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionWithComment], nil];
+            NSMutableArray *tagAndSymbols = [NSMutableArray new];
+            [tagAndSymbols addObject:[TagAndToken create:@"FH:Suggestion" token:fhSuggestionToken]];
+            if( fhSuggestionAsFollowUp != nil) {
+                [tagAndSymbols addObject:[TagAndToken create:@"FH:SuggestionAsFollowUp" token:fhSuggestionAsFollowUp]];
+            }
+            if( fhSuggestionWithComment != nil) {
+                [tagAndSymbols addObject:[TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionWithComment]];
+            }
 
             ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
             [_conversation addToken:chosenToken];
 
-            if (chosenToken == fhSuggestionAsFollowUp) {
+            if (chosenToken == fhSuggestionAsFollowUp && [lastFeedback foodHeroConfirmationToken] != nil) {
                 [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
                     [_conversation addToken:[lastFeedback foodHeroConfirmationToken]];
                 }];
