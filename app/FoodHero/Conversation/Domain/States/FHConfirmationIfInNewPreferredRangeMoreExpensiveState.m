@@ -15,9 +15,4 @@
     return (FHConfirmationIfInNewPreferredRangeMoreExpensiveState *) [super initWithToken:[FHConfirmationIfInNewPreferredRangeMoreExpensive class]];
 }
 
-+ (FHConfirmationIfInNewPreferredRangeMoreExpensiveState *)create {
-    return [[FHConfirmationIfInNewPreferredRangeMoreExpensiveState alloc] init];
-}
-
-
 @end

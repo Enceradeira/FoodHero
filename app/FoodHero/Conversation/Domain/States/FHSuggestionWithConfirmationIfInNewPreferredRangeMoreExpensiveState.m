@@ -16,10 +16,6 @@
     return (FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState *) [super initWithToken:[FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive class]];
 }
 
-+ (FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState *)create {
-    return [[FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState alloc] init];
-}
-
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserSuggestionFeedbackAction new];
 }

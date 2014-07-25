@@ -16,10 +16,6 @@
     return (FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState *) [super initWithToken:[FHSuggestionWithConfirmationIfInNewPreferredRangeCloser class]];
 }
 
-+ (FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState *)create {
-    return [[FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState alloc] init];
-}
-
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
     return [AskUserSuggestionFeedbackAction new];
 }

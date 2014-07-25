@@ -9,6 +9,4 @@
 
 
 @interface FHConfirmationIfInNewPreferredRangeCloserState : AtomicSymbol
-
-+ (FHConfirmationIfInNewPreferredRangeCloserState *)create;
 @end

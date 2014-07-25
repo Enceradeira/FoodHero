@@ -16,5 +16,5 @@
 
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter;
 
-- (id <ConversationAction>)createAction:(id <ConversationSource>)source;
+- (id <ConversationAction>)createAction;
 @end

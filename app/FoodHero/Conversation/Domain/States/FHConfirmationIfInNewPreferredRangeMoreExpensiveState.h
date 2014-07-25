@@ -9,6 +9,4 @@
 
 
 @interface FHConfirmationIfInNewPreferredRangeMoreExpensiveState : AtomicSymbol
-
-+ (FHConfirmationIfInNewPreferredRangeMoreExpensiveState *)create;
 @end

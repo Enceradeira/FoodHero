@@ -11,6 +11,4 @@
 #import "SearchActionState.h"
 
 @interface UCuisinePreferenceState : SearchActionState
-
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

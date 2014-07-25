@@ -13,8 +13,9 @@
 @implementation UDidResolveProblemWithAccessLocationServiceState {
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[UDidResolveProblemWithAccessLocationServiceState alloc] initWithActionFeedback:actionFeedback tokenclass:UDidResolveProblemWithAccessLocationService .class];
+-(instancetype )init{
+    self = [super  initWithToken:UDidResolveProblemWithAccessLocationService.class];
+    return self;
 }
 
 @end

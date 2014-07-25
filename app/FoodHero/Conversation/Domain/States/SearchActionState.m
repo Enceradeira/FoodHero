@@ -9,19 +9,10 @@
 
 
 @implementation SearchActionState {
-    id <ConversationSource> _actionFeedback;
-}
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback tokenclass:(Class)tokenclass {
-    self = [self initWithToken:tokenclass];
-    if (self != nil) {
-        _actionFeedback = actionFeedback;
-    }
-    return self;
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [SearchAction create:_actionFeedback];
+    return [SearchAction new];
 }
 
 @end

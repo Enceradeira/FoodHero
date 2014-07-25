@@ -40,7 +40,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly assembly]];
-    _state = [FHConversationState createWithActionFeedback:self];
+    _state = [FHConversationState new];
 }
 
 -(void)addToken:(ConversationToken *)token{

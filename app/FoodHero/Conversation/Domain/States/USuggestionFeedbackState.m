@@ -10,10 +10,9 @@
 #import "UCuisinePreference.h"
 
 
-@implementation USuggestionFeedbackState{
-
-    id <ConversationSource> _conversationSource;
+@implementation USuggestionFeedbackState {
 }
+
 - (id)init {
     self = [super initWithToken:[USuggestionFeedback class]];
     return self;
@@ -22,19 +21,6 @@
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
     USuggestionFeedback *feedbackToken = (USuggestionFeedback *)token;
 
-    return [feedbackToken createAction: _conversationSource];
+    return [feedbackToken createAction];
 }
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)conversationSource tokenclass:(Class)tokenclass {
-    self = [super initWithToken:tokenclass];
-    if( self != nil){
-        _conversationSource = conversationSource;
-    }
-    return self;
-}
-
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[USuggestionFeedbackState alloc] initWithActionFeedback:actionFeedback tokenclass:USuggestionFeedback.class];
-}
-
 @end

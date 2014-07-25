@@ -10,5 +10,4 @@
 
 @interface FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState : AtomicSymbol
 
-+ (FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState *)create;
 @end

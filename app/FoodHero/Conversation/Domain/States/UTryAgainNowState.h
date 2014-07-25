@@ -11,5 +11,4 @@
 
 
 @interface UTryAgainNowState : SearchActionState
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

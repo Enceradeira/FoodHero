@@ -11,7 +11,4 @@
 #import "SearchActionState.h"
 
 @interface USuggestionFeedbackState : AtomicSymbol
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)conversationSource tokenclass:(Class)tokenclass;
 @end

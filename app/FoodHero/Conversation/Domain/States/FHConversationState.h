@@ -12,7 +12,4 @@
 @class RestaurantSearch;
 
 @interface FHConversationState : NSObject <Symbol>
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback;
-
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

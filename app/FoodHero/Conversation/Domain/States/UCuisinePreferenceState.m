@@ -4,15 +4,15 @@
 //
 
 #import "UCuisinePreferenceState.h"
-#import "SearchAction.h"
 #import "UCuisinePreference.h"
 
 
 @implementation UCuisinePreferenceState {
 }
 
-+ (UCuisinePreferenceState *)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[UCuisinePreferenceState alloc] initWithActionFeedback:actionFeedback tokenclass:UCuisinePreference.class];
+- (instancetype)init {
+    self = [[UCuisinePreferenceState alloc] initWithToken:[UCuisinePreference class]];
+    return self;
 }
 
 @end

@@ -5,12 +5,13 @@
 
 #import "UTryAgainNowState.h"
 #import "UTryAgainNow.h"
-#import "UCuisinePreference.h"
 
 @implementation UTryAgainNowState {
 }
 
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[UTryAgainNowState alloc] initWithActionFeedback:actionFeedback tokenclass:UTryAgainNow.class];
+- (instancetype)init {
+    self = [super initWithToken:UTryAgainNow.class];
+    return self;
 }
+
 @end

@@ -16,9 +16,4 @@
     return (FHConfirmationIfInNewPreferredRangeCheaperState *) [super initWithToken:[FHConfirmationIfInNewPreferredRangeCheaper class]];
 }
 
-+ (FHConfirmationIfInNewPreferredRangeCheaperState *)create {
-    return [[FHConfirmationIfInNewPreferredRangeCheaperState alloc] init];
-}
-
-
 @end

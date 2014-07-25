@@ -25,17 +25,12 @@
 @implementation SearchAction {
 
     RestaurantSearch *_restaurantSearch;
-    id <ConversationSource> _conversation;
     id <TokenRandomizer> _tokenRandomizer;
 }
-+ (SearchAction *)create:(id <ConversationSource>)actionFeedback {
-    return [[SearchAction alloc] initWithFeedback:actionFeedback];
-}
 
-- (id)initWithFeedback:(id <ConversationSource>)conversation {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
-        _conversation = conversation;
         _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         _tokenRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
     }
@@ -43,21 +38,21 @@
 }
 
 
-- (void)execute:(id<ConversationSource>) converationSource {
-    USuggestionNegativeFeedback *lastFeedback = [_conversation.suggestionFeedback linq_lastOrNil];
+- (void)execute:(id<ConversationSource>)conversation {
+    USuggestionNegativeFeedback *lastFeedback = [conversation.suggestionFeedback linq_lastOrNil];
 
-    RACSignal *bestRestaurant = [_restaurantSearch findBest:_conversation.suggestionFeedback];
+    RACSignal *bestRestaurant = [_restaurantSearch findBest:conversation.suggestionFeedback];
     @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error){
         @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
-            [_conversation addToken:[FHBecauseUserDeniedAccessToLocationServices create]];
+            [conversation addToken:[FHBecauseUserDeniedAccessToLocationServices create]];
         }
         else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {
-            [_conversation addToken:[FHBecauseUserIsNotAllowedToUseLocationServices create]];
+            [conversation addToken:[FHBecauseUserIsNotAllowedToUseLocationServices create]];
         }
         else if (error.class == [NoRestaurantsFoundError class]) {
-            [_conversation addToken:[FHNoRestaurantsFound create]];
+            [conversation addToken:[FHNoRestaurantsFound create]];
         }
     }];
     [bestRestaurant subscribeNext:^(id next){
@@ -80,19 +75,19 @@
             }
 
             ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
-            [_conversation addToken:chosenToken];
+            [conversation addToken:chosenToken];
 
             if (chosenToken == fhSuggestionAsFollowUp && [lastFeedback foodHeroConfirmationToken] != nil) {
                 [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
-                    [_conversation addToken:[lastFeedback foodHeroConfirmationToken]];
+                    [conversation addToken:[lastFeedback foodHeroConfirmationToken]];
                 }];
             }
             else if (chosenToken == fhSuggestionWithComment) {
-                [_conversation addToken:[FHConfirmation create]];
+                [conversation addToken:[FHConfirmation create]];
             }
         }
         else {
-            [_conversation addToken:[FHSuggestion create:restaurant]];
+            [conversation addToken:[FHSuggestion create:restaurant]];
         }
 
     }];

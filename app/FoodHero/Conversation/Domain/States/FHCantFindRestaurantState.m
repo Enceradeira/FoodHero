@@ -17,26 +17,21 @@
     Alternation *_alternation;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
+- (instancetype)init{
     self = [super init];
     if (self) {
 
         _alternation = [Alternation create:
                 [RepeatOnce create:[Concatenation create:
                         [RepeatOnce create:[FHCantAccessLocationServiceState new]],
-                                [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState createWithActionFeedback:actionFeedback]], nil]],
+                                [RepeatOnce create:[UDidResolveProblemWithAccessLocationServiceState new]], nil]],
                 [RepeatOnce create:[Concatenation create:
                         [RepeatOnce create:[FHNoRestaurantFoundState new]],
-                                [RepeatOnce create:[UTryAgainNowState createWithActionFeedback:actionFeedback]], nil]], nil];
+                                [RepeatOnce create:[UTryAgainNowState new]], nil]], nil];
     }
 
     return self;
 }
-
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[FHCantFindRestaurantState alloc] initWithActionFeedback:actionFeedback];
-}
-
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     return [_alternation consume:token];

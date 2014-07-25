@@ -17,9 +17,4 @@
     return (FHConfirmationIfInNewPreferredRangeCloserState *) [super initWithToken:[FHConfirmationIfInNewPreferredRangeCloser class]];
 }
 
-+ (FHConfirmationIfInNewPreferredRangeCloserState *)create {
-    return [[FHConfirmationIfInNewPreferredRangeCloserState alloc] init];
-}
-
-
 @end

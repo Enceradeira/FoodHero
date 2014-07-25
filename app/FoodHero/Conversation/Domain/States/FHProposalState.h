@@ -10,5 +10,4 @@
 
 
 @interface FHProposalState : NSObject <Symbol>
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

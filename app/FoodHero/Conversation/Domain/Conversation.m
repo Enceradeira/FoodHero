@@ -34,7 +34,7 @@
         _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
-        _state = [FHConversationState createWithActionFeedback:self];
+        _state = [FHConversationState new];
 
         FHGreeting *greetingToken = [FHGreeting create];
         FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];

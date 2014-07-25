@@ -10,7 +10,4 @@
 #import "AtomicSymbol.h"
 
 @interface SearchActionState : AtomicSymbol
-
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback tokenclass:(Class)tokenclass;
-
 @end

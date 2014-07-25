@@ -20,7 +20,7 @@
 
     Concatenation *_concatenation;
 }
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
+- (instancetype)init{
     self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:
@@ -35,13 +35,9 @@
                                                 [RepeatOnce create:[FHSuggestionWithCommentState new]],
                                                 [RepeatOnce create:[FHConfirmationState new]], nil]], nil]],
 
-                [RepeatOnce create:[USuggestionFeedbackState createWithActionFeedback:actionFeedback]], nil];
+                [RepeatOnce create:[USuggestionFeedbackState new]], nil];
     }
     return self;
-}
-
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[FHProposalState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

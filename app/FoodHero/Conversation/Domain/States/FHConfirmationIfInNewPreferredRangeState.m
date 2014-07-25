@@ -22,9 +22,9 @@
     self = [super init];
     if (self) {
         _alternation = [Alternation create:
-                [RepeatOnce create:[FHConfirmationIfInNewPreferredRangeCheaperState create]],
-                [RepeatOnce create:[FHConfirmationIfInNewPreferredRangeCloserState create]],
-                [RepeatOnce create:[FHConfirmationIfInNewPreferredRangeMoreExpensiveState create]], nil];
+                [RepeatOnce create:[FHConfirmationIfInNewPreferredRangeCheaperState new]],
+                [RepeatOnce create:[FHConfirmationIfInNewPreferredRangeCloserState new]],
+                [RepeatOnce create:[FHConfirmationIfInNewPreferredRangeMoreExpensiveState new]], nil];
     }
 
     return self;

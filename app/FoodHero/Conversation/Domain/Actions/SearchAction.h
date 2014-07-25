@@ -11,5 +11,4 @@
 
 
 @interface SearchAction : NSObject <FHAction>
-+ (SearchAction *)create:(id <ConversationSource>)actionFeedback;
 @end

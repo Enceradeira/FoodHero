@@ -5,8 +5,6 @@
 
 #import "USuggestionNegativeFeedback.h"
 #import "DesignByContractException.h"
-#import "ConversationSource.h"
-#import "ConversationAction.h"
 #import "SearchAction.h"
 
 
@@ -21,8 +19,8 @@
     @throw [DesignByContractException createWithReason:@"method must be overriden in subclass"];
 }
 
-- (id <ConversationAction>)createAction:(id <ConversationSource>)source {
-    return [SearchAction create:source];
+- (id <ConversationAction>)createAction {
+    return [SearchAction new];
 }
 
 @end

@@ -16,28 +16,24 @@
     Concatenation *_concatenation;
 }
 
-- (instancetype)initWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    self = [self init];
+- (instancetype)init {
+    self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:
                 [RepeatAlways create:^(){
-                    return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback];
+                    return [FHCantFindRestaurantState new];
                 }],
-                [RepeatOnce create:[FHFirstProposalState createWithActionFeedback:actionFeedback]],
+                [RepeatOnce create:[FHFirstProposalState new]],
                 [RepeatAlways create:^(){
                     return [Concatenation create:
                             [RepeatAlways create:^(){
-                                return [FHCantFindRestaurantState createWithActionFeedback:actionFeedback];
+                                return [FHCantFindRestaurantState new];
                             }],
-                            [RepeatOnce create:[FHProposalState createWithActionFeedback:actionFeedback]], nil];
+                            [RepeatOnce create:[FHProposalState new]], nil];
                 }],
                 nil];
     }
     return self;
-}
-
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback {
-    return [[FHFindingRestaurantState alloc] initWithActionFeedback:actionFeedback];
 }
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {

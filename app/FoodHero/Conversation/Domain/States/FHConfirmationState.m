@@ -12,7 +12,8 @@
 @implementation FHConfirmationState {
 }
 - (id)init {
-    return [super initWithToken:FHConfirmation.class];
+    self = [super initWithToken:FHConfirmation.class];
+    return self;
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {

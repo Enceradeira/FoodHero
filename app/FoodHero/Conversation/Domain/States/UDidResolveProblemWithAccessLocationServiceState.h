@@ -10,5 +10,4 @@
 #import "SearchActionState.h"
 
 @interface UDidResolveProblemWithAccessLocationServiceState : SearchActionState
-+ (instancetype)createWithActionFeedback:(id <ConversationSource>)actionFeedback;
 @end

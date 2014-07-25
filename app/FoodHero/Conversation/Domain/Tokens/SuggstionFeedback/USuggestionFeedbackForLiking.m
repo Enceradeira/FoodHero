@@ -14,7 +14,7 @@
     return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant parameter:text];
 }
 
-- (id <ConversationAction>)createAction:(id <ConversationSource>)source {
+- (id <ConversationAction>)createAction {
     return [HandlePositiveSuggestionFeedbackTask create];
 }
 
