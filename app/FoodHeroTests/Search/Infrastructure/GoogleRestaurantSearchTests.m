@@ -35,7 +35,8 @@
 }
 
 - (NSArray *)find{
-    NSArray *result = [_service find:_parameter];return result;
+    NSArray *result = [_service find:_parameter];
+    return result;
 }
 
 - (void)test_find_ShouldReturnResultsFromGoogle
@@ -58,6 +59,16 @@
 
     assertThat(types, isNot(hasItem(@"church")));
     assertThat(types, hasItem(@"restaurant"));
+}
+
+-(void)test_textsearch {
+    [_service textsearch];
+}
+
+-(void)test_radarsearch {
+    for(Restaurant *r in [_service radarsearch:_parameter]){
+         NSLog(@"-> %@ %@",r.name,r.vicinity);
+    };
 }
 
 @end
