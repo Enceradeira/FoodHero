@@ -145,13 +145,15 @@ const int InputViewHeight = 100;
 }
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
-    UITextField *textField = self.userCuisinePreferenceText;
+    [self hideKeyboard];
 
-    [textField resignFirstResponder];
-
-    NSString *text = textField.text;
+    NSString *text = self.userCuisinePreferenceText.text;
     UCuisinePreference *userInput = [UCuisinePreference create:text];
     [_appService addUserInput:userInput];    
+}
+
+- (void)hideKeyboard {
+    [(self.userCuisinePreferenceText) resignFirstResponder];
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
@@ -200,6 +202,12 @@ const int InputViewHeight = 100;
     self->_userInputView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y + self->_bubbleView.frame.size.height, viewFrame.size.width, InputViewHeight);
     [UIView commitAnimations];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self hideKeyboard];
+    [super prepareForSegue:segue sender:sender];
+}
+
 /*
  #pragma mark - Navigation
  
