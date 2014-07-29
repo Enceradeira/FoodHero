@@ -16,7 +16,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *userPrefereseBritishFood;
 @property (weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;
 @property (weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
+@property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
 
+- (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender;
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender;

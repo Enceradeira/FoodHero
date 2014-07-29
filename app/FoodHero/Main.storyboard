@@ -52,12 +52,15 @@
                                 <rect key="frame" x="0.0" y="468" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
                                         <rect key="frame" x="54" y="0.0" width="212" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="CuisineText"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5O-tN-uM7">
                                         <rect key="frame" x="20" y="50" width="80" height="30"/>
@@ -86,6 +89,9 @@
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="userCuisinePreferenceSendTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
@@ -144,6 +150,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
+                        <outlet property="userCuisinePreferenceSend" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
                         <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                         <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>
                         <outlet property="userInputView" destination="aiR-fh-GrB" id="t0g-ez-DFn"/>

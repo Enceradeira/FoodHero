@@ -113,6 +113,7 @@ const int InputViewHeight = 100;
 }
 
 - (void)disableUserInput {
+    [self setEnabledForCuisinePreferenceSend];
     [self.userPrefereseBritishFood setHidden:YES];
     [self.userDoesntLikeThatRestaurant setHidden:YES];
 }
@@ -134,6 +135,15 @@ const int InputViewHeight = 100;
             [_userDoesntLikeThatRestaurant setHidden:NO];
         }
     }
+}
+
+- (IBAction)userCuisinePreferenceTextChanged:(id)sender {
+    [self setEnabledForCuisinePreferenceSend];
+}
+
+- (void)setEnabledForCuisinePreferenceSend {
+    NSString *text = self.userCuisinePreferenceText.text;
+    self.userCuisinePreferenceSend.enabled = text.length > 0;
 }
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
