@@ -48,3 +48,11 @@ Then(/^FoodHero suggests something else for British food$/) do
   expect(next_suggestion).not_to eq(@last_suggestion)
   @last_suggestion = next_suggestion
 end
+
+When(/^User wishes to eat British food by typing it$/) do
+  cuisine_text = find_element :name, 'CuisineText'
+  cuisine_text.send_keys 'British'
+
+  cuisine_send = find_element :name, 'CuisineSend'
+  cuisine_send.click
+end

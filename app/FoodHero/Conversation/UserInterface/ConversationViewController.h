@@ -15,7 +15,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property (weak, nonatomic) IBOutlet UIButton *userPrefereseBritishFood;
 @property (weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;
+@property (weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
 
+- (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender;
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender;
 

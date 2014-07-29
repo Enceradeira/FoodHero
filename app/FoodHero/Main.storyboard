@@ -55,6 +55,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
                                         <rect key="frame" x="54" y="0.0" width="212" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="CuisineText"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -76,6 +77,18 @@
                                         </state>
                                         <connections>
                                             <action selector="userDoesntLikeThatRestaurant:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="uCw-qv-CWF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
+                                        <rect key="frame" x="268" y="0.0" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="CuisineSend"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="userCuisinePreferenceSendTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -131,6 +144,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
+                        <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                         <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>
                         <outlet property="userInputView" destination="aiR-fh-GrB" id="t0g-ez-DFn"/>
                         <outlet property="userPrefereseBritishFood" destination="Q5O-tN-uM7" id="5fh-xE-TuL"/>

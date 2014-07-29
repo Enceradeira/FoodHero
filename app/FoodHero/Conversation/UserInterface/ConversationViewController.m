@@ -43,6 +43,7 @@ const int InputViewHeight = 100;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Bubble View
     _bubbleView.delegate = self;
     _bubbleView.dataSource = self;
     _bubbleView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -62,6 +63,7 @@ const int InputViewHeight = 100;
         [_bubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
     }];
 
+    // Input View
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -132,6 +134,13 @@ const int InputViewHeight = 100;
             [_userDoesntLikeThatRestaurant setHidden:NO];
         }
     }
+}
+
+- (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
+    NSString *text = self.userCuisinePreferenceText.text;
+    
+    UCuisinePreference *userInput = [UCuisinePreference create:text];
+    [_appService addUserInput:userInput];    
 }
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender {
