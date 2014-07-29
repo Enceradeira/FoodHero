@@ -62,6 +62,16 @@
 
         [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
     }];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+
+}
+
+- (void)  dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -143,6 +153,9 @@
     [_appService addUserInput:userInput];
 }
 
+- (void)keyboardDidShow:(id)keyboardDidShow {
+
+}
 /*
  #pragma mark - Navigation
  
