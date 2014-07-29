@@ -61,8 +61,8 @@
     }];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
                                                object:nil];
 
 }
@@ -150,16 +150,22 @@
     [_appService addUserInput:userInput];
 }
 
-- (void)keyboardDidShow:(id)notification {
+- (void)keyboardWillShow:(id)notification {
     NSDictionary *userInfo = ((NSNotification *) notification).userInfo;
     CGRect keyboardFrameEnd = [[userInfo valueForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    double keyboardAnimationDuration = ((NSNumber*)[userInfo valueForKey:@"UIKeyboardAnimationDurationUserInfoKey"]).doubleValue;
+    UIViewAnimationCurve keyboardAnimationCurve = (UIViewAnimationCurve)((NSNumber*)[userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"]).integerValue;
     CGFloat keyboardHeight = keyboardFrameEnd.size.height;
 
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:keyboardAnimationDuration];
+    [UIView setAnimationCurve:(UIViewAnimationCurve)keyboardAnimationCurve];
     CGRect bubbleViewFrame = _bubbleView.frame;
     _bubbleView.frame = CGRectMake(bubbleViewFrame.origin.x, bubbleViewFrame.origin.y, bubbleViewFrame.size.width, bubbleViewFrame.size.height - keyboardHeight);
 
     CGRect userInputFrame = _userInputView.frame;
     _userInputView.frame = CGRectMake(userInputFrame.origin.x, userInputFrame.origin.y - keyboardHeight, userInputFrame.size.width, userInputFrame.size.height);
+    [UIView commitAnimations];
 }
 /*
  #pragma mark - Navigation
