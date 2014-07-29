@@ -21,6 +21,8 @@
 
 @end
 
+const int InputViewHeight = 100;
+
 @implementation ConversationViewController {
     ConversationAppService *_appService;
     Restaurant *_lastSuggestedRestaurant;
@@ -151,20 +153,24 @@
 }
 
 - (void)keyboardWillShow:(id)notification {
+    
+    
     NSDictionary *userInfo = ((NSNotification *) notification).userInfo;
     CGRect keyboardFrameEnd = [[userInfo valueForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    CGRect keyboardFrameEndWithRotation = [self.view convertRect:keyboardFrameEnd fromView:nil];
+    
     double keyboardAnimationDuration = ((NSNumber*)[userInfo valueForKey:@"UIKeyboardAnimationDurationUserInfoKey"]).doubleValue;
     UIViewAnimationCurve keyboardAnimationCurve = (UIViewAnimationCurve)((NSNumber*)[userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"]).integerValue;
-    CGFloat keyboardHeight = keyboardFrameEnd.size.height;
+    CGFloat keyboardHeight = keyboardFrameEndWithRotation.size.height;
+
+    CGRect viewFrame = self.view.frame;
+    CGFloat viewHeight = viewFrame.size.height; // current height of the top most container view
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:keyboardAnimationDuration];
     [UIView setAnimationCurve:(UIViewAnimationCurve)keyboardAnimationCurve];
-    CGRect bubbleViewFrame = _bubbleView.frame;
-    _bubbleView.frame = CGRectMake(bubbleViewFrame.origin.x, bubbleViewFrame.origin.y, bubbleViewFrame.size.width, bubbleViewFrame.size.height - keyboardHeight);
-
-    CGRect userInputFrame = _userInputView.frame;
-    _userInputView.frame = CGRectMake(userInputFrame.origin.x, userInputFrame.origin.y - keyboardHeight, userInputFrame.size.width, userInputFrame.size.height);
+    _bubbleView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewHeight - InputViewHeight - keyboardHeight);
+    _userInputView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y + _bubbleView.frame.size.height, viewFrame.size.width, InputViewHeight);
     [UIView commitAnimations];
 }
 /*
