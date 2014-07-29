@@ -11,11 +11,14 @@
 
 @interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property(nonatomic, readonly) UITableView *conversationBubbleView;
+@property (weak, nonatomic) IBOutlet UIView *userInputView;
+@property (weak, nonatomic) IBOutlet UITableView *bubbleView;
+@property (weak, nonatomic) IBOutlet UIButton *userPrefereseBritishFood;
+@property (weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;
 
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender;
+- (IBAction)userDoesntLikeThatRestaurant:(id)sender;
 
 - (void)setConversationAppService:(ConversationAppService *)service;
 
-- (IBAction)userDoesntLikeThatRestaurant:(id)sender;
 @end

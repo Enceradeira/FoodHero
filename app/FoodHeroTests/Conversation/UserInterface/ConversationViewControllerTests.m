@@ -34,7 +34,7 @@
     _ctrl= [ControllerFactory createConversationViewController];
     
     _ctrl.view.hidden = NO;
-    _bubbleView = _ctrl.conversationBubbleView;
+    _bubbleView = _ctrl.bubbleView;
 }
 
 - (ConversationBubbleTableViewCell *)assertRow:(NSUInteger)index {

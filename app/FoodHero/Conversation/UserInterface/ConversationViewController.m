@@ -23,8 +23,6 @@
 
 @implementation ConversationViewController {
     ConversationAppService *_appService;
-    __weak IBOutlet UIButton *_userPreferesBritishFood;
-    __weak IBOutlet UIButton *_userDoesntLikeThatRestaurant;
     Restaurant *_lastSuggestedRestaurant;
 }
 
@@ -43,13 +41,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _conversationBubbleView = (UITableView *) [self.view viewWithTag:100];
-    _conversationBubbleView.delegate = self;
-    _conversationBubbleView.dataSource = self;
-    _conversationBubbleView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _bubbleView.delegate = self;
+    _bubbleView.dataSource = self;
+    _bubbleView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIImageView *backgroundView = [self createBackgroundImage];
-    [backgroundView setFrame:_conversationBubbleView.frame];
-    _conversationBubbleView.backgroundView = backgroundView;
+    [backgroundView setFrame:_bubbleView.frame];
+    _bubbleView.backgroundView = backgroundView;
 
     [[_appService statementIndexes] subscribeNext:^(id next){
         NSUInteger index;
@@ -60,7 +57,7 @@
         NSIndexPath *newIndex = [NSIndexPath indexPathForItem:index inSection:0];
         [newIndexes addObject:newIndex];
 
-        [_conversationBubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
+        [_bubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
     }];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,12 +67,12 @@
 
 }
 
-- (void)  dealloc{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillLayoutSubviews {
-    [_conversationBubbleView reloadData];
+    [_bubbleView reloadData];
 
     [super viewWillLayoutSubviews];
 }
@@ -86,7 +83,7 @@
 }
 
 - (ConversationBubble *)getStatement:(NSIndexPath *)indexPath {
-    ConversationBubble *bubble = [_appService getStatement:(NSUInteger) indexPath.row bubbleWidth:_conversationBubbleView.frame.size.width];
+    ConversationBubble *bubble = [_appService getStatement:(NSUInteger) indexPath.row bubbleWidth:_bubbleView.frame.size.width];
     return bubble;
 }
 
@@ -112,8 +109,8 @@
 }
 
 - (void)disableUserInput {
-    [_userPreferesBritishFood setHidden:YES];
-    [_userDoesntLikeThatRestaurant setHidden:YES];
+    [self.userPrefereseBritishFood setHidden:YES];
+    [self.userDoesntLikeThatRestaurant setHidden:YES];
 }
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
@@ -127,7 +124,7 @@
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
         if (foodHeroBubble.inputAction.class == AskUserCuisinePreferenceAction.class) {
-            [_userPreferesBritishFood setHidden:NO];
+            [self.userPrefereseBritishFood setHidden:NO];
         }
         else if (foodHeroBubble.inputAction.class == AskUserSuggestionFeedbackAction.class) {
             [_userDoesntLikeThatRestaurant setHidden:NO];
@@ -153,8 +150,16 @@
     [_appService addUserInput:userInput];
 }
 
-- (void)keyboardDidShow:(id)keyboardDidShow {
+- (void)keyboardDidShow:(id)notification {
+    NSDictionary *userInfo = ((NSNotification *) notification).userInfo;
+    CGRect keyboardFrameEnd = [[userInfo valueForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    CGFloat keyboardHeight = keyboardFrameEnd.size.height;
 
+    CGRect bubbleViewFrame = _bubbleView.frame;
+    _bubbleView.frame = CGRectMake(bubbleViewFrame.origin.x, bubbleViewFrame.origin.y, bubbleViewFrame.size.width, bubbleViewFrame.size.height - keyboardHeight);
+
+    CGRect userInputFrame = _userInputView.frame;
+    _userInputView.frame = CGRectMake(userInputFrame.origin.x, userInputFrame.origin.y - keyboardHeight, userInputFrame.size.width, userInputFrame.size.height);
 }
 /*
  #pragma mark - Navigation

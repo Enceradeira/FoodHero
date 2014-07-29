@@ -58,6 +58,26 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5O-tN-uM7">
+                                        <rect key="frame" x="20" y="50" width="80" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="British food">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="userChoosesIndianOrBritishFood:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ncE-y4-QNY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kym-MS-c80">
+                                        <rect key="frame" x="124" y="50" width="176" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="I don't like that restaurant">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="userDoesntLikeThatRestaurant:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="uCw-qv-CWF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -109,6 +129,12 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
+                        <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>
+                        <outlet property="userInputView" destination="aiR-fh-GrB" id="t0g-ez-DFn"/>
+                        <outlet property="userPrefereseBritishFood" destination="Q5O-tN-uM7" id="5fh-xE-TuL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1t-2u-Gy7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
