@@ -31,7 +31,7 @@
 
 - (void)animateChange {
     [super hideKeyboard];
-    [super adjustViewsForKeyboardHeight:0 animationDuration:0 animationCurve:UIViewAnimationCurveLinear];
+    // [super adjustViewsForKeyboardHeight:0 animationDuration:0 animationCurve:UIViewAnimationCurveLinear];
 
     CGRect viewFrame = _controller.view.frame;
     CGFloat viewHeight = viewFrame.size.height; // current height of the top most container view

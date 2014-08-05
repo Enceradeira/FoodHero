@@ -29,6 +29,7 @@
 @implementation ConversationViewController {
     ConversationAppService *_appService;
     Restaurant *_lastSuggestedRestaurant;
+    ConversationViewState *_currentViewState;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -68,7 +69,6 @@
 
     // Input View
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
     // UserInputList
     _userInputListView.delegate = self;
@@ -78,7 +78,10 @@
 }
 
 - (void)changeViewState:(ConversationViewState *)viewState {
-    [viewState animateChange];
+    if (![viewState isEqual:_currentViewState]) {
+        [viewState animateChange];
+    }
+    _currentViewState = viewState;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -212,14 +215,6 @@
     NSNumber *animationCurve = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
 
     [self changeViewState:[ConversationViewStateTextInput create:self heigth:keyboardHeight animationCurve:(UIViewAnimationCurve) animationCurve.integerValue animationDuration:animationDuration.doubleValue]];
-}
-
-- (void)keyboardWillHide:(id)notification {
-    NSDictionary *userInfo = ((NSNotification *) notification).userInfo;
-    NSNumber *animationDuration = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationDurationUserInfoKey"];
-    NSNumber *animationCurve = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
-
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:(UIViewAnimationCurve) animationCurve.integerValue aimationDuration:animationDuration.doubleValue]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

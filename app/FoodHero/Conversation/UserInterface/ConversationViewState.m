@@ -41,5 +41,9 @@
     @throw [DesignByContractException createWithReason:@"base class must override this method"];
 }
 
+- (BOOL)isEqual:(id)other {
+    return [[other class] isEqual:[self class]];
+}
+
 
 @end
