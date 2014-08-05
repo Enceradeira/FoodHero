@@ -11,12 +11,11 @@
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
-#import "RACSignal.h"
-#import "ConversationToken.h"
 
 @implementation ConversationAppService {
     NSMutableDictionary *_bubbles;
     Conversation *_conversation;
+    NSArray *_cuisines;
 }
 
 - (id)initWithDependencies:(ConversationRepository *)conversationRepository {
@@ -24,6 +23,7 @@
     if (self != nil) {
         _bubbles = [NSMutableDictionary new];
         _conversation = conversationRepository.get;
+        _cuisines = [NSArray arrayWithObjects:@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese", nil];
     }
     return self;
 }
@@ -56,6 +56,14 @@
 }
 
 - (RACSignal *)statementIndexes {
-   return _conversation.statementIndexes;
+    return _conversation.statementIndexes;
+}
+
+- (NSInteger)getCuisineCount {
+    return _cuisines.count;
+}
+
+- (NSString *)getCuisine:(int)index {
+    return [_cuisines objectAtIndex:index];
 }
 @end

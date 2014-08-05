@@ -71,4 +71,19 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
+-(void)test_getCuisineCount_ShouldReturnCountGreaterThan0
+{
+    assertThatInteger([_service getCuisineCount], is(greaterThan(@0)));
+}
+
+-(void)test_getCuisine_ShouldReturnCuisineForIndex
+{
+    NSString* cuisine0 = [_service getCuisine:0];
+    NSString* cuisine1 = [_service getCuisine:1];
+
+    assertThatInteger(cuisine0.length, is(greaterThan(@0)));
+    assertThatInteger(cuisine1.length, is(greaterThan(@0)));
+    assertThat(cuisine0, isNot(equalTo(cuisine1)));
+}
+
 @end

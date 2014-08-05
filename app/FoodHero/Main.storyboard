@@ -52,67 +52,108 @@
                                 <rect key="frame" x="0.0" y="468" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
-                                        <rect key="frame" x="54" y="0.0" width="212" height="30"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjD-qx-FNu" userLabel="UserInputHeader">
+                                        <rect key="frame" x="-5" y="-20" width="339" height="84"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="CuisineText"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
-                                        </connections>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5O-tN-uM7">
-                                        <rect key="frame" x="20" y="50" width="80" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="British food">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="userChoosesIndianOrBritishFood:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ncE-y4-QNY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kym-MS-c80">
-                                        <rect key="frame" x="124" y="50" width="176" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="I don't like that restaurant">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="userDoesntLikeThatRestaurant:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="uCw-qv-CWF"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
-                                        <rect key="frame" x="268" y="0.0" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="CuisineSend"/>
-                                        <state key="normal" title="Send">
-                                            <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="userCuisinePreferenceSendTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
-                                        <rect key="frame" x="15" y="4" width="22" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="List-Icon-Enabled.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="disabled" image="List-Icon-Disabled.png"/>
-                                        <state key="selected" image="List-Icon-Disabled.png"/>
-                                        <state key="highlighted" image="List-Icon-Disabled.png"/>
-                                    </button>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
+                                                <rect key="frame" x="59" y="20" width="212" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" label="CuisineText"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
+                                                </connections>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5O-tN-uM7">
+                                                <rect key="frame" x="20" y="54" width="80" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="British food">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="userChoosesIndianOrBritishFood:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ncE-y4-QNY"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kym-MS-c80">
+                                                <rect key="frame" x="124" y="54" width="176" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="I don't like that restaurant">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="userDoesntLikeThatRestaurant:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="uCw-qv-CWF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
+                                                <rect key="frame" x="273" y="20" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" label="CuisineSend"/>
+                                                <state key="normal" title="Send">
+                                                    <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="userCuisinePreferenceSendTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
+                                                <rect key="frame" x="20" y="24" width="22" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="List-Icon-Enabled.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="disabled" image="List-Icon-Disabled.png"/>
+                                                <state key="selected" image="List-Icon-Disabled.png"/>
+                                                <state key="highlighted" image="List-Icon-Disabled.png"/>
+                                                <connections>
+                                                    <action selector="userCuisinePreferenceListTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="bme-5j-kB9"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ryi-rQ-fb0" userLabel="UserInputList">
+                                        <rect key="frame" x="0.0" y="62" width="320" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xMX-fu-wvq">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cuisine" id="HEn-kG-nkO" customClass="CuisineCollectionViewCell">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjR-aY-Kse">
+                                                            <rect key="frame" x="8" y="9" width="42" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="UnC-TR-8Th" firstAttribute="top" secondItem="aiR-fh-GrB" secondAttribute="top" id="3Lq-Dd-tV3"/>
-                                    <constraint firstAttribute="trailing" secondItem="UnC-TR-8Th" secondAttribute="trailing" constant="54" id="IDb-4A-PPm"/>
-                                    <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="aiR-fh-GrB" secondAttribute="leading" constant="54" id="RvQ-Pw-zh6"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ryi-rQ-fb0" secondAttribute="trailing" id="Q9r-sh-wbN"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ryi-rQ-fb0" secondAttribute="bottom" id="TD2-zY-HOV"/>
+                                    <constraint firstItem="Ryi-rQ-fb0" firstAttribute="leading" secondItem="aiR-fh-GrB" secondAttribute="leading" id="k6r-br-tbJ"/>
+                                    <constraint firstItem="Ryi-rQ-fb0" firstAttribute="top" secondItem="aiR-fh-GrB" secondAttribute="top" constant="62" id="tlj-1n-PYz"/>
                                     <constraint firstAttribute="height" constant="100" id="ubs-cO-DTf"/>
                                 </constraints>
                             </view>
@@ -163,6 +204,7 @@
                         <outlet property="userCuisinePreferenceSend" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
                         <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                         <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>
+                        <outlet property="userInputListView" destination="Ryi-rQ-fb0" id="iIk-sI-Men"/>
                         <outlet property="userInputView" destination="aiR-fh-GrB" id="t0g-ez-DFn"/>
                         <outlet property="userPrefereseBritishFood" destination="Q5O-tN-uM7" id="5fh-xE-TuL"/>
                     </connections>

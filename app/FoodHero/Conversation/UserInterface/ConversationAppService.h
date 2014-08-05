@@ -25,4 +25,7 @@
 
 - (NSInteger)getStatementCount;
 
+- (NSInteger)getCuisineCount;
+
+- (NSString *)getCuisine:(int)index;
 @end

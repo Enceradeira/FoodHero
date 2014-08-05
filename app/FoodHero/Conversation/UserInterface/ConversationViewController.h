@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ConversationAppService.h"
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,  UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *userInputView;
 @property (weak, nonatomic) IBOutlet UITableView *bubbleView;
@@ -17,12 +17,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;
 @property (weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
 @property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
+@property (weak, nonatomic) IBOutlet UICollectionView *userInputListView;
 
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
 - (IBAction)userChoosesIndianOrBritishFood:(id)sender;
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender;
+- (IBAction)userCuisinePreferenceListTouchUp:(id)sender;
 
 - (void)setConversationAppService:(ConversationAppService *)service;
+
 
 @end

@@ -16,6 +16,7 @@
 #import "ConversationBubbleFoodHero.h"
 #import "DesignByContractException.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "CuisineCollectionViewCell.h"
 
 @interface ConversationViewController ()
 
@@ -66,7 +67,23 @@ const int InputViewHeight = 100;
     // Input View
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    // UserInputList
+    _userInputListView.delegate = self;
+    _userInputListView.dataSource = self;
 
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [_appService getCuisineCount];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString* cuisine = [_appService getCuisine:indexPath.row];
+
+    CuisineCollectionViewCell *cell = [_userInputListView dequeueReusableCellWithReuseIdentifier:@"Cuisine" forIndexPath:indexPath];
+    cell.cuisine = cuisine;
+    return cell;
 }
 
 - (void)dealloc {
@@ -105,7 +122,7 @@ const int InputViewHeight = 100;
         [self configureUserInputFor:bubble];
     }
 
-    ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell *) [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
+    ConversationBubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
     cell.bubble = bubble;
     return cell;
 }
@@ -174,6 +191,9 @@ const int InputViewHeight = 100;
     [_appService addUserInput:userInput];
 }
 
+- (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
+}
+
 - (void)keyboardWillShow:(id)notification {
     NSDictionary *userInfo = ((NSNotification *) notification).userInfo;
     CGRect keyboardFrameEnd = [[userInfo valueForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
@@ -218,4 +238,5 @@ const int InputViewHeight = 100;
  // Pass the selected object to the new view controller.
  }
  */
+
 @end
