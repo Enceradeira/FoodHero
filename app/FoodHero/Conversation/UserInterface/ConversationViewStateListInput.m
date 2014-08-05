@@ -4,8 +4,8 @@
 //
 
 #import "ConversationViewStateListInput.h"
-#import "ConversationViewController.h"
 #import "ViewDimensions.h"
+#import "ConversationViewState+Protected.h"
 
 
 @implementation ConversationViewStateListInput {

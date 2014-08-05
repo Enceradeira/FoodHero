@@ -131,6 +131,7 @@
 		23525C3972A6AD17FC4EF74A /* TokenConsumed.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E96F7A97F08A167181D /* TokenConsumed.m */; };
 		23525C6643881C40D63BEAE6 /* UGoodBye.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258DD6B1DCB71CF04DCEF /* UGoodBye.m */; };
 		23525C7B0EB114E8B227AC25 /* FHGreetingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B3085F5CC9DD3E7D3CB /* FHGreetingState.m */; };
+		23525C896DA40E84278C10CB /* ConversationViewState+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258A1EFDFC7C2A0A6C4D6 /* ConversationViewState+Protected.m */; };
 		23525C92BB1F2F68CB628741 /* UTryAgainNow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352593D17BD11FB31E474D7 /* UTryAgainNow.m */; };
 		23525CC895BA7445E4E751F7 /* ConversationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525484692C3B36C2E5FA0A /* ConversationToken.m */; };
 		23525CCA5FDC27492D17F0C1 /* LocationServiceAuthorizationStatusDeniedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */; };
@@ -372,6 +373,7 @@
 		2352587B431DDC867DE89221 /* FHGoodByeAfterSuccessState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHGoodByeAfterSuccessState.m; sourceTree = "<group>"; };
 		23525885B12C82A6B0FB9E97 /* ConversationViewStateNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewStateNormal.h; sourceTree = "<group>"; };
 		2352588D56941DE6F99F60F9 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
+		235258A1EFDFC7C2A0A6C4D6 /* ConversationViewState+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewState+Protected.m"; sourceTree = "<group>"; };
 		235258AF3D4BB6D3EF83D87E /* ConversationViewState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewState.m; sourceTree = "<group>"; };
 		235258BB5DE0F58FEB0342ED /* UTryAgainNow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTryAgainNow.h; sourceTree = "<group>"; };
 		235258BF89ED549407A36835 /* TestToken2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToken2.h; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 		23525C71EF40BFCC044B34C7 /* ViewDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDimensions.m; sourceTree = "<group>"; };
 		23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppService.m; sourceTree = "<group>"; };
 		23525C7953448EBE76142383 /* AskUserWhatToDoNextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserWhatToDoNextAction.h; sourceTree = "<group>"; };
+		23525C897A27092B4A672B0C /* ConversationViewState+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConversationViewState+Protected.h"; sourceTree = "<group>"; };
 		23525C94DC461CB1CB763DF1 /* FHConfirmationIfInNewPreferredRangeCloser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConfirmationIfInNewPreferredRangeCloser.m; sourceTree = "<group>"; };
 		23525C9AB1E1DF8EC1F94B94 /* FHCantAccessLocationServiceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHCantAccessLocationServiceState.h; sourceTree = "<group>"; };
 		23525C9BF916BE92BD72B95F /* FHConfirmationIfInNewPreferredRangeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConfirmationIfInNewPreferredRangeState.h; sourceTree = "<group>"; };
@@ -772,6 +775,8 @@
 				23525F8AC8D98B75D3043FF0 /* ConversationViewState.h */,
 				23525C71EF40BFCC044B34C7 /* ViewDimensions.m */,
 				23525D17D4BF9DEF5C5EADE0 /* ViewDimensions.h */,
+				235258A1EFDFC7C2A0A6C4D6 /* ConversationViewState+Protected.m */,
+				23525C897A27092B4A672B0C /* ConversationViewState+Protected.h */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1438,6 +1443,7 @@
 				23525BFA7E8513386E51EF43 /* ConversationViewStateListInput.m in Sources */,
 				23525AF441396BD3F67EC5CB /* ConversationViewState.m in Sources */,
 				235250E6ADA975DA83106734 /* ViewDimensions.m in Sources */,
+				23525C896DA40E84278C10CB /* ConversationViewState+Protected.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

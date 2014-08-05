@@ -4,7 +4,7 @@
 //
 
 #import "ConversationViewStateNormal.h"
-#import "ConversationViewController.h"
+#import "ConversationViewState+Protected.h"
 
 
 @implementation ConversationViewStateNormal {

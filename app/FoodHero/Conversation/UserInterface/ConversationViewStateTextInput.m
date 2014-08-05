@@ -5,6 +5,7 @@
 
 #import "ConversationViewStateTextInput.h"
 #import "ConversationViewController.h"
+#import "ConversationViewState+Protected.h"
 
 
 @implementation ConversationViewStateTextInput {

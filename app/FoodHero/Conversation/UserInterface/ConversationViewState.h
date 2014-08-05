@@ -4,18 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ConversationViewController.h"
 
-@class ConversationViewController;
 
 
 @interface ConversationViewState : NSObject
-- (instancetype)initWithController:(ConversationViewController *)controller;
-
-- (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
-
-- (void)animateLayoutWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
-
-- (void)hideKeyboard;
+@property(nonatomic, readonly, weak) ConversationViewController *controller;
 
 -(void)animateChange;
 @end
