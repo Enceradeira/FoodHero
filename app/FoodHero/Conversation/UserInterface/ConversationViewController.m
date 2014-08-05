@@ -20,6 +20,7 @@
 #import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateTextInput.h"
+#import "ConversationViewStateListInput.h"
 
 @interface ConversationViewController ()
 
@@ -168,7 +169,7 @@
 }
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
-    [self hideKeyboard];
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:0 aimationDuration:0]];
 
     NSString *text = self.userCuisinePreferenceText.text;
     UCuisinePreference *userInput = [UCuisinePreference create:text];
@@ -198,6 +199,7 @@
 }
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
+    [self changeViewState:[ConversationViewStateListInput create:self]];
 }
 
 - (void)keyboardWillShow:(id)notification {
@@ -221,7 +223,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self hideKeyboard];
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:0 aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
 }
 

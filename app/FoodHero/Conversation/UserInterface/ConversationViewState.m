@@ -35,6 +35,10 @@ const int InputViewHeight = 100;
     [UIView commitAnimations];
 }
 
+- (void)hideKeyboard {
+    [_controller hideKeyboard];
+}
+
 - (void)animateChange {
     @throw [DesignByContractException createWithReason:@"base class must override this method"];
 }

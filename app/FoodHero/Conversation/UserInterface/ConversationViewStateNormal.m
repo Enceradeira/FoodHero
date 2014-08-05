@@ -26,6 +26,7 @@
 }
 
 - (void)animateChange {
+    [super hideKeyboard];
     [super adjustViewsForKeyboardHeight:0 animationDuration:_animationDuration animationCurve:_animationCurve];
 }
 

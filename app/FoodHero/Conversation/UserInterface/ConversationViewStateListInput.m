@@ -14,4 +14,9 @@
 + (instancetype)create:(ConversationViewController *)controller {
     return [[ConversationViewStateListInput alloc] initWithController:controller];
 }
+
+- (void)animateChange {
+    [super adjustViewsForKeyboardHeight:0 animationDuration:0 animationCurve:UIViewAnimationCurveLinear];
+}
+
 @end

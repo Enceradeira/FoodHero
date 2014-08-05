@@ -13,5 +13,7 @@
 
 - (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(double)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
 
+- (void)hideKeyboard;
+
 -(void)animateChange;
 @end
