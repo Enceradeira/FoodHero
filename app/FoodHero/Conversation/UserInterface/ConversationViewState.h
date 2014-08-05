@@ -11,7 +11,7 @@
 @interface ConversationViewState : NSObject
 - (instancetype)initWithController:(ConversationViewController *)controller;
 
-- (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(double)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
+- (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
 
 - (void)hideKeyboard;
 

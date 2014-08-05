@@ -10,5 +10,5 @@
 
 
 @interface ConversationViewStateListInput : ConversationViewState
-+ (instancetype)create:(ConversationViewController *)controller;
++ (instancetype)create:(ConversationViewController *)controller animationDuration:(NSTimeInterval)animationDuration animationCurve:(enum UIViewAnimationCurve)animationCurve;
 @end

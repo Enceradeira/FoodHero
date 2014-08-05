@@ -6,9 +6,7 @@
 #import "ConversationViewState.h"
 #import "ConversationViewController.h"
 #import "DesignByContractException.h"
-
-
-const int InputViewHeight = 100;
+#import "ViewDimensions.h"
 
 @implementation ConversationViewState {
     ConversationViewController *_controller;
@@ -22,7 +20,7 @@ const int InputViewHeight = 100;
     return self;
 }
 
-- (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(double)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
+- (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
 
     CGRect viewFrame = _controller.view.frame;
     CGFloat viewHeight = viewFrame.size.height; // current height of the top most container view
@@ -30,8 +28,8 @@ const int InputViewHeight = 100;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationCurve:(UIViewAnimationCurve) animationCurve];
-    _controller.bubbleView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewHeight - InputViewHeight - keyboardHeight);
-    _controller.userInputView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y + _controller.bubbleView.frame.size.height, viewFrame.size.width, InputViewHeight);
+    _controller.bubbleView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewHeight - UserInputHeaderHeight - keyboardHeight);
+    _controller.userInputView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y + _controller.bubbleView.frame.size.height, viewFrame.size.width, UserInputHeaderHeight);
     [UIView commitAnimations];
 }
 

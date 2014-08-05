@@ -169,7 +169,7 @@
 }
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:0 aimationDuration:0]];
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
 
     NSString *text = self.userCuisinePreferenceText.text;
     UCuisinePreference *userInput = [UCuisinePreference create:text];
@@ -199,7 +199,7 @@
 }
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
-    [self changeViewState:[ConversationViewStateListInput create:self]];
+    [self changeViewState:[ConversationViewStateListInput create:self animationDuration:0.25 animationCurve:UIViewAnimationCurveEaseOut]];
 }
 
 - (void)keyboardWillShow:(id)notification {
@@ -223,7 +223,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:0 aimationDuration:0]];
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
 }
 
