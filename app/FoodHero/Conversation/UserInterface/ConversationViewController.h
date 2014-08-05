@@ -11,7 +11,6 @@
 
 @interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,  UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UIView *userInputView;
 @property (weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property (weak, nonatomic) IBOutlet UIButton *userPrefereseBritishFood;
 @property (weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;

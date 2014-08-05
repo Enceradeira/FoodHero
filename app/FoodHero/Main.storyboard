@@ -223,7 +223,6 @@
                         <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="Sk0-Tn-II0"/>
                         <outlet property="userInputListHeightConstraint" destination="DYJ-3i-Sqh" id="lwO-ni-nDP"/>
                         <outlet property="userInputListView" destination="Ryi-rQ-fb0" id="iIk-sI-Men"/>
-                        <outlet property="userInputView" destination="aiR-fh-GrB" id="U4I-33-CI8"/>
                         <outlet property="userPrefereseBritishFood" destination="Q5O-tN-uM7" id="5fh-xE-TuL"/>
                     </connections>
                 </viewController>
