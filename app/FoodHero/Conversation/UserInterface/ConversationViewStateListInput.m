@@ -37,18 +37,6 @@
     _controller.bubbleViewHeightConstraint.constant = BubbleViewHeight;
 
     [self animateLayoutWithDuration:_animationDuration animationCurve:_animationCurve];
-
-    /*
-    CGRect viewFrame = _controller.view.frame;
-    CGFloat viewHeight = viewFrame.size.height; // current height of the top most container view
-
-
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:_animationDuration];
-    [UIView setAnimationCurve:(UIViewAnimationCurve) _animationCurve];
-    _controller.bubbleView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewHeight - UserInputHeaderHeight - UserInputListHeight);
-    _controller.userInputView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y + _controller.bubbleView.frame.size.height, viewFrame.size.width, UserInputHeaderHeight + UserInputListHeight);
-    [UIView commitAnimations];*/
 }
 
 @end

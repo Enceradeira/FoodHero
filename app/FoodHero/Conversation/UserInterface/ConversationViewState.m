@@ -22,7 +22,6 @@
 
 - (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
 
-
     _controller.userInputListHeightConstraint.constant = 0;
     _controller.userInputHeaderHeightConstraint.constant = UserInputHeaderHeight;
     // bubbleView gets the space from the hidden userInputList but is shortened by keyboardHeight

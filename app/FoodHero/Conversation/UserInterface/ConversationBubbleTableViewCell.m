@@ -25,6 +25,9 @@
 }
 
 - (void)setBubble:(ConversationBubble *)bubble {
+    if(bubble == _bubble){
+        return;
+    }
     UIView *containerView = [self contentView];
     if (_bubbleView != nil) {
         [_bubbleView removeFromSuperview];
