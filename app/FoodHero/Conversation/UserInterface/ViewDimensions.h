@@ -8,3 +8,4 @@
 
 extern const int UserInputHeaderHeight;
 extern const int UserInputListHeight;
+extern const int BubbleViewHeight;

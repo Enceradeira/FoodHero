@@ -6,5 +6,7 @@
 #import "ViewDimensions.h"
 
 
-const int UserInputHeaderHeight = 100;
-const int UserInputListHeight = 200;
+const int Height = 568;
+const int UserInputHeaderHeight = Height / 9;
+const int UserInputListHeight = Height / 3;
+const int BubbleViewHeight = Height - UserInputHeaderHeight - UserInputListHeight;

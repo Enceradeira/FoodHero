@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
 @property (weak, nonatomic) IBOutlet UICollectionView *userInputListView;
 @property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputListHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
 
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;

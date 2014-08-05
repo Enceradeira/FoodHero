@@ -22,15 +22,25 @@
 
 - (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
 
-    CGRect viewFrame = _controller.view.frame;
-    CGFloat viewHeight = viewFrame.size.height; // current height of the top most container view
 
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:(UIViewAnimationCurve) animationCurve];
-    _controller.bubbleView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewHeight - UserInputHeaderHeight - keyboardHeight);
-    _controller.userInputView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y + _controller.bubbleView.frame.size.height, viewFrame.size.width, UserInputHeaderHeight);
-    [UIView commitAnimations];
+    _controller.userInputListHeightConstraint.constant = 0;
+    _controller.userInputHeaderHeightConstraint.constant = UserInputHeaderHeight;
+    // bubbleView gets the space from the hidden userInputList but is shortened by keyboardHeight
+    _controller.bubbleViewHeightConstraint.constant = BubbleViewHeight + UserInputListHeight - keyboardHeight ;
+
+
+    [self animateLayoutWithDuration:animationDuration animationCurve:animationCurve];
+}
+
+- (void)animateLayoutWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
+    [UIView animateWithDuration:animationDuration delay:0.0 options:[self animationCurveToAnimationOption:animationCurve] animations:^{
+        [_controller.view layoutIfNeeded];
+    }                completion:^(BOOL b){
+    }];
+}
+
+- (UIViewAnimationOptions)animationCurveToAnimationOption:(UIViewAnimationCurve)curve {
+    return (UIViewAnimationOptions) (curve << 16);
 }
 
 - (void)hideKeyboard {
