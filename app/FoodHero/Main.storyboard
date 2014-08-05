@@ -205,7 +205,7 @@
                         <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                         <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>
                         <outlet property="userInputListView" destination="Ryi-rQ-fb0" id="iIk-sI-Men"/>
-                        <outlet property="userInputView" destination="aiR-fh-GrB" id="t0g-ez-DFn"/>
+                        <outlet property="userInputView" destination="aiR-fh-GrB" id="U4I-33-CI8"/>
                         <outlet property="userPrefereseBritishFood" destination="Q5O-tN-uM7" id="5fh-xE-TuL"/>
                     </connections>
                 </viewController>
