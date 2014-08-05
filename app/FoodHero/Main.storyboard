@@ -201,6 +201,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
+                        <outlet property="userCuisinePreferenceList" destination="sD0-Nu-rxO" id="NuF-iI-UFk"/>
                         <outlet property="userCuisinePreferenceSend" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
                         <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                         <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>

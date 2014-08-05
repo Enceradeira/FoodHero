@@ -79,9 +79,10 @@
 
 - (void)changeViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
+        _currentViewState = viewState;
         [viewState animateChange];
+        [self disableUserInput];
     }
-    _currentViewState = viewState;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -139,6 +140,7 @@
 
 - (void)disableUserInput {
     [self setEnabledForCuisinePreferenceSend];
+    [self setEnabledForCuisinePreferenceList];
     [self.userPrefereseBritishFood setHidden:YES];
     [self.userDoesntLikeThatRestaurant setHidden:YES];
 }
@@ -164,6 +166,10 @@
 
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender {
     [self setEnabledForCuisinePreferenceSend];
+}
+
+- (void)setEnabledForCuisinePreferenceList {
+    self.userCuisinePreferenceList.enabled = ![_currentViewState isKindOfClass:ConversationViewStateListInput.class];
 }
 
 - (void)setEnabledForCuisinePreferenceSend {

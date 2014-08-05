@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
 @property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
 @property (weak, nonatomic) IBOutlet UICollectionView *userInputListView;
+@property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
 
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
