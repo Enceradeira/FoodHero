@@ -8,5 +8,5 @@
 
 const int Height = 568;
 const int UserInputHeaderHeight = 60;
-const int UserInputListHeight = 162;
+const int UserInputListHeight = Height / 2;
 const int BubbleViewHeight = Height - UserInputHeaderHeight - UserInputListHeight;
