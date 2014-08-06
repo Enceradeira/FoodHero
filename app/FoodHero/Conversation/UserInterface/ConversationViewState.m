@@ -6,7 +6,6 @@
 #import "ConversationViewState.h"
 #import "ConversationViewController.h"
 #import "DesignByContractException.h"
-#import "ViewDimensions.h"
 
 @implementation ConversationViewState
 

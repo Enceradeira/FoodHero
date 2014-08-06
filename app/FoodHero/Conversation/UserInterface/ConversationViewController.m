@@ -21,6 +21,7 @@
 #import "ConversationViewStateTextInput.h"
 #import "ConversationViewStateListInput.h"
 #import "CuisineTableViewCell.h"
+#import "ViewDimensionHelper.h"
 
 @interface ConversationViewController ()
 
@@ -46,6 +47,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    _viewDimensionHelper = [ViewDimensionHelper create:self.view];
 
     // Bubble View
     _bubbleView.delegate = self;
@@ -248,6 +251,8 @@
     [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
 }
+
+
 
 /*
  #pragma mark - Navigation

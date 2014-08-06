@@ -4,8 +4,8 @@
 //
 
 #import "ConversationViewStateListInput.h"
-#import "ViewDimensions.h"
 #import "ConversationViewState+Protected.h"
+#import "ViewDimensionHelper.h"
 
 
 @implementation ConversationViewStateListInput {
@@ -32,9 +32,10 @@
 - (void)animateChange {
     [super hideKeyboard];
 
-    _controller.userInputListHeightConstraint.constant = UserInputListHeight;
-    _controller.userInputHeaderHeightConstraint.constant = UserInputHeaderHeight;
-    _controller.bubbleViewHeightConstraint.constant = BubbleViewHeight;
+    ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensionHelper;
+    _controller.userInputListHeightConstraint.constant = viewDimensionHelper.userInputListHeight;
+    _controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;
+    _controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight;
 
     [self animateLayoutWithDuration:_animationDuration animationCurve:_animationCurve];
 }
