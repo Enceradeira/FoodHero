@@ -18,7 +18,6 @@
     // bubbleView gets the space from the hidden userInputList but is shortened by keyboardHeight
     self.controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight + viewDimensionHelper.userInputListHeight - keyboardHeight;
 
-
     [self animateLayoutWithDuration:animationDuration animationCurve:animationCurve];
 }
 

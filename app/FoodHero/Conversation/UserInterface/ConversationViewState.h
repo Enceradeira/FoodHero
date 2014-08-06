@@ -12,4 +12,5 @@
 @property(nonatomic, readonly, weak) ConversationViewController *controller;
 
 -(void)animateChange;
+
 @end

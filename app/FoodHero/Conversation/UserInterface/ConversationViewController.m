@@ -48,6 +48,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_userInputListView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    // View
     _viewDimensionHelper = [ViewDimensionHelper create:self.view];
 
     // Bubble View
@@ -72,6 +76,7 @@
 
     // Input View
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
     // UserInputList
     _userInputListView.delegate = self;
@@ -79,6 +84,7 @@
 
     [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
 }
+
 
 - (void)changeViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
@@ -90,6 +96,12 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)deviceOrientationDidChange:(id)deviceOrientationDidChange {
+    _currentViewState = nil;
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
 }
 
 - (void)viewWillLayoutSubviews {

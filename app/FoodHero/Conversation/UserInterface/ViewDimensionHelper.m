@@ -4,14 +4,29 @@
 //
 
 #include "ViewDimensionHelper.h"
+#import "DesignByContractException.h"
 
 @implementation ViewDimensionHelper {
     UIView *_view;
 }
 
 - (int)height {
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    return (int) [_view convertRect:screenBounds fromView:nil].size.height;
+    CGSize rect = [UIScreen mainScreen].bounds.size;
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    //NSLog([NSString stringWithFormat:@"orient: %d",orientation]);
+    switch (orientation) {
+        case UIDeviceOrientationUnknown:
+        case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationPortraitUpsideDown:
+            //NSLog([NSString stringWithFormat:@"height: %f",rect.height]);
+            return (int) rect.height;
+        case UIDeviceOrientationLandscapeLeft:
+        case UIDeviceOrientationLandscapeRight:
+            //NSLog([NSString stringWithFormat:@"height: %f",rect.width]);
+            return (int) rect.width;
+        default:
+            @throw [DesignByContractException createWithReason:@"Don't know how to handle that orientation"];
+    }
 }
 
 - (id)initWithView:(UIView *)view {

@@ -7,8 +7,6 @@
 @interface ViewDimensionHelper : NSObject
 - (int)userInputHeaderHeight;
 
-- (id)initWithView:(UIView *)view;
-
 - (int)userInputListHeight;
 
 - (int)bubbleViewHeight;
