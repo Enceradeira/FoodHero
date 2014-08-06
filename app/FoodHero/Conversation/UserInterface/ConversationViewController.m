@@ -16,7 +16,6 @@
 #import "ConversationBubbleFoodHero.h"
 #import "DesignByContractException.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
-#import "CuisineCollectionViewCell.h"
 #import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateTextInput.h"
@@ -85,16 +84,18 @@
     }
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_appService getCuisineCount];
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel * label = [[UILabel alloc] init];
+    label.text =  [_appService getCuisine:row];
+    return label;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cuisine = [_appService getCuisine:indexPath.row];
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
 
-    CuisineCollectionViewCell *cell = [_userInputListView dequeueReusableCellWithReuseIdentifier:@"Cuisine" forIndexPath:indexPath];
-    cell.cuisine = cuisine;
-    return cell;
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [_appService getCuisineCount];
 }
 
 - (void)dealloc {

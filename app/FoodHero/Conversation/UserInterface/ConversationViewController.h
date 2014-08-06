@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "ConversationAppService.h"
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,  UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,  UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property (weak, nonatomic) IBOutlet UIButton *userPrefereseBritishFood;
 @property (weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;
 @property (weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
 @property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
-@property (weak, nonatomic) IBOutlet UICollectionView *userInputListView;
+@property (weak, nonatomic) IBOutlet UIPickerView *userInputListView;
 @property (weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputListHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;

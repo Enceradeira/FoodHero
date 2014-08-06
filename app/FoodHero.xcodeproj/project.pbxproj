@@ -82,7 +82,6 @@
 		235256CDAF05789E3D222E0B /* TestToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B91D0CD8332EA1540D /* TestToken.m */; };
 		235256EFAF5328F249A28236 /* ConversationFirstProposalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FB6A7CA7732B6D83DA9 /* ConversationFirstProposalTests.m */; };
 		235256F3EA0ECA4918229B35 /* CLLocationManagerProxySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D2A93EABF1059B60A3B /* CLLocationManagerProxySpy.m */; };
-		2352572B903CE128ED3B9240 /* CuisineCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352501CA7020DCF0D444F4C /* CuisineCollectionViewCell.m */; };
 		2352573B293B947B03EDF29C /* RestaurantSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525421492AF0F26931AF6F /* RestaurantSearchTests.m */; };
 		2352576538E45E8CF8CA5D28 /* DesignByContractException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525346FC989D1AB1AF0541 /* DesignByContractException.m */; };
 		2352576ACD99DF1B238F023C /* TagAndToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259516BF6C1A0FE48A4A8 /* TagAndToken.m */; };
@@ -207,7 +206,6 @@
 		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2352500469BE11E8E2069770 /* FHAskCuisinePreferenceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAskCuisinePreferenceState.h; sourceTree = "<group>"; };
 		23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceTests.m; sourceTree = "<group>"; };
-		2352501CA7020DCF0D444F4C /* CuisineCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuisineCollectionViewCell.m; sourceTree = "<group>"; };
 		23525039C0022D930C4B04B8 /* FHSuggestionOrSuggestionFollowUpState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionOrSuggestionFollowUpState.h; sourceTree = "<group>"; };
 		2352503A7241A66B95DB1F14 /* ConversationSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSource.h; sourceTree = "<group>"; };
 		2352503CB37A03BFDC5A9F8F /* USuggestionFeedbackForTooExpensive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooExpensive.m; sourceTree = "<group>"; };
@@ -398,7 +396,6 @@
 		23525A73391F93A71EBD7E0E /* UCuisinePreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCuisinePreference.m; sourceTree = "<group>"; };
 		23525A908B2FABDF3608A6F6 /* FHConversationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConversationState.h; sourceTree = "<group>"; };
 		23525AA96527DD678F2FBFCC /* ReturnsActionForTokenOnceSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnsActionForTokenOnceSymbol.m; sourceTree = "<group>"; };
-		23525AAAD4D77D805C509134 /* CuisineCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuisineCollectionViewCell.h; sourceTree = "<group>"; };
 		23525AB45F30E82DEF54FC6D /* UGoodByeState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UGoodByeState.m; sourceTree = "<group>"; };
 		23525AB7B4B3BE8A17194B52 /* FHNoRestaurantsFound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHNoRestaurantsFound.m; sourceTree = "<group>"; };
 		23525ABB101C59CE5F41DD89 /* FHBecauseUserDeniedAccessToLocationServicesState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserDeniedAccessToLocationServicesState.m; sourceTree = "<group>"; };
@@ -763,8 +760,6 @@
 				235256B67F131FB6E4DA33D8 /* ConversationViewController.m */,
 				2352564B5FB1BAD16F12342B /* ConversationBubbleTableViewCell.h */,
 				23525718C284A5A291BEC9D4 /* ConversationBubbleTableViewCell.m */,
-				2352501CA7020DCF0D444F4C /* CuisineCollectionViewCell.m */,
-				23525AAAD4D77D805C509134 /* CuisineCollectionViewCell.h */,
 				235257EAECD5335C32D04853 /* ConversationViewStateNormal.m */,
 				23525885B12C82A6B0FB9E97 /* ConversationViewStateNormal.h */,
 				23525627F050C7215F6DD9F8 /* ConversationViewStateTextInput.m */,
@@ -1437,7 +1432,6 @@
 				235258C9D79B0B5F4DE9973C /* FHGoodByeAfterSuccessState.m in Sources */,
 				235258227DC785C4B3E0D055 /* UWantsToSearchForAnotherRestaurant.m in Sources */,
 				23525DB9A34EE8DD3862E6A8 /* UWantsToSearchForAnotherRestaurantState.m in Sources */,
-				2352572B903CE128ED3B9240 /* CuisineCollectionViewCell.m in Sources */,
 				23525C15DD6DEB8E7A240E21 /* ConversationViewStateNormal.m in Sources */,
 				235255FCBBD24C9F3AE2988B /* ConversationViewStateTextInput.m in Sources */,
 				23525BFA7E8513386E51EF43 /* ConversationViewStateListInput.m in Sources */,
