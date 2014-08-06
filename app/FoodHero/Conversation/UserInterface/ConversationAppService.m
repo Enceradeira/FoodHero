@@ -7,10 +7,12 @@
 //
 
 #import <ReactiveCocoa.h>
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "ConversationAppService.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
+#import "Cuisine.h"
 
 @implementation ConversationAppService {
     NSMutableDictionary *_bubbles;
@@ -23,7 +25,11 @@
     if (self != nil) {
         _bubbles = [NSMutableDictionary new];
         _conversation = conversationRepository.get;
-        _cuisines = [NSArray arrayWithObjects:@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese", nil];
+        _cuisines =
+                [@[@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese"]
+                        linq_select:^(NSString *name) {
+                            return [Cuisine create:name];
+                        }];
     }
     return self;
 }
@@ -39,7 +45,7 @@
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth {
 
     NSString *key = [NSString stringWithFormat:@"%ld-%ld", (long) index, (long) bubbleWidth];
-    ConversationBubble *bubble = [_bubbles objectForKey:key];
+    ConversationBubble *bubble = _bubbles[key];
     if (bubble == nil) {
         Statement *statement = [_conversation getStatement:index];
 
@@ -50,7 +56,7 @@
             bubble = [[ConversationBubbleUser alloc] initWithStatement:statement width:bubbleWidth index:index];
         }
 
-        [_bubbles setObject:bubble forKey:key];
+        _bubbles[key] = bubble;
     }
     return bubble;
 }
@@ -63,7 +69,7 @@
     return _cuisines.count;
 }
 
-- (NSString *)getCuisine:(int)index {
-    return [_cuisines objectAtIndex:index];
+- (Cuisine *)getCuisine:(NSInteger)index {
+    return _cuisines[index];
 }
 @end

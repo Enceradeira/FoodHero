@@ -14,8 +14,8 @@
 #import "TyphoonComponents.h"
 #import "ConversationAppService.h"
 #import "StubAssembly.h"
-#import "ConversationToken.h"
 #import "UCuisinePreference.h"
+#import "Cuisine.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -47,7 +47,7 @@ const CGFloat landscapeWidth = 400;
 {
     ConversationBubble *bubble1 = [self getStatement:0];
     ConversationBubble *bubble2 = [self getStatement:0];
-    
+
     assertThat(bubble1, is(sameInstance(bubble2)));
 }
 
@@ -55,7 +55,7 @@ const CGFloat landscapeWidth = 400;
 {
     ConversationBubble *bubble1 = [_service getStatement:0 bubbleWidth:portraitWidth];
     ConversationBubble *bubble2 = [_service getStatement:0 bubbleWidth:landscapeWidth];
-    
+
     assertThat(bubble1, isNot(sameInstance(bubble2)));
 }
 
@@ -63,9 +63,9 @@ const CGFloat landscapeWidth = 400;
 {
     id userInput = [UCuisinePreference create:@"British or Indian Food"];
     [_service addUserInput:userInput];
-    
+
     ConversationBubble *bubble = [self getStatement:1];
-    
+
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British or Indian Food")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
@@ -78,12 +78,18 @@ const CGFloat landscapeWidth = 400;
 
 -(void)test_getCuisine_ShouldReturnCuisineForIndex
 {
-    NSString* cuisine0 = [_service getCuisine:0];
-    NSString* cuisine1 = [_service getCuisine:1];
+    Cuisine* cuisine0 = [_service getCuisine:0];
+    Cuisine* cuisine1 = [_service getCuisine:1];
 
-    assertThatInteger(cuisine0.length, is(greaterThan(@0)));
-    assertThatInteger(cuisine1.length, is(greaterThan(@0)));
-    assertThat(cuisine0, isNot(equalTo(cuisine1)));
+    assertThat(cuisine0, is(notNilValue()));
+    assertThat(cuisine1, is(notNilValue()));
 }
 
+- (void)test_getCuisine_ShouldAlwaysReturnSameInstance {
+    Cuisine *cuisine = [_service getCuisine:0];
+    cuisine.isSelected = !cuisine.isSelected;
+
+    Cuisine *cuisineSameInstance = [_service getCuisine:0];
+    assertThatBool(cuisine.isSelected, is(equalToBool(cuisineSameInstance.isSelected)));
+}
 @end

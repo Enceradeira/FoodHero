@@ -135,6 +135,7 @@
 		23525CC895BA7445E4E751F7 /* ConversationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525484692C3B36C2E5FA0A /* ConversationToken.m */; };
 		23525CCA5FDC27492D17F0C1 /* LocationServiceAuthorizationStatusDeniedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */; };
 		23525CD10673BBE686F8364C /* FHBecauseUserDeniedAccessToLocationServicesState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525ABB101C59CE5F41DD89 /* FHBecauseUserDeniedAccessToLocationServicesState.m */; };
+		23525CDB3D0ADED38C4ECB22 /* CuisineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B4C9DB0CF8D2DAAEC55 /* CuisineTableViewCell.m */; };
 		23525CEB9AE28C4414E7F97D /* LocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */; };
 		23525CF60103BA88C933FFAB /* FHGreeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BDB85217DFA5458D37B /* FHGreeting.m */; };
 		23525D0A3EDDD663BAADCDE2 /* FHConfirmationIfInNewPreferredRangeCheaperState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B33E9E99D24E81463B1 /* FHConfirmationIfInNewPreferredRangeCheaperState.m */; };
@@ -143,6 +144,7 @@
 		23525D45AAE0CEAA29DCA6EE /* AskUserToTryAgainAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352532FE8C29682329D925C /* AskUserToTryAgainAction.m */; };
 		23525D70B621210E2EA20666 /* TestToken2.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258690BCFD51D6C3530DF /* TestToken2.m */; };
 		23525D7A43B08031D2D592BB /* ConversationBubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525718C284A5A291BEC9D4 /* ConversationBubbleTableViewCell.m */; };
+		23525D8A1FC6A3DBE8B40F50 /* Cuisine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352542B353268D8A36262D6 /* Cuisine.m */; };
 		23525D8C1FC4D4821DBBEA51 /* FHConfirmationIfInNewPreferredRangeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C4DD2429E9EEC6EE457 /* FHConfirmationIfInNewPreferredRangeState.m */; };
 		23525DB9A34EE8DD3862E6A8 /* UWantsToSearchForAnotherRestaurantState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AF347A3C8D160DA1DC8 /* UWantsToSearchForAnotherRestaurantState.m */; };
 		23525DBEEB221F32859FC141 /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352558C53005FB091C57D0F /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState.m */; };
@@ -289,6 +291,7 @@
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525421492AF0F26931AF6F /* RestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchTests.m; sourceTree = "<group>"; };
 		23525422B8901729789A0019 /* FHBecauseUserDeniedAccessToLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserDeniedAccessToLocationServices.m; sourceTree = "<group>"; };
+		2352542B353268D8A36262D6 /* Cuisine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cuisine.m; sourceTree = "<group>"; };
 		2352544556DD1BD352997392 /* SearchActionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchActionState.h; sourceTree = "<group>"; };
 		23525448185DC7F638E0C758 /* FHSuggestionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionState.h; sourceTree = "<group>"; };
 		2352544F40B5FD5FBFF6DFF7 /* UWantsToSearchForAnotherRestaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWantsToSearchForAnotherRestaurant.h; sourceTree = "<group>"; };
@@ -382,6 +385,7 @@
 		235259455724D2E0CD2FF1A5 /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.h; sourceTree = "<group>"; };
 		2352595115E493054E879BA9 /* ApplicationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAssembly.h; sourceTree = "<group>"; };
 		235259516BF6C1A0FE48A4A8 /* TagAndToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagAndToken.m; sourceTree = "<group>"; };
+		235259549311EF3CBEAF537E /* Cuisine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cuisine.h; sourceTree = "<group>"; };
 		2352595D5502858A28B84E44 /* UWantsToSearchForAnotherRestaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UWantsToSearchForAnotherRestaurant.m; sourceTree = "<group>"; };
 		23525965D879A32525AC6718 /* RestaurantSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearch.h; sourceTree = "<group>"; };
 		235259693DFDF431E6E18FA3 /* AtomicSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicSymbol.h; sourceTree = "<group>"; };
@@ -417,6 +421,7 @@
 		23525B34D00C8BF7E8859201 /* UAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAction.h; sourceTree = "<group>"; };
 		23525B361BB3DBF111481611 /* FHFirstProposalState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHFirstProposalState.m; sourceTree = "<group>"; };
 		23525B43A1C011F14D77190B /* Concatenation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Concatenation.h; sourceTree = "<group>"; };
+		23525B4C9DB0CF8D2DAAEC55 /* CuisineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuisineTableViewCell.m; sourceTree = "<group>"; };
 		23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchParams.m; sourceTree = "<group>"; };
 		23525B56F02D7CC5D01EFAF6 /* USuggestionNegativeFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionNegativeFeedback.m; sourceTree = "<group>"; };
 		23525B606EA734C3976F26B1 /* Statement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statement.m; sourceTree = "<group>"; };
@@ -477,6 +482,7 @@
 		23525E33BB9EBF846A7A4794 /* USuggestionFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedback.m; sourceTree = "<group>"; };
 		23525E36DBF297CB6085C211 /* ReturnsAlwaysTokenNotConsumedSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnsAlwaysTokenNotConsumedSymbol.m; sourceTree = "<group>"; };
 		23525E384AF51605647C688D /* AskUserToTryAgainAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserToTryAgainAction.h; sourceTree = "<group>"; };
+		23525E46FD2A9E20167CF66A /* CuisineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuisineTableViewCell.h; sourceTree = "<group>"; };
 		23525E50832CE14E59EF8B42 /* TyphoonComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponents.m; sourceTree = "<group>"; };
 		23525E513C16B914D5CD1831 /* FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionWithConfirmationIfInNewPreferredRangeCloserState.m; sourceTree = "<group>"; };
 		23525E58701A6BB52FCA4A3F /* FHProposalState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHProposalState.m; sourceTree = "<group>"; };
@@ -772,6 +778,10 @@
 				23525D17D4BF9DEF5C5EADE0 /* ViewDimensions.h */,
 				235258A1EFDFC7C2A0A6C4D6 /* ConversationViewState+Protected.m */,
 				23525C897A27092B4A672B0C /* ConversationViewState+Protected.h */,
+				23525B4C9DB0CF8D2DAAEC55 /* CuisineTableViewCell.m */,
+				23525E46FD2A9E20167CF66A /* CuisineTableViewCell.h */,
+				2352542B353268D8A36262D6 /* Cuisine.m */,
+				235259549311EF3CBEAF537E /* Cuisine.h */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1438,6 +1448,8 @@
 				23525AF441396BD3F67EC5CB /* ConversationViewState.m in Sources */,
 				235250E6ADA975DA83106734 /* ViewDimensions.m in Sources */,
 				23525C896DA40E84278C10CB /* ConversationViewState+Protected.m in Sources */,
+				23525CDB3D0ADED38C4ECB22 /* CuisineTableViewCell.m in Sources */,
+				23525D8A1FC6A3DBE8B40F50 /* Cuisine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

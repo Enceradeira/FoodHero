@@ -20,6 +20,7 @@
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateTextInput.h"
 #import "ConversationViewStateListInput.h"
+#import "CuisineTableViewCell.h"
 
 @interface ConversationViewController ()
 
@@ -84,20 +85,6 @@
     }
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    UILabel * label = [[UILabel alloc] init];
-    label.text =  [_appService getCuisine:row];
-    return label;
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [_appService getCuisineCount];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -119,20 +106,53 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self getStatement:indexPath].height;
+    if( tableView == _bubbleView) {
+        return [self getStatement:indexPath].height;
+    }
+    else{
+        return 44;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_appService getStatementCount];
+    if(tableView == _bubbleView) {
+        return [_appService getStatementCount];
+    }
+    else{
+        return [_appService getCuisineCount];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView == _bubbleView) {
+        return [self getConversationBubbleTableViewCell:tableView indexPath:indexPath];
+    }
+    else{
+        return [self getCuisineTableViewCell:tableView indexPath:indexPath];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   if( tableView == _userInputListView){
+       CuisineTableViewCell *cell = (CuisineTableViewCell *) [_userInputListView cellForRowAtIndexPath:indexPath];
+       cell.isSelected = !cell.isSelected;
+   }
+}
+
+
+- (UITableViewCell *)getCuisineTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
+    CuisineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cuisine" forIndexPath:indexPath];
+    cell.cuisine = [_appService getCuisine:indexPath.row];
+    return cell;
+}
+
+- (UITableViewCell *)getConversationBubbleTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
     ConversationBubble *bubble = [self getStatement:indexPath];
 
     BOOL isLastRow = indexPath.row == [_appService getStatementCount] - 1;
     if (isLastRow) {
-        [self configureUserInputFor:bubble];
-    }
+            [self configureUserInputFor:bubble];
+        }
 
     ConversationBubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
     cell.bubble = bubble;
