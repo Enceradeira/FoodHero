@@ -131,15 +131,15 @@
                                             <constraint firstAttribute="height" constant="162" id="E7L-9O-ku1"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="Cuisine" textLabel="7AW-lg-dBX" style="IBUITableViewCellStyleDefault" id="eVR-Lc-4g5" customClass="CuisineTableViewCell">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cuisine" textLabel="7AW-lg-dBX" style="IBUITableViewCellStyleDefault" id="eVR-Lc-4g5" customClass="CuisineTableViewCell">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eVR-Lc-4g5" id="Rnc-aI-wyH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="281" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7AW-lg-dBX">
-                                                            <rect key="frame" x="15" y="0.0" width="266" height="43"/>
+                                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

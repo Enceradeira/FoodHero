@@ -173,6 +173,9 @@
 		23525FE859887103A2D77FA9 /* RestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B80261B3766FA8C59DD /* RestaurantSearch.m */; };
 		23525FEE18DB91AB89BF3DA1 /* StateFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EF069AED6D66AA5AAD3 /* StateFinished.m */; };
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
+		8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */; };
+		8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */; };
+		8F2F338619923A1300FCEAF4 /* List-Icon-Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F338519923A1300FCEAF4 /* List-Icon-Disabled@2x.png */; };
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F5B7E75196C2F9A00F12328 /* StubAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C36BAE0B3164CAB1E14 /* StubAssembly.m */; };
@@ -190,7 +193,6 @@
 		8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */; };
 		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD4733319883551001FCE4A /* List-Icon-Enabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD4733119883551001FCE4A /* List-Icon-Enabled@2x.png */; };
-		8FD47335198837F6001FCE4A /* List-Icon-Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD47334198837F6001FCE4A /* List-Icon-Disabled@2x.png */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -522,6 +524,9 @@
 		23525FF477756E484E35DF5F /* AddTokenAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTokenAction.m; sourceTree = "<group>"; };
 		2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.xcconfig"; path = "Pods/Pods-FoodHero.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Checked@2x.png"; sourceTree = "<group>"; };
+		8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Unchecked@2x.png"; sourceTree = "<group>"; };
+		8F2F338519923A1300FCEAF4 /* List-Icon-Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Disabled@2x.png"; sourceTree = "<group>"; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8F54745919619C0D00843FEE /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		8F54745A19619C0D00843FEE /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -542,7 +547,6 @@
 		8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
 		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD4733119883551001FCE4A /* List-Icon-Enabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Enabled@2x.png"; sourceTree = "<group>"; };
-		8FD47334198837F6001FCE4A /* List-Icon-Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Disabled@2x.png"; sourceTree = "<group>"; };
 		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1126,8 +1130,10 @@
 			children = (
 				8FCBADD419614B83001ED357 /* FoodHero-Info.plist */,
 				8FCBADD519614B83001ED357 /* InfoPlist.strings */,
+				8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */,
+				8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */,
 				8FD4733119883551001FCE4A /* List-Icon-Enabled@2x.png */,
-				8FD47334198837F6001FCE4A /* List-Icon-Disabled@2x.png */,
+				8F2F338519923A1300FCEAF4 /* List-Icon-Disabled@2x.png */,
 				8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */,
 				8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */,
 				8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */,
@@ -1238,13 +1244,15 @@
 			files = (
 				8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */,
 				8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */,
+				8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */,
+				8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */,
 				8F5474521961797F00843FEE /* Main.storyboard in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
 				8FD4733319883551001FCE4A /* List-Icon-Enabled@2x.png in Resources */,
 				8F60D0E31969ABC3007324B6 /* ConversationBubble-User@2x.png in Resources */,
 				8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */,
-				8FD47335198837F6001FCE4A /* List-Icon-Disabled@2x.png in Resources */,
 				2352547DDBFD70DF2CAD7744 /* simulator_gps_coordinates.gpx in Resources */,
+				8F2F338619923A1300FCEAF4 /* List-Icon-Disabled@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

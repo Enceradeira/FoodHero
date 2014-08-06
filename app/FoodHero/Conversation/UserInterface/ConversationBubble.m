@@ -90,9 +90,7 @@
     _index = index;
 
     _font = [UIFont systemFontOfSize:16];
-    _textAttritbutes = [NSDictionary dictionaryWithObjectsAndKeys:
-            _font, NSFontAttributeName,
-            nil];
+    _textAttritbutes = @{NSFontAttributeName : _font};
     _textDrawingOptions = NSStringDrawingUsesLineFragmentOrigin;
 
     _image = [self renderTextIntoImage:[self getImage] text:[self text] viewWitdh:viewWidth];

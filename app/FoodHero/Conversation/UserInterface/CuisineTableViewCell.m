@@ -5,9 +5,8 @@
 
 #import "CuisineTableViewCell.h"
 
-const UITableViewCellAccessoryType AccessoryTypeForChecked = UITableViewCellAccessoryCheckmark;
-const UITableViewCellAccessoryType AccessoryTypeForNotChecked = UITableViewCellAccessoryNone;
-
+static UIImage* UncheckedImage;
+static UIImage* CheckedImage;
 
 @implementation CuisineTableViewCell {
 
@@ -15,9 +14,14 @@ const UITableViewCellAccessoryType AccessoryTypeForNotChecked = UITableViewCellA
     Cuisine *_cuisine;
 }
 
++ (void) initialize {
+    UncheckedImage = [UIImage imageNamed:@"Checkmark-Unchecked.png"];
+    CheckedImage = [UIImage imageNamed:@"Checkmark-Checked.png"];
+}
+
 - (void)awakeFromNib {
     _label = (UILabel *) [self viewWithTag:100];
-    self.accessoryType = AccessoryTypeForNotChecked;
+    self.imageView.image = UncheckedImage;
 }
 
 - (Cuisine *)cuisine {
@@ -40,7 +44,7 @@ const UITableViewCellAccessoryType AccessoryTypeForNotChecked = UITableViewCellA
 
 - (void)UpdateView {
     _label.text = _cuisine.name;
-    self.accessoryType = _cuisine.isSelected ? AccessoryTypeForChecked : AccessoryTypeForNotChecked;
+    self.imageView.image = _cuisine.isSelected ? CheckedImage : UncheckedImage;
 }
 
 @end
