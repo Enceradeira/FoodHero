@@ -228,12 +228,6 @@
     [(self.userCuisinePreferenceText) resignFirstResponder];
 }
 
-- (IBAction)userChoosesIndianOrBritishFood:(id)sender {
-    [self disableUserInput];
-    UCuisinePreference *userInput = [UCuisinePreference create:@"British food"];
-    [_appService addUserInput:userInput];
-}
-
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender {
     [self disableUserInput];
 

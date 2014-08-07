@@ -31,8 +31,6 @@
 
 - (void)hideKeyboard;
 
-- (IBAction)userChoosesIndianOrBritishFood:(id)sender;
-
 - (IBAction)userDoesntLikeThatRestaurant:(id)sender;
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender;

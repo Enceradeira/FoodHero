@@ -69,16 +69,6 @@
                                                     <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5O-tN-uM7">
-                                                <rect key="frame" x="20" y="30" width="80" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="British food">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="userChoosesIndianOrBritishFood:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ncE-y4-QNY"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kym-MS-c80">
                                                 <rect key="frame" x="133" y="30" width="176" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -218,7 +208,6 @@
                         <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
                         <outlet property="userInputListHeightConstraint" destination="E7L-9O-ku1" id="Ob1-Ug-0GP"/>
                         <outlet property="userInputListView" destination="dx9-uZ-VrH" id="YO9-7U-Jda"/>
-                        <outlet property="userPrefereseBritishFood" destination="Q5O-tN-uM7" id="5fh-xE-TuL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1t-2u-Gy7" userLabel="First Responder" sceneMemberID="firstResponder"/>

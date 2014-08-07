@@ -56,21 +56,4 @@
     assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
 }
 
-
--(void)test_userChoosesCuisine_ShouldDisplayUserAnswerOnSecondRow {
-    [_ctrl userChoosesIndianOrBritishFood:self];
-    
-    ConversationBubbleTableViewCell *userAnswer = [self assertRow:1];
-
-    assertThat(userAnswer.bubble.semanticId, is(equalTo(@"U:CuisinePreference=British food")));
-}
-
--(void)test_userChoosesCuisine_ShouldDisplaySuggestionOnThirdRow {
-    [_ctrl userChoosesIndianOrBritishFood:self];
-
-    ConversationBubbleTableViewCell *suggestion = [self assertRow:2];
-
-     assertThat(suggestion.bubble.semanticId, is(equalTo(@"FH:Suggestion=Kings Head, Norwich")));
-}
-
 @end
