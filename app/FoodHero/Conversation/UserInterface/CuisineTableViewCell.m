@@ -5,8 +5,8 @@
 
 #import "CuisineTableViewCell.h"
 
-static UIImage* UncheckedImage;
-static UIImage* CheckedImage;
+static UIImage *UncheckedImage;
+static UIImage *CheckedImage;
 
 @implementation CuisineTableViewCell {
 
@@ -14,7 +14,7 @@ static UIImage* CheckedImage;
     Cuisine *_cuisine;
 }
 
-+ (void) initialize {
++ (void)initialize {
     UncheckedImage = [UIImage imageNamed:@"Checkmark-Unchecked.png"];
     CheckedImage = [UIImage imageNamed:@"Checkmark-Checked.png"];
 }
@@ -22,6 +22,7 @@ static UIImage* CheckedImage;
 - (void)awakeFromNib {
     _label = (UILabel *) [self viewWithTag:100];
     self.imageView.image = UncheckedImage;
+    [self setIsAccessibilityElement:YES];
 }
 
 - (Cuisine *)cuisine {
@@ -45,6 +46,9 @@ static UIImage* CheckedImage;
 - (void)UpdateView {
     _label.text = _cuisine.name;
     self.imageView.image = _cuisine.isSelected ? CheckedImage : UncheckedImage;
+
+    self.accessibilityLabel = _cuisine.name;
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"CuisineEntry=%@", _cuisine.name];
 }
 
 @end

@@ -28,5 +28,7 @@
 
 - (NSInteger)getCuisineCount;
 
-- (Cuisine *)getCuisine:(NSInteger)index;
+- (Cuisine *)getCuisine:(NSUInteger)index;
+
+- (NSString *)getSelectedCuisineText;
 @end

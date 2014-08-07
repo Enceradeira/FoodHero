@@ -8,28 +8,30 @@ def get_last_element_and_parameter(id)
   return bubble, parameter
 end
 
+def split_at_comma(cuisines_as_string)
+  cuisines_as_string.split(',').map { |s| s.strip }.select { |s| s != '' }
+end
+
+def send_click
+  find_element(:name, 'send cuisine').click
+end
+
+
 Then(/^FoodHero greets users and asks what they wished to eat$/) do
   bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 
-When(/^User wishes to eat British food$/) do
-  button('British food').click
-end
-
-Then(/^User answers with British food$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-U:CuisinePreference')
+Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
+  bubble, parameter = get_last_element_and_parameter('ConversationBubble-U:CuisinePreference')
   expect(bubble).not_to be_nil
+  expect(parameter).to eq(cuisines_as_string)
 end
 
-Then(/^FoodHero suggests something for British food$/) do
+Then(/^FoodHero suggests something for "([^"]*)" food$/) do |cuisines_as_string|
   bubble, @last_suggestion = get_last_element_and_parameter('ConversationBubble-FH:Suggestion')
   expect(@last_suggestion).not_to be_nil
   expect(bubble).not_to be_nil
-end
-
-Then(/^FoodHero asks if he may get location$/) do
-  pending
 end
 
 Then(/^FoodHero asks to enable location\-services in settings$/) do
@@ -41,7 +43,7 @@ When(/^User doesn't like that restaurant$/) do
   button("I don't like that restaurant").click
 end
 
-Then(/^FoodHero suggests something else for British food$/) do
+Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
   bubble, next_suggestion = get_last_element_and_parameter('ConversationBubble-FH:Suggestion')
   expect(bubble).not_to be_nil
   expect(next_suggestion).not_to be_nil
@@ -49,10 +51,18 @@ Then(/^FoodHero suggests something else for British food$/) do
   @last_suggestion = next_suggestion
 end
 
-When(/^User wishes to eat British food by typing it$/) do
-  cuisine_text = find_element :name, 'CuisineText'
-  cuisine_text.send_keys 'British'
+When(/^User wishes to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
+  cuisine_text = find_element :name, 'cuisine text'
+  cuisine_text.send_keys cuisines_as_string
 
-  cuisine_send = find_element :name, 'CuisineSend'
-  cuisine_send.click
+  send_click
+end
+
+
+When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
+  find_element(:name, 'show cuisine list').click
+  split_at_comma(cuisines_as_string).each do |cuisine|
+    get_last_element_and_parameter("CuisineEntry=#{cuisine}")[0].click
+  end
+  send_click
 end

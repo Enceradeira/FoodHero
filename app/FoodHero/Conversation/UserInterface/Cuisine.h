@@ -7,10 +7,11 @@
 
 
 @interface Cuisine : NSObject
-@property (nonatomic) NSString* name;
-@property (nonatomic) BOOL isSelected;
+@property(nonatomic) NSString *name;
+@property(nonatomic) BOOL isSelected;
+@property(nonatomic) NSDate *isSelectedTimeStamp;
 
-+(instancetype)create:(NSString*)name;
++ (instancetype)create:(NSString *)name;
 
 - (id)initWithName:(NSString *)name;
 @end

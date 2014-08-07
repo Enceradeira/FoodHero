@@ -62,7 +62,7 @@
     [backgroundView setFrame:_bubbleView.frame];
     _bubbleView.backgroundView = backgroundView;
 
-    [[_appService statementIndexes] subscribeNext:^(id next){
+    [[_appService statementIndexes] subscribeNext:^(id next) {
         NSUInteger index;
         NSNumber *wrappedIndex = next;
         [wrappedIndex getValue:&index];
@@ -121,43 +121,46 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if( tableView == _bubbleView) {
+    if (tableView == _bubbleView) {
         return [self getStatement:indexPath].height;
     }
-    else{
+    else {
         return 44;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(tableView == _bubbleView) {
+    if (tableView == _bubbleView) {
         return [_appService getStatementCount];
     }
-    else{
+    else {
         return [_appService getCuisineCount];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(tableView == _bubbleView) {
+    if (tableView == _bubbleView) {
         return [self getConversationBubbleTableViewCell:tableView indexPath:indexPath];
     }
-    else{
+    else {
         return [self getCuisineTableViewCell:tableView indexPath:indexPath];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   if( tableView == _userInputListView){
-       CuisineTableViewCell *cell = (CuisineTableViewCell *) [_userInputListView cellForRowAtIndexPath:indexPath];
-       cell.isSelected = !cell.isSelected;
-   }
+    if (tableView == _userInputListView) {
+        CuisineTableViewCell *cell = (CuisineTableViewCell *) [_userInputListView cellForRowAtIndexPath:indexPath];
+        cell.isSelected = !cell.isSelected;
+
+        _userCuisinePreferenceText.text = [_appService getSelectedCuisineText];
+        [self setEnabledForCuisinePreferenceSend];
+    }
 }
 
 
 - (UITableViewCell *)getCuisineTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
     CuisineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cuisine" forIndexPath:indexPath];
-    cell.cuisine = [_appService getCuisine:indexPath.row];
+    cell.cuisine = [_appService getCuisine:(NSUInteger) indexPath.row];
     return cell;
 }
 
@@ -166,8 +169,8 @@
 
     BOOL isLastRow = indexPath.row == [_appService getStatementCount] - 1;
     if (isLastRow) {
-            [self configureUserInputFor:bubble];
-        }
+        [self configureUserInputFor:bubble];
+    }
 
     ConversationBubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
     cell.bubble = bubble;

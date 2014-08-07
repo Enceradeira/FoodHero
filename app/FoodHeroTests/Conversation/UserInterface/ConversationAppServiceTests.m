@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "DefaultAssembly.h"
 #import "ConversationBubbleUser.h"
 #import "TyphoonComponents.h"
@@ -41,6 +42,21 @@ const CGFloat landscapeWidth = 400;
 {
     ConversationBubble *bubble = [_service getStatement:index bubbleWidth:portraitWidth];
     return bubble;
+}
+
+- (NSArray*) cuisines {
+    NSMutableArray * cuisines = [NSMutableArray new];
+    for(NSUInteger i=0; i<[_service getCuisineCount]; i++){
+        [cuisines addObject:[_service getCuisine:i]];
+    }
+    return cuisines;
+}
+
+- (Cuisine *)cuisine:(NSString *)name {
+    Cuisine *african = [[[self cuisines] linq_where:^(Cuisine *c) {
+        return [c.name isEqualToString:name];
+    }] linq_firstOrNil];
+    return african;
 }
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble
@@ -92,4 +108,27 @@ const CGFloat landscapeWidth = 400;
     Cuisine *cuisineSameInstance = [_service getCuisine:0];
     assertThatBool(cuisine.isSelected, is(equalToBool(cuisineSameInstance.isSelected)));
 }
+
+-(void)test_getSelectedCuisineText_ShouldBeEmpty_WhenNoCuisineSelected{
+    assertThat([_service getSelectedCuisineText], is(equalTo(@"")));
+}
+
+- (void)test_getSelectedCuisineText_ShouldContainCuisine_WhenOneCuisineSelected {
+    [self cuisine:@"African"].isSelected = YES;
+    assertThat([_service getSelectedCuisineText], is(equalTo(@"African")));
+}
+
+-(void)test_getSelectedCuisineText_ShouldContainTwoCuisines_WhenTwoCuisinesSelected{
+    [self cuisine:@"Greek"].isSelected = YES;
+    [self cuisine:@"African"].isSelected = YES;
+    assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek or African")));
+}
+
+-(void)test_getSelectedCuisineText_ShouldContainThreeCuisines_WhenThreeCuisinesSelected{
+    [self cuisine:@"Greek"].isSelected = YES;
+    [self cuisine:@"African"].isSelected = YES;
+    [self cuisine:@"German"].isSelected = YES;
+    assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek, African or German")));
+}
+
 @end

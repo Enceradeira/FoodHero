@@ -69,7 +69,31 @@
     return _cuisines.count;
 }
 
-- (Cuisine *)getCuisine:(NSInteger)index {
+- (Cuisine *)getCuisine:(NSUInteger)index {
     return _cuisines[index];
+}
+
+- (NSString *)getSelectedCuisineText {
+    NSMutableString *text = [NSMutableString new];
+    NSArray *cuisines = [[_cuisines
+            linq_where:^(Cuisine *c) {
+                return c.isSelected;
+            }]
+            linq_sort:^(Cuisine *c) {
+                return c.isSelectedTimeStamp;
+            }];
+
+    for (NSInteger i = 0; i < cuisines.count; i++) {
+        Cuisine *cuisine = cuisines[(NSUInteger) i];
+        [text appendString:cuisine.name];
+        if (i <= (NSInteger) cuisines.count - 3) {
+            [text appendString:@", "];
+        }
+        else if (i <= (NSInteger) cuisines.count - 2) {
+            [text appendString:@" or "];
+        }
+    }
+
+    return text;
 }
 @end

@@ -21,4 +21,9 @@
     return self;
 }
 
+-(void)setIsSelected:(BOOL)isSelected {
+    _isSelected = isSelected;
+    _isSelectedTimeStamp = [NSDate date];
+}
+
 @end
