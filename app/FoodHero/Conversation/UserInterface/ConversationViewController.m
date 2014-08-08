@@ -20,8 +20,8 @@
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateTextInput.h"
 #import "ConversationViewStateListInput.h"
-#import "CuisineTableViewCell.h"
 #import "ViewDimensionHelper.h"
+#import "CuisineTableViewController.h"
 
 @interface ConversationViewController ()
 
@@ -47,9 +47,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [_userInputListView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     // View
     _viewDimensionHelper = [ViewDimensionHelper create:self.view];
@@ -78,10 +75,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
-    // UserInputList
-    _userInputListView.delegate = self;
-    _userInputListView.dataSource = self;
-
     [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
 }
 
@@ -92,6 +85,11 @@
         [viewState animateChange];
         [self disableUserInput];
     }
+}
+
+- (void)userInputViewChanged:(NSString *)text {
+    _userCuisinePreferenceText.text = text;
+    [self setEnabledForCuisinePreferenceSend];
 }
 
 - (void)dealloc {
@@ -121,47 +119,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _bubbleView) {
-        return [self getStatement:indexPath].height;
-    }
-    else {
-        return 44;
-    }
+    return [self getStatement:indexPath].height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == _bubbleView) {
-        return [_appService getStatementCount];
-    }
-    else {
-        return [_appService getCuisineCount];
-    }
+    return [_appService getStatementCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _bubbleView) {
-        return [self getConversationBubbleTableViewCell:tableView indexPath:indexPath];
-    }
-    else {
-        return [self getCuisineTableViewCell:tableView indexPath:indexPath];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _userInputListView) {
-        CuisineTableViewCell *cell = (CuisineTableViewCell *) [_userInputListView cellForRowAtIndexPath:indexPath];
-        cell.isSelected = !cell.isSelected;
-
-        _userCuisinePreferenceText.text = [_appService getSelectedCuisineText];
-        [self setEnabledForCuisinePreferenceSend];
-    }
-}
-
-
-- (UITableViewCell *)getCuisineTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-    CuisineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cuisine" forIndexPath:indexPath];
-    cell.cuisine = [_appService getCuisine:(NSUInteger) indexPath.row];
-    return cell;
+    return [self getConversationBubbleTableViewCell:tableView indexPath:indexPath];
 }
 
 - (UITableViewCell *)getConversationBubbleTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
@@ -257,21 +223,14 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+    if ([segue.identifier isEqualToString:@"loginView"] || [segue.identifier isEqualToString:@"mapView"]) {
+        [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+    }
+    else {
+        CuisineTableViewController *ctrl = segue.destinationViewController;
+        ctrl.delegate = self;
+    }
     [super prepareForSegue:segue sender:sender];
 }
-
-
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

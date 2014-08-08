@@ -13,7 +13,7 @@
 
     ViewDimensionHelper *viewDimensionHelper = self.controller.viewDimensionHelper;
 
-    self.controller.userInputListHeightConstraint.constant = 0;
+    self.controller.userInputHeightConstraint.constant = 0;
     self.controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;
     // bubbleView gets the space from the hidden userInputList but is shortened by keyboardHeight
     self.controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight + viewDimensionHelper.userInputListHeight - keyboardHeight;

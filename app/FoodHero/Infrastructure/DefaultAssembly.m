@@ -14,21 +14,31 @@
 #import "RestaurantSearch.h"
 #import "CLLocationManagerImpl.h"
 #import "DefaultTokenRandomizer.h"
+#import "CuisineTableViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
     return [TyphoonDefinition withClass:[NavigationController class]];
 }
 
+- (id)cuisineTableViewController {
+    return [TyphoonDefinition withClass:[CuisineTableViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:[self conversationAppService]];
+
+        }];
+    }];
+}
+
 - (id)conversationViewController {
     return [TyphoonDefinition
             withClass:[ConversationViewController class]
         configuration:^(TyphoonDefinition *definition) {
-                [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
-                    [method injectParameterWith:[self conversationAppService]];
+            [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+                [method injectParameterWith:[self conversationAppService]];
 
-                }];
-            }
+            }];
+        }
     ];
 }
 
@@ -36,11 +46,11 @@
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
         configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
-                    [method injectParameterWith:[self conversationRepository]];
+            [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
+                [method injectParameterWith:[self conversationRepository]];
 
-                }];
-            }
+            }];
+        }
     ];
 }
 
@@ -51,32 +61,32 @@
 - (id)restaurantSearch {
     return [TyphoonDefinition withClass:[RestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithSearchService:withLocationService:) parameters:^(TyphoonMethod *method) {
-                    [method injectParameterWith:[self restaurantSearchService]];
-                    [method injectParameterWith:[self locationService]];
+                              [definition useInitializer:@selector(initWithSearchService:withLocationService:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self restaurantSearchService]];
+                                  [method injectParameterWith:[self locationService]];
 
-                }];
-            }];
+                              }];
+                          }];
 }
 
 - (id)locationService {
     return [TyphoonDefinition withClass:[LocationService class]
                           configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
-                    [method injectParameterWith:[self locationManagerProxy]];
+                              [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self locationManagerProxy]];
 
-                }];
-            }];
+                              }];
+                          }];
 }
 
 - (id)locationManagerProxy {
     return [TyphoonDefinition withClass:[CLLocationManagerImpl class]
                           configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
-                    [method injectParameterWith:[CLLocationManager new]];
+                              [definition useInitializer:@selector(initWithLocationManager:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[CLLocationManager new]];
 
-                }];
-            }];
+                              }];
+                          }];
 }
 
 - (id)tokenRandomizer {
@@ -91,11 +101,11 @@
     return [TyphoonDefinition
             withClass:[Conversation class]
         configuration:^(TyphoonDefinition *definition) {
-                [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
-                    [method injectParameterWith:[self restaurantSearch]];
+            [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
+                [method injectParameterWith:[self restaurantSearch]];
 
-                }];
-            }
+            }];
+        }
     ];
 }
 @end

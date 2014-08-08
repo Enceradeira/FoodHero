@@ -33,7 +33,7 @@
     [super hideKeyboard];
 
     ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensionHelper;
-    _controller.userInputListHeightConstraint.constant = viewDimensionHelper.userInputListHeight;
+    _controller.userInputHeightConstraint.constant = viewDimensionHelper.userInputListHeight;
     _controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;
     _controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight;
 
