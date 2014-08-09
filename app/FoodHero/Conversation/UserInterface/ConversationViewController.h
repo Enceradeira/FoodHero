@@ -10,6 +10,8 @@
 #import "ConversationAppService.h"
 #import "ViewDimensionHelper.h"
 
+@class ConversationViewState;
+
 @interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UActionVisitor>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
@@ -21,6 +23,8 @@
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
 @property(nonatomic, readonly) ViewDimensionHelper *viewDimensionHelper;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
+
+- (void)changeViewState:(ConversationViewState *)viewState;
 
 - (void)userInputViewChanged:(NSString *)text;
 

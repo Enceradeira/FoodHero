@@ -223,7 +223,7 @@
 }
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
-    [self changeViewState:[_currentUserInputContainerViewController getViewStateForListAnimationCurve:UIViewAnimationCurveEaseOut animationDuration:0.25]];
+    [_currentUserInputContainerViewController notifyUserWantsListInput:UIViewAnimationCurveEaseOut animationDuration:0.25];
 }
 
 - (void)keyboardWillShow:(id)notification {
@@ -238,7 +238,7 @@
     NSNumber *animationCurverNumber = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
     UIViewAnimationCurve animationCurve = (UIViewAnimationCurve) animationCurverNumber.integerValue;
 
-    [self changeViewState:[_currentUserInputContainerViewController getViewStateForTextInputHeight:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration]];
+    [_currentUserInputContainerViewController notifyUserWantsTextInput:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

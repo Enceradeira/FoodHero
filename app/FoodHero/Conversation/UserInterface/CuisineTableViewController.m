@@ -51,12 +51,12 @@
     _parentController = controller;
 }
 
-- (ConversationViewState *)getViewStateForListAnimationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListOrTextInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve];
+- (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    [_parentController changeViewState:[ConversationViewStateListOrTextInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
 }
 
-- (ConversationViewState *)getViewStateForTextInputHeight:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateTextInput create:_parentController heigth:height animationCurve:animationCurve animationDuration:animationDuration];
+- (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
+    [_parentController changeViewState:[ConversationViewStateTextInput create:_parentController heigth:height animationCurve:curve animationDuration:duration]];
 }
 
 - (ConversationToken *)createUserInput {

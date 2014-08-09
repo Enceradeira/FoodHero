@@ -46,17 +46,17 @@
     _parentController = controller;
 }
 
-- (ConversationViewState *)getViewStateForListAnimationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve];
-}
-
-- (ConversationViewState *)getViewStateForTextInputHeight:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve];
-}
-
 - (ConversationToken *)createUserInput {
     Restaurant *lastSuggestedRestaurant = [_appService getLastSuggestedRestaurant];
     return [USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant];
+}
+
+- (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    [_parentController changeViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
+}
+
+- (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
+    [_parentController changeViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:duration animationCurve:curve]];
 }
 
 @end

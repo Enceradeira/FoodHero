@@ -9,11 +9,11 @@
 
 
 @protocol UserInputViewController
-- (void)setParentController:(ConversationViewController*)controller;
-
-- (ConversationViewState *)getViewStateForListAnimationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
-
-- (ConversationViewState *)getViewStateForTextInputHeight:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+- (void)setParentController:(ConversationViewController *)controller;
 
 - (ConversationToken *)createUserInput;
+
+- (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)duration;
+
+- (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration;
 @end
