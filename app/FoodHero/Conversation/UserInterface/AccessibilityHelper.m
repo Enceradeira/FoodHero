@@ -9,8 +9,8 @@
 @implementation AccessibilityHelper {
 
 }
-+ (NSString *)sanitizeForLabel:(NSString *)label {
-    NSString *sanitizedName = [label stringByReplacingOccurrencesOfString:@"'" withString:@""];
++ (NSString *)sanitizeForIdentifier:(NSString *)identifier {
+    NSString *sanitizedName = [identifier stringByReplacingOccurrencesOfString:@"'" withString:@""];
     return sanitizedName;
 }
 @end

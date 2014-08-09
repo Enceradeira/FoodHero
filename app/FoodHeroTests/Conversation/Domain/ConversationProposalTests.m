@@ -33,20 +33,20 @@
     // 1. branch (FH:SuggestionAsFollowUp)
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[Restaurant new]]];
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
     [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[Restaurant new]]];
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
     // 1. branch (FH:Suggestion)
     [self.tokenRandomizerStub injectChoice:@"FH:Suggestion"];
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[Restaurant new]]];
-    [super assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
     // 2. branch (FH:SuggestionWithComment)
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[Restaurant new]]];
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
     [super assertLastStatementIs:@"FH:Confirmation" userAction:nil];
 }
 
@@ -55,7 +55,7 @@
 
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]];
 
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 -(void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestionWithComment{
@@ -63,7 +63,7 @@
 
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 -(void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestion{
@@ -71,7 +71,7 @@
 
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 @end

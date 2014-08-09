@@ -26,7 +26,7 @@
 }
 
 - (void)setBubble:(ConversationBubble *)bubble {
-    if(bubble == _bubble){
+    if (bubble == _bubble) {
         return;
     }
     UIView *containerView = [self contentView];
@@ -41,8 +41,8 @@
 
     // following makes element accessable from acceptance tests
     [self setIsAccessibilityElement:YES];
-    self.accessibilityLabel =  bubble.text;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", [AccessibilityHelper sanitizeForLabel:bubble.semanticId]];
+    self.accessibilityLabel = bubble.text;
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", [AccessibilityHelper sanitizeForIdentifier:bubble.semanticId]];
 
     /*
      // Draw border around bubble image and cell

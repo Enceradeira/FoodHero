@@ -38,7 +38,7 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     // Because it's the first suggestion, FHSuggestionAsFollowUp is not a valid option
-    [super assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 @end

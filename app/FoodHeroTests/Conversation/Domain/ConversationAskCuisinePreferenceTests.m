@@ -23,7 +23,7 @@
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 @end

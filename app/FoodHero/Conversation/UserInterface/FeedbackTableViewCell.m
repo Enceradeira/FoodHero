@@ -30,7 +30,7 @@
     self.imageView.image = _feedback.image;
 
     self.accessibilityLabel = _feedback.text;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"FeedbackEntry=%@", [AccessibilityHelper sanitizeForLabel:_feedback.text]];
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"FeedbackEntry=%@", [AccessibilityHelper sanitizeForIdentifier:_feedback.text]];
 }
 
 @end

@@ -26,7 +26,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorized];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
@@ -45,7 +45,7 @@
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 -(void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound{

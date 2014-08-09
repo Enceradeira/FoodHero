@@ -7,5 +7,5 @@
 
 
 @interface AccessibilityHelper : NSObject
-+ (NSString *)sanitizeForLabel:(NSString *)label;
++ (NSString *)sanitizeForIdentifier:(NSString *)identifier;
 @end

@@ -52,7 +52,7 @@ static UIImage *CheckedImage;
     self.imageView.image = _cuisine.isSelected ? CheckedImage : UncheckedImage;
 
     self.accessibilityLabel = _cuisine.name;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"CuisineEntry=%@", [AccessibilityHelper sanitizeForLabel:_cuisine.name]];
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"CuisineEntry=%@", [AccessibilityHelper sanitizeForIdentifier:_cuisine.name]];
 }
 
 @end

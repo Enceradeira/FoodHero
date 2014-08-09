@@ -30,7 +30,7 @@
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationServiceOrUsersTriesAgain_ShouldBeHandledRepeatably{
@@ -64,7 +64,7 @@
     // Problems finally solved
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 -(void)test_USuggestionFeedback_ShouldTriggerFHCanFindRestaurant_WhenAfterConsecutiveProposals{
@@ -80,7 +80,7 @@
 
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
@@ -96,13 +96,13 @@
     [self.restaurantSearchStub injectFindSomething];
 
     [self.conversation addToken:[UTryAgainNow new]];
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 @end
