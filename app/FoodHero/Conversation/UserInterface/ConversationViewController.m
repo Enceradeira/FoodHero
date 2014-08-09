@@ -205,6 +205,7 @@
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
     [_currentUserInputContainerViewController sendUserInput];
+    _userCuisinePreferenceText.text = @"";
 }
 
 - (void)hideKeyboard {
