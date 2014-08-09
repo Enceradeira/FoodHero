@@ -29,7 +29,8 @@
     return [[ConversationViewStateTextInput alloc] initWithController:controller keyboardHeight:heigth animationCurve:animationCurve animationDuration:animationDuration];
 }
 
-- (void)animateChange {
+- (void)activate {
+    [super activate];
     [super adjustViewsForKeyboardHeight:_keyboardHeight animationDuration:_animationDuration animationCurve:_animationCurve];
 }
 

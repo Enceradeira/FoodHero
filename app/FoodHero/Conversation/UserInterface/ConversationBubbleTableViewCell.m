@@ -7,6 +7,7 @@
 //
 
 #import "ConversationBubbleTableViewCell.h"
+#import "AccessibilityHelper.h"
 
 @implementation ConversationBubbleTableViewCell {
     UIImageView *_bubbleView;
@@ -40,8 +41,8 @@
 
     // following makes element accessable from acceptance tests
     [self setIsAccessibilityElement:YES];
-    self.accessibilityLabel = bubble.text;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", bubble.semanticId];
+    self.accessibilityLabel =  bubble.text;
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", [AccessibilityHelper sanitizeForLabel:bubble.semanticId]];
 
     /*
      // Draw border around bubble image and cell

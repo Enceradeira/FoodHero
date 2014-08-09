@@ -5,8 +5,8 @@
 
 #import "FeedbackTableViewController.h"
 #import "FeedbackTableViewCell.h"
-#import "ConversationViewStateListInput.h"
-#import "ConversationViewStateTextInput.h"
+#import "ConversationViewStateListOrTextInput.h"
+#import "ConversationViewStateListOnlyInput.h"
 
 
 @implementation FeedbackTableViewController {
@@ -46,10 +46,10 @@
 }
 
 - (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
+    return [ConversationViewStateListOnlyInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
 }
 
-- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateTextInput create:controller heigth:height animationCurve:animationCurve animationDuration:animationDuration];
+- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)mainController height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateListOnlyInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
 }
 @end

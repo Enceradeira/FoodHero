@@ -12,7 +12,7 @@ def split_at_comma(cuisines_as_string)
   cuisines_as_string.split(',').map { |s| s.strip }.select { |s| s != '' }
 end
 
-def send_click
+def click_send
   find_element(:name, 'send cuisine').click
 end
 
@@ -41,7 +41,8 @@ end
 
 When(/^User doesn't like that restaurant$/) do
   find_element(:name, 'cuisine text').click
-  get_last_element_and_parameter("FeedbackEntry=I don't like that restaurant")[0].click
+  get_last_element_and_parameter('FeedbackEntry=I dont like that restaurant')[0].click
+  click_send
 end
 
 Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
@@ -56,7 +57,7 @@ When(/^User wishes to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
   cuisine_text = find_element :name, 'cuisine text'
   cuisine_text.send_keys cuisines_as_string
 
-  send_click
+  click_send
 end
 
 
@@ -65,5 +66,5 @@ When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_strin
   split_at_comma(cuisines_as_string).each do |cuisine|
     get_last_element_and_parameter("CuisineEntry=#{cuisine}")[0].click
   end
-  send_click
+  click_send
 end

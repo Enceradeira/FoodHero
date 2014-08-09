@@ -4,8 +4,7 @@
 //
 
 #import "ConversationViewState.h"
-#import "ConversationViewController.h"
-#import "DesignByContractException.h"
+#import "ConversationViewState+Protected.h"
 
 @implementation ConversationViewState
 
@@ -17,8 +16,8 @@
     return self;
 }
 
-- (void)animateChange {
-    @throw [DesignByContractException createWithReason:@"base class must override this method"];
+- (void)activate {
+    self.controller.userCuisinePreferenceText.enabled = self.isTextInputEnabled;
 }
 
 - (BOOL)isEqual:(id)other {

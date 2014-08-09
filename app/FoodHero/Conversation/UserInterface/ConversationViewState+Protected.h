@@ -16,4 +16,5 @@
 
 - (void)hideKeyboard;
 
+- (BOOL)isTextInputEnabled;
 @end

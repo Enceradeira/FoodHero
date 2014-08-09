@@ -17,7 +17,7 @@
 #import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateTextInput.h"
-#import "ConversationViewStateListInput.h"
+#import "ConversationViewStateListOrTextInput.h"
 #import "ViewDimensionHelper.h"
 #import "CuisineTableViewController.h"
 #import "TyphoonComponents.h"
@@ -121,7 +121,7 @@
 - (void)changeViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
         _currentViewState = viewState;
-        [viewState animateChange];
+        [viewState activate];
         [self disableUserInput];
     }
 }
@@ -210,7 +210,7 @@
 }
 
 - (void)setEnabledForCuisinePreferenceList {
-    self.userCuisinePreferenceList.enabled = ![_currentViewState isKindOfClass:ConversationViewStateListInput.class];
+    self.userCuisinePreferenceList.enabled = ![_currentViewState isKindOfClass:ConversationViewStateListOrTextInput.class];
 }
 
 - (void)setEnabledForCuisinePreferenceSend {

@@ -4,7 +4,7 @@
 //
 
 #import "FeedbackTableViewCell.h"
-
+#import "AccessibilityHelper.h"
 
 
 @implementation FeedbackTableViewCell {
@@ -20,7 +20,7 @@
 }
 
 
--(void)setFeedback:(Feedback *)feedback {
+- (void)setFeedback:(Feedback *)feedback {
     _feedback = feedback;
     [self UpdateView];
 }
@@ -30,7 +30,7 @@
     self.imageView.image = _feedback.image;
 
     self.accessibilityLabel = _feedback.text;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"FeedbackEntry=%@", _feedback.text];
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"FeedbackEntry=%@", [AccessibilityHelper sanitizeForLabel:_feedback.text]];
 }
 
 @end

@@ -11,6 +11,5 @@
 @interface ConversationViewState : NSObject
 @property(nonatomic, readonly, weak) ConversationViewController *controller;
 
--(void)animateChange;
-
+-(void)activate;
 @end

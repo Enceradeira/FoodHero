@@ -4,6 +4,7 @@
 //
 
 #import "CuisineTableViewCell.h"
+#import "AccessibilityHelper.h"
 
 static UIImage *UncheckedImage;
 static UIImage *CheckedImage;
@@ -51,7 +52,7 @@ static UIImage *CheckedImage;
     self.imageView.image = _cuisine.isSelected ? CheckedImage : UncheckedImage;
 
     self.accessibilityLabel = _cuisine.name;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"CuisineEntry=%@", _cuisine.name];
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"CuisineEntry=%@", [AccessibilityHelper sanitizeForLabel:_cuisine.name]];
 }
 
 @end

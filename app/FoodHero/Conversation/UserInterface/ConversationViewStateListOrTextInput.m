@@ -3,12 +3,12 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationViewStateListInput.h"
+#import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewState+Protected.h"
 #import "ViewDimensionHelper.h"
 
 
-@implementation ConversationViewStateListInput {
+@implementation ConversationViewStateListOrTextInput {
 
     ConversationViewController *_controller;
     NSTimeInterval _animationDuration;
@@ -26,10 +26,11 @@
 }
 
 + (instancetype)create:(ConversationViewController *)controller animationDuration:(NSTimeInterval)animationDuration animationCurve:(enum UIViewAnimationCurve)animationCurve {
-    return [[ConversationViewStateListInput alloc] initWithController:controller animationDuration:animationDuration animationCurve:animationCurve];
+    return [[ConversationViewStateListOrTextInput alloc] initWithController:controller animationDuration:animationDuration animationCurve:animationCurve];
 }
 
-- (void)animateChange {
+- (void)activate {
+    [super activate];
     [super hideKeyboard];
 
     ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensionHelper;

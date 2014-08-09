@@ -25,7 +25,8 @@
     return [[ConversationViewStateNormal alloc] initWithController:controller animationCurve:animationCurve animationDuration:animationDuration];
 }
 
-- (void)animateChange {
+- (void)activate {
+    [super activate];
     [super hideKeyboard];
     [super adjustViewsForKeyboardHeight:0 animationDuration:_animationDuration animationCurve:_animationCurve];
 }

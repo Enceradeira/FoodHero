@@ -36,4 +36,8 @@
     [self.controller hideKeyboard];
 }
 
+- (BOOL)isTextInputEnabled {
+    return YES;
+}
+
 @end

@@ -1,14 +1,12 @@
 //
-// Created by Jorg on 05/08/2014.
+// Created by Jorg on 09/08/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationViewState.h"
-
-@class ConversationViewController;
+#import "ConversationViewStateListOrTextInput.h"
 
 
-@interface ConversationViewStateListInput : ConversationViewState
+@interface ConversationViewStateListOnlyInput : ConversationViewStateListOrTextInput
 + (instancetype)create:(ConversationViewController *)controller animationDuration:(NSTimeInterval)animationDuration animationCurve:(enum UIViewAnimationCurve)animationCurve;
 @end

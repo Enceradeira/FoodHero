@@ -5,6 +5,7 @@
 
 #import "FHSuggestionBase.h"
 #import "DesignByContractException.h"
+#import "AccessibilityHelper.h"
 
 @implementation FHSuggestionBase {
 
@@ -13,7 +14,7 @@
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant {
     NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
     NSString *text = [[NSString alloc] initWithFormat:[self getText], nameAndPlace];
-    NSString *sanitizedName = [nameAndPlace stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    NSString *sanitizedName = [AccessibilityHelper sanitizeForLabel:nameAndPlace];
 
     self = [super initWithParameter:[NSString stringWithFormat:@"%@=%@", [self getTokenName], sanitizedName] parameter:text];
     if (self != nil) {

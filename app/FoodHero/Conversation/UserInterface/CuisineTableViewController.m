@@ -10,7 +10,7 @@
 #import "CuisineTableViewCell.h"
 #import "ConversationAppService.h"
 #import "ConversationViewState.h"
-#import "ConversationViewStateListInput.h"
+#import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewStateTextInput.h"
 
 @implementation CuisineTableViewController {
@@ -54,7 +54,7 @@
 }
 
 - (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
+    return [ConversationViewStateListOrTextInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
 }
 
 - (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
