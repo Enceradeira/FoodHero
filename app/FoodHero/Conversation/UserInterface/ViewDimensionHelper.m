@@ -5,13 +5,23 @@
 
 #include "ViewDimensionHelper.h"
 #import "DesignByContractException.h"
+#import "ConversationViewController.h"
 
 @implementation ViewDimensionHelper {
-    UIView *_view;
+    ConversationViewController *_controller;
 }
 
-- (int)height {
+- (CGFloat)height {
     CGSize rect = [UIScreen mainScreen].bounds.size;
+    if (self.isPortraitOrientation) {
+        return rect.height;
+    }
+    else {
+        return rect.width;
+    }
+}
+
+- (BOOL)isPortraitOrientation {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     //NSLog([NSString stringWithFormat:@"orient: %d",orientation]);
     switch (orientation) {
@@ -21,20 +31,20 @@
         case UIDeviceOrientationFaceUp:
         case UIDeviceOrientationFaceDown:
             //NSLog([NSString stringWithFormat:@"height: %f",rect.height]);
-            return (int) rect.height;
+            return YES;
         case UIDeviceOrientationLandscapeLeft:
         case UIDeviceOrientationLandscapeRight:
             //NSLog([NSString stringWithFormat:@"height: %f",rect.width]);
-            return (int) rect.width;
+            return NO;
         default:
             @throw [DesignByContractException createWithReason:@"Don't know how to handle that orientation"];
     }
 }
 
-- (id)initWithView:(UIView *)view {
+- (id)initWithView:(ConversationViewController *)controller {
     self = [super init];
     if (self != nil) {
-        _view = view;
+        _controller = controller;
     }
     return self;
 }
@@ -44,15 +54,26 @@
 }
 
 - (int)userInputListHeight {
-    return self.height / 2;
+    int maxHeight = (int) (self.height / [self userInputListScreenProportion]);
+    int optimalHeight = _controller.optimalUserInputListHeight;
+    if (optimalHeight > maxHeight) {
+        return maxHeight;
+    }
+    else {
+        return optimalHeight;
+    }
+}
+
+- (int)userInputListScreenProportion {
+    return self.isPortraitOrientation ? 2 : 3;
 }
 
 - (int)bubbleViewHeight {
-    return self.height - self.userInputHeaderHeight - self.userInputListHeight;
+    return (int) self.height - self.userInputHeaderHeight - self.userInputListHeight;
 }
 
-+ (instancetype)create:(UIView *)view {
-    return [[ViewDimensionHelper alloc] initWithView:view];
++ (instancetype)create:(ConversationViewController *)controller {
+    return [[ViewDimensionHelper alloc] initWithView:controller];
 }
 
 

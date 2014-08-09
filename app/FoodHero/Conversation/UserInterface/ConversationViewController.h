@@ -21,7 +21,7 @@
 @property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
-@property(nonatomic, readonly) ViewDimensionHelper *viewDimensionHelper;
+@property(nonatomic, readonly) ViewDimensionHelper *viewDimensons;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 
 - (void)setViewState:(ConversationViewState *)viewState;
@@ -40,4 +40,6 @@
 - (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion;
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+
+- (int)optimalUserInputListHeight;
 @end

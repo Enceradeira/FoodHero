@@ -22,6 +22,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self numberOfRows];
+}
+
+- (NSInteger)numberOfRows {
     return [_appService getCuisineCount];
 }
 
@@ -30,6 +34,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self rowHeight];
+}
+
+- (CGFloat)rowHeight {
     return 44;
 }
 
@@ -63,6 +71,10 @@
 - (void)sendUserInput {
     NSString *text = _parentController.userCuisinePreferenceText.text;
     [_appService addUserInput:[UCuisinePreference create:text]];
+}
+
+- (int)optimalViewHeight {
+    return (int) (self.numberOfRows * self.rowHeight);
 }
 
 

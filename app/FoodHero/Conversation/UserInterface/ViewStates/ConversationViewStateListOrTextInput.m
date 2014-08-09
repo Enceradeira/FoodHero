@@ -32,7 +32,7 @@
 - (void)activate {
     [super activate];
 
-    ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensionHelper;
+    ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensons;
     _controller.userInputHeightConstraint.constant = viewDimensionHelper.userInputListHeight;
     _controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;
     _controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight;

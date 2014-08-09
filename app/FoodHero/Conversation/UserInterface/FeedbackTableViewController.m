@@ -19,6 +19,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self numberOfRows];
+}
+
+- (NSInteger)numberOfRows {
     return [_appService getFeedbackCount];
 }
 
@@ -27,6 +31,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self rowHeight];
+}
+
+- (CGFloat)rowHeight {
     return 44;
 }
 
@@ -64,5 +72,8 @@
     [_appService addUserInput:[USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant]];
 }
 
+- (int)optimalViewHeight {
+    return (int) (self.numberOfRows * self.rowHeight);
+}
 
 @end

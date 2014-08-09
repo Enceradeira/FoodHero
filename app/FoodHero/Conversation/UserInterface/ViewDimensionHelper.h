@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+@class ConversationViewController;
 
 @interface ViewDimensionHelper : NSObject
 - (int)userInputHeaderHeight;
@@ -11,5 +12,5 @@
 
 - (int)bubbleViewHeight;
 
-+ (instancetype)create:(UIView *)view;
++ (instancetype)create:(ConversationViewController *)controller;
 @end

@@ -42,7 +42,7 @@
     [super viewDidLoad];
 
     // View
-    _viewDimensionHelper = [ViewDimensionHelper create:self.view];
+    _viewDimensons = [ViewDimensionHelper create:self];
 
     // Bubble View
     _bubbleView.delegate = self;
@@ -266,4 +266,7 @@
     [super prepareForSegue:segue sender:sender];
 }
 
+- (int)optimalUserInputListHeight {
+    return _currentUserInputContainerViewController.optimalViewHeight;
+}
 @end

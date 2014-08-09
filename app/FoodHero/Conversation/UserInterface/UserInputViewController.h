@@ -16,4 +16,6 @@
 - (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration;
 
 - (void)sendUserInput;
+
+- (int)optimalViewHeight;
 @end

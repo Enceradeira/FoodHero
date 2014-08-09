@@ -27,7 +27,7 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="T9U-Bk-Cko">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" alpha="1" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969"/>
+                        <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell tag="100" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Feedback" textLabel="pUJ-Bt-4sc" style="IBUITableViewCellStyleDefault" id="bdk-zX-qvL" customClass="FeedbackTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -45,7 +45,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969" alpha="1"/>
+                                <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -65,7 +65,7 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jaA-Ys-JK0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" alpha="1" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969"/>
+                        <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cuisine" textLabel="gea-Lc-Mx1" style="IBUITableViewCellStyleDefault" id="5SM-eN-EU3" customClass="CuisineTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -176,7 +176,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" alpha="1" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969"/>
+                                        <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="bjD-qx-FNu" secondAttribute="leading" constant="50" id="63H-72-AQV"/>
                                             <constraint firstAttribute="height" constant="40" id="9Q6-Zn-Gor"/>
