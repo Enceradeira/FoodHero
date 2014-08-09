@@ -41,6 +41,7 @@
     FeedbackTableViewCell *cell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
     _parentController.userCuisinePreferenceText.text = cell.feedback.text;
     [_parentController userCuisinePreferenceTextChanged:self];
+    [_parentController setDefaultViewState:UIViewAnimationCurveEaseInOut animationDuration:0.25];
 }
 
 - (void)setParentController:(ConversationViewController *)controller {
@@ -48,11 +49,11 @@
 }
 
 - (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    [_parentController changeViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
+    [_parentController setViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
 }
 
 - (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
-    [_parentController changeViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:duration animationCurve:curve]];
+    [_parentController setViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:duration animationCurve:curve]];
 }
 
 - (void)sendUserInput {

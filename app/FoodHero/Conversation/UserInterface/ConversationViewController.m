@@ -9,16 +9,11 @@
 #import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
-#import "UCuisinePreference.h"
 #import "USuggestionNegativeFeedback.h"
 #import "ConversationBubbleFoodHero.h"
-#import "DesignByContractException.h"
-#import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
-#import "ConversationViewStateTextInput.h"
 #import "ConversationViewStateListOrTextInput.h"
-#import "ViewDimensionHelper.h"
 #import "CuisineTableViewController.h"
 #import "TyphoonComponents.h"
 
@@ -76,11 +71,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
-    [self setDefaultViewState];
+    [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 }
 
-- (void)setDefaultViewState {
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+- (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    [self setViewState:[ConversationViewStateNormal create:self animationCurve:animationCurve aimationDuration:animationDuration]];
 }
 
 - (void)changeUserInputViewController:(NSString *)identifier {
@@ -117,7 +112,7 @@
     [_currentUserInputContainerViewController didMoveToParentViewController:self];
 }
 
-- (void)changeViewState:(ConversationViewState *)viewState {
+- (void)setViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
         _currentViewState = viewState;
         [viewState activate];
@@ -131,7 +126,7 @@
 
 - (void)deviceOrientationDidChange:(id)deviceOrientationDidChange {
     _currentViewState = nil;
-    [self setDefaultViewState];
+    [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -207,7 +202,7 @@
 }
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
-    [self setDefaultViewState];
+    [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
     [_currentUserInputContainerViewController sendUserInput];
 }
@@ -236,7 +231,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+    [self setViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
 }
 

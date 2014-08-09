@@ -24,7 +24,7 @@
 @property(nonatomic, readonly) ViewDimensionHelper *viewDimensionHelper;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 
-- (void)changeViewState:(ConversationViewState *)viewState;
+- (void)setViewState:(ConversationViewState *)viewState;
 
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 
@@ -37,4 +37,5 @@
 - (void)setConversationAppService:(ConversationAppService *)service;
 
 
+- (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 @end

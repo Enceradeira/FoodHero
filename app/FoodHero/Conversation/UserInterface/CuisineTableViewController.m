@@ -53,11 +53,11 @@
 }
 
 - (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    [_parentController changeViewState:[ConversationViewStateListOrTextInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
+    [_parentController setViewState:[ConversationViewStateListOrTextInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
 }
 
 - (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
-    [_parentController changeViewState:[ConversationViewStateTextInput create:_parentController heigth:height animationCurve:curve animationDuration:duration]];
+    [_parentController setViewState:[ConversationViewStateTextInput create:_parentController heigth:height animationCurve:curve animationDuration:duration]];
 }
 
 - (void)sendUserInput {

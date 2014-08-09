@@ -5,6 +5,7 @@
 
 #import "ConversationViewState.h"
 #import "ConversationViewState+Protected.h"
+#import "FoodHeroColors.h"
 
 @implementation ConversationViewState
 
@@ -17,7 +18,10 @@
 }
 
 - (void)activate {
-    self.controller.userCuisinePreferenceText.enabled = self.isTextInputEnabled;
+    UITextField *userCuisinePreferenceText = self.controller.userCuisinePreferenceText;
+    userCuisinePreferenceText.enabled = self.isTextInputEnabled;
+    userCuisinePreferenceText.backgroundColor =  self.isTextInputEnabled? nil:[FoodHeroColors lightestGrey];
+
     if (!self.isKeyboardVisible) {
         [self hideKeyboard];
     }
