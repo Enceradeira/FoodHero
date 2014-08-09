@@ -16,13 +16,13 @@
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
-@property (weak, nonatomic) IBOutlet UIView *userInputContainerView;
+@property(weak, nonatomic) IBOutlet UIView *userInputContainerView;
 @property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
 @property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
 @property(nonatomic, readonly) ViewDimensionHelper *viewDimensionHelper;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 
 - (void)setViewState:(ConversationViewState *)viewState;
 
@@ -36,6 +36,8 @@
 
 - (void)setConversationAppService:(ConversationAppService *)service;
 
+
+- (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion;
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 @end

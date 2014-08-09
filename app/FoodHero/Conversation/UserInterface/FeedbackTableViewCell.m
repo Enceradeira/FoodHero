@@ -7,15 +7,11 @@
 #import "AccessibilityHelper.h"
 
 
-@implementation FeedbackTableViewCell {
-
-    UILabel *_label;
-}
+@implementation FeedbackTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    _label = (UILabel *) [self viewWithTag:100];
     [self setIsAccessibilityElement:YES];
 }
 
@@ -26,7 +22,7 @@
 }
 
 - (void)UpdateView {
-    _label.text = _feedback.text;
+    self.textLabel.text = _feedback.text;
     self.imageView.image = _feedback.image;
 
     self.accessibilityLabel = _feedback.text;

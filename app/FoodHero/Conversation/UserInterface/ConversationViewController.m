@@ -9,7 +9,6 @@
 #import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
-#import "USuggestionNegativeFeedback.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
@@ -72,6 +71,36 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
+}
+
+- (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion {
+    UIView *originalSuperview = view.superview;
+
+    // position of text input
+    CGRect textinputFrame = _userCuisinePreferenceText.frame;
+    CGRect convertedTextinputFrame = [_userCuisinePreferenceText.superview convertRect:textinputFrame toView:nil];
+
+    // position of view
+    CGRect viewFrame = view.frame;
+    CGRect convertedViewFrame = [view.superview convertRect:viewFrame toView:nil];
+
+    // temporally move view into top-view
+    [view removeFromSuperview];
+    view.frame = CGRectMake(convertedViewFrame.origin.x, convertedViewFrame.origin.y, convertedViewFrame.size.width, convertedViewFrame.size.height);
+    [[self view] addSubview:view];
+    [[self view] bringSubviewToFront:view];
+
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        // move view to position of text input
+        view.frame = convertedTextinputFrame;
+    }                completion:^(BOOL completed) {
+
+        // move view back to original super-view
+        [view removeFromSuperview];
+        view.frame = viewFrame;
+        [originalSuperview addSubview:view];
+        completion(completed);
+    }];
 }
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
