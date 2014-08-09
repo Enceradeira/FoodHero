@@ -18,6 +18,8 @@
         case UIDeviceOrientationUnknown:
         case UIDeviceOrientationPortrait:
         case UIDeviceOrientationPortraitUpsideDown:
+        case UIDeviceOrientationFaceUp:
+        case UIDeviceOrientationFaceDown:
             //NSLog([NSString stringWithFormat:@"height: %f",rect.height]);
             return (int) rect.height;
         case UIDeviceOrientationLandscapeLeft:

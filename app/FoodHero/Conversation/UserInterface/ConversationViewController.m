@@ -82,7 +82,7 @@
 
     // position of view
     CGRect viewFrame = view.frame;
-    CGRect convertedViewFrame = [view.superview convertRect:viewFrame toView:nil];
+    CGRect convertedViewFrame = [view convertRect:viewFrame toView:nil];
 
     // temporally move view into top-view
     [view removeFromSuperview];
@@ -92,7 +92,8 @@
 
     [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         // move view to position of text input
-        view.frame = convertedTextinputFrame;
+        int paddingLeft = 10;
+        view.frame = CGRectMake(convertedTextinputFrame.origin.x + paddingLeft, convertedTextinputFrame.origin.y, convertedTextinputFrame.size.width - paddingLeft, convertedTextinputFrame.size.height);
     }                completion:^(BOOL completed) {
 
         // move view back to original super-view

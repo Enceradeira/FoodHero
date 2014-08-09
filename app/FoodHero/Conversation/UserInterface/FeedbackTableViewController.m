@@ -39,11 +39,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     FeedbackTableViewCell *cell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-
+    _parentController.userCuisinePreferenceText.text =  @"";
     [_parentController animateViewThatMovesToTextInput:cell.textLabel completion:^(BOOL completed) {
         _parentController.userCuisinePreferenceText.text = cell.feedback.text;
         [_parentController userCuisinePreferenceTextChanged:self];
-        [_parentController setDefaultViewState:UIViewAnimationCurveEaseInOut animationDuration:0.25];
+        [_parentController setDefaultViewState:UIViewAnimationCurveEaseOut animationDuration:0.25];
     }];
 }
 
