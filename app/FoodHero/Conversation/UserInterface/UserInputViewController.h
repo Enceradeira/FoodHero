@@ -11,9 +11,9 @@
 @protocol UserInputViewController
 - (void)setParentController:(ConversationViewController *)controller;
 
-- (ConversationToken *)createUserInput;
-
 - (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)duration;
 
 - (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration;
+
+- (void)sendUserInput;
 @end

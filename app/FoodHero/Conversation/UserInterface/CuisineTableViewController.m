@@ -60,9 +60,9 @@
     [_parentController changeViewState:[ConversationViewStateTextInput create:_parentController heigth:height animationCurve:curve animationDuration:duration]];
 }
 
-- (ConversationToken *)createUserInput {
+- (void)sendUserInput {
     NSString *text = _parentController.userCuisinePreferenceText.text;
-    return [UCuisinePreference create:text];
+    [_appService addUserInput:[UCuisinePreference create:text]];
 }
 
 

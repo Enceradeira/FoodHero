@@ -209,7 +209,7 @@
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
     [self setDefaultViewState];
 
-    [_appService addUserInput:[_currentUserInputContainerViewController createUserInput]];
+    [_currentUserInputContainerViewController sendUserInput];
 }
 
 - (void)hideKeyboard {

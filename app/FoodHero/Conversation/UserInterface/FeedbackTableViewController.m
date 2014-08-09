@@ -47,11 +47,6 @@
     _parentController = controller;
 }
 
-- (ConversationToken *)createUserInput {
-    Restaurant *lastSuggestedRestaurant = [_appService getLastSuggestedRestaurant];
-    return [USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant];
-}
-
 - (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
     [_parentController changeViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve]];
 }
@@ -59,5 +54,11 @@
 - (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
     [_parentController changeViewState:[ConversationViewStateListOnlyInput create:_parentController animationDuration:duration animationCurve:curve]];
 }
+
+- (void)sendUserInput {
+    Restaurant *lastSuggestedRestaurant = [_appService getLastSuggestedRestaurant];
+    [_appService addUserInput:[USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant]];
+}
+
 
 @end
