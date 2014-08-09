@@ -10,6 +10,18 @@
 }
 - (NSArray *)find:(RestaurantSearchParams *)parameter {
 
+    NSArray *fakeResults = @[
+            [Restaurant createWithName:@"King's Head" vicinity:@"Prince of Wales Road, Norwich" types:@[] placeId:@"37737318"],
+            [Restaurant createWithName:@"Blossom Lilly" vicinity:@"Switch main, Road, Norwich" types:@[] placeId:@"34134"],
+            [Restaurant createWithName:@"Buddies Inn" vicinity:@"Gherkin way, Norwich" types:@[] placeId:@"37737123415318"],
+            [Restaurant createWithName:@"Rubber Duck" vicinity:@"Sea way, Norwich" types:@[] placeId:@"377355557318"],
+            [Restaurant createWithName:@"Macintosh" vicinity:@"Kingscross, Norwich" types:@[] placeId:@"3773667318"],
+            [Restaurant createWithName:@"Mac Donalds" vicinity:@"Barbarat 78, Norwich" types:@[] placeId:@"377323155517318"],
+            [Restaurant createWithName:@"Silly cow" vicinity:@"Roundhead, Norwich" types:@[] placeId:@"534"]
+    ];
+    return fakeResults;
+
+
     CLLocationCoordinate2D coordinate = parameter.location;
 
     NSArray *types = [NSArray arrayWithObjects:@"restaurant", @"cafe", @"food", nil];

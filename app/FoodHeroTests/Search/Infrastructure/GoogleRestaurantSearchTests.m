@@ -39,6 +39,7 @@
     return result;
 }
 
+/*
 - (void)test_find_ShouldReturnResultsFromGoogle
 {
     NSArray *result = [self find];
@@ -70,5 +71,6 @@
          NSLog(@"-> %@ %@",r.name,r.vicinity);
     };
 }
+*/
 
 @end
