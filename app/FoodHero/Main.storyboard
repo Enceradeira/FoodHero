@@ -27,7 +27,7 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="T9U-Bk-Cko">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" alpha="1" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969"/>
                         <prototypes>
                             <tableViewCell tag="100" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Feedback" textLabel="pUJ-Bt-4sc" style="IBUITableViewCellStyleDefault" id="bdk-zX-qvL" customClass="FeedbackTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -45,6 +45,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969" alpha="1"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -64,7 +65,7 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jaA-Ys-JK0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" alpha="1" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cuisine" textLabel="gea-Lc-Mx1" style="IBUITableViewCellStyleDefault" id="5SM-eN-EU3" customClass="CuisineTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -132,11 +133,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjD-qx-FNu" userLabel="UserInputHeaderView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
-                                                <rect key="frame" x="59" y="0.0" width="212" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UnC-TR-8Th">
+                                                <rect key="frame" x="50" y="5" width="220" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="cuisine text"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -145,8 +146,8 @@
                                                     <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
-                                                <rect key="frame" x="273" y="0.0" width="46" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
+                                                <rect key="frame" x="272" y="5" width="46" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="send cuisine"/>
                                                 <state key="normal" title="Send">
@@ -160,8 +161,8 @@
                                                     <action selector="userCuisinePreferenceSendTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
-                                                <rect key="frame" x="20" y="0.0" width="22" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="show cuisine list"/>
                                                 <state key="normal" image="List-Icon-Enabled.png">
@@ -175,13 +176,25 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" alpha="1" colorSpace="calibratedRGB" red="0.969" green="0.969" blue="0.969"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="9Q6-Zn-Gor"/>
+                                            <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="bjD-qx-FNu" secondAttribute="leading" constant="50" id="63H-72-AQV"/>
+                                            <constraint firstAttribute="height" constant="40" id="9Q6-Zn-Gor"/>
+                                            <constraint firstItem="Ebp-Wf-czR" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" constant="5" id="Cou-Nl-SKs"/>
+                                            <constraint firstItem="sD0-Nu-rxO" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" id="MQ9-w9-GL8"/>
+                                            <constraint firstAttribute="trailing" secondItem="UnC-TR-8Th" secondAttribute="trailing" constant="50" id="SHr-pP-bvl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ebp-Wf-czR" secondAttribute="trailing" constant="2" id="TqU-vY-rkN"/>
+                                            <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="sD0-Nu-rxO" secondAttribute="trailing" id="dgS-FU-rEk"/>
+                                            <constraint firstAttribute="bottom" secondItem="sD0-Nu-rxO" secondAttribute="bottom" id="g2o-4N-yYU"/>
+                                            <constraint firstAttribute="bottom" secondItem="UnC-TR-8Th" secondAttribute="bottom" constant="5" id="gYr-eZ-jKC"/>
+                                            <constraint firstItem="Ebp-Wf-czR" firstAttribute="leading" secondItem="UnC-TR-8Th" secondAttribute="trailing" constant="2" id="oQj-Yb-BAO"/>
+                                            <constraint firstItem="sD0-Nu-rxO" firstAttribute="leading" secondItem="bjD-qx-FNu" secondAttribute="leading" id="p9K-hJ-Ifk"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ebp-Wf-czR" secondAttribute="bottom" constant="5" id="plu-G5-LFu"/>
+                                            <constraint firstItem="UnC-TR-8Th" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" constant="5" id="zE4-sh-oU7"/>
                                         </constraints>
                                     </view>
                                     <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kW0-vZ-rWt" userLabel="UserInputContainerView">
-                                        <rect key="frame" x="0.0" y="60" width="320" height="162"/>
+                                        <rect key="frame" x="0.0" y="40" width="320" height="162"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>

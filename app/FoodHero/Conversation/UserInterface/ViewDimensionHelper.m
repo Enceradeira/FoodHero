@@ -40,7 +40,7 @@
 }
 
 - (int)userInputHeaderHeight {
-    return 60;
+    return 40;
 }
 
 - (int)userInputListHeight {
