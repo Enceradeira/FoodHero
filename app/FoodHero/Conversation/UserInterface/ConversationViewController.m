@@ -125,15 +125,9 @@
     }
 }
 
-- (void)userInputViewChanged:(NSString *)text {
-    _userCuisinePreferenceText.text = text;
-    [self setEnabledForCuisinePreferenceSend];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 - (void)deviceOrientationDidChange:(id)deviceOrientationDidChange {
     _currentViewState = nil;

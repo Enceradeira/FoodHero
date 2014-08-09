@@ -39,7 +39,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     FeedbackTableViewCell *cell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-    [_parentController userInputViewChanged:cell.feedback.text];
+    _parentController.userCuisinePreferenceText.text = cell.feedback.text;
+    [_parentController userCuisinePreferenceTextChanged:self];
 }
 
 - (void)setParentController:(ConversationViewController *)controller {

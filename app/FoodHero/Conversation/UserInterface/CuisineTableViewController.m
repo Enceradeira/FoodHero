@@ -44,7 +44,8 @@
     CuisineTableViewCell *cell = (CuisineTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
     cell.isSelected = !cell.isSelected;
 
-    [_parentController userInputViewChanged:[_appService getSelectedCuisineText]];
+    _parentController.userCuisinePreferenceText.text = [_appService getSelectedCuisineText];
+    [_parentController userCuisinePreferenceTextChanged:self];
 }
 
 - (void)setParentController:(ConversationViewController *)controller {

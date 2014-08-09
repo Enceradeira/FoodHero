@@ -26,8 +26,6 @@
 
 - (void)changeViewState:(ConversationViewState *)viewState;
 
-- (void)userInputViewChanged:(NSString *)text;
-
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
