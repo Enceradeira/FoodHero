@@ -18,6 +18,8 @@
 #import "UCuisinePreference.h"
 #import "Cuisine.h"
 #import "Feedback.h"
+#import "HCIsExceptionOfType.h"
+#import "DesignByContractException.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -158,6 +160,17 @@ const CGFloat landscapeWidth = 400;
     for (Feedback *f in [self feedbacks]) {
         assertThat(f.image, is(notNilValue()));
      }
+}
+
+-(void)test_getLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet{
+    assertThat(^(){return  [_service getLastSuggestedRestaurant];}, throwsExceptionOfType(DesignByContractException.class));
+}
+
+-(void)test_getLastSuggestedRestaurant_ShouldReturnFirstSuggestedRestaurant_WhenNoUserFeedbackProvided{
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]];
+
+    Restaurant *restaurant = [_service getLastSuggestedRestaurant];
+    assertThat(restaurant, is(notNilValue()));
 }
 
 @end

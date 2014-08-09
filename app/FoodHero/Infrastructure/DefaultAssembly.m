@@ -59,6 +59,7 @@
                 [method injectParameterWith:[self conversationRepository]];
 
             }];
+            definition.scope = TyphoonScopeSingleton;
         }
     ];
 }

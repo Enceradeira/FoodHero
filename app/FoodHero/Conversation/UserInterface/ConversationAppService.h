@@ -36,4 +36,6 @@
 - (NSInteger)getFeedbackCount;
 
 - (Feedback *)getFeedback:(NSUInteger)index;
+
+- (Restaurant *)getLastSuggestedRestaurant;
 @end

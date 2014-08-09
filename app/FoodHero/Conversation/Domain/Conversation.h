@@ -22,4 +22,5 @@
 
 - (RACSignal *)statementIndexes;
 
+- (NSArray *)suggestedRestaurants;
 @end

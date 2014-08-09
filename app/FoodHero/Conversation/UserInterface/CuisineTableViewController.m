@@ -12,6 +12,7 @@
 #import "ConversationViewState.h"
 #import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewStateTextInput.h"
+#import "UCuisinePreference.h"
 
 @implementation CuisineTableViewController {
     ConversationAppService *_appService;
@@ -57,8 +58,13 @@
     return [ConversationViewStateListOrTextInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
 }
 
-- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateTextInput create:controller heigth:height animationCurve:animationCurve animationDuration:animationDuration];
+- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)mainController height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateTextInput create:mainController heigth:height animationCurve:animationCurve animationDuration:animationDuration];
+}
+
+- (ConversationToken *)createUserInput:(ConversationViewController *)mainController {
+    NSString *text = mainController.userCuisinePreferenceText.text;
+    return  [UCuisinePreference create:text];
 }
 
 

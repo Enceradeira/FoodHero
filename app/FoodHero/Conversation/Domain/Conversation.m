@@ -17,6 +17,7 @@
 #import "FHAction.h"
 #import "USuggestionNegativeFeedback.h"
 #import "TokenConsumed.h"
+#import "FHSuggestion.h"
 
 
 @interface Conversation ()
@@ -90,7 +91,7 @@
 - (RACSignal *)statementIndexes {
     NSUInteger __block index = 0;
     return [RACObserve(self, self.statements) map:^(id next){
-        return [NSNumber numberWithUnsignedInt:index++];
+        return @(index++);
     }];
 }
 
@@ -102,4 +103,11 @@
     }];
 }
 
+- (NSArray *)suggestedRestaurants {
+    return [[_statements linq_where:^(Statement *s){
+        return (BOOL) ([s.token isKindOfClass: [FHSuggestion class]]);
+    }] linq_select:^(Statement *s){
+        return ((FHSuggestion*)s.token).restaurant;
+    }];
+}
 @end

@@ -28,7 +28,6 @@
 
 @implementation ConversationViewController {
     ConversationAppService *_appService;
-    Restaurant *_lastSuggestedRestaurant;
     ConversationViewState *_currentViewState;
     UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
 }
@@ -185,11 +184,6 @@
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     [self disableUserInput];
 
-    Restaurant *restaurant = [bubble suggestedRestaurant];
-    if (restaurant != nil) {
-        _lastSuggestedRestaurant = restaurant;
-    }
-
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
         id <UAction> inputAction = foodHeroBubble.inputAction;
@@ -221,25 +215,11 @@
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
     [self setDefaultViewState];
 
-    NSString *text = self.userCuisinePreferenceText.text;
-    UCuisinePreference *userInput = [UCuisinePreference create:text];
-    [_appService addUserInput:userInput];
+    [_appService addUserInput:[_currentUserInputContainerViewController createUserInput:self]];
 }
 
 - (void)hideKeyboard {
     [(self.userCuisinePreferenceText) resignFirstResponder];
-}
-
-- (IBAction)userDoesntLikeThatRestaurant:(id)sender {
-    [self disableUserInput];
-
-    if (_lastSuggestedRestaurant == nil) {
-        @throw [DesignByContractException createWithReason:@"no last suggested Restaurant found"];
-    }
-
-
-    USuggestionNegativeFeedback *userInput = [USuggestionFeedbackForNotLikingAtAll create:_lastSuggestedRestaurant];
-    [_appService addUserInput:userInput];
 }
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender {

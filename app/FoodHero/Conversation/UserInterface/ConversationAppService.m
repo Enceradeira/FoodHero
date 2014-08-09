@@ -14,6 +14,7 @@
 #import "Personas.h"
 #import "Cuisine.h"
 #import "Feedback.h"
+#import "DesignByContractException.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -117,5 +118,13 @@ static UIImage *EmptyImage;
 
 - (Feedback *)getFeedback:(NSUInteger)index {
     return _feedbacks[index];
+}
+
+- (Restaurant *)getLastSuggestedRestaurant {
+    NSArray *restaurants = _conversation.suggestedRestaurants;
+    if( restaurants.count == 0){
+        @throw [DesignByContractException createWithReason:@"no restaurants have ever been suggested to user"];
+    }
+    return [restaurants linq_lastOrNil];
 }
 @end

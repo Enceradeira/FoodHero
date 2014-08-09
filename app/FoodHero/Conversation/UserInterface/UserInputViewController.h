@@ -15,4 +15,6 @@
 - (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 
 - (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+
+- (ConversationToken *)createUserInput:(ConversationViewController *)controller;
 @end

@@ -24,6 +24,7 @@
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "AlternationRandomizerStub.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -41,10 +42,7 @@
 
      [self.conversation addToken:[UCuisinePreference create:@"British Food"]]; // adds the answer & food-heros response
 
-     assertThat(receivedIndexes, contains(
-     [NSNumber numberWithUnsignedInt:0],
-     [NSNumber numberWithUnsignedInt:1],
-     [NSNumber numberWithUnsignedInt:2],nil));
+     assertThat(receivedIndexes, contains(@0,@1,@2,nil));
  }
 
 
@@ -124,5 +122,19 @@
     assertThatUnsignedInt(feedback.count, is(equalToUnsignedInt(2)));
     assertThat(feedback, hasItem(feedback1));
     assertThat(feedback, hasItem(feedback2));
+}
+
+-(void)test_suggestedRestaurants_ShouldBeEmpty_WhenFHHasNoRestaurantSuggestedYet{
+    NSArray *restaurants = [self.conversation suggestedRestaurants];
+    assertThat(restaurants, is(notNilValue()));
+    assertThatInteger(restaurants.count, is(equalToInteger(0)));
+}
+
+-(void)test_suggestedRestaurants_ShouldNotBeEmpty_WhenFHHasSuggestedRestaurants{
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];  // 1. Restaurant suggested
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]]; // 2. Restaurant suggested
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]]; // 3. Restaurant suggested
+    NSArray *restaurants = [self.conversation suggestedRestaurants];
+    assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
 @end

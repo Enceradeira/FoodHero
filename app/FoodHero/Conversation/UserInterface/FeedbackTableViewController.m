@@ -7,6 +7,7 @@
 #import "FeedbackTableViewCell.h"
 #import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewStateListOnlyInput.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
 
 
 @implementation FeedbackTableViewController {
@@ -52,4 +53,10 @@
 - (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)mainController height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
     return [ConversationViewStateListOnlyInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
 }
+
+- (ConversationToken *)createUserInput:(ConversationViewController *)controller {
+    Restaurant *lastSuggestedRestaurant = [_appService getLastSuggestedRestaurant];
+    return  [USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant];
+}
+
 @end
