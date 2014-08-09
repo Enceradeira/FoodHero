@@ -5,7 +5,14 @@
 
 #import <Foundation/Foundation.h>
 #import "UserInputViewSubscriber.h"
+#import "ConversationViewController.h"
+#import "ConversationViewState.h"
+
 
 @protocol UserInputViewController
 - (void)setDelegate:(id <UserInputViewSubscriber>)delegate;
+
+- (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+
+- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 @end

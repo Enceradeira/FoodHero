@@ -9,6 +9,9 @@
 #import "CuisineTableViewController.h"
 #import "CuisineTableViewCell.h"
 #import "ConversationAppService.h"
+#import "ConversationViewState.h"
+#import "ConversationViewStateListInput.h"
+#import "ConversationViewStateTextInput.h"
 
 @implementation CuisineTableViewController {
     ConversationAppService *_appService;
@@ -49,4 +52,14 @@
 - (void)setDelegate:(id <UserInputViewSubscriber>)delegate {
     _delegate = delegate;
 }
+
+- (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateListInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
+}
+
+- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateTextInput create:controller heigth:height animationCurve:animationCurve animationDuration:animationDuration];
+}
+
+
 @end

@@ -30,7 +30,7 @@
     ConversationAppService *_appService;
     Restaurant *_lastSuggestedRestaurant;
     ConversationViewState *_currentViewState;
-    UIViewController <UserInputViewController> *_userInputContainerViewController;
+    UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -77,9 +77,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+    [self setDefaultViewState];
 }
 
+- (void)setDefaultViewState {
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+}
 
 - (void)changeUserInputViewController:(NSString *)identifier {
     [self removeUserInputViewController];
@@ -88,23 +91,23 @@
 }
 
 - (void)removeUserInputViewController {
-    if (_userInputContainerViewController == nil) {
+    if (_currentUserInputContainerViewController == nil) {
         return;
     }
 
-    [_userInputContainerViewController willMoveToParentViewController:nil];
-    [_userInputContainerViewController.view removeFromSuperview];
-    [_userInputContainerViewController removeFromParentViewController];
-    _userInputContainerViewController = nil;
+    [_currentUserInputContainerViewController willMoveToParentViewController:nil];
+    [_currentUserInputContainerViewController.view removeFromSuperview];
+    [_currentUserInputContainerViewController removeFromParentViewController];
+    _currentUserInputContainerViewController = nil;
 }
 
 - (void)addUserInputViewController:(NSString *)identifier {
-    _userInputContainerViewController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
-    _userInputContainerViewController.delegate = self;
-    UIView *controllerView = _userInputContainerViewController.view;
+    _currentUserInputContainerViewController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
+    _currentUserInputContainerViewController.delegate = self;
+    UIView *controllerView = _currentUserInputContainerViewController.view;
     [controllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    [self addChildViewController:_userInputContainerViewController];
+    [self addChildViewController:_currentUserInputContainerViewController];
 
     [_userInputContainerView addSubview:controllerView];
     [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
@@ -112,7 +115,7 @@
     [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
 
-    [_userInputContainerViewController didMoveToParentViewController:self];
+    [_currentUserInputContainerViewController didMoveToParentViewController:self];
 }
 
 - (void)changeViewState:(ConversationViewState *)viewState {
@@ -135,7 +138,7 @@
 
 - (void)deviceOrientationDidChange:(id)deviceOrientationDidChange {
     _currentViewState = nil;
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+    [self setDefaultViewState];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -216,7 +219,7 @@
 }
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
-    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
+    [self setDefaultViewState];
 
     NSString *text = self.userCuisinePreferenceText.text;
     UCuisinePreference *userInput = [UCuisinePreference create:text];
@@ -240,7 +243,7 @@
 }
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
-    [self changeViewState:[ConversationViewStateListInput create:self animationDuration:0.25 animationCurve:UIViewAnimationCurveEaseOut]];
+    [self changeViewState:[_currentUserInputContainerViewController getViewStateForList:self animationCurve:UIViewAnimationCurveEaseOut animationDuration:0.25]];
 }
 
 - (void)keyboardWillShow:(id)notification {
@@ -249,10 +252,13 @@
     CGRect keyboardFrameEndWithRotation = [self.view convertRect:keyboardFrameEnd fromView:nil];
     CGFloat keyboardHeight = keyboardFrameEndWithRotation.size.height;
 
-    NSNumber *animationDuration = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationDurationUserInfoKey"];
-    NSNumber *animationCurve = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
+    NSNumber *animationDurationNumber = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationDurationUserInfoKey"];
+    double animationDuration = animationDurationNumber.doubleValue;
 
-    [self changeViewState:[ConversationViewStateTextInput create:self heigth:keyboardHeight animationCurve:(UIViewAnimationCurve) animationCurve.integerValue animationDuration:animationDuration.doubleValue]];
+    NSNumber *animationCurverNumber = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
+    UIViewAnimationCurve animationCurve = (UIViewAnimationCurve) animationCurverNumber.integerValue;
+
+    [self changeViewState:[_currentUserInputContainerViewController getViewStateForTextInput:self height:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
