@@ -7,9 +7,10 @@
 #import "ConversationViewController.h"
 
 
-
 @interface ConversationViewState : NSObject
+- (instancetype)initWithController:(ConversationViewController *)controller;
+
 @property(nonatomic, readonly, weak) ConversationViewController *controller;
 
--(void)activate;
+- (void)activate;
 @end

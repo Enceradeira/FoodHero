@@ -8,8 +8,6 @@
 
 @interface ConversationViewState (Protected)
 
-- (instancetype)initWithController:(ConversationViewController *)controller;
-
 - (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
 
 - (void)animateLayoutWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
