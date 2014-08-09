@@ -78,11 +78,11 @@
 
     // position of text input
     CGRect textinputFrame = _userCuisinePreferenceText.frame;
-    CGRect convertedTextinputFrame = [_userCuisinePreferenceText.superview convertRect:textinputFrame toView:nil];
+    CGRect convertedTextinputFrame = [_userCuisinePreferenceText.superview convertRect:textinputFrame toView:[self view]];
 
     // position of view
     CGRect viewFrame = view.frame;
-    CGRect convertedViewFrame = [view convertRect:viewFrame toView:nil];
+    CGRect convertedViewFrame = [view convertRect:viewFrame toView:[self view]];
 
     // temporally move view into top-view
     [view removeFromSuperview];
