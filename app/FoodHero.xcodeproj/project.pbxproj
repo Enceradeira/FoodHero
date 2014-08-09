@@ -535,7 +535,6 @@
 		23525F83581DD0A9D7400402 /* AlternationRandomizerStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternationRandomizerStub.m; sourceTree = "<group>"; };
 		23525F894F9D845D50D95745 /* FHWhatToDoNextState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWhatToDoNextState.h; sourceTree = "<group>"; };
 		23525F8BFEE4789D6D79188E /* RepeatSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeatSymbol.h; sourceTree = "<group>"; };
-		23525FA36C237547B9A20956 /* UserInputViewSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInputViewSubscriber.h; sourceTree = "<group>"; };
 		23525FB6A7CA7732B6D83DA9 /* ConversationFirstProposalTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationFirstProposalTests.m; sourceTree = "<group>"; };
 		23525FB9133CBCBD038FF807 /* ViewDimensionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewDimensionHelper.m; sourceTree = "<group>"; };
 		23525FCA48533B68792DFE12 /* FHConversationStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConversationStateTests.m; sourceTree = "<group>"; };
@@ -804,7 +803,6 @@
 				23525FB9133CBCBD038FF807 /* ViewDimensionHelper.m */,
 				23525198088A63AB1BA31863 /* CuisineTableViewController.h */,
 				23525235247B3A815979B53F /* CuisineTableViewController.m */,
-				23525FA36C237547B9A20956 /* UserInputViewSubscriber.h */,
 				2352545294F89D0C473653F9 /* FeedbackTableViewController.m */,
 				23525CB132ED3EF9374F4B2C /* FeedbackTableViewController.h */,
 				23525AC9C6E7DB62D516D2A3 /* FeedbackTableViewCell.m */,

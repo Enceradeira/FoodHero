@@ -102,7 +102,7 @@
 
 - (void)addUserInputViewController:(NSString *)identifier {
     _currentUserInputContainerViewController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
-    _currentUserInputContainerViewController.delegate = self;
+    _currentUserInputContainerViewController.parentController = self;
     UIView *controllerView = _currentUserInputContainerViewController.view;
     [controllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -215,7 +215,7 @@
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
     [self setDefaultViewState];
 
-    [_appService addUserInput:[_currentUserInputContainerViewController createUserInput:self]];
+    [_appService addUserInput:[_currentUserInputContainerViewController createUserInput]];
 }
 
 - (void)hideKeyboard {
@@ -223,7 +223,7 @@
 }
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
-    [self changeViewState:[_currentUserInputContainerViewController getViewStateForList:self animationCurve:UIViewAnimationCurveEaseOut animationDuration:0.25]];
+    [self changeViewState:[_currentUserInputContainerViewController getViewStateForListAnimationCurve:UIViewAnimationCurveEaseOut animationDuration:0.25]];
 }
 
 - (void)keyboardWillShow:(id)notification {
@@ -238,7 +238,7 @@
     NSNumber *animationCurverNumber = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
     UIViewAnimationCurve animationCurve = (UIViewAnimationCurve) animationCurverNumber.integerValue;
 
-    [self changeViewState:[_currentUserInputContainerViewController getViewStateForTextInput:self height:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration]];
+    [self changeViewState:[_currentUserInputContainerViewController getViewStateForTextInputHeight:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -4,17 +4,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInputViewSubscriber.h"
 #import "ConversationViewController.h"
 #import "ConversationViewState.h"
 
 
 @protocol UserInputViewController
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate;
+- (void)setParentController:(ConversationViewController*)controller;
 
-- (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+- (ConversationViewState *)getViewStateForListAnimationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 
-- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)controller height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+- (ConversationViewState *)getViewStateForTextInputHeight:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 
-- (ConversationToken *)createUserInput:(ConversationViewController *)controller;
+- (ConversationToken *)createUserInput;
 @end

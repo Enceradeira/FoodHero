@@ -8,12 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ConversationAppService.h"
-#import "UserInputViewSubscriber.h"
+#import "ViewDimensionHelper.h"
 
-@class ViewDimensionHelper;
-@class CuisineTableViewController;
-
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserInputViewSubscriber, UActionVisitor>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UActionVisitor>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
@@ -25,13 +22,13 @@
 @property(nonatomic, readonly) ViewDimensionHelper *viewDimensionHelper;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 
+- (void)userInputViewChanged:(NSString *)text;
+
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender;
 
 - (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
 
 - (void)hideKeyboard;
-
-- (IBAction)userDoesntLikeThatRestaurant:(id)sender;
 
 - (IBAction)userCuisinePreferenceListTouchUp:(id)sender;
 

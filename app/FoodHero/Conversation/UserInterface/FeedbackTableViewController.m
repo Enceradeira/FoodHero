@@ -12,7 +12,7 @@
 
 @implementation FeedbackTableViewController {
     ConversationAppService *_appService;
-    id <UserInputViewSubscriber> _delegate;
+    ConversationViewController *_parentController;
 }
 - (void)setConversationAppService:(ConversationAppService *)service {
     _appService = service;
@@ -39,24 +39,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     FeedbackTableViewCell *cell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-    [_delegate userInputViewChanged:cell.feedback.text];
+    [_parentController userInputViewChanged:cell.feedback.text];
 }
 
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate {
-    _delegate = delegate;
+- (void)setParentController:(ConversationViewController *)controller {
+    _parentController = controller;
 }
 
-- (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListOnlyInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
+- (ConversationViewState *)getViewStateForListAnimationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve];
 }
 
-- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)mainController height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListOnlyInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
+- (ConversationViewState *)getViewStateForTextInputHeight:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateListOnlyInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve];
 }
 
-- (ConversationToken *)createUserInput:(ConversationViewController *)controller {
+- (ConversationToken *)createUserInput {
     Restaurant *lastSuggestedRestaurant = [_appService getLastSuggestedRestaurant];
-    return  [USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant];
+    return [USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant];
 }
 
 @end

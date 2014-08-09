@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "UserInputViewSubscriber.h"
 #import "UserInputViewController.h"
 
 @interface CuisineTableViewController : UITableViewController<UserInputViewController>

@@ -8,15 +8,13 @@
 
 #import "CuisineTableViewController.h"
 #import "CuisineTableViewCell.h"
-#import "ConversationAppService.h"
-#import "ConversationViewState.h"
 #import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewStateTextInput.h"
 #import "UCuisinePreference.h"
 
 @implementation CuisineTableViewController {
     ConversationAppService *_appService;
-    id <UserInputViewSubscriber> _delegate;
+    ConversationViewController *_parentController;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -46,25 +44,24 @@
     CuisineTableViewCell *cell = (CuisineTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
     cell.isSelected = !cell.isSelected;
 
-    [_delegate userInputViewChanged:[_appService getSelectedCuisineText]];
+    [_parentController userInputViewChanged:[_appService getSelectedCuisineText]];
 }
 
-
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate {
-    _delegate = delegate;
+- (void)setParentController:(ConversationViewController *)controller {
+    _parentController = controller;
 }
 
-- (ConversationViewState *)getViewStateForList:(ConversationViewController *)mainController animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateListOrTextInput create:mainController animationDuration:animationDuration animationCurve:animationCurve];
+- (ConversationViewState *)getViewStateForListAnimationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateListOrTextInput create:_parentController animationDuration:animationDuration animationCurve:animationCurve];
 }
 
-- (ConversationViewState *)getViewStateForTextInput:(ConversationViewController *)mainController height:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    return [ConversationViewStateTextInput create:mainController heigth:height animationCurve:animationCurve animationDuration:animationDuration];
+- (ConversationViewState *)getViewStateForTextInputHeight:(CGFloat)height animationCurve:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    return [ConversationViewStateTextInput create:_parentController heigth:height animationCurve:animationCurve animationDuration:animationDuration];
 }
 
-- (ConversationToken *)createUserInput:(ConversationViewController *)mainController {
-    NSString *text = mainController.userCuisinePreferenceText.text;
-    return  [UCuisinePreference create:text];
+- (ConversationToken *)createUserInput {
+    NSString *text = _parentController.userCuisinePreferenceText.text;
+    return [UCuisinePreference create:text];
 }
 
 
