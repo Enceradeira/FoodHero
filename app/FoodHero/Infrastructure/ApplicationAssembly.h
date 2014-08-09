@@ -4,6 +4,8 @@
 //
 
 @protocol ApplicationAssembly
+- (id)feedbackTableViewController;
+
 - (id)cuisineTableViewController;
 
 - (id)navigationViewController;

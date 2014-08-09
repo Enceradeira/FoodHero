@@ -20,12 +20,49 @@
             </objects>
             <point key="canvasLocation" x="-392" y="889"/>
         </scene>
+        <!--Feedback Table View Controller-->
+        <scene sceneID="ApE-ik-xtA">
+            <objects>
+                <tableViewController storyboardIdentifier="Feedback" id="WzS-TJ-yEO" userLabel="Feedback Table View Controller" customClass="FeedbackTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="T9U-Bk-Cko">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell tag="100" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Feedback" textLabel="pUJ-Bt-4sc" style="IBUITableViewCellStyleDefault" id="bdk-zX-qvL" customClass="FeedbackTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bdk-zX-qvL" id="F7q-aZ-LRP">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pUJ-Bt-4sc">
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="WzS-TJ-yEO" id="KjG-0n-7HR"/>
+                            <outlet property="delegate" destination="WzS-TJ-yEO" id="ETs-GU-8ha"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AmR-Yt-KKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-87" y="1633"/>
+        </scene>
         <!--Cuisine Table View Controller-->
         <scene sceneID="hYK-zT-eVP">
             <objects>
-                <tableViewController id="o8v-VU-phG" userLabel="Cuisine Table View Controller" customClass="CuisineTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Cuisine" id="o8v-VU-phG" userLabel="Cuisine Table View Controller" customClass="CuisineTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jaA-Ys-JK0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -57,7 +94,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qat-MK-FAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="721" y="1853"/>
+            <point key="canvasLocation" x="282" y="1633"/>
         </scene>
         <!--Conversation View Controller - Food Hero-->
         <scene sceneID="qo0-gW-NQz">
@@ -108,16 +145,6 @@
                                                     <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kym-MS-c80">
-                                                <rect key="frame" x="133" y="30" width="176" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="I don't like that restaurant">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="userDoesntLikeThatRestaurant:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="uCw-qv-CWF"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
                                                 <rect key="frame" x="273" y="0.0" width="46" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -153,16 +180,13 @@
                                             <constraint firstAttribute="height" constant="60" id="9Q6-Zn-Gor"/>
                                         </constraints>
                                     </view>
-                                    <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kW0-vZ-rWt" userLabel="UserInputView">
+                                    <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kW0-vZ-rWt" userLabel="UserInputContainerView">
                                         <rect key="frame" x="0.0" y="60" width="320" height="162"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="162" id="4Wo-bP-1qy"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="o8v-VU-phG" kind="embed" identifier="cuisineView" id="kPs-AQ-7Ux"/>
-                                        </connections>
                                     </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -225,10 +249,9 @@
                         <outlet property="userCuisinePreferenceList" destination="sD0-Nu-rxO" id="NuF-iI-UFk"/>
                         <outlet property="userCuisinePreferenceSend" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
                         <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
-                        <outlet property="userDoesntLikeThatRestaurant" destination="kym-MS-c80" id="MAt-o4-rby"/>
+                        <outlet property="userInputContainerView" destination="kW0-vZ-rWt" id="xGi-QU-jEX"/>
                         <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
                         <outlet property="userInputHeightConstraint" destination="4Wo-bP-1qy" id="jSb-Wd-xXh"/>
-                        <outlet property="userInputView" destination="kW0-vZ-rWt" id="fy3-fn-Vdx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1t-2u-Gy7" userLabel="First Responder" sceneMemberID="firstResponder"/>

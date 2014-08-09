@@ -15,10 +15,20 @@
 #import "CLLocationManagerImpl.h"
 #import "DefaultTokenRandomizer.h"
 #import "CuisineTableViewController.h"
+#import "FeedbackTableViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
     return [TyphoonDefinition withClass:[NavigationController class]];
+}
+
+- (id)feedbackTableViewController {
+    return [TyphoonDefinition withClass:[FeedbackTableViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:[self conversationAppService]];
+
+        }];
+    }];
 }
 
 - (id)cuisineTableViewController {
@@ -32,13 +42,12 @@
 
 - (id)conversationViewController {
     return [TyphoonDefinition
-            withClass:[ConversationViewController class]
-        configuration:^(TyphoonDefinition *definition) {
-            [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
-                [method injectParameterWith:[self conversationAppService]];
+            withClass:[ConversationViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self conversationAppService]];
 
-            }];
-        }
+                }];
+            }
     ];
 }
 

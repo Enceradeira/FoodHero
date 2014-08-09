@@ -17,6 +17,7 @@
 #import "StubAssembly.h"
 #import "UCuisinePreference.h"
 #import "Cuisine.h"
+#import "Feedback.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -50,6 +51,14 @@ const CGFloat landscapeWidth = 400;
         [cuisines addObject:[_service getCuisine:i]];
     }
     return cuisines;
+}
+
+- (NSArray*) feedbacks {
+    NSMutableArray *feedbacks = [NSMutableArray new];
+    for(NSUInteger i=0; i<[_service getFeedbackCount]; i++){
+        [feedbacks addObject:[_service getFeedback:i]];
+    }
+    return feedbacks;
 }
 
 - (Cuisine *)cuisine:(NSString *)name {
@@ -129,6 +138,26 @@ const CGFloat landscapeWidth = 400;
     [self cuisine:@"African"].isSelected = YES;
     [self cuisine:@"German"].isSelected = YES;
     assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek, African or German")));
+}
+
+-(void)test_getFeedbackCount_ShouldReturnCountGreaterThan0
+{
+    assertThatInteger([_service getFeedbackCount], is(greaterThan(@0)));
+}
+
+-(void)test_getFeedback_ShouldReturnCuisineForIndex
+{
+    Feedback *feedback0 = [_service getFeedback:0];
+    Feedback *feedback1 = [_service getFeedback:1];
+
+    assertThat(feedback0, is(notNilValue()));
+    assertThat(feedback1, is(notNilValue()));
+}
+
+-(void)test_getFeedback_ShouldReturnFeedbackWithImage {
+    for (Feedback *f in [self feedbacks]) {
+        assertThat(f.image, is(notNilValue()));
+     }
 }
 
 @end

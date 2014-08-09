@@ -13,6 +13,7 @@
 @class RACSignal;
 @class ConversationToken;
 @class Cuisine;
+@class Feedback;
 
 @interface ConversationAppService : NSObject
 
@@ -31,4 +32,8 @@
 - (Cuisine *)getCuisine:(NSUInteger)index;
 
 - (NSString *)getSelectedCuisineText;
+
+- (NSInteger)getFeedbackCount;
+
+- (Feedback *)getFeedback:(NSUInteger)index;
 @end

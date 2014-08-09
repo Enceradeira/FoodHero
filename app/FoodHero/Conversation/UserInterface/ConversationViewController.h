@@ -13,13 +13,11 @@
 @class ViewDimensionHelper;
 @class CuisineTableViewController;
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserInputViewSubscriber>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserInputViewSubscriber, UActionVisitor>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
-@property (weak, nonatomic) IBOutlet UIView *userInputView;
-@property(weak, nonatomic) IBOutlet UIButton *userPrefereseBritishFood;
-@property(weak, nonatomic) IBOutlet UIButton *userDoesntLikeThatRestaurant;
 @property(weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
+@property (weak, nonatomic) IBOutlet UIView *userInputContainerView;
 @property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
 @property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;

@@ -12,4 +12,9 @@
 + (id <ConversationAction>)create {
     return [AskUserCuisinePreferenceAction new];
 }
+
+- (void)accept:(id <UActionVisitor>)visitor {
+    [visitor askUserCuisinePreferenceAction];
+}
+
 @end

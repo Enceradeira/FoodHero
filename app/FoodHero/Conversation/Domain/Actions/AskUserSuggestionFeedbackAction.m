@@ -9,5 +9,9 @@
 @implementation AskUserSuggestionFeedbackAction {
 
 }
+- (void)accept:(id <UActionVisitor>)visitor {
+    [visitor askUserSuggestionFeedback];
+}
+
 
 @end

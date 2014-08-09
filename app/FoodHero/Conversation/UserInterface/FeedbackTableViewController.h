@@ -4,8 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInputViewSubscriber.h"
 
-@protocol UserInputViewController
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate;
+
+@interface FeedbackTableViewController : UITableViewController
 @end

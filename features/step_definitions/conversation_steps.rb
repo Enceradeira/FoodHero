@@ -40,7 +40,8 @@ Then(/^FoodHero asks to enable location\-services in settings$/) do
 end
 
 When(/^User doesn't like that restaurant$/) do
-  button("I don't like that restaurant").click
+  find_element(:name, 'cuisine text').click
+  get_last_element_and_parameter("FeedbackEntry=I don't like that restaurant")[0].click
 end
 
 Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|

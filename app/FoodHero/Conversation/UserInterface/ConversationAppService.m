@@ -13,11 +13,23 @@
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
 #import "Cuisine.h"
+#import "Feedback.h"
+
+static UIImage *LikeImage;
+static UIImage *EmptyImage;
 
 @implementation ConversationAppService {
     NSMutableDictionary *_bubbles;
     Conversation *_conversation;
     NSArray *_cuisines;
+    NSArray *_feedbacks;
+}
+
+
++ (void)initialize {
+    [super initialize];
+    LikeImage = [UIImage imageNamed:@"Like-Icon.png"];
+    EmptyImage = [UIImage imageNamed:@"Empty-Icon.png"];
 }
 
 - (id)initWithDependencies:(ConversationRepository *)conversationRepository {
@@ -30,6 +42,8 @@
                         linq_select:^(NSString *name) {
                             return [Cuisine create:name];
                         }];
+
+        _feedbacks = @[[Feedback create:@"It's too far away" image:EmptyImage], [Feedback create:@"It looks too expensive" image:EmptyImage], [Feedback create:@"It looks too cheap" image:EmptyImage], [Feedback create:@"I don't like that restaurant" image:EmptyImage], [Feedback create:@"I like it" image:LikeImage]];
     }
     return self;
 }
@@ -95,5 +109,13 @@
     }
 
     return text;
+}
+
+- (NSInteger)getFeedbackCount {
+    return [_feedbacks count];
+}
+
+- (Feedback *)getFeedback:(NSUInteger)index {
+    return _feedbacks[index];
 }
 @end

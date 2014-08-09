@@ -1,26 +1,24 @@
 //
-//  CuisineTableViewController.m
-//  FoodHero
-//
-//  Created by Jorg on 08/08/2014.
-//  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
+// Created by Jorg on 08/08/2014.
+// Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "CuisineTableViewController.h"
-#import "CuisineTableViewCell.h"
+#import "FeedbackTableViewController.h"
+#import "UserInputViewSubscriber.h"
 #import "ConversationAppService.h"
+#import "FeedbackTableViewCell.h"
 
-@implementation CuisineTableViewController {
+
+@implementation FeedbackTableViewController {
     ConversationAppService *_appService;
     id <UserInputViewSubscriber> _delegate;
 }
-
 - (void)setConversationAppService:(ConversationAppService *)service {
     _appService = service;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_appService getCuisineCount];
+    return [_appService getFeedbackCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -32,17 +30,15 @@
 }
 
 - (UITableViewCell *)getCuisineTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-    CuisineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cuisine" forIndexPath:indexPath];
-    cell.cuisine = [_appService getCuisine:(NSUInteger) indexPath.row];
+    FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Feedback" forIndexPath:indexPath];
+    cell.feedback = [_appService getFeedback:(NSUInteger) indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    CuisineTableViewCell *cell = (CuisineTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-    cell.isSelected = !cell.isSelected;
-
-    [_delegate userInputViewChanged:[_appService getSelectedCuisineText]];
+    FeedbackTableViewCell *cell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+    [_delegate userInputViewChanged:cell.feedback.text];
 }
 
 

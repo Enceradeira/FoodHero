@@ -7,8 +7,8 @@
 //
 
 #import "UserInputViewSubscriber.h"
+#import "UserInputViewController.h"
 
-@interface CuisineTableViewController : UITableViewController
+@interface CuisineTableViewController : UITableViewController<UserInputViewController>
 
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate;
 @end

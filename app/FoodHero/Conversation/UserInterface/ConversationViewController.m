@@ -11,8 +11,6 @@
 #import "ConversationBubbleTableViewCell.h"
 #import "UCuisinePreference.h"
 #import "USuggestionNegativeFeedback.h"
-#import "AskUserCuisinePreferenceAction.h"
-#import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationBubbleFoodHero.h"
 #import "DesignByContractException.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
@@ -22,6 +20,7 @@
 #import "ConversationViewStateListInput.h"
 #import "ViewDimensionHelper.h"
 #import "CuisineTableViewController.h"
+#import "TyphoonComponents.h"
 
 @interface ConversationViewController ()
 
@@ -31,6 +30,7 @@
     ConversationAppService *_appService;
     Restaurant *_lastSuggestedRestaurant;
     ConversationViewState *_currentViewState;
+    UIViewController <UserInputViewController> *_userInputContainerViewController;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -69,6 +69,8 @@
         [newIndexes addObject:newIndex];
 
         [_bubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
+
+        [self configureUserInputFor:[self getStatementIndex:index]];
     }];
 
     // Input View
@@ -78,6 +80,40 @@
     [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
 }
 
+
+- (void)changeUserInputViewController:(NSString *)identifier {
+    [self removeUserInputViewController];
+    [self addUserInputViewController:identifier];
+
+}
+
+- (void)removeUserInputViewController {
+    if (_userInputContainerViewController == nil) {
+        return;
+    }
+
+    [_userInputContainerViewController willMoveToParentViewController:nil];
+    [_userInputContainerViewController.view removeFromSuperview];
+    [_userInputContainerViewController removeFromParentViewController];
+    _userInputContainerViewController = nil;
+}
+
+- (void)addUserInputViewController:(NSString *)identifier {
+    _userInputContainerViewController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
+    _userInputContainerViewController.delegate = self;
+    UIView *controllerView = _userInputContainerViewController.view;
+    [controllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    [self addChildViewController:_userInputContainerViewController];
+
+    [_userInputContainerView addSubview:controllerView];
+    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+
+    [_userInputContainerViewController didMoveToParentViewController:self];
+}
 
 - (void)changeViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
@@ -113,13 +149,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (ConversationBubble *)getStatement:(NSIndexPath *)indexPath {
-    ConversationBubble *bubble = [_appService getStatement:(NSUInteger) indexPath.row bubbleWidth:_bubbleView.frame.size.width];
+- (ConversationBubble *)getStatementIndex:(NSInteger)index {
+    ConversationBubble *bubble = [_appService getStatement:(NSUInteger) index bubbleWidth:_bubbleView.frame.size.width];
     return bubble;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self getStatement:indexPath].height;
+    return [self getStatementIndex:indexPath.row].height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -131,12 +167,7 @@
 }
 
 - (UITableViewCell *)getConversationBubbleTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-    ConversationBubble *bubble = [self getStatement:indexPath];
-
-    BOOL isLastRow = indexPath.row == [_appService getStatementCount] - 1;
-    if (isLastRow) {
-        [self configureUserInputFor:bubble];
-    }
+    ConversationBubble *bubble = [self getStatementIndex:indexPath.row];
 
     ConversationBubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
     cell.bubble = bubble;
@@ -146,8 +177,6 @@
 - (void)disableUserInput {
     [self setEnabledForCuisinePreferenceSend];
     [self setEnabledForCuisinePreferenceList];
-    [self.userPrefereseBritishFood setHidden:YES];
-    [self.userDoesntLikeThatRestaurant setHidden:YES];
 }
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
@@ -160,13 +189,17 @@
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
-        if (foodHeroBubble.inputAction.class == AskUserCuisinePreferenceAction.class) {
-            [self.userPrefereseBritishFood setHidden:NO];
-        }
-        else if (foodHeroBubble.inputAction.class == AskUserSuggestionFeedbackAction.class) {
-            [_userDoesntLikeThatRestaurant setHidden:NO];
-        }
+        id <UAction> inputAction = foodHeroBubble.inputAction;
+        [inputAction accept:self];
     }
+}
+
+- (void)askUserCuisinePreferenceAction {
+    [self changeUserInputViewController:@"Cuisine"];
+}
+
+- (void)askUserSuggestionFeedback {
+    [self changeUserInputViewController:@"Feedback"];
 }
 
 - (IBAction)userCuisinePreferenceTextChanged:(id)sender {
@@ -223,13 +256,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"loginView"] || [segue.identifier isEqualToString:@"mapView"]) {
-        [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
-    }
-    else {
-        CuisineTableViewController *ctrl = segue.destinationViewController;
-        ctrl.delegate = self;
-    }
+    [self changeViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
 }
 

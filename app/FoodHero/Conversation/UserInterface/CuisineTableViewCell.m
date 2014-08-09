@@ -15,11 +15,14 @@ static UIImage *CheckedImage;
 }
 
 + (void)initialize {
+    [super initialize];
     UncheckedImage = [UIImage imageNamed:@"Checkmark-Unchecked.png"];
     CheckedImage = [UIImage imageNamed:@"Checkmark-Checked.png"];
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
+
     _label = (UILabel *) [self viewWithTag:100];
     self.imageView.image = UncheckedImage;
     [self setIsAccessibilityElement:YES];

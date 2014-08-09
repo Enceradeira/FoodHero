@@ -4,8 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInputViewSubscriber.h"
 
-@protocol UserInputViewController
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate;
+@protocol UActionVisitor <NSObject>
+- (void)askUserCuisinePreferenceAction;
+
+- (void)askUserSuggestionFeedback;
 @end

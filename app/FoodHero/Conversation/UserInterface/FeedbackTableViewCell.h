@@ -4,8 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInputViewSubscriber.h"
+#import "Feedback.h"
 
-@protocol UserInputViewController
-- (void)setDelegate:(id <UserInputViewSubscriber>)delegate;
+
+@interface FeedbackTableViewCell :  UITableViewCell
+@property(nonatomic) Feedback* feedback;
 @end

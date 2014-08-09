@@ -5,6 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "UActionVisitor.h"
 
 @protocol UAction <ConversationAction>
+- (void)accept:(id <UActionVisitor>)visitor;
 @end
