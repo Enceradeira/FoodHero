@@ -42,7 +42,7 @@
     [super viewDidLoad];
 
     // View
-    _viewDimensons = [ViewDimensionHelper create:self];
+    _viewDimensions = [ViewDimensionHelper create:self];
 
     // Bubble View
     _bubbleView.delegate = self;
@@ -77,8 +77,8 @@
     UIView *originalSuperview = view.superview;
 
     // position of text input
-    CGRect textinputFrame = _userCuisinePreferenceText.frame;
-    CGRect convertedTextinputFrame = [_userCuisinePreferenceText.superview convertRect:textinputFrame toView:[self view]];
+    CGRect textinputFrame = _userTextField.frame;
+    CGRect convertedTextinputFrame = [_userTextField.superview convertRect:textinputFrame toView:[self view]];
 
     // position of view
     CGRect viewFrame = view.frame;
@@ -218,31 +218,31 @@
     [self changeUserInputViewController:@"Feedback"];
 }
 
-- (IBAction)userCuisinePreferenceTextChanged:(id)sender {
+- (IBAction)userTextFieldChanged:(id)sender {
     [self setEnabledForCuisinePreferenceSend];
 }
 
 - (void)setEnabledForCuisinePreferenceList {
-    self.userCuisinePreferenceList.enabled = ![_currentViewState isKindOfClass:ConversationViewStateListOrTextInput.class];
+    self.userInputListButton.enabled = ![_currentViewState isKindOfClass:ConversationViewStateListOrTextInput.class];
 }
 
 - (void)setEnabledForCuisinePreferenceSend {
-    NSString *text = self.userCuisinePreferenceText.text;
-    self.userCuisinePreferenceSend.enabled = text.length > 0;
+    NSString *text = self.userTextField.text;
+    self.userSendButton.enabled = text.length > 0;
 }
 
-- (IBAction)userCuisinePreferenceSendTouchUp:(id)sender {
+- (IBAction)userSendButtonTouchUp:(id)sender {
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
     [_currentUserInputContainerViewController sendUserInput];
-    _userCuisinePreferenceText.text = @"";
+    _userTextField.text = @"";
 }
 
 - (void)hideKeyboard {
-    [(self.userCuisinePreferenceText) resignFirstResponder];
+    [(self.userTextField) resignFirstResponder];
 }
 
-- (IBAction)userCuisinePreferenceListTouchUp:(id)sender {
+- (IBAction)userInputListButtonTouchUp:(id)sender {
     [_currentUserInputContainerViewController notifyUserWantsListInput:UIViewAnimationCurveEaseOut animationDuration:0.25];
 }
 

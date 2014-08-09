@@ -143,7 +143,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="userCuisinePreferenceTextChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
+                                                    <action selector="userTextFieldChanged:" destination="Xf7-7W-WAu" eventType="editingChanged" id="HAC-vt-MCA"/>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-Wf-czR" userLabel="SendButton">
@@ -158,7 +158,7 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="userCuisinePreferenceSendTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
+                                                    <action selector="userSendButtonTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
@@ -172,7 +172,7 @@
                                                 <state key="selected" image="List-Icon-Disabled.png"/>
                                                 <state key="highlighted" image="List-Icon-Disabled.png"/>
                                                 <connections>
-                                                    <action selector="userCuisinePreferenceListTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="bme-5j-kB9"/>
+                                                    <action selector="userInputListButtonTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="bme-5j-kB9"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -259,9 +259,9 @@
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
                         <outlet property="bubbleViewHeightConstraint" destination="a4k-5X-gbT" id="RqQ-a1-FjW"/>
-                        <outlet property="userCuisinePreferenceList" destination="sD0-Nu-rxO" id="NuF-iI-UFk"/>
-                        <outlet property="userCuisinePreferenceSend" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
-                        <outlet property="userCuisinePreferenceText" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
+                        <outlet property="userInputListButton" destination="sD0-Nu-rxO" id="NuF-iI-UFk"/>
+                        <outlet property="userSendButton" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
+                        <outlet property="userTextField" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                         <outlet property="userInputContainerView" destination="kW0-vZ-rWt" id="xGi-QU-jEX"/>
                         <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
                         <outlet property="userInputHeightConstraint" destination="4Wo-bP-1qy" id="jSb-Wd-xXh"/>

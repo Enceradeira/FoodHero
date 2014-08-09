@@ -52,8 +52,8 @@
     CuisineTableViewCell *cell = (CuisineTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
     cell.isSelected = !cell.isSelected;
 
-    _parentController.userCuisinePreferenceText.text = [_appService getSelectedCuisineText];
-    [_parentController userCuisinePreferenceTextChanged:self];
+    _parentController.userTextField.text = [_appService getSelectedCuisineText];
+    [_parentController userTextFieldChanged:self];
 }
 
 - (void)setParentController:(ConversationViewController *)controller {
@@ -69,7 +69,7 @@
 }
 
 - (void)sendUserInput {
-    NSString *text = _parentController.userCuisinePreferenceText.text;
+    NSString *text = _parentController.userTextField.text;
     [_appService addUserInput:[UCuisinePreference create:text]];
 }
 

@@ -18,7 +18,7 @@
 }
 
 - (void)activate {
-    UITextField *userCuisinePreferenceText = self.controller.userCuisinePreferenceText;
+    UITextField *userCuisinePreferenceText = self.controller.userTextField;
     userCuisinePreferenceText.enabled = self.isTextInputEnabled;
     userCuisinePreferenceText.backgroundColor =  self.isTextInputEnabled? nil:[FoodHeroColors lightestGrey];
 

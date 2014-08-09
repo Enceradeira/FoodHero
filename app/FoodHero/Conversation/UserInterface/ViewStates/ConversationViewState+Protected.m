@@ -12,7 +12,7 @@
 
 - (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
 
-    ViewDimensionHelper *viewDimensionHelper = self.controller.viewDimensons;
+    ViewDimensionHelper *viewDimensionHelper = self.controller.viewDimensions;
 
     self.controller.userInputHeightConstraint.constant = 0;
     self.controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;

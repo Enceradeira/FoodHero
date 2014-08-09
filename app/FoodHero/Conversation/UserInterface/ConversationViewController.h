@@ -15,27 +15,26 @@
 @interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UActionVisitor>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
-@property(weak, nonatomic) IBOutlet UITextField *userCuisinePreferenceText;
+@property(weak, nonatomic) IBOutlet UITextField *userTextField;
 @property(weak, nonatomic) IBOutlet UIView *userInputContainerView;
-@property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceSend;
-@property(weak, nonatomic) IBOutlet UIButton *userCuisinePreferenceList;
+@property(weak, nonatomic) IBOutlet UIButton *userSendButton;
+@property(weak, nonatomic) IBOutlet UIButton *userInputListButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
-@property(nonatomic, readonly) ViewDimensionHelper *viewDimensons;
+@property(nonatomic, readonly) ViewDimensionHelper *viewDimensions;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 
 - (void)setViewState:(ConversationViewState *)viewState;
 
-- (IBAction)userCuisinePreferenceTextChanged:(id)sender;
+- (IBAction)userTextFieldChanged:(id)sender;
 
-- (IBAction)userCuisinePreferenceSendTouchUp:(id)sender;
+- (IBAction)userSendButtonTouchUp:(id)sender;
 
 - (void)hideKeyboard;
 
-- (IBAction)userCuisinePreferenceListTouchUp:(id)sender;
+- (IBAction)userInputListButtonTouchUp:(id)sender;
 
 - (void)setConversationAppService:(ConversationAppService *)service;
-
 
 - (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion;
 
