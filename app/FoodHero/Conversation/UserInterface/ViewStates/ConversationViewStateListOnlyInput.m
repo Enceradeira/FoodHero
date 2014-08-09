@@ -4,6 +4,7 @@
 //
 
 #import "ConversationViewStateListOnlyInput.h"
+#import "ConversationViewState+Protected.h"
 
 
 @implementation ConversationViewStateListOnlyInput {
@@ -19,6 +20,10 @@
 }
 
 - (BOOL)isTextInputEnabled {
+    return NO;
+}
+
+- (BOOL)isKeyboardVisible {
     return NO;
 }
 

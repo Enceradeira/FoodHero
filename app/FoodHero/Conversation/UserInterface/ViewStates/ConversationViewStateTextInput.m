@@ -34,5 +34,12 @@
     [super adjustViewsForKeyboardHeight:_keyboardHeight animationDuration:_animationDuration animationCurve:_animationCurve];
 }
 
+- (BOOL)isTextInputEnabled {
+    return YES;
+}
+
+- (BOOL)isKeyboardVisible {
+    return YES;
+}
 
 @end

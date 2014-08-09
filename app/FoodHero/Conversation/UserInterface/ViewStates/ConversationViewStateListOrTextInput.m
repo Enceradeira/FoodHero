@@ -31,7 +31,6 @@
 
 - (void)activate {
     [super activate];
-    [super hideKeyboard];
 
     ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensionHelper;
     _controller.userInputHeightConstraint.constant = viewDimensionHelper.userInputListHeight;
@@ -39,6 +38,14 @@
     _controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight;
 
     [self animateLayoutWithDuration:_animationDuration animationCurve:_animationCurve];
+}
+
+- (BOOL)isKeyboardVisible {
+    return NO;
+}
+
+- (BOOL)isTextInputEnabled {
+    return YES;
 }
 
 @end

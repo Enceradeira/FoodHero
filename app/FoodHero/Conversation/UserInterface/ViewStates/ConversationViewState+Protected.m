@@ -5,6 +5,7 @@
 
 #import "ConversationViewState+Protected.h"
 #import "ViewDimensionHelper.h"
+#import "DesignByContractException.h"
 
 
 @implementation ConversationViewState (Protected)
@@ -32,12 +33,12 @@
     return (UIViewAnimationOptions) (curve << 16);
 }
 
-- (void)hideKeyboard {
-    [self.controller hideKeyboard];
+- (BOOL)isTextInputEnabled {
+    @throw [DesignByContractException createWithReason:@"subclass must override method"];
 }
 
-- (BOOL)isTextInputEnabled {
-    return YES;
+- (BOOL)isKeyboardVisible {
+    @throw [DesignByContractException createWithReason:@"subclass must override method"];
 }
 
 @end

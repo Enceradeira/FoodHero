@@ -18,10 +18,17 @@
 
 - (void)activate {
     self.controller.userCuisinePreferenceText.enabled = self.isTextInputEnabled;
+    if (!self.isKeyboardVisible) {
+        [self hideKeyboard];
+    }
 }
 
 - (BOOL)isEqual:(id)other {
     return [[other class] isEqual:[self class]];
+}
+
+- (void)hideKeyboard {
+    [self.controller hideKeyboard];
 }
 
 @end

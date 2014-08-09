@@ -14,7 +14,7 @@
 
 - (void)animateLayoutWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve;
 
-- (void)hideKeyboard;
-
 - (BOOL)isTextInputEnabled;
+
+- (BOOL)isKeyboardVisible;
 @end
