@@ -10,7 +10,7 @@
 @interface ConversationToken : NSObject
 
 @property(nonatomic, readonly) NSString *semanticId;
-@property(nonatomic, readonly) NSString *parameter;
+@property(nonatomic, readonly) NSString *text;
 @property(nonatomic, readonly) Persona *persona;
 
 - (instancetype)initWithSemanticId:(NSString *)semanticId text:(NSString *)text;

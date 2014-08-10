@@ -26,7 +26,7 @@
 }
 
 - (NSString *)text {
-    return [self createTokenFor:nil].parameter;
+    return [self createTokenFor:nil].text;
 }
 
 - (UIImage *)image {

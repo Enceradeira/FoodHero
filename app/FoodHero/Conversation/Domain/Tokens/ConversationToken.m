@@ -26,7 +26,7 @@
     self = [super self];
     if (self != nil) {
         _semanticId = semanticId;
-        _parameter = text;
+        _text = text;
         _persona = persona;
     }
     return self;
@@ -37,7 +37,7 @@
         @throw [DesignByContractException createWithReason:@"Attempt to concat two ConversationAction for different personas"];
     }
     NSString *semanticId = [NSString stringWithFormat:@"%@&%@", _semanticId, token.semanticId];
-    NSString *text = [NSString stringWithFormat:@"%@ %@", _parameter, token.parameter];
+    NSString *text = [NSString stringWithFormat:@"%@ %@", _text, token.text];
     return [[ConversationToken alloc] initWithPersona:_persona semantidId:semanticId text:text];
 }
 

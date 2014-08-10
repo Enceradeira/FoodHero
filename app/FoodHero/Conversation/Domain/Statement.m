@@ -15,7 +15,7 @@
     ConversationToken *_token;
 }
 - (NSString *)text {
-    return _token.parameter;
+    return _token.text;
 }
 
 - (NSString *)semanticId {

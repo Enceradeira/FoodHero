@@ -67,7 +67,7 @@
 }
 
 -(void)test_radarsearch {
-    for(Restaurant *r in [_service radarsearch:_parameter]){
+    for(Restaurant *r in [_service radarsearch:parameter]){
          NSLog(@"-> %@ %@",r.name,r.vicinity);
     };
 }
