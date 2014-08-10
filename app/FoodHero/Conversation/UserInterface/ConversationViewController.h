@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ConversationAppService.h"
-#import "ViewDimensionHelper.h"
 
 @class ConversationViewState;
 
@@ -22,7 +21,6 @@
 @property(weak, nonatomic) IBOutlet UIButton *userInputListButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
-@property(nonatomic, readonly) ViewDimensionHelper *viewDimensions;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 
 - (void)setViewState:(ConversationViewState *)viewState;

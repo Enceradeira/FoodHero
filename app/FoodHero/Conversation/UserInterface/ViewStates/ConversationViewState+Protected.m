@@ -4,20 +4,18 @@
 //
 
 #import "ConversationViewState+Protected.h"
-#import "ViewDimensionHelper.h"
 #import "DesignByContractException.h"
+#import "ConversationViewController+ViewDimensionCalculator.h"
 
 
 @implementation ConversationViewState (Protected)
 
 - (void)adjustViewsForKeyboardHeight:(CGFloat)keyboardHeight animationDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve {
 
-    ViewDimensionHelper *viewDimensionHelper = self.controller.viewDimensions;
-
     self.controller.userInputHeightConstraint.constant = 0;
-    self.controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;
+    self.controller.userInputHeaderHeightConstraint.constant = self.controller.userInputHeaderHeight;
     // bubbleView gets the space from the hidden userInputList but is shortened by keyboardHeight
-    self.controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight + viewDimensionHelper.userInputListHeight - keyboardHeight;
+    self.controller.bubbleViewHeightConstraint.constant = self.controller.bubbleViewHeight + self.controller.userInputListHeight - keyboardHeight;
 
     [self animateLayoutWithDuration:animationDuration animationCurve:animationCurve];
 }

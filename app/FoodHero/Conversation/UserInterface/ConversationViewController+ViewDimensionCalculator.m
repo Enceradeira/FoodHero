@@ -1,16 +1,13 @@
 //
-// Created by Jorg on 06/08/2014.
+// Created by Jorg on 10/08/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#include "ViewDimensionHelper.h"
+#import "ConversationViewController+ViewDimensionCalculator.h"
 #import "DesignByContractException.h"
-#import "ConversationViewController.h"
 
-@implementation ViewDimensionHelper {
-    ConversationViewController *_controller;
-}
 
+@implementation ConversationViewController (ViewDimensionCalculator)
 - (CGFloat)height {
     CGSize rect = [UIScreen mainScreen].bounds.size;
     if (self.isPortraitOrientation) {
@@ -41,21 +38,13 @@
     }
 }
 
-- (id)initWithView:(ConversationViewController *)controller {
-    self = [super init];
-    if (self != nil) {
-        _controller = controller;
-    }
-    return self;
-}
-
 - (int)userInputHeaderHeight {
     return 40;
 }
 
 - (int)userInputListHeight {
     int maxHeight = (int) (self.height / [self userInputListScreenProportion]);
-    int optimalHeight = _controller.optimalUserInputListHeight;
+    int optimalHeight = self.optimalUserInputListHeight;
     if (optimalHeight > maxHeight) {
         return maxHeight;
     }
@@ -71,10 +60,4 @@
 - (int)bubbleViewHeight {
     return (int) self.height - self.userInputHeaderHeight - self.userInputListHeight;
 }
-
-+ (instancetype)create:(ConversationViewController *)controller {
-    return [[ViewDimensionHelper alloc] initWithView:controller];
-}
-
-
 @end

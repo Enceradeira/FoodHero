@@ -5,8 +5,7 @@
 
 #import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewState+Protected.h"
-#import "ViewDimensionHelper.h"
-
+#import "ConversationViewController+ViewDimensionCalculator.h"
 
 @implementation ConversationViewStateListOrTextInput {
 
@@ -32,10 +31,9 @@
 - (void)activate {
     [super activate];
 
-    ViewDimensionHelper *viewDimensionHelper = _controller.viewDimensions;
-    _controller.userInputHeightConstraint.constant = viewDimensionHelper.userInputListHeight;
-    _controller.userInputHeaderHeightConstraint.constant = viewDimensionHelper.userInputHeaderHeight;
-    _controller.bubbleViewHeightConstraint.constant = viewDimensionHelper.bubbleViewHeight;
+    _controller.userInputHeightConstraint.constant =  self.controller.userInputListHeight;
+    _controller.userInputHeaderHeightConstraint.constant = self.controller.userInputHeaderHeight;
+    _controller.bubbleViewHeightConstraint.constant = self.controller.bubbleViewHeight;
 
     [self animateLayoutWithDuration:_animationDuration animationCurve:_animationCurve];
 }

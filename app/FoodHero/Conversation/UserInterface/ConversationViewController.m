@@ -42,9 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // View
-    _viewDimensions = [ViewDimensionHelper create:self];
-
     // Bubble View
     _bubbleView.delegate = self;
     _bubbleView.dataSource = self;
