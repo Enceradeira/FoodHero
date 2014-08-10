@@ -15,6 +15,7 @@
 #import "ConversationViewStateListOrTextInput.h"
 #import "CuisineTableViewController.h"
 #import "TyphoonComponents.h"
+#import "FoodHeroColors.h"
 
 @interface ConversationViewController ()
 
@@ -69,6 +70,8 @@
     // Input View
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+    _userInputHeaderView.layer.borderColor = [[FoodHeroColors darkerSepeartorGrey] CGColor];
+    _userInputHeaderView.layer.borderWidth = 0.5;
 
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 }

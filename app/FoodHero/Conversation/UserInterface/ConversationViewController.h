@@ -17,6 +17,7 @@
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userTextField;
 @property(weak, nonatomic) IBOutlet UIView *userInputContainerView;
+@property (weak, nonatomic) IBOutlet UIView *userInputHeaderView;
 @property(weak, nonatomic) IBOutlet UIButton *userSendButton;
 @property(weak, nonatomic) IBOutlet UIButton *userInputListButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;

@@ -7,5 +7,9 @@
 
 
 @interface FoodHeroColors : NSObject
-+(UIColor*)lightestGrey;
++ (UIColor *)lightestBackgroundGrey;
+
++ (UIColor *)lightestDrawningGrey;
+
++ (UIColor *)darkerSepeartorGrey;
 @end

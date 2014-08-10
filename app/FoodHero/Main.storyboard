@@ -259,12 +259,13 @@
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
                         <outlet property="bubbleViewHeightConstraint" destination="a4k-5X-gbT" id="RqQ-a1-FjW"/>
+                        <outlet property="userInputContainerView" destination="kW0-vZ-rWt" id="xGi-QU-jEX"/>
+                        <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
+                        <outlet property="userInputHeaderView" destination="bjD-qx-FNu" id="Bh7-z3-mqt"/>
+                        <outlet property="userInputHeightConstraint" destination="4Wo-bP-1qy" id="jSb-Wd-xXh"/>
                         <outlet property="userInputListButton" destination="sD0-Nu-rxO" id="NuF-iI-UFk"/>
                         <outlet property="userSendButton" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
                         <outlet property="userTextField" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
-                        <outlet property="userInputContainerView" destination="kW0-vZ-rWt" id="xGi-QU-jEX"/>
-                        <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
-                        <outlet property="userInputHeightConstraint" destination="4Wo-bP-1qy" id="jSb-Wd-xXh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1t-2u-Gy7" userLabel="First Responder" sceneMemberID="firstResponder"/>

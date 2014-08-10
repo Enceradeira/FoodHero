@@ -6,11 +6,20 @@
 #import "FoodHeroColors.h"
 
 
+const float _d = 255.0f;
+
 @implementation FoodHeroColors {
 
 }
-+ (UIColor *)lightestGrey {
-    return [UIColor colorWithRed:247 green:247 blue:247 alpha:1];
++ (UIColor *)lightestBackgroundGrey {
+    return [UIColor colorWithRed:247 / _d green:247 / _d blue:247 / _d alpha:1];
 }
 
++ (UIColor *)lightestDrawningGrey {
+    return [UIColor colorWithRed:208 / _d green:208 / _d blue:208 / _d alpha:1];
+}
+
++ (UIColor *)darkerSepeartorGrey {
+    return [UIColor colorWithRed:178 / _d green:178 / _d blue:178 / _d alpha:1];
+}
 @end
