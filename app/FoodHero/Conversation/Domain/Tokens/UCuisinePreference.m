@@ -10,6 +10,6 @@
 
 }
 + (instancetype)create:(NSString *)parameter {
-    return [[UCuisinePreference alloc] initWithParameter:[NSString stringWithFormat:@"U:CuisinePreference=%@", parameter] parameter:parameter];
+    return [[UCuisinePreference alloc] initWithSemanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", parameter] text:parameter];
 }
 @end

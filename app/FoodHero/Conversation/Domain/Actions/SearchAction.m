@@ -39,9 +39,9 @@
 
 
 - (void)execute:(id<ConversationSource>)conversation {
-    USuggestionNegativeFeedback *lastFeedback = [conversation.suggestionFeedback linq_lastOrNil];
+    USuggestionNegativeFeedback *lastFeedback = [conversation.negativeUserFeedback linq_lastOrNil];
 
-    RACSignal *bestRestaurant = [_restaurantSearch findBest:conversation.suggestionFeedback];
+    RACSignal *bestRestaurant = [_restaurantSearch findBest:conversation.negativeUserFeedback];
     @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error){
         @strongify(self);

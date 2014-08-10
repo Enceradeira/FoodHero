@@ -60,6 +60,7 @@
         [newIndexes addObject:newIndex];
 
         [_bubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
+        [_bubbleView scrollToRowAtIndexPath:newIndex atScrollPosition:UITableViewScrollPositionNone animated:YES];
 
         [self configureUserInputFor:[self getStatementIndex:index]];
     }];
@@ -217,6 +218,11 @@
 - (void)askUserSuggestionFeedback {
     [self changeUserInputViewController:@"Feedback"];
 }
+
+- (void)askUserWhatToDoNext {
+
+}
+
 
 - (IBAction)userTextFieldChanged:(id)sender {
     [self setEnabledForCuisinePreferenceSend];

@@ -10,7 +10,7 @@
 
 }
 -(instancetype)init{
-    self =  [super initWithParameter:@"FH:GoodByeAfterSuccess" parameter:@"See you!"];
+    self = [super initWithSemanticId:@"FH:GoodByeAfterSuccess" text:@"See you!"];
     return self;
 }
 

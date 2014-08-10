@@ -11,6 +11,6 @@
 }
 + (ConversationToken *)create {
     NSString *text = @"It seems classier";
-    return [[FHConfirmationIfInNewPreferredRangeMoreExpensive alloc] initWithParameter:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" parameter:text];
+    return [[FHConfirmationIfInNewPreferredRangeMoreExpensive alloc] initWithSemanticId:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" text:text];
 }
 @end

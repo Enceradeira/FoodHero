@@ -12,7 +12,7 @@
 
 - (instancetype)init {
     NSString *text = @"Now that you like that restaurant.\n\n Is there something else that I can do for you?";
-    return self = [super initWithParameter:@"FH:WhatToDoNext" parameter:text];
+    return self = [super initWithSemanticId:@"FH:WhatToDoNext" text:text];
 }
 
 @end

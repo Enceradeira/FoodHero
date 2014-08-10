@@ -63,12 +63,38 @@ const CGFloat landscapeWidth = 400;
     return feedbacks;
 }
 
+- (NSArray*) statements {
+    NSMutableArray *statements = [NSMutableArray new];
+    for(NSUInteger i=0; i<[_service getStatementCount]; i++){
+        [statements addObject:[_service getStatement:i bubbleWidth:147]];
+    }
+    return statements;
+}
+
 - (Cuisine *)cuisine:(NSString *)name {
     Cuisine *african = [[[self cuisines] linq_where:^(Cuisine *c) {
         return [c.name isEqualToString:name];
     }] linq_firstOrNil];
     return african;
 }
+
+- (void)assertUserFeedbackForLastSuggestedRestaurant:(NSString *)feedback fhAnswer:(NSString *)fhAnswer {
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
+    Feedback *anyFeedback = [[[self feedbacks]
+            linq_where:^(Feedback *f) {
+
+                return [f.text isEqualToString:feedback];
+            }] linq_firstOrNil];
+
+    [_service addUserFeedbackForLastSuggestedRestaurant:anyFeedback];
+
+    NSArray *statementsReversed = [[self statements] linq_reverse];
+    ConversationBubble* userFeedback = statementsReversed[1];
+    ConversationBubble* newFhSuggestion = statementsReversed[0];
+    assertThat(userFeedback.semanticId, is(equalTo([NSString stringWithFormat:@"U:SuggestionFeedback=%@",feedback])));
+    assertThat(newFhSuggestion.semanticId, is(equalTo(fhAnswer)));
+}
+
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble
 {
@@ -162,15 +188,34 @@ const CGFloat landscapeWidth = 400;
      }
 }
 
--(void)test_getLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet{
-    assertThat(^(){return  [_service getLastSuggestedRestaurant];}, throwsExceptionOfType(DesignByContractException.class));
+-(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet{
+    Feedback* feedback = [_service getFeedback:0];
+    assertThat(^(){return  [_service addUserFeedbackForLastSuggestedRestaurant:feedback];}, throwsExceptionOfType(DesignByContractException.class));
 }
 
--(void)test_getLastSuggestedRestaurant_ShouldReturnFirstSuggestedRestaurant_WhenNoUserFeedbackProvided{
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]];
+-(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway{
 
-    Restaurant *restaurant = [_service getLastSuggestedRestaurant];
-    assertThat(restaurant, is(notNilValue()));
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+}
+
+-(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToExpensive{
+
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+}
+
+-(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToCheap{
+
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+}
+
+-(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIDontLikeThatRestaurant{
+
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+}
+
+-(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt{
+
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"I like it" fhAnswer:@"FH:WhatToDoNext"];
 }
 
 @end

@@ -8,7 +8,6 @@
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
-#import "USuggestionFeedbackForNotLikingAtAll.h"
 
 @implementation RestaurantSearch {
 
@@ -25,12 +24,12 @@
     return self;
 }
 
-- (RACSignal *)findBest:(NSArray *)userFeedback {
-    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
+- (RACSignal *)findBest:(NSArray *)negativeUserFeedback {
+    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
         RACDisposable *sourceDisposable = [[_locationService currentLocation]
-                subscribeNext:^(id value){
+                subscribeNext:^(id value) {
                     CLLocationCoordinate2D coordinate;
                     coordinate.longitude, coordinate.latitude = 0;
                     [((NSValue *) value) getValue:&coordinate];
@@ -40,14 +39,12 @@
                     parameter.radius = 2000;
                     NSArray *candidates = [_searchService find:parameter];
                     if (candidates.count > 0) {
-                        NSArray *excludedPlaceIds = [[userFeedback linq_where:^(USuggestionNegativeFeedback *f){
-                            return (BOOL) ([f isKindOfClass:[USuggestionFeedbackForNotLikingAtAll class]]);
-                        }] linq_select:^(USuggestionNegativeFeedback *f){
+                        NSArray *excludedPlaceIds = [negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
                             return f.restaurant.placeId;
                         }];
 
-                        NSArray *restaurants = [candidates linq_where:^(Restaurant *r){
-                            return [excludedPlaceIds linq_all:^(NSString *id){
+                        NSArray *restaurants = [candidates linq_where:^(Restaurant *r) {
+                            return [excludedPlaceIds linq_all:^(NSString *id) {
                                 return (BOOL) (![r.placeId isEqualToString:id]);
                             }];
                         }];

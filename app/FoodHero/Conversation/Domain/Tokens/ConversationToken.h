@@ -13,7 +13,7 @@
 @property(nonatomic, readonly) NSString *parameter;
 @property(nonatomic, readonly) Persona *persona;
 
-- (instancetype)initWithParameter:(NSString *)semanticId parameter:(NSString *)parameter;
+- (instancetype)initWithSemanticId:(NSString *)semanticId text:(NSString *)text;
 
 - (ConversationToken *)concat:(ConversationToken *)token;
 

@@ -13,7 +13,7 @@
 }
 
 + (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant parameter:@"It's too far away"];
+    return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant text:@"It's too far away"];
 }
 
 - (ConversationToken *)foodHeroConfirmationToken {

@@ -25,6 +25,7 @@
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "AlternationRandomizerStub.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "USuggestionFeedbackForLiking.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -110,7 +111,7 @@
     [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
--(void)test_suggestionFeedback_ShouldReturnAllSuggestionFeedback{
+-(void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback{
     USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[Restaurant new]];
     USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[Restaurant new]];
 
@@ -118,13 +119,20 @@
     [self.conversation addToken:feedback1];
     [self.conversation addToken:feedback2];
 
-    NSArray *feedback = [self.conversation suggestionFeedback];
+    NSArray *feedback = [self.conversation negativeUserFeedback];
     assertThatUnsignedInt(feedback.count, is(equalToUnsignedInt(2)));
     assertThat(feedback, hasItem(feedback1));
     assertThat(feedback, hasItem(feedback2));
 }
 
--(void)test_suggestedRestaurants_ShouldBeEmpty_WhenFHHasNoRestaurantSuggestedYet{
+-(void)test_negativeUserFeedback_ShouldBeEmpty_WhenUserHasOnlyGivenPositiveFeedback{
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:[Restaurant new]]];
+
+    assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
+}
+
+-(void)test_negativeUserFeedback_ShouldBeEmpty_WhenFHHasNoRestaurantSuggestedYet{
     NSArray *restaurants = [self.conversation suggestedRestaurants];
     assertThat(restaurants, is(notNilValue()));
     assertThatInteger(restaurants.count, is(equalToInteger(0)));
@@ -132,7 +140,11 @@
 
 -(void)test_suggestedRestaurants_ShouldNotBeEmpty_WhenFHHasSuggestedRestaurants{
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];  // 1. Restaurant suggested
+
+    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"]; // make FH choose a different type of suggestion
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]]; // 2. Restaurant suggested
+
+    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"]; // make FH choose a different type of suggestion
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[Restaurant new]]]; // 3. Restaurant suggested
     NSArray *restaurants = [self.conversation suggestedRestaurants];
     assertThatInteger(restaurants.count, is(equalToInteger(3)));

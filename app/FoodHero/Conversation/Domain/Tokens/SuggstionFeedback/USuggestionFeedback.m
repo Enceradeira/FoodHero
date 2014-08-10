@@ -4,16 +4,14 @@
 //
 
 #import "USuggestionFeedback.h"
-#import "Restaurant.h"
-#import "ConversationSource.h"
-#import "ConversationAction.h"
 #import "DesignByContractException.h"
 
 
 @implementation USuggestionFeedback {
 }
-- (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter {
-    self = [super initWithParameter:@"U:SuggestionFeedback" parameter:parameter];
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text {
+    NSString *semanticId = [NSString stringWithFormat:@"U:SuggestionFeedback=%@", text];
+    self = [super initWithSemanticId:semanticId text:text];
     if (self != nil) {
         _restaurant = restaurant;
     }

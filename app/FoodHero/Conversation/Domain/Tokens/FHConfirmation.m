@@ -10,6 +10,6 @@
 
 }
 + (FHConfirmation *)create {
-    return [[FHConfirmation alloc] initWithParameter:@"FH:Confirmation" parameter:@"What do you think?"];
+    return [[FHConfirmation alloc] initWithSemanticId:@"FH:Confirmation" text:@"What do you think?"];
 }
 @end

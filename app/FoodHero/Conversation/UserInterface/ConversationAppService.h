@@ -25,6 +25,8 @@
 
 - (void)addUserInput:(ConversationToken *)userInput;
 
+- (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback;
+
 - (NSInteger)getStatementCount;
 
 - (NSInteger)getCuisineCount;
@@ -37,5 +39,4 @@
 
 - (Feedback *)getFeedback:(NSUInteger)index;
 
-- (Restaurant *)getLastSuggestedRestaurant;
 @end

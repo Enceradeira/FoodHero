@@ -9,6 +9,6 @@
 @implementation UTryAgainNow {
 }
 - (id)init {
-    return [super initWithParameter:@"U:TryAgainNow" parameter:@"Please, try again"];
+    return [super initWithSemanticId:@"U:TryAgainNow" text:@"Please, try again"];
 }
 @end

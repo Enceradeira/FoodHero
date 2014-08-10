@@ -14,7 +14,7 @@
 
 @property(nonatomic, readonly) Restaurant *restaurant;
 
-- (instancetype)initWithRestaurant:(Restaurant *)restaurant parameter:(NSString *)parameter;
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text;
 
 - (id <ConversationAction>)createAction;
 @end

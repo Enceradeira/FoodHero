@@ -4,25 +4,36 @@
 //
 
 #import "Feedback.h"
+#import "USuggestionFeedbackForLiking.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
 
 
 @implementation Feedback {
     UIImage *_image;
+    Class _tokenClass;
 }
-+ (instancetype)create:(NSString *)text image:(UIImage *)image {
-    return [[Feedback alloc] initWithText:text image:image];
++ (instancetype)create:(Class)tokenClass image:(UIImage *)image {
+    return [[Feedback alloc] initWithTokenClass:tokenClass image:image];
 }
 
-- (id)initWithText:(NSString *)text image:(UIImage *)image {
+- (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image {
     self = [super init];
     if (self != nil) {
-        _text = text;
+        _tokenClass = tokenClass;
         _image = image;
     }
     return self;
 }
 
+- (NSString *)text {
+    return [self createTokenFor:nil].parameter;
+}
+
 - (UIImage *)image {
     return _image;
+}
+
+- (ConversationToken *)createTokenFor:(Restaurant *)restaurant {
+    return (ConversationToken *) [_tokenClass create:restaurant];
 }
 @end

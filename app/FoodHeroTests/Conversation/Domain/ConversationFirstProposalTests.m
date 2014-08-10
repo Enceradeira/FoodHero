@@ -28,7 +28,7 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
 
-    [self assertSecondLastStatementIs:@"U:SuggestionFeedback" userAction:nil];
+    [self assertSecondLastStatementIs:@"U:SuggestionFeedback=It looks too cheap" userAction:nil];
 }
 
 

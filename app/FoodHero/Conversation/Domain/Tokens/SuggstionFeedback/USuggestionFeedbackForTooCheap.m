@@ -13,7 +13,7 @@
 }
 
 + (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForTooCheap alloc] initWithRestaurant:restaurant parameter:@"It looks to cheap."];
+    return [[USuggestionFeedbackForTooCheap alloc] initWithRestaurant:restaurant text:@"It looks too cheap"];
 }
 
 - (ConversationToken *)foodHeroConfirmationToken {

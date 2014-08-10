@@ -11,6 +11,6 @@
 }
 + (ConversationToken *)create {
     NSString *text = @"That’s weird. I can’t find any restaurants right now.";
-    return [[FHNoRestaurantsFound alloc] initWithParameter:@"FH:NoRestaurantsFound" parameter:text];
+    return [[FHNoRestaurantsFound alloc] initWithSemanticId:@"FH:NoRestaurantsFound" text:text];
 }
 @end

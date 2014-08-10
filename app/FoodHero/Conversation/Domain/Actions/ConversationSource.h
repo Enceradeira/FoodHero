@@ -9,6 +9,6 @@
 @protocol ConversationSource <NSObject>
 - (void)addToken:(ConversationToken *)token;
 
-- (NSArray *)suggestionFeedback;
+- (NSArray *)negativeUserFeedback;
 
 @end

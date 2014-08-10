@@ -11,7 +11,7 @@
 @implementation ConversationToken {
 }
 
-- (instancetype)initWithParameter:(NSString *)semanticId parameter:(NSString *)parameter {
+- (instancetype)initWithSemanticId:(NSString *)semanticId text:(NSString *)text {
     Persona *persona;
     if ([semanticId rangeOfString:@"FH:"].location == NSNotFound) {
         persona = [Personas user];
@@ -19,14 +19,14 @@
     else {
         persona = [Personas foodHero];
     }
-    return [self initWithPersona:persona semantidId:semanticId parameter:parameter];
+    return [self initWithPersona:persona semantidId:semanticId text:text];
 }
 
-- (instancetype)initWithPersona:(Persona *)persona semantidId:(NSString *)semanticId parameter:(NSString *)parameter {
+- (instancetype)initWithPersona:(Persona *)persona semantidId:(NSString *)semanticId text:(NSString *)text {
     self = [super self];
     if (self != nil) {
         _semanticId = semanticId;
-        _parameter = parameter;
+        _parameter = text;
         _persona = persona;
     }
     return self;
@@ -38,7 +38,7 @@
     }
     NSString *semanticId = [NSString stringWithFormat:@"%@&%@", _semanticId, token.semanticId];
     NSString *text = [NSString stringWithFormat:@"%@ %@", _parameter, token.parameter];
-    return [[ConversationToken alloc] initWithPersona:_persona semantidId:semanticId parameter:text];
+    return [[ConversationToken alloc] initWithPersona:_persona semantidId:semanticId text:text];
 }
 
 @end

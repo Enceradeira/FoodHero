@@ -12,7 +12,7 @@
 }
 
 + (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForNotLikingAtAll alloc] initWithRestaurant:restaurant parameter:@"I don't like that restaurant!"];
+    return [[USuggestionFeedbackForNotLikingAtAll alloc] initWithRestaurant:restaurant text:@"I don't like that restaurant"];
 }
 
 - (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {

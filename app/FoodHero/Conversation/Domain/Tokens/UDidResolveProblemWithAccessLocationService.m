@@ -11,7 +11,7 @@
 
 - (id)init {
     NSString *text = @"I fixed the problem. Please try again!";
-    return [super initWithParameter:@"U:DidResolveProblemWithAccessLocationService" parameter:text];
+    return [super initWithSemanticId:@"U:DidResolveProblemWithAccessLocationService" text:text];
 }
 
 @end

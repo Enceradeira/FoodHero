@@ -12,7 +12,7 @@
 
 + (instancetype)create:(Restaurant *)restaurant {
     NSString *text = @"I like it";
-    return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant parameter:text];
+    return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant text:text];
 }
 
 - (id <ConversationAction>)createAction {

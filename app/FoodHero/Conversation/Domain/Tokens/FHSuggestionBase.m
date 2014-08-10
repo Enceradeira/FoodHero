@@ -14,7 +14,7 @@
     NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
     NSString *text = [[NSString alloc] initWithFormat:[self getText], nameAndPlace];
 
-    self = [super initWithParameter:[NSString stringWithFormat:@"%@=%@", [self getTokenName], nameAndPlace] parameter:text];
+    self = [super initWithSemanticId:[NSString stringWithFormat:@"%@=%@", [self getTokenName], nameAndPlace] text:text];
     if (self != nil) {
         _restaurant = restaurant;
     }

@@ -95,7 +95,7 @@
     }];
 }
 
-- (NSArray *)suggestionFeedback {
+- (NSArray *)negativeUserFeedback {
     return [[_statements linq_where:^(Statement *s){
         return (BOOL) ([s.token isKindOfClass: [USuggestionNegativeFeedback class]]);
     }] linq_select:^(Statement *s){
@@ -105,7 +105,7 @@
 
 - (NSArray *)suggestedRestaurants {
     return [[_statements linq_where:^(Statement *s){
-        return (BOOL) ([s.token isKindOfClass: [FHSuggestion class]]);
+        return (BOOL) ([s.token isKindOfClass: [FHSuggestionBase class]]);
     }] linq_select:^(Statement *s){
         return ((FHSuggestion*)s.token).restaurant;
     }];

@@ -10,7 +10,7 @@
 }
 
 + (FHOpeningQuestion *)create {
-    return [[FHOpeningQuestion alloc] initWithParameter:@"FH:OpeningQuestion" parameter:@"What kind of food would you like to eat?"];
+    return [[FHOpeningQuestion alloc] initWithSemanticId:@"FH:OpeningQuestion" text:@"What kind of food would you like to eat?"];
 }
 
 @end

@@ -10,6 +10,6 @@
 
 }
 + (FHGreeting *)create {
-    return [[FHGreeting alloc] initWithParameter:@"FH:Greeting" parameter:@"Hi there."];
+    return [[FHGreeting alloc] initWithSemanticId:@"FH:Greeting" text:@"Hi there."];
 }
 @end

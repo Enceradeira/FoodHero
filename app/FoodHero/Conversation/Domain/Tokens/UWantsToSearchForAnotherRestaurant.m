@@ -10,7 +10,7 @@
 
 }
 - (id)init {
-    return [super initWithParameter:@"U:WantsToSearchForAnotherRestaurant" parameter:@"Search for another restaurant, please"];
+    return [super initWithSemanticId:@"U:WantsToSearchForAnotherRestaurant" text:@"Search for another restaurant, please"];
 }
 
 @end

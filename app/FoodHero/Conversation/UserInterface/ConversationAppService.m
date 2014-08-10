@@ -15,6 +15,11 @@
 #import "Cuisine.h"
 #import "Feedback.h"
 #import "DesignByContractException.h"
+#import "USuggestionFeedbackForTooFarAway.h"
+#import "USuggestionFeedbackForTooExpensive.h"
+#import "USuggestionFeedbackForTooCheap.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "USuggestionFeedbackForLiking.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -44,7 +49,12 @@ static UIImage *EmptyImage;
                             return [Cuisine create:name];
                         }];
 
-        _feedbacks = @[[Feedback create:@"It's too far away" image:EmptyImage], [Feedback create:@"It looks too expensive" image:EmptyImage], [Feedback create:@"It looks too cheap" image:EmptyImage], [Feedback create:@"I don't like that restaurant" image:EmptyImage], [Feedback create:@"I like it" image:LikeImage]];
+        _feedbacks = @[
+                [Feedback create:USuggestionFeedbackForTooFarAway.class image:EmptyImage],
+                [Feedback create:USuggestionFeedbackForTooExpensive.class image:EmptyImage],
+                [Feedback create:USuggestionFeedbackForTooCheap.class image:EmptyImage],
+                [Feedback create:USuggestionFeedbackForNotLikingAtAll.class image:EmptyImage],
+                [Feedback create:USuggestionFeedbackForLiking.class image:LikeImage]];
     }
     return self;
 }
@@ -126,5 +136,9 @@ static UIImage *EmptyImage;
         @throw [DesignByContractException createWithReason:@"no restaurants have ever been suggested to user"];
     }
     return [restaurants linq_lastOrNil];
+}
+
+- (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback {
+   [self addUserInput:[feedback createTokenFor:[self getLastSuggestedRestaurant]]];
 }
 @end

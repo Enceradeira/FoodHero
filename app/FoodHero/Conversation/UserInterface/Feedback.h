@@ -4,14 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Restaurant.h"
+#import "ConversationToken.h"
 
 
 @interface Feedback : NSObject
 @property(nonatomic, readonly) NSString *text;
 
-+ (instancetype)create:(NSString *)text image:(UIImage *)image;
++ (instancetype)create:(Class)tokenClass image:(UIImage *)image;
 
-- (id)initWithText:(NSString *)text image:(UIImage *)image;
+- (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image;
 
 - (UIImage *)image;
+
+- (ConversationToken *)createTokenFor:(Restaurant *)restaurant;
 @end

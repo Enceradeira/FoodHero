@@ -9,4 +9,6 @@
 - (void)askUserCuisinePreferenceAction;
 
 - (void)askUserSuggestionFeedback;
+
+- (void)askUserWhatToDoNext;
 @end

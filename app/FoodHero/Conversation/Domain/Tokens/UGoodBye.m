@@ -10,6 +10,6 @@
 
 }
 - (id)init {
-    return [super initWithParameter:@"U:GoodBye" parameter:@"No thanks! Good bye."];
+    return [super initWithSemanticId:@"U:GoodBye" text:@"No thanks! Good bye."];
 }
 @end

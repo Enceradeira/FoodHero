@@ -9,5 +9,9 @@
 @implementation AskUserWhatToDoNextAction {
 
 }
+- (void)accept:(id <UActionVisitor>)visitor {
+    [visitor askUserWhatToDoNext];
+}
+
 
 @end

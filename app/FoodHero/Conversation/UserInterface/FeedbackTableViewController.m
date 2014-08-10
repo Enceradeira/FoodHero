@@ -8,11 +8,13 @@
 #import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewStateListOnlyInput.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "DesignByContractException.h"
 
 
 @implementation FeedbackTableViewController {
     ConversationAppService *_appService;
     ConversationViewController *_parentController;
+    FeedbackTableViewCell *_selectedCell;
 }
 - (void)setConversationAppService:(ConversationAppService *)service {
     _appService = service;
@@ -46,10 +48,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    FeedbackTableViewCell *cell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+    _selectedCell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
     _parentController.userTextField.text =  @"";
-    [_parentController animateViewThatMovesToTextInput:cell.textLabel completion:^(BOOL completed) {
-        _parentController.userTextField.text = cell.feedback.text;
+    [_parentController animateViewThatMovesToTextInput:_selectedCell.textLabel completion:^(BOOL completed) {
+        _parentController.userTextField.text = _selectedCell.feedback.text;
         [_parentController userTextFieldChanged:self];
         [_parentController setDefaultViewState:UIViewAnimationCurveEaseOut animationDuration:0.25];
     }];
@@ -68,8 +70,11 @@
 }
 
 - (void)sendUserInput {
-    Restaurant *lastSuggestedRestaurant = [_appService getLastSuggestedRestaurant];
-    [_appService addUserInput:[USuggestionFeedbackForNotLikingAtAll create:lastSuggestedRestaurant]];
+    if(_selectedCell == nil){
+        @throw [DesignByContractException createWithReason:@"method should not be called without a cell beeing selected first"];
+    }
+
+    [_appService addUserFeedbackForLastSuggestedRestaurant:_selectedCell.feedback];
 }
 
 - (int)optimalViewHeight {

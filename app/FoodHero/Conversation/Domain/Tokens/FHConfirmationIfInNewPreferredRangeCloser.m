@@ -11,6 +11,6 @@
 }
 + (ConversationToken *)create {
     NSString *text = @"It's closer than the other one.";
-    return [[FHConfirmationIfInNewPreferredRangeCloser alloc] initWithParameter:@"FH:ConfirmationIfInNewPreferredRangeCloser" parameter:text];
+    return [[FHConfirmationIfInNewPreferredRangeCloser alloc] initWithSemanticId:@"FH:ConfirmationIfInNewPreferredRangeCloser" text:text];
 }
 @end

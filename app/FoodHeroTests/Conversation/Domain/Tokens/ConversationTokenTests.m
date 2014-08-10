@@ -30,8 +30,8 @@
 -(void)test_concat_ShouldConcatTwoActionsIntoOne
 {
     id persona = [Personas foodHero];
-    ConversationToken *a1 = [[ConversationToken alloc] initWithParameter:@"FH:R1" parameter:@"Text1"];
-    ConversationToken *a2 = [[ConversationToken alloc] initWithParameter:@"FH:R2" parameter:@"Text2"];
+    ConversationToken *a1 = [[ConversationToken alloc] initWithSemanticId:@"FH:R1" text:@"Text1"];
+    ConversationToken *a2 = [[ConversationToken alloc] initWithSemanticId:@"FH:R2" text:@"Text2"];
 
     ConversationToken *token = [a1 concat:a2];
     assertThat(token, is(notNilValue()));
@@ -42,8 +42,8 @@
 }
 
 -(void)test_concat_ShouldThrowException_WhenNotSamePersona{
-    ConversationToken *a1 = [[ConversationToken alloc] initWithParameter:@"FH:R1" parameter:@"Text1"];
-    ConversationToken *a2 = [[ConversationToken alloc] initWithParameter:@"U:R2" parameter:@"Text2"];
+    ConversationToken *a1 = [[ConversationToken alloc] initWithSemanticId:@"FH:R1" text:@"Text1"];
+    ConversationToken *a2 = [[ConversationToken alloc] initWithSemanticId:@"U:R2" text:@"Text2"];
 
     assertThat(^(){ [a1 concat:a2];}, throwsExceptionOfType([DesignByContractException class]) );
 }
