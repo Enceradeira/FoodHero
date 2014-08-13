@@ -223,6 +223,10 @@
     [self changeUserInputViewController:@"WhatToDoNext"];
 }
 
+- (void)askUserIfProblemWithAccessLocationServiceResolved {
+    [self changeUserInputViewController:@"ProblemWithAccessLocationServiceResolved"];
+}
+
 
 - (IBAction)userTextFieldChanged:(id)sender {
     [self setEnabledForCuisinePreferenceSend];

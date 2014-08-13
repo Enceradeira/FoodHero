@@ -11,4 +11,6 @@
 - (void)askUserSuggestionFeedback;
 
 - (void)askUserWhatToDoNext;
+
+- (void)askUserIfProblemWithAccessLocationServiceResolved;
 @end

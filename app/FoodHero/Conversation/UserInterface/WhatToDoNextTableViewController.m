@@ -8,7 +8,7 @@
 #import "DesignByContractException.h"
 #import "UGoodBye.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
-#import "WhatToDoNextTabelViewCell.h"
+#import "ConversationTokenTableViewCell.h"
 
 
 @implementation WhatToDoNextTableViewController {
@@ -29,29 +29,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WhatToDoNextTabelViewCell *cell = (WhatToDoNextTabelViewCell *) [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    ConversationTokenTableViewCell *cell = (ConversationTokenTableViewCell *) [super tableView:tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 0) {
-        cell.answer = _goodByAnswer;
+        [cell setToken:_goodByAnswer accessibilityId:@"WhatToDoNextEntry"];
     }
     else {
-        cell.answer = _searchAgainAnswer;
+        [cell setToken:_searchAgainAnswer accessibilityId:@"WhatToDoNextEntry"];
     }
     return cell;
-}
-
-- (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
-    [self.parentController setViewState:[ConversationViewStateListOnlyInput create:self.parentController animationDuration:animationDuration animationCurve:animationCurve]];
-}
-
-- (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
-    [self.parentController setViewState:[ConversationViewStateListOnlyInput create:self.parentController animationDuration:duration animationCurve:curve]];
-}
-
-- (void)sendUserInput {
-    if (self.selectedCell == nil) {
-        @throw [DesignByContractException createWithReason:@"method should not be called without a cell beeing selected first"];
-    }
-    [self.appService addUserInput:((WhatToDoNextTabelViewCell *) self.selectedCell).answer];
 }
 
 @end

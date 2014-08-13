@@ -9,5 +9,9 @@
 @implementation AskUserIfProblemWithAccessLocationServiceResolved {
 
 }
+- (void)accept:(id <UActionVisitor>)visitor {
+    [visitor askUserIfProblemWithAccessLocationServiceResolved];
+}
+
 
 @end

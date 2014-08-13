@@ -16,5 +16,13 @@
 
 - (CGFloat)rowHeight;
 
+- (NSInteger)numberOfRows;
+
 - (int)optimalViewHeight;
+
+- (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+
+- (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration;
+
+- (void)sendUserInput;
 @end

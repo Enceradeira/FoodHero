@@ -6,6 +6,8 @@
 #import "UserInputViewTableViewController.h"
 #import "FeedbackTableViewCell.h"
 #import "DesignByContractException.h"
+#import "ConversationTokenTableViewCell.h"
+#import "ConversationViewStateListOnlyInput.h"
 
 
 @implementation UserInputViewTableViewController
@@ -40,6 +42,21 @@
 
 - (int)optimalViewHeight {
     return (int) (self.numberOfRows * self.rowHeight);
+}
+
+- (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
+    [self.parentController setViewState:[ConversationViewStateListOnlyInput create:self.parentController animationDuration:animationDuration animationCurve:animationCurve]];
+}
+
+- (void)notifyUserWantsTextInput:(CGFloat)height animationCurve:(UIViewAnimationCurve)curve animationDuration:(double)duration {
+    [self.parentController setViewState:[ConversationViewStateListOnlyInput create:self.parentController animationDuration:duration animationCurve:curve]];
+}
+
+- (void)sendUserInput {
+    if (self.selectedCell == nil) {
+        @throw [DesignByContractException createWithReason:@"method should not be called without a cell beeing selected first"];
+    }
+    [self.appService addUserInput:((ConversationTokenTableViewCell *) self.selectedCell).token];
 }
 
 
