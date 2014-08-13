@@ -24,6 +24,7 @@
 		235250E5544DE7F8B6E22412 /* UGoodByeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AB45F30E82DEF54FC6D /* UGoodByeState.m */; };
 		23525119F0F8E8746B1202D0 /* UCuisinePreferenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */; };
 		235251278E3E4445D4141CD7 /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */; };
+		23525149A00C5CF5BF2C8452 /* UserInputViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BCE03488CD224B40665 /* UserInputViewTableViewController.m */; };
 		2352516CEC3A47C0BB21AB1A /* SearchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF381A642E7AA0199F5 /* SearchAction.m */; };
 		23525170B3ED071688803C7F /* StatementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525606B9112D561A5FAC37 /* StatementTests.m */; };
 		2352518D934437EC9B68752C /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254AE12F0B92BC5B1315F /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.m */; };
@@ -300,6 +301,7 @@
 		2352536C6BC6BEB6F761E374 /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
 		2352536ED4B9518AB50EF089 /* FHBecauseUserIsNotAllowedToUseLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserIsNotAllowedToUseLocationServices.m; sourceTree = "<group>"; };
 		235253887B7887287277D487 /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
+		235253A483560E21AE400520 /* UserInputViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInputViewTableViewController.h; sourceTree = "<group>"; };
 		235253A67C58FCC835570068 /* AskUserWhatToDoAfterGoodByeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserWhatToDoAfterGoodByeAction.h; sourceTree = "<group>"; };
 		235253B6A64340A77ABE93E5 /* CLLocationManagerProxyStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxyStub.h; sourceTree = "<group>"; };
 		235253B7566895C3ED6BB54F /* ConversationTestsBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTestsBase.h; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 		23525BA988AE776A22AFA1EE /* FHAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAction.h; sourceTree = "<group>"; };
 		23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCuisinePreferenceState.m; sourceTree = "<group>"; };
 		23525BC9C1AFFC0C50463EE5 /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
+		23525BCE03488CD224B40665 /* UserInputViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInputViewTableViewController.m; sourceTree = "<group>"; };
 		23525BD66D929C60CD46FA40 /* StateFinished.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateFinished.h; sourceTree = "<group>"; };
 		23525BDB85217DFA5458D37B /* FHGreeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHGreeting.m; sourceTree = "<group>"; };
 		23525BEC0E091707EB75670E /* TagAndToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagAndToken.h; sourceTree = "<group>"; };
@@ -828,6 +831,8 @@
 				23525B7A0D713686CFF536F2 /* WhatToDoNextTableViewController.h */,
 				23525C5AE2B1384673941B96 /* WhatToDoNextTabelViewCell.m */,
 				235251C4CC2D7A9C88720E84 /* WhatToDoNextTabelViewCell.h */,
+				23525BCE03488CD224B40665 /* UserInputViewTableViewController.m */,
+				235253A483560E21AE400520 /* UserInputViewTableViewController.h */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1532,6 +1537,7 @@
 				23525DD36BC5801E655E48E8 /* ConversationViewController+ViewDimensionCalculator.m in Sources */,
 				2352541820F9AE8374C413EE /* WhatToDoNextTableViewController.m in Sources */,
 				2352564E92C1AE453737CFBB /* WhatToDoNextTabelViewCell.m in Sources */,
+				23525149A00C5CF5BF2C8452 /* UserInputViewTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

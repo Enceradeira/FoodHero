@@ -1,0 +1,46 @@
+//
+// Created by Jorg on 13/08/2014.
+// Copyright (c) 2014 JENNIUS LTD. All rights reserved.
+//
+
+#import "UserInputViewTableViewController.h"
+#import "FeedbackTableViewCell.h"
+#import "DesignByContractException.h"
+
+
+@implementation UserInputViewTableViewController
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self rowHeight];
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    _selectedCell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+    self.parentController.userTextField.text = @"";
+    [self.parentController animateViewThatMovesToTextInput:self.selectedCell.textLabel completion:^(BOOL completed) {
+        self.parentController.userTextField.text = self.selectedCell.textLabel.text;
+        [self.parentController userTextFieldChanged:self];
+        [self.parentController setDefaultViewState:UIViewAnimationCurveEaseOut animationDuration:0.25];
+    }];
+}
+
+- (CGFloat)rowHeight {
+    return 44;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self numberOfRows];
+}
+
+- (NSInteger)numberOfRows {
+    @throw [DesignByContractException createWithReason:@"method must be overridden by subclass"];
+}
+
+- (int)optimalViewHeight {
+    return (int) (self.numberOfRows * self.rowHeight);
+}
+
+
+@end

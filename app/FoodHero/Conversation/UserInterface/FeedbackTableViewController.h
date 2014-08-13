@@ -5,7 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "UserInputViewController.h"
+#import "UserInputViewTableViewController.h"
 
 
-@interface FeedbackTableViewController : UITableViewController<UserInputViewController>
+@interface FeedbackTableViewController : UserInputViewTableViewController<UserInputViewController>
 @end

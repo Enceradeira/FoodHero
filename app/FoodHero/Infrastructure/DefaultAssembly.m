@@ -25,7 +25,7 @@
 
 - (id)feedbackTableViewController {
     return [TyphoonDefinition withClass:[FeedbackTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 
         }];
@@ -34,7 +34,7 @@
 
 - (id)whatToDoNextTableViewController {
     return [TyphoonDefinition withClass:[WhatToDoNextTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 
         }];
