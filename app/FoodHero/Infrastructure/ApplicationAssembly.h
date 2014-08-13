@@ -4,6 +4,8 @@
 //
 
 @protocol ApplicationAssembly
+- (id)problemWithAccessLocationServiceResolvedTableViewController;
+
 - (id)whatToDoNextTableViewController;
 
 - (id)feedbackTableViewController;

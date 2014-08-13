@@ -44,3 +44,6 @@ Feature: User interacts with app through conversation
     Then FoodHero asks for access to location-services
     When User doesn't allow access to location-services
     Then FoodHero asks to enable location-services in settings
+    When User says that problem with location-service has been fixed
+    Then User answers with I fixed the problem, please try again
+    And FoodHero asks to enable location-services in settings

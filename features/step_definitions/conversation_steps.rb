@@ -39,8 +39,12 @@ def click_feedback_entry_and_send(entry_name)
   click_send
 end
 
-def click_text_and_send_feedback(entry_name)
+def click_text_field
   find_element(:name, 'cuisine text').click
+end
+
+def click_text_and_send_feedback(entry_name)
+  click_text_field
   click_feedback_entry_and_send(entry_name)
 end
 
@@ -74,6 +78,11 @@ Then(/^User answers with "([^"]*)"$/) do |answer|
   expect(bubble).not_to be_nil
 end
 
+Then(/^User answers with I fixed the problem, please try again$/) do
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-U:DidResolveProblemWithAccessLocationService')
+  expect(bubble).not_to be_nil
+end
+
 Then(/^FoodHero asks to enable location\-services in settings$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
   expect(bubble).not_to be_nil
@@ -97,6 +106,12 @@ end
 
 When(/^User likes the restaurant$/) do
   click_text_and_send_feedback('I like it')
+end
+
+When(/^User says that problem with location\-service has been fixed$/) do
+  click_text_field
+  get_last_element_and_parameter('DidResolveProblemWithAccessLocationServiceEntry')[0].click
+  click_send
 end
 
 Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
