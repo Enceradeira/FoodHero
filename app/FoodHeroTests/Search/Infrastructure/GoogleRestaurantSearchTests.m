@@ -39,7 +39,6 @@
     return result;
 }
 
-/*
 - (void)test_find_ShouldReturnResultsFromGoogle
 {
     NSArray *result = [self find];
@@ -63,14 +62,15 @@
 }
 
 -(void)test_textsearch {
+    return; // ignore at the moment
     [_service textsearch];
 }
 
 -(void)test_radarsearch {
-    for(Restaurant *r in [_service radarsearch:parameter]){
+    return; // ignore at the moment
+    for(Restaurant *r in [_service radarsearch:_parameter]){
          NSLog(@"-> %@ %@",r.name,r.vicinity);
     };
 }
-*/
 
 @end

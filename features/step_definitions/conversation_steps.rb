@@ -12,6 +12,20 @@ def get_last_element_and_parameter(id)
   return bubble, parameter
 end
 
+def wait_last_element_and_parameter(id)
+  bubble, parameter = nil
+  wait_true(5, 0.10) do
+    bubble, parameter = get_last_element_and_parameter(id)
+    if block_given?
+      block_test = parameter != nil && yield(parameter)
+    else
+      block_test = true
+    end
+    bubble != nil && block_test
+  end
+  return bubble, parameter
+end
+
 def split_at_comma(cuisines_as_string)
   cuisines_as_string.split(',').map { |s| s.strip }.select { |s| s != '' }
 end
@@ -36,31 +50,32 @@ def click_list_and_send_feedback(entry_name)
 end
 
 Then(/^FoodHero greets users and asks what they wished to eat$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 
 Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = get_last_element_and_parameter('ConversationBubble-U:CuisinePreference')
+  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
   expect(parameter).to eq(cuisines_as_string)
 end
 
 Then(/^FoodHero suggests something for "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = get_last_element_and_parameter('ConversationBubble-FH:Suggestion')
+  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion')
   expect(parameter).not_to be_nil
   expect(bubble).not_to be_nil
   last_suggestions << parameter
 end
 
 Then(/^User answers with "([^"]*)"$/) do |answer|
-  bubble, parameter = get_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback')
-  expect(parameter).to eq(answer.tr("'",''))
+  sanitized_answer = answer.tr("'", '')
+  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback') { |p| p.eql? sanitized_answer }
+  expect(parameter).to eq(sanitized_answer)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero asks to enable location\-services in settings$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
   expect(bubble).not_to be_nil
 end
 
@@ -85,7 +100,9 @@ When(/^User likes the restaurant$/) do
 end
 
 Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, next_suggestion = get_last_element_and_parameter('ConversationBubble-FH:Suggestion')
+  # wait until next suggestion appears
+  bubble, next_suggestion = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
+
   expect(bubble).not_to be_nil
   expect(next_suggestion).not_to be_nil
   expect(last_suggestions).not_to include(next_suggestion)
