@@ -12,21 +12,18 @@
     UIImage *_image;
     Class _tokenClass;
 }
-+ (instancetype)create:(Class)tokenClass image:(UIImage *)image {
-    return [[Feedback alloc] initWithTokenClass:tokenClass image:image];
++ (instancetype)create:(Class)tokenClass image:(UIImage *)image choiceText:(NSString *)choiceText {
+    return [[Feedback alloc] initWithTokenClass:tokenClass image:image choiceText:choiceText];
 }
 
-- (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image {
+- (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image choiceText:(NSString *)choiceText {
     self = [super init];
     if (self != nil) {
         _tokenClass = tokenClass;
         _image = image;
+        _choiceText = choiceText;
     }
     return self;
-}
-
-- (NSString *)text {
-    return [self createTokenFor:nil].text;
 }
 
 - (UIImage *)image {

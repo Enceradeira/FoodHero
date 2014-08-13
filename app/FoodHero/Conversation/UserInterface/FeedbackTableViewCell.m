@@ -22,11 +22,11 @@
 }
 
 - (void)UpdateView {
-    self.textLabel.text = _feedback.text;
+    self.textLabel.text = _feedback.choiceText;
     self.imageView.image = _feedback.image;
 
-    self.accessibilityLabel = _feedback.text;
-    self.accessibilityIdentifier = [NSString stringWithFormat:@"FeedbackEntry=%@", [AccessibilityHelper sanitizeForIdentifier:_feedback.text]];
+    self.accessibilityLabel = _feedback.choiceText;
+    self.accessibilityIdentifier = [NSString stringWithFormat:@"FeedbackEntry=%@", [AccessibilityHelper sanitizeForIdentifier:_feedback.choiceText]];
 }
 
 @end

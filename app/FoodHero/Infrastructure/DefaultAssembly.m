@@ -16,6 +16,7 @@
 #import "DefaultTokenRandomizer.h"
 #import "CuisineTableViewController.h"
 #import "FeedbackTableViewController.h"
+#import "WhatToDoNextTableViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -24,6 +25,15 @@
 
 - (id)feedbackTableViewController {
     return [TyphoonDefinition withClass:[FeedbackTableViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:[self conversationAppService]];
+
+        }];
+    }];
+}
+
+- (id)whatToDoNextTableViewController {
+    return [TyphoonDefinition withClass:[WhatToDoNextTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 

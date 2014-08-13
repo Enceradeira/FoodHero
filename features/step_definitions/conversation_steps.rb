@@ -108,3 +108,8 @@ When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_strin
   click_send
 end
 
+
+And(/^FoodHero asks what to do next$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNext')
+  expect(bubble).not_to be_nil
+end

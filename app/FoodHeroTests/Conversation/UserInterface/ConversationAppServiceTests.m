@@ -83,7 +83,7 @@ const CGFloat landscapeWidth = 400;
     Feedback *anyFeedback = [[[self feedbacks]
             linq_where:^(Feedback *f) {
 
-                return [f.text isEqualToString:feedback];
+                return [f.choiceText isEqualToString:feedback];
             }] linq_firstOrNil];
 
     [_service addUserFeedbackForLastSuggestedRestaurant:anyFeedback];

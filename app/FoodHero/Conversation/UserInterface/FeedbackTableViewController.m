@@ -51,7 +51,7 @@
     _selectedCell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
     _parentController.userTextField.text =  @"";
     [_parentController animateViewThatMovesToTextInput:_selectedCell.textLabel completion:^(BOOL completed) {
-        _parentController.userTextField.text = _selectedCell.feedback.text;
+        _parentController.userTextField.text = _selectedCell.textLabel.text;
         [_parentController userTextFieldChanged:self];
         [_parentController setDefaultViewState:UIViewAnimationCurveEaseOut animationDuration:0.25];
     }];

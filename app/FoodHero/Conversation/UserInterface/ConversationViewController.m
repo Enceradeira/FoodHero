@@ -220,7 +220,7 @@
 }
 
 - (void)askUserWhatToDoNext {
-
+    [self changeUserInputViewController:@"WhatToDoNext"];
 }
 
 

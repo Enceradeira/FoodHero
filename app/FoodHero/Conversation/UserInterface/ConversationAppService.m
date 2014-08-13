@@ -50,13 +50,17 @@ static UIImage *EmptyImage;
                         }];
 
         _feedbacks = @[
-                [Feedback create:USuggestionFeedbackForTooFarAway.class image:EmptyImage],
-                [Feedback create:USuggestionFeedbackForTooExpensive.class image:EmptyImage],
-                [Feedback create:USuggestionFeedbackForTooCheap.class image:EmptyImage],
-                [Feedback create:USuggestionFeedbackForNotLikingAtAll.class image:EmptyImage],
-                [Feedback create:USuggestionFeedbackForLiking.class image:LikeImage]];
+                [Feedback create:USuggestionFeedbackForTooFarAway.class image:EmptyImage choiceText:@"It's too far away"],
+                [Feedback create:USuggestionFeedbackForTooExpensive.class image:EmptyImage choiceText:@"It looks too expensive"],
+                [Feedback create:USuggestionFeedbackForTooCheap.class image:EmptyImage choiceText:@"It looks too cheap"],
+                [Feedback create:USuggestionFeedbackForNotLikingAtAll.class image:EmptyImage choiceText:@"I don't like that restaurant"],
+                [Feedback create:USuggestionFeedbackForLiking.class image:LikeImage choiceText:@"I like it"]];
     }
     return self;
+}
+
++ (UIImage *)emptyImage {
+    return EmptyImage;
 }
 
 - (void)addUserInput:(ConversationToken *)userInput {

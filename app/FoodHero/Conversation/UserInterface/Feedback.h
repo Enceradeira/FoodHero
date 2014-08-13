@@ -9,11 +9,11 @@
 
 
 @interface Feedback : NSObject
-@property(nonatomic, readonly) NSString *text;
+@property(nonatomic, readonly) NSString *choiceText;
 
-+ (instancetype)create:(Class)tokenClass image:(UIImage *)image;
++ (instancetype)create:(Class)tokenClass image:(UIImage *)image choiceText:(NSString *)choiceText;
 
-- (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image;
+- (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image choiceText:(NSString *)choiceText;
 
 - (UIImage *)image;
 
