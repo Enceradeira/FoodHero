@@ -31,11 +31,10 @@
         RACDisposable *sourceDisposable = [[_locationService currentLocation]
                 subscribeNext:^(id value) {
                     CLLocationCoordinate2D coordinate;
-                    coordinate.longitude, coordinate.latitude = 0;
                     [((NSValue *) value) getValue:&coordinate];
 
                     RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-                    parameter.location = coordinate;
+                    parameter.coordinate = coordinate;
                     parameter.radius = 2000;
                     parameter.cuisine = conversation.cuisine;
 

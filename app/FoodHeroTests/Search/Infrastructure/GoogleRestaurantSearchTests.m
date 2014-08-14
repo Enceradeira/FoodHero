@@ -19,6 +19,7 @@
     RestaurantSearchParams *_parameter;
     NSString *_placeIdLibraryGrill;
     NSString *_placeIdMaidsHead;
+    CLLocation *_norwich;
 }
 
 - (void)setUp {
@@ -27,12 +28,12 @@
     _placeIdLibraryGrill = @"ChIJZzNZ0-Dj2UcRn1Eq2l80nbw";
     _placeIdMaidsHead = @"ChIJicLqAOjj2UcR1qA1_M1zFRI";
 
-    CLLocationCoordinate2D norwich;
-    norwich.latitude = 52.631944; // Maids Head Hotel, Tombland, Norwich
-    norwich.longitude = 1.298889;
+
+    // Maids Head Hotel, Tombland, Norwich
+    _norwich = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
 
     _parameter = [RestaurantSearchParams new];
-    _parameter.location = norwich;
+    _parameter.coordinate = _norwich.coordinate;
     _parameter.radius = 10000;
 
     _service = [GoogleRestaurantSearch new];
@@ -47,19 +48,33 @@
     }];
 }
 
-- (void)test_findPlaces_ShouldReturnRestaurantsWithMatchingCuisineFirst {
+- (void)test_findPlaces_ShouldReturnPlacesWithMatchingCuisineFirst {
     _parameter.cuisine = @"Steak house";
 
-    NSArray *result1 = [_service findPlaces:_parameter];
-    NSArray *restaurants = result1;
-    NSUInteger indexOfLibraryGrill = [self findPlaceById:_placeIdLibraryGrill result:restaurants];
-    NSUInteger indexOfMaidsHead = [self findPlaceById:_placeIdMaidsHead result:restaurants];
+    NSArray *places = [_service findPlaces:_parameter];
+    NSUInteger indexOfLibraryGrill = [self findPlaceById:_placeIdLibraryGrill result:places];
+    NSUInteger indexOfMaidsHead = [self findPlaceById:_placeIdMaidsHead result:places];
 
     assertThatInt(indexOfLibraryGrill, is(lessThan(@(indexOfMaidsHead))));
 }
 
+- (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
+    int specifiedRadius = 200;
+
+    _parameter.cuisine = @"Indian";
+    _parameter.radius = specifiedRadius;
+    _parameter.coordinate = _norwich.coordinate;
+
+    NSArray *places = [_service findPlaces:_parameter];
+    assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
+    for (Place *place in places) {
+        CLLocationDistance distance = [_norwich distanceFromLocation:place.location];
+        assertThatDouble(distance, is(lessThanOrEqualTo(@(specifiedRadius*3))));
+    }
+}
+
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
-    Place *place = [Place createWithPlaceId:_placeIdLibraryGrill];
+    Place *place = [Place createWithPlaceId:_placeIdLibraryGrill location:[CLLocation new]];
 
     Restaurant *restaurant = [_service getRestaurantForPlace:place];
 

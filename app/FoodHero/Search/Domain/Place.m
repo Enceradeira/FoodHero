@@ -9,14 +9,15 @@
 @implementation Place {
 
 }
-+ (instancetype)createWithPlaceId:(NSString *)placeId {
-    return [[Place alloc] initWithPlaceId:placeId];
++ (instancetype)createWithPlaceId:(NSString *)placeId location:(CLLocation *)location {
+    return [[Place alloc] initWithPlaceId:placeId location:location];
 }
 
-- (instancetype)initWithPlaceId:(NSString *)placeId {
+- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location {
     self = [super init];
     if (self != nil) {
         _placeId = placeId;
+        _location = location;
     }
     return self;
 }

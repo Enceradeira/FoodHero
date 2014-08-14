@@ -24,7 +24,7 @@
 
 - (void)setUp {
     [super setUp];
-    _restaurant =      [Restaurant createWithName:@"Roessli" vicinity:@"Adligenswil" types:nil placeId:nil];
+    _restaurant = [Restaurant createWithName:@"Roessli" vicinity:@"Adligenswil" types:nil placeId:nil location:nil];
 }
 
 

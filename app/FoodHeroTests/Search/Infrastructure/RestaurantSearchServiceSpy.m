@@ -8,7 +8,7 @@
 
 @implementation RestaurantSearchServiceSpy
 - (bool)findPlacesWasCalledWithLocation:(CLLocationCoordinate2D)location {
-    return self.findPlacesParameter != nil && self.findPlacesParameter.location.latitude == location.latitude && self.findPlacesParameter.location.longitude == location.longitude;
+    return self.findPlacesParameter != nil && self.findPlacesParameter.coordinate.latitude == location.latitude && self.findPlacesParameter.coordinate.longitude == location.longitude;
 }
 
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {

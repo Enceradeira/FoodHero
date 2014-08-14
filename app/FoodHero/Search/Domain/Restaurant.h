@@ -12,5 +12,5 @@
 @property(nonatomic, readonly) NSString *name;
 @property(nonatomic, readonly) NSArray *types;
 
-+ (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(id)placeId;
++ (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId location:(CLLocation *)location;
 @end
