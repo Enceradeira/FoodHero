@@ -13,6 +13,7 @@
 #import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "AlternationRandomizerStub.h"
+#import "RestaurantBuilder.h"
 
 @interface ConversationFindingRestaurantTests : ConversationTestsBase
 @end
@@ -73,7 +74,7 @@
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
     [self.restaurantSearchStub injectFindNothing];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
@@ -83,7 +84,7 @@
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
@@ -98,10 +99,10 @@
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 

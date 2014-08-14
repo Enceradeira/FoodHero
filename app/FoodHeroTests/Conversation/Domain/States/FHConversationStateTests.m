@@ -26,6 +26,7 @@
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
 #import "USuggestionFeedbackForTooCheap.h"
+#import "RestaurantBuilder.h"
 
 @interface FHConversationStateTests : XCTestCase <ConversationSource>
 
@@ -49,7 +50,7 @@
 
 -(void)test_consume_ShouldReturnTokenNotConsumed_WhenSomethingOtherThenFHGreetingIsAdded
 {
-    id <ConsumeResult> result = [_state consume:[USuggestionFeedbackForTooCheap create:[Restaurant new]]];
+    id <ConsumeResult> result = [_state consume:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
     assertThatBool(result.isTokenNotConsumed, is(equalToBool(YES)));
 }
 

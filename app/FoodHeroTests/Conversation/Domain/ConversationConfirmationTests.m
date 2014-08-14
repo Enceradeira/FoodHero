@@ -11,6 +11,7 @@
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
+#import "RestaurantBuilder.h"
 
 @interface ConversationConfirmationTests : ConversationTestsBase
 @end
@@ -23,7 +24,7 @@
 - (void)setUp {
     [super setUp];
 
-    _restaurant = [Restaurant new];
+    _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 }

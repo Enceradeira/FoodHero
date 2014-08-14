@@ -11,6 +11,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "Personas.h"
 #import "AlternationRandomizerStub.h"
+#import "RestaurantBuilder.h"
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;
@@ -48,7 +49,7 @@
 }
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity {
-    [_restaurantSearchStub injectFindResult:[Restaurant createWithName:name vicinity:vicinity types:@[] placeId:[[NSUUID UUID] UUIDString] location:nil]];
+    [_restaurantSearchStub injectFindResult:[[[[RestaurantBuilder alloc] withName:name] withVicinity:vicinity] build]];
 }
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status {

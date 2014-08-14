@@ -6,16 +6,18 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantSearchServiceStub.h"
 #import "DesignByContractException.h"
+#import "RestaurantBuilder.h"
 
 @implementation RestaurantSearchServiceStub {
     Restaurant *_searchResult;
     BOOL _findReturnsNil;
+    NSArray *_ownSearchResults;
 }
 
 - (id)init {
     self = [super init];
     if (self != nil) {
-
+        _findReturnsNil = NO;
     }
     return self;
 }
@@ -31,18 +33,19 @@
 }
 
 - (NSArray *)getRestaurants {
-    NSMutableArray *result = [NSMutableArray new];
     if (_findReturnsNil) {
         return [NSArray new];
     }
     if (_searchResult != nil) {
-        [result addObject:_searchResult];
+        return @[_searchResult];
     }
     else {
-        [result addObject:[Restaurant createWithName:@"King's Head" vicinity:@"Norwich" types:@[@"restaurant"] placeId:@"13331" location:[CLLocation new]]];
-        [result addObject:[Restaurant createWithName:@"Raj Palace" vicinity:@"Norwich" types:@[@"restaurant"] placeId:@"33131" location:[CLLocation new]]];
+        if (_ownSearchResults == nil) {
+            _ownSearchResults = @[[[[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] build]];
+        }
+        return _ownSearchResults;
     }
-    return result;
 }
 
 - (Restaurant *)getRestaurantForPlace:(Place *)place {

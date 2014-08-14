@@ -13,6 +13,7 @@
 #import "AskUserWhatToDoAfterGoodByeAction.h"
 #import "AskUserCuisinePreferenceAction.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
+#import "RestaurantBuilder.h"
 
 
 @interface ConversationFindingRestaurantFinishedTests : ConversationTestsBase
@@ -25,7 +26,7 @@
 
 - (void)setUp {
     [super setUp];
-    _restaurant = [Restaurant new];
+    _restaurant = [[RestaurantBuilder alloc] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
