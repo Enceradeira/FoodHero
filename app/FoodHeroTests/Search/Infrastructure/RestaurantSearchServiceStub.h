@@ -8,7 +8,7 @@
 #import "RestaurantSearchService.h"
 
 @interface RestaurantSearchServiceStub : NSObject <RestaurantSearchService>
-- (void)injectFindResult:(Restaurant *)restaurant;
+- (void)injectFindResults:(NSArray *)restaurants;
 
 - (void)injectFindNothing;
 

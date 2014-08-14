@@ -61,7 +61,7 @@
     coordinate.longitude = longitude;
 
     CLLocation *location = [[CLLocation new] initWithCoordinate:coordinate altitude:50 horizontalAccuracy:50 verticalAccuracy:50 course:0 speed:0 timestamp:[NSDate date]];
-    [self injectLocations:[NSArray arrayWithObject:location]];
+    [self injectLocations:@[location]];
 }
 
 - (void)injectAuthorizationStatus:(CLAuthorizationStatus)status {

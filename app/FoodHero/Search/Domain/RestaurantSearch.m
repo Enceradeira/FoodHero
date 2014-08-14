@@ -32,6 +32,7 @@
                 subscribeNext:^(id value) {
                     CLLocationCoordinate2D coordinate;
                     [((NSValue *) value) getValue:&coordinate];
+                    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
 
                     RestaurantSearchParams *parameter = [RestaurantSearchParams new];
                     parameter.coordinate = coordinate;
@@ -39,6 +40,20 @@
                     parameter.cuisine = conversation.cuisine;
 
                     NSArray *candidates = [_searchService findPlaces:parameter];
+                    candidates = [candidates sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                        CLLocationDistance distanceA = [[((Place *) a) location] distanceFromLocation:currentLocation];
+                        CLLocationDistance distanceB = [[((Place *) b) location] distanceFromLocation:currentLocation];
+
+                        if (distanceA < distanceB) {
+                            return (NSComparisonResult) NSOrderedDescending;
+                        }
+                        else if (distanceA > distanceB) {
+                            return (NSComparisonResult) NSOrderedAscending;
+                        }
+                        return (NSComparisonResult) NSOrderedSame;
+
+                    }];
+
                     if (candidates.count > 0) {
                         NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
                             return f.restaurant.placeId;

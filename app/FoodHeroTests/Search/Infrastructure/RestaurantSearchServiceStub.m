@@ -9,7 +9,7 @@
 #import "RestaurantBuilder.h"
 
 @implementation RestaurantSearchServiceStub {
-    Restaurant *_searchResult;
+    NSArray *_searchResults;
     BOOL _findReturnsNil;
     NSArray *_ownSearchResults;
 }
@@ -22,13 +22,13 @@
     return self;
 }
 
-- (void)injectFindResult:(Restaurant *)restaurant {
-    _searchResult = restaurant;
+- (void)injectFindResults:(NSArray *)restaurants {
+    _searchResults = restaurants;
 }
 
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
     return [[self getRestaurants] linq_select:^(Restaurant *r) {
-        return [Place createWithPlaceId:r.placeId location:[CLLocation new]];
+        return [Place createWithPlaceId:r.placeId location:r.location];
     }];
 }
 
@@ -36,8 +36,8 @@
     if (_findReturnsNil) {
         return [NSArray new];
     }
-    if (_searchResult != nil) {
-        return @[_searchResult];
+    if (_searchResults != nil) {
+        return _searchResults;
     }
     else {
         if (_ownSearchResults == nil) {
