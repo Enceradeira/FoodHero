@@ -31,7 +31,8 @@
         [result addObject:_searchResult];
     }
     else {
-        [result addObject:[Restaurant createWithName:@"King's Head" vicinity:@"Norwich" types:nil placeId:nil]];
+        [result addObject:[Restaurant createWithName:@"King's Head" vicinity:@"Norwich" types:@[@"restaurant"] placeId:@"13331"]];
+        [result addObject:[Restaurant createWithName:@"Raj Palace" vicinity:@"Norwich" types:@[@"restaurant"] placeId:@"33131"]];
     }
     return result;
 }

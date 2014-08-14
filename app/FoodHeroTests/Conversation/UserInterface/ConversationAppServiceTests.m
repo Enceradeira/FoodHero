@@ -195,22 +195,22 @@ const CGFloat landscapeWidth = 400;
 
 -(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway{
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 -(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToExpensive{
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 -(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToCheap{
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 -(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIDontLikeThatRestaurant{
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" fhAnswer:@"FH:Suggestion=King's Head, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 -(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt{
