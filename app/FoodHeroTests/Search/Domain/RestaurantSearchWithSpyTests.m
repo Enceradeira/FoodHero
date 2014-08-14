@@ -17,11 +17,11 @@
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
 
- @interface RestaurantSearchTests : XCTestCase
+ @interface RestaurantSearchWithSpyTests : XCTestCase
 
 @end
 
-@implementation RestaurantSearchTests {
+@implementation RestaurantSearchWithSpyTests {
     RestaurantSearch *_restaurantSearch;
     RestaurantSearchServiceSpy *_searchService;
     CLLocationManagerProxyStub *_locationManagerStub;
