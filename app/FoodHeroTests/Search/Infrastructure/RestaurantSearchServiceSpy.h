@@ -8,5 +8,7 @@
 
 
 @interface RestaurantSearchServiceSpy : NSObject <RestaurantSearchService>
+@property(nonatomic, readonly) RestaurantSearchParams *parameter;
+
 -(bool)findWasCalledWithLocation:(CLLocationCoordinate2D) location;
 @end

@@ -16,6 +16,7 @@
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
 #import "RestaurantSearchTests.h"
+#import "UCuisinePreference.h"
 
 @interface RestaurantSearchWithSpyTests : RestaurantSearchTests
 
@@ -56,4 +57,11 @@
     assertThatBool([_searchService findWasCalledWithLocation:location], is(equalToBool(YES)));
 }
 
+- (void)test_findBest_shouldSearchWithDesiredCuisine {
+    [self conversationHasCuisine:@"Asian"];
+
+    [self findBest];
+
+    assertThat(_searchService.parameter.cuisine, is(equalTo(@"Asian")));
+}
 @end

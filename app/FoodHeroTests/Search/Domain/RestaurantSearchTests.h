@@ -4,10 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class Restaurant;
-@class USuggestionFeedbackForNotLikingAtAll;
-@class RestaurantSearch;
+#import "RestaurantSearch.h"
+#import "Restaurant.h"
+#import "ConversationToken.h"
+#import "USuggestionNegativeFeedback.h"
 
 
 @interface RestaurantSearchTests : XCTestCase
@@ -15,5 +15,7 @@
 
 - (Restaurant *)findBest;
 
-- (void)feedbackIs:(USuggestionFeedbackForNotLikingAtAll *)feedback;
+- (void)conversationHasCuisine:(NSString *)cuisine;
+
+- (void)conversationHasNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback;
 @end

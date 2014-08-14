@@ -24,7 +24,7 @@
     return self;
 }
 
-- (RACSignal *)findBest:(NSArray *)negativeUserFeedback {
+- (RACSignal *)findBest:(id <ConversationSource>)conversation {
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
@@ -37,9 +37,11 @@
                     RestaurantSearchParams *parameter = [RestaurantSearchParams new];
                     parameter.location = coordinate;
                     parameter.radius = 2000;
+                    parameter.cuisine = conversation.cuisine;
+
                     NSArray *candidates = [_searchService find:parameter];
                     if (candidates.count > 0) {
-                        NSArray *excludedPlaceIds = [negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
+                        NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
                             return f.restaurant.placeId;
                         }];
 

@@ -6,20 +6,18 @@
 #import <ReactiveCocoa.h>
 #import <XCTest/XCTest.h>
 #import "RestaurantSearchTests.h"
-#import "Restaurant.h"
-#import "USuggestionFeedbackForNotLikingAtAll.h"
-#import "RestaurantSearch.h"
 #import "DesignByContractException.h"
+#import "ConversationSourceStub.h"
 
 
 @implementation RestaurantSearchTests {
-    NSMutableArray *_userFeedback;
+    ConversationSourceStub *_conversation;
 }
 
 - (void)setUp {
     [super setUp];
 
-    _userFeedback = [NSMutableArray new];
+    _conversation = [ConversationSourceStub new];
 }
 
 - (RestaurantSearch *)search {
@@ -28,14 +26,19 @@
 
 - (Restaurant *)findBest {
     __block Restaurant *restaurant;
-    RACSignal *signal = [self.search findBest:_userFeedback];
+    RACSignal *signal = [self.search findBest:_conversation];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];
     return restaurant;
 }
 
-- (void)feedbackIs:(USuggestionFeedbackForNotLikingAtAll *)feedback {
-    [_userFeedback addObject:feedback];
+- (void)conversationHasCuisine:(NSString *)cuisine {
+    [_conversation injectCuisine:cuisine];
+}
+
+
+- (void)conversationHasNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback {
+    [_conversation injectNegativeUserFeedback:feedback];
 }
 @end

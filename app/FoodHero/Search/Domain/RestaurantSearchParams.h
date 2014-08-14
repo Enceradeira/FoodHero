@@ -7,6 +7,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface RestaurantSearchParams : NSObject
-@property (nonatomic) CLLocationCoordinate2D location;
+@property(nonatomic) CLLocationCoordinate2D location;
 @property(nonatomic) NSUInteger radius;
+@property(nonatomic) NSString *cuisine;
 @end

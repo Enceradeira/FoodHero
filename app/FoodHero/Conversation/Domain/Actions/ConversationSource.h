@@ -11,4 +11,5 @@
 
 - (NSArray *)negativeUserFeedback;
 
+- (NSString *)cuisine;
 @end

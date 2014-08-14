@@ -6,12 +6,9 @@
 #import "RestaurantSearchServiceSpy.h"
 
 
-@implementation RestaurantSearchServiceSpy {
-
-    RestaurantSearchParams *_parameter;
-}
+@implementation RestaurantSearchServiceSpy
 - (bool)findWasCalledWithLocation:(CLLocationCoordinate2D)location {
-    return _parameter != nil && _parameter.location.latitude == location.latitude && _parameter.location.longitude == location.longitude;
+    return self.parameter != nil && self.parameter.location.latitude == location.latitude && self.parameter.location.longitude == location.longitude;
 }
 
 - (NSArray *)find:(RestaurantSearchParams *)parameter {

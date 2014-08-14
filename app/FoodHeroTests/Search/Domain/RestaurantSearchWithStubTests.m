@@ -14,6 +14,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "RestaurantSearchTests.h"
+#import "ConversationSourceStub.h"
 
 @interface RestaurantSearchWithStubTests : RestaurantSearchTests
 
@@ -32,6 +33,8 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _searchService = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
+
+    //[self conversationHasCuisine:@"British"];
 }
 
 - (RestaurantSearch *)search {
@@ -42,7 +45,7 @@
     __block Restaurant *restaurant;
     __block BOOL completed;
 
-    RACSignal *signal = [_search findBest:[NSArray new]];
+    RACSignal *signal = [_search findBest:[ConversationSourceStub new]];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];
@@ -54,11 +57,11 @@
     assertThatBool(completed, is(equalToBool(YES)));
 }
 
-- (void)test_findBest_ShouldNotReturnARestaurnatThatTheUserDislikedBefore {
+- (void)test_findBest_ShouldNotReturnARestaurantThatTheUserDislikedBefore {
 
     Restaurant *firstRestaurant = [self findBest];
 
-    [self feedbackIs:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant]];
+    [self conversationHasNegativeUserFeedback:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant]];
 
     assertThat([self findBest].placeId, isNot(equalTo(firstRestaurant.placeId)));
 }

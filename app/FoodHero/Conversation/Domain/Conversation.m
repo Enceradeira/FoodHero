@@ -18,6 +18,7 @@
 #import "USuggestionNegativeFeedback.h"
 #import "TokenConsumed.h"
 #import "FHSuggestion.h"
+#import "UCuisinePreference.h"
 
 
 @interface Conversation ()
@@ -90,24 +91,35 @@
 
 - (RACSignal *)statementIndexes {
     NSUInteger __block index = 0;
-    return [RACObserve(self, self.statements) map:^(id next){
+    return [RACObserve(self, self.statements) map:^(id next) {
         return @(index++);
     }];
 }
 
 - (NSArray *)negativeUserFeedback {
-    return [[_statements linq_where:^(Statement *s){
-        return (BOOL) ([s.token isKindOfClass: [USuggestionNegativeFeedback class]]);
-    }] linq_select:^(Statement *s){
+    return [[_statements linq_where:^(Statement *s) {
+        return (BOOL) ([s.token isKindOfClass:[USuggestionNegativeFeedback class]]);
+    }] linq_select:^(Statement *s) {
         return s.token;
     }];
 }
 
+- (NSString *)cuisine {
+    UCuisinePreference *preference = [[_statements linq_where:^(Statement *s) {
+        return (BOOL) ([s.token isKindOfClass:[UCuisinePreference class]]);
+    }] linq_lastOrNil];
+    if (preference == nil) {
+        @throw [DesignByContractException createWithReason:@"cuisine preference is unknown"];
+    }
+    return preference.text;
+}
+
+
 - (NSArray *)suggestedRestaurants {
-    return [[_statements linq_where:^(Statement *s){
-        return (BOOL) ([s.token isKindOfClass: [FHSuggestionBase class]]);
-    }] linq_select:^(Statement *s){
-        return ((FHSuggestion*)s.token).restaurant;
+    return [[_statements linq_where:^(Statement *s) {
+        return (BOOL) ([s.token isKindOfClass:[FHSuggestionBase class]]);
+    }] linq_select:^(Statement *s) {
+        return ((FHSuggestion *) s.token).restaurant;
     }];
 }
 @end

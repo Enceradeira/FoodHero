@@ -8,9 +8,10 @@
 #import "Restaurant.h"
 #import "RestaurantSearchService.h"
 #import "LocationService.h"
+#import "ConversationSource.h"
 
 @interface RestaurantSearch : NSObject
 - (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(LocationService *)locationService;
 
-- (RACSignal *)findBest:(NSArray *)negativeUserFeedback;
+- (RACSignal *)findBest:(id <ConversationSource>)conversation;
 @end

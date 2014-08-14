@@ -82,6 +82,7 @@
 		2352565DA6698801E894AFC6 /* USuggestionFeedbackState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C5BAE3B55B2B72B6070 /* USuggestionFeedbackState.m */; };
 		2352568F08684D4936A6C5B8 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251996A185437DF584FB5 /* Personas.m */; };
 		2352568FACD5C630704F3D39 /* FHGoodByeAfterSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255F864D57F257B56084E /* FHGoodByeAfterSuccess.m */; };
+		235256947177C6E8A58C3F82 /* ConversationSourceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254E0F37A522C84C916D9 /* ConversationSourceStub.m */; };
 		2352569C6226E752C2C5FE9D /* UTryAgainNowState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AE6F8F361DFF974D530 /* UTryAgainNowState.m */; };
 		235256B9EDBB425F115F5A1D /* FHWhatToDoNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525712D29413868C162D44 /* FHWhatToDoNext.m */; };
 		235256CDAF05789E3D222E0B /* TestToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B91D0CD8332EA1540D /* TestToken.m */; };
@@ -241,6 +242,7 @@
 		235250B0CF453E719D51919B /* LocationServiceAuthorizationStatusDeniedError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceAuthorizationStatusDeniedError.h; sourceTree = "<group>"; };
 		235250B379FA3C44088D24B9 /* SearchActionState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchActionState.m; sourceTree = "<group>"; };
 		235250CBBB8EE0F312AD453C /* FHConfirmationIfInNewPreferredRangeCheaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConfirmationIfInNewPreferredRangeCheaper.m; sourceTree = "<group>"; };
+		235250E09563FC61CC0D7118 /* ConversationSourceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSourceStub.h; sourceTree = "<group>"; };
 		235250E10A18AA180582A6A0 /* UGoodBye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UGoodBye.h; sourceTree = "<group>"; };
 		235250E829C5E629A1126B83 /* USuggestionFeedbackForTooCheap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooCheap.m; sourceTree = "<group>"; };
 		235250FDC05512B0B28B7C45 /* AlternationRandomizerStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternationRandomizerStub.h; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 		235254C01AD8DF30E69437EB /* FHConfirmationIfInNewPreferredRangeMoreExpensiveState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConfirmationIfInNewPreferredRangeMoreExpensiveState.m; sourceTree = "<group>"; };
 		235254C333D4FB6964C8DBED /* RestaurantSearchServiceSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceSpy.h; sourceTree = "<group>"; };
 		235254DF90A7BE8616EA0F78 /* USuggestionFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedback.h; sourceTree = "<group>"; };
+		235254E0F37A522C84C916D9 /* ConversationSourceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationSourceStub.m; sourceTree = "<group>"; };
 		235254EA73A73BE3B372896E /* FHCantFindRestaurantState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHCantFindRestaurantState.h; sourceTree = "<group>"; };
 		235254F463C20E46AA7178BE /* CuisineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuisineTableViewCell.m; sourceTree = "<group>"; };
 		235254F7FDDC8F8E390FE46E /* FHConfirmationIfInNewPreferredRangeMoreExpensiveState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConfirmationIfInNewPreferredRangeMoreExpensiveState.h; sourceTree = "<group>"; };
@@ -1039,6 +1042,8 @@
 		23525A27EEC0961E011C6B1C /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				235254E0F37A522C84C916D9 /* ConversationSourceStub.m */,
+				235250E09563FC61CC0D7118 /* ConversationSourceStub.h */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1612,6 +1617,7 @@
 				235254391E2649CA0700A114 /* ConversationFindingRestaurantFinishedTests.m in Sources */,
 				235255F29200213234B06580 /* RestaurantSearchWithSpyTests.m in Sources */,
 				23525D7980CC65DCD70ADD92 /* RestaurantSearchTests.m in Sources */,
+				235256947177C6E8A58C3F82 /* ConversationSourceStub.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
