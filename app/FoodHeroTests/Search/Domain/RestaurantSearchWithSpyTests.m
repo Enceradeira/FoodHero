@@ -1,4 +1,4 @@
- //
+//
 //  FHConversationStateTests.m
 //  FoodHero
 //
@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <ReactiveCocoa.h>
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
@@ -16,13 +15,14 @@
 #import "RestaurantSearchServiceSpy.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
+#import "RestaurantSearchTests.h"
 
- @interface RestaurantSearchWithSpyTests : XCTestCase
+@interface RestaurantSearchWithSpyTests : RestaurantSearchTests
 
 @end
 
 @implementation RestaurantSearchWithSpyTests {
-    RestaurantSearch *_restaurantSearch;
+    RestaurantSearch *_search;
     RestaurantSearchServiceSpy *_searchService;
     CLLocationManagerProxyStub *_locationManagerStub;
     LocationService *_locationService;
@@ -34,19 +34,24 @@
     [TyphoonComponents configure:[StubAssembly new]];
 
     _searchService = [RestaurantSearchServiceSpy new];
-    _locationManagerStub = [(id<ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
-    _locationService = [(id<ApplicationAssembly>) [TyphoonComponents factory] locationService];
-    _restaurantSearch = [[RestaurantSearch alloc] initWithSearchService:_searchService withLocationService:_locationService];
+    _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
+    _locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    _search = [[RestaurantSearch alloc] initWithSearchService:_searchService withLocationService:_locationService];
 }
+
+- (RestaurantSearch *)search {
+    return _search;
+}
+
 
 - (void)test_findBest_shouldSearchWithCurrentLocation {
     CLLocationCoordinate2D location;
-    location.latitude =    12.6259;
+    location.latitude = 12.6259;
     location.longitude = 1.33212;
 
     [_locationManagerStub injectLatitude:location.latitude longitude:location.longitude];
 
-    [[_restaurantSearch findBest:nil] waitUntilCompleted:nil];
+    [self findBest];
 
     assertThatBool([_searchService findWasCalledWithLocation:location], is(equalToBool(YES)));
 }

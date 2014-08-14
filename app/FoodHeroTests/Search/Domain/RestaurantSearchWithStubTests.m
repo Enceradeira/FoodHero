@@ -13,15 +13,16 @@
 #import "RestaurantSearch.h"
 #import "RestaurantSearchServiceStub.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "RestaurantSearchTests.h"
 
-@interface RestaurantSearchWithStubTests : XCTestCase
+@interface RestaurantSearchWithStubTests : RestaurantSearchTests
 
 @end
 
 @implementation RestaurantSearchWithStubTests {
     RestaurantSearch *_search;
     RestaurantSearchServiceStub *_searchService;
-    NSMutableArray *_userFeedback;
+
 }
 
 
@@ -31,27 +32,17 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _searchService = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-    _userFeedback = [NSMutableArray new];
 }
 
-- (Restaurant *)findBest {
-    __block Restaurant *restaurant;
-    RACSignal *signal = [_search findBest:_userFeedback];
-    [signal subscribeNext:^(Restaurant *r) {
-        restaurant = r;
-    }];
-    return restaurant;
-}
-
-- (void)feedbackIsFeedback:(USuggestionFeedbackForNotLikingAtAll *)feedback {
-    [_userFeedback addObject:feedback];
+- (RestaurantSearch *)search {
+    return _search;
 }
 
 - (void)test_findBest_ShouldAlwaysReturnExactlyOneRestaurant {
     __block Restaurant *restaurant;
     __block BOOL completed;
 
-    RACSignal *signal = [_search findBest:_userFeedback];
+    RACSignal *signal = [_search findBest:[NSArray new]];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];
@@ -67,10 +58,9 @@
 
     Restaurant *firstRestaurant = [self findBest];
 
-    [self feedbackIsFeedback:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant]];
+    [self feedbackIs:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant]];
 
-    Restaurant *secondRestaurant = [self findBest];
-    assertThat(firstRestaurant.placeId, isNot(equalTo(secondRestaurant.placeId)));
+    assertThat([self findBest].placeId, isNot(equalTo(firstRestaurant.placeId)));
 }
 
 
