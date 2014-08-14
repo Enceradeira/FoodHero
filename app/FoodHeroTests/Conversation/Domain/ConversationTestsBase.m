@@ -48,7 +48,7 @@
 }
 
 - (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity {
-    [_restaurantSearchStub injectFindResult:[Restaurant createWithName:name vicinity:vicinity types:nil placeId:nil]];
+    [_restaurantSearchStub injectFindResult:[Restaurant createWithName:name vicinity:vicinity types:@[] placeId:[[NSUUID UUID] UUIDString]]];
 }
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status {

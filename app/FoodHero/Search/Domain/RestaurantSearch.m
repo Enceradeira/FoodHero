@@ -39,19 +39,19 @@
                     parameter.radius = 2000;
                     parameter.cuisine = conversation.cuisine;
 
-                    NSArray *candidates = [_searchService find:parameter];
+                    NSArray *candidates = [_searchService findPlaces:parameter];
                     if (candidates.count > 0) {
                         NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
                             return f.restaurant.placeId;
                         }];
 
-                        NSArray *restaurants = [candidates linq_where:^(Restaurant *r) {
+                        NSArray *places = [candidates linq_where:^(Place *p) {
                             return [excludedPlaceIds linq_all:^(NSString *id) {
-                                return (BOOL) (![r.placeId isEqualToString:id]);
+                                return (BOOL) (![p.placeId isEqualToString:id]);
                             }];
                         }];
 
-                        [subscriber sendNext:restaurants[0]];
+                        [subscriber sendNext:[_searchService getRestaurantForPlace:places[0]]];
                         [subscriber sendCompleted];
                     }
                     else {

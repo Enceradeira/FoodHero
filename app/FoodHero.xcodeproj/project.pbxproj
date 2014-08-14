@@ -25,6 +25,7 @@
 		235250E5544DE7F8B6E22412 /* UGoodByeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AB45F30E82DEF54FC6D /* UGoodByeState.m */; };
 		23525119F0F8E8746B1202D0 /* UCuisinePreferenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */; };
 		235251278E3E4445D4141CD7 /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */; };
+		2352516345414DAFBC4D1664 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352522408BF6073928CCC48 /* Place.m */; };
 		2352516CEC3A47C0BB21AB1A /* SearchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF381A642E7AA0199F5 /* SearchAction.m */; };
 		23525170B3ED071688803C7F /* StatementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525606B9112D561A5FAC37 /* StatementTests.m */; };
 		2352518D934437EC9B68752C /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254AE12F0B92BC5B1315F /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.m */; };
@@ -277,6 +278,7 @@
 		235251FB11B4A23E429364C1 /* USuggestionFeedbackForTooExpensive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForTooExpensive.h; sourceTree = "<group>"; };
 		2352520402E27D2DE0AC57CA /* TokenNotConsumed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenNotConsumed.h; sourceTree = "<group>"; };
 		235252070D296286116B57FE /* Concatenation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Concatenation.m; sourceTree = "<group>"; };
+		2352522408BF6073928CCC48 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		235252243CA79D13851B4AEE /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
 		2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
 		2352525D6295E1EEFA2A0F40 /* RepeatAlways.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeatAlways.h; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		2352532F3DFD3673C16F58A5 /* FHWhatToDoNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWhatToDoNext.h; sourceTree = "<group>"; };
 		2352532FE8C29682329D925C /* AskUserToTryAgainAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserToTryAgainAction.m; sourceTree = "<group>"; };
 		23525332D64B8F407746B5A1 /* FHSuggestionAsFollowUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionAsFollowUp.h; sourceTree = "<group>"; };
+		2352533EE254FAB2F574F1F0 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		23525346FC989D1AB1AF0541 /* DesignByContractException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignByContractException.m; sourceTree = "<group>"; };
 		23525354C70C545066BBCACB /* AtomicSymbolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicSymbolTests.m; sourceTree = "<group>"; };
 		2352536C6BC6BEB6F761E374 /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
@@ -1105,6 +1108,8 @@
 				23525B80261B3766FA8C59DD /* RestaurantSearch.m */,
 				23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */,
 				2352513653EC64CAD2882E3E /* RestaurantSearchParams.h */,
+				2352522408BF6073928CCC48 /* Place.m */,
+				2352533EE254FAB2F574F1F0 /* Place.h */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1565,6 +1570,7 @@
 				235257E90FF3D4289D6CA3BB /* UserInputViewTableViewController.m in Sources */,
 				235257511345D8733B5E4F7D /* WhatToDoNextTableViewController.m in Sources */,
 				235253166AB2EAF505A881A7 /* ProblemWithAccessLocationServiceResolvedTableViewController.m in Sources */,
+				2352516345414DAFBC4D1664 /* Place.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

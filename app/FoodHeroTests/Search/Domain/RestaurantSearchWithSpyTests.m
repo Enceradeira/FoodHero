@@ -54,7 +54,7 @@
 
     [self findBest];
 
-    assertThatBool([_searchService findWasCalledWithLocation:location], is(equalToBool(YES)));
+    assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(equalToBool(YES)));
 }
 
 - (void)test_findBest_shouldSearchWithDesiredCuisine {
@@ -62,6 +62,6 @@
 
     [self findBest];
 
-    assertThat(_searchService.parameter.cuisine, is(equalTo(@"Asian")));
+    assertThat(_searchService.findPlacesParameter.cuisine, is(equalTo(@"Asian")));
 }
 @end

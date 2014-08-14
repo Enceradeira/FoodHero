@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import "GoogleRestaurantSearch.h"
-#import <NSArray+LinqExtensions.h>
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -18,59 +17,55 @@
 @implementation GoogleRestaurantSearchTests {
     GoogleRestaurantSearch *_service;
     RestaurantSearchParams *_parameter;
+    NSString *_placeIdLibraryGrill;
+    NSString *_placeIdMaidsHead;
 }
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
+
+    _placeIdLibraryGrill = @"ChIJZzNZ0-Dj2UcRn1Eq2l80nbw";
+    _placeIdMaidsHead = @"ChIJicLqAOjj2UcR1qA1_M1zFRI";
+
     CLLocationCoordinate2D norwich;
-    norwich.latitude =    52.631944; // Maids Head Hotel, Tombland, Norwich
+    norwich.latitude = 52.631944; // Maids Head Hotel, Tombland, Norwich
     norwich.longitude = 1.298889;
 
     _parameter = [RestaurantSearchParams new];
     _parameter.location = norwich;
     _parameter.radius = 10000;
-    
+
     _service = [GoogleRestaurantSearch new];
 }
 
-- (NSArray *)find{
-    NSArray *result = [_service find:_parameter];
-    return result;
+- (NSUInteger)findPlaceById:(NSString *)idLibraryGrillNorwich result:(NSArray *)result {
+    return [result indexOfObjectPassingTest:^BOOL(id r, NSUInteger idx, BOOL *stop) {
+        Place *place = r;
+        BOOL found = [place.placeId isEqualToString:idLibraryGrillNorwich];
+        stop = &found;
+        return found;
+    }];
 }
 
-- (void)test_find_ShouldReturnResultsFromGoogle
-{
-    NSArray *result = [self find];
+- (void)test_findPlaces_ShouldReturnRestaurantsWithMatchingCuisineFirst {
+    _parameter.cuisine = @"Steak house";
 
-    assertThat(result, is(notNilValue()));
-    assertThatUnsignedInt(result.count, is(greaterThan(@0U)));
-    Restaurant *first = result[0];
-    assertThatUnsignedInt(first.name.length,is(greaterThan(@0U)));
-    assertThatUnsignedInt(first.vicinity.length,is(greaterThan(@0U)));
-    assertThatUnsignedInt(first.placeId.length,is(greaterThan(@0U)));
+    NSArray *result1 = [_service findPlaces:_parameter];
+    NSArray *restaurants = result1;
+    NSUInteger indexOfLibraryGrill = [self findPlaceById:_placeIdLibraryGrill result:restaurants];
+    NSUInteger indexOfMaidsHead = [self findPlaceById:_placeIdMaidsHead result:restaurants];
+
+    assertThatInt(indexOfLibraryGrill, is(lessThan(@(indexOfMaidsHead))));
 }
 
--(void)test_find_ShouldOnlyReturnRestaurants
-{
-    NSArray *result = [self find];
-    NSArray *allTypes = [result linq_selectMany:^(Restaurant *r){return r.types;}];
-    NSArray *types = [allTypes linq_distinct];
+- (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
+    Place *place = [Place createWithPlaceId:_placeIdLibraryGrill];
 
-    assertThat(types, isNot(hasItem(@"church")));
-    assertThat(types, hasItem(@"restaurant"));
-}
+    Restaurant *restaurant = [_service getRestaurantForPlace:place];
 
--(void)test_textsearch {
-    return; // ignore at the moment
-    [_service textsearch];
-}
-
--(void)test_radarsearch {
-    return; // ignore at the moment
-    for(Restaurant *r in [_service radarsearch:_parameter]){
-         NSLog(@"-> %@ %@",r.name,r.vicinity);
-    };
+    assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
+    assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
+    assertThat(restaurant.placeId, is(equalTo(place.placeId)));
 }
 
 @end

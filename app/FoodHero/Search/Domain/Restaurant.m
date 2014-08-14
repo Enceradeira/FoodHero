@@ -8,12 +8,11 @@
 
 @implementation Restaurant
 - (id)initWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId {
-    self = [super init];
+    self = [super initWithPlaceId:placeId];
     if (self != nil) {
         _name = name;
         _vicinity = vicinity;
         _types = types;
-        _placeId = placeId;
     }
     return self;
 }

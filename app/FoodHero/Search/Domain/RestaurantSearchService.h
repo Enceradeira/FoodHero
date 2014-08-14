@@ -8,5 +8,7 @@
 #import "RestaurantSearchParams.h"
 
 @protocol RestaurantSearchService <NSObject>
-- (NSArray *)find:(RestaurantSearchParams *)parameter;
+- (NSArray *)findPlaces:(RestaurantSearchParams *)parameter;
+
+- (Restaurant *)getRestaurantForPlace:(Place *)place;
 @end

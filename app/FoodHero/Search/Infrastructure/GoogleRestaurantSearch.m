@@ -8,12 +8,13 @@
 @implementation GoogleRestaurantSearch {
 
 }
-- (NSArray *)find:(RestaurantSearchParams *)parameter {
+/*
+- (NSArray *)find2:(RestaurantSearchParams *)parameter {
 
     CLLocationCoordinate2D coordinate = parameter.location;
 
     NSArray *types = [NSArray arrayWithObjects:@"restaurant", @"cafe", @"food", nil];
-    NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
+    NSString *typesAsString = [types componentsJoinedByString:@"%7C"];
     NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=%u&sensor=false&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", coordinate.latitude, coordinate.longitude, parameter.radius, typesAsString];
     NSURL *placeURL = [NSURL URLWithString:placeString];
 
@@ -59,12 +60,16 @@
     }
 }
 
-- (NSMutableArray *)radarsearch:(RestaurantSearchParams *)parameter {
+*/
+
+
+- (NSMutableArray *)findPlaces:(RestaurantSearchParams *)parameter {
     CLLocationCoordinate2D coordinate = parameter.location;
 
-    NSArray *types = [NSArray arrayWithObjects:@"restaurant", @"cafe", @"food", nil];
+    NSArray *types = @[@"restaurant", @"cafe", @"food"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/radarsearch/json?keyword=grill+restaurant&location=%f,%f&radius=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", coordinate.latitude, coordinate.longitude, parameter.radius, typesAsString];
+    NSString *keyword = [parameter.cuisine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", keyword, coordinate.latitude, coordinate.longitude, parameter.radius, typesAsString];
     NSURL *placeURL = [NSURL URLWithString:placeString];
 
     NSError *error;
@@ -79,16 +84,16 @@
     }
 
     NSMutableArray *restaurants = [NSMutableArray new];
-    NSArray *places = [json objectForKey:@"results"];
+    NSArray *places = json[@"results"];
     for (NSDictionary *place in places) {
         NSString *placeId = [place valueForKey:@"place_id"];
-        [restaurants addObject:[self searchdetail:placeId]];
+        [restaurants addObject:[Place createWithPlaceId:placeId]];
     }
     return restaurants;
 }
 
-- (Restaurant *)searchdetail:(NSString *)id {
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", id];
+- (Restaurant *)getRestaurantForPlace:(Place *)place {
+    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", place.placeId];
     NSURL *placeURL = [NSURL URLWithString:placeString];
 
     NSError *error;
@@ -102,11 +107,12 @@
         @throw;
     }
 
-    NSArray *result = [json objectForKey:@"result"];
+    NSArray *result = json[@"result"];
+    return [Restaurant
+            createWithName:[result valueForKey:@"name"]
+                  vicinity:[result valueForKey:@"vicinity"]
+                     types:[result valueForKey:@"types"]
+                   placeId:[result valueForKey:@"place_id"]];
 
-
-    NSString *name = [result valueForKey:@"name"];
-    NSString *vicinity = [result valueForKey:@"vicinity"];
-    return [Restaurant createWithName:name vicinity:vicinity types:nil placeId:id];
 }
 @end

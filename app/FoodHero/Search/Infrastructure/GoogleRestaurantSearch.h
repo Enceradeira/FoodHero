@@ -8,9 +8,4 @@
 
 
 @interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
-- (void)textsearch;
-
-- (NSMutableArray *)radarsearch:(RestaurantSearchParams *)parameter;
-
-- (void)radarsearch;
 @end

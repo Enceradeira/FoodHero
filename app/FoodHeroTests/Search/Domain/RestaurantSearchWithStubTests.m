@@ -33,8 +33,6 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _searchService = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-
-    //[self conversationHasCuisine:@"British"];
 }
 
 - (RestaurantSearch *)search {

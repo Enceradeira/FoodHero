@@ -3,7 +3,9 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantSearchServiceStub.h"
+#import "DesignByContractException.h"
 
 @implementation RestaurantSearchServiceStub {
     Restaurant *_searchResult;
@@ -22,7 +24,13 @@
     _searchResult = restaurant;
 }
 
-- (NSArray *)find:(RestaurantSearchParams *)parameter {
+- (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
+    return [[self getRestaurants] linq_select:^(Restaurant *r) {
+        return [Place createWithPlaceId:r.placeId];
+    }];
+}
+
+- (NSArray *)getRestaurants {
     NSMutableArray *result = [NSMutableArray new];
     if (_findReturnsNil) {
         return [NSArray new];
@@ -36,6 +44,17 @@
     }
     return result;
 }
+
+- (Restaurant *)getRestaurantForPlace:(Place *)place {
+    NSArray *restaurants = [[self getRestaurants] linq_where:^(Restaurant *r) {
+        return [r.placeId isEqualToString:place.placeId];
+    }];
+    if (restaurants.count == 1) {
+        return restaurants[0];
+    }
+    @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"Restaurant with placeId='%@' not found", place.placeId]];
+}
+
 
 - (void)injectFindNothing {
     _findReturnsNil = YES;
