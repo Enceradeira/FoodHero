@@ -18,7 +18,7 @@
     NSString *name = _name == nil ? @"Raj Palace" : _name;
     NSString *vicinity = _vicinity == nil ? @"18 Cathedral Street, Norwich" : _vicinity;
     CLLocation *location = _location == nil ? [[CLLocation alloc] initWithLatitude:45.88879 longitude:1.55668] : _location;
-    return [Restaurant createWithName:name vicinity:vicinity types:@[@"restaurant"] placeId:[[NSUUID UUID] UUIDString] location:location];
+    return [Restaurant createWithName:name vicinity:vicinity types:@[@"restaurant"] placeId:[[NSUUID UUID] UUIDString] location:location priceLevel:1];
 }
 
 - (RestaurantBuilder *)withName:(NSString *)name {

@@ -18,7 +18,15 @@ const int GOOGLE_MAX_SEARCH_RADIUS = 50000;
     NSArray *types = @[@"restaurant", @"cafe", @"food"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
     NSString *keyword = [parameter.cuisine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", keyword, coordinate.latitude, coordinate.longitude, (unsigned int) parameter.radius, typesAsString];
+    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg",
+                                                       keyword,
+                                                       coordinate.latitude,
+                                                       coordinate.longitude,
+                                                       (unsigned int) parameter.radius,
+                                                       parameter.minPrice,
+                                                       parameter.maxPrice,
+                                                       typesAsString];
+
     NSURL *placeURL = [NSURL URLWithString:placeString];
 
     NSError *error;
@@ -61,7 +69,13 @@ const int GOOGLE_MAX_SEARCH_RADIUS = 50000;
     }
 
     NSArray *result = json[@"result"];
-   return [Restaurant createWithName:[result valueForKey:@"name"] vicinity:[result valueForKey:@"vicinity"] types:[result valueForKey:@"types"] placeId:[result valueForKey:@"place_id"] location:place.location];
+    return [Restaurant createWithName:
+                    [result valueForKey:@"name"]
+                             vicinity:[result valueForKey:@"vicinity"]
+                                types:[result valueForKey:@"types"]
+                              placeId:[result valueForKey:@"place_id"]
+                             location:place.location
+                           priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]];
 
 }
 

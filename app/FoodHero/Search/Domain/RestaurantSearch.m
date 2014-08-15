@@ -35,11 +35,14 @@
                     [((NSValue *) value) getValue:&coordinate];
                     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
 
+                    // dynamically adjust radius in order to get as specific results as possible
                     NSArray *candidates = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
                         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
                         parameter.coordinate = coordinate;
                         parameter.radius = radius;
                         parameter.cuisine = conversation.cuisine;
+                        parameter.minPrice = 0;
+                        parameter.maxPrice = 4;
                         return [_searchService findPlaces:parameter];
                     }];
 
