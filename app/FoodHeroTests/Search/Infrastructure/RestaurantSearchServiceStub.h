@@ -13,4 +13,6 @@
 - (void)injectFindNothing;
 
 - (void)injectFindSomething;
+
+- (void)injectFindResultsWithRadius:(NSArray *)restaurantsAtRadius;
 @end

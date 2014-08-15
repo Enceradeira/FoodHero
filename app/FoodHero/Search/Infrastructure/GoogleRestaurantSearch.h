@@ -6,6 +6,10 @@
 #import <Foundation/Foundation.h>
 #import "RestaurantSearchService.h"
 
+// see https://developers.google.com/places/documentation/search#RadarSearchRequests
+extern const int GOOGLE_MAX_SEARCH_RESULTS;
+extern const int GOOGLE_MAX_SEARCH_RADIUS;
 
 @interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
+
 @end

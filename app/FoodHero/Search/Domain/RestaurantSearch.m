@@ -8,6 +8,7 @@
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
+#import "RadiusCalculator.h"
 
 @implementation RestaurantSearch {
 
@@ -34,21 +35,23 @@
                     [((NSValue *) value) getValue:&coordinate];
                     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
 
-                    RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-                    parameter.coordinate = coordinate;
-                    parameter.radius = 2000;
-                    parameter.cuisine = conversation.cuisine;
+                    NSArray *candidates = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
+                        RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+                        parameter.coordinate = coordinate;
+                        parameter.radius = radius;
+                        parameter.cuisine = conversation.cuisine;
+                        return [_searchService findPlaces:parameter];
+                    }];
 
-                    NSArray *candidates = [_searchService findPlaces:parameter];
                     candidates = [candidates sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
                         CLLocationDistance distanceA = [[((Place *) a) location] distanceFromLocation:currentLocation];
                         CLLocationDistance distanceB = [[((Place *) b) location] distanceFromLocation:currentLocation];
 
                         if (distanceA < distanceB) {
-                            return (NSComparisonResult) NSOrderedDescending;
+                            return (NSComparisonResult) NSOrderedAscending;
                         }
                         else if (distanceA > distanceB) {
-                            return (NSComparisonResult) NSOrderedAscending;
+                            return (NSComparisonResult) NSOrderedDescending;
                         }
                         return (NSComparisonResult) NSOrderedSame;
 

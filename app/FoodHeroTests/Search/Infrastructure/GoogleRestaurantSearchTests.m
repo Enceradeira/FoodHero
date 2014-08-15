@@ -69,7 +69,7 @@
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
     for (Place *place in places) {
         CLLocationDistance distance = [_norwich distanceFromLocation:place.location];
-        assertThatDouble(distance, is(lessThanOrEqualTo(@(specifiedRadius*3))));
+        assertThatDouble(distance, is(lessThanOrEqualTo(@(specifiedRadius * 3))));
     }
 }
 
@@ -81,6 +81,26 @@
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));
+    assertThat(restaurant.location, is(notNilValue()));
 }
+
+- (void)test_studyRadius {
+    return;
+
+    CLLocationDistance radius = 50000;
+
+    _parameter.cuisine = @"Indian";
+    _parameter.radius = radius;
+    _parameter.coordinate = _norwich.coordinate;
+
+    for (Place *place in [_service findPlaces:_parameter]) {
+        CLLocationDistance distance = [[place location] distanceFromLocation:_norwich];
+
+        Restaurant *r = [_service getRestaurantForPlace:place];
+        NSLog([NSString stringWithFormat:@"Radius %f m: %f ¦ %@ ¦ %@", radius, distance, r.name, r.vicinity]);
+    }
+
+}
+
 
 @end

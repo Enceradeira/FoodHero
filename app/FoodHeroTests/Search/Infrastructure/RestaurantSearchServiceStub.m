@@ -7,6 +7,8 @@
 #import "RestaurantSearchServiceStub.h"
 #import "DesignByContractException.h"
 #import "RestaurantBuilder.h"
+#import "RestaurantsAtRadius.h"
+#import "GoogleRestaurantSearch.h"
 
 @implementation RestaurantSearchServiceStub {
     NSArray *_searchResults;
@@ -17,27 +19,43 @@
 - (id)init {
     self = [super init];
     if (self != nil) {
-        _findReturnsNil = NO;
+        [self reset];
     }
     return self;
 }
 
+- (void)reset {
+    _findReturnsNil = NO;
+    _searchResults = nil;
+    _ownSearchResults = nil;
+}
+
 - (void)injectFindResults:(NSArray *)restaurants {
-    _searchResults = restaurants;
+    [self reset];
+    _searchResults = @[[RestaurantsAtRadius create:GOOGLE_MAX_SEARCH_RADIUS restaurants:restaurants]];
+}
+
+- (void)injectFindResultsWithRadius:(NSArray *)restaurantsAtRadius {
+    [self reset];
+    _searchResults = restaurantsAtRadius;
 }
 
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
-    return [[self getRestaurants] linq_select:^(Restaurant *r) {
+    return [[self getRestaurants:parameter.radius] linq_select:^(Restaurant *r) {
         return [Place createWithPlaceId:r.placeId location:r.location];
     }];
 }
 
-- (NSArray *)getRestaurants {
+- (NSArray *)getRestaurants:(double)searchRadius {
     if (_findReturnsNil) {
         return [NSArray new];
     }
     if (_searchResults != nil) {
-        return _searchResults;
+        return [[[_searchResults linq_where:^BOOL(RestaurantsAtRadius *r) {
+            return r.radius >= searchRadius;
+        }] linq_select:^(RestaurantsAtRadius *r) {
+            return r.restaurants;
+        }] linq_firstOrNil];
     }
     else {
         if (_ownSearchResults == nil) {
@@ -49,21 +67,38 @@
 }
 
 - (Restaurant *)getRestaurantForPlace:(Place *)place {
-    NSArray *restaurants = [[self getRestaurants] linq_where:^(Restaurant *r) {
-        return [r.placeId isEqualToString:place.placeId];
-    }];
-    if (restaurants.count == 1) {
-        return restaurants[0];
+    if (!_findReturnsNil) {
+        NSArray *restaurants;
+        if (_searchResults != nil) {
+            restaurants = [_searchResults linq_selectMany:^(RestaurantsAtRadius *r) {
+                return r.restaurants;
+            }];
+        }
+        if (_ownSearchResults != nil) {
+            restaurants = _ownSearchResults;
+        }
+
+        if (restaurants != nil) {
+            NSArray *restaurantsWithPlaceId = [restaurants linq_where:^(Restaurant *r) {
+                return [r.placeId isEqualToString:place.placeId];
+            }];
+            if (restaurantsWithPlaceId.count == 1) {
+                return restaurantsWithPlaceId[0];
+            }
+        }
     }
     @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"Restaurant with placeId='%@' not found", place.placeId]];
 }
 
 
 - (void)injectFindNothing {
+    [self reset];
     _findReturnsNil = YES;
 }
 
 - (void)injectFindSomething {
+    [self reset];
     _findReturnsNil = NO;
 }
+
 @end

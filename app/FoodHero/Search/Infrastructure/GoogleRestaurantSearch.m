@@ -5,6 +5,9 @@
 
 #import "GoogleRestaurantSearch.h"
 
+const int GOOGLE_MAX_SEARCH_RESULTS = 200;
+const int GOOGLE_MAX_SEARCH_RADIUS = 50000;
+
 @implementation GoogleRestaurantSearch {
 
 }
@@ -58,7 +61,7 @@
     }
 
     NSArray *result = json[@"result"];
-    return [Restaurant createWithName:[result valueForKey:@"name"] vicinity:[result valueForKey:@"vicinity"] types:[result valueForKey:@"types"] placeId:[result valueForKey:@"place_id"] location:nil];
+   return [Restaurant createWithName:[result valueForKey:@"name"] vicinity:[result valueForKey:@"vicinity"] types:[result valueForKey:@"types"] placeId:[result valueForKey:@"place_id"] location:place.location];
 
 }
 
