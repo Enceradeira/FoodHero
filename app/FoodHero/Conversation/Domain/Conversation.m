@@ -106,17 +106,11 @@
 }
 
 - (NSArray *)negativeUserFeedback {
-    return [[_statements linq_where:^(Statement *s) {
-        return (BOOL) ([s.token isKindOfClass:[USuggestionNegativeFeedback class]]);
-    }] linq_select:^(Statement *s) {
-        return s.token;
-    }];
+    return [self.tokens linq_ofType:[USuggestionNegativeFeedback class]];
 }
 
 - (NSString *)cuisine {
-    UCuisinePreference *preference = [[_statements linq_where:^(Statement *s) {
-        return (BOOL) ([s.token isKindOfClass:[UCuisinePreference class]]);
-    }] linq_lastOrNil];
+    UCuisinePreference *preference = [[self.tokens linq_ofType:[UCuisinePreference class]] linq_lastOrNil];
     if (preference == nil) {
         @throw [DesignByContractException createWithReason:@"cuisine preference is unknown"];
     }
@@ -125,11 +119,11 @@
 
 - (PriceLevelRange *)priceRange {
     PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
-    for(ConversationToken *token in [self tokens]){
-        if( [token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]){
+    for (ConversationToken *token in [self tokens]) {
+        if ([token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]) {
             priceRange = [priceRange setMaxLowerThan:((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel];
         }
-        else if([token isKindOfClass:[USuggestionFeedbackForTooCheap class]])   {
+        else if ([token isKindOfClass:[USuggestionFeedbackForTooCheap class]]) {
             priceRange = [priceRange setMinHigherThan:((USuggestionFeedbackForTooCheap *) token).restaurant.priceLevel];
         }
     }
@@ -138,10 +132,8 @@
 
 
 - (NSArray *)suggestedRestaurants {
-    return [[_statements linq_where:^(Statement *s) {
-        return (BOOL) ([s.token isKindOfClass:[FHSuggestionBase class]]);
-    }] linq_select:^(Statement *s) {
-        return ((FHSuggestion *) s.token).restaurant;
+    return [[self.tokens linq_ofType:[FHSuggestionBase class]] linq_select:^(FHSuggestionBase *s) {
+        return s.restaurant;
     }];
 }
 @end
