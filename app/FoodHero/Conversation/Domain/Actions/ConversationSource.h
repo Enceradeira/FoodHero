@@ -5,6 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
+#import "PriceLevelRange.h"
+
 
 @protocol ConversationSource <NSObject>
 - (void)addToken:(ConversationToken *)token;
@@ -12,4 +14,6 @@
 - (NSArray *)negativeUserFeedback;
 
 - (NSString *)cuisine;
+
+- (PriceLevelRange *)priceRange;
 @end

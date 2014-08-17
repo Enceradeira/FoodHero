@@ -19,6 +19,8 @@
 #import "TokenConsumed.h"
 #import "FHSuggestion.h"
 #import "UCuisinePreference.h"
+#import "USuggestionFeedbackForTooExpensive.h"
+#import "USuggestionFeedbackForTooCheap.h"
 
 
 @interface Conversation ()
@@ -48,6 +50,13 @@
         [self addStatement:token inputAction:action];
     }
     return self;
+}
+
+
+- (NSArray *)tokens {
+    return [_statements linq_select:^(Statement *s) {
+        return s.token;
+    }];
 }
 
 - (void)addStatement:(ConversationToken *)token inputAction:(id <UAction>)inputAction {
@@ -112,6 +121,19 @@
         @throw [DesignByContractException createWithReason:@"cuisine preference is unknown"];
     }
     return preference.text;
+}
+
+- (PriceLevelRange *)priceRange {
+    PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
+    for(ConversationToken *token in [self tokens]){
+        if( [token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]){
+            priceRange = [priceRange setMaxLowerThan:((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel];
+        }
+        else if([token isKindOfClass:[USuggestionFeedbackForTooCheap class]])   {
+            priceRange = [priceRange setMinHigherThan:((USuggestionFeedbackForTooCheap *) token).restaurant.priceLevel];
+        }
+    }
+    return priceRange;
 }
 
 

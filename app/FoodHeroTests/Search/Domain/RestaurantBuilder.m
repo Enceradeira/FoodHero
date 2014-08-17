@@ -11,6 +11,8 @@
     NSString *_name;
     NSString *_vicinity;
     CLLocation *_location;
+    NSUInteger _priceLevel;
+    BOOL _priceLevelSet;
 }
 
 - (Restaurant *)build {
@@ -18,7 +20,8 @@
     NSString *name = _name == nil ? @"Raj Palace" : _name;
     NSString *vicinity = _vicinity == nil ? @"18 Cathedral Street, Norwich" : _vicinity;
     CLLocation *location = _location == nil ? [[CLLocation alloc] initWithLatitude:45.88879 longitude:1.55668] : _location;
-    return [Restaurant createWithName:name vicinity:vicinity types:@[@"restaurant"] placeId:[[NSUUID UUID] UUIDString] location:location priceLevel:1];
+    NSUInteger priceLevel = _priceLevelSet ? _priceLevel : 2;
+    return [Restaurant createWithName:name vicinity:vicinity types:@[@"restaurant"] placeId:[[NSUUID UUID] UUIDString] location:location priceLevel:priceLevel];
 }
 
 - (RestaurantBuilder *)withName:(NSString *)name {
@@ -36,4 +39,9 @@
     return self;
 }
 
+- (RestaurantBuilder *)withPriceLevel:(NSUInteger)priceLevel {
+    _priceLevel = priceLevel;
+    _priceLevelSet = YES;
+    return self;
+}
 @end

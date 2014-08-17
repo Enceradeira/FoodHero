@@ -64,4 +64,14 @@
 
     assertThat(_searchService.findPlacesParameter.cuisine, is(equalTo(@"Asian")));
 }
+
+-(void)test_findBest_ShouldSearchWithPriceRange{
+    PriceLevelRange *range1To2 = [[[PriceLevelRange createFullRange] setMaxLowerThan:3] setMinHigherThan:0];
+    [self conversationHasPriceRange:range1To2];
+
+    [self findBest];
+
+    assertThatUnsignedInt(_searchService.findPlacesParameter.maxPrice, is(equalTo(@(range1To2.max))));
+    assertThatUnsignedInt(_searchService.findPlacesParameter.minPrice, is(equalTo(@(range1To2.min))));
+}
 @end

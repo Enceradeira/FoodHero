@@ -19,7 +19,7 @@
     // implements a binary search starting in the middle of the search range defined by GOOGLE_MAX_SEARCH_RADIUS
     BOOL searchAgain;
     do {
-        NSLog([NSString stringWithFormat:@"Radius: %f ", radius]);
+        // NSLog([NSString stringWithFormat:@"Radius: %f ", radius]);
         result = elementFactory(radius);
         if (result == nil) {
             @throw [DesignByContractException createWithReason:@"elementFactory returned nil"];

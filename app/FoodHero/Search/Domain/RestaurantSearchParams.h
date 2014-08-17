@@ -10,6 +10,6 @@
 @property(nonatomic) CLLocationCoordinate2D coordinate;
 @property(nonatomic) CLLocationDistance radius;
 @property(nonatomic) NSString *cuisine;
-@property(nonatomic) int minPrice;
-@property(nonatomic) int maxPrice;
+@property(nonatomic) NSUInteger minPrice;
+@property(nonatomic) NSUInteger maxPrice;
 @end

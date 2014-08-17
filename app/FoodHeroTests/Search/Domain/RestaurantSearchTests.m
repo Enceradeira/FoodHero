@@ -37,6 +37,10 @@
     [_conversation injectCuisine:cuisine];
 }
 
+- (void)conversationHasPriceRange:(PriceLevelRange *)range {
+    [_conversation injectPriceRange:range];
+}
+
 
 - (void)conversationHasNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback {
     [_conversation injectNegativeUserFeedback:feedback];

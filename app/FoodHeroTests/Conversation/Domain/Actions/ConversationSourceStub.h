@@ -13,4 +13,6 @@
 - (void)injectNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback;
 
 - (void)injectCuisine:(NSString *)cuisine;
+
+- (void)injectPriceRange:(PriceLevelRange *)range;
 @end

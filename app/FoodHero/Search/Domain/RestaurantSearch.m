@@ -41,8 +41,8 @@
                         parameter.coordinate = coordinate;
                         parameter.radius = radius;
                         parameter.cuisine = conversation.cuisine;
-                        parameter.minPrice = 0;
-                        parameter.maxPrice = 4;
+                        parameter.minPrice = conversation.priceRange.min;
+                        parameter.maxPrice = conversation.priceRange.max;
                         return [_searchService findPlaces:parameter];
                     }];
 

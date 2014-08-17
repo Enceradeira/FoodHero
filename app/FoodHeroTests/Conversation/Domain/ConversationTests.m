@@ -26,6 +26,7 @@
 #import "USuggestionFeedbackForLiking.h"
 #import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
+#import "USuggestionFeedbackForTooCheap.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -153,6 +154,32 @@
     [self.conversation addToken:[UCuisinePreference create:@"Asian, Swiss"]];
 
     assertThat(self.conversation.cuisine, is(equalTo(@"Asian, Swiss")));
+}
+
+- (void)test_priceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
+    PriceLevelRange *fullPriceRange = [PriceLevelRange createFullRange];
+
+    assertThat(self.conversation.priceRange, is(equalTo(fullPriceRange)));
+}
+
+- (void)test_priceLevel_ShouldDecreasePriceLevel_WhenUserFindsRestaurantTooExpensive {
+    NSUInteger priceLevel = 3;
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
+
+    assertThatUnsignedInt(self.conversation.priceRange.max, is(equalTo(@(priceLevel - 1))));
+}
+
+- (void)test_priceLevel_ShouldIncreasePriceLevel_WhenUserFindsRestaurantTooCheap {
+    NSUInteger priceLevel = 3;
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+
+    assertThatUnsignedInt(self.conversation.priceRange.min, is(equalTo(@(priceLevel + 1))));
 }
 
 @end

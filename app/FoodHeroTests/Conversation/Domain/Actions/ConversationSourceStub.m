@@ -11,12 +11,14 @@
 
     NSMutableArray *_negativeUserFeedback;
     NSString *_cuisine;
+    PriceLevelRange *_range;
 }
 
 - (id)init {
     self = [super init];
     if (self) {
         _negativeUserFeedback = [NSMutableArray new];
+        _range = [PriceLevelRange createFullRange];
     }
 
     return self;
@@ -34,6 +36,10 @@
     return _cuisine;
 }
 
+- (PriceLevelRange *)priceRange {
+    return _range;
+}
+
 
 - (void)injectNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback {
     [_negativeUserFeedback addObject:feedback];
@@ -41,5 +47,9 @@
 
 - (void)injectCuisine:(NSString *)cuisine {
     _cuisine = cuisine;
+}
+
+- (void)injectPriceRange:(PriceLevelRange *)range {
+    _range = range;
 }
 @end

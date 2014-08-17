@@ -14,4 +14,6 @@
 - (RestaurantBuilder *)withVicinity:(NSString *)vicinity;
 
 - (RestaurantBuilder *)withLocation:(CLLocation *)location;
+
+- (RestaurantBuilder *)withPriceLevel:(NSUInteger)priceLevel;
 @end
