@@ -24,7 +24,7 @@
     return [TyphoonDefinition withClass:[NavigationController class]];
 }
 
--(id)problemWithAccessLocationServiceResolvedTableViewController{
+- (id)problemWithAccessLocationServiceResolvedTableViewController {
     return [TyphoonDefinition withClass:[ProblemWithAccessLocationServiceResolvedTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
@@ -128,14 +128,6 @@
 }
 
 - (id)conversation {
-    return [TyphoonDefinition
-            withClass:[Conversation class]
-        configuration:^(TyphoonDefinition *definition) {
-            [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
-                [method injectParameterWith:[self restaurantSearch]];
-
-            }];
-        }
-    ];
+    return [TyphoonDefinition withClass:[Conversation class]];
 }
 @end

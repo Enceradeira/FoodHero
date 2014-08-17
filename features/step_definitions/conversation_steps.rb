@@ -14,7 +14,7 @@ end
 
 def wait_last_element_and_parameter(id)
   bubble, parameter = nil
-  wait_true(5, 0.10) do
+  wait_true(30, 0.30) do
     bubble, parameter = get_last_element_and_parameter(id)
     if block_given?
       block_test = parameter != nil && yield(parameter)

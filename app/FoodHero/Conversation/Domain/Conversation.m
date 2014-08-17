@@ -10,7 +10,6 @@
 #import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
-#import "RestaurantSearch.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
 #import "FHConversationState.h"
@@ -28,14 +27,12 @@
 @end
 
 @implementation Conversation {
-    RestaurantSearch *_restaurantSearch;
     FHConversationState *_state;
 }
 
-- (id)initWithDependencies:(RestaurantSearch *)restaurantSearch {
+- (id)init {
     self = [super init];
     if (self != nil) {
-        _restaurantSearch = restaurantSearch;
         _statements = [NSMutableArray new];
 
         _state = [FHConversationState new];
