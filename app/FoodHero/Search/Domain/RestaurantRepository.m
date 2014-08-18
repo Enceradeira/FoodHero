@@ -71,4 +71,8 @@
     }];
 
 }
+
+- (Restaurant *)getRestaurantFromPlace:(Place *)place {
+    return [_searchService getRestaurantForPlace:place];
+}
 @end

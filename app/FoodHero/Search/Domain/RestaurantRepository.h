@@ -14,4 +14,6 @@
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService;
 
 - (RACSignal *)getPlacesByCuisine:(NSString *)cuisine;
+
+- (Restaurant *)getRestaurantFromPlace:(Place *)place;
 @end

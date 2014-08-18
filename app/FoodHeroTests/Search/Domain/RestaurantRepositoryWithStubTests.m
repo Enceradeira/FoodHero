@@ -133,4 +133,14 @@
     assertThatBool(isCompleted, is(equalToBool(YES)));
 }
 
+-(void)test_getRestaurantForPlace_ShouldReturnRestaurantForPlace{
+    Restaurant *restaurant = [[RestaurantBuilder alloc] build];
+    [_searchService injectFindResults:@[restaurant]];
+
+    Place *place = [self getPlacesByCuisine:@"Mongolian"][0];
+
+    Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place];
+    assertThat(restaurantFromPlace, is(equalTo(restaurant)));
+}
+
 @end
