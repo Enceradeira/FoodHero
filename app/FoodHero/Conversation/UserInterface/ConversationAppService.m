@@ -20,6 +20,8 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
+#import "FeedbackForTooFarAway.h"
+#import "LocationService.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -29,6 +31,7 @@ static UIImage *EmptyImage;
     Conversation *_conversation;
     NSArray *_cuisines;
     NSArray *_feedbacks;
+    LocationService *_locationService;
 }
 
 
@@ -38,10 +41,11 @@ static UIImage *EmptyImage;
     EmptyImage = [UIImage imageNamed:@"Empty-Icon.png"];
 }
 
-- (id)initWithDependencies:(ConversationRepository *)conversationRepository {
+- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository locationService:(LocationService*)locationService {
     self = [super init];
     if (self != nil) {
         _bubbles = [NSMutableDictionary new];
+        _locationService = locationService;
         _conversation = conversationRepository.get;
         _cuisines =
                 [@[@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese"]
@@ -50,7 +54,7 @@ static UIImage *EmptyImage;
                         }];
 
         _feedbacks = @[
-                [Feedback create:USuggestionFeedbackForTooFarAway.class image:EmptyImage choiceText:@"It's too far away"],
+                [FeedbackForTooFarAway create:EmptyImage choiceText:@"It's too far away" locationService:_locationService],
                 [Feedback create:USuggestionFeedbackForTooExpensive.class image:EmptyImage choiceText:@"It looks too expensive"],
                 [Feedback create:USuggestionFeedbackForTooCheap.class image:EmptyImage choiceText:@"It looks too cheap"],
                 [Feedback create:USuggestionFeedbackForNotLikingAtAll.class image:EmptyImage choiceText:@"I don't like that restaurant"],

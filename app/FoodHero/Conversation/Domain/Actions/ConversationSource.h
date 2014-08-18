@@ -15,5 +15,5 @@
 
 - (NSArray *)negativeUserFeedback;
 
-- (SearchParameter *) currentSearchProfile;
+- (SearchParameter *)currentSearchPreference;
 @end

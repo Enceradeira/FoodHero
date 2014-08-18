@@ -12,8 +12,16 @@
 
 }
 
-+ (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant text:@"It's too far away"];
++ (instancetype)create:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location {
+    return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant text:@"It's too far away" currentUserLocation:location];
+}
+
+- (id)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text currentUserLocation:(CLLocation *)location {
+    self = [super initWithRestaurant:restaurant text:text];
+    if (self != nil) {
+        _currentUserLocation = location;
+    }
+    return self;
 }
 
 - (ConversationToken *)foodHeroConfirmationToken {

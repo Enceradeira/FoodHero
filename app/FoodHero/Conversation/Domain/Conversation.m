@@ -21,6 +21,7 @@
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchParameter.h"
+#import "USuggestionFeedbackForTooFarAway.h"
 
 
 @interface Conversation ()
@@ -107,8 +108,19 @@
     return [self.tokens linq_ofType:[USuggestionNegativeFeedback class]];
 }
 
-- (SearchParameter *)currentSearchProfile {
-    return [SearchParameter createWithCuisine:self.cuisine priceRange:self.priceRange];
+- (SearchParameter *)currentSearchPreference {
+    return [SearchParameter createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
+}
+
+- (double)maxDistance {
+    USuggestionFeedbackForTooFarAway* lastFeedback = [[self.tokens linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
+    if( lastFeedback == nil){
+        return DBL_MAX;
+    }
+    else{
+        // set max distance to 1/3 nearer
+        return [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation] * 0.66666;
+    }
 }
 
 - (NSString *)cuisine {

@@ -1,4 +1,4 @@
-  //
+//
 //  TyphoonComponentsTests.m
 //  FoodHero
 //
@@ -13,7 +13,7 @@
 #import "DefaultAssembly.h"
 #import "HCIsExceptionOfType.h"
 
-  @interface TyphoonComponentsTests : XCTestCase
+@interface TyphoonComponentsTests : XCTestCase
 
 @end
 
@@ -23,25 +23,35 @@
 
     [TyphoonComponents reset];
 }
+
 - (void)test_factory_ShouldThrowException_IfApplicationAssemblyNotConfigured {
-    assertThat(^(){ [TyphoonComponents factory];}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^() {
+        [TyphoonComponents factory];
+    }, throwsExceptionOfType([DesignByContractException class]));
 }
 
-- (void)test_storyboard_ShouldThrowException_IfApplicationAssemblyNotConfigured
-{
-    assertThat(^(){ [TyphoonComponents storyboard];}, throwsExceptionOfType([DesignByContractException class]) );
+- (void)test_storyboard_ShouldThrowException_IfApplicationAssemblyNotConfigured {
+    assertThat(^() {
+        [TyphoonComponents storyboard];
+    }, throwsExceptionOfType([DesignByContractException class]));
 }
 
-- (void)test_factory_ShouldReturnFactory_IfApplicationAssemblyConfigured
-{
+- (void)test_factory_ShouldReturnFactory_IfApplicationAssemblyConfigured {
     [TyphoonComponents configure:[DefaultAssembly new]];
     assertThat(TyphoonComponents.factory, is(notNilValue()));
 }
 
--(void)test_factory_ShouldReturnStoryboard_IfApplicationAssemblyConfigured
-{
-     [TyphoonComponents configure:[DefaultAssembly new]];
+- (void)test_factory_ShouldReturnStoryboard_IfApplicationAssemblyConfigured {
+    [TyphoonComponents configure:[DefaultAssembly new]];
     assertThat(TyphoonComponents.storyboard, is(notNilValue()));
+}
+
+- (void)test_factory_ShouldBeSameInstanceAsFactoryOnStoryboard {
+    [TyphoonComponents configure:[DefaultAssembly new]];
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+
+    TyphoonComponentFactory *factory = [TyphoonComponents factory];
+    assertThat(factory, is(equalTo(storyboard.factory)));
 }
 
 @end

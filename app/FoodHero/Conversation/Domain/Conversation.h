@@ -14,7 +14,7 @@
 
 @class ConversationToken;
 
-@interface Conversation : NSObject<ConversationSource>
+@interface Conversation : NSObject <ConversationSource>
 
 - (Statement *)getStatement:(NSUInteger)index;
 

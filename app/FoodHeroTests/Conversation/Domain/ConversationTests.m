@@ -34,7 +34,17 @@
 @end
 
 @implementation ConversationTests {
+    CLLocation *_norwich;
+    CLLocation *_london;
 }
+
+- (void)setUp {
+    [super setUp];
+
+    _norwich = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
+    _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+}
+
 
 - (void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
     NSMutableArray *receivedIndexes = [NSMutableArray new];
@@ -108,7 +118,7 @@
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {
     USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build]];
-    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build]];
+    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:nil];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:feedback1];
@@ -145,44 +155,61 @@
     assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
 
-- (void)test_cuisine_ShouldThrowException_WhenUserHasNotSpecifiedCuisineYet {
+- (void)test_currentSearchPreferenceCuisine_ShouldThrowException_WhenUserHasNotSpecifiedCuisineYet {
     assertThat(^() {
-        self.conversation.currentSearchProfile.cuisine;
+        self.conversation.currentSearchPreference.cuisine;
     }, throwsExceptionOfType([DesignByContractException class]));
 }
 
-- (void)test_cuisine_ShouldReturnCuisine_WhenUserHasAlreadySpecifiedCuisine {
+- (void)test_currentSearchPreferenceCuisine_ShouldReturnCuisine_WhenUserHasAlreadySpecifiedCuisine {
     [self.conversation addToken:[UCuisinePreference create:@"Asian, Swiss"]];
 
-    assertThat(self.conversation.currentSearchProfile.cuisine, is(equalTo(@"Asian, Swiss")));
+    assertThat(self.conversation.currentSearchPreference.cuisine, is(equalTo(@"Asian, Swiss")));
 }
 
-- (void)test_priceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
+- (void)test_currentSearchPreferencePriceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
     [self.conversation addToken:[UCuisinePreference create:@"Sandwich"]];
 
     PriceLevelRange *fullPriceRange = [PriceLevelRange createFullRange];
 
-    assertThat(self.conversation.currentSearchProfile.priceRange, is(equalTo(fullPriceRange)));
+    assertThat(self.conversation.currentSearchPreference.priceRange, is(equalTo(fullPriceRange)));
 }
 
-- (void)test_priceLevel_ShouldDecreasePriceLevel_WhenUserFindsRestaurantTooExpensive {
+- (void)test_currentSearchPreferencePriceLevel_ShouldDecreasePriceLevel_WhenUserFindsRestaurantTooExpensive {
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
 
-    assertThatUnsignedInt(self.conversation.currentSearchProfile.priceRange.max, is(equalTo(@(priceLevel - 1))));
+    assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(priceLevel - 1))));
 }
 
-- (void)test_priceLevel_ShouldIncreasePriceLevel_WhenUserFindsRestaurantTooCheap {
+- (void)test_currentSearchPreferencePriceLevel_ShouldIncreasePriceLevel_WhenUserFindsRestaurantTooCheap {
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
 
-    assertThatUnsignedInt(self.conversation.currentSearchProfile.priceRange.min, is(equalTo(@(priceLevel + 1))));
+    assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(priceLevel + 1))));
+}
+
+- (void)test_currentSearchPreferenceMaxDistance_ShouldHaveMaxValue_WhenUserHasNeverFoundRestaurantTooFarAway {
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+
+    assertThatDouble(self.conversation.currentSearchPreference.maxDistance, is(equalTo(@(DBL_MAX))));
+}
+
+- (void)test_currentSearchPreferenceMaxDistance_ShouldDecrease_WhenUserFindRestaurantTooFarAway {
+    CLLocationDistance distance = [_norwich distanceFromLocation:_london];
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_london]];
+
+    assertThatDouble(self.conversation.currentSearchPreference.maxDistance, is(lessThan(@(distance))));
 }
 
 @end

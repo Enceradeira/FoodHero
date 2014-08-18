@@ -8,5 +8,9 @@
 
 
 @interface USuggestionFeedbackForTooFarAway : USuggestionNegativeFeedback
-+ (instancetype)create:(Restaurant *)restaurant;
+@property(nonatomic, readonly) CLLocation *currentUserLocation;
+
++ (instancetype)create:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location;
+
+- (id)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text currentUserLocation:(CLLocation *)location;
 @end

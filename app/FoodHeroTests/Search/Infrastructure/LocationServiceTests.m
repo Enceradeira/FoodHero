@@ -9,34 +9,25 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <ReactiveCocoa.h>
-#import "XCTestCase+AsyncTesting.h"
 #import "GoogleRestaurantSearch.h"
 #import "LocationService.h"
-#import "StubAssembly.h"
-#import "TyphoonComponents.h"
 #import "CLLocationManagerProxyStub.h"
 #import "CLLocationManagerProxySpy.h"
+#import "HCIsExceptionOfType.h"
+#import "DesignByContractException.h"
 
 
 @interface LocationServiceTests : XCTestCase
 
 @end
 
-@implementation LocationServiceTests {
+@implementation LocationServiceTests
+
+- (LocationService *)service:(NSObject <CLLocationManagerProxy> *)clLocationManagerProxy {
+    return [[LocationService alloc] initWithLocationManager:clLocationManagerProxy];
 }
 
-- (void)setUp
-{
-    [super setUp];
-
-    [self service:[CLLocationManagerProxyStub new]];
-}
-
-- (LocationService *)service:(NSObject<CLLocationManagerProxy>*)clLocationManagerProxy {
-    return  [[LocationService alloc] initWithLocationManager:clLocationManagerProxy];
-}
-
-- (LocationService *)serviceWithLocationManagerStub:(double)latitude longitude:(double)longitude{
+- (LocationService *)serviceWithLocationManagerStub:(double)latitude longitude:(double)longitude {
     CLLocationManagerProxyStub *locationManagerProxy = [CLLocationManagerProxyStub new];
     LocationService *service = [self service:locationManagerProxy];
 
@@ -44,20 +35,19 @@
     return service;
 }
 
--(void)test_currentLocation_ShouldReturnLocation
-{
+- (void)test_currentLocation_ShouldReturnLocation {
     LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     id first = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
     CLLocationCoordinate2D value;
-    [((NSValue*)first)getValue:&value];
+    [((NSValue *) first) getValue:&value];
 
     assertThatDouble(value.latitude, is(equalToDouble(52.1234)));
     assertThatDouble(value.longitude, is(equalToDouble(1.298889)));
 }
--(void)test_currentLocation_ShouldWorkOnServeralCalls
-{
+
+- (void)test_currentLocation_ShouldWorkOnServeralCalls {
     LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
@@ -66,13 +56,13 @@
     assertThat(result, is(notNilValue()));
 }
 
--(void)test_currentLocation_ShouldOnlyReturnOneLocationAndComplete{
-     LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
+- (void)test_currentLocation_ShouldOnlyReturnOneLocationAndComplete {
+    LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     __block NSUInteger nrRetrievedValues = 0;
     RACSignal *signal = [service currentLocation];
-    [signal subscribeNext:^(id next){
-         nrRetrievedValues++;
+    [signal subscribeNext:^(id next) {
+        nrRetrievedValues++;
     }];
     __block BOOL hasCompleted = NO;
     [signal subscribeCompleted:^{
@@ -83,7 +73,7 @@
     assertThatBool(hasCompleted, is(equalToBool(YES)));
 }
 
--(void)test_currentLocation_ShouldReturnNoLocationAndHaveError_WhenError{
+- (void)test_currentLocation_ShouldReturnNoLocationAndHaveError_WhenError {
     CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
     LocationService *service = [self service:locationManagerProxy];
 
@@ -91,15 +81,15 @@
 
     __block NSUInteger nrRetrievedValues = 0;
     RACSignal *signal = [service currentLocation];
-    [signal subscribeNext:^(id next){
-         nrRetrievedValues++;
+    [signal subscribeNext:^(id next) {
+        nrRetrievedValues++;
     }];
     __block BOOL hasCompleted = NO;
     [signal subscribeCompleted:^{
         hasCompleted = YES;
     }];
     __block BOOL hasError = NO;
-    [signal subscribeError:^(NSError* error){
+    [signal subscribeError:^(NSError *error) {
         hasError = YES;
     }];
 
@@ -108,7 +98,7 @@
     assertThatBool(hasError, is(equalToBool(YES)));
 }
 
--(void)test_currentLocation_ShouldStartAndStopLocationManager_WhenCompleted{
+- (void)test_currentLocation_ShouldStartAndStopLocationManager_WhenCompleted {
     CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
     LocationService *service = [self service:locationManagerProxy];
 
@@ -123,7 +113,7 @@
     assertThatUnsignedInt(locationManagerProxy.nrCallsForStopUpdatingLocation, is(equalToUnsignedInt(2)));
 }
 
--(void)test_currentLocation_ShouldStartAndStopLocationManager_WhenError{
+- (void)test_currentLocation_ShouldStartAndStopLocationManager_WhenError {
     CLLocationManagerProxySpy *locationManagerProxy = [CLLocationManagerProxySpy new];
     LocationService *service = [self service:locationManagerProxy];
 
@@ -134,6 +124,33 @@
     assertThatUnsignedInt(locationManagerProxy.nrCallsForStopUpdatingLocation, is(equalToUnsignedInt(1)));
 }
 
+- (void)test_lastKnownLocation_ShouldReturnLastRetrievedLocation {
+    CLLocationManagerProxyStub *locationManagerProxy = [CLLocationManagerProxyStub new];
+    LocationService *service = [self service:locationManagerProxy];
 
+    // retrieve location 1. time
+    [locationManagerProxy injectLatitude:35.5 longitude:-60.2];
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+
+    CLLocation *lastKnownLocation = [service lastKnownLocation];
+    assertThatDouble(lastKnownLocation.coordinate.latitude, is(equalTo(@(35.5))));
+    assertThatDouble(lastKnownLocation.coordinate.longitude, is(equalTo(@(-60.2))));
+
+    // retrieve location 2. time
+    [locationManagerProxy injectLatitude:35.4 longitude:-61];
+    [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+
+    lastKnownLocation = [service lastKnownLocation];
+    assertThatDouble(lastKnownLocation.coordinate.latitude, is(equalTo(@(35.4))));
+    assertThatDouble(lastKnownLocation.coordinate.longitude, is(equalTo(@(-61))));
+}
+
+
+- (void)test_lastKnownLocation_ShouldThrowException_WhenLocationHasNeverBeenDetermined {
+    LocationService *service = [self service:[CLLocationManagerProxyStub new]];
+    assertThat(^() {
+        [service lastKnownLocation];
+    }, throwsExceptionOfType([DesignByContractException class]));
+}
 
 @end

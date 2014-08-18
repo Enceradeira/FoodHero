@@ -12,4 +12,6 @@
 - (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager;
 
 - (RACSignal *)currentLocation;
+
+- (CLLocation *)lastKnownLocation;
 @end

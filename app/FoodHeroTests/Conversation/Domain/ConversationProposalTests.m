@@ -33,7 +33,7 @@
 
     // 1. branch (FH:SuggestionAsFollowUp)
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:nil]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
     [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build]]];
@@ -41,12 +41,12 @@
 
     // 1. branch (FH:Suggestion)
     [self.tokenRandomizerStub injectChoice:@"FH:Suggestion"];
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:nil]];
     [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
     // 2. branch (FH:SuggestionWithComment)
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:nil]];
     [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
     [super assertLastStatementIs:@"FH:Confirmation" userAction:nil];
 }

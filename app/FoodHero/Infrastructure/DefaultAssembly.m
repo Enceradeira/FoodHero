@@ -75,11 +75,11 @@
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
         configuration:^(TyphoonDefinition *definition) {
-            [definition useInitializer:@selector(initWithDependencies:) parameters:^(TyphoonMethod *method) {
+            [definition useInitializer:@selector(initWithConversationRepository:locationService:) parameters:^(TyphoonMethod *method) {
                 [method injectParameterWith:[self conversationRepository]];
-
+                [method injectParameterWith:[self locationService]];
             }];
-            definition.scope = TyphoonScopeSingleton;
+            definition.scope = TyphoonScopeSingleton; // Because it holds state
         }
     ];
 }
@@ -106,6 +106,7 @@
                                   [method injectParameterWith:[self locationManagerProxy]];
 
                               }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];
 }
 

@@ -9,8 +9,9 @@
 @interface SearchParameter : NSObject
 @property(nonatomic, readonly) NSString *cuisine;
 @property(nonatomic, readonly) PriceLevelRange *priceRange;
+@property(nonatomic, readonly) double maxDistance;
 
-+ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange;
++ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)distance;
 
-- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange;
+- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)distance;
 @end

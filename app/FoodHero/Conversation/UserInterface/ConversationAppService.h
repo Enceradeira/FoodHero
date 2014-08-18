@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ConversationBubble.h"
 #import "ConversationRepository.h"
+#import "LocationService.h"
 
 @class RACSignal;
 @class ConversationToken;
@@ -17,7 +18,7 @@
 
 @interface ConversationAppService : NSObject
 
-- (id)initWithDependencies:(ConversationRepository *)conversationRepository;
+-(instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository locationService:(LocationService*)locationService;
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 

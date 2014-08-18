@@ -41,7 +41,8 @@ TyphoonStoryboard *_storyboard;
     }
 
     [self ensureAssembly];
-    _storyboard = [self createStoryboardFromAssembly:_assembly];
+    TyphoonStoryboard *storyboard = [[self class] createStoryboardFromFactory:[[self class] factory]];
+    _storyboard = storyboard;
     return _storyboard;
 }
 
@@ -52,12 +53,6 @@ TyphoonStoryboard *_storyboard;
 + (TyphoonStoryboard *)createStoryboardFromFactory:(TyphoonComponentFactory *)factory {
     NSString *storyboardName = @"Main";
     return [TyphoonStoryboard storyboardWithName:storyboardName factory:factory bundle:nil];
-}
-
-+ (TyphoonStoryboard *)createStoryboardFromAssembly:(id <ApplicationAssembly>)assembly {
-    TyphoonComponentFactory *factory = [self createFactory:assembly];
-    TyphoonStoryboard *storyboard = [self createStoryboardFromFactory:factory];
-    return storyboard;
 }
 
 + (void)ensureAssembly {

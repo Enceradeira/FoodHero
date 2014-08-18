@@ -7,6 +7,7 @@
 #import "LocationService.h"
 #import "LocationServiceAuthorizationStatusDeniedError.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
+#import "DesignByContractException.h"
 
 @interface LocationService ()
 @property(atomic, readwrite) CLLocationCoordinate2D currentLocationHolder;
@@ -15,6 +16,7 @@
 @implementation LocationService {
     NSObject <CLLocationManagerProxy> *_locationManager;
     CLLocationCoordinate2D _emptyCoordinate;
+    CLLocation *_lastKnownLocation;
 }
 
 - (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager {
@@ -26,6 +28,7 @@
 
         _emptyCoordinate.latitude = 0;
         _emptyCoordinate.longitude = 0;
+        _lastKnownLocation = nil;
     }
     return self;
 }
@@ -46,6 +49,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations objectAtIndex:(locations.count - 1)];
     self.currentLocationHolder = location.coordinate;
+    _lastKnownLocation = location;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -102,6 +106,14 @@
     }];
     return oneNoneEmptyValue;
 }
+
+- (CLLocation *)lastKnownLocation {
+    if( _lastKnownLocation == nil){
+        @throw [DesignByContractException createWithReason:@"lastKnownLocation is unkonwn. Location has never been determined"];
+    }
+    return _lastKnownLocation;
+}
+
 
 -(void)dealloc{
     _locationManager.delegate = nil;

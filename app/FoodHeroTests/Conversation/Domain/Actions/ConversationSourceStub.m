@@ -33,8 +33,8 @@
     return _negativeUserFeedback;
 }
 
-- (SearchParameter *)currentSearchProfile {
-    return [SearchParameter createWithCuisine:_cuisine priceRange:_range];
+- (SearchParameter *)currentSearchPreference {
+    return [SearchParameter createWithCuisine:_cuisine priceRange:_range maxDistance:DBL_MAX];
 }
 
 

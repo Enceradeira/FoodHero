@@ -38,7 +38,7 @@
 
                     // dynamically adjust radius in order to get as specific results as possible
                     NSArray *candidates = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
-                        SearchParameter *searchParameter = conversation.currentSearchProfile;
+                        SearchParameter *searchParameter = conversation.currentSearchPreference;
 
                         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
                         parameter.coordinate = coordinate;

@@ -36,7 +36,7 @@
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:nil]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" userAction:nil];
 }
