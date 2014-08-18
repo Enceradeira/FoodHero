@@ -3,6 +3,8 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+@class RestaurantRepository;
+
 @protocol ApplicationAssembly
 - (id)problemWithAccessLocationServiceResolvedTableViewController;
 
@@ -32,4 +34,5 @@
 
 - (id)tokenRandomizer;
 
+- (id)restaurantRepository;
 @end

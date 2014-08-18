@@ -103,9 +103,5 @@
     assertThat(listWithLessRestaurants, hasItem([self findBest]));
 }
 
--(void)test_findBest_ShouldNotReturnRestaurants_WhenTheyAreTooFarAway{
-
-}
-
 
 @end

@@ -18,6 +18,7 @@
 #import "FeedbackTableViewController.h"
 #import "WhatToDoNextTableViewController.h"
 #import "ProblemWithAccessLocationServiceResolvedTableViewController.h"
+#import "RestaurantRepository.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -123,6 +124,18 @@
 - (id)tokenRandomizer {
     return [TyphoonDefinition withClass:[DefaultTokenRandomizer class]];;
 }
+
+- (id)restaurantRepository {
+    return [TyphoonDefinition withClass:[RestaurantRepository class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithSearchService:locationService:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self restaurantSearchService]];
+                                  [method injectParameterWith:[self locationService]];
+                              }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
+                          }];
+}
+
 
 - (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
