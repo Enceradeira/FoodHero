@@ -5,6 +5,7 @@
 
 #import "ConversationSourceStub.h"
 #import "USuggestionNegativeFeedback.h"
+#import "SearchParameter.h"
 
 
 @implementation ConversationSourceStub {
@@ -31,6 +32,11 @@
 - (NSArray *)negativeUserFeedback {
     return _negativeUserFeedback;
 }
+
+- (SearchParameter *)currentSearchProfile {
+    return [SearchParameter createWithCuisine:_cuisine priceRange:_range];
+}
+
 
 - (NSString *)cuisine {
     return _cuisine;

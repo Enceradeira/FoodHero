@@ -7,13 +7,13 @@
 #import "ConversationToken.h"
 #import "PriceLevelRange.h"
 
+@class SearchParameter;
+
 
 @protocol ConversationSource <NSObject>
 - (void)addToken:(ConversationToken *)token;
 
 - (NSArray *)negativeUserFeedback;
 
-- (NSString *)cuisine;
-
-- (PriceLevelRange *)priceRange;
+- (SearchParameter *) currentSearchProfile;
 @end

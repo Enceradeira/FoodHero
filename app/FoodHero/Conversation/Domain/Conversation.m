@@ -20,6 +20,7 @@
 #import "UCuisinePreference.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
+#import "SearchParameter.h"
 
 
 @interface Conversation ()
@@ -104,6 +105,10 @@
 
 - (NSArray *)negativeUserFeedback {
     return [self.tokens linq_ofType:[USuggestionNegativeFeedback class]];
+}
+
+- (SearchParameter *)currentSearchProfile {
+    return [SearchParameter createWithCuisine:self.cuisine priceRange:self.priceRange];
 }
 
 - (NSString *)cuisine {

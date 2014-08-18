@@ -9,6 +9,7 @@
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
 #import "RadiusCalculator.h"
+#import "SearchParameter.h"
 
 @implementation RestaurantSearch {
 
@@ -37,12 +38,14 @@
 
                     // dynamically adjust radius in order to get as specific results as possible
                     NSArray *candidates = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
+                        SearchParameter *searchParameter = conversation.currentSearchProfile;
+
                         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
                         parameter.coordinate = coordinate;
                         parameter.radius = radius;
-                        parameter.cuisine = conversation.cuisine;
-                        parameter.minPrice = conversation.priceRange.min;
-                        parameter.maxPrice = conversation.priceRange.max;
+                        parameter.cuisine = searchParameter.cuisine;
+                        parameter.minPrice = searchParameter.priceRange.min;
+                        parameter.maxPrice = searchParameter.priceRange.max;
                         return [_searchService findPlaces:parameter];
                     }];
 

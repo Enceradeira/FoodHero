@@ -27,6 +27,7 @@
 #import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
+#import "SearchParameter.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -144,22 +145,24 @@
     assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
 
-- (void)test_cuisine_ShouldThrowException_WhenUserHasNotSpecifiedCuisienYet {
+- (void)test_cuisine_ShouldThrowException_WhenUserHasNotSpecifiedCuisineYet {
     assertThat(^() {
-        self.conversation.cuisine;
+        self.conversation.currentSearchProfile.cuisine;
     }, throwsExceptionOfType([DesignByContractException class]));
 }
 
 - (void)test_cuisine_ShouldReturnCuisine_WhenUserHasAlreadySpecifiedCuisine {
     [self.conversation addToken:[UCuisinePreference create:@"Asian, Swiss"]];
 
-    assertThat(self.conversation.cuisine, is(equalTo(@"Asian, Swiss")));
+    assertThat(self.conversation.currentSearchProfile.cuisine, is(equalTo(@"Asian, Swiss")));
 }
 
 - (void)test_priceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
+    [self.conversation addToken:[UCuisinePreference create:@"Sandwich"]];
+
     PriceLevelRange *fullPriceRange = [PriceLevelRange createFullRange];
 
-    assertThat(self.conversation.priceRange, is(equalTo(fullPriceRange)));
+    assertThat(self.conversation.currentSearchProfile.priceRange, is(equalTo(fullPriceRange)));
 }
 
 - (void)test_priceLevel_ShouldDecreasePriceLevel_WhenUserFindsRestaurantTooExpensive {
@@ -169,7 +172,7 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
 
-    assertThatUnsignedInt(self.conversation.priceRange.max, is(equalTo(@(priceLevel - 1))));
+    assertThatUnsignedInt(self.conversation.currentSearchProfile.priceRange.max, is(equalTo(@(priceLevel - 1))));
 }
 
 - (void)test_priceLevel_ShouldIncreasePriceLevel_WhenUserFindsRestaurantTooCheap {
@@ -179,7 +182,7 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
 
-    assertThatUnsignedInt(self.conversation.priceRange.min, is(equalTo(@(priceLevel + 1))));
+    assertThatUnsignedInt(self.conversation.currentSearchProfile.priceRange.min, is(equalTo(@(priceLevel + 1))));
 }
 
 @end
