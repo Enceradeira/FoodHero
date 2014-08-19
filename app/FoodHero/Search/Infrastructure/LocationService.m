@@ -10,13 +10,11 @@
 #import "DesignByContractException.h"
 
 @interface LocationService ()
-@property(atomic, readwrite) CLLocationCoordinate2D currentLocationHolder;
+@property(atomic, readwrite) CLLocation *currentLocationHolder;
 @end
 
 @implementation LocationService {
     NSObject <CLLocationManagerProxy> *_locationManager;
-    CLLocationCoordinate2D _emptyCoordinate;
-    CLLocation *_lastKnownLocation;
 }
 
 - (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager {
@@ -25,10 +23,6 @@
         _locationManager = locationManager;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         _locationManager.delegate = self;
-
-        _emptyCoordinate.latitude = 0;
-        _emptyCoordinate.longitude = 0;
-        _lastKnownLocation = nil;
     }
     return self;
 }
@@ -48,8 +42,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations objectAtIndex:(locations.count - 1)];
-    self.currentLocationHolder = location.coordinate;
-    _lastKnownLocation = location;
+    self.currentLocationHolder = location;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -58,7 +51,7 @@
 
 - (void)wakeUpCurrentLocationObserverIfNotAuthorized {
     if (self.authorizationError != nil) {
-        self.currentLocationHolder = _emptyCoordinate;
+        self.currentLocationHolder = nil;
     }
 }
 
@@ -91,10 +84,7 @@
     }];
 
     RACSignal *noneEmptyValues = [valuesWithAuthorizationError filter:^(id next) {
-        CLLocationCoordinate2D value;
-        [(NSValue *) next getValue:&value];
-        BOOL hasBeenInitialized = !(floor(value.longitude) == 0.0 && floor(value.latitude) == 0.0);
-        return hasBeenInitialized;
+        return (BOOL)(next != nil);
     }];
 
     RACSignal *oneNoneEmptyValue = [noneEmptyValues take:1];
@@ -108,10 +98,10 @@
 }
 
 - (CLLocation *)lastKnownLocation {
-    if( _lastKnownLocation == nil){
+    if( self.currentLocationHolder == nil){
         @throw [DesignByContractException createWithReason:@"lastKnownLocation is unkonwn. Location has never been determined"];
     }
-    return _lastKnownLocation;
+    return self.currentLocationHolder;
 }
 
 

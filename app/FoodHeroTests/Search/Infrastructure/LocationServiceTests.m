@@ -38,20 +38,17 @@
 - (void)test_currentLocation_ShouldReturnLocation {
     LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
-    id first = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+    CLLocation * first = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
-    CLLocationCoordinate2D value;
-    [((NSValue *) first) getValue:&value];
-
-    assertThatDouble(value.latitude, is(equalToDouble(52.1234)));
-    assertThatDouble(value.longitude, is(equalToDouble(1.298889)));
+    assertThatDouble(first.coordinate.latitude, is(equalToDouble(52.1234)));
+    assertThatDouble(first.coordinate.longitude, is(equalToDouble(1.298889)));
 }
 
 - (void)test_currentLocation_ShouldWorkOnServeralCalls {
     LocationService *service = [self serviceWithLocationManagerStub:52.1234 longitude:1.298889];
 
     [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
-    id result = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
+    CLLocation *result = [[service currentLocation] asynchronousFirstOrDefault:nil success:nil error:nil];
 
     assertThat(result, is(notNilValue()));
 }

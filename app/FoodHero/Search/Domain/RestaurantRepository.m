@@ -28,11 +28,7 @@
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
         RACDisposable *sourceDisposable = [[_locationService currentLocation]
-                subscribeNext:^(id value) {
-                    
-                    CLLocationCoordinate2D coordinate;
-                    [((NSValue *) value) getValue:&coordinate];
-                    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+                subscribeNext:^(CLLocation *currentLocation) {
 
                     BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
                     BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
@@ -43,15 +39,15 @@
                         // dynamically adjust radius in order to get as specific results as possible
 
                         NSArray *places = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
-                                                PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
-                                                RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-                                                parameter.coordinate = coordinate;
-                                                parameter.radius = radius;
-                                                parameter.cuisine = cuisine;
-                                                parameter.minPrice = priceRange.min;
-                                                parameter.maxPrice = priceRange.max;
-                                                return [_searchService findPlaces:parameter];
-                                            }];
+                            PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
+                            RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+                            parameter.coordinate = currentLocation.coordinate;
+                            parameter.radius = radius;
+                            parameter.cuisine = cuisine;
+                            parameter.minPrice = priceRange.min;
+                            parameter.maxPrice = priceRange.max;
+                            return [_searchService findPlaces:parameter];
+                        }];
                         _placesCached = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
                             CLLocationDistance distanceA = [[((Place *) a) location] distanceFromLocation:currentLocation];
                             CLLocationDistance distanceB = [[((Place *) b) location] distanceFromLocation:currentLocation];
