@@ -91,7 +91,9 @@
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion {
     Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Great Yarmouth"].build;
-    [self.restaurantSearchStub injectFindResults:@[kingsHead]];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindResults:@[kingsHead]];
+    }];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
@@ -99,7 +101,9 @@
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults {
-    [self.restaurantSearchStub injectFindNothing];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
@@ -109,8 +113,9 @@
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
     Restaurant *kingsHead = [RestaurantBuilder alloc].build;
     Restaurant *lionHeart = [[[RestaurantBuilder alloc] withName:@"Lion Heart"] withVicinity:@"Great Yarmouth"].build;
-
-    [self.restaurantSearchStub injectFindResults:@[kingsHead, lionHeart]];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindResults:@[kingsHead, lionHeart]];
+    }];
 
     [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 

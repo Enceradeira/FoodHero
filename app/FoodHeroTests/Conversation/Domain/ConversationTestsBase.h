@@ -14,12 +14,12 @@
 
 @interface ConversationTestsBase : XCTestCase
 
-@property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
+//@property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) AlternationRandomizerStub *tokenRandomizerStub;
 
-- (void)changeLatitude:(double)latitude longitude:(double)longitude;
+- (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status;
 

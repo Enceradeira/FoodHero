@@ -39,27 +39,34 @@
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 }
 
--(void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow{
+- (void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow {
     // user searches and finds nothing
-    [self changeLatitude:48.00 longitude:-22.23];
-    [self.restaurantSearchStub injectFindNothing];
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     // user changes location and finds something
-    [self changeLatitude:12.00 longitude:-75.56];
-    [self.restaurantSearchStub injectFindSomething];
+    [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindSomething];
+    }];
     [self.conversation addToken:[UTryAgainNow new]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
--(void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound{
-    [self.restaurantSearchStub injectFindNothing];
+- (void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-    [self.restaurantSearchStub injectFindNothing];
+
+    [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
     [self.conversation addToken:[UTryAgainNow new]];
 
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 }
 
 @end

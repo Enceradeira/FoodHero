@@ -10,8 +10,6 @@
 #import "StubAssembly.h"
 #import "Personas.h"
 #import "AlternationRandomizerStub.h"
-#import "RestaurantBuilder.h"
-#import "RestaurantRepository.h"
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;
@@ -36,6 +34,7 @@
 @implementation ConversationTestsBase {
 
     NSMutableArray *_expectedStatements;
+    RestaurantSearchServiceStub *_restaurantSearchStub;
 }
 - (void)setUp {
     [super setUp];
@@ -48,8 +47,11 @@
     _expectedStatements = [NSMutableArray new];
 }
 
-- (void)changeLatitude:(double)latitude longitude:(double)longitude {
+- (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration {
+    // changing location invalidates cache in RestaurantRepository, otherwise configuration of RestaurantSearchStub has no effect
     [self.locationManagerStub injectLocations:@[[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
+    // configure stub
+    configuration(_restaurantSearchStub);
 }
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status {
