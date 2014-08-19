@@ -7,11 +7,9 @@
 #import <XCTest/XCTest.h>
 #import "RestaurantSearchTests.h"
 #import "DesignByContractException.h"
-#import "ConversationSourceStub.h"
 
 
 @implementation RestaurantSearchTests {
-    ConversationSourceStub *_conversation;
 }
 
 - (void)setUp {

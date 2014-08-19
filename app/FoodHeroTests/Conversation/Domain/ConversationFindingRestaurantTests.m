@@ -34,17 +34,16 @@
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
-- (void)test_UDidResolveProblemWithAccessLocationServiceOrUsersTriesAgain_ShouldBeHandledRepeatably{
+- (void)test_UDidResolveProblemWithAccessLocationServiceOrUsersTriesAgain_ShouldBeHandledRepeatably {
     // Problem no restaurant found repeats
     [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-    [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[UTryAgainNow new]];
-    [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[UTryAgainNow new]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 
     // Problem with kCLAuthorizationStatusRestricted repeats
+    [self changeLatitude:12 longitude:1];
     [self.restaurantSearchStub injectFindSomething];
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self.conversation addToken:[UTryAgainNow new]];   // tries again but not no authorization present
@@ -58,27 +57,31 @@
 
     // Problem no restaurant found again
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorized];
+    [self changeLatitude:-56 longitude:10];
     [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 
     // Problems finally solved
+    [self changeLatitude:-10 longitude:0];
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
--(void)test_USuggestionFeedback_ShouldTriggerFHCanFindRestaurant_WhenAfterConsecutiveProposals{
+- (void)test_USuggestionFeedback_ShouldTriggerFHCanFindRestaurant_WhenAfterConsecutiveProposals {
     [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 
     [self.conversation addToken:[UCuisinePreference create:@"Test"]];
 
+    [self changeLatitude:12 longitude:44];
     [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
     [self.conversation addToken:[UTryAgainNow new]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 
+    [self changeLatitude:22 longitude:1];
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
@@ -91,9 +94,11 @@
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorized];
+    [self changeLatitude:25 longitude:-12];
     [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction .class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
+    [self changeLatitude:-42 longitude:0];
     [self.restaurantSearchStub injectFindSomething];
 
     [self.conversation addToken:[UTryAgainNow new]];

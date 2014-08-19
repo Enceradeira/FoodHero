@@ -8,10 +8,10 @@
 #import "ConversationTestsBase.h"
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
-#import "RestaurantSearchServiceStub.h"
 #import "Personas.h"
 #import "AlternationRandomizerStub.h"
 #import "RestaurantBuilder.h"
+#import "RestaurantRepository.h"
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;
@@ -48,8 +48,8 @@
     _expectedStatements = [NSMutableArray new];
 }
 
-- (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity {
-    [_restaurantSearchStub injectFindResults:@[[[[[RestaurantBuilder alloc] withName:name] withVicinity:vicinity] build]]];
+- (void)changeLatitude:(double)latitude longitude:(double)longitude {
+    [self.locationManagerStub injectLocations:@[[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
 }
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -69,25 +69,26 @@
     [self assertExpectedStatementsAtIndex:index inList:_expectedStatements];
 }
 
-- (void)assertExpectedStatementsAtIndex:(NSUInteger)index inList:(NSMutableArray *)list{
-    for(NSUInteger i=0; i<list.count; i++){
+- (void)assertExpectedStatementsAtIndex:(NSUInteger)index inList:(NSMutableArray *)list {
+    for (NSUInteger i = 0; i < list.count; i++) {
         ExpectedStatement *expectedStatement = list[i];
         Persona *expectedPersona;
-        if ([expectedStatement.semanticId rangeOfString:@"FH:"].location == NSNotFound)    {
+        if ([expectedStatement.semanticId rangeOfString:@"FH:"].location == NSNotFound) {
             expectedPersona = [Personas user];
         }
-        else{
+        else {
             expectedPersona = [Personas foodHero];
         }
 
-        NSUInteger offsetIndex = i+index;
+        NSUInteger offsetIndex = i + index;
         assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(offsetIndex))));
         Statement *statement = [_conversation getStatement:offsetIndex];
         assertThat(statement, is(notNilValue()));
         assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
         assertThat(statement.inputAction.class, is(equalTo(expectedStatement.inputActionClass)));
-    }}
+    }
+}
 
 
 - (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
@@ -98,7 +99,7 @@
 }
 
 - (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
-    NSUInteger index = self.conversation.getStatementCount-2;
+    NSUInteger index = self.conversation.getStatementCount - 2;
     NSMutableArray *list = [NSMutableArray new];
     [self expectedStatementIs:semanticId userAction:userAction inList:list];
     [self assertExpectedStatementsAtIndex:index inList:list];

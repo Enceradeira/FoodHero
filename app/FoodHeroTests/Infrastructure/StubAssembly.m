@@ -8,6 +8,8 @@
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
 #import "AlternationRandomizerStub.h"
+#import "RestaurantRepository.h"
+#import "RestaurantRepositoryStub.h"
 
 
 @implementation StubAssembly
@@ -32,6 +34,5 @@
                 definition.scope = TyphoonScopeSingleton;
             }];
 }
-
 
 @end

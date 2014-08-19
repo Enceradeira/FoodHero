@@ -40,8 +40,13 @@
 }
 
 -(void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow{
+    // user searches and finds nothing
+    [self changeLatitude:48.00 longitude:-22.23];
     [self.restaurantSearchStub injectFindNothing];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+
+    // user changes location and finds something
+    [self changeLatitude:12.00 longitude:-75.56];
     [self.restaurantSearchStub injectFindSomething];
     [self.conversation addToken:[UTryAgainNow new]];
 

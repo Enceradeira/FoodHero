@@ -42,28 +42,28 @@
     return _repository;
 }
 
-- (NSArray *)getPlacesByCuisine:(NSString *)cuisine {
+- (NSArray *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
     __block NSMutableArray *places;
-    RACSignal *signal = [_repository getPlacesByCuisine:cuisine];
+    RACSignal *signal = [_repository getPlacesByCuisineOrderedByDistance:cuisine];
     [signal subscribeNext:^(Place *r) {
         [places addObject:r];
     }];
     return places;
 }
 
-- (void)test_getByCuisine_ShouldSearchWithCuisine {
-    [self getPlacesByCuisine:@"Swiss"];
+- (void)test_getPlacesByCuisineOrderedByDistance_ShouldSearchWithCuisine {
+    [self getPlacesByCuisineOrderedByDistance:@"Swiss"];
     assertThat(_searchService.findPlacesParameter.cuisine, is(equalTo(@"Swiss")));
 }
 
-- (void)test_findBest_shouldSearchWithCurrentLocation {
+- (void)test_getPlacesByCuisineOrderedByDistance_shouldSearchWithCurrentLocation {
     CLLocationCoordinate2D location;
     location.latitude = 12.6259;
     location.longitude = 1.33212;
 
     [_locationManagerStub injectLatitude:location.latitude longitude:location.longitude];
 
-    [self getPlacesByCuisine:@"Asian"];
+    [self getPlacesByCuisineOrderedByDistance:@"Asian"];
 
     assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(equalToBool(YES)));
 }

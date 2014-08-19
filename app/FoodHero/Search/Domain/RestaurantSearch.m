@@ -8,60 +8,35 @@
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
-#import "RadiusCalculator.h"
 #import "SearchParameter.h"
 
 @implementation RestaurantSearch {
 
-    id <RestaurantSearchService> _searchService;
-    LocationService *_locationService;
+    id <IRestaurantRepository> _repository;
 }
 
-- (id)initWithSearchService:(id <RestaurantSearchService>)searchService withLocationService:(LocationService *)locationService {
+- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository {
     self = [super init];
     if (self != nil) {
-        _searchService = searchService;
-        _locationService = locationService;
+        _repository = repository;
     }
     return self;
 }
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
+    SearchParameter *searchPreference = conversation.currentSearchPreference;
+
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-        RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
+        __block NSMutableArray *candidates = [NSMutableArray new];
 
-        RACDisposable *sourceDisposable = [[_locationService currentLocation]
-                subscribeNext:^(id value) {
-                    CLLocationCoordinate2D coordinate;
-                    [((NSValue *) value) getValue:&coordinate];
-                    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-
-                    // dynamically adjust radius in order to get as specific results as possible
-                    NSArray *candidates = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
-                        SearchParameter *searchParameter = conversation.currentSearchPreference;
-
-                        RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-                        parameter.coordinate = coordinate;
-                        parameter.radius = radius;
-                        parameter.cuisine = searchParameter.cuisine;
-                        parameter.minPrice = searchParameter.priceRange.min;
-                        parameter.maxPrice = searchParameter.priceRange.max;
-                        return [_searchService findPlaces:parameter];
-                    }];
-
-                    candidates = [candidates sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                        CLLocationDistance distanceA = [[((Place *) a) location] distanceFromLocation:currentLocation];
-                        CLLocationDistance distanceB = [[((Place *) b) location] distanceFromLocation:currentLocation];
-
-                        if (distanceA < distanceB) {
-                            return (NSComparisonResult) NSOrderedAscending;
+        RACSignal *placesSignal = [_repository getPlacesByCuisineOrderedByDistance:searchPreference.cuisine];
+        RACDisposable *placesDisposable = [placesSignal subscribeNext:
+                        ^(Place *p) {
+                            [candidates addObject:p];
                         }
-                        else if (distanceA > distanceB) {
-                            return (NSComparisonResult) NSOrderedDescending;
-                        }
-                        return (NSComparisonResult) NSOrderedSame;
-
-                    }];
+                                                                error:^(NSError *e) {
+                                                                    [subscriber sendError:e];
+                                                                } completed:^() {
 
                     if (candidates.count > 0) {
                         NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
@@ -74,19 +49,16 @@
                             }];
                         }];
 
-                        [subscriber sendNext:[_searchService getRestaurantForPlace:places[0]]];
+                        [subscriber sendNext:[_repository getRestaurantFromPlace:places[0]]];
                         [subscriber sendCompleted];
                     }
                     else {
                         [subscriber sendError:[NoRestaurantsFoundError new]];
                     }
-                } error:^(NSError *error) {
-                    [subscriber sendError:error];
-                }   completed:^{
-                    [subscriber sendCompleted];
                 }];
 
-        serialDisposable.disposable = sourceDisposable;
+        RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
+        serialDisposable.disposable = placesDisposable;
         return serialDisposable;
     }];
 }

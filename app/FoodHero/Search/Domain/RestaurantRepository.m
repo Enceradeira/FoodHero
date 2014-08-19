@@ -23,41 +23,50 @@
     return self;
 }
 
-- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+- (RACSignal *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
 
         RACDisposable *sourceDisposable = [[_locationService currentLocation]
                 subscribeNext:^(id value) {
-                    NSArray *places;
+                    
                     CLLocationCoordinate2D coordinate;
                     [((NSValue *) value) getValue:&coordinate];
                     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
 
                     BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
                     BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
-                    if (_placesCached != nil && isCuisineStillTheSame && isLocationStillTheSame) {
-                        places = _placesCached;
-                    }
-                    else {
+                    if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
                         _locationAtMomentOfCaching = currentLocation;
                         _cuisineAtMomentOfCaching = cuisine;
 
                         // dynamically adjust radius in order to get as specific results as possible
 
-                        places = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
-                            PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
-                            RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-                            parameter.coordinate = coordinate;
-                            parameter.radius = radius;
-                            parameter.cuisine = cuisine;
-                            parameter.minPrice = priceRange.min;
-                            parameter.maxPrice = priceRange.max;
-                            return [_searchService findPlaces:parameter];
+                        NSArray *places = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
+                                                PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
+                                                RestaurantSearchParams *parameter = [RestaurantSearchParams new];
+                                                parameter.coordinate = coordinate;
+                                                parameter.radius = radius;
+                                                parameter.cuisine = cuisine;
+                                                parameter.minPrice = priceRange.min;
+                                                parameter.maxPrice = priceRange.max;
+                                                return [_searchService findPlaces:parameter];
+                                            }];
+                        _placesCached = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                            CLLocationDistance distanceA = [[((Place *) a) location] distanceFromLocation:currentLocation];
+                            CLLocationDistance distanceB = [[((Place *) b) location] distanceFromLocation:currentLocation];
+
+                            if (distanceA < distanceB) {
+                                return (NSComparisonResult) NSOrderedAscending;
+                            }
+                            else if (distanceA > distanceB) {
+                                return (NSComparisonResult) NSOrderedDescending;
+                            }
+                            return (NSComparisonResult) NSOrderedSame;
+
                         }];
-                        _placesCached = places;
                     }
-                    for (Place *place in places) {
+                    for (Place *place in _placesCached) {
                         [subscriber sendNext:place];
                     }
                 } error:^(NSError *error) {

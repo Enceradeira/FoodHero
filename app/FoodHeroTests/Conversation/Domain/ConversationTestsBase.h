@@ -10,6 +10,7 @@
 #import "RestaurantSearchServiceStub.h"
 
 @class AlternationRandomizerStub;
+@class RestaurantRepository;
 
 @interface ConversationTestsBase : XCTestCase
 
@@ -18,7 +19,7 @@
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) AlternationRandomizerStub *tokenRandomizerStub;
 
-- (void)restaurantSearchReturnsName:(NSString *)name vicinity:(NSString *)vicinity;
+- (void)changeLatitude:(double)latitude longitude:(double)longitude;
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status;
 

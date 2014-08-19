@@ -90,7 +90,8 @@
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion {
-    [self restaurantSearchReturnsName:@"King's Head" vicinity:@"Great Yarmouth"];
+    Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Great Yarmouth"].build;
+    [self.restaurantSearchStub injectFindResults:@[kingsHead]];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
@@ -106,12 +107,16 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
+    Restaurant *kingsHead = [RestaurantBuilder alloc].build;
+    Restaurant *lionHeart = [[[RestaurantBuilder alloc] withName:@"Lion Heart"] withVicinity:@"Great Yarmouth"].build;
+
+    [self.restaurantSearchStub injectFindResults:@[kingsHead, lionHeart]];
+
     [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    [self restaurantSearchReturnsName:@"Lion Heart" vicinity:@"Great Yarmouth"];
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:kingsHead]];
 
     [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
 }

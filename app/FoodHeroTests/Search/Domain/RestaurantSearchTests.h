@@ -8,9 +8,12 @@
 #import "Restaurant.h"
 #import "ConversationToken.h"
 #import "USuggestionNegativeFeedback.h"
+#import "ConversationSourceStub.h"
 
 
 @interface RestaurantSearchTests : XCTestCase
+@property(nonatomic, readonly) ConversationSourceStub *conversation;
+
 - (RestaurantSearch *)search;
 
 - (Restaurant *)findBest;

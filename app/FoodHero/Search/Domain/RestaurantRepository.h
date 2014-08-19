@@ -6,14 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "LocationService.h"
 #import "RestaurantSearchService.h"
+#import "IRestaurantRepository.h"
 
 @class LocationService;
 
 
-@interface RestaurantRepository : NSObject
+@interface RestaurantRepository : NSObject<IRestaurantRepository>
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService;
 
-- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine;
-
-- (Restaurant *)getRestaurantFromPlace:(Place *)place;
 @end

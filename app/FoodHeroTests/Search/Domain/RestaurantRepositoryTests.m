@@ -14,9 +14,9 @@
 
 }
 
-- (NSArray *)getPlacesByCuisine:(NSString *)cuisine {
+- (NSArray *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
     __block NSMutableArray *places = [NSMutableArray new];
-    RACSignal *signal = [self.repository getPlacesByCuisine:cuisine];
+    RACSignal *signal = [self.repository getPlacesByCuisineOrderedByDistance:cuisine];
     [signal subscribeNext:^(Place *r) {
         [places addObject:r];
     }];
