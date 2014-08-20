@@ -72,7 +72,7 @@
     __block NSUInteger nrCalls = 0;
     void (^block)() = ^(){nrCalls++;};
 
-    NSUInteger nrTests = 10;
+    NSUInteger nrTests = 20;
      for( NSUInteger i=0; i<nrTests; i++)
     {
         [_randomizer doOptionally:@"Tag" byCalling:block ];

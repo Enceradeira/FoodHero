@@ -4,10 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class RACSignal;
-@class Restaurant;
-@class Place;
+#import <ReactiveCocoa.h>
+#import "Restaurant.h"
+#import "Place.h"
 
 @protocol IRestaurantRepository <NSObject>
 - (RACSignal *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine;

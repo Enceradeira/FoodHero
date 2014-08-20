@@ -1,5 +1,5 @@
 //
-// Created by Jorg on 14/08/2014.
+// Created by Jorg on 20/08/2014.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
@@ -9,17 +9,17 @@
 @implementation Place {
 
 }
-+ (instancetype)createWithPlaceId:(NSString *)placeId location:(CLLocation *)location {
-    return [[Place alloc] initWithPlaceId:placeId location:location];
-}
-
-- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location {
-    self = [super init];
-    if (self != nil) {
-        _placeId = placeId;
-        _location = location;
+- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel {
+    self = [super initWithPlaceId:placeId location:location];
+    if (self) {
+        _priceLevel = priceLevel;
     }
     return self;
 }
+
++ (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel {
+    return [[Place alloc] initWithPlaceId:placeId location:location priceLevel:priceLevel];
+}
+
 
 @end

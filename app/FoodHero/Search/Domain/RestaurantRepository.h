@@ -8,8 +8,6 @@
 #import "RestaurantSearchService.h"
 #import "IRestaurantRepository.h"
 
-@class LocationService;
-
 
 @interface RestaurantRepository : NSObject<IRestaurantRepository>
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService;

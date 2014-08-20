@@ -45,7 +45,7 @@
 - (NSArray *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
     __block NSMutableArray *places;
     RACSignal *signal = [_repository getPlacesByCuisineOrderedByDistance:cuisine];
-    [signal subscribeNext:^(Place *r) {
+    [signal subscribeNext:^(GooglePlace *r) {
         [places addObject:r];
     }];
     return places;

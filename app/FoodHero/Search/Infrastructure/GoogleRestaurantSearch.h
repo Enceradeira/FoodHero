@@ -7,8 +7,8 @@
 #import "RestaurantSearchService.h"
 
 // see https://developers.google.com/places/documentation/search#RadarSearchRequests
-extern const int GOOGLE_MAX_SEARCH_RESULTS;
-extern const int GOOGLE_MAX_SEARCH_RADIUS;
+extern const NSUInteger GOOGLE_MAX_SEARCH_RESULTS;
+extern const NSUInteger GOOGLE_MAX_SEARCH_RADIUS;
 
 @interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
 

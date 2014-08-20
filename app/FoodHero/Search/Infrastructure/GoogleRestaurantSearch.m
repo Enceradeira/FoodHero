@@ -5,8 +5,8 @@
 
 #import "GoogleRestaurantSearch.h"
 
-const int GOOGLE_MAX_SEARCH_RESULTS = 200;
-const int GOOGLE_MAX_SEARCH_RADIUS = 50000;
+const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
+const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
 @implementation GoogleRestaurantSearch {
 
@@ -23,8 +23,8 @@ const int GOOGLE_MAX_SEARCH_RADIUS = 50000;
                                                        coordinate.latitude,
                                                        coordinate.longitude,
                                                        (unsigned int) parameter.radius,
-                                                       parameter.minPrice,
-                                                       parameter.maxPrice,
+                                                       parameter.minPriceLevel,
+                                                       parameter.maxPriceLevel,
                                                        typesAsString];
 
     NSURL *placeURL = [NSURL URLWithString:placeString];
@@ -48,12 +48,12 @@ const int GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
         CLLocation *location = [[CLLocation alloc] initWithLatitude:[[locationDic valueForKey:@"lat"] doubleValue]
                                                           longitude:[[locationDic valueForKey:@"lng"] doubleValue]];
-        [restaurants addObject:[Place createWithPlaceId:[place valueForKey:@"place_id"] location:location]];
+        [restaurants addObject:[GooglePlace createWithPlaceId:[place valueForKey:@"place_id"] location:location]];
     }
     return restaurants;
 }
 
-- (Restaurant *)getRestaurantForPlace:(Place *)place {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
     NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", place.placeId];
     NSURL *placeURL = [NSURL URLWithString:placeString];
 

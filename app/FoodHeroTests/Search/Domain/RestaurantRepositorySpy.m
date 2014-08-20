@@ -16,7 +16,7 @@
     return [RACSignal empty];
 }
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place {
+- (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
     return nil;
 }
 

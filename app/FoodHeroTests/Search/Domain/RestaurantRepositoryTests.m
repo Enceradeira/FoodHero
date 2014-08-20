@@ -4,7 +4,7 @@
 //
 
 #import "RestaurantRepositoryTests.h"
-#import "Place.h"
+#import "GooglePlace.h"
 #import "RACSignal.h"
 #import "RestaurantRepository.h"
 #import "DesignByContractException.h"
@@ -17,7 +17,7 @@
 - (NSArray *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
     __block NSMutableArray *places = [NSMutableArray new];
     RACSignal *signal = [self.repository getPlacesByCuisineOrderedByDistance:cuisine];
-    [signal subscribeNext:^(Place *r) {
+    [signal subscribeNext:^(GooglePlace *r) {
         [places addObject:r];
     }];
     return places;

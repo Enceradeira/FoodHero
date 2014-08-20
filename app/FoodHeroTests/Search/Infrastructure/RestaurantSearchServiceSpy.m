@@ -16,7 +16,7 @@
     return [NSArray new];
 }
 
-- (Restaurant *)getRestaurantForPlace:(Place *)place {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
     return nil;
 }
 

@@ -46,7 +46,7 @@
 
 - (NSUInteger)findPlaceById:(NSString *)idLibraryGrillNorwich result:(NSArray *)result {
     return [result indexOfObjectPassingTest:^BOOL(id r, NSUInteger idx, BOOL *stop) {
-        Place *place = r;
+        GooglePlace *place = r;
         BOOL found = [place.placeId isEqualToString:idLibraryGrillNorwich];
         stop = &found;
         return found;
@@ -72,7 +72,7 @@
 
     NSArray *places = [_service findPlaces:_parameter];
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
-    for (Place *place in places) {
+    for (GooglePlace *place in places) {
         CLLocationDistance distance = [_norwich distanceFromLocation:place.location];
         assertThatDouble(distance, is(lessThanOrEqualTo(@(specifiedRadius * 3))));
     }
@@ -82,19 +82,19 @@
     _parameter.cuisine = @"Indian";
     _parameter.radius = 5000;
     _parameter.coordinate = _london.coordinate;  // only london supports price range at the moment
-    _parameter.minPrice = 4;
-    _parameter.maxPrice = 4;
+    _parameter.minPriceLevel = 4;
+    _parameter.maxPriceLevel = 4;
 
     NSArray *places = [[_service findPlaces:_parameter] linq_take:5];  // test on 5 places, not all 200
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
-    for (Place *place in places) {
+    for (GooglePlace *place in places) {
         Restaurant *restaurant = [_service getRestaurantForPlace:place];
         assertThatUnsignedInt(restaurant.priceLevel, is(equalTo(@4)));
     }
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
-    Place *place = [Place createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new]];
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new]];
 
     Restaurant *restaurant = [_service getRestaurantForPlace:place];
 
@@ -114,10 +114,10 @@
     // _parameter.coordinate = [[CLLocation alloc] initWithLatitude:40.7127 longitude:-74.0059].coordinate; // NY
     _parameter.coordinate = _london.coordinate; // London
     // _parameter.coordinate = _norwich.coordinate;
-    _parameter.minPrice = 3;
-    _parameter.maxPrice = 4;
+    _parameter.minPriceLevel = 3;
+    _parameter.maxPriceLevel = 4;
 
-    for (Place *place in [_service findPlaces:_parameter]) {
+    for (GooglePlace *place in [_service findPlaces:_parameter]) {
         CLLocationDistance distance = [[place location] distanceFromLocation:_london];
 
         Restaurant *r = [_service getRestaurantForPlace:place];

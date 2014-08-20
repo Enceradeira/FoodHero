@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantRepository.h"
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
@@ -15,8 +16,9 @@
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantBuilder.h"
 #import "GoogleRestaurantSearch.h"
-#import "RestaurantsAtRadius.h"
+#import "RestaurantsInRadiusAndPriceRange.h"
 #import "RestaurantRepositoryTests.h"
+#import "PriceLevelRange.h"
 
 @interface RestaurantRepositoryWithStubTests : RestaurantRepositoryTests
 
@@ -101,18 +103,40 @@
 }
 
 - (void)test_getPlacesByCuisineOrderedByDistance_ShouldDecreaseSearchRadius_WhenTwoManyRestaurantsFound {
-
     NSMutableArray *listWithMaxNrRestaurants = [self restaurants:GOOGLE_MAX_SEARCH_RESULTS];
     NSMutableArray *listWithLessRestaurants = [self restaurants:GOOGLE_MAX_SEARCH_RESULTS - 1];
 
-    [_searchService injectFindResultsWithRadius:@[
-            [RestaurantsAtRadius create:500 restaurants:@[]],
-            [RestaurantsAtRadius create:GOOGLE_MAX_SEARCH_RADIUS / 3 restaurants:listWithLessRestaurants],
-            [RestaurantsAtRadius create:GOOGLE_MAX_SEARCH_RADIUS restaurants:listWithMaxNrRestaurants]]];
+    [_searchService injectFindResultsWithRadiusAndPriceRange:@[
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 restaurants:@[]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS / 3 restaurants:listWithLessRestaurants],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS restaurants:listWithMaxNrRestaurants]]];
 
 
     NSArray *places = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
     assertThat(places, hasCountOf(listWithLessRestaurants.count));
+}
+
+- (void)test_getPlacesByCuisineOrderedByDistance_ShouldInitializePlaceWithPriceLevel {
+    NSUInteger cheap = GOOGLE_PRICE_LEVEL_MIN;
+    NSUInteger medium = GOOGLE_PRICE_LEVEL_MAX / 2;
+    NSUInteger expensive = GOOGLE_PRICE_LEVEL_MAX;
+    Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:cheap] build];
+    Restaurant *mediumPricedRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:medium] build];
+    Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:expensive] build];
+
+    [_searchService injectFindResultsWithRadiusAndPriceRange:@[
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:cheap restaurants:@[cheapRestaurant]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:medium restaurants:@[mediumPricedRestaurant]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
+
+    NSArray *places = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
+    assertThat(places, hasCountOf(3));
+    NSArray *priceLevels = [places linq_select:^(Place *p) {
+        return @(p.priceLevel);
+    }];
+    assertThat(priceLevels, hasItem(@(cheap)));
+    assertThat(priceLevels, hasItem(@(medium)));
+    assertThat(priceLevels, hasItem(@(expensive)));
 }
 
 - (void)test_getPlacesByCuisineOrderedByDistance_ShouldCompleteAfterAllPlacesHaveBeenReturned {
@@ -145,8 +169,8 @@
 
     NSArray *result = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
     assertThat(result, hasCountOf(2));
-    assertThat(((Place*)result[0]).placeId, is(equalTo(restaurantNorwich.placeId)));
-    assertThat(((Place*)result[1]).placeId, is(equalTo(restaurantLondon.placeId)));
+    assertThat(((Place *) result[0]).placeId, is(equalTo(restaurantNorwich.placeId)));
+    assertThat(((Place *) result[1]).placeId, is(equalTo(restaurantLondon.placeId)));
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantForPlace {

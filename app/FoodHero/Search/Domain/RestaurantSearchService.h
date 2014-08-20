@@ -10,5 +10,5 @@
 @protocol RestaurantSearchService <NSObject>
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter;
 
-- (Restaurant *)getRestaurantForPlace:(Place *)place;
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place;
 @end

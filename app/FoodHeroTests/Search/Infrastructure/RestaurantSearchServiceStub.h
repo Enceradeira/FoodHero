@@ -14,5 +14,5 @@
 
 - (void)injectFindSomething;
 
-- (void)injectFindResultsWithRadius:(NSArray *)restaurantsAtRadius;
+- (void)injectFindResultsWithRadiusAndPriceRange:(NSArray *)restaurantsAtRadius;
 @end

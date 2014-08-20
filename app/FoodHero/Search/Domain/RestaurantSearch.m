@@ -31,7 +31,7 @@
 
         RACSignal *placesSignal = [_repository getPlacesByCuisineOrderedByDistance:searchPreference.cuisine];
         RACDisposable *placesDisposable = [placesSignal subscribeNext:
-                        ^(Place *p) {
+                        ^(GooglePlace *p) {
                             [candidates addObject:p];
                         }
                                                                 error:^(NSError *e) {
@@ -43,7 +43,7 @@
                             return f.restaurant.placeId;
                         }];
 
-                        NSArray *places = [candidates linq_where:^(Place *p) {
+                        NSArray *places = [candidates linq_where:^(GooglePlace *p) {
                             return [excludedPlaceIds linq_all:^(NSString *id) {
                                 return (BOOL) (![p.placeId isEqualToString:id]);
                             }];

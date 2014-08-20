@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GooglePlace.h"
 #import "Place.h"
 
 
@@ -11,7 +12,6 @@
 @property(nonatomic, readonly) NSString *vicinity;
 @property(nonatomic, readonly) NSString *name;
 @property(nonatomic, readonly) NSArray *types;
-@property(nonatomic, readonly) NSUInteger priceLevel;
 
 + (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel;
 @end

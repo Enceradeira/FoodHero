@@ -13,7 +13,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
-#import "RestaurantsAtRadius.h"
+#import "RestaurantsInRadiusAndPriceRange.h"
 
 @interface RadiusCalculatorTests : XCTestCase
 
@@ -31,9 +31,9 @@
 
 - (NSArray *)doUnitlRightNrOfElementsReturned:(NSArray *)results {
     NSArray *result = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
-        return [[[results linq_where:^BOOL(RestaurantsAtRadius *r) {
+        return [[[results linq_where:^BOOL(RestaurantsInRadiusAndPriceRange *r) {
             return r.radius >= radius;
-        }] linq_select:^(RestaurantsAtRadius *r) {
+        }] linq_select:^(RestaurantsInRadiusAndPriceRange *r) {
             return r.restaurants;
         }] linq_firstOrNil];
     }];
@@ -70,11 +70,11 @@
     NSArray *elementsAtRadius2000 = [self elements:GOOGLE_MAX_SEARCH_RESULTS - 1];
 
     NSArray *results = @[
-            [RestaurantsAtRadius create:100 restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS - 40]],
-            [RestaurantsAtRadius create:500 restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS - 20]],
-            [RestaurantsAtRadius create:2000 restaurants:elementsAtRadius2000],
-            [RestaurantsAtRadius create:10000 restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS]],
-            [RestaurantsAtRadius create:GOOGLE_MAX_SEARCH_RADIUS restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS + 1]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:100 restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS - 40]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS - 20]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:2000 restaurants:elementsAtRadius2000],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:10000 restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS + 1]],
     ];
 
     NSArray *result = [self doUnitlRightNrOfElementsReturned:results];
@@ -86,8 +86,8 @@
     NSArray *elementsAtRadius2000 = [self elements:GOOGLE_MAX_SEARCH_RESULTS - 1];
 
     NSArray *results = @[
-            [RestaurantsAtRadius create:2000 restaurants:elementsAtRadius2000],
-            [RestaurantsAtRadius create:GOOGLE_MAX_SEARCH_RADIUS restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:2000 restaurants:elementsAtRadius2000],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS restaurants:[self elements:GOOGLE_MAX_SEARCH_RESULTS]],
     ];
 
     NSArray *result = [self doUnitlRightNrOfElementsReturned:results];

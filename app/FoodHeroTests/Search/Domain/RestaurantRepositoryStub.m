@@ -37,7 +37,7 @@
     }];
 }
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place {
+- (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
     return [[_restaurants linq_where:^(Restaurant *r) {
         return [r.placeId isEqualToString:place.placeId];
     }] linq_firstOrNil];
