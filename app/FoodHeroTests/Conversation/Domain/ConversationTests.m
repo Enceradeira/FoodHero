@@ -27,7 +27,7 @@
 #import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "SearchParameter.h"
+#import "SearchProfil.h"
 
 
 @interface ConversationTests : ConversationTestsBase

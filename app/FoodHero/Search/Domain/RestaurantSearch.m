@@ -8,8 +8,7 @@
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
-#import "SearchParameter.h"
-#import "PlaceEvaluation.h"
+#import "SearchProfil.h"
 
 @implementation RestaurantSearch {
 
@@ -27,7 +26,7 @@
 }
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
-    SearchParameter *searchPreference = conversation.currentSearchPreference;
+    SearchProfil *searchPreference = conversation.currentSearchPreference;
     NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
         return f.restaurant.placeId;
     }];
@@ -60,14 +59,14 @@
     }];
 };
 
-- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchParameter *)preferences {
+- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfil *)preferences {
     return [[_locationService.currentLocation take:1] map:^(CLLocation *location) {
         __block double maxScore = 0;
 
         // determine distance and score
         NSArray *placesAndScore = [places linq_select:^(Place *p) {
             double distance = [location distanceFromLocation:p.location];
-            double score = [PlaceEvaluation scorePlace:p distance:distance preference:preferences];
+            double score = [preferences scorePlace:p distance:distance];
             if (score > maxScore) {
                 maxScore = score;
             }
@@ -87,7 +86,7 @@
         }];
 
         // choose nearest
-        Place * bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
+        Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
         return [_repository getRestaurantFromPlace:bestPlace];
     }];
 }

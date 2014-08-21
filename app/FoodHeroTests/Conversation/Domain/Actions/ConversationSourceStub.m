@@ -5,7 +5,7 @@
 
 #import "ConversationSourceStub.h"
 #import "USuggestionNegativeFeedback.h"
-#import "SearchParameter.h"
+#import "SearchProfil.h"
 
 
 @implementation ConversationSourceStub {
@@ -35,8 +35,8 @@
     return _negativeUserFeedback;
 }
 
-- (SearchParameter *)currentSearchPreference {
-    return [SearchParameter createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
+- (SearchProfil *)currentSearchPreference {
+    return [SearchProfil createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
 }
 
 

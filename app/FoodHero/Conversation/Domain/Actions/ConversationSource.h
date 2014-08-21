@@ -7,7 +7,7 @@
 #import "ConversationToken.h"
 #import "PriceLevelRange.h"
 
-@class SearchParameter;
+@class SearchProfil;
 
 
 @protocol ConversationSource <NSObject>
@@ -15,5 +15,5 @@
 
 - (NSArray *)negativeUserFeedback;
 
-- (SearchParameter *)currentSearchPreference;
+- (SearchProfil *)currentSearchPreference;
 @end

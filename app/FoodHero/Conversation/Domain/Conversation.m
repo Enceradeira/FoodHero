@@ -20,9 +20,8 @@
 #import "UCuisinePreference.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "SearchParameter.h"
+#import "SearchProfil.h"
 #import "USuggestionFeedbackForTooFarAway.h"
-#import "PlaceEvaluation.h"
 
 
 @interface Conversation ()
@@ -109,8 +108,8 @@
     return [self.tokens linq_ofType:[USuggestionNegativeFeedback class]];
 }
 
-- (SearchParameter *)currentSearchPreference {
-    return [SearchParameter createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
+- (SearchProfil *)currentSearchPreference {
+    return [SearchProfil createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
 }
 
 - (double)maxDistance {
