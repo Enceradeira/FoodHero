@@ -12,6 +12,7 @@
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "SearchProfil.h"
+#include "DistanceRange.h"
 
 @interface PlaceEvaluationTests : XCTestCase
 
@@ -36,29 +37,30 @@
 
 
 - (SearchProfil *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax distanceMax:(double)distanceMax {
-    PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
+    PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     priceRange = [priceRange setMinHigherThan:priceMin - 1];
     priceRange = [priceRange setMaxLowerThan:priceMax + 1];
-    SearchProfil *preferences = [SearchProfil createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distanceMax];
+    DistanceRange *distance = [DistanceRange distanceRangeNearerThan:distanceMax / DISTANCE_DECREMENT_FACTOR];
+    SearchProfil *preferences = [SearchProfil createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance];
     return preferences;
 }
 
 - (void)test_scorePlace_ShouldBeMaxScore_WhenCurrentLocationEqualRestaurantLocationAndPriceLevelMatches {
     Restaurant *place = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
 
-    assertThatDouble([_defaultPreference scorePlace:place distance:0], is(equalTo(@(EVAL_MAX_SCORE))));
+    assertThatDouble([_defaultPreference scorePlace:place distance:0], is(equalTo(@(1))));
 }
 
 - (void)test_scorePlace_ShouldBeMaxScore_WhenDistance0AndPriceLevelMatches {
     double score = [_defaultPreference scorePlace:[self placeWithPriceLevel:3] distance:0];
-    assertThatDouble(score, is(equalTo(@(EVAL_MAX_SCORE))));
+    assertThatDouble(score, is(equalTo(@(1))));
 }
 
 - (void)test_scorePlace_ShouldBeMaxScore_WhenDistanceLessThanMaxDistanceAndPriceLevelMatches {
     SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:20000];
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:0], is(equalTo(@(EVAL_MAX_SCORE))));
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:10000], is(equalTo(@(EVAL_MAX_SCORE))));
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:20000], is(equalTo(@(EVAL_MAX_SCORE))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:0], is(equalTo(@(1))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:10000], is(equalTo(@(1))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:20000], is(equalTo(@(1))));
 }
 
 - (void)test_scorePlace_ShouldThrowException_WhenDistanceNegative {
@@ -78,7 +80,7 @@
     assertThatDouble(score2, is(greaterThan(@(score3))));
     assertThatDouble(score3, is(greaterThan(@(score4))));
     assertThatDouble(score4, is(greaterThan(@(score5))));
-    assertThatDouble(score5, is(greaterThan(@(EVAL_MIN_SCORE))));
+    assertThatDouble(score5, is(greaterThan(@(0))));
 }
 
 - (void)test_scorePlace_ShouldDecrease_WhenPriceLevelDifferenceFromMaxPriceIncreasesButDistanceStaysTheSame {
@@ -92,7 +94,7 @@
     assertThatDouble(score2, is(greaterThan(@(score3))));
     assertThatDouble(score3, is(greaterThan(@(score4))));
     assertThatDouble(score4, is(greaterThan(@(score5))));
-    assertThatDouble(score5, is(greaterThan(@(EVAL_MIN_SCORE))));
+    assertThatDouble(score5, is(greaterThan(@(0))));
 }
 
 - (void)test_scorePlace_ShouldBeEqual_WhenDiffFromPriceLevelMaxAndPriceLevelMinIsTheSame {
@@ -131,7 +133,7 @@
     double scoreForMismatchingPriceLevel = [preference scorePlace:[self placeWithPriceLevel:3] distance:25000];
 
     // distance mismatches by 2 ranges
-    double distanceForFurtherAway = 25000 / EVAL_DISTANCE_DECREMENT_FACTOR / EVAL_DISTANCE_DECREMENT_FACTOR;
+    double distanceForFurtherAway = 25000 / DISTANCE_DECREMENT_FACTOR / DISTANCE_DECREMENT_FACTOR;
     double scoreForMismatchingDistance = [preference scorePlace:[self placeWithPriceLevel:4] distance:distanceForFurtherAway];
 
     assertThatDouble(scoreForMismatchingPriceLevel, is(equalTo(@(scoreForMismatchingDistance))));
@@ -144,7 +146,7 @@
     double scoreForMismatchingPriceLevel = [preference scorePlace:[self placeWithPriceLevel:4 - 3] distance:25000];
 
     // distance mismatches by 6 ranges
-    double distanceFurtherAway = 25000 / EVAL_DISTANCE_DECREMENT_FACTOR / EVAL_DISTANCE_DECREMENT_FACTOR / EVAL_DISTANCE_DECREMENT_FACTOR / EVAL_DISTANCE_DECREMENT_FACTOR / EVAL_DISTANCE_DECREMENT_FACTOR / EVAL_DISTANCE_DECREMENT_FACTOR;
+    double distanceFurtherAway = 25000 / DISTANCE_DECREMENT_FACTOR / DISTANCE_DECREMENT_FACTOR / DISTANCE_DECREMENT_FACTOR / DISTANCE_DECREMENT_FACTOR / DISTANCE_DECREMENT_FACTOR / DISTANCE_DECREMENT_FACTOR;
     double scoreForMismatchingDistance = [preference scorePlace:[self placeWithPriceLevel:4] distance:distanceFurtherAway];
 
     assertThatDouble(scoreForMismatchingPriceLevel, is(equalTo(@(scoreForMismatchingDistance))));

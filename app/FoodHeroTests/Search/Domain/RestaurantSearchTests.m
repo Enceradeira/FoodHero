@@ -36,7 +36,7 @@
     [_conversation injectCuisine:cuisine];
 }
 
-- (void)conversationHasPriceRange:(PriceLevelRange *)range {
+- (void)conversationHasPriceRange:(PriceRange *)range {
     [_conversation injectPriceRange:range];
 }
 

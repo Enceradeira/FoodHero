@@ -22,6 +22,7 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfil.h"
 #import "USuggestionFeedbackForTooFarAway.h"
+#include "DistanceRange.h"
 
 
 @interface Conversation ()
@@ -112,14 +113,15 @@
     return [SearchProfil createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
 }
 
-- (double)maxDistance {
+- (DistanceRange *)maxDistance {
     USuggestionFeedbackForTooFarAway* lastFeedback = [[self.tokens linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
     if( lastFeedback == nil){
-        return DBL_MAX;
+        return [DistanceRange distanceRangeWithoutRestriction];
     }
     else{
         // set max distance to 1/3 nearer
-        return [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation] * EVAL_DISTANCE_DECREMENT_FACTOR;
+        CLLocationDistance distance = [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation];
+        return [DistanceRange distanceRangeNearerThan:distance];
     }
 }
 
@@ -131,8 +133,8 @@
     return preference.text;
 }
 
-- (PriceLevelRange *)priceRange {
-    PriceLevelRange *priceRange = [PriceLevelRange createFullRange];
+- (PriceRange *)priceRange {
+    PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     for (ConversationToken *token in [self tokens]) {
         if ([token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]) {
             priceRange = [priceRange setMaxLowerThan:((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel];

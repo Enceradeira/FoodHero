@@ -28,6 +28,7 @@
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfil.h"
+#import "DistanceRange.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -180,7 +181,7 @@
 - (void)test_currentSearchPreferencePriceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
     [self.conversation addToken:[UCuisinePreference create:@"Sandwich"]];
 
-    PriceLevelRange *fullPriceRange = [PriceLevelRange createFullRange];
+    PriceRange *fullPriceRange = [PriceRange priceRangeWithoutRestriction];
 
     assertThat(self.conversation.currentSearchPreference.priceRange, is(equalTo(fullPriceRange)));
 }
@@ -208,7 +209,7 @@
 - (void)test_currentSearchPreferenceMaxDistance_ShouldHaveMaxValue_WhenUserHasNeverFoundRestaurantTooFarAway {
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
-    assertThatDouble(self.conversation.currentSearchPreference.maxDistance, is(equalTo(@(DBL_MAX))));
+    assertThatDouble(self.conversation.currentSearchPreference.distanceRange.max, is(equalTo(@(DBL_MAX))));
 }
 
 - (void)test_currentSearchPreferenceMaxDistance_ShouldDecrease_WhenUserFindRestaurantTooFarAway {
@@ -219,7 +220,7 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_london]];
 
-    assertThatDouble(self.conversation.currentSearchPreference.maxDistance, is(lessThan(@(distance))));
+    assertThatDouble(self.conversation.currentSearchPreference.distanceRange.max, is(lessThan(@(distance))));
 }
 
 @end

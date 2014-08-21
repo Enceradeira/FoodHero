@@ -5,41 +5,35 @@
 
 #import "SearchProfil.h"
 #import "DesignByContractException.h"
-#import "Place.h"
-
-const double EVAL_MAX_SCORE = 1;
-const double EVAL_MIN_SCORE = 0;
-const double EVAL_DISTANCE_DECREMENT_FACTOR = 0.66666;
+#include "DistanceRange.h"
 
 const double MAX_NR_DESCRETE_RANGES = 10;
 
 @implementation SearchProfil {
 
 }
-+ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)maxDistance {
++ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance {
     return [[SearchProfil alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance];
 }
 
-- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)maxDistance {
+- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance {
     self = [super init];
     if (self != nil) {
-        if (maxDistance < 0) {
-            @throw [DesignByContractException createWithReason:@"maxDistance can't be less than 0"];
-        }
+
         _cuisine = cuisine;
         _priceRange = priceRange;
-        _maxDistance = maxDistance;
+        _distanceRange = maxDistance;
     }
     return self;
 }
 
-- (double)scorePlace:(Place *)place distance:(double)distance{
+- (double)scorePlace:(Place *)place distance:(double)distance {
     if (distance < 0) {
         @throw [DesignByContractException createWithReason:@"distance can't be less than 0"];
     }
 
     NSUInteger nrPriceLevels = GOOGLE_PRICE_LEVEL_MAX - GOOGLE_PRICE_LEVEL_MIN + 1;
-    PriceLevelRange *priceRange = _priceRange;
+    PriceRange *priceRange = _priceRange;
 
     // score for below price-level-minimum
     double nrIncrementsBelowMinPrice = [self getNrIncrementsBelowMinPrice:place priceRange:priceRange];
@@ -52,7 +46,7 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     double scoreForDiffMaxPrice = 1 / (1 + normalizedNrIncrementsAboveMaxPrice);
 
     // score for over max-distance
-    double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_maxDistance];
+    double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
     double normalizedNrIncrementsAboveMaxDistance = [self normalizeNrIncrements:nrIncrementsAboveMaxDistance usefulMaxNrRanges:MAX_NR_DESCRETE_RANGES];
     double scoreForDiffMaxDistance = 1 / (1 + normalizedNrIncrementsAboveMaxDistance);
 
@@ -73,11 +67,11 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     }
 
     // derived from: distanceDecremented(N) = distance * EVAL_DISTANCE_DECREMENT_FACTOR^n
-    double nrIncrements = log(maxDistance / distance) / log(EVAL_DISTANCE_DECREMENT_FACTOR);
+    double nrIncrements = log(maxDistance / distance) / log(DISTANCE_DECREMENT_FACTOR);
     return nrIncrements;
 }
 
-- (double)getNrIncrementsAboveMaxPrice:(Place *)place priceRange:(PriceLevelRange *)priceRange {
+- (double)getNrIncrementsAboveMaxPrice:(Place *)place priceRange:(PriceRange *)priceRange {
     double nrIncrementsAboceMaxPrice = 0;
     if (place.priceLevel > priceRange.max) {
         nrIncrementsAboceMaxPrice = place.priceLevel - priceRange.max;
@@ -85,7 +79,7 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     return nrIncrementsAboceMaxPrice;
 }
 
-- (double)getNrIncrementsBelowMinPrice:(Place *)place priceRange:(PriceLevelRange *)priceRange {
+- (double)getNrIncrementsBelowMinPrice:(Place *)place priceRange:(PriceRange *)priceRange {
     double nrIncrementsBelowMinPrice = 0;
     if (place.priceLevel < priceRange.min) {
         nrIncrementsBelowMinPrice = priceRange.min - place.priceLevel;

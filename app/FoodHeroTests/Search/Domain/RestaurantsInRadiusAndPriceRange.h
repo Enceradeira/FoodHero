@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PriceLevelRange;
+@class PriceRange;
 
 
 @interface RestaurantsInRadiusAndPriceRange : NSObject

@@ -6,22 +6,23 @@
 #import "ConversationSourceStub.h"
 #import "USuggestionNegativeFeedback.h"
 #import "SearchProfil.h"
+#import "DistanceRange.h"
 
 
 @implementation ConversationSourceStub {
 
     NSMutableArray *_negativeUserFeedback;
     NSString *_cuisine;
-    PriceLevelRange *_range;
-    double _maxDistance;
+    PriceRange *_range;
+    DistanceRange *_maxDistance;
 }
 
 - (id)init {
     self = [super init];
     if (self) {
         _negativeUserFeedback = [NSMutableArray new];
-        _range = [PriceLevelRange createFullRange];
-        _maxDistance = DBL_MAX;
+        _range = [PriceRange priceRangeWithoutRestriction];
+        _maxDistance = [DistanceRange distanceRangeWithoutRestriction];
     }
 
     return self;
@@ -44,7 +45,7 @@
     return _cuisine;
 }
 
-- (PriceLevelRange *)priceRange {
+- (PriceRange *)priceRange {
     return _range;
 }
 
@@ -57,11 +58,11 @@
     _cuisine = cuisine;
 }
 
-- (void)injectPriceRange:(PriceLevelRange *)range {
+- (void)injectPriceRange:(PriceRange *)range {
     _range = range;
 }
 
-- (void)injectMaxDistance:(int)maxDistance {
+- (void)injectMaxDistance:(DistanceRange *)maxDistance {
     _maxDistance = maxDistance;
 }
 @end

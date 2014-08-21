@@ -9,7 +9,7 @@
 #import "RestaurantBuilder.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
 #import "GoogleRestaurantSearch.h"
-#import "PriceLevelRange.h"
+#import "PriceRange.h"
 
 @implementation RestaurantSearchServiceStub {
     NSArray *_searchResults;

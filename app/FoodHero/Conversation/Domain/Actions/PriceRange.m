@@ -3,22 +3,22 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "PriceLevelRange.h"
+#import "PriceRange.h"
 #import "DesignByContractException.h"
 
 const NSUInteger GOOGLE_PRICE_LEVEL_MIN = 0;
 const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
 
-@implementation PriceLevelRange {
+@implementation PriceRange {
 
 }
 
 + (instancetype)createWithMin:(NSUInteger)min max:(NSUInteger)max {
-    return [[PriceLevelRange alloc] initWithMin:min max:max];
+    return [[PriceRange alloc] initWithMin:min max:max];
 }
 
-+ (instancetype)createFullRange {
-    return [PriceLevelRange createWithMin:GOOGLE_PRICE_LEVEL_MIN max:GOOGLE_PRICE_LEVEL_MAX];
++ (instancetype)priceRangeWithoutRestriction {
+    return [PriceRange createWithMin:GOOGLE_PRICE_LEVEL_MIN max:GOOGLE_PRICE_LEVEL_MAX];
 }
 
 - (instancetype)initWithMin:(NSUInteger)min max:(NSUInteger)max {
@@ -39,7 +39,7 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     return self;
 }
 
-- (PriceLevelRange *)setMaxLowerThan:(NSUInteger)value {
+- (PriceRange *)setMaxLowerThan:(NSUInteger)value {
     NSUInteger newMax = value - 1;
     NSUInteger newMin = _min;
     if (newMax < GOOGLE_PRICE_LEVEL_MIN) {
@@ -48,10 +48,10 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     if (newMin > newMax) {
         newMin = newMax;
     }
-    return [[PriceLevelRange alloc] initWithMin:newMin max:newMax];
+    return [[PriceRange alloc] initWithMin:newMin max:newMax];
 }
 
-- (PriceLevelRange *)setMinHigherThan:(NSUInteger)value {
+- (PriceRange *)setMinHigherThan:(NSUInteger)value {
     NSUInteger newMin = value + 1;
     NSUInteger newMax = _max;
     if (newMin > GOOGLE_PRICE_LEVEL_MAX) {
@@ -60,7 +60,7 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     if (newMax < newMin) {
         newMax = newMin;
     }
-    return [[PriceLevelRange alloc] initWithMin:newMin max:newMax];
+    return [[PriceRange alloc] initWithMin:newMin max:newMax];
 }
 
 
@@ -70,7 +70,7 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     if (!other || ![[other class] isEqual:[self class]])
         return NO;
 
-    return self.min == ((PriceLevelRange *) other).min && self.max == ((PriceLevelRange *) other).max;
+    return self.min == ((PriceRange *) other).min && self.max == ((PriceRange *) other).max;
 }
 
 @end

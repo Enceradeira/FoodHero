@@ -18,7 +18,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
 #import "RestaurantRepositoryTests.h"
-#import "PriceLevelRange.h"
+#import "PriceRange.h"
 
 @interface RestaurantRepositoryWithStubTests : RestaurantRepositoryTests
 

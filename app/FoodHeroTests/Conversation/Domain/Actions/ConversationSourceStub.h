@@ -7,6 +7,7 @@
 #import "ConversationSource.h"
 
 @class USuggestionNegativeFeedback;
+@class DistanceRange;
 
 
 @interface ConversationSourceStub : NSObject <ConversationSource>
@@ -14,7 +15,7 @@
 
 - (void)injectCuisine:(NSString *)cuisine;
 
-- (void)injectPriceRange:(PriceLevelRange *)range;
+- (void)injectPriceRange:(PriceRange *)range;
 
-- (void)injectMaxDistance:(int)maxDistance;
+- (void)injectMaxDistance:(DistanceRange *)maxDistance;
 @end

@@ -20,7 +20,7 @@
 
 - (void)conversationHasCuisine:(NSString *)cuisine;
 
-- (void)conversationHasPriceRange:(PriceLevelRange *)range;
+- (void)conversationHasPriceRange:(PriceRange *)range;
 
 - (void)conversationHasNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback;
 @end

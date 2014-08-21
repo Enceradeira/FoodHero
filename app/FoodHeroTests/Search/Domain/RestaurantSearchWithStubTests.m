@@ -16,6 +16,7 @@
 #import "RestaurantBuilder.h"
 #import "RestaurantRepositoryStub.h"
 #import "CLLocationManagerProxyStub.h"
+#import "DistanceRange.h"
 
 @interface RestaurantSearchWithStubTests : RestaurantSearchTests
 
@@ -93,7 +94,7 @@
     [_restaurantRepository injectRestaurants:@[priceLevel2Restaurant, priceLevel3Restaurant]];
 
     // user wishes cheaper than 3
-    [self.conversation injectPriceRange:[[PriceLevelRange createFullRange] setMaxLowerThan:3]];
+    [self.conversation injectPriceRange:[[PriceRange priceRangeWithoutRestriction] setMaxLowerThan:3]];
 
     // best restaurant is priceLevel 2 because its the price-level matches and it's not that far away
     Restaurant *bestRestaurant = [self findBest];
@@ -111,8 +112,8 @@
     [_restaurantRepository injectRestaurants:@[priceLevel2Restaurant, priceLevel3Restaurant]];
 
     // user wishes cheaper than 3
-    [self.conversation injectPriceRange:[[PriceLevelRange createFullRange] setMaxLowerThan:3]];
-    [self.conversation injectMaxDistance:5000];
+    [self.conversation injectPriceRange:[[PriceRange priceRangeWithoutRestriction] setMaxLowerThan:3]];
+    [self.conversation injectMaxDistance:[DistanceRange distanceRangeNearerThan:7500]];
 
     // best restaurant is priceLevel 3 because the priceLevel 2-Restaurant is too far away
     Restaurant *bestRestaurant = [self findBest];

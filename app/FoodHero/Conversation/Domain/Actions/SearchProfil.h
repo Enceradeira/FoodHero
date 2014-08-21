@@ -4,21 +4,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PriceLevelRange.h"
+#import "PriceRange.h"
 #import "Place.h"
 
-extern const double EVAL_MAX_SCORE;
-extern const double EVAL_MIN_SCORE;
-extern const double EVAL_DISTANCE_DECREMENT_FACTOR;
+@class DistanceRange;
 
 @interface SearchProfil : NSObject
 @property(nonatomic, readonly) NSString *cuisine;
-@property(nonatomic, readonly) PriceLevelRange *priceRange;
-@property(nonatomic, readonly) double maxDistance;
+@property(nonatomic, readonly) PriceRange *priceRange;
+@property(nonatomic, readonly) DistanceRange *distanceRange;
 
-+ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)distance;
++ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance;
 
-- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)distance;
+- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance;
 
 - (double)scorePlace:(Place *)place distance:(double)distance;
 @end

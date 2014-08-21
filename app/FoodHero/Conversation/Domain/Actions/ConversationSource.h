@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
-#import "PriceLevelRange.h"
+#import "PriceRange.h"
 
 @class SearchProfil;
 

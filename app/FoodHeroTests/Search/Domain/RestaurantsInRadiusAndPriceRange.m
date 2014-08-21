@@ -4,7 +4,7 @@
 //
 
 #import "RestaurantsInRadiusAndPriceRange.h"
-#import "PriceLevelRange.h"
+#import "PriceRange.h"
 
 @implementation RestaurantsInRadiusAndPriceRange {
 
