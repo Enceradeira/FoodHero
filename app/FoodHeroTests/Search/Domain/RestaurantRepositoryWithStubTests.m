@@ -52,57 +52,57 @@
 }
 
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldReturnAllPlacesFoundForGivenCuisine {
+- (void)test_getPlacesByCuisine_ShouldReturnAllPlacesFoundForGivenCuisine {
     Restaurant *restaurant = [[RestaurantBuilder alloc] build];
     [_searchService injectFindResults:@[restaurant]];
 
-    NSArray *places = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
+    NSArray *places = [self getPlacesByCuisine:@"Asian"];
     assertThat(places, hasCountOf(1));
     assertThat(((Place *) places[0]).placeId, is(equalTo(restaurant.placeId)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldCacheResults {
+- (void)test_getPlacesByCuisine_ShouldCacheResults {
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
-    Place *place1 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
-    Place *place2 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
+    Place *place1 = [self getPlacesByCuisine:@"Asian"][0];
+    Place *place2 = [self getPlacesByCuisine:@"Asian"][0];
 
     assertThat(place1, is(equalTo(place2)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldFlushCache_WhenCuisineChanges {
+- (void)test_getPlacesByCuisine_ShouldFlushCache_WhenCuisineChanges {
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
-    Place *place1 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
-    Place *place2 = [self getPlacesByCuisineOrderedByDistance:@"Swiss"][0];
+    Place *place1 = [self getPlacesByCuisine:@"Asian"][0];
+    Place *place2 = [self getPlacesByCuisine:@"Swiss"][0];
 
     assertThat(place1, isNot(equalTo(place2)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldFlushCache_WhenLocationChanges {
+- (void)test_getPlacesByCuisine_ShouldFlushCache_WhenLocationChanges {
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
     [_locationManager injectLatitude:15.098 longitude:-50.56];
-    Place *place1 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
+    Place *place1 = [self getPlacesByCuisine:@"Asian"][0];
 
     [_locationManager injectLatitude:30 longitude:-20];
-    Place *place2 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
+    Place *place2 = [self getPlacesByCuisine:@"Asian"][0];
 
     assertThat(place1, isNot(equalTo(place2)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldNotFlushCache_WhenLocationDoesNotChangeALot {
+- (void)test_getPlacesByCuisine_ShouldNotFlushCache_WhenLocationDoesNotChangeALot {
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
     [_locationManager injectLatitude:52.631249 longitude:1.299053];
-    Place *place1 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
+    Place *place1 = [self getPlacesByCuisine:@"Asian"][0];
 
     [_locationManager injectLatitude:52.630813 longitude:1.299279];
-    Place *place2 = [self getPlacesByCuisineOrderedByDistance:@"Asian"][0];
+    Place *place2 = [self getPlacesByCuisine:@"Asian"][0];
 
     assertThat(place1, is(equalTo(place2)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldDecreaseSearchRadius_WhenTwoManyRestaurantsFound {
+- (void)test_getPlacesByCuisine_ShouldDecreaseSearchRadius_WhenTwoManyRestaurantsFound {
     NSMutableArray *listWithMaxNrRestaurants = [self restaurants:GOOGLE_MAX_SEARCH_RESULTS];
     NSMutableArray *listWithLessRestaurants = [self restaurants:GOOGLE_MAX_SEARCH_RESULTS - 1];
 
@@ -112,11 +112,11 @@
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS restaurants:listWithMaxNrRestaurants]]];
 
 
-    NSArray *places = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
+    NSArray *places = [self getPlacesByCuisine:@"Asian"];
     assertThat(places, hasCountOf(listWithLessRestaurants.count));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldInitializePlaceWithPriceLevel {
+- (void)test_getPlacesByCuisine_ShouldInitializePlaceWithPriceLevel {
     NSUInteger cheap = GOOGLE_PRICE_LEVEL_MIN;
     NSUInteger medium = GOOGLE_PRICE_LEVEL_MAX / 2;
     NSUInteger expensive = GOOGLE_PRICE_LEVEL_MAX;
@@ -129,7 +129,7 @@
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:medium restaurants:@[mediumPricedRestaurant]],
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
 
-    NSArray *places = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
+    NSArray *places = [self getPlacesByCuisine:@"Asian"];
     assertThat(places, hasCountOf(3));
     NSArray *priceLevels = [places linq_select:^(Place *p) {
         return @(p.priceLevel);
@@ -139,13 +139,13 @@
     assertThat(priceLevels, hasItem(@(expensive)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldCompleteAfterAllPlacesHaveBeenReturned {
+- (void)test_getPlacesByCuisine_ShouldCompleteAfterAllPlacesHaveBeenReturned {
     __block Place *place;
     __block BOOL isCompleted;
 
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
-    RACSignal *result = [_repository getPlacesByCuisineOrderedByDistance:@"Asian"];
+    RACSignal *result = [_repository getPlacesByCuisine:@"Asian"];
     [result subscribeNext:^(Place *p) {
         place = p;
     }];
@@ -157,27 +157,11 @@
     assertThatBool(isCompleted, is(equalToBool(YES)));
 }
 
-- (void)test_getPlacesByCuisineOrderedByDistance_ShouldOrderResultByAscendingDistance {
-    CLLocation *norwich = [[CLLocation alloc] initWithLatitude:52.637122 longitude:1.298522];
-    CLLocation *london = [[CLLocation alloc] initWithLatitude:51.520738 longitude:-0.127005];
-    CLLocation *thetford = [[CLLocation alloc] initWithLatitude:52.415521 longitude:0.751978];
-
-    Restaurant *restaurantNorwich = [[[RestaurantBuilder alloc] withLocation:norwich] build];
-    Restaurant *restaurantLondon = [[[RestaurantBuilder alloc] withLocation:london] build];
-    [_searchService injectFindResults:@[restaurantLondon, restaurantNorwich]];
-    [_locationManager injectLocations:@[thetford]];
-
-    NSArray *result = [self getPlacesByCuisineOrderedByDistance:@"Asian"];
-    assertThat(result, hasCountOf(2));
-    assertThat(((Place *) result[0]).placeId, is(equalTo(restaurantNorwich.placeId)));
-    assertThat(((Place *) result[1]).placeId, is(equalTo(restaurantLondon.placeId)));
-}
-
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantForPlace {
     Restaurant *restaurant = [[RestaurantBuilder alloc] build];
     [_searchService injectFindResults:@[restaurant]];
 
-    Place *place = [self getPlacesByCuisineOrderedByDistance:@"Mongolian"][0];
+    Place *place = [self getPlacesByCuisine:@"Mongolian"][0];
 
     Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place];
     assertThat(restaurantFromPlace, is(equalTo(restaurant)));

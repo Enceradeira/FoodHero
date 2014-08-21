@@ -30,7 +30,7 @@
     [TyphoonComponents configure:[StubAssembly new]];
 
     _restaurantRepository = [RestaurantRepositorySpy new];
-    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository];
+    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:[(id <ApplicationAssembly>) [TyphoonComponents factory] locationService]];
 }
 
 - (RestaurantSearch *)search {
@@ -42,7 +42,7 @@
 
     [self findBest];
 
-    assertThat(_restaurantRepository.getPlacesByCuisineOrderedByDistanceParameter, is(equalTo(@"Asian")));
+    assertThat(_restaurantRepository.getPlacesByCuisineParameter, is(equalTo(@"Asian")));
 }
 
 @end

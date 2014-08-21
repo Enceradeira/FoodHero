@@ -4,6 +4,7 @@
 //
 
 #import "SearchParameter.h"
+#import "DesignByContractException.h"
 
 
 @implementation SearchParameter {
@@ -16,6 +17,9 @@
 - (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceLevelRange *)priceRange maxDistance:(double)maxDistance {
     self = [super init];
     if (self != nil) {
+        if (maxDistance < 0) {
+            @throw [DesignByContractException createWithReason:@"maxDistance can't be less than 0"];
+        }
         _cuisine = cuisine;
         _priceRange = priceRange;
         _maxDistance = maxDistance;

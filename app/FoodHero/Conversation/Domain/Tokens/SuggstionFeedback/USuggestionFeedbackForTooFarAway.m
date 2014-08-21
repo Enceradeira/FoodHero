@@ -6,6 +6,7 @@
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "FHConfirmationIfInNewPreferredRangeCloser.h"
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.h"
+#import "DesignByContractException.h"
 
 
 @implementation USuggestionFeedbackForTooFarAway {
@@ -19,6 +20,9 @@
 - (id)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text currentUserLocation:(CLLocation *)location {
     self = [super initWithRestaurant:restaurant text:text];
     if (self != nil) {
+        if( location == nil){
+            @throw [DesignByContractException createWithReason:@"location can't be nil"];
+        }
         _currentUserLocation = location;
     }
     return self;

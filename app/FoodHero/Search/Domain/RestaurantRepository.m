@@ -26,49 +26,18 @@
     return self;
 }
 
-- (RACSignal *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
-    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-        RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
-
-        RACDisposable *sourceDisposable = [[_locationService currentLocation]
-                subscribeNext:^(CLLocation *currentLocation) {
-
-                    BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
-                    BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
-                    if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
-                        _locationAtMomentOfCaching = currentLocation;
-                        _cuisineAtMomentOfCaching = cuisine;
-
-                        // dynamically adjust radius in order to get as specific results as possible
-
-                        NSArray *places = [self fetchPlaces:cuisine currentLocation:currentLocation];
-                        _placesCached = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                            CLLocationDistance distanceA = [[((GooglePlace *) a) location] distanceFromLocation:currentLocation];
-                            CLLocationDistance distanceB = [[((GooglePlace *) b) location] distanceFromLocation:currentLocation];
-
-                            if (distanceA < distanceB) {
-                                return (NSComparisonResult) NSOrderedAscending;
-                            }
-                            else if (distanceA > distanceB) {
-                                return (NSComparisonResult) NSOrderedDescending;
-                            }
-                            return (NSComparisonResult) NSOrderedSame;
-
-                        }];
-                    }
-                    for (Place *place in _placesCached) {
-                        [subscriber sendNext:place];
-                    }
-                } error:^(NSError *error) {
-                    [subscriber sendError:error];
-                }   completed:^{
-                    [subscriber sendCompleted];
-                }];
-
-        serialDisposable.disposable = sourceDisposable;
-        return serialDisposable;
+- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+    return [[[_locationService currentLocation] take:1] map:^(CLLocation *currentLocation) {
+        BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
+        BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
+        if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
+            _locationAtMomentOfCaching = currentLocation;
+            _cuisineAtMomentOfCaching = cuisine;
+            _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+        }
+        // yields all places as first element in sequence
+        return _placesCached;
     }];
-
 }
 
 - (NSArray *)fetchPlaces:(NSString *)cuisine currentLocation:(CLLocation *)currentLocation {
@@ -94,10 +63,10 @@
         parameter.cuisine = cuisine;
         parameter.minPriceLevel = priceLevel;
         parameter.maxPriceLevel = priceLevel;
-        [places addObjectsFromArray:
-                [[_searchService findPlaces:parameter] linq_select:^(GooglePlace *p) {
-                    return [Place create:p.placeId location:p.location priceLevel:priceLevel];
-                }]];
+        NSArray *placesOfLevel = [[_searchService findPlaces:parameter] linq_select:^(GooglePlace *p) {
+            return [Place create:p.placeId location:p.location priceLevel:priceLevel];
+        }];
+        [places addObjectsFromArray:placesOfLevel];
     }
 
     if (places.count < placesOfAllPriceLevels.count) {

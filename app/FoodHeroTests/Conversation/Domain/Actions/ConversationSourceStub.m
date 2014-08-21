@@ -13,6 +13,7 @@
     NSMutableArray *_negativeUserFeedback;
     NSString *_cuisine;
     PriceLevelRange *_range;
+    double _maxDistance;
 }
 
 - (id)init {
@@ -20,6 +21,7 @@
     if (self) {
         _negativeUserFeedback = [NSMutableArray new];
         _range = [PriceLevelRange createFullRange];
+        _maxDistance = DBL_MAX;
     }
 
     return self;
@@ -34,7 +36,7 @@
 }
 
 - (SearchParameter *)currentSearchPreference {
-    return [SearchParameter createWithCuisine:_cuisine priceRange:_range maxDistance:DBL_MAX];
+    return [SearchParameter createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
 }
 
 
@@ -57,5 +59,9 @@
 
 - (void)injectPriceRange:(PriceLevelRange *)range {
     _range = range;
+}
+
+- (void)injectMaxDistance:(int)maxDistance {
+    _maxDistance = maxDistance;
 }
 @end

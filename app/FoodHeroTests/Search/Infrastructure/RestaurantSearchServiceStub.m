@@ -64,7 +64,9 @@
             _ownSearchResults = @[[[[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Norwich"] build],
                     [[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] build]];
         }
-        return _ownSearchResults;
+        return [_ownSearchResults linq_where:^(Restaurant *r) {
+            return (BOOL)(r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel);
+        }];
     }
 }
 

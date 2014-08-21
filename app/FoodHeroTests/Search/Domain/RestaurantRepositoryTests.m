@@ -14,13 +14,8 @@
 
 }
 
-- (NSArray *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
-    __block NSMutableArray *places = [NSMutableArray new];
-    RACSignal *signal = [self.repository getPlacesByCuisineOrderedByDistance:cuisine];
-    [signal subscribeNext:^(GooglePlace *r) {
-        [places addObject:r];
-    }];
-    return places;
+- (NSArray *)getPlacesByCuisine:(NSString *)cuisine {
+    return [[self.repository getPlacesByCuisine:cuisine] toArray][0];
 }
 
 -(RestaurantRepository *)repository{

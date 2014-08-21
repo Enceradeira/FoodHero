@@ -10,7 +10,7 @@
 
 
 @interface RestaurantRepositoryTests : XCTestCase
-- (NSArray *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine;
+- (NSArray *)getPlacesByCuisine:(NSString *)cuisine;
 
 - (RestaurantRepository *)repository;
 @end

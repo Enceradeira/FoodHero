@@ -128,7 +128,7 @@
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {
     USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build]];
-    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:nil];
+    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:[CLLocation new]];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:feedback1];

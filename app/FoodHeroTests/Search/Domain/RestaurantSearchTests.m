@@ -28,6 +28,7 @@
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];
+    [signal asynchronouslyWaitUntilCompleted:nil];
     return restaurant;
 }
 

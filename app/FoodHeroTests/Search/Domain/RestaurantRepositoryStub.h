@@ -8,5 +8,5 @@
 
 
 @interface RestaurantRepositoryStub : NSObject<IRestaurantRepository>
-- (void)injectRestaurantsByCuisineOrderedByDistance:(NSArray *)restaurants;
+- (void)injectRestaurants:(NSArray *)restaurants;
 @end

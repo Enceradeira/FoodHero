@@ -22,6 +22,7 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchParameter.h"
 #import "USuggestionFeedbackForTooFarAway.h"
+#import "PlaceEvaluation.h"
 
 
 @interface Conversation ()
@@ -119,7 +120,7 @@
     }
     else{
         // set max distance to 1/3 nearer
-        return [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation] * 0.66666;
+        return [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation] * EVAL_DISTANCE_DECREMENT_FACTOR;
     }
 }
 

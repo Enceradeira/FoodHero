@@ -9,7 +9,7 @@
 #import "Place.h"
 
 @protocol IRestaurantRepository <NSObject>
-- (RACSignal *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine;
+- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine;
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place;
 @end

@@ -92,8 +92,9 @@
 - (id)restaurantSearch {
     return [TyphoonDefinition withClass:[RestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithRestaurantRepository:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantRepository]];
+                                  [method injectParameterWith:[self locationService]];
 
                               }];
                           }];

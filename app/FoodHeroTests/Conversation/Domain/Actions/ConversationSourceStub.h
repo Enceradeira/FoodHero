@@ -15,4 +15,6 @@
 - (void)injectCuisine:(NSString *)cuisine;
 
 - (void)injectPriceRange:(PriceLevelRange *)range;
+
+- (void)injectMaxDistance:(int)maxDistance;
 @end

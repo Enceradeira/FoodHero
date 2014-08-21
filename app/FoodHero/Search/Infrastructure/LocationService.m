@@ -61,9 +61,9 @@
 
     RACSignal *values = RACObserve(self, currentLocationHolder);
 
-    RACSignal *valuesWithAuthorizationError = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber){
+    RACSignal *valuesWithAuthorizationError = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         RACSerialDisposable *serialDisposable = [RACSerialDisposable new];
-        RACDisposable *sourceDisposable = [values subscribeNext:^(id next){
+        RACDisposable *sourceDisposable = [values subscribeNext:^(id next) {
             @strongify(self);
             NSError *error = self.authorizationError;
             if (error != nil) {
@@ -73,9 +73,9 @@
                 [subscriber sendNext:next];
             }
 
-        }   error:^(NSError *error) {
+        }                                                 error:^(NSError *error) {
             [subscriber sendError:error];
-        }   completed:^{
+        }                                             completed:^{
             [subscriber sendCompleted];
         }];
 
@@ -84,28 +84,28 @@
     }];
 
     RACSignal *noneEmptyValues = [valuesWithAuthorizationError filter:^(id next) {
-        return (BOOL)(next != nil);
+        return (BOOL) (next != nil);
     }];
 
     RACSignal *oneNoneEmptyValue = [noneEmptyValues take:1];
     [oneNoneEmptyValue subscribeCompleted:^{
         [_locationManager stopUpdatingLocation];
     }];
-    [oneNoneEmptyValue subscribeError:^(NSError* error){
+    [oneNoneEmptyValue subscribeError:^(NSError *error) {
         [_locationManager stopUpdatingLocation];
     }];
     return oneNoneEmptyValue;
 }
 
 - (CLLocation *)lastKnownLocation {
-    if( self.currentLocationHolder == nil){
+    if (self.currentLocationHolder == nil) {
         @throw [DesignByContractException createWithReason:@"lastKnownLocation is unkonwn. Location has never been determined"];
     }
     return self.currentLocationHolder;
 }
 
 
--(void)dealloc{
+- (void)dealloc {
     _locationManager.delegate = nil;
 }
 

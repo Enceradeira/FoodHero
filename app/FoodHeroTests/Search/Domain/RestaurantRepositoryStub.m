@@ -22,19 +22,13 @@
 }
 
 
-- (void)injectRestaurantsByCuisineOrderedByDistance:(NSArray *)restaurants {
+- (void)injectRestaurants:(NSArray *)restaurants {
     _restaurants = restaurants;
 }
 
 
-- (RACSignal *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
-    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-        for (Restaurant *r in _restaurants) {
-            [subscriber sendNext:r];
-        }
-        [subscriber sendCompleted];
-        return nil;
-    }];
+- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+    return @[_restaurants].rac_sequence.signal;
 }
 
 - (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {

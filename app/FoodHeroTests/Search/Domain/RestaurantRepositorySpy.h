@@ -8,5 +8,5 @@
 
 
 @interface RestaurantRepositorySpy : NSObject<IRestaurantRepository>
-@property (nonatomic, readonly) NSString* getPlacesByCuisineOrderedByDistanceParameter;
+@property (nonatomic, readonly) NSString* getPlacesByCuisineParameter;
 @end

@@ -37,7 +37,7 @@
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:nil]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:[CLLocation new]]];
 
     [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }

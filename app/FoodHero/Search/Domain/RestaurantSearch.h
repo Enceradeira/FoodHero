@@ -12,7 +12,7 @@
 #import "IRestaurantRepository.h"
 
 @interface RestaurantSearch : NSObject
-- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository;
+- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository locationService:(LocationService *)locationService;
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation;
 @end

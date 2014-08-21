@@ -11,8 +11,8 @@
 @implementation RestaurantRepositorySpy {
 
 }
-- (RACSignal *)getPlacesByCuisineOrderedByDistance:(NSString *)cuisine {
-    _getPlacesByCuisineOrderedByDistanceParameter = cuisine;
+- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+    _getPlacesByCuisineParameter = cuisine;
     return [RACSignal empty];
 }
 
