@@ -68,6 +68,7 @@
 		235254E6D7F6452508738C09 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352588D56941DE6F99F60F9 /* Conversation.m */; };
 		235255038014A23FFA443A72 /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BC9C1AFFC0C50463EE5 /* LocationService.m */; };
 		2352551B6508A39762752B05 /* ConversationViewStateListOrTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250072299A349297C76F8 /* ConversationViewStateListOrTextInput.m */; };
+		23525528559EF4B94A234D67 /* RestaurantRepositoryIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525272F032D9A505401F22 /* RestaurantRepositoryIntegrationTests.m */; };
 		2352554492166004F509F994 /* FHSuggestionOrSuggestionFollowUpState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525605D7BB7343808F6E85 /* FHSuggestionOrSuggestionFollowUpState.m */; };
 		2352555CFC0BBB90C5B25ED1 /* FHSuggestionAsFollowUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EE73A524293940DB4C0 /* FHSuggestionAsFollowUp.m */; };
 		235255802436F587EBE3A98E /* FHSuggestionState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AD26C4CFC0312B4188A /* FHSuggestionState.m */; };
@@ -306,6 +307,7 @@
 		2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
 		2352525D6295E1EEFA2A0F40 /* RepeatAlways.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeatAlways.h; sourceTree = "<group>"; };
 		2352525F00EC9F617006BCED /* HCIsExceptionOfType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCIsExceptionOfType.m; sourceTree = "<group>"; };
+		23525272F032D9A505401F22 /* RestaurantRepositoryIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRepositoryIntegrationTests.m; sourceTree = "<group>"; };
 		2352527A90F0793B63CB43D9 /* TokenConsumed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenConsumed.h; sourceTree = "<group>"; };
 		2352527F46A4FF90FC8AC407 /* FHOpeningQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHOpeningQuestion.m; sourceTree = "<group>"; };
 		2352528093801CFFC74F822D /* ReturnsAlwaysTokenNotConsumedSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnsAlwaysTokenNotConsumedSymbol.h; sourceTree = "<group>"; };
@@ -1147,6 +1149,7 @@
 				23525E3933012E4FEEBF257E /* RestaurantRepositorySpy.m */,
 				23525EE563153330FF1B3852 /* RestaurantRepositorySpy.h */,
 				2352551E0045E27A3A04F3B4 /* PlaceEvaluationTests.m */,
+				23525272F032D9A505401F22 /* RestaurantRepositoryIntegrationTests.m */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1718,6 +1721,7 @@
 				23525AB7B1E3A3004973BEBF /* RestaurantRepositoryStub.m in Sources */,
 				2352561392F8A23CDEA237BA /* RestaurantRepositorySpy.m in Sources */,
 				235253AF3E682DEE15F23D36 /* PlaceEvaluationTests.m in Sources */,
+				23525528559EF4B94A234D67 /* RestaurantRepositoryIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

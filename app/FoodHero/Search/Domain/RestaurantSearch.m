@@ -63,13 +63,20 @@
     return [[_locationService.currentLocation take:1] map:^(CLLocation *location) {
         __block double maxScore = 0;
 
+        NSArray *sortedPlaces = [places linq_sort:^(Place * p){
+            return @([location distanceFromLocation:p.location]);
+        }];
+
+
         // determine distance and score
-        NSArray *placesAndScore = [places linq_select:^(Place *p) {
+        NSArray *placesAndScore = [sortedPlaces linq_select:^(Place *p) {
             double distance = [location distanceFromLocation:p.location];
-            double score = [preferences scorePlace:p distance:distance];
+            Restaurant *r = nil; // [_repository getRestaurantFromPlace:p];
+            double score = [preferences scorePlace:p distance:distance restaurant:r];
             if (score > maxScore) {
                 maxScore = score;
             }
+
             return @[p, @(score), @(distance)];
         }];
 
@@ -87,7 +94,11 @@
 
         // choose nearest
         Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
-        return [_repository getRestaurantFromPlace:bestPlace];
+        Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+
+        NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
+
+        return restaurant;
     }];
 }
 @end

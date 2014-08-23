@@ -4,9 +4,21 @@
 //
 
 #import "RestaurantSearchServiceSpy.h"
+#import "RestaurantBuilder.h"
 
 
-@implementation RestaurantSearchServiceSpy
+@implementation RestaurantSearchServiceSpy {
+    NSUInteger _nrCallsToGetRestaurantForPlace;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _nrCallsToGetRestaurantForPlace = 0;
+    }
+    return self;
+}
+
 - (bool)findPlacesWasCalledWithLocation:(CLLocationCoordinate2D)location {
     return self.findPlacesParameter != nil && self.findPlacesParameter.coordinate.latitude == location.latitude && self.findPlacesParameter.coordinate.longitude == location.longitude;
 }
@@ -17,8 +29,12 @@
 }
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
-    return nil;
+    _nrCallsToGetRestaurantForPlace++;
+    return [[RestaurantBuilder alloc] build];
 }
 
+- (NSUInteger)nrCallsToGetRestaurantForPlace {
+    return _nrCallsToGetRestaurantForPlace;
+}
 
 @end

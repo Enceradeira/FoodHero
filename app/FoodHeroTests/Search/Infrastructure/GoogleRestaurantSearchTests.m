@@ -10,6 +10,8 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "GoogleRestaurantSearch.h"
+#import "RestaurantRepository.h"
+#import "CLLocationManagerProxyStub.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -104,6 +106,8 @@
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
 }
+
+
 
 - (void)test_studyPrice {
     return;

@@ -16,6 +16,7 @@
 #import "RestaurantRepository.h"
 #import "RestaurantRepositoryTests.h"
 #import "StubAssembly.h"
+#import "RestaurantBuilder.h"
 
 @interface RestaurantRepositoryWithSpyTests : RestaurantRepositoryTests
 
@@ -66,6 +67,14 @@
     [self getPlacesByCuisine:@"Asian"];
 
     assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(equalToBool(YES)));
+}
+
+- (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {
+    Restaurant *place = [[RestaurantBuilder alloc] build];
+    assertThat([_repository getRestaurantFromPlace:place], is(notNilValue()));
+    assertThat([_repository getRestaurantFromPlace:place], is(notNilValue()));
+
+    assertThatUnsignedInt(_searchService.nrCallsToGetRestaurantForPlace, is(equalTo(@(1))));
 }
 
 @end

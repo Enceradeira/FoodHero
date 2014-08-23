@@ -8,7 +8,6 @@
 #import "RadiusCalculator.h"
 #import "SearchProfil.h"
 #import "GoogleRestaurantSearch.h"
-#import "DesignByContractException.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -16,12 +15,14 @@
     CLLocation *_locationAtMomentOfCaching;
     NSString *_cuisineAtMomentOfCaching;
     NSArray *_placesCached;
+    NSMutableDictionary *_restaurantsCached;
 }
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
         _locationService = locationService;
+        _restaurantsCached = [NSMutableDictionary new];
     }
     return self;
 }
@@ -54,9 +55,9 @@
         return [_searchService findPlaces:parameter];
     }];
 
-    // Fetch per price Levels
+   // Fetch per price Levels 1-4 (0 will be reconstructed below)
     NSMutableArray *places = [NSMutableArray new];
-    for (NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN; priceLevel <= GOOGLE_PRICE_LEVEL_MAX; priceLevel++) {
+    for (NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN + 1; priceLevel <= GOOGLE_PRICE_LEVEL_MAX; priceLevel++) {
         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
         parameter.coordinate = currentLocation.coordinate;
         parameter.radius = optimalRadius;
@@ -66,19 +67,35 @@
         NSArray *placesOfLevel = [[_searchService findPlaces:parameter] linq_select:^(GooglePlace *p) {
             return [Place create:p.placeId location:p.location priceLevel:priceLevel];
         }];
-        [places addObjectsFromArray:placesOfLevel];
+
+        NSArray *specificEnoughPlaces = [placesOfLevel linq_where:^(Place *place) {
+            return [placesOfAllPriceLevels linq_any:^(Place *specificPlace) {
+                return [place.placeId isEqualToString:specificPlace.placeId];
+            }];
+        }];
+
+        [places addObjectsFromArray:specificEnoughPlaces];
     }
 
-    if (places.count < placesOfAllPriceLevels.count) {
-        @throw [DesignByContractException createWithReason:[
-                NSString stringWithFormat:@"number of places (%u) per priceLevel were fewer than over all pricelevels (%u)", places.count, placesOfAllPriceLevels.count]];
-    }
+    // all that were not level 1-4 are level 0 (we get wrong results if we query level 0 directly??)
+    NSArray *placesOfLevel0 = [[placesOfAllPriceLevels linq_where:^(Place *p1) {
+        return (BOOL) ![places linq_any:^(Place *p2) {
+            return [p1.placeId isEqualToString:p2.placeId];
+        }];
+    }] linq_select:^(GooglePlace *p) {
+        return [Place create:p.placeId location:p.location priceLevel:GOOGLE_PRICE_LEVEL_MIN];
+    }];
 
-
+    [places addObjectsFromArray:placesOfLevel0];
     return places;
 }
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place {
-    return [_searchService getRestaurantForPlace:place];
+    Restaurant *restaurant = _restaurantsCached[place.placeId];
+    if (restaurant == nil) {
+        restaurant = [_searchService getRestaurantForPlace:place];
+        _restaurantsCached[place.placeId] = restaurant;
+    }
+    return restaurant;
 }
 @end

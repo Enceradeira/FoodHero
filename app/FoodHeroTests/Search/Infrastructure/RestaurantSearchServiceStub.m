@@ -33,7 +33,7 @@
 
 - (void)injectFindResults:(NSArray *)restaurants {
     [self reset];
-    _searchResults = @[[RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:GOOGLE_PRICE_LEVEL_MIN restaurants:restaurants]];
+    _searchResults = @[[RestaurantsInRadiusAndPriceRange restaurantsInRadius:0 priceLevel:GOOGLE_PRICE_LEVEL_MIN restaurants:restaurants]];
 }
 
 - (void)injectFindResultsWithRadiusAndPriceRange:(NSArray *)restaurantsAtRadius {
@@ -52,11 +52,11 @@
         return [NSArray new];
     }
     if (_searchResults != nil) {
-        NSArray *result = [[[_searchResults linq_where:^BOOL(RestaurantsInRadiusAndPriceRange *r) {
-            return r.radius >= searchRadius && r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel;
-        }] linq_select:^(RestaurantsInRadiusAndPriceRange *r) {
+        NSArray *result = [[_searchResults linq_where:^BOOL(RestaurantsInRadiusAndPriceRange *r) {
+            return r.radius <= searchRadius && r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel;
+        }] linq_selectMany:^(RestaurantsInRadiusAndPriceRange *r) {
             return r.restaurants;
-        }] linq_firstOrNil];
+        }];
         return result == nil ? @[] : result;
     }
     else {

@@ -51,7 +51,6 @@
     return restaurants;
 }
 
-
 - (void)test_getPlacesByCuisine_ShouldReturnAllPlacesFoundForGivenCuisine {
     Restaurant *restaurant = [[RestaurantBuilder alloc] build];
     [_searchService injectFindResults:@[restaurant]];
@@ -125,9 +124,9 @@
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:expensive] build];
 
     [_searchService injectFindResultsWithRadiusAndPriceRange:@[
-            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:cheap restaurants:@[cheapRestaurant]],
-            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:medium restaurants:@[mediumPricedRestaurant]],
-            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:cheap restaurants:@[cheapRestaurant]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:medium restaurants:@[mediumPricedRestaurant]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
 
     NSArray *places = [self getPlacesByCuisine:@"Asian"];
     assertThat(places, hasCountOf(3));

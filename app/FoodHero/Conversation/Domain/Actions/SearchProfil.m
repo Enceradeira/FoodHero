@@ -5,7 +5,6 @@
 
 #import "SearchProfil.h"
 #import "DesignByContractException.h"
-#include "DistanceRange.h"
 
 const double MAX_NR_DESCRETE_RANGES = 10;
 
@@ -27,30 +26,54 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     return self;
 }
 
-- (double)scorePlace:(Place *)place distance:(double)distance {
+- (double)scorePlace:(Place *)place distance:(double)distance restaurant:(Restaurant *)restaurant {
     if (distance < 0) {
         @throw [DesignByContractException createWithReason:@"distance can't be less than 0"];
     }
 
-    NSUInteger nrPriceLevels = GOOGLE_PRICE_LEVEL_MAX - GOOGLE_PRICE_LEVEL_MIN + 1;
     PriceRange *priceRange = _priceRange;
 
     // score for below price-level-minimum
     double nrIncrementsBelowMinPrice = [self getNrIncrementsBelowMinPrice:place priceRange:priceRange];
-    double normalizedNrIncrementsBelowMinPrice = [self normalizeNrIncrements:nrIncrementsBelowMinPrice usefulMaxNrRanges:nrPriceLevels];
-    double scoreForDiffMinPrice = 1 / (1 + normalizedNrIncrementsBelowMinPrice);
+    double scoreForDiffMinPrice = [self getScoreForPriceLevelDifference:nrIncrementsBelowMinPrice];
 
     // score for over price-level-maximum
     double nrIncrementsAboveMaxPrice = [self getNrIncrementsAboveMaxPrice:place priceRange:priceRange];
-    double normalizedNrIncrementsAboveMaxPrice = [self normalizeNrIncrements:nrIncrementsAboveMaxPrice usefulMaxNrRanges:nrPriceLevels];
-    double scoreForDiffMaxPrice = 1 / (1 + normalizedNrIncrementsAboveMaxPrice);
+    double scoreForDiffMaxPrice = [self getScoreForPriceLevelDifference:nrIncrementsAboveMaxPrice];
 
     // score for over max-distance
     double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
     double normalizedNrIncrementsAboveMaxDistance = [self normalizeNrIncrements:nrIncrementsAboveMaxDistance usefulMaxNrRanges:MAX_NR_DESCRETE_RANGES];
-    double scoreForDiffMaxDistance = 1 / (1 + normalizedNrIncrementsAboveMaxDistance);
+    double scoreForDiffMaxDistance = 1;
+    if (normalizedNrIncrementsAboveMaxDistance != 0) {
+        double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
+        scoreForDiffMaxDistance = scaleFactor / (1 + normalizedNrIncrementsAboveMaxDistance);
+    }
 
-    return scoreForDiffMaxDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice;
+    double score = scoreForDiffMaxDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice;
+    NSLog([NSString stringWithFormat:@"Score: %f Distance: %f Price:%u Name: %@ (%@)", score, distance, place.priceLevel, restaurant.name, restaurant.placeId]);
+    NSLog([NSString stringWithFormat:@"\t\t\tMaxDistance    : %f MinPrice    : %u MaxPrice:     %u", _distanceRange.max, _priceRange.min, _priceRange.max]);
+    NSLog([NSString stringWithFormat:@"\t\t\tDiffMaxDistance: %f DiffMinPrice: %f DiffMaxPrice: %f", scoreForDiffMaxDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice]);
+
+    return score;
+}
+
+- (double)getScoreForPriceLevelDifference:(double)nrIncrements {
+    if (nrIncrements == 0) {
+        return 1;
+    }
+    else if (nrIncrements == 1) {
+        return 0.8;
+    }
+    else if (nrIncrements == 2) {
+        return 0.5;
+    }
+    else if (nrIncrements == 3) {
+        return 0.1;
+    }
+    else {
+        return 0.05;
+    }
 }
 
 - (double)normalizeNrIncrements:(double)increments usefulMaxNrRanges:(double)usefulMaxNrRanges {

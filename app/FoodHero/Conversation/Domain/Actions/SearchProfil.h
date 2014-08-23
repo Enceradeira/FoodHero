@@ -6,8 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "PriceRange.h"
 #import "Place.h"
-
-@class DistanceRange;
+#import "DistanceRange.h"
+#import "Restaurant.h"
 
 @interface SearchProfil : NSObject
 @property(nonatomic, readonly) NSString *cuisine;
@@ -18,5 +18,5 @@
 
 - (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance;
 
-- (double)scorePlace:(Place *)place distance:(double)distance;
+- (double)scorePlace:(Place *)place distance:(double)distance restaurant:(Restaurant *)restaurant;
 @end
