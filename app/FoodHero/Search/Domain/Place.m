@@ -9,16 +9,16 @@
 @implementation Place {
 
 }
-- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel {
-    self = [super initWithPlaceId:placeId location:location];
+- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(NSUInteger)cuisineRelevance {
+    self = [super initWithPlaceId:placeId location:location cuisineRelevance:cuisineRelevance];
     if (self) {
         _priceLevel = priceLevel;
     }
     return self;
 }
 
-+ (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel {
-    return [[Place alloc] initWithPlaceId:placeId location:location priceLevel:priceLevel];
++ (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(NSUInteger)cuisineRelevance {
+    return [[Place alloc] initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
 }
 
 

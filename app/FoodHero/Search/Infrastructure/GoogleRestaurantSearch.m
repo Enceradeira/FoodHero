@@ -42,13 +42,16 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
     NSMutableArray *restaurants = [NSMutableArray new];
     NSArray *places = json[@"results"];
+    NSUInteger relevance = places.count;
     for (NSDictionary *place in places) {
         NSDictionary *geometryDic = [place valueForKey:@"geometry"];
         NSDictionary *locationDic = [geometryDic valueForKey:@"location"];
 
         CLLocation *location = [[CLLocation alloc] initWithLatitude:[[locationDic valueForKey:@"lat"] doubleValue]
                                                           longitude:[[locationDic valueForKey:@"lng"] doubleValue]];
-        [restaurants addObject:[GooglePlace createWithPlaceId:[place valueForKey:@"place_id"] location:location]];
+        [restaurants addObject:[GooglePlace createWithPlaceId:[place valueForKey:@"place_id"]
+                                                     location:location
+                                             cuisineRelevance:relevance--]];
     }
     return restaurants;
 }
@@ -69,13 +72,13 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     }
 
     NSArray *result = json[@"result"];
-    return [Restaurant createWithName:
-                    [result valueForKey:@"name"]
+    return [Restaurant createWithName:[result valueForKey:@"name"]
                              vicinity:[result valueForKey:@"vicinity"]
                                 types:[result valueForKey:@"types"]
                               placeId:[result valueForKey:@"place_id"]
                              location:place.location
-                           priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]];
+                           priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]
+                     cuisineRelevance:place.cuisineRelevance];
 
 }
 

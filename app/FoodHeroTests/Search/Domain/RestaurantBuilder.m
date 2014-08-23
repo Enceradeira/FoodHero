@@ -13,6 +13,7 @@
     CLLocation *_location;
     NSUInteger _priceLevel;
     BOOL _priceLevelSet;
+    NSUInteger _cuisineRelevance;
 }
 
 - (Restaurant *)build {
@@ -21,7 +22,8 @@
     NSString *vicinity = _vicinity == nil ? @"18 Cathedral Street, Norwich" : _vicinity;
     CLLocation *location = _location == nil ? [[CLLocation alloc] initWithLatitude:45.88879 longitude:1.55668] : _location;
     NSUInteger priceLevel = _priceLevelSet ? _priceLevel : 2;
-    return [Restaurant createWithName:name vicinity:vicinity types:@[@"restaurant"] placeId:[[NSUUID UUID] UUIDString] location:location priceLevel:priceLevel];
+    NSUInteger cuisineRelevance = _cuisineRelevance == 0 ? 89 : _cuisineRelevance;
+    return [Restaurant createWithName:name vicinity:vicinity types:@[@"restaurant"] placeId:[[NSUUID UUID] UUIDString] location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
 }
 
 - (RestaurantBuilder *)withName:(NSString *)name {
@@ -44,4 +46,10 @@
     _priceLevelSet = YES;
     return self;
 }
+
+- (RestaurantBuilder *)withCuisineRelevance:(NSUInteger)cuisineRelevance {
+    _cuisineRelevance = cuisineRelevance;
+    return self;
+}
+
 @end

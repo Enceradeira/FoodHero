@@ -138,6 +138,36 @@
     assertThat(priceLevels, hasItem(@(expensive)));
 }
 
+- (void)test_getPlacesByCuisine_ShouldInitializePlaceWithCuisineRelevance {
+    NSUInteger cheap = GOOGLE_PRICE_LEVEL_MIN;
+    NSUInteger medium = GOOGLE_PRICE_LEVEL_MAX / 2;
+    NSUInteger expensive = GOOGLE_PRICE_LEVEL_MAX;
+    Restaurant *cheapRestaurant = [[[[RestaurantBuilder alloc] withCuisineRelevance:3] withPriceLevel:cheap] build];
+    Restaurant *mediumPricedRestaurant = [[[[RestaurantBuilder alloc] withCuisineRelevance:1] withPriceLevel:medium] build];
+    Restaurant *expensiveRestaurant = [[[[RestaurantBuilder alloc] withCuisineRelevance:2] withPriceLevel:expensive] build];
+
+    [_searchService injectFindResultsWithRadiusAndPriceRange:@[
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:cheap restaurants:@[cheapRestaurant]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:medium restaurants:@[mediumPricedRestaurant]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
+
+    NSArray *places = [self getPlacesByCuisine:@"Asian"];
+
+    Place *foundCheapPlace = [[places linq_where:^(Place *p) {
+        return [p.placeId isEqualToString:cheapRestaurant.placeId];
+    }] linq_firstOrNil];
+    Place *foundMediumPricedRestaurant = [[places linq_where:^(Place *p) {
+        return [p.placeId isEqualToString:mediumPricedRestaurant.placeId];
+    }] linq_firstOrNil];
+    Place *foundExpensiveRestaurant = [[places linq_where:^(Place *p) {
+        return [p.placeId isEqualToString:expensiveRestaurant.placeId];
+    }] linq_firstOrNil];
+
+    assertThatUnsignedInt(foundCheapPlace.cuisineRelevance, is(equalTo(@(3))));
+    assertThatUnsignedInt(foundMediumPricedRestaurant.cuisineRelevance, is(equalTo(@(1))));
+    assertThatUnsignedInt(foundExpensiveRestaurant.cuisineRelevance, is(equalTo(@(2))));
+}
+
 - (void)test_getPlacesByCuisine_ShouldCompleteAfterAllPlacesHaveBeenReturned {
     __block Place *place;
     __block BOOL isCompleted;

@@ -8,7 +8,6 @@
 #import "DesignByContractException.h"
 #import "RestaurantBuilder.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
-#import "GoogleRestaurantSearch.h"
 #import "PriceRange.h"
 
 @implementation RestaurantSearchServiceStub {
@@ -42,8 +41,9 @@
 }
 
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
-    return [[self getRestaurantsByRadius:parameter.radius minPriceLevel:parameter.minPriceLevel maxPricelLevel:parameter.maxPriceLevel] linq_select:^(Restaurant *r) {
-        return [GooglePlace createWithPlaceId:r.placeId location:r.location];
+    NSArray *result = [self getRestaurantsByRadius:parameter.radius minPriceLevel:parameter.minPriceLevel maxPricelLevel:parameter.maxPriceLevel];
+    return [result linq_select:^(Restaurant *r) {
+        return [GooglePlace createWithPlaceId:r.placeId location:r.location cuisineRelevance:r.cuisineRelevance];
     }];
 }
 
@@ -65,7 +65,7 @@
                     [[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] build]];
         }
         return [_ownSearchResults linq_where:^(Restaurant *r) {
-            return (BOOL)(r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel);
+            return (BOOL) (r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel);
         }];
     }
 }

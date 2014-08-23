@@ -7,8 +7,8 @@
 
 
 @implementation Restaurant
-- (id)initWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel {
-    self = [super initWithPlaceId:placeId location:location priceLevel:priceLevel];
+- (id)initWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(NSUInteger)cuisineRelevance {
+    self = [super initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
     if (self != nil) {
         _name = name;
         _vicinity = vicinity;
@@ -17,7 +17,7 @@
     return self;
 }
 
-+ (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel {
-    return [[Restaurant alloc] initWithName:name vicinity:vicinity types:types placeId:placeId location:location priceLevel:priceLevel];
++ (Restaurant *)createWithName:(NSString *)name vicinity:(NSString *)vicinity types:(NSArray *)types placeId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(NSUInteger)cuisineRelevance {
+    return [[Restaurant alloc] initWithName:name vicinity:vicinity types:types placeId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
 }
 @end

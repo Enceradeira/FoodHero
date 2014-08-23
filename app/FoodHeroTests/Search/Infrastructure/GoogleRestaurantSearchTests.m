@@ -63,6 +63,11 @@
     NSUInteger indexOfMaidsHead = [self findPlaceById:_placeIdMaidsHeadNorwich result:places];
 
     assertThatInt(indexOfLibraryGrill, is(lessThan(@(indexOfMaidsHead))));
+    NSUInteger relevance = places.count;
+    for( GooglePlace *p in places){
+        assertThatUnsignedInt(p.cuisineRelevance, is(equalTo(@(relevance))));
+        relevance--;
+    }
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
@@ -96,7 +101,7 @@
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
-    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new]];
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
 
     Restaurant *restaurant = [_service getRestaurantForPlace:place];
 
@@ -105,6 +110,7 @@
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
+    assertThatUnsignedInt(restaurant.cuisineRelevance, is(equalTo(@(34))));
 }
 
 

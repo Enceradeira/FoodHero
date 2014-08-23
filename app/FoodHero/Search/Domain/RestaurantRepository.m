@@ -65,7 +65,7 @@
         parameter.minPriceLevel = priceLevel;
         parameter.maxPriceLevel = priceLevel;
         NSArray *placesOfLevel = [[_searchService findPlaces:parameter] linq_select:^(GooglePlace *p) {
-            return [Place create:p.placeId location:p.location priceLevel:priceLevel];
+            return [Place create:p.placeId location:p.location priceLevel:priceLevel cuisineRelevance:p.cuisineRelevance];
         }];
 
         NSArray *specificEnoughPlaces = [placesOfLevel linq_where:^(Place *place) {
@@ -83,7 +83,7 @@
             return [p1.placeId isEqualToString:p2.placeId];
         }];
     }] linq_select:^(GooglePlace *p) {
-        return [Place create:p.placeId location:p.location priceLevel:GOOGLE_PRICE_LEVEL_MIN];
+        return [Place create:p.placeId location:p.location priceLevel:GOOGLE_PRICE_LEVEL_MIN cuisineRelevance:p.cuisineRelevance];
     }];
 
     [places addObjectsFromArray:placesOfLevel0];
