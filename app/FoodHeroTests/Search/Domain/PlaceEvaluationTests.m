@@ -193,4 +193,8 @@
     }
 }
 
+-(void)test_scorePlace_ShouldReturnLowerScore_WhenPlaceIsLessRelevant{
+
+}
+
 @end

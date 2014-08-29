@@ -55,7 +55,13 @@
         return [_searchService findPlaces:parameter];
     }];
 
-   // Fetch per price Levels 1-4 (0 will be reconstructed below)
+    GooglePlace *(^getFromPlacesOfAllPriceLevels)(NSString *) = ^(NSString *placeId) {
+        return [[placesOfAllPriceLevels linq_where:^(GooglePlace *p2) {
+            return [p2.placeId isEqualToString:placeId];
+        }] linq_firstOrNil];
+    };
+
+    // Fetch per price Levels 1-4 (0 will be reconstructed below)
     NSMutableArray *places = [NSMutableArray new];
     for (NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN + 1; priceLevel <= GOOGLE_PRICE_LEVEL_MAX; priceLevel++) {
         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
@@ -64,17 +70,20 @@
         parameter.cuisine = cuisine;
         parameter.minPriceLevel = priceLevel;
         parameter.maxPriceLevel = priceLevel;
-        NSArray *placesOfLevel = [[_searchService findPlaces:parameter] linq_select:^(GooglePlace *p) {
-            return [Place create:p.placeId location:p.location priceLevel:priceLevel cuisineRelevance:p.cuisineRelevance];
-        }];
 
-        NSArray *specificEnoughPlaces = [placesOfLevel linq_where:^(Place *place) {
-            return [placesOfAllPriceLevels linq_any:^(Place *specificPlace) {
-                return [place.placeId isEqualToString:specificPlace.placeId];
-            }];
-        }];
+        NSArray *placesOfLevel = [[[[_searchService findPlaces:parameter]
+                linq_select:^(GooglePlace *p) {
+                    return getFromPlacesOfAllPriceLevels(p.placeId);
+                }]
+                linq_where:^(GooglePlace *p) {
+                    return (BOOL)![p isKindOfClass:[NSNull class]];
+                }]
+                linq_select:^(GooglePlace *p) {
+                    return [Place create:p.placeId location:p.location priceLevel:priceLevel cuisineRelevance:p.cuisineRelevance];
+                }];
 
-        [places addObjectsFromArray:specificEnoughPlaces];
+
+        [places addObjectsFromArray:placesOfLevel];
     }
 
     // all that were not level 1-4 are level 0 (we get wrong results if we query level 0 directly??)

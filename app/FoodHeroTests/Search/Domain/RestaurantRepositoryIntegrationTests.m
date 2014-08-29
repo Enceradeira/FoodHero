@@ -1,4 +1,4 @@
- //
+//
 //  RestaurantRepositoryTests.m
 //  FoodHero
 //
@@ -61,10 +61,27 @@
     assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 3;}],is(equalToBool(YES)));
     assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 4;}],is(equalToBool(YES)));
 
+    // cuisineRelevance should be unique over all restaurants
+    NSMutableArray *seenRelevances = [NSMutableArray new];
+    for(Place *p in places){
+        NSNumber *relevance = @(p.cuisineRelevance);
+        bool isUnique = ![seenRelevances linq_any:^(NSNumber *otherRelevance){
+            return (BOOL) [relevance isEqualToNumber: otherRelevance];
+        }];
+        assertThatBool(isUnique, is(equalToBool(YES)));
+        [seenRelevances addObject:relevance];
+    }
+
     // priceLevels between Places and Restaurant must be the same
     for(Place *p in places){
         Restaurant *r = [_repository getRestaurantFromPlace:p];
         assertThatUnsignedInt(r.priceLevel, is(equalTo(@(p.priceLevel))));
+    }
+
+    // cuisineRelevance between Places and Restaurant must be the same
+    for(Place *p in places){
+        Restaurant *r = [_repository getRestaurantFromPlace:p];
+        assertThatDouble(r.cuisineRelevance, is(equalTo(@(p.cuisineRelevance))));
     }
 
 }
