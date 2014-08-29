@@ -43,11 +43,10 @@ const double MAX_NR_DESCRETE_RANGES = 10;
 
     // score for over max-distance
     double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
-    double normalizedNrIncrementsAboveMaxDistance = [self normalizeNrIncrements:nrIncrementsAboveMaxDistance usefulMaxNrRanges:MAX_NR_DESCRETE_RANGES];
     double scoreForDiffMaxDistance = 1;
-    if (normalizedNrIncrementsAboveMaxDistance != 0) {
+    if (nrIncrementsAboveMaxDistance != 0) {
         double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
-        scoreForDiffMaxDistance = scaleFactor / (1 + normalizedNrIncrementsAboveMaxDistance);
+        scoreForDiffMaxDistance = scaleFactor / (1 + nrIncrementsAboveMaxDistance);
     }
     // score for cuisineRelevance
     double scoreForCuisineRelevance = place.cuisineRelevance;
@@ -76,14 +75,6 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     else {
         return 0.05;
     }
-}
-
-- (double)normalizeNrIncrements:(double)increments usefulMaxNrRanges:(double)usefulMaxNrRanges {
-    if (increments > usefulMaxNrRanges) {
-        return MAX_NR_DESCRETE_RANGES;
-    }
-    double factor = (1 / usefulMaxNrRanges) * increments;  // factor 0 .. 1
-    return MAX_NR_DESCRETE_RANGES * factor;
 }
 
 - (double)getNrIncrementsAboveMaxDistance:(double)distance maxDistance:(double)maxDistance {
