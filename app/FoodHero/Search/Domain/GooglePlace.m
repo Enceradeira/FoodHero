@@ -9,11 +9,11 @@
 @implementation GooglePlace {
 
 }
-+ (instancetype)createWithPlaceId:(NSString *)placeId location:(CLLocation *)location cuisineRelevance:(NSUInteger)cuisineRelevance {
++ (instancetype)createWithPlaceId:(NSString *)placeId location:(CLLocation *)location cuisineRelevance:(double)cuisineRelevance {
     return [[GooglePlace alloc] initWithPlaceId:placeId location:location cuisineRelevance:cuisineRelevance];
 }
 
-- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location cuisineRelevance:(NSUInteger)cuisineRelevance {
+- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location cuisineRelevance:(double)cuisineRelevance {
     self = [super init];
     if (self != nil) {
         _placeId = placeId;

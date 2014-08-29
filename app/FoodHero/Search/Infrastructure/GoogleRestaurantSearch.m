@@ -42,16 +42,23 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
     NSMutableArray *restaurants = [NSMutableArray new];
     NSArray *places = json[@"results"];
-    NSUInteger relevance = places.count;
-    for (NSDictionary *place in places) {
+
+    // relevance(place) = n*index(place) + 1
+    // n = (relevance(place) - 1) / index(place)
+    double n = (double)(0-1) / (places.count - 1);
+
+    for(NSUInteger i=0; i<places.count; i++){
+        NSDictionary *place = places[i];
+
         NSDictionary *geometryDic = [place valueForKey:@"geometry"];
         NSDictionary *locationDic = [geometryDic valueForKey:@"location"];
+        double relevance = (n * i) + 1;
 
         CLLocation *location = [[CLLocation alloc] initWithLatitude:[[locationDic valueForKey:@"lat"] doubleValue]
                                                           longitude:[[locationDic valueForKey:@"lng"] doubleValue]];
         [restaurants addObject:[GooglePlace createWithPlaceId:[place valueForKey:@"place_id"]
                                                      location:location
-                                             cuisineRelevance:relevance--]];
+                                             cuisineRelevance:relevance]];
     }
     return restaurants;
 }

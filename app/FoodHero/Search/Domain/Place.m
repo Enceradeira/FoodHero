@@ -9,7 +9,7 @@
 @implementation Place {
 
 }
-- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(NSUInteger)cuisineRelevance {
+- (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(double)cuisineRelevance {
     self = [super initWithPlaceId:placeId location:location cuisineRelevance:cuisineRelevance];
     if (self) {
         _priceLevel = priceLevel;
@@ -17,7 +17,7 @@
     return self;
 }
 
-+ (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(NSUInteger)cuisineRelevance {
++ (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(double)cuisineRelevance {
     return [[Place alloc] initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
 }
 
