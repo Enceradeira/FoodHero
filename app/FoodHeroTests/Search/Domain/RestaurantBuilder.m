@@ -13,7 +13,7 @@
     CLLocation *_location;
     NSUInteger _priceLevel;
     BOOL _priceLevelSet;
-    NSUInteger _cuisineRelevance;
+    double _cuisineRelevance;
     BOOL _cuisineRelevanceSet;
 }
 
@@ -48,7 +48,7 @@
     return self;
 }
 
-- (RestaurantBuilder *)withCuisineRelevance:(NSUInteger)cuisineRelevance {
+- (RestaurantBuilder *)withCuisineRelevance:(double)cuisineRelevance {
     _cuisineRelevance = cuisineRelevance;
     _cuisineRelevanceSet = YES;
     return self;

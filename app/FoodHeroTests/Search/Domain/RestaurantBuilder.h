@@ -17,5 +17,5 @@
 
 - (RestaurantBuilder *)withPriceLevel:(NSUInteger)priceLevel;
 
-- (RestaurantBuilder *)withCuisineRelevance:(NSUInteger)cuisineRelevance;
+- (RestaurantBuilder *)withCuisineRelevance:(double)cuisineRelevance;
 @end

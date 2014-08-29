@@ -49,11 +49,13 @@ const double MAX_NR_DESCRETE_RANGES = 10;
         double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
         scoreForDiffMaxDistance = scaleFactor / (1 + normalizedNrIncrementsAboveMaxDistance);
     }
+    // score for cuisineRelevance
+    double scoreForCuisineRelevance = place.cuisineRelevance;
 
-    double score = scoreForDiffMaxDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice;
+    double score = scoreForDiffMaxDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice * scoreForCuisineRelevance;
     NSLog([NSString stringWithFormat:@"Score: %f Distance: %f Price:%u Name: %@ (%@)", score, distance, place.priceLevel, restaurant.name, restaurant.placeId]);
     NSLog([NSString stringWithFormat:@"\t\t\tMaxDistance    : %f MinPrice    : %u MaxPrice:     %u", _distanceRange.max, _priceRange.min, _priceRange.max]);
-    NSLog([NSString stringWithFormat:@"\t\t\tDiffMaxDistance: %f DiffMinPrice: %f DiffMaxPrice: %f", scoreForDiffMaxDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice]);
+    NSLog([NSString stringWithFormat:@"\t\t\tDiffMaxDistance: %f DiffMinPrice: %f DiffMaxPrice: %f CuisineRelevance: %f", scoreForDiffMaxDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice, scoreForCuisineRelevance]);
 
     return score;
 }

@@ -15,6 +15,7 @@
 
 @interface PlaceEvaluationTests : XCTestCase
 
+- (id)placeWithCuisineRelevance:(double)cuisineRelevance;
 @end
 
 @implementation PlaceEvaluationTests {
@@ -27,13 +28,16 @@
 }
 
 - (Restaurant *)placeWithPriceLevel:(NSUInteger)priceLevel {
-    return [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
+    return [[[[RestaurantBuilder alloc] withPriceLevel:priceLevel] withCuisineRelevance:1] build];
+}
+
+- (Restaurant *)placeWithCuisineRelevance:(double)cuisineRelevance {
+    return [[[RestaurantBuilder alloc] withCuisineRelevance:cuisineRelevance] build];
 }
 
 - (SearchProfil *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax {
     return [self preferenceWithPriceMin:priceMin priceMax:priceMax distanceMax:DBL_MAX];
 }
-
 
 - (SearchProfil *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax distanceMax:(double)distanceMax {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
@@ -45,7 +49,7 @@
 }
 
 - (void)test_scorePlace_ShouldBeMaxScore_WhenCurrentLocationEqualRestaurantLocationAndPriceLevelMatches {
-    Restaurant *place = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
+    Restaurant *place = [[[[RestaurantBuilder alloc] withPriceLevel:3] withCuisineRelevance:1] build];
 
     assertThatDouble([_defaultPreference scorePlace:place distance:0 restaurant:nil], is(equalTo(@(1))));
 }
@@ -193,8 +197,14 @@
     }
 }
 
--(void)test_scorePlace_ShouldReturnLowerScore_WhenPlaceIsLessRelevant{
+- (void)test_scorePlace_ShouldReturnLowerScore_WhenPlaceIsLessRelevant {
+    SearchProfil *preference = [self preferenceWithPriceMin:4 priceMax:4];
 
+    double score1 = [preference scorePlace:[self placeWithCuisineRelevance:0.5] distance:400 restaurant:nil];
+    double score2 = [preference scorePlace:[self placeWithCuisineRelevance:0.8] distance:400 restaurant:nil];
+
+    assertThatDouble(score1, is(lessThan(@(score2))));
 }
+
 
 @end
