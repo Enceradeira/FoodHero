@@ -49,7 +49,7 @@
 		23525322E2518B549FE42B1C /* FHSuggestionWithConfirmationIfInNewPreferredRangeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254FB9FFF82762EB9B03E /* FHSuggestionWithConfirmationIfInNewPreferredRangeState.m */; };
 		2352533521B06A1D3868FC20 /* RestaurantSearchServiceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EB59DD052800CC84EE0 /* RestaurantSearchServiceSpy.m */; };
 		23525341AEBA67717DB93A76 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525571F0DDE4CE1AB185D9 /* Restaurant.m */; };
-		235253AF3E682DEE15F23D36 /* PlaceEvaluationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551E0045E27A3A04F3B4 /* PlaceEvaluationTests.m */; };
+		235253AF3E682DEE15F23D36 /* SearchProfileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */; };
 		235253BEE28EA42CE27DF77E /* ConversationAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */; };
 		235253C2DA79C478E7E26011 /* PriceRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E68DCB6A0AD821122E3 /* PriceRange.m */; };
 		235253CA216029C2B5787A88 /* AnonymousUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D71D76A1A6A580A850B /* AnonymousUser.m */; };
@@ -374,7 +374,7 @@
 		2352550CEA5A4791458F7D51 /* Alternation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alternation.m; sourceTree = "<group>"; };
 		23525517558B533671E9AD0A /* FoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHero.h; sourceTree = "<group>"; };
 		2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerImpl.m; sourceTree = "<group>"; };
-		2352551E0045E27A3A04F3B4 /* PlaceEvaluationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceEvaluationTests.m; sourceTree = "<group>"; };
+		2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchProfileTests.m; sourceTree = "<group>"; };
 		235255347CB5CD63D632FFEC /* UGoodByeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UGoodByeState.h; sourceTree = "<group>"; };
 		23525546FAB7D7372E6B7E91 /* ConversationTestsBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTestsBase.m; sourceTree = "<group>"; };
 		235255510B4FE93E727B9784 /* FHFindingRestaurantFinishedState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHFindingRestaurantFinishedState.m; sourceTree = "<group>"; };
@@ -1148,7 +1148,7 @@
 				2352571AC4A8EB43A957D560 /* RestaurantRepositoryStub.h */,
 				23525E3933012E4FEEBF257E /* RestaurantRepositorySpy.m */,
 				23525EE563153330FF1B3852 /* RestaurantRepositorySpy.h */,
-				2352551E0045E27A3A04F3B4 /* PlaceEvaluationTests.m */,
+				2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */,
 				23525272F032D9A505401F22 /* RestaurantRepositoryIntegrationTests.m */,
 			);
 			path = Domain;
@@ -1720,7 +1720,7 @@
 				23525A5C3592B89EE8B116FC /* RestaurantRepositoryTests.m in Sources */,
 				23525AB7B1E3A3004973BEBF /* RestaurantRepositoryStub.m in Sources */,
 				2352561392F8A23CDEA237BA /* RestaurantRepositorySpy.m in Sources */,
-				235253AF3E682DEE15F23D36 /* PlaceEvaluationTests.m in Sources */,
+				235253AF3E682DEE15F23D36 /* SearchProfileTests.m in Sources */,
 				23525528559EF4B94A234D67 /* RestaurantRepositoryIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

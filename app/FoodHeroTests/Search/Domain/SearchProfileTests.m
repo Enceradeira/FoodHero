@@ -13,12 +13,12 @@
 #import "DesignByContractException.h"
 #import "SearchProfil.h"
 
-@interface PlaceEvaluationTests : XCTestCase
+@interface SearchProfileTests : XCTestCase
 
 - (id)placeWithCuisineRelevance:(double)cuisineRelevance;
 @end
 
-@implementation PlaceEvaluationTests {
+@implementation SearchProfileTests {
     SearchProfil *_defaultPreference;
 }
 
