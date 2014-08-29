@@ -4,6 +4,7 @@
 //
 
 #import "GoogleRestaurantSearch.h"
+#import "DesignByContractException.h"
 
 const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
 const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
@@ -13,7 +14,12 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 }
 
 - (NSMutableArray *)findPlaces:(RestaurantSearchParams *)parameter {
+    CLLocationDistance radius = parameter.radius;
     CLLocationCoordinate2D coordinate = parameter.coordinate;
+
+    if (radius > GOOGLE_MAX_SEARCH_RADIUS) {
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"radius %f is greater that GOOGLE_MAX_SEARCH_RADIUS", radius]];
+    }
 
     NSArray *types = @[@"restaurant", @"cafe", @"food"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
@@ -22,7 +28,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
                                                        keyword,
                                                        coordinate.latitude,
                                                        coordinate.longitude,
-                                                       (unsigned int) parameter.radius,
+                                                       (unsigned int) radius,
                                                        parameter.minPriceLevel,
                                                        parameter.maxPriceLevel,
                                                        typesAsString];
@@ -43,11 +49,26 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     NSMutableArray *restaurants = [NSMutableArray new];
     NSArray *places = json[@"results"];
 
-    // relevance(place) = n*index(place) + 1
-    // n = (relevance(place) - 1) / index(place)
-    double n = (double)(0-1) / (places.count - 1);
+    /* Following calculations assigns a relevance. The first places in the result-sets are more relevant.
+     * Furthermore it accounts for the fact that when using a greater radius results seem to become less
+     * specific therefore less relevant.
+     *
+     * minRelevance = radius * n + 1
+     * 0            = radius * n + 1 ¦ radius == GOOGLE_MAX_SEARCH_RADIUS
+     * n            = -1 / GOOGLE_MAX_SEARCH_RADIUS
+     * minRelevance = (radius * -1 / GOOGLE_MAX_SEARCH_RADIUS) + 1
+     * */
+    double minRelevance = (-radius / GOOGLE_MAX_SEARCH_RADIUS) + 1;
 
-    for(NSUInteger i=0; i<places.count; i++){
+    /* Following we calculate a linear function that assign relevance 1 to the first
+     *  and relevance minRelevance to the last element
+     *
+     * relevance(place) = n*index(place) + 1
+     * n = (relevance(place) - 1) / index(place)
+    */
+    double n = (minRelevance - 1) / (places.count - 1);  // for most irrelevant place (last one)
+
+    for (NSUInteger i = 0; i < places.count; i++) {
         NSDictionary *place = places[i];
 
         NSDictionary *geometryDic = [place valueForKey:@"geometry"];

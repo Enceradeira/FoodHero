@@ -72,6 +72,12 @@
         [seenRelevances addObject:relevance];
     }
 
+    // cuisineRelevance should be between 0..1
+    for(Place *p in places){
+        assertThatDouble(p.cuisineRelevance, is(greaterThanOrEqualTo(@0)));
+        assertThatDouble(p.cuisineRelevance, is(lessThanOrEqualTo(@1)));
+    }
+
     // priceLevels between Places and Restaurant must be the same
     for(Place *p in places){
         Restaurant *r = [_repository getRestaurantFromPlace:p];

@@ -163,9 +163,9 @@
         return [p.placeId isEqualToString:expensiveRestaurant.placeId];
     }] linq_firstOrNil];
 
-    assertThatUnsignedInt(foundCheapPlace.cuisineRelevance, is(equalTo(@(3))));
-    assertThatUnsignedInt(foundMediumPricedRestaurant.cuisineRelevance, is(equalTo(@(1))));
-    assertThatUnsignedInt(foundExpensiveRestaurant.cuisineRelevance, is(equalTo(@(2))));
+    assertThatDouble(foundCheapPlace.cuisineRelevance, is(equalTo(@(3))));
+    assertThatDouble(foundMediumPricedRestaurant.cuisineRelevance, is(equalTo(@(1))));
+    assertThatDouble(foundExpensiveRestaurant.cuisineRelevance, is(equalTo(@(2))));
 }
 
 - (void)test_getPlacesByCuisine_ShouldCompleteAfterAllPlacesHaveBeenReturned {

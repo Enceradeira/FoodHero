@@ -10,6 +10,8 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "GoogleRestaurantSearch.h"
+#import "HCIsExceptionOfType.h"
+#import "DesignByContractException.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -58,7 +60,7 @@
     GooglePlace *firstPlace = (GooglePlace *) places[0];
     GooglePlace *lastPlace = (GooglePlace *) places[places.count - 1];
     assertThatDouble(firstPlace.cuisineRelevance, is(equalTo(@(1))));
-    assertThatDouble(lastPlace.cuisineRelevance, is(equalTo(@(0))));
+    assertThatDouble(lastPlace.cuisineRelevance, is(lessThan(@(1))));
 
     for (NSUInteger i = 1; i < places.count; i++) {
         GooglePlace *prevPlace = places[i - 1];
@@ -72,6 +74,20 @@
     GooglePlace *libraryGrill = [self findPlaceById:_placeIdLibraryGrillNorwich result:places];
     GooglePlace *maidsHead = [self findPlaceById:_placeIdMaidsHeadNorwich result:places];
     assertThatDouble(libraryGrill.cuisineRelevance, is(greaterThan(@(maidsHead.cuisineRelevance))));
+}
+
+- (void)test_findPlaces_ShouldReturnCuisineRelevance0ForMostIrrelevantPlace_WhenSearchRadiusEqualMaxSearchRadius {
+    _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
+    GooglePlace *mostIrrelevantPlace = [[_service findPlaces:_parameter] linq_lastOrNil];
+
+    assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(equalTo(@0)));
+}
+
+- (void)test_findPlaces_ShouldReturnCuisineRelevanceGreaterThan0ForMostIrrelevantPlace_WhenSearchRadiusLessThanMaxSearchRadius {
+    _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS / 2;
+    GooglePlace *mostIrrelevantPlace = [[_service findPlaces:_parameter] linq_lastOrNil];
+
+    assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(equalTo(@0.5)));
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
@@ -104,6 +120,13 @@
     }
 }
 
+- (void)test_findPlaces_ShouldThrowException_WhenRadiusGreaterThanMaxSearchRadius {
+    _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS + 1;
+    assertThat(^() {
+        [_service findPlaces:_parameter];
+    }, throwsExceptionOfType([DesignByContractException class]));
+}
+
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
 
@@ -116,28 +139,5 @@
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
 }
-
-
-- (void)test_studyPrice {
-    return;
-    CLLocationDistance radius = 50000;
-
-    _parameter.cuisine = @"Indian";
-    _parameter.radius = radius;
-    // _parameter.coordinate = [[CLLocation alloc] initWithLatitude:40.7127 longitude:-74.0059].coordinate; // NY
-    _parameter.coordinate = _london.coordinate; // London
-    // _parameter.coordinate = _norwich.coordinate;
-    _parameter.minPriceLevel = 3;
-    _parameter.maxPriceLevel = 4;
-
-    for (GooglePlace *place in [_service findPlaces:_parameter]) {
-        CLLocationDistance distance = [[place location] distanceFromLocation:_london];
-
-        Restaurant *r = [_service getRestaurantForPlace:place];
-        NSLog([NSString stringWithFormat:@"Level %u m: %f ¦ %@ ¦ %@", r.priceLevel, distance, r.name, r.vicinity]);
-    }
-
-}
-
 
 @end
