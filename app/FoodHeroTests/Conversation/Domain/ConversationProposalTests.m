@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <OCHamcrest/OCHamcrest.h>
 #import "UCuisinePreference.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
@@ -12,6 +13,7 @@
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "RestaurantBuilder.h"
+#import "USuggestionFeedbackForTooCheap.h"
 
 @interface ConversationProposalTests : ConversationTestsBase
 @end
@@ -74,6 +76,28 @@
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build]]];
 
     [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
+
+- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooCheap {
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
+    Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service){
+        [service injectFindResults:@[onlyOtherOption]];
+    }];
+
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+
+    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooCheap" userAction:nil];
+    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
+
+- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
+    //assertThatBool(YES, is(equalToBool(NO)));
+}
+
+- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
+    //assertThatBool(YES, is(equalToBool(NO)));
 }
 
 @end

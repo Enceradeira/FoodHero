@@ -43,7 +43,8 @@
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:_restaurant]];
+    Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
 
     [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }

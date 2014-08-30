@@ -20,6 +20,9 @@
 #import "FHSuggestionAsFollowUp.h"
 #import "USuggestionNegativeFeedback.h"
 #import "FHConfirmation.h"
+#import "SearchProfil.h"
+#import "FHWarningIfNotInPreferredRangeTooCheap.h"
+#import "FHSuggestionAfterWarning.h"
 
 
 @implementation SearchAction {
@@ -65,25 +68,32 @@
             ConversationToken *fhSuggestionAsFollowUp = [FHSuggestionAsFollowUp create:restaurant];
             ConversationToken *fhSuggestionWithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
-            NSMutableArray *tagAndSymbols = [NSMutableArray new];
-            [tagAndSymbols addObject:[TagAndToken create:@"FH:Suggestion" token:fhSuggestionToken]];
-            if( fhSuggestionAsFollowUp != nil) {
-                [tagAndSymbols addObject:[TagAndToken create:@"FH:SuggestionAsFollowUp" token:fhSuggestionAsFollowUp]];
+            SearchProfil *searchPreference = conversation.currentSearchPreference;
+            if( searchPreference.priceRange.min >= restaurant.priceLevel){
+                [conversation addToken:[FHWarningIfNotInPreferredRangeTooCheap create]];
+                [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
-            if( fhSuggestionWithComment != nil) {
-                [tagAndSymbols addObject:[TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionWithComment]];
-            }
+            else {
+                NSMutableArray *tagAndSymbols = [NSMutableArray new];
+                [tagAndSymbols addObject:[TagAndToken create:@"FH:Suggestion" token:fhSuggestionToken]];
+                if (fhSuggestionAsFollowUp != nil) {
+                    [tagAndSymbols addObject:[TagAndToken create:@"FH:SuggestionAsFollowUp" token:fhSuggestionAsFollowUp]];
+                }
+                if (fhSuggestionWithComment != nil) {
+                    [tagAndSymbols addObject:[TagAndToken create:@"FH:SuggestionWithComment" token:fhSuggestionWithComment]];
+                }
 
-            ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
-            [conversation addToken:chosenToken];
+                ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
+                [conversation addToken:chosenToken];
 
-            if (chosenToken == fhSuggestionAsFollowUp && [lastFeedback foodHeroConfirmationToken] != nil) {
-                [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^(){
-                    [conversation addToken:[lastFeedback foodHeroConfirmationToken]];
-                }];
-            }
-            else if (chosenToken == fhSuggestionWithComment) {
-                [conversation addToken:[FHConfirmation create]];
+                if (chosenToken == fhSuggestionAsFollowUp && [lastFeedback foodHeroConfirmationToken] != nil) {
+                    [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^() {
+                        [conversation addToken:[lastFeedback foodHeroConfirmationToken]];
+                    }];
+                }
+                else if (chosenToken == fhSuggestionWithComment) {
+                    [conversation addToken:[FHConfirmation create]];
+                }
             }
         }
         else {

@@ -26,14 +26,15 @@
 
 
 - (void)test_USuggestionFeedback_ShouldAddUserStatement {
+    Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
 
     [self assertSecondLastStatementIs:@"U:SuggestionFeedback=It looks too cheap" userAction:nil];
 }
 
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenRandomizerWouldChooseFHSuggestionAsFollowUp{
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenRandomizerWouldChooseFHSuggestionAsFollowUp {
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];

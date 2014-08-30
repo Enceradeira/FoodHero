@@ -20,6 +20,8 @@
 #import "Feedback.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
+#import "RestaurantSearchServiceStub.h"
+#import "RestaurantBuilder.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -28,44 +30,43 @@
 const CGFloat portraitWidth = 200;
 const CGFloat landscapeWidth = 400;
 
-@implementation ConversationAppServiceTests
-{
-    ConversationAppService* _service;
+@implementation ConversationAppServiceTests {
+    ConversationAppService *_service;
+    RestaurantSearchServiceStub *_searchServiceStub;
 }
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _service =  [(id<ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
+    _searchServiceStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
+    _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
 }
 
-- (ConversationBubble *)getStatement:(NSUInteger)index
-{
+- (ConversationBubble *)getStatement:(NSUInteger)index {
     ConversationBubble *bubble = [_service getStatement:index bubbleWidth:portraitWidth];
     return bubble;
 }
 
-- (NSArray*) cuisines {
-    NSMutableArray * cuisines = [NSMutableArray new];
-    for(NSUInteger i=0; i<[_service getCuisineCount]; i++){
+- (NSArray *)cuisines {
+    NSMutableArray *cuisines = [NSMutableArray new];
+    for (NSUInteger i = 0; i < [_service getCuisineCount]; i++) {
         [cuisines addObject:[_service getCuisine:i]];
     }
     return cuisines;
 }
 
-- (NSArray*) feedbacks {
+- (NSArray *)feedbacks {
     NSMutableArray *feedbacks = [NSMutableArray new];
-    for(NSUInteger i=0; i<[_service getFeedbackCount]; i++){
+    for (NSUInteger i = 0; i < [_service getFeedbackCount]; i++) {
         [feedbacks addObject:[_service getFeedback:i]];
     }
     return feedbacks;
 }
 
-- (NSArray*) statements {
+- (NSArray *)statements {
     NSMutableArray *statements = [NSMutableArray new];
-    for(NSUInteger i=0; i<[_service getStatementCount]; i++){
+    for (NSUInteger i = 0; i < [_service getStatementCount]; i++) {
         [statements addObject:[_service getStatement:i bubbleWidth:147]];
     }
     return statements;
@@ -79,7 +80,6 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)assertUserFeedbackForLastSuggestedRestaurant:(NSString *)feedback fhAnswer:(NSString *)fhAnswer {
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     Feedback *anyFeedback = [[[self feedbacks]
             linq_where:^(Feedback *f) {
 
@@ -89,31 +89,28 @@ const CGFloat landscapeWidth = 400;
     [_service addUserFeedbackForLastSuggestedRestaurant:anyFeedback];
 
     NSArray *statementsReversed = [[self statements] linq_reverse];
-    ConversationBubble* userFeedback = statementsReversed[1];
-    ConversationBubble* newFhSuggestion = statementsReversed[0];
-    assertThat(userFeedback.semanticId, is(equalTo([NSString stringWithFormat:@"U:SuggestionFeedback=%@",feedback])));
+    ConversationBubble *userFeedback = statementsReversed[1];
+    ConversationBubble *newFhSuggestion = statementsReversed[0];
+    assertThat(userFeedback.semanticId, is(equalTo([NSString stringWithFormat:@"U:SuggestionFeedback=%@", feedback])));
     assertThat(newFhSuggestion.semanticId, is(equalTo(fhAnswer)));
 }
 
 
-- (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble
-{
+- (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
     ConversationBubble *bubble1 = [self getStatement:0];
     ConversationBubble *bubble2 = [self getStatement:0];
 
     assertThat(bubble1, is(sameInstance(bubble2)));
 }
 
-- (void)test_getFirstStatement_ShouldReturnDifferentInstanceOfBubble_WhenWidthChanges
-{
+- (void)test_getFirstStatement_ShouldReturnDifferentInstanceOfBubble_WhenWidthChanges {
     ConversationBubble *bubble1 = [_service getStatement:0 bubbleWidth:portraitWidth];
     ConversationBubble *bubble2 = [_service getStatement:0 bubbleWidth:landscapeWidth];
 
     assertThat(bubble1, isNot(sameInstance(bubble2)));
 }
 
--(void)test_getSecondStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething
-{
+- (void)test_getSecondStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
     id userInput = [UCuisinePreference create:@"British or Indian Food"];
     [_service addUserInput:userInput];
 
@@ -124,15 +121,13 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
--(void)test_getCuisineCount_ShouldReturnCountGreaterThan0
-{
+- (void)test_getCuisineCount_ShouldReturnCountGreaterThan0 {
     assertThatInteger([_service getCuisineCount], is(greaterThan(@0)));
 }
 
--(void)test_getCuisine_ShouldReturnCuisineForIndex
-{
-    Cuisine* cuisine0 = [_service getCuisine:0];
-    Cuisine* cuisine1 = [_service getCuisine:1];
+- (void)test_getCuisine_ShouldReturnCuisineForIndex {
+    Cuisine *cuisine0 = [_service getCuisine:0];
+    Cuisine *cuisine1 = [_service getCuisine:1];
 
     assertThat(cuisine0, is(notNilValue()));
     assertThat(cuisine1, is(notNilValue()));
@@ -146,7 +141,7 @@ const CGFloat landscapeWidth = 400;
     assertThatBool(cuisine.isSelected, is(equalToBool(cuisineSameInstance.isSelected)));
 }
 
--(void)test_getSelectedCuisineText_ShouldBeEmpty_WhenNoCuisineSelected{
+- (void)test_getSelectedCuisineText_ShouldBeEmpty_WhenNoCuisineSelected {
     assertThat([_service getSelectedCuisineText], is(equalTo(@"")));
 }
 
@@ -155,26 +150,24 @@ const CGFloat landscapeWidth = 400;
     assertThat([_service getSelectedCuisineText], is(equalTo(@"African")));
 }
 
--(void)test_getSelectedCuisineText_ShouldContainTwoCuisines_WhenTwoCuisinesSelected{
+- (void)test_getSelectedCuisineText_ShouldContainTwoCuisines_WhenTwoCuisinesSelected {
     [self cuisine:@"Greek"].isSelected = YES;
     [self cuisine:@"African"].isSelected = YES;
     assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek or African")));
 }
 
--(void)test_getSelectedCuisineText_ShouldContainThreeCuisines_WhenThreeCuisinesSelected{
+- (void)test_getSelectedCuisineText_ShouldContainThreeCuisines_WhenThreeCuisinesSelected {
     [self cuisine:@"Greek"].isSelected = YES;
     [self cuisine:@"African"].isSelected = YES;
     [self cuisine:@"German"].isSelected = YES;
     assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek, African or German")));
 }
 
--(void)test_getFeedbackCount_ShouldReturnCountGreaterThan0
-{
+- (void)test_getFeedbackCount_ShouldReturnCountGreaterThan0 {
     assertThatInteger([_service getFeedbackCount], is(greaterThan(@0)));
 }
 
--(void)test_getFeedback_ShouldReturnCuisineForIndex
-{
+- (void)test_getFeedback_ShouldReturnCuisineForIndex {
     Feedback *feedback0 = [_service getFeedback:0];
     Feedback *feedback1 = [_service getFeedback:1];
 
@@ -182,39 +175,46 @@ const CGFloat landscapeWidth = 400;
     assertThat(feedback1, is(notNilValue()));
 }
 
--(void)test_getFeedback_ShouldReturnFeedbackWithImage {
+- (void)test_getFeedback_ShouldReturnFeedbackWithImage {
     for (Feedback *f in [self feedbacks]) {
         assertThat(f.image, is(notNilValue()));
-     }
+    }
 }
 
--(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet{
-    Feedback* feedback = [_service getFeedback:0];
-    assertThat(^(){return  [_service addUserFeedbackForLastSuggestedRestaurant:feedback];}, throwsExceptionOfType(DesignByContractException.class));
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet {
+    Feedback *feedback = [_service getFeedback:0];
+    assertThat(^() {
+        return [_service addUserFeedbackForLastSuggestedRestaurant:feedback];
+    }, throwsExceptionOfType(DesignByContractException.class));
 }
 
--(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway{
-
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway {
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
--(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToExpensive{
-
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToExpensive {
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
--(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToCheap{
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToCheap {
+    Restaurant *cheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Chippy"] withVicinity:@""] withPriceLevel:0] build];
+    Restaurant *anotherCheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] withPriceLevel:4] build];
+    [_searchServiceStub injectFindResults:@[cheapRestaurant,anotherCheapRestaurant]];
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Chippy"
+
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
 }
 
--(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIDontLikeThatRestaurant{
-
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIDontLikeThatRestaurant {
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
--(void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt{
-
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I like it" fhAnswer:@"FH:WhatToDoNext"];
 }
 

@@ -14,13 +14,15 @@
 #import "DoOptionally.h"
 #import "FHSuggestionWithCommentState.h"
 #import "FHConfirmationState.h"
+#import "FHWarningIfNotInPreferredRangeState.h"
+#import "FHSuggestionAfterWarningState.h"
 
 
 @implementation FHProposalState {
 
     Concatenation *_concatenation;
 }
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
         _concatenation = [Concatenation create:
@@ -33,7 +35,12 @@
                                 [RepeatOnce create:
                                         [Concatenation create:
                                                 [RepeatOnce create:[FHSuggestionWithCommentState new]],
-                                                [RepeatOnce create:[FHConfirmationState new]], nil]], nil]],
+                                                [RepeatOnce create:[FHConfirmationState new]], nil]],
+                                [RepeatOnce create:
+                                        [Concatenation create:
+                                                [RepeatOnce create:[FHWarningIfNotInPreferredRangeState new]],
+                                                [RepeatOnce create:[FHSuggestionAfterWarningState new]], nil]], nil]],
+
 
                 [RepeatOnce create:[USuggestionFeedbackState new]], nil];
     }

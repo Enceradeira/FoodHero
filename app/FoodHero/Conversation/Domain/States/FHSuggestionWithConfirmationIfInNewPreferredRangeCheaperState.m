@@ -13,7 +13,6 @@
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState {
 }
 
-
 - (instancetype)init {
     return (FHSuggestionWithConfirmationIfInNewPreferredRangeCheaperState *) [super initWithToken:[FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper class]];
 }
