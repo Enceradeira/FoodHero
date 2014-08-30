@@ -8,6 +8,7 @@
 #import "RepeatOnce.h"
 #import "FHWarningIfNotInPreferredRangeTooCheapState.h"
 #import "FHWarningIfNotInPreferredRangeTooExpensiveState.h"
+#import "FHWarningIfNotInPreferredRangeTooFarAwayState.h"
 
 
 @implementation FHWarningIfNotInPreferredRangeState {
@@ -20,7 +21,8 @@
     if (self) {
         _alternation = [Alternation create:
                 [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooCheapState new]],
-                [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooExpensiveState new]], nil];
+                [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooExpensiveState new]],
+                [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooFarAwayState new]], nil];
     }
 
     return self;

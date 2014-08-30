@@ -105,7 +105,20 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
-    //assertThatBool(YES, is(equalToBool(NO)));
+    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
+    CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
+    CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:closerLocation] build];
+    Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withLocation:farawayLocation] withName:@"Chippy"] build];
+    [self configureRestaurantSearchForLatitude:45 longitude:0 configuration:^(RestaurantSearchServiceStub *service) {
+        [service injectFindResults:@[onlyOtherOption]];
+    }];
+
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:userLocation]];
+
+    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooFarAway" userAction:nil];
+    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 @end

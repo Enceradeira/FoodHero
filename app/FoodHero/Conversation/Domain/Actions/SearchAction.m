@@ -24,12 +24,14 @@
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "FHSuggestionAfterWarning.h"
 #import "FHWarningIfNotInPreferredRangeTooExpensive.h"
+#import "FHWarningIfNotInPreferredRangeTooFarAway.h"
 
 
 @implementation SearchAction {
 
     RestaurantSearch *_restaurantSearch;
     id <TokenRandomizer> _tokenRandomizer;
+    LocationService *_locationService;
 }
 
 - (instancetype)init {
@@ -37,17 +39,18 @@
     if (self != nil) {
         _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         _tokenRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
+        _locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
     }
     return self;
 }
 
 
-- (void)execute:(id<ConversationSource>)conversation {
+- (void)execute:(id <ConversationSource>)conversation {
     USuggestionNegativeFeedback *lastFeedback = [conversation.negativeUserFeedback linq_lastOrNil];
 
     RACSignal *bestRestaurant = [_restaurantSearch findBest:conversation];
     @weakify(self);
-    [bestRestaurant subscribeError:^(NSError *error){
+    [bestRestaurant subscribeError:^(NSError *error) {
         @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
             [conversation addToken:[FHBecauseUserDeniedAccessToLocationServices create]];
@@ -59,7 +62,7 @@
             [conversation addToken:[FHNoRestaurantsFound create]];
         }
     }];
-    [bestRestaurant subscribeNext:^(id next){
+    [bestRestaurant subscribeNext:^(id next) {
         @strongify(self);
         Restaurant *restaurant = next;
 
@@ -70,12 +73,16 @@
             ConversationToken *fhSuggestionWithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
             SearchProfil *searchPreference = conversation.currentSearchPreference;
-            if( searchPreference.priceRange.min > restaurant.priceLevel){
+            if (searchPreference.priceRange.min > restaurant.priceLevel) {
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooCheap create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
-            else if(searchPreference.priceRange.max < restaurant.priceLevel){
+            else if (searchPreference.priceRange.max < restaurant.priceLevel) {
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooExpensive create]];
+                [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
+            }
+            else if (searchPreference.distanceRange.max < [restaurant.location distanceFromLocation:_locationService.lastKnownLocation]) {
+                [conversation addToken:[FHWarningIfNotInPreferredRangeTooFarAway create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
             else {

@@ -22,6 +22,7 @@
 #import "DesignByContractException.h"
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantBuilder.h"
+#import "CLLocationManagerProxyStub.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -33,6 +34,7 @@ const CGFloat landscapeWidth = 400;
 @implementation ConversationAppServiceTests {
     ConversationAppService *_service;
     RestaurantSearchServiceStub *_searchServiceStub;
+    CLLocationManagerProxyStub *_locationManager;
 }
 
 - (void)setUp {
@@ -41,6 +43,8 @@ const CGFloat landscapeWidth = 400;
     [TyphoonComponents configure:[StubAssembly new]];
     _searchServiceStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
+    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
+
 }
 
 - (ConversationBubble *)getStatement:(NSUInteger)index {
@@ -189,8 +193,25 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway {
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:45 longitude:1];
+    CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
+
+    Restaurant *restaurantWithHigherRelevance = [[[[[[RestaurantBuilder alloc]
+            withName:@"Raj Palace"]
+            withVicinity:@"Norwich"]
+            withLocation:location]
+            withCuisineRelevance:1] build];
+    Restaurant *closerRestaurant = [[[[[[RestaurantBuilder alloc]
+            withName:@"Chippy"]
+            withVicinity:@"Norwich"]
+            withLocation:closerLocation]
+            withCuisineRelevance:0.5] build];
+
+    [_locationManager injectLatitude:45 longitude:0];
+    [_searchServiceStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
+
     [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooExpensive {
