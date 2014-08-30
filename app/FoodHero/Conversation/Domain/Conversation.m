@@ -119,11 +119,11 @@
 
 
 - (DistanceRange *)maxDistance {
-    USuggestionFeedbackForTooFarAway* lastFeedback = [[self.tokens linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
-    if( lastFeedback == nil){
+    USuggestionFeedbackForTooFarAway *lastFeedback = [[self.tokens linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
+    if (lastFeedback == nil) {
         return [DistanceRange distanceRangeWithoutRestriction];
     }
-    else{
+    else {
         // set max distance to 1/3 nearer
         CLLocationDistance distance = [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation];
         return [DistanceRange distanceRangeNearerThan:distance];
@@ -142,10 +142,19 @@
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     for (ConversationToken *token in [self tokens]) {
         if ([token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]) {
-            priceRange = [priceRange setMaxLowerThan:((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel];
+
+            NSUInteger priceLevel = ((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel;
+            if (priceLevel == GOOGLE_PRICE_LEVEL_MIN) {
+                priceLevel = GOOGLE_PRICE_LEVEL_MIN + 1;
+            }
+            priceRange = [priceRange setMaxLowerThan:priceLevel];
         }
         else if ([token isKindOfClass:[USuggestionFeedbackForTooCheap class]]) {
-            priceRange = [priceRange setMinHigherThan:((USuggestionFeedbackForTooCheap *) token).restaurant.priceLevel];
+            NSUInteger priceLevel = ((USuggestionFeedbackForTooCheap *) token).restaurant.priceLevel;
+            if (priceLevel == GOOGLE_PRICE_LEVEL_MAX) {
+                priceLevel = GOOGLE_PRICE_LEVEL_MAX - 1;
+            }
+            priceRange = [priceRange setMinHigherThan:priceLevel];
         }
     }
     return priceRange;

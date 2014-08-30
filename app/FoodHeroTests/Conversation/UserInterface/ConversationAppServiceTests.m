@@ -23,6 +23,8 @@
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantBuilder.h"
 #import "CLLocationManagerProxyStub.h"
+#import "USuggestionFeedbackForTooExpensive.h"
+#import "USuggestionFeedbackForTooCheap.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -67,6 +69,14 @@ const CGFloat landscapeWidth = 400;
     }
     return feedbacks;
 }
+
+- (Feedback *)feedbackFor:(Class)suggestionFeedbackClass {
+    Feedback *tooExpensiveFeedback = [[[self feedbacks] linq_where:^(Feedback *f) {
+        return (BOOL) (f.tokenClass == suggestionFeedbackClass);
+    }] linq_firstOrNil];
+    return tooExpensiveFeedback;
+}
+
 
 - (NSArray *)statements {
     NSMutableArray *statements = [NSMutableArray new];
@@ -169,6 +179,39 @@ const CGFloat landscapeWidth = 400;
 
 - (void)test_getFeedbackCount_ShouldReturnCountGreaterThan0 {
     assertThatInteger([_service getFeedbackCount], is(greaterThan(@0)));
+}
+
+- (void)test_getFeedback_ShouldNotReturnFeedbackForTooExpensive_WhenPriceRangeMinIsAlreadyLowestPossible {
+    Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [_searchServiceStub injectFindResults:@[cheapRestaurant]];
+
+    // let FH suggest the cheap restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+
+    // user finds cheapest possible restaurant too cheap
+    Feedback *tooExpensiveFeedback = [self feedbackFor:USuggestionFeedbackForTooExpensive.class];
+    [_service addUserFeedbackForLastSuggestedRestaurant:tooExpensiveFeedback];
+
+    // feedback to request cheaper than cheapest possible should be removed
+    tooExpensiveFeedback = [self feedbackFor:USuggestionFeedbackForTooExpensive.class];
+    assertThat(tooExpensiveFeedback, is(nilValue()));
+}
+
+
+- (void)test_getFeedback_ShouldNotReturnFeedbackForTooCheap_WhenPriceRangeMaxIsAlreadyHighestPossible {
+    Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
+    [_searchServiceStub injectFindResults:@[expensiveRestaurant]];
+
+    // let FH suggest the expensive restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+
+    // user finds most expensive restaurant too cheap
+    Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap .class];
+    [_service addUserFeedbackForLastSuggestedRestaurant:tooCheapFeedback];
+
+    // feedback to request cheaper than cheapest possible should be removed
+    tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap.class];
+    assertThat(tooCheapFeedback, is(nilValue()));
 }
 
 - (void)test_getFeedback_ShouldReturnCuisineForIndex {

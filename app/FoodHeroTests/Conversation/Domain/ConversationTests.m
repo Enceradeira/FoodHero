@@ -196,6 +196,16 @@
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(priceLevel - 1))));
 }
 
+- (void)test_currentSearchPreferencePriceLevel_ShouldNotDecreasePriceLevel_WhenUserFindsRestaurantTooExpensiveButItsAlreadyTheCheapestPossible {
+    NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN;
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
+
+    assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(GOOGLE_PRICE_LEVEL_MIN))));
+}
+
 - (void)test_currentSearchPreferencePriceLevel_ShouldIncreasePriceLevel_WhenUserFindsRestaurantTooCheap {
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
@@ -204,6 +214,16 @@
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(priceLevel + 1))));
+}
+
+- (void)test_currentSearchPreferencePriceLevel_ShouldNotIncreasePriceLevel_WhenUserFindsRestaurantTooCheapButItsAlreadyTheMostExpensivePossible {
+    NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MAX;
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+
+    assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(GOOGLE_PRICE_LEVEL_MAX))));
 }
 
 - (void)test_currentSearchPreferenceMaxDistance_ShouldHaveMaxValue_WhenUserHasNeverFoundRestaurantTooFarAway {

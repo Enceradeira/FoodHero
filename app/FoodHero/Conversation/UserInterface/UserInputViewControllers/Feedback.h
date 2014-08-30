@@ -11,6 +11,8 @@
 @interface Feedback : NSObject
 @property(nonatomic, readonly) NSString *choiceText;
 
+@property(nonatomic, readonly) Class tokenClass;
+
 + (instancetype)create:(Class)tokenClass image:(UIImage *)image choiceText:(NSString *)choiceText;
 
 - (id)initWithTokenClass:(Class)tokenClass image:(UIImage *)image choiceText:(NSString *)choiceText;

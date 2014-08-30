@@ -21,7 +21,7 @@
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
 #import "FeedbackForTooFarAway.h"
-#import "LocationService.h"
+#import "SearchProfil.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -41,7 +41,7 @@ static UIImage *EmptyImage;
     EmptyImage = [UIImage imageNamed:@"Empty-Icon.png"];
 }
 
-- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository locationService:(LocationService*)locationService {
+- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository locationService:(LocationService *)locationService {
     self = [super init];
     if (self != nil) {
         _bubbles = [NSMutableDictionary new];
@@ -130,23 +130,37 @@ static UIImage *EmptyImage;
     return text;
 }
 
+- (NSArray *)feedbackFiltered {
+    if(_conversation.suggestedRestaurants.count == 0){
+        return _feedbacks;
+    }
+
+    SearchProfil *searchProfile = [_conversation currentSearchPreference];
+    return [_feedbacks linq_where:^(Feedback *f) {
+        return (BOOL)
+                ((BOOL) !(searchProfile.priceRange.max == GOOGLE_PRICE_LEVEL_MIN && f.tokenClass == [USuggestionFeedbackForTooExpensive class])
+                &&
+                (BOOL) !(searchProfile.priceRange.min == GOOGLE_PRICE_LEVEL_MAX && f.tokenClass == [USuggestionFeedbackForTooCheap class]));
+    }];
+}
+
 - (NSInteger)getFeedbackCount {
-    return [_feedbacks count];
+    return [self.feedbackFiltered count];
 }
 
 - (Feedback *)getFeedback:(NSUInteger)index {
-    return _feedbacks[index];
+    return self.feedbackFiltered[index];
 }
 
 - (Restaurant *)getLastSuggestedRestaurant {
     NSArray *restaurants = _conversation.suggestedRestaurants;
-    if( restaurants.count == 0){
+    if (restaurants.count == 0) {
         @throw [DesignByContractException createWithReason:@"no restaurants have ever been suggested to user"];
     }
     return [restaurants linq_lastOrNil];
 }
 
 - (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback {
-   [self addUserInput:[feedback createTokenFor:[self getLastSuggestedRestaurant]]];
+    [self addUserInput:[feedback createTokenFor:[self getLastSuggestedRestaurant]]];
 }
 @end
