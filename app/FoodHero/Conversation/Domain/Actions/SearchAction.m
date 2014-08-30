@@ -23,6 +23,7 @@
 #import "SearchProfil.h"
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "FHSuggestionAfterWarning.h"
+#import "FHWarningIfNotInPreferredRangeTooExpensive.h"
 
 
 @implementation SearchAction {
@@ -69,8 +70,12 @@
             ConversationToken *fhSuggestionWithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
             SearchProfil *searchPreference = conversation.currentSearchPreference;
-            if( searchPreference.priceRange.min >= restaurant.priceLevel){
+            if( searchPreference.priceRange.min > restaurant.priceLevel){
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooCheap create]];
+                [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
+            }
+            else if(searchPreference.priceRange.max < restaurant.priceLevel){
+                [conversation addToken:[FHWarningIfNotInPreferredRangeTooExpensive create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
             else {

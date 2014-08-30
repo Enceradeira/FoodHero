@@ -28,7 +28,6 @@
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfil.h"
-#import "DistanceRange.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -112,7 +111,7 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
-    Restaurant *kingsHead = [RestaurantBuilder alloc].build;
+    Restaurant *kingsHead = [[RestaurantBuilder alloc] withPriceLevel:4].build;
     Restaurant *lionHeart = [[[RestaurantBuilder alloc] withName:@"Lion Heart"] withVicinity:@"Great Yarmouth"].build;
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindResults:@[kingsHead, lionHeart]];

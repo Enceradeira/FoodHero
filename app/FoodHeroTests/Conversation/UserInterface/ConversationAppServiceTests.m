@@ -193,15 +193,19 @@ const CGFloat landscapeWidth = 400;
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
-- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToExpensive {
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooExpensive {
+    Restaurant *expensiveRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Chippy"] withVicinity:@""] withPriceLevel:4] build];
+    Restaurant *cheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] withPriceLevel:0] build];
+    [_searchServiceStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
+
     [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
-- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksToCheap {
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooCheap {
     Restaurant *cheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Chippy"] withVicinity:@""] withPriceLevel:0] build];
-    Restaurant *anotherCheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] withPriceLevel:4] build];
-    [_searchServiceStub injectFindResults:@[cheapRestaurant,anotherCheapRestaurant]];
+    Restaurant *expensiveRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] withPriceLevel:4] build];
+    [_searchServiceStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
 
     [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Chippy"
 

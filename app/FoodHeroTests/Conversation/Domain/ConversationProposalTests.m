@@ -3,7 +3,6 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <OCHamcrest/OCHamcrest.h>
 #import "UCuisinePreference.h"
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
@@ -39,7 +38,7 @@
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:location]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:[[[RestaurantBuilder alloc] withPriceLevel:4] build]]];
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 
     // 1. branch (FH:Suggestion)
@@ -82,7 +81,7 @@
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service){
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
         [service injectFindResults:@[onlyOtherOption]];
     }];
 
@@ -93,7 +92,16 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
-    //assertThatBool(YES, is(equalToBool(NO)));
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
+    Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+        [service injectFindResults:@[onlyOtherOption]];
+    }];
+
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
+
+    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooExpensive" userAction:nil];
+    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {

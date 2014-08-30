@@ -7,6 +7,7 @@
 #import "Alternation.h"
 #import "RepeatOnce.h"
 #import "FHWarningIfNotInPreferredRangeTooCheapState.h"
+#import "FHWarningIfNotInPreferredRangeTooExpensiveState.h"
 
 
 @implementation FHWarningIfNotInPreferredRangeState {
@@ -18,7 +19,8 @@
     self = [super init];
     if (self) {
         _alternation = [Alternation create:
-                [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooCheapState new]], nil];
+                [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooCheapState new]],
+                [RepeatOnce create:[FHWarningIfNotInPreferredRangeTooExpensiveState new]], nil];
     }
 
     return self;
