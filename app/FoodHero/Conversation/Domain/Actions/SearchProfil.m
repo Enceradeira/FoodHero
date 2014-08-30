@@ -45,8 +45,11 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
     double scoreForDiffMaxDistance = 1;
     if (nrIncrementsAboveMaxDistance != 0) {
-        double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
-        scoreForDiffMaxDistance = scaleFactor / (1 + nrIncrementsAboveMaxDistance);
+        // double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
+        // double adjustment = -0.70946913;
+        // scoreForDiffMaxDistance = scaleFactor / (1 + nrIncrementsAboveMaxDistance );
+        double n = 1.7094691;
+        scoreForDiffMaxDistance = n / (n+nrIncrementsAboveMaxDistance);
     }
     // score for cuisineRelevance
     double scoreForCuisineRelevance = place.cuisineRelevance;
@@ -56,6 +59,9 @@ const double MAX_NR_DESCRETE_RANGES = 10;
     NSLog([NSString stringWithFormat:@"\t\t\tMaxDistance    : %f MinPrice    : %u MaxPrice:     %u", _distanceRange.max, _priceRange.min, _priceRange.max]);
     NSLog([NSString stringWithFormat:@"\t\t\tDiffMaxDistance: %f DiffMinPrice: %f DiffMaxPrice: %f CuisineRelevance: %f", scoreForDiffMaxDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice, scoreForCuisineRelevance]);
 
+    if (score > 1) {
+        @throw [DesignByContractException createWithReason:@"Score should not be greater than 1"];
+    }
     return score;
 }
 

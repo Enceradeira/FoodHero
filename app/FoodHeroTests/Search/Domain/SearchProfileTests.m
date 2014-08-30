@@ -146,12 +146,13 @@
 }
 
 - (void)test_scorePlace_ShouldHaveIncreasinglySmallerChange_WhenDistanceIncreasesByTheSameAbsoluteAmount {
-    Place *place = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
+    double cuisineRelevance = 1;
+    Place *place = [[[[RestaurantBuilder alloc] withPriceLevel:4] withCuisineRelevance:cuisineRelevance] build];
     double distanceMax = 1000;
     SearchProfil *preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax];
 
     // we expect an interval between score changes that becomes greater as distance increases (inverse exponential)
-    double lastScore = 1;
+    double lastScore = cuisineRelevance;
     double lastDiffFromLastScore = 0;
     for (double distance = distanceMax; distance <= 50 * distanceMax; distance += distanceMax / 3) {
         double score = [preference scorePlace:place distance:distance restaurant:nil];
@@ -204,6 +205,14 @@
     double score2 = [preference scorePlace:[self placeWithCuisineRelevance:0.8] distance:400 restaurant:nil];
 
     assertThatDouble(score1, is(lessThan(@(score2))));
+}
+
+- (void)test_ScorePlace_ShouldBeLessOrEqual1_WhenRestaurantIsCloserThanMaxDistance {
+    int maxDistance = 7115;
+    SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:maxDistance];
+
+    double score = [preference scorePlace:[self placeWithCuisineRelevance:1] distance:7949 restaurant:nil];
+    assertThatDouble(score, is(lessThanOrEqualTo(@1)));
 }
 
 

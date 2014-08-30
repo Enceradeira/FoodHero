@@ -71,7 +71,7 @@
         // determine distance and score
         NSArray *placesAndScore = [sortedPlaces linq_select:^(Place *p) {
             double distance = [location distanceFromLocation:p.location];
-            Restaurant *r = nil; // [_repository getRestaurantFromPlace:p];
+            Restaurant *r = [_repository getRestaurantFromPlace:p];
             double score = [preferences scorePlace:p distance:distance restaurant:r];
             if (score > maxScore) {
                 maxScore = score;
