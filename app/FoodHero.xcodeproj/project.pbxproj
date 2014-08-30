@@ -158,6 +158,7 @@
 		23525C17498D79D57FF4815B /* FeedbackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253744B5F3202E8962957 /* FeedbackTableViewCell.m */; };
 		23525C1C684332E042B49F5A /* FHSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255E32B27352179C071B2 /* FHSuggestion.m */; };
 		23525C2647B32AF58984C9AC /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352525F00EC9F617006BCED /* HCIsExceptionOfType.m */; };
+		23525C2E17A498E468F0DC27 /* FHWarningIfNotInPreferredRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525163366C5DBCB99CB0EF /* FHWarningIfNotInPreferredRange.m */; };
 		23525C332B1CAF8849D60240 /* UDidResolveProblemWithAccessLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352580BDB1614BBA8F5A7D0 /* UDidResolveProblemWithAccessLocationService.m */; };
 		23525C3972A6AD17FC4EF74A /* TokenConsumed.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E96F7A97F08A167181D /* TokenConsumed.m */; };
 		23525C56523892FC71688C16 /* SearchProfil.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253F864FB2EA189922D98 /* SearchProfil.m */; };
@@ -291,6 +292,7 @@
 		2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCantFindRestaurantTests.m; sourceTree = "<group>"; };
 		2352514D2B510D7CD992B257 /* RestaurantRepositoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRepositoryTests.m; sourceTree = "<group>"; };
 		2352515AD00DC0B673B35950 /* ConversationViewStateTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewStateTextInput.m; sourceTree = "<group>"; };
+		23525163366C5DBCB99CB0EF /* FHWarningIfNotInPreferredRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHWarningIfNotInPreferredRange.m; sourceTree = "<group>"; };
 		235251642AADB4F2868064E2 /* AskUserSuggestionFeedbackAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserSuggestionFeedbackAction.m; sourceTree = "<group>"; };
 		2352516521BFB5E286D96C49 /* RestaurantBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantBuilder.m; sourceTree = "<group>"; };
 		2352516D00A6C9B6CFF89763 /* ConversationViewStateTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewStateTextInput.h; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 		23525B90B4060636C8FE84EF /* ConcatenationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcatenationTests.m; sourceTree = "<group>"; };
 		23525B91FCF4E02F774C0F42 /* FHConfirmationIfInNewPreferredRangeMoreExpensive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConfirmationIfInNewPreferredRangeMoreExpensive.h; sourceTree = "<group>"; };
 		23525BA988AE776A22AFA1EE /* FHAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAction.h; sourceTree = "<group>"; };
+		23525BB6E8A9E0852AF409CF /* FHWarningIfNotInPreferredRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWarningIfNotInPreferredRange.h; sourceTree = "<group>"; };
 		23525BB864069178249BC1C5 /* UCuisinePreferenceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCuisinePreferenceState.m; sourceTree = "<group>"; };
 		23525BC9C1AFFC0C50463EE5 /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
 		23525BD66D929C60CD46FA40 /* StateFinished.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateFinished.h; sourceTree = "<group>"; };
@@ -1024,6 +1027,8 @@
 				2352512CC3FAF669417992C3 /* FHWarningIfNotInPreferredRangeTooExpensive.h */,
 				2352592303FF00CD858398E5 /* FHWarningIfNotInPreferredRangeTooFarAway.m */,
 				235254C2EDDD40EB49514D3B /* FHWarningIfNotInPreferredRangeTooFarAway.h */,
+				23525163366C5DBCB99CB0EF /* FHWarningIfNotInPreferredRange.m */,
+				23525BB6E8A9E0852AF409CF /* FHWarningIfNotInPreferredRange.h */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -1714,6 +1719,7 @@
 				235255BB582EDAA563A2A6A5 /* FHWarningIfNotInPreferredRangeTooFarAwayState.m in Sources */,
 				2352549C3C703A2A07CDB5DE /* FHWarningIfNotInPreferredRangeTooExpensive.m in Sources */,
 				23525CC6498291803FCFCBC6 /* FHWarningIfNotInPreferredRangeTooFarAway.m in Sources */,
+				23525C2E17A498E468F0DC27 /* FHWarningIfNotInPreferredRange.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

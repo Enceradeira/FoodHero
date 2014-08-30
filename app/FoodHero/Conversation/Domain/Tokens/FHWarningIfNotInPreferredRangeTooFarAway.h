@@ -6,9 +6,10 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "Restaurant.h"
+#import "FHWarningIfNotInPreferredRange.h"
 
 
-@interface FHWarningIfNotInPreferredRangeTooFarAway : ConversationToken
+@interface FHWarningIfNotInPreferredRangeTooFarAway : FHWarningIfNotInPreferredRange
 + (instancetype)create;
 
 @end

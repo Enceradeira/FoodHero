@@ -22,7 +22,7 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfil.h"
 #import "USuggestionFeedbackForTooFarAway.h"
-#include "DistanceRange.h"
+#import "FHWarningIfNotInPreferredRange.h"
 
 
 @interface Conversation ()
@@ -112,6 +112,11 @@
 - (SearchProfil *)currentSearchPreference {
     return [SearchProfil createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
 }
+
+- (ConversationToken *)lastSuggestionWarning {
+    return [[self.tokens linq_ofType:[FHWarningIfNotInPreferredRange class]] linq_lastOrNil];
+}
+
 
 - (DistanceRange *)maxDistance {
     USuggestionFeedbackForTooFarAway* lastFeedback = [[self.tokens linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];

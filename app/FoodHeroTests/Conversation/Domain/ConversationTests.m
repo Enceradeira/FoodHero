@@ -28,6 +28,7 @@
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfil.h"
+#import "FHWarningIfNotInPreferredRangeTooCheap.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -220,6 +221,23 @@
     [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_london]];
 
     assertThatDouble(self.conversation.currentSearchPreference.distanceRange.max, is(lessThan(@(distance))));
+}
+
+- (void)test_lastSuggestionWarning_ShouldReturnNil_WhenNoSuggestionWarningExists {
+    assertThat([self.conversation lastSuggestionWarning], is(nilValue()));
+}
+
+- (void)test_lastSuggestionWarning_ShouldReturnLastSuggestionWarning {
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
+    FHWarningIfNotInPreferredRangeTooCheap *lastWarning = [FHWarningIfNotInPreferredRangeTooCheap create];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+        //[self.conversation addToken:lastWarning];
+
+    ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
+    assertThat(lastSuggestionWarning, is(notNilValue()));
+    assertThat(lastSuggestionWarning.class, is(equalTo([FHWarningIfNotInPreferredRangeTooCheap class])));
 }
 
 @end

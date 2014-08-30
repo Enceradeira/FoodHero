@@ -16,4 +16,6 @@
 - (NSArray *)negativeUserFeedback;
 
 - (SearchProfil *)currentSearchPreference;
+
+- (ConversationToken *)lastSuggestionWarning;
 @end

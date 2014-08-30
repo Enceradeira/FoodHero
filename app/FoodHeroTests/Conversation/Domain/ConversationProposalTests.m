@@ -77,7 +77,7 @@
     [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooCheap {
+- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooCheapAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooCheap {
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
@@ -91,7 +91,22 @@
     [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
+- (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooCheap_WhenUserHasAlreadyBeenWarnedBefore {
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
+    Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
+    Restaurant *otherOption2 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Hot cook"] build];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+        [service injectFindResults:@[otherOption1, otherOption2]];
+    }];
+
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];  // User is going to be warned with FH:WarningIfNotInPreferredRangeTooCheap"
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:otherOption1]];
+
+    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
+
+- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooExpensiveAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
@@ -104,7 +119,22 @@
     [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRanceAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
+- (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooExpensive_WhenUserHasAlreadyBeenWarnedBefore {
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
+    Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
+    Restaurant *otherOption2 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Hot cook"] build];
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+        [service injectFindResults:@[otherOption1, otherOption2]];
+    }];
+
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];  // User is going to be warned with FH:WarningIfNotInPreferredRangeTooExpensive
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:otherOption1]];
+
+    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
+
+- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooFarAwayAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
     CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
     CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
     CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
@@ -119,6 +149,24 @@
 
     [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooFarAway" userAction:nil];
     [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+}
+
+- (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooFarAway_WhenUserHasAlreadyBeenWarnedBefore {
+    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
+    CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
+    CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:closerLocation] build];
+    Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withLocation:farawayLocation] withName:@"Chippy"] build];
+    Restaurant *otherOption2 = [[[[RestaurantBuilder alloc] withLocation:farawayLocation] withName:@"Hot cook"] build];
+    [self configureRestaurantSearchForLatitude:45 longitude:0 configuration:^(RestaurantSearchServiceStub *service) {
+        [service injectFindResults:@[otherOption1, otherOption2]];
+    }];
+
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:userLocation]];  // User is going to be warned with FH:WarningIfNotInPreferredRangeTooFarAway
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:otherOption1]];
+
+    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 @end

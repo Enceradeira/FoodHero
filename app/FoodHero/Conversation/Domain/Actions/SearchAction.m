@@ -73,15 +73,18 @@
             ConversationToken *fhSuggestionWithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
             SearchProfil *searchPreference = conversation.currentSearchPreference;
-            if (searchPreference.priceRange.min > restaurant.priceLevel) {
+            ConversationToken *lastSuggestionWarning = conversation.lastSuggestionWarning;
+            PriceRange *priceRange = searchPreference.priceRange;
+            if (priceRange.min > restaurant.priceLevel && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooCheap class]]) {
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooCheap create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
-            else if (searchPreference.priceRange.max < restaurant.priceLevel) {
+            else if (priceRange.max < restaurant.priceLevel && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooExpensive class]]) {
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooExpensive create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
-            else if (searchPreference.distanceRange.max < [restaurant.location distanceFromLocation:_locationService.lastKnownLocation]) {
+            else if (searchPreference.distanceRange.max < [restaurant.location distanceFromLocation:_locationService.lastKnownLocation]
+                    &&![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooFarAway class]]) {
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooFarAway create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
