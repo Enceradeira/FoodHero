@@ -28,7 +28,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
                                                        keyword,
                                                        coordinate.latitude,
                                                        coordinate.longitude,
-                                                       (unsigned int) radius,
+                                                       (NSUInteger) radius,
                                                        parameter.minPriceLevel,
                                                        parameter.maxPriceLevel,
                                                        typesAsString];
