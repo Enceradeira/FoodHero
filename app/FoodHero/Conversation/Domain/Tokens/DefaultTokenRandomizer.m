@@ -16,12 +16,12 @@
         @throw [DesignByContractException createWithReason:@"there must be at least one symbol to choose from"];
     }
 
-    int randomIndex = arc4random() % tagAndTokens.count;
+    NSInteger randomIndex = arc4random() % tagAndTokens.count;
     return ((TagAndToken *) tagAndTokens[(NSUInteger) randomIndex]).token;
 }
 
 - (void)doOptionally:(NSString *)string byCalling:(void (^)())block {
-    int randomIndex = arc4random() % 2;
+    NSInteger randomIndex = arc4random() % 2;
     if (randomIndex) {
         block();
     }

@@ -18,7 +18,7 @@
 
 - (NSInteger)numberOfRows;
 
-- (int)optimalViewHeight;
+- (NSInteger)optimalViewHeight;
 
 - (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 

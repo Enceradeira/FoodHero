@@ -7,9 +7,9 @@
 #import "ConversationViewController.h"
 
 @interface ConversationViewController (ViewDimensionCalculator)
-- (int)userInputHeaderHeight;
+- (NSInteger)userInputHeaderHeight;
 
-- (int)userInputListHeight;
+- (NSInteger)userInputListHeight;
 
-- (int)bubbleViewHeight;
+- (NSInteger)bubbleViewHeight;
 @end

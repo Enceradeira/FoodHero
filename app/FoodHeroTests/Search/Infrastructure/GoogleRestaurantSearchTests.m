@@ -91,7 +91,7 @@
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
-    int specifiedRadius = 200;
+    NSInteger specifiedRadius = 200;
 
     _parameter.cuisine = @"Indian";
     _parameter.radius = specifiedRadius;

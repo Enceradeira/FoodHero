@@ -38,13 +38,13 @@
     }
 }
 
-- (int)userInputHeaderHeight {
+- (NSInteger)userInputHeaderHeight {
     return 40;
 }
 
-- (int)userInputListHeight {
-    int maxHeight = (int) (self.height / [self userInputListScreenProportion]);
-    int optimalHeight = self.optimalUserInputListHeight;
+- (NSInteger)userInputListHeight {
+    NSInteger maxHeight = (NSInteger) (self.height / [self userInputListScreenProportion]);
+    NSInteger optimalHeight = self.optimalUserInputListHeight;
     if (optimalHeight > maxHeight) {
         return maxHeight;
     }
@@ -53,11 +53,11 @@
     }
 }
 
-- (int)userInputListScreenProportion {
+- (NSInteger)userInputListScreenProportion {
     return self.isPortraitOrientation ? 2 : 3;
 }
 
-- (int)bubbleViewHeight {
-    return (int) self.height - self.userInputHeaderHeight - self.userInputListHeight;
+- (NSInteger)bubbleViewHeight {
+    return (NSInteger) self.height - self.userInputHeaderHeight - self.userInputListHeight;
 }
 @end

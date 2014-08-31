@@ -17,5 +17,5 @@
 
 - (void)sendUserInput;
 
-- (int)optimalViewHeight;
+- (NSInteger)optimalViewHeight;
 @end

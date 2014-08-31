@@ -21,9 +21,9 @@
 
 @implementation RadiusCalculatorTests
 
-- (NSArray *)elements:(int)nrElements {
+- (NSArray *)elements:(NSInteger)nrElements {
     NSMutableArray *elements = [NSMutableArray new];
-    for (int i = 0; i < nrElements; i++) {
+    for (NSInteger i = 0; i < nrElements; i++) {
         [elements addObject:@"just an element"];
     }
     return elements;

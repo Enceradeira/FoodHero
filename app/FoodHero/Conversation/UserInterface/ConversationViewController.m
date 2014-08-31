@@ -93,7 +93,7 @@
 
     [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         // move view to position of text input
-        int paddingLeft = 10;
+        NSInteger paddingLeft = 10;
         view.frame = CGRectMake(convertedTextinputFrame.origin.x + paddingLeft, convertedTextinputFrame.origin.y, convertedTextinputFrame.size.width - paddingLeft, convertedTextinputFrame.size.height);
     }                completion:^(BOOL completed) {
 
@@ -277,7 +277,7 @@
     [super prepareForSegue:segue sender:sender];
 }
 
-- (int)optimalUserInputListHeight {
+- (NSInteger)optimalUserInputListHeight {
     return _currentUserInputContainerViewController.optimalViewHeight;
 }
 @end

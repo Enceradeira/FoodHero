@@ -208,7 +208,7 @@
 }
 
 - (void)test_ScorePlace_ShouldBeLessOrEqual1_WhenRestaurantIsCloserThanMaxDistance {
-    int maxDistance = 7115;
+    NSInteger maxDistance = 7115;
     SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:maxDistance];
 
     double score = [preference scorePlace:[self placeWithCuisineRelevance:1] distance:7949 restaurant:nil];

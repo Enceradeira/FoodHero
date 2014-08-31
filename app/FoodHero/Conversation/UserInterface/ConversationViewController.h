@@ -39,5 +39,5 @@
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 
-- (int)optimalUserInputListHeight;
+- (NSInteger)optimalUserInputListHeight;
 @end

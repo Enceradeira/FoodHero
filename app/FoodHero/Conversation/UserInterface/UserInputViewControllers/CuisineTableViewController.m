@@ -73,8 +73,8 @@
     [_appService addUserInput:[UCuisinePreference create:text]];
 }
 
-- (int)optimalViewHeight {
-    return (int) (self.numberOfRows * self.rowHeight);
+- (NSInteger)optimalViewHeight {
+    return (NSInteger) (self.numberOfRows * self.rowHeight);
 }
 
 

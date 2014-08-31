@@ -40,8 +40,8 @@
     @throw [DesignByContractException createWithReason:@"method must be overridden by subclass"];
 }
 
-- (int)optimalViewHeight {
-    return (int) (self.numberOfRows * self.rowHeight);
+- (NSInteger)optimalViewHeight {
+    return (NSInteger) (self.numberOfRows * self.rowHeight);
 }
 
 - (void)notifyUserWantsListInput:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {

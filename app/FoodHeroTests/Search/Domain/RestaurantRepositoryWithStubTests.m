@@ -45,9 +45,9 @@
     return _repository;
 }
 
-- (NSMutableArray *)restaurants:(int)nrRestaurants {
+- (NSMutableArray *)restaurants:(NSInteger)nrRestaurants {
     NSMutableArray *restaurants = [NSMutableArray new];
-    for (int i = 0; i < nrRestaurants; i++) {
+    for (NSInteger i = 0; i < nrRestaurants; i++) {
         [restaurants addObject:[[RestaurantBuilder alloc] build]];
     }
     return restaurants;
