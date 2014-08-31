@@ -8,6 +8,7 @@
 #import "RadiusCalculator.h"
 #import "SearchProfil.h"
 #import "GoogleRestaurantSearch.h"
+#import "DesignByContractException.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -76,7 +77,7 @@
                     return getFromPlacesOfAllPriceLevels(p.placeId);
                 }]
                 linq_where:^(GooglePlace *p) {
-                    return (BOOL)![p isKindOfClass:[NSNull class]];
+                    return (BOOL) ![p isKindOfClass:[NSNull class]];
                 }]
                 linq_select:^(GooglePlace *p) {
                     return [Place create:p.placeId location:p.location priceLevel:priceLevel cuisineRelevance:p.cuisineRelevance];
@@ -106,5 +107,18 @@
         _restaurantsCached[place.placeId] = restaurant;
     }
     return restaurant;
+}
+
+- (BOOL)doRestaurantsHaveDifferentPriceLevels {
+    if (_placesCached == nil) {
+        @throw [DesignByContractException createWithReason:@"method can't be called with calling getPlacesByCuisine first"];
+    }
+    if (_placesCached.count == 0) {
+        return NO;
+    }
+    NSUInteger firstPriceLevel = ((Place *) _placesCached[0]).priceLevel;
+    return [_placesCached linq_any:^(Place *p) {
+        return (BOOL)(p.priceLevel != firstPriceLevel);
+    }];
 }
 @end

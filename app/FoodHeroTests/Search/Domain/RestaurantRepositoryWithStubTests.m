@@ -19,6 +19,8 @@
 #import "RestaurantsInRadiusAndPriceRange.h"
 #import "RestaurantRepositoryTests.h"
 #import "PriceRange.h"
+#import "HCIsExceptionOfType.h"
+#import "DesignByContractException.h"
 
 @interface RestaurantRepositoryWithStubTests : RestaurantRepositoryTests
 
@@ -194,6 +196,40 @@
 
     Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place];
     assertThat(restaurantFromPlace, is(equalTo(restaurant)));
+}
+
+- (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldThrowException_WhenRestaurantsAreNotInCache {
+    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [_searchService injectFindResults:@[restaurant1, restaurant2]];
+
+    assertThat(^() {
+        _repository.doRestaurantsHaveDifferentPriceLevels;
+    }, throwsExceptionOfType([DesignByContractException class]));
+}
+
+- (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnYes_WhenRestaurantsHaveDifferentPriceLevels {
+    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [_searchService injectFindResults:@[restaurant1, restaurant2]];
+
+    [_searchService injectFindResultsWithRadiusAndPriceRange:@[[RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:0 restaurants:@[restaurant1, restaurant2]]]];
+    [[_repository getPlacesByCuisine:@"Asian"] waitUntilCompleted:nil]; // loads into cache
+
+    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(equalToBool(NO)));
+}
+
+- (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnNo_WhenRestaurantsHaveNotDifferentPriceLevels {
+    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [_searchService injectFindResults:@[restaurant1, restaurant2]];
+
+    [_searchService injectFindResultsWithRadiusAndPriceRange:@[
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:0 restaurants:@[restaurant1]],
+            [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:2 restaurants:@[restaurant2]]]];
+    [[_repository getPlacesByCuisine:@"Asian"] waitUntilCompleted:nil]; // loads into cache
+
+    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(equalToBool(YES)));
 }
 
 @end

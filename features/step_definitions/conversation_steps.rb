@@ -53,7 +53,7 @@ def click_list_and_send_feedback(entry_name)
   click_feedback_entry_and_send(entry_name)
 end
 
-Then(/^FoodHero greets users and asks what they wished to eat$/) do
+Then(/^FoodHero(?: still)? greets users and asks what they wished to eat$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
@@ -64,7 +64,7 @@ Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
   expect(parameter).to eq(cuisines_as_string)
 end
 
-Then(/^FoodHero suggests something for "([^"]*)" food$/) do |cuisines_as_string|
+Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion')
   expect(parameter).not_to be_nil
   expect(bubble).not_to be_nil
@@ -86,6 +86,10 @@ end
 Then(/^FoodHero asks to enable location\-services in settings$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
   expect(bubble).not_to be_nil
+end
+
+When(/^User clicks send without entering anything$/) do
+  click_send
 end
 
 When(/^User doesn't like that restaurant$/) do

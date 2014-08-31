@@ -21,6 +21,7 @@
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
 #import "FeedbackForTooFarAway.h"
+#import "RestaurantRepository.h"
 #import "SearchProfil.h"
 
 static UIImage *LikeImage;
@@ -32,6 +33,7 @@ static UIImage *EmptyImage;
     NSArray *_cuisines;
     NSArray *_feedbacks;
     LocationService *_locationService;
+    RestaurantRepository *_restaurantRepository;
 }
 
 
@@ -41,11 +43,12 @@ static UIImage *EmptyImage;
     EmptyImage = [UIImage imageNamed:@"Empty-Icon.png"];
 }
 
-- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository locationService:(LocationService *)locationService {
+- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository restaurantRepository:(RestaurantRepository *)restaurantRepository locationService:(LocationService *)locationService {
     self = [super init];
     if (self != nil) {
         _bubbles = [NSMutableDictionary new];
         _locationService = locationService;
+        _restaurantRepository = restaurantRepository;
         _conversation = conversationRepository.get;
         _cuisines =
                 [@[@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese"]
@@ -131,16 +134,21 @@ static UIImage *EmptyImage;
 }
 
 - (NSArray *)feedbackFiltered {
-    if(_conversation.suggestedRestaurants.count == 0){
+    if (_conversation.suggestedRestaurants.count == 0) {
         return _feedbacks;
     }
 
     SearchProfil *searchProfile = [_conversation currentSearchPreference];
+    BOOL restaurantsHavePriceLevel = [_restaurantRepository doRestaurantsHaveDifferentPriceLevels];
     return [_feedbacks linq_where:^(Feedback *f) {
-        return (BOOL)
-                ((BOOL) !(searchProfile.priceRange.max == GOOGLE_PRICE_LEVEL_MIN && f.tokenClass == [USuggestionFeedbackForTooExpensive class])
-                &&
-                (BOOL) !(searchProfile.priceRange.min == GOOGLE_PRICE_LEVEL_MAX && f.tokenClass == [USuggestionFeedbackForTooCheap class]));
+        bool isPriceLevelAtMinimum = searchProfile.priceRange.max == GOOGLE_PRICE_LEVEL_MIN;
+        bool isPriceLevelAtMaximum = searchProfile.priceRange.min == GOOGLE_PRICE_LEVEL_MAX;
+        bool isTooExpensiveFeedback = f.tokenClass == [USuggestionFeedbackForTooExpensive class];
+        bool isTooCheapFeedback = f.tokenClass == [USuggestionFeedbackForTooCheap class];
+        return (BOOL) (
+                !((isPriceLevelAtMinimum || !restaurantsHavePriceLevel) && isTooExpensiveFeedback)
+                        &&
+                        !((isPriceLevelAtMaximum || !restaurantsHavePriceLevel) && isTooCheapFeedback));
     }];
 }
 

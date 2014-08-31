@@ -202,6 +202,7 @@
 }
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
+    _userTextField.text = nil;
     [self disableUserInput];
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {

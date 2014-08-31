@@ -15,10 +15,11 @@
 @class ConversationToken;
 @class Cuisine;
 @class Feedback;
+@class RestaurantRepository;
 
 @interface ConversationAppService : NSObject
 
--(instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository locationService:(LocationService*)locationService;
+- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository restaurantRepository:(RestaurantRepository *)restaurantRepository locationService:(LocationService *)locationService;
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 

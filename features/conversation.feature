@@ -47,3 +47,16 @@ Feature: User interacts with app through conversation
     When User says that problem with location-service has been fixed
     Then User answers with I fixed the problem, please try again
     And FoodHero asks to enable location-services in settings
+
+
+  Scenario: User does naughty things
+    When FoodHero greets users and asks what they wished to eat
+    And User clicks send without entering anything
+    Then FoodHero still greets users and asks what they wished to eat
+
+    When User wishes to eat "African" food by choosing it
+    And User allows access to location-services
+    And User clicks send without entering anything
+    And User finds restaurant looks too cheap
+    And User clicks send without entering anything
+    Then FoodHero still suggests something for "African" food

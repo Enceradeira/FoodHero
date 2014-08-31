@@ -76,8 +76,9 @@
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
         configuration:^(TyphoonDefinition *definition) {
-            [definition useInitializer:@selector(initWithConversationRepository:locationService:) parameters:^(TyphoonMethod *method) {
+            [definition useInitializer:@selector(initWithConversationRepository:restaurantRepository:locationService:) parameters:^(TyphoonMethod *method) {
                 [method injectParameterWith:[self conversationRepository]];
+                [method injectParameterWith:[self restaurantRepository]];
                 [method injectParameterWith:[self locationService]];
             }];
             definition.scope = TyphoonScopeSingleton; // Because it holds state

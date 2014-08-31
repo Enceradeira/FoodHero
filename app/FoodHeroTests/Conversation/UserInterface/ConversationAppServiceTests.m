@@ -109,6 +109,9 @@ const CGFloat landscapeWidth = 400;
     assertThat(newFhSuggestion.semanticId, is(equalTo(fhAnswer)));
 }
 
+- (Restaurant *)restaurantWithName:(NSString *)name withPriceLeel:(NSUInteger)priceLevel withRelevance:(double)cuisineRelevance {
+    return [[[[[[RestaurantBuilder alloc] withName:name] withVicinity:@"Norwich"] withPriceLevel:priceLevel] withCuisineRelevance:cuisineRelevance] build];
+}
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
     ConversationBubble *bubble1 = [self getStatement:0];
@@ -182,8 +185,9 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_getFeedback_ShouldNotReturnFeedbackForTooExpensive_WhenPriceRangeMinIsAlreadyLowestPossible {
-    Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
-    [_searchServiceStub injectFindResults:@[cheapRestaurant]];
+    Restaurant *cheapRestaurant = [self restaurantWithName:@"Alp Inn" withPriceLeel:0 withRelevance:1];
+    Restaurant *otherRestaurant = [self restaurantWithName:@"Posh Cow" withPriceLeel:4 withRelevance:0.8];
+    [_searchServiceStub injectFindResults:@[cheapRestaurant,otherRestaurant]];
 
     // let FH suggest the cheap restaurant
     [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
@@ -197,20 +201,47 @@ const CGFloat landscapeWidth = 400;
     assertThat(tooExpensiveFeedback, is(nilValue()));
 }
 
+- (void)test_getFeedback_ShouldNotReturnFeedbackForTooExpensive_WhenRestaurantsDoNotHavePriceLevels {
+    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [_searchServiceStub injectFindResults:@[restaurant1, restaurant2]];
+
+    // let FH suggest a restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+
+    // feedback to request cheaper should be removed since all Restaurants have the same price level
+    Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooExpensive.class];
+    assertThat(tooCheapFeedback, is(nilValue()));
+}
+
 
 - (void)test_getFeedback_ShouldNotReturnFeedbackForTooCheap_WhenPriceRangeMaxIsAlreadyHighestPossible {
-    Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
-    [_searchServiceStub injectFindResults:@[expensiveRestaurant]];
+    Restaurant *suggestedRestaurant = [self restaurantWithName:@"Chippy" withPriceLeel:4 withRelevance:1];
+    Restaurant *otherRestaurant = [self restaurantWithName:@"Posh Chippy" withPriceLeel:3 withRelevance:0.8];
+    [_searchServiceStub injectFindResults:@[suggestedRestaurant, otherRestaurant]];
 
     // let FH suggest the expensive restaurant
     [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
 
     // user finds most expensive restaurant too cheap
-    Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap .class];
+    Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap.class];
     [_service addUserFeedbackForLastSuggestedRestaurant:tooCheapFeedback];
 
     // feedback to request cheaper than cheapest possible should be removed
     tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap.class];
+    assertThat(tooCheapFeedback, is(nilValue()));
+}
+
+- (void)test_getFeedback_ShouldNotReturnFeedbackForTooCheap_WhenRestaurantsDoNotHavePriceLevels {
+    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
+    [_searchServiceStub injectFindResults:@[restaurant1, restaurant2]];
+
+    // let FH suggest a restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+
+    // feedback to request more expensive should be removed since all Restaurants have the same price level
+    Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap.class];
     assertThat(tooCheapFeedback, is(nilValue()));
 }
 
@@ -258,25 +289,25 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooExpensive {
-    Restaurant *expensiveRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Chippy"] withVicinity:@""] withPriceLevel:4] build];
-    Restaurant *cheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] withPriceLevel:0] build];
+    Restaurant *expensiveRestaurant = [self restaurantWithName:@"Maharaja" withPriceLeel:4 withRelevance:1];
+    Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];
     [_searchServiceStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
 
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Maharaja" which has higher relevance
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooCheap {
-    Restaurant *cheapRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Chippy"] withVicinity:@""] withPriceLevel:0] build];
-    Restaurant *expensiveRestaurant = [[[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] withPriceLevel:4] build];
+    Restaurant *cheapRestaurant = [self restaurantWithName:@"Chippy" withPriceLeel:0 withRelevance:1];
+    Restaurant *expensiveRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:4 withRelevance:0.9];
     [_searchServiceStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
 
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Chippy"
+    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Chippy" which has higher relevance
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
 }
 
-- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIDontLikeThatRestaurant {
+- (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIrDontLikeThatRestaurant {
     [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }

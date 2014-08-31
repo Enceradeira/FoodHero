@@ -8,7 +8,6 @@
 #import "DesignByContractException.h"
 #import "RestaurantBuilder.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
-#import "PriceRange.h"
 
 @implementation RestaurantSearchServiceStub {
     NSArray *_searchResults;
@@ -32,7 +31,24 @@
 
 - (void)injectFindResults:(NSArray *)restaurants {
     [self reset];
-    _searchResults = @[[RestaurantsInRadiusAndPriceRange restaurantsInRadius:0 priceLevel:GOOGLE_PRICE_LEVEL_MIN restaurants:restaurants]];
+
+    // Reads priceLevel from restaurants and constructs RestaurantsInRadiusAndPriceRange-object per price-level
+    NSMutableDictionary *priceLevels = [NSMutableDictionary new];
+    for (Restaurant *restaurant in restaurants) {
+        NSMutableArray *restaurantsOfLevel = priceLevels[@(restaurant.priceLevel)];
+        if (restaurantsOfLevel == nil) {
+            restaurantsOfLevel = [NSMutableArray new];
+            priceLevels[@(restaurant.priceLevel)] = restaurantsOfLevel;
+        }
+        [restaurantsOfLevel addObject:restaurant];
+    }
+
+    NSMutableArray *restaurantsInPriceRange = [NSMutableArray new];
+    [priceLevels enumerateKeysAndObjectsUsingBlock:^(NSNumber *level, NSArray *restaurantsOfLevel, BOOL *stop) {
+        [restaurantsInPriceRange addObject:[RestaurantsInRadiusAndPriceRange restaurantsInRadius:0 priceLevel:[level unsignedIntegerValue] restaurants:restaurantsOfLevel]];
+    }];
+
+    _searchResults = restaurantsInPriceRange;
 }
 
 - (void)injectFindResultsWithRadiusAndPriceRange:(NSArray *)restaurantsAtRadius {

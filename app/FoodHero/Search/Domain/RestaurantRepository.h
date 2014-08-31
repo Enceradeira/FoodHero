@@ -12,4 +12,5 @@
 @interface RestaurantRepository : NSObject<IRestaurantRepository>
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService;
 
+- (BOOL)doRestaurantsHaveDifferentPriceLevels;
 @end
