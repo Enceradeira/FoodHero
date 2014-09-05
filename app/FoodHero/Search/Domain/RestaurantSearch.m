@@ -9,6 +9,8 @@
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
 #import "SearchProfil.h"
+#import "SearchException.h"
+#import "SearchError.h"
 
 @implementation RestaurantSearch {
 
@@ -60,10 +62,10 @@
 };
 
 - (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfil *)preferences {
-    return [[_locationService.currentLocation take:1] map:^(CLLocation *location) {
+    return [[_locationService.currentLocation take:1] tryMap:^(CLLocation *location, NSError **error) {
         __block double maxScore = 0;
 
-        NSArray *sortedPlaces = [places linq_sort:^(Place * p){
+        NSArray *sortedPlaces = [places linq_sort:^(Place *p) {
             return @([location distanceFromLocation:p.location]);
         }];
 
@@ -94,11 +96,16 @@
 
         // choose nearest
         Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
-        Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+        @try {
+            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+            NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
+            return restaurant;
+        }
+        @catch (SearchException *e) {
+            *error = [SearchError new];
+            return (Restaurant *) nil;
+        }
 
-        NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
-
-        return restaurant;
     }];
 }
 @end

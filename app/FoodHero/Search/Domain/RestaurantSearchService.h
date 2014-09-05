@@ -11,4 +11,6 @@
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter;
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place;
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled;
 @end

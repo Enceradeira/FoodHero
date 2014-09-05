@@ -173,11 +173,16 @@ static UIImage *EmptyImage;
 }
 
 - (void)processCheat:(NSString *)command {
-    if([command isEqualToString:@"C:F"]){
+    if([command isEqualToString:@"C:FS"]){
+        // find something
         [_restaurantRepository simulateNoRestaurantFound:NO];
     }
     else if([command isEqualToString:@"C:FN"]){
+        // find nothing
         [_restaurantRepository simulateNoRestaurantFound:YES];
+    }
+    else if([command isEqualToString:@"C:NE"]) {
+        [_restaurantRepository simulateNetworkError:YES];
     }
 }
 @end

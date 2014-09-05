@@ -71,11 +71,15 @@ def show_list_button
 end
 
 Given(/^FoodHero will not find any restaurants$/) do
-  send_cheat('C:FN')
+  send_cheat('C:FN') # find nothing
 end
 
 When(/^FoodHero will find restaurants$/) do
-  send_cheat('C:F')
+  send_cheat('C:FS') # find something
+end
+
+Given(/^FoodHero can't access a network$/) do
+  send_cheat('C:NE') # find network exception
 end
 
 Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do

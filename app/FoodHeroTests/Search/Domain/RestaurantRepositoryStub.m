@@ -7,11 +7,12 @@
 #import <ReactiveCocoa.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantRepositoryStub.h"
-#import "Restaurant.h"
+#import "SearchException.h"
 
 
 @implementation RestaurantRepositoryStub {
     NSArray *_restaurants;
+    SearchException *_exception;
 }
 - (id)init {
     self = [super init];
@@ -32,9 +33,19 @@
 }
 
 - (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
+    [self simulateException];
     return [[_restaurants linq_where:^(Restaurant *r) {
         return [r.placeId isEqualToString:place.placeId];
     }] linq_firstOrNil];
 }
 
+- (void)simulateException {
+    if (_exception != nil) {
+        @throw _exception;
+    }
+}
+
+- (void)injectException:(SearchException *)exception {
+    _exception = exception;
+}
 @end

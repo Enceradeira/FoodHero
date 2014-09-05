@@ -5,8 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "IRestaurantRepository.h"
+#import "SearchException.h"
 
 
-@interface RestaurantRepositoryStub : NSObject<IRestaurantRepository>
+@interface RestaurantRepositoryStub : NSObject <IRestaurantRepository>
 - (void)injectRestaurants:(NSArray *)restaurants;
+
+- (void)injectException:(SearchException *)exception;
 @end

@@ -13,6 +13,7 @@
     NSArray *_searchResults;
     BOOL _findReturnsNil;
     NSArray *_ownSearchResults;
+    SearchException *_exception;
 }
 
 - (id)init {
@@ -57,6 +58,7 @@
 }
 
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
+    [self simulateException];
     NSArray *result = [self getRestaurantsByRadius:parameter.radius minPriceLevel:parameter.minPriceLevel maxPricelLevel:parameter.maxPriceLevel];
     return [result linq_select:^(Restaurant *r) {
         return [GooglePlace createWithPlaceId:r.placeId location:r.location cuisineRelevance:r.cuisineRelevance];
@@ -87,6 +89,7 @@
 }
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
+    [self simulateException];
     if (!_findReturnsNil) {
         NSArray *restaurants;
         if (_searchResults != nil) {
@@ -110,6 +113,15 @@
     @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"Restaurant with placeId='%@' not found", place.placeId]];
 }
 
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+    if (simulationEnabled) {
+        _exception = [SearchException createWithReason:@"simulated search exception"];
+    }
+    else {
+        _exception = nil;
+    }
+}
+
 
 - (void)injectFindNothing {
     [self reset];
@@ -121,4 +133,13 @@
     _findReturnsNil = NO;
 }
 
+- (void)injectException:(SearchException *)exception {
+    _exception = exception;
+}
+
+- (void)simulateException {
+    if (_exception != nil) {
+        @throw _exception;
+    }
+}
 @end

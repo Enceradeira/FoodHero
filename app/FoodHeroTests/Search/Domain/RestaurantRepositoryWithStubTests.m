@@ -21,6 +21,8 @@
 #import "PriceRange.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
+#import "SearchException.h"
+#import "SearchError.h"
 
 @interface RestaurantRepositoryWithStubTests : RestaurantRepositoryTests
 
@@ -185,6 +187,23 @@
     }];
 
     assertThat(place, is(notNilValue()));
+    assertThatBool(isCompleted, is(equalToBool(YES)));
+}
+
+-(void)test_getPlacesByCuisine_ShouldReturnError_WhenSearchExceptionOccurred{
+    __block NSError *receivedError;
+    __block BOOL isCompleted;
+
+    [_searchService simulateNetworkError:YES];
+    RACSignal *result = [_repository getPlacesByCuisine:@"Asian"];
+    [result subscribeError:^(NSError* error){
+        receivedError=error;
+    }];
+    [result subscribeCompleted:^() {
+        isCompleted = YES;
+    }];
+
+    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(equalToBool(YES)));
     assertThatBool(isCompleted, is(equalToBool(YES)));
 }
 

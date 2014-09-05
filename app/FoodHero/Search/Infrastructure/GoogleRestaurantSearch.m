@@ -12,6 +12,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
 @implementation GoogleRestaurantSearch {
 
+    BOOL _simulateNetworkError;
 }
 
 - (id)init {
@@ -25,6 +26,9 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 }
 
 - (void)handleError:(NSError *)error {
+    if (_simulateNetworkError) {
+        @throw [SearchException createWithReason:@"simulated network error"];
+    }
     if (error != nil) {
         @throw [SearchException createWithReason:[NSString stringWithFormat:@"Search failed: %@", error.description]];
     }
@@ -107,14 +111,19 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
 }
 
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+    _simulateNetworkError = simulationEnabled;
+}
+
+
 - (NSDictionary *)fetchJSON:(NSString *)placeString {
 
     NSURL *placeURL = [NSURL URLWithString:placeString];
     NSError *error;
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:  NSURLRequestUseProtocolCachePolicy timeoutInterval:_timeout];
+    NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:_timeout];
     NSURLResponse *response;
-    NSData *responseData =[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     [self handleError:error];
 
     NSDictionary *json;

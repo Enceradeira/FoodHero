@@ -25,6 +25,7 @@
 #import "FHSuggestionAfterWarning.h"
 #import "FHWarningIfNotInPreferredRangeTooExpensive.h"
 #import "FHWarningIfNotInPreferredRangeTooFarAway.h"
+#import "SearchError.h"
 
 
 @implementation SearchAction {
@@ -59,6 +60,9 @@
             [conversation addToken:[FHBecauseUserIsNotAllowedToUseLocationServices create]];
         }
         else if (error.class == [NoRestaurantsFoundError class]) {
+            [conversation addToken:[FHNoRestaurantsFound create]];
+        }
+        else if (error.class == [SearchError class]) {
             [conversation addToken:[FHNoRestaurantsFound create]];
         }
     }];

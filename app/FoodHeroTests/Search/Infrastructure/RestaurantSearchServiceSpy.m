@@ -33,6 +33,10 @@
     return [[RestaurantBuilder alloc] build];
 }
 
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+
+}
+
 - (NSUInteger)nrCallsToGetRestaurantForPlace {
     return _nrCallsToGetRestaurantForPlace;
 }

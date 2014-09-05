@@ -15,4 +15,6 @@
 - (BOOL)doRestaurantsHaveDifferentPriceLevels;
 
 - (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound;
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled;
 @end

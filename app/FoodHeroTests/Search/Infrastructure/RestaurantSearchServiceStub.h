@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "Restaurant.h"
 #import "RestaurantSearchService.h"
+#import "SearchException.h"
 
 @interface RestaurantSearchServiceStub : NSObject <RestaurantSearchService>
 - (void)injectFindResults:(NSArray *)restaurants;
@@ -15,4 +16,5 @@
 - (void)injectFindSomething;
 
 - (void)injectFindResultsWithRadiusAndPriceRange:(NSArray *)restaurantsAtRadius;
+
 @end

@@ -9,6 +9,8 @@
 #import "SearchProfil.h"
 #import "GoogleRestaurantSearch.h"
 #import "DesignByContractException.h"
+#import "SearchException.h"
+#import "SearchError.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -31,18 +33,24 @@
 }
 
 - (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
-    return [[[_locationService currentLocation] take:1] map:^(CLLocation *currentLocation) {
+    return[[[_locationService currentLocation] take:1] tryMap:^(CLLocation *currentLocation, NSError** error) {
         BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
         BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
 
-        if( _isSimulatingNoRestaurantFound){
+        if (_isSimulatingNoRestaurantFound) {
             return @[];
         }
 
         if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
             _locationAtMomentOfCaching = currentLocation;
             _cuisineAtMomentOfCaching = cuisine;
-            _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+            @try {
+                _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+            }
+            @catch(SearchException *exc){
+                *error = [SearchError new];
+               _placesCached = nil; // return nil; therefor error will be returned
+            }
         }
         // yields all places as first element in sequence
         return _placesCached;
@@ -125,11 +133,16 @@
     }
     NSUInteger firstPriceLevel = ((Place *) _placesCached[0]).priceLevel;
     return [_placesCached linq_any:^(Place *p) {
-        return (BOOL)(p.priceLevel != firstPriceLevel);
+        return (BOOL) (p.priceLevel != firstPriceLevel);
     }];
 }
 
 - (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound {
     _isSimulatingNoRestaurantFound = simulateNotRestaurantFound;
+}
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+    _placesCached = nil;
+    [_searchService simulateNetworkError: simulationEnabled];
 }
 @end

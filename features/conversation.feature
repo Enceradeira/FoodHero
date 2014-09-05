@@ -51,14 +51,17 @@ Feature: User interacts with app through conversation
 
   Scenario: FoodHero can't find any restaurants
     Given FoodHero will not find any restaurants
-
     When I wish to eat "Indian" food by choosing it
     And I allow access to the location-services
     Then FoodHero says that nothing was found
-
     When I say try again
     Then FoodHero says that nothing was found
 
-    When FoodHero will find restaurants
+    Given FoodHero will find restaurants
     When I say try again
     Then FoodHero suggests something for "Indian" food
+
+    Given FoodHero can't access a network
+    When I don't like the restaurant
+    Then FoodHero says that nothing was found
+
