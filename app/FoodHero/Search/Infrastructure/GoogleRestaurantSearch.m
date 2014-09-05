@@ -17,7 +17,8 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 - (id)init {
     self = [super init];
     if (self) {
-        self.baseAddress = @"https://maps.googleapis.com";
+        _baseAddress = @"https://maps.googleapis.com";
+        _timeout = 60;
     }
 
     return self;
@@ -107,9 +108,13 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 }
 
 - (NSDictionary *)fetchJSON:(NSString *)placeString {
+
     NSURL *placeURL = [NSURL URLWithString:placeString];
     NSError *error;
-    NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:  NSURLRequestUseProtocolCachePolicy timeoutInterval:_timeout];
+    NSURLResponse *response;
+    NSData *responseData =[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     [self handleError:error];
 
     NSDictionary *json;
@@ -119,8 +124,11 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     @catch (NSException *exp) {
         @throw;
     }
+
+    [self handleError:error];
     return json;
 }
+
 
 /*
 - (NSArray *)find2:(RestaurantSearchParams *)parameter {

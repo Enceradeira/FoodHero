@@ -13,4 +13,5 @@ extern const NSUInteger GOOGLE_MAX_SEARCH_RADIUS;
 @interface GoogleRestaurantSearch : NSObject <RestaurantSearchService>
 
 @property(nonatomic) NSString *baseAddress;
+@property(nonatomic) NSTimeInterval timeout;
 @end

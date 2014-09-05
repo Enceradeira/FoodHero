@@ -130,6 +130,8 @@
 
 -(void)test_findPlaces_ShouldThrowException_WhenThereIsANetworkingError{
     _service.baseAddress = @"https://jennius.com"; // this should throw a networking error since no search is available at this address
+    _service.timeout = 0.1;
+
     assertThat(^() {
         [_service findPlaces:_parameter];
     }, throwsExceptionOfType([SearchException class]));
@@ -137,6 +139,8 @@
 
 -(void)test_getRestaurantForPlace_ShouldThrowException_WhenThereIsANetworkingError{
     _service.baseAddress = @"https://jennius.com"; // this should throw a networking error since no search is available at this address
+    _service.timeout = 0.1;
+
     assertThat(^() {
         GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
         [_service getRestaurantForPlace:place];
