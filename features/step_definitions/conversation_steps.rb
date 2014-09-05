@@ -34,8 +34,12 @@ def click_send
   find_element(:name, 'send cuisine').click
 end
 
+def feedback_entry(entry_name)
+  get_last_element_and_parameter("FeedbackEntry=#{entry_name}").select{ |s| s !=nil }
+end
+
 def click_feedback_entry_and_send(entry_name)
-  get_last_element_and_parameter("FeedbackEntry=#{entry_name}")[0].click
+  feedback_entry(entry_name)[0].click
   click_send
 end
 
@@ -84,10 +88,20 @@ Then(/^FoodHero asks asks what User wishes to eat$/) do
   expect(bubble).not_to be_nil
 end
 
-Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
+And(/^FoodHero asks what to do next$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNext')
   expect(bubble).not_to be_nil
-  expect(parameter).to eq(cuisines_as_string)
+end
+
+
+Then(/^FoodHero says that nothing was found$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
+  expect(bubble).not_to be_nil
+end
+
+Then(/^FoodHero says good bye$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:GoodBye')
+  expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines_as_string|
@@ -95,6 +109,27 @@ Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines
   expect(parameter).not_to be_nil
   expect(bubble).not_to be_nil
   last_suggestions << parameter
+end
+
+Then(/^FoodHero asks to enable location\-services in settings$/) do
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
+  expect(bubble).not_to be_nil
+end
+
+Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
+  # wait until next suggestion appears
+  bubble, next_suggestion = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
+
+  expect(bubble).not_to be_nil
+  expect(next_suggestion).not_to be_nil
+  expect(last_suggestions).not_to include(next_suggestion)
+  last_suggestions << next_suggestion
+end
+
+Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
+  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
+  expect(bubble).not_to be_nil
+  expect(parameter).to eq(cuisines_as_string)
 end
 
 Then(/^User answers with "([^"]*)"$/) do |answer|
@@ -109,12 +144,7 @@ Then(/^User answers with I fixed the problem, please try again$/) do
   expect(bubble).not_to be_nil
 end
 
-Then(/^FoodHero asks to enable location\-services in settings$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
-  expect(bubble).not_to be_nil
-end
-
-When(/^User clicks send without entering anything$/) do
+When(/^User touches send without entering anything$/) do
   click_send
 end
 
@@ -156,16 +186,6 @@ When(/^User says that problem with location\-service has been fixed$/) do
   click_send
 end
 
-Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
-  # wait until next suggestion appears
-  bubble, next_suggestion = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
-
-  expect(bubble).not_to be_nil
-  expect(next_suggestion).not_to be_nil
-  expect(last_suggestions).not_to include(next_suggestion)
-  last_suggestions << next_suggestion
-end
-
 When(/^User wishes to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
   text_field.send_keys cuisines_as_string
 
@@ -180,24 +200,31 @@ When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_strin
   click_send
 end
 
-And(/^FoodHero asks what to do next$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNext')
-  expect(bubble).not_to be_nil
-end
 
-
-Then(/^FoodHero says that nothing was found$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
-  expect(bubble).not_to be_nil
-end
-
-Then(/^FoodHero says good bye$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:GoodBye')
-  expect(bubble).not_to be_nil
-end
 
 When(/^User says good bye$/) do
   click_text_field
   get_last_element_and_parameter('GoodByeEntry')[0].click
   click_send
+end
+
+
+When(/^User touches input list button$/) do
+  show_list_button.click
+end
+
+Then(/^User can see the feedback list$/) do
+  entry = feedback_entry('I like it')[0]
+  expect(entry.displayed?).to be_truthy
+end
+
+And(/^User touches a conversation bubble$/) do
+  # wait until next suggestion appears
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  bubble.click
+end
+
+Then(/^User can't see the feedback list$/) do
+  entry = feedback_entry('I like it')[0]
+  expect(entry.displayed?).to be_falsey
 end

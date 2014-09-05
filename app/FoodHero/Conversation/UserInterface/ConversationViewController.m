@@ -17,6 +17,11 @@
 #import "TyphoonComponents.h"
 #import "FoodHeroColors.h"
 
+const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;
+const UIViewAnimationOptions DEFAULT_ANIMATION_OPTION_CURVE = UIViewAnimationOptionCurveEaseOut;
+const double DEFAULT_ANIMATION_DURATION = 0.25;
+const double DEFAULT_ANIMATION_DELAY = 0.0;
+
 @interface ConversationViewController ()
 
 @end
@@ -50,6 +55,12 @@
     UIImageView *backgroundView = [self createBackgroundImage];
     [backgroundView setFrame:_bubbleView.frame];
     _bubbleView.backgroundView = backgroundView;
+
+    // Detect gestures on Bubble View
+    UIGestureRecognizer *gestureRecognizer = [[UIGestureRecognizer alloc] init];
+    [gestureRecognizer setDelegate:self];
+    [_bubbleView addGestureRecognizer:gestureRecognizer];
+
 
     [[_appService statementIndexes] subscribeNext:^(id next) {
         NSUInteger index;
@@ -92,7 +103,7 @@
     [[self view] addSubview:view];
     [[self view] bringSubviewToFront:view];
 
-    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION delay:DEFAULT_ANIMATION_DELAY options:DEFAULT_ANIMATION_OPTION_CURVE animations:^{
         // move view to position of text input
         NSInteger paddingLeft = 10;
         view.frame = CGRectMake(convertedTextinputFrame.origin.x + paddingLeft, convertedTextinputFrame.origin.y, convertedTextinputFrame.size.width - paddingLeft, convertedTextinputFrame.size.height);
@@ -145,7 +156,7 @@
 }
 
 - (void)setViewState:(ConversationViewState *)viewState {
-    if( _isCheatingEnabled){
+    if (_isCheatingEnabled) {
         // when cheating is on we always want to allow text input
         viewState = [ConversationViewStateListOrTextInput create:self animationDuration:0 animationCurve:UIViewAnimationCurveLinear];
     }
@@ -269,8 +280,6 @@
     }
 }
 
-
-
 - (void)hideKeyboard {
     [(self.userTextField) resignFirstResponder];
 }
@@ -301,6 +310,11 @@
 
 - (NSInteger)optimalUserInputListHeight {
     return _currentUserInputContainerViewController.optimalViewHeight;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    [self setDefaultViewState:DEFAULT_ANIMATION_CURVE animationDuration:DEFAULT_ANIMATION_DURATION];
+    return NO;
 }
 
 @end

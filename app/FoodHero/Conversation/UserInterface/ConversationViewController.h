@@ -11,7 +11,7 @@
 
 @class ConversationViewState;
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UActionVisitor>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UActionVisitor, UIGestureRecognizerDelegate>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userTextField;
