@@ -11,6 +11,7 @@
 #import "DesignByContractException.h"
 #import "SearchException.h"
 #import "SearchError.h"
+#import "ISchedulerFactory.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -20,41 +21,50 @@
     NSArray *_placesCached;
     NSMutableDictionary *_restaurantsCached;
     BOOL _isSimulatingNoRestaurantFound;
+    id <ISchedulerFactory> _schedulerFactory;
 }
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService {
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory{
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
         _locationService = locationService;
         _restaurantsCached = [NSMutableDictionary new];
+        _schedulerFactory = schedulerFactory;
         _isSimulatingNoRestaurantFound = NO;
     }
     return self;
 }
 
 - (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
-    return[[[_locationService currentLocation] take:1] tryMap:^(CLLocation *currentLocation, NSError** error) {
-        BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
-        BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
+    RACSignal *asyncSignal = [[_locationService currentLocation]
+            deliverOn:[_schedulerFactory createAsynchScheduler]];
 
-        if (_isSimulatingNoRestaurantFound) {
-            return @[];
-        }
+    RACSignal *workSignal = [[asyncSignal
+            take:1]
+            tryMap:^(CLLocation *currentLocation, NSError **error) {
+                BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
+                BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
 
-        if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
-            _locationAtMomentOfCaching = currentLocation;
-            _cuisineAtMomentOfCaching = cuisine;
-            @try {
-                _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
-            }
-            @catch(SearchException *exc){
-                *error = [SearchError new];
-               _placesCached = nil; // return nil; therefor error will be returned
-            }
-        }
-        // yields all places as first element in sequence
-        return _placesCached;
-    }];
+                if (_isSimulatingNoRestaurantFound) {
+                    return @[];
+                }
+
+                if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
+                    _locationAtMomentOfCaching = currentLocation;
+                    _cuisineAtMomentOfCaching = cuisine;
+                    @try {
+                        _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+                    }
+                    @catch (SearchException *exc) {
+                        *error = [SearchError new];
+                        _placesCached = nil; // return nil; therefor error will be returned
+                    }
+                }
+                // yields all places as first element in sequence
+                return _placesCached;
+            }];
+
+    return [workSignal deliverOn:[_schedulerFactory createMainThreadScheduler]];
 }
 
 - (NSArray *)fetchPlaces:(NSString *)cuisine currentLocation:(CLLocation *)currentLocation {
@@ -143,6 +153,6 @@
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled {
     _placesCached = nil;
-    [_searchService simulateNetworkError: simulationEnabled];
+    [_searchService simulateNetworkError:simulationEnabled];
 }
 @end

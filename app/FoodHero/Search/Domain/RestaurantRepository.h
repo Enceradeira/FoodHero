@@ -8,9 +8,11 @@
 #import "RestaurantSearchService.h"
 #import "IRestaurantRepository.h"
 
+@protocol ISchedulerFactory;
+
 
 @interface RestaurantRepository : NSObject<IRestaurantRepository>
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService;
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory;
 
 - (BOOL)doRestaurantsHaveDifferentPriceLevels;
 

@@ -16,6 +16,8 @@
 #import "RestaurantSearch.h"
 #import "DistanceRange.h"
 #import "ConversationSourceStub.h"
+#import "DefaultSchedulerFactory.h"
+#import "AlwaysImmediateSchedulerFactory.h"
 
 @interface RestaurantRepositoryIntegrationTests : XCTestCase
 
@@ -40,7 +42,8 @@
 
     _locationManager = [CLLocationManagerProxyStub new];
     _locationService = [[LocationService alloc] initWithLocationManager:_locationManager];
-    _repository = [[RestaurantRepository alloc] initWithSearchService:[[GoogleRestaurantSearch alloc] init] locationService:_locationService];
+    id schedulerFactory = [AlwaysImmediateSchedulerFactory new];
+    _repository = [[RestaurantRepository alloc] initWithSearchService:[[GoogleRestaurantSearch alloc] init] locationService:_locationService schedulerFactory:schedulerFactory];
 }
 
 - (void)test_getPlacesByCuisine_ShouldReturnCorrectlyInitializedPlaces {

@@ -39,4 +39,6 @@
 - (id)tokenRandomizer;
 
 - (id)restaurantRepository;
+
+- (id)schedulerFactory;
 @end

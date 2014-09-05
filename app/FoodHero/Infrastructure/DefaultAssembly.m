@@ -21,6 +21,7 @@
 #import "RestaurantRepository.h"
 #import "TryAgainTableViewController.h"
 #import "SearchForAnotherRestaurantTableViewController.h"
+#import "DefaultSchedulerFactory.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -149,12 +150,17 @@
 - (id)restaurantRepository {
     return [TyphoonDefinition withClass:[RestaurantRepository class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSearchService:locationService:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithSearchService:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantSearchService]];
                                   [method injectParameterWith:[self locationService]];
+                                  [method injectParameterWith:[self schedulerFactory]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];
+}
+
+- (id)schedulerFactory {
+    return [TyphoonDefinition withClass:[DefaultSchedulerFactory class]];
 }
 
 
