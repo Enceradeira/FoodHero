@@ -26,3 +26,12 @@ Feature: User interacts with app through conversation
     Then User can see the feedback list
     And User touches a conversation bubble
     Then User can't see the feedback list
+
+  Scenario: Long conversation
+    Given User wishes to eat "British" food by typing it
+    And User allows access to location-services
+    And User doesn't like that restaurant
+    And User finds restaurant too far away
+    And User finds restaurant looks too cheap
+    When User touches input list button
+    Then User can see last suggestion

@@ -20,7 +20,7 @@
 - (void)activate {
     UITextField *userCuisinePreferenceText = self.controller.userTextField;
     userCuisinePreferenceText.enabled = self.isTextInputEnabled;
-    userCuisinePreferenceText.backgroundColor =  self.isTextInputEnabled? nil: [FoodHeroColors lightestBackgroundGrey];
+    userCuisinePreferenceText.backgroundColor = self.isTextInputEnabled ? nil : [FoodHeroColors lightestBackgroundGrey];
 
     if (!self.isKeyboardVisible) {
         [self hideKeyboard];

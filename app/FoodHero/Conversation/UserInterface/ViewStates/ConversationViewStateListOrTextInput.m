@@ -36,6 +36,12 @@
     _controller.bubbleViewHeightConstraint.constant = self.controller.bubbleViewHeight;
 
     [self animateLayoutWithDuration:_animationDuration animationCurve:_animationCurve];
+
+    // moves the last conversation bubble into view
+    int section = 0;
+    NSInteger nrRows = [_controller.bubbleView numberOfRowsInSection:section];
+    [_controller.bubbleView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:nrRows - 1 inSection:section] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+
 }
 
 - (BOOL)isKeyboardVisible {

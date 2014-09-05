@@ -228,3 +228,8 @@ Then(/^User can't see the feedback list$/) do
   entry = feedback_entry('I like it')[0]
   expect(entry.displayed?).to be_falsey
 end
+
+Then(/^User can see last suggestion$/) do
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  expect(bubble.displayed?).to be_truthy
+end
