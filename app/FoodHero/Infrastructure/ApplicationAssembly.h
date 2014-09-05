@@ -10,6 +10,8 @@
 
 - (id)whatToDoNextTableViewController;
 
+- (id)tryAgainTableViewController;
+
 - (id)feedbackTableViewController;
 
 - (id)cuisineTableViewController;

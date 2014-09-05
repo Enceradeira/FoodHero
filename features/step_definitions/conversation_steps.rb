@@ -39,8 +39,12 @@ def click_feedback_entry_and_send(entry_name)
   click_send
 end
 
+def text_field
+  find_element(:name, 'cuisine text')
+end
+
 def click_text_field
-  find_element(:name, 'cuisine text').click
+  text_field.click
 end
 
 def click_text_and_send_feedback(entry_name)
@@ -49,8 +53,25 @@ def click_text_and_send_feedback(entry_name)
 end
 
 def click_list_and_send_feedback(entry_name)
-  find_element(:name, 'show cuisine list').click
+  show_list_button.click
   click_feedback_entry_and_send(entry_name)
+end
+
+def send_cheat(command)
+  text_field.send_keys command
+  click_send
+end
+
+def show_list_button
+  find_element(:name, 'show cuisine list')
+end
+
+Given(/^FoodHero will not find any restaurants$/) do
+  send_cheat('C:FN')
+end
+
+When(/^FoodHero will find restaurant$/) do
+  send_cheat('C:F')
 end
 
 Then(/^FoodHero(?: still)? greets users and asks what they wished to eat$/) do
@@ -112,6 +133,12 @@ When(/^User likes the restaurant$/) do
   click_text_and_send_feedback('I like it')
 end
 
+When(/^User says try again$/) do
+  show_list_button.click
+  get_last_element_and_parameter('TryAgainEntry')[0].click
+  click_send
+end
+
 When(/^User says that problem with location\-service has been fixed$/) do
   click_text_field
   get_last_element_and_parameter('DidResolveProblemWithAccessLocationServiceEntry')[0].click
@@ -129,23 +156,27 @@ Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_st
 end
 
 When(/^User wishes to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
-  cuisine_text = find_element :name, 'cuisine text'
-  cuisine_text.send_keys cuisines_as_string
+  text_field.send_keys cuisines_as_string
 
   click_send
 end
 
 
 When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
-  find_element(:name, 'show cuisine list').click
+  show_list_button.click
   split_at_comma(cuisines_as_string).each do |cuisine|
     get_last_element_and_parameter("CuisineEntry=#{cuisine}")[0].click
   end
   click_send
 end
 
-
 And(/^FoodHero asks what to do next$/) do
   bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNext')
+  expect(bubble).not_to be_nil
+end
+
+
+Then(/^FoodHero says that nothing was found$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
   expect(bubble).not_to be_nil
 end

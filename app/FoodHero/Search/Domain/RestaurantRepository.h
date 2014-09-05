@@ -13,4 +13,6 @@
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService;
 
 - (BOOL)doRestaurantsHaveDifferentPriceLevels;
+
+- (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound;
 @end

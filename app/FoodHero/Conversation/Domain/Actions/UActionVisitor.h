@@ -13,4 +13,8 @@
 - (void)askUserWhatToDoNext;
 
 - (void)askUserIfProblemWithAccessLocationServiceResolved;
+
+- (void)askUserToTryAgainAction;
+
+- (void)askUserWhatToDoAfterGoodBye;
 @end

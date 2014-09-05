@@ -25,6 +25,7 @@
     ConversationAppService *_appService;
     ConversationViewState *_currentViewState;
     UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
+    BOOL _isCheatingEnabled;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -144,6 +145,11 @@
 }
 
 - (void)setViewState:(ConversationViewState *)viewState {
+    if( _isCheatingEnabled){
+        // when cheating is on we always want to allow text input
+        viewState = [ConversationViewStateListOrTextInput create:self animationDuration:0 animationCurve:UIViewAnimationCurveLinear];
+    }
+
     if (![viewState isEqual:_currentViewState]) {
         _currentViewState = viewState;
         [viewState activate];
@@ -228,6 +234,14 @@
     [self changeUserInputViewController:@"ProblemWithAccessLocationServiceResolved"];
 }
 
+- (void)askUserToTryAgainAction {
+    [self changeUserInputViewController:@"TryAgain"];
+}
+
+- (void)askUserWhatToDoAfterGoodBye {
+    [self changeUserInputViewController:@"WhatToDoAfterGoobBye"];
+}
+
 
 - (IBAction)userTextFieldChanged:(id)sender {
     [self setEnabledForCuisinePreferenceSend];
@@ -245,9 +259,17 @@
 - (IBAction)userSendButtonTouchUp:(id)sender {
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
-    [_currentUserInputContainerViewController sendUserInput];
-    _userTextField.text = @"";
+    if ([_userTextField.text hasPrefix:@"C:"]) {
+        _isCheatingEnabled = YES;
+        [_appService processCheat:_userTextField.text];
+    }
+    else {
+        [_currentUserInputContainerViewController sendUserInput];
+        _userTextField.text = @"";
+    }
 }
+
+
 
 - (void)hideKeyboard {
     [(self.userTextField) resignFirstResponder];
@@ -280,4 +302,5 @@
 - (NSInteger)optimalUserInputListHeight {
     return _currentUserInputContainerViewController.optimalViewHeight;
 }
+
 @end

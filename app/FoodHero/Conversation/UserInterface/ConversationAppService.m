@@ -171,4 +171,13 @@ static UIImage *EmptyImage;
 - (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback {
     [self addUserInput:[feedback createTokenFor:[self getLastSuggestedRestaurant]]];
 }
+
+- (void)processCheat:(NSString *)command {
+    if([command isEqualToString:@"C:F"]){
+        [_restaurantRepository simulateNoRestaurantFound:NO];
+    }
+    else if([command isEqualToString:@"C:FN"]){
+        [_restaurantRepository simulateNoRestaurantFound:YES];
+    }
+}
 @end

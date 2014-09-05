@@ -6,8 +6,6 @@
 #import "SearchProfil.h"
 #import "DesignByContractException.h"
 
-const double MAX_NR_DESCRETE_RANGES = 10;
-
 @implementation SearchProfil {
 
 }

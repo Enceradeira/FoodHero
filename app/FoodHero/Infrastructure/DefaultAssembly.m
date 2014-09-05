@@ -19,6 +19,7 @@
 #import "WhatToDoNextTableViewController.h"
 #import "ProblemWithAccessLocationServiceResolvedTableViewController.h"
 #import "RestaurantRepository.h"
+#import "TryAgainTableViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -45,6 +46,15 @@
 
 - (id)whatToDoNextTableViewController {
     return [TyphoonDefinition withClass:[WhatToDoNextTableViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:[self conversationAppService]];
+
+        }];
+    }];
+}
+
+- (id)tryAgainTableViewController {
+    return [TyphoonDefinition withClass:[TryAgainTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 

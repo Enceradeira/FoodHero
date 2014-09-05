@@ -31,7 +31,6 @@ Feature: User interacts with app through conversation
     Then User answers with "I like it"
     And FoodHero asks what to do next
 
-
   Scenario: User chooses cuisine from list
     When User wishes to eat "South American, Greek, Indian" food by choosing it
     And User allows access to location-services
@@ -42,12 +41,27 @@ Feature: User interacts with app through conversation
     When FoodHero greets users and asks what they wished to eat
     And User wishes to eat "British" food by typing it
     Then FoodHero asks for access to location-services
+
     When User doesn't allow access to location-services
     Then FoodHero asks to enable location-services in settings
+
     When User says that problem with location-service has been fixed
     Then User answers with I fixed the problem, please try again
     And FoodHero asks to enable location-services in settings
 
+  Scenario: FoodHero can't find any restaurants
+    Given FoodHero will not find any restaurants
+
+    When User wishes to eat "Indian" food by choosing it
+    And User allows access to location-services
+    Then FoodHero says that nothing was found
+
+    When User says try again
+    Then FoodHero says that nothing was found
+
+    When FoodHero will find restaurant
+    And User says try again
+    Then FoodHero suggests something for "Indian" food
 
   Scenario: User does naughty things
     When FoodHero greets users and asks what they wished to eat

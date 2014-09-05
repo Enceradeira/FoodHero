@@ -31,6 +31,8 @@
 
 - (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback;
 
+- (void)processCheat:(NSString *)command;
+
 - (NSInteger)getStatementCount;
 
 - (NSInteger)getCuisineCount;

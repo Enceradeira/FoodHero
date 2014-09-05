@@ -9,5 +9,9 @@
 @implementation AskUserToTryAgainAction {
 
 }
+- (void)accept:(id <UActionVisitor>)visitor {
+    [visitor askUserToTryAgainAction];
+}
+
 
 @end

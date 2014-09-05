@@ -9,4 +9,9 @@
 @implementation AskUserWhatToDoAfterGoodByeAction {
 
 }
+- (void)accept:(id <UActionVisitor>)visitor {
+    [visitor askUserWhatToDoAfterGoodBye];
+}
+
+
 @end

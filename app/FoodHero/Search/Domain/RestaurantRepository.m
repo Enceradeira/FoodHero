@@ -17,6 +17,7 @@
     NSString *_cuisineAtMomentOfCaching;
     NSArray *_placesCached;
     NSMutableDictionary *_restaurantsCached;
+    BOOL _isSimulatingNoRestaurantFound;
 }
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService {
     self = [super init];
@@ -24,6 +25,7 @@
         _searchService = searchService;
         _locationService = locationService;
         _restaurantsCached = [NSMutableDictionary new];
+        _isSimulatingNoRestaurantFound = NO;
     }
     return self;
 }
@@ -32,6 +34,11 @@
     return [[[_locationService currentLocation] take:1] map:^(CLLocation *currentLocation) {
         BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
         BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
+
+        if( _isSimulatingNoRestaurantFound){
+            return @[];
+        }
+
         if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
             _locationAtMomentOfCaching = currentLocation;
             _cuisineAtMomentOfCaching = cuisine;
@@ -120,5 +127,9 @@
     return [_placesCached linq_any:^(Place *p) {
         return (BOOL)(p.priceLevel != firstPriceLevel);
     }];
+}
+
+- (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound {
+    _isSimulatingNoRestaurantFound = simulateNotRestaurantFound;
 }
 @end
