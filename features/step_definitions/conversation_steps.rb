@@ -74,16 +74,16 @@ Given(/^FoodHero will not find any restaurants$/) do
   send_cheat('C:FN')
 end
 
-When(/^FoodHero will find restaurant$/) do
+When(/^FoodHero will find restaurants$/) do
   send_cheat('C:F')
 end
 
-Then(/^FoodHero(?: still)? greets users and asks what they wished to eat$/) do
+Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting&FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 
-Then(/^FoodHero asks asks what User wishes to eat$/) do
+Then(/^FoodHero asks what I wished to eat$/) do
   bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
@@ -126,73 +126,73 @@ Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_st
   last_suggestions << next_suggestion
 end
 
-Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
+Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
   expect(parameter).to eq(cuisines_as_string)
 end
 
-Then(/^User answers with "([^"]*)"$/) do |answer|
+Then(/^I answer with "([^"]*)"$/) do |answer|
   sanitized_answer = answer.tr("'", '')
   bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback') { |p| p.eql? sanitized_answer }
   expect(parameter).to eq(sanitized_answer)
   expect(bubble).not_to be_nil
 end
 
-Then(/^User answers with I fixed the problem, please try again$/) do
+Then(/^I answer with I fixed the problem, please try again$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-U:DidResolveProblemWithAccessLocationService')
   expect(bubble).not_to be_nil
 end
 
-When(/^User touches send without entering anything$/) do
+When(/^I touch send without entering anything$/) do
   click_send
 end
 
-When(/^User doesn't like that restaurant$/) do
+When(/^I don't like the restaurant$/) do
   click_text_and_send_feedback('I dont like that restaurant')
 end
 
-When(/^User finds restaurant too far away$/) do
+When(/^I find the restaurant too far away$/) do
   click_list_and_send_feedback('Its too far away')
 end
 
-When(/^User finds restaurant looks too cheap$/) do
+When(/^I find the restaurant looks too cheap$/) do
   click_text_and_send_feedback('It looks too cheap')
 end
 
-When(/^User finds restaurant looks too expensive$/) do
+When(/^I find the restaurant looks too expensive$/) do
   click_list_and_send_feedback('It looks too expensive')
 end
 
-When(/^User likes the restaurant$/) do
+When(/^I like the restaurant$/) do
   click_text_and_send_feedback('I like it')
 end
 
-When(/^User says try again$/) do
+When(/^I say try again$/) do
   show_list_button.click
   get_last_element_and_parameter('TryAgainEntry')[0].click
   click_send
 end
 
-When(/^User wants to search for another restaurant$/) do
+When(/^I want to search for another restaurant$/) do
   show_list_button.click
   get_last_element_and_parameter('SearchForAnotherRestaurantEntry')[0].click
   click_send
 end
 
-When(/^User says that problem with location\-service has been fixed$/) do
+When(/^I say that problem with location\-service has been fixed$/) do
   click_text_field
   get_last_element_and_parameter('DidResolveProblemWithAccessLocationServiceEntry')[0].click
   click_send
 end
 
-When(/^User wishes to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
+When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
   text_field.send_keys cuisines_as_string
 
   click_send
 end
 
-When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
+When(/^I wish to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
   show_list_button.click
   split_at_comma(cuisines_as_string).each do |cuisine|
     get_last_element_and_parameter("CuisineEntry=#{cuisine}")[0].click
@@ -200,36 +200,34 @@ When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_strin
   click_send
 end
 
-
-
-When(/^User says good bye$/) do
+When(/^I say good bye$/) do
   click_text_field
   get_last_element_and_parameter('GoodByeEntry')[0].click
   click_send
 end
 
 
-When(/^User touches input list button$/) do
+When(/^I touch input list button$/) do
   show_list_button.click
 end
 
-Then(/^User can see the feedback list$/) do
+Then(/^I can see the feedback list$/) do
   entry = feedback_entry('I like it')[0]
   expect(entry.displayed?).to be_truthy
 end
 
-And(/^User touches a conversation bubble$/) do
+And(/^I touch a conversation bubble$/) do
   # wait until next suggestion appears
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
   bubble.click
 end
 
-Then(/^User can't see the feedback list$/) do
+Then(/^I can't see the feedback list$/) do
   entry = feedback_entry('I like it')[0]
   expect(entry.displayed?).to be_falsey
 end
 
-Then(/^User can see last suggestion$/) do
+Then(/^I can see last suggestion$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
   expect(bubble.displayed?).to be_truthy
 end

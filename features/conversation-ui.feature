@@ -3,35 +3,35 @@ Feature: User interacts with app through conversation
   Background:
     Given FoodHero has started
 
-  Scenario: User does naughty things
-    When FoodHero greets users and asks what they wished to eat
-    And User touches send without entering anything
-    Then FoodHero still greets users and asks what they wished to eat
+  Scenario: I do naughty things
+    When FoodHero greets me and asks what I wished to eat
+    And I touch send without entering anything
+    Then FoodHero still greets me and asks what I wished to eat
 
-    When User wishes to eat "African" food by choosing it
-    And User allows access to location-services
-    And User touches send without entering anything
-    And User finds restaurant looks too cheap
-    And User touches send without entering anything
+    When I wish to eat "African" food by choosing it
+    And I allow access to the location-services
+    And I touch send without entering anything
+    And I find the restaurant looks too cheap
+    And I touch send without entering anything
     Then FoodHero still suggests something for "African" food
 
-  Scenario: User does things differently
+  Scenario: I do things differently
     # choosing cuisine from list
-    When User wishes to eat "South American, Greek, Indian" food by choosing it
-    And User allows access to location-services
-    Then User answers with "South American, Greek or Indian" food
-    Then FoodHero suggests something for "South American, Greek or Indian" food
+    When I wish to eat "Indian" food by choosing it
+    And I allow access to the location-services
+    Then I answer with "Indian" food
+    And FoodHero suggests something for "Indian" food
     # clicking on bubble while input list is displayed
-    When User touches input list button
-    Then User can see the feedback list
-    And User touches a conversation bubble
-    Then User can't see the feedback list
+    When I touch input list button
+    Then I can see the feedback list
+    When I touch a conversation bubble
+    Then I can't see the feedback list
 
-  Scenario: Long conversation
-    Given User wishes to eat "British" food by typing it
-    And User allows access to location-services
-    And User doesn't like that restaurant
-    And User finds restaurant too far away
-    And User finds restaurant looks too cheap
-    When User touches input list button
-    Then User can see last suggestion
+  Scenario: A long conversation
+    Given I wish to eat "British" food by typing it
+    And I allow access to the location-services
+    And I don't like the restaurant
+    And I find the restaurant too far away
+    And I find the restaurant looks too cheap
+    When I touch input list button
+    Then I can see last suggestion

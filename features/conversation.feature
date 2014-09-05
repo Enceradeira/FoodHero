@@ -3,62 +3,62 @@ Feature: User interacts with app through conversation
   Background:
     Given FoodHero has started
 
-  Scenario: User logs in for the first time and goes through all suggestion feedbacks
-    When FoodHero greets users and asks what they wished to eat
-    And User wishes to eat "British" food by typing it
-    Then FoodHero asks for access to location-services
-    When User allows access to location-services
-    Then User answers with "British" food
+  Scenario: I log in for the first time and go through all suggestion feedbacks
+    When FoodHero greets me and asks what I wished to eat
+    And I wish to eat "British" food by typing it
+    Then FoodHero asks for access to the location-services
+    When I allow access to the location-services
+    Then I answer with "British" food
     Then FoodHero suggests something for "British" food
 
-    When User doesn't like that restaurant
-    Then User answers with "I don't like that restaurant"
+    When I don't like the restaurant
+    Then I answer with "I don't like that restaurant"
     And FoodHero suggests something else for "British" food
 
-    When User finds restaurant too far away
-    Then User answers with "It's too far away"
+    When I find the restaurant too far away
+    Then I answer with "It's too far away"
     And FoodHero suggests something else for "British" food
 
-    When User finds restaurant looks too cheap
-    Then User answers with "It looks too cheap"
+    When I find the restaurant looks too cheap
+    Then I answer with "It looks too cheap"
     And FoodHero suggests something else for "British" food
 
-    When User finds restaurant looks too expensive
-    Then User answers with "It looks too expensive"
+    When I find the restaurant looks too expensive
+    Then I answer with "It looks too expensive"
     And FoodHero suggests something else for "British" food
 
-    When User likes the restaurant
-    Then User answers with "I like it"
+    When I like the restaurant
+    Then I answer with "I like it"
     And FoodHero asks what to do next
 
-    When User says good bye
+    When I say good bye
     Then FoodHero says good bye
 
-    When User wants to search for another restaurant
-    Then FoodHero asks asks what User wishes to eat
+    When I want to search for another restaurant
+    Then FoodHero asks what I wished to eat
 
-  Scenario: User doesn't allow to access location-API
-    When FoodHero greets users and asks what they wished to eat
-    And User wishes to eat "British" food by typing it
-    Then FoodHero asks for access to location-services
+  Scenario: I don't allow FoodHero to access location-API
+    When FoodHero greets me and asks what I wished to eat
+    And I wish to eat "British" food by typing it
+    Then FoodHero asks for access to the location-services
 
-    When User doesn't allow access to location-services
+    When I don't allow access to the location-services
     Then FoodHero asks to enable location-services in settings
 
-    When User says that problem with location-service has been fixed
-    Then User answers with I fixed the problem, please try again
+    When I say that problem with location-service has been fixed
+    Then I answer with I fixed the problem, please try again
     And FoodHero asks to enable location-services in settings
 
   Scenario: FoodHero can't find any restaurants
     Given FoodHero will not find any restaurants
 
-    When User wishes to eat "Indian" food by choosing it
-    And User allows access to location-services
+    When I wish to eat "Indian" food by choosing it
+    And I allow access to the location-services
     Then FoodHero says that nothing was found
 
-    When User says try again
+    When I say try again
     Then FoodHero says that nothing was found
 
-    When FoodHero will find restaurant
-    And User says try again
+    When FoodHero will find restaurants
+    When I say try again
     Then FoodHero suggests something for "Indian" food

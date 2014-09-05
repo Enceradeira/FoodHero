@@ -1,6 +1,6 @@
 Feature: Navigation in app
 
-  Scenario: User starts Food Hero and explores app
+  Scenario: I starts Food Hero and explore app
     Given FoodHero has started
     Then I see the conversation view
     When I go to the map view
