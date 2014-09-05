@@ -20,6 +20,7 @@
 #import "ProblemWithAccessLocationServiceResolvedTableViewController.h"
 #import "RestaurantRepository.h"
 #import "TryAgainTableViewController.h"
+#import "SearchForAnotherRestaurantTableViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -55,6 +56,15 @@
 
 - (id)tryAgainTableViewController {
     return [TyphoonDefinition withClass:[TryAgainTableViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:[self conversationAppService]];
+
+        }];
+    }];
+}
+
+- (id)searchForAnotherRestaurantTableViewController {
+    return [TyphoonDefinition withClass:[SearchForAnotherRestaurantTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 

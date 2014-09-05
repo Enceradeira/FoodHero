@@ -492,6 +492,55 @@
             </objects>
             <point key="canvasLocation" x="-87" y="2289"/>
         </scene>
+        <!--Search For Another Restaurant Controller-->
+        <scene sceneID="uOX-KV-K7v">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchForAnotherRestaurant" id="Tam-Jf-atS" userLabel="Search For Another Restaurant Controller" customClass="SearchForAnotherRestaurantTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qt1-nt-7Rk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="LqR-LD-2yv">
+                                <cells>
+                                    <tableViewCell tag="100" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Feedback" textLabel="su3-rC-0Se" imageView="mop-6G-P6j" style="IBUITableViewCellStyleDefault" id="wP3-nq-0rB" customClass="ConversationTokenTableViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wP3-nq-0rB" id="gqJ-Bb-YGn">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Search for another restaurant" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="253" id="su3-rC-0Se">
+                                                    <rect key="frame" x="52" y="0.0" width="253" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Empty-Icon.png" id="mop-6G-P6j">
+                                                    <rect key="frame" x="15" y="10" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <accessibility key="accessibilityConfiguration" hint="" label="">
+                                            <bool key="isElement" value="NO"/>
+                                        </accessibility>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Tam-Jf-atS" id="XGP-yc-yQb"/>
+                            <outlet property="delegate" destination="Tam-Jf-atS" id="eZZ-Wd-qDU"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gnZ-Or-IWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="282" y="2295"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Empty-Icon.png" width="22" height="22"/>

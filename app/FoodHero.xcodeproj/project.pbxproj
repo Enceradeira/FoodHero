@@ -150,6 +150,7 @@
 		23525B579E23C875B154A0C5 /* PriceLevelRangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352561B124D2D6901DBB07C /* PriceLevelRangeTests.m */; };
 		23525B624B00382384D0E8A7 /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352540DBFAE841556E3287C /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m */; };
 		23525B7F6DFE497171391D4C /* ReturnsAlwaysStateFinishedSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B08F96DEAD44281E51A /* ReturnsAlwaysStateFinishedSymbol.m */; };
+		23525B83E567E93651DDCFD2 /* SearchForAnotherRestaurantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525170745741D53D9996A0 /* SearchForAnotherRestaurantTableViewController.m */; };
 		23525BB9AC707BAEF02A5B8A /* FHCantAccessLocationServiceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352503F34A7F6451C87C6BB /* FHCantAccessLocationServiceState.m */; };
 		23525BE83E16D2E452E2A4FD /* FHConfirmationIfInNewPreferredRangeCloser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C94DC461CB1CB763DF1 /* FHConfirmationIfInNewPreferredRangeCloser.m */; };
 		23525C033831693A403D74BE /* CuisineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352511A486E6DF8E14728AD /* CuisineTableViewController.m */; };
@@ -298,6 +299,7 @@
 		2352516521BFB5E286D96C49 /* RestaurantBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantBuilder.m; sourceTree = "<group>"; };
 		2352516D00A6C9B6CFF89763 /* ConversationViewStateTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewStateTextInput.h; sourceTree = "<group>"; };
 		2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceAuthorizationStatusDeniedError.m; sourceTree = "<group>"; };
+		23525170745741D53D9996A0 /* SearchForAnotherRestaurantTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchForAnotherRestaurantTableViewController.m; sourceTree = "<group>"; };
 		2352517FB891133220BFA410 /* ConversationRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationRepository.m; sourceTree = "<group>"; };
 		2352518047AA0D86D1C3297A /* FHWhatToDoNextState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHWhatToDoNextState.m; sourceTree = "<group>"; };
 		235251996A185437DF584FB5 /* Personas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Personas.m; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		235253B6A64340A77ABE93E5 /* CLLocationManagerProxyStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxyStub.h; sourceTree = "<group>"; };
 		235253B7566895C3ED6BB54F /* ConversationTestsBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTestsBase.h; sourceTree = "<group>"; };
 		235253BBE4BEBA5C235C6245 /* CuisineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuisineTableViewController.h; sourceTree = "<group>"; };
+		235253BDA40AC0A95B88B1A1 /* SearchForAnotherRestaurantTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchForAnotherRestaurantTableViewController.h; sourceTree = "<group>"; };
 		235253C12B805752030828BE /* FHCantFindRestaurantState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHCantFindRestaurantState.m; sourceTree = "<group>"; };
 		235253E515882C9E7694D85B /* FHWarningIfNotInPreferredRangeTooCheapState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWarningIfNotInPreferredRangeTooCheapState.h; sourceTree = "<group>"; };
 		235253F117606594F4E18A31 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
@@ -794,6 +797,8 @@
 				23525D474EB17547DF507232 /* FeedbackForTooFarAway.h */,
 				235259D007ED4EAAAF5C6D7D /* TryAgainTableViewController.m */,
 				235252301E339D75A5FC26F7 /* TryAgainTableViewController.h */,
+				23525170745741D53D9996A0 /* SearchForAnotherRestaurantTableViewController.m */,
+				235253BDA40AC0A95B88B1A1 /* SearchForAnotherRestaurantTableViewController.h */,
 			);
 			path = UserInputViewControllers;
 			sourceTree = "<group>";
@@ -1726,6 +1731,7 @@
 				23525CC6498291803FCFCBC6 /* FHWarningIfNotInPreferredRangeTooFarAway.m in Sources */,
 				23525C2E17A498E468F0DC27 /* FHWarningIfNotInPreferredRange.m in Sources */,
 				23525DC5BD64AA76BEABE8AC /* TryAgainTableViewController.m in Sources */,
+				23525B83E567E93651DDCFD2 /* SearchForAnotherRestaurantTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,10 +31,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ConversationTokenTableViewCell *cell = (ConversationTokenTableViewCell *) [super tableView:tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 0) {
-        [cell setToken:_goodByAnswer accessibilityId:@"WhatToDoNextEntry"];
+        [cell setToken:_goodByAnswer accessibilityId:@"GoodByeEntry"];
     }
     else {
-        [cell setToken:_searchAgainAnswer accessibilityId:@"WhatToDoNextEntry"];
+        [cell setToken:_searchAgainAnswer accessibilityId:@"SearchForAnotherRestaurantEntry"];
     }
     return cell;
 }

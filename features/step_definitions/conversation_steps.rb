@@ -79,6 +79,11 @@ Then(/^FoodHero(?: still)? greets users and asks what they wished to eat$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero asks asks what User wishes to eat$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion')
+  expect(bubble).not_to be_nil
+end
+
 Then(/^User answers with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
@@ -139,6 +144,12 @@ When(/^User says try again$/) do
   click_send
 end
 
+When(/^User wants to search for another restaurant$/) do
+  show_list_button.click
+  get_last_element_and_parameter('SearchForAnotherRestaurantEntry')[0].click
+  click_send
+end
+
 When(/^User says that problem with location\-service has been fixed$/) do
   click_text_field
   get_last_element_and_parameter('DidResolveProblemWithAccessLocationServiceEntry')[0].click
@@ -161,7 +172,6 @@ When(/^User wishes to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
   click_send
 end
 
-
 When(/^User wishes to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
   show_list_button.click
   split_at_comma(cuisines_as_string).each do |cuisine|
@@ -179,4 +189,15 @@ end
 Then(/^FoodHero says that nothing was found$/) do
   bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
   expect(bubble).not_to be_nil
+end
+
+Then(/^FoodHero says good bye$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:GoodBye')
+  expect(bubble).not_to be_nil
+end
+
+When(/^User says good bye$/) do
+  click_text_field
+  get_last_element_and_parameter('GoodByeEntry')[0].click
+  click_send
 end

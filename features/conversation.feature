@@ -31,6 +31,12 @@ Feature: User interacts with app through conversation
     Then User answers with "I like it"
     And FoodHero asks what to do next
 
+    When User says good bye
+    Then FoodHero says good bye
+
+    When User wants to search for another restaurant
+    Then FoodHero asks asks what User wishes to eat
+
   Scenario: User chooses cuisine from list
     When User wishes to eat "South American, Greek, Indian" food by choosing it
     And User allows access to location-services

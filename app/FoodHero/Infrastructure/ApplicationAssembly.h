@@ -8,6 +8,8 @@
 @protocol ApplicationAssembly
 - (id)problemWithAccessLocationServiceResolvedTableViewController;
 
+- (id)searchForAnotherRestaurantTableViewController;
+
 - (id)whatToDoNextTableViewController;
 
 - (id)tryAgainTableViewController;

@@ -239,7 +239,7 @@
 }
 
 - (void)askUserWhatToDoAfterGoodBye {
-    [self changeUserInputViewController:@"WhatToDoAfterGoobBye"];
+    [self changeUserInputViewController:@"SearchForAnotherRestaurant"];
 }
 
 
