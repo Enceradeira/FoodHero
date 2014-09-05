@@ -50,19 +50,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
                                                        parameter.maxPriceLevel,
                                                        typesAsString];
 
-    NSURL *placeURL = [NSURL URLWithString:placeString];
-
-    NSError *error;
-    NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
-    [self handleError:error];
-
-    NSDictionary *json;
-    @try {
-        json = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-    }
-    @catch (NSException *exp) {
-        @throw;
-    }
+    NSDictionary *json = [self fetchJSON:placeString];
 
     NSMutableArray *restaurants = [NSMutableArray new];
     NSArray *places = json[@"results"];
@@ -104,8 +92,22 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, place.placeId];
-    NSURL *placeURL = [NSURL URLWithString:placeString];
 
+    NSDictionary *json = [self fetchJSON:placeString];
+
+    NSArray *result = json[@"result"];
+    return [Restaurant createWithName:[result valueForKey:@"name"]
+                             vicinity:[result valueForKey:@"vicinity"]
+                                types:[result valueForKey:@"types"]
+                              placeId:[result valueForKey:@"place_id"]
+                             location:place.location
+                           priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]
+                     cuisineRelevance:place.cuisineRelevance];
+
+}
+
+- (NSDictionary *)fetchJSON:(NSString *)placeString {
+    NSURL *placeURL = [NSURL URLWithString:placeString];
     NSError *error;
     NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
     [self handleError:error];
@@ -117,16 +119,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     @catch (NSException *exp) {
         @throw;
     }
-
-    NSArray *result = json[@"result"];
-    return [Restaurant createWithName:[result valueForKey:@"name"]
-                             vicinity:[result valueForKey:@"vicinity"]
-                                types:[result valueForKey:@"types"]
-                              placeId:[result valueForKey:@"place_id"]
-                             location:place.location
-                           priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]
-                     cuisineRelevance:place.cuisineRelevance];
-
+    return json;
 }
 
 /*
