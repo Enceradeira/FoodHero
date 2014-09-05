@@ -5,12 +5,28 @@
 
 #import "GoogleRestaurantSearch.h"
 #import "DesignByContractException.h"
+#import "SearchException.h"
 
 const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
 const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
 @implementation GoogleRestaurantSearch {
 
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.baseAddress = @"https://maps.googleapis.com";
+    }
+
+    return self;
+}
+
+- (void)handleError:(NSError *)error {
+    if (error != nil) {
+        @throw [SearchException createWithReason:[NSString stringWithFormat:@"Search failed: %@", error.description]];
+    }
 }
 
 - (NSMutableArray *)findPlaces:(RestaurantSearchParams *)parameter {
@@ -24,7 +40,8 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     NSArray *types = @[@"restaurant", @"cafe", @"food"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
     NSString *keyword = [parameter.cuisine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg",
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg",
+                                                       _baseAddress,
                                                        keyword,
                                                        coordinate.latitude,
                                                        coordinate.longitude,
@@ -37,6 +54,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
     NSError *error;
     NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
+    [self handleError:error];
 
     NSDictionary *json;
     @try {
@@ -85,11 +103,12 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 }
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", place.placeId];
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, place.placeId];
     NSURL *placeURL = [NSURL URLWithString:placeString];
 
     NSError *error;
     NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
+    [self handleError:error];
 
     NSDictionary *json;
     @try {

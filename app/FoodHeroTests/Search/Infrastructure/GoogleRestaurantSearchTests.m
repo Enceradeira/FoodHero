@@ -12,6 +12,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
+#import "SearchException.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -125,6 +126,21 @@
     assertThat(^() {
         [_service findPlaces:_parameter];
     }, throwsExceptionOfType([DesignByContractException class]));
+}
+
+-(void)test_findPlaces_ShouldThrowException_WhenThereIsANetworkingError{
+    _service.baseAddress = @"https://jennius.com"; // this should throw a networking error since no search is available at this address
+    assertThat(^() {
+        [_service findPlaces:_parameter];
+    }, throwsExceptionOfType([SearchException class]));
+}
+
+-(void)test_getRestaurantForPlace_ShouldThrowException_WhenThereIsANetworkingError{
+    _service.baseAddress = @"https://jennius.com"; // this should throw a networking error since no search is available at this address
+    assertThat(^() {
+        GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
+        [_service getRestaurantForPlace:place];
+    }, throwsExceptionOfType([SearchException class]));
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
