@@ -4,7 +4,7 @@
 //
 
 #import "AtomicSymbol.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "TokenConsumed.h"
 #import "TokenNotConsumed.h"
 #import "StateFinished.h"
@@ -28,7 +28,7 @@
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     if (_symbolState.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"consume can't be called on finished state"];
+        @throw [InvalidConversationStateException createWithReason:@"consume can't be called on finished state"];
     }
     else if (_symbolState.isTokenConsumed) {
         // it was consumed before therefore symbol signals it

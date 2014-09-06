@@ -136,6 +136,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_currentUserInputContainerViewController.view removeFromSuperview];
     [_currentUserInputContainerViewController removeFromParentViewController];
     _currentUserInputContainerViewController = nil;
+    [self disableUserInput];
 }
 
 - (void)addUserInputViewController:(NSString *)identifier {
@@ -216,17 +217,18 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 - (void)disableUserInput {
     [self setEnabledForCuisinePreferenceSend];
     [self setEnabledForCuisinePreferenceList];
+    [self setEnabledForTextField];
 }
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     _userTextField.text = nil;
-    [self disableUserInput];
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
         id <UAction> inputAction = foodHeroBubble.inputAction;
         [inputAction accept:self];
     }
+    [self disableUserInput];
 }
 
 - (void)askUserCuisinePreferenceAction {
@@ -259,13 +261,23 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)setEnabledForCuisinePreferenceList {
-    self.userInputListButton.enabled = ![_currentViewState isKindOfClass:ConversationViewStateListOrTextInput.class];
+    self.userInputListButton.enabled =
+            ![_currentViewState isKindOfClass:ConversationViewStateListOrTextInput.class]
+                    && _currentUserInputContainerViewController != nil;
 }
 
 - (void)setEnabledForCuisinePreferenceSend {
     NSString *text = self.userTextField.text;
-    self.userSendButton.enabled = text.length > 0;
+    self.userSendButton.enabled =
+            text.length > 0
+                    && _currentUserInputContainerViewController != nil;
 }
+
+
+- (void)setEnabledForTextField {
+    self.userTextField.enabled = _currentUserInputContainerViewController != nil;
+}
+
 
 - (IBAction)userSendButtonTouchUp:(id)sender {
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
@@ -275,7 +287,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         [_appService processCheat:_userTextField.text];
     }
     else {
-        [_currentUserInputContainerViewController sendUserInput];
+        UIViewController <UserInputViewController> *inputViewController = _currentUserInputContainerViewController;
+        [self removeUserInputViewController];
+        [inputViewController sendUserInput];
         _userTextField.text = @"";
     }
 }

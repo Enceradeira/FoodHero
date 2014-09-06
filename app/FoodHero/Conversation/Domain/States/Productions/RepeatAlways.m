@@ -5,7 +5,7 @@
 
 #import "RepeatAlways.h"
 #import "TokenNotConsumed.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "StateFinished.h"
 
 
@@ -30,7 +30,7 @@
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     if (_symbolState.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"consume can't be called on finished state"];
+        @throw [InvalidConversationStateException createWithReason:@"consume can't be called on finished state"];
     }
 
     if (_symbol == nil) {
@@ -39,7 +39,7 @@
     id <ConsumeResult> state = [_symbol consume:token];
     if (state.isTokenNotConsumed) {
         if (!_symbolState.isTokenNotConsumed) {
-            @throw [DesignByContractException createWithReason:@"symbol is not allowed to not consume after it has consumed once"];
+            @throw [InvalidConversationStateException createWithReason:@"symbol is not allowed to not consume after it has consumed once"];
         }
         // we take that as 0 repetition and go into 'finished' state
         _symbolState = [StateFinished new];

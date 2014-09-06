@@ -11,7 +11,7 @@
 #import "FHAskCuisinePreferenceState.h"
 #import "FHFindingRestaurantFinishedState.h"
 #import "RepeatAlways.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 
 
 @implementation FHConversationState {
@@ -41,7 +41,7 @@
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     id <ConsumeResult> result = [_concatenation consume:token];
     if (result.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"Conversation has finised. This indicates an invalid state"];
+        @throw [InvalidConversationStateException createWithReason:@"Conversation has finised. This indicates an invalid state"];
     }
     return result;
 }

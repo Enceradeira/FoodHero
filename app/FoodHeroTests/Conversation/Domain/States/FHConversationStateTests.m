@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "UCuisinePreference.h"
 #import "USuggestionNegativeFeedback.h"
 #import "FHGreeting.h"
@@ -58,14 +58,14 @@
 {
     [_state consume:[FHGreeting new]];
     [_state consume:[FHOpeningQuestion new]];
-    assertThat(^(){[_state consume:[FHGreeting new]];}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^(){[_state consume:[FHGreeting new]];}, throwsExceptionOfType([InvalidConversationStateException class]) );
 }
 
 -(void)test_consume_ShouldThrowException_WhenGreetingIsAddedTwice
 {
     [_state consume:[FHGreeting new]];
 
-    assertThat(^(){[_state consume:[FHGreeting new]];}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^(){[_state consume:[FHGreeting new]];}, throwsExceptionOfType([InvalidConversationStateException class]) );
 }
 
 -(void)test_consume_ShouldThrowException_WhenFHBecauseUserDeniedAccessToLocationServicesIsAddedTwice
@@ -74,6 +74,6 @@
     [_state consume:[FHOpeningQuestion new]];
     [_state consume:[UCuisinePreference new]];
 
-    assertThat(^(){ [_state consume:[UCuisinePreference new]];}, throwsExceptionOfType([DesignByContractException class]) );
+    assertThat(^(){ [_state consume:[UCuisinePreference new]];}, throwsExceptionOfType([InvalidConversationStateException class]) );
 }
 @end

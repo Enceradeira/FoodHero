@@ -30,8 +30,12 @@ def split_at_comma(cuisines_as_string)
   cuisines_as_string.split(',').map { |s| s.strip }.select { |s| s != '' }
 end
 
+def send_button
+  find_element(:name, 'send cuisine')
+end
+
 def click_send
-  find_element(:name, 'send cuisine').click
+  send_button.click
 end
 
 def feedback_entry(entry_name)
@@ -172,6 +176,11 @@ When(/^I like the restaurant$/) do
   click_text_and_send_feedback('I like it')
 end
 
+When(/^I choose something from the input list$/) do
+  click_text_field
+  feedback_entry('I like it')[0].click
+end
+
 When(/^I say try again$/) do
   show_list_button.click
   get_last_element_and_parameter('TryAgainEntry')[0].click
@@ -234,4 +243,19 @@ end
 Then(/^I can see last suggestion$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
   expect(bubble.displayed?).to be_truthy
+end
+
+Then(/^I (can|can't) touch input list button$/) do |option|
+  condition = option == "can't" ? be_falsey: be_truthy
+  expect(show_list_button.enabled?).to condition
+end
+
+And(/^I (can|can't) enter text$/) do |option|
+  condition = option == "can't" ? be_falsey: be_truthy
+  expect(text_field.enabled?).to condition
+end
+
+And(/^I (can|can't) touch send$/) do |option|
+  condition = option == "can't" ? be_falsey: be_truthy
+  expect(send_button.enabled?).to condition
 end

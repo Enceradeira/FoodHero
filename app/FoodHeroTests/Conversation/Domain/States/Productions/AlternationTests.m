@@ -18,7 +18,7 @@
 #import "TokenConsumed.h"
 #import "ReturnsAlwaysStateFinishedSymbol.h"
 #import "HCIsExceptionOfType.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 
 @interface AlternationTests : XCTestCase
 
@@ -126,7 +126,7 @@
     Alternation *alternation = [Alternation create:nil];
 
     assertThatBool([alternation consume:_token].isStateFinished, is(equalToBool(YES)));
-    assertThat(^(){[alternation consume:_token];}, throwsExceptionOfType([DesignByContractException class]));
+    assertThat(^(){[alternation consume:_token];}, throwsExceptionOfType([InvalidConversationStateException class]));
 }
 
 @end

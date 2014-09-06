@@ -10,7 +10,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import "Concatenation.h"
 #import "HCIsExceptionOfType.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "ReturnsAlwaysTokenNotConsumedSymbol.h"
 #import "TestAction.h"
 #import "TestToken.h"
@@ -90,7 +90,7 @@
                                 [RepeatOnce create:[ReturnsActionForTokenOnceSymbol create:_token2.class]],nil];
 
     assertThatBool([concat consume:_token1].isTokenConsumed, is(equalToBool(YES)));
-    assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(InvalidConversationStateException.class));
 }
 
 -(void)test_consume_ShouldReturnActionFormSecondSymbol_WhenFirstSymbolDoesntConsumeTokenOnSecondConsume{
@@ -152,7 +152,7 @@
                                 [RepeatAlways create:^(){return [ReturnsAlwaysStateFinishedSymbol new];}],nil];
 
     [concat consume:_token1];
-    assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[concat consume:_token1];},throwsExceptionOfType(InvalidConversationStateException.class));
 }
 
 -(void)test_consume_ShouldNotConsumeToken_WhenFirstSymbolOptionalAndSecondDoesntConsume{

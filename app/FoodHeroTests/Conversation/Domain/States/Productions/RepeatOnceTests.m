@@ -15,7 +15,7 @@
 #import "RepeatAlways.h"
 #import "TestToken2.h"
 #import "HCIsExceptionOfType.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "ReturnsActionForTokenAlwaysSymbol.h"
 
 @interface RepeatOnceTests : XCTestCase
@@ -48,8 +48,8 @@
     // end of 1. repetition
     assertThatBool([repetition consume:_token2].isStateFinished,is(equalToBool(YES)));
     // no more repetitions
-    assertThat(^(){[repetition consume:_token1];}, throwsExceptionOfType(DesignByContractException.class));
-    assertThat(^(){[repetition consume:_token2];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[repetition consume:_token1];}, throwsExceptionOfType(InvalidConversationStateException.class));
+    assertThat(^(){[repetition consume:_token2];}, throwsExceptionOfType(InvalidConversationStateException.class));
 }
 
 @end

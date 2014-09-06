@@ -4,7 +4,7 @@
 //
 
 #import "DoOptionally.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "TokenNotConsumed.h"
 #import "StateFinished.h"
 
@@ -29,12 +29,12 @@
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     if (_symbolState.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"consume can't be called on finished state"];
+        @throw [InvalidConversationStateException createWithReason:@"consume can't be called on finished state"];
     }
     id <ConsumeResult> result = [_symbol consume:token];
     if (result.isTokenNotConsumed) {
         if (!_symbolState.isTokenNotConsumed) {
-            @throw [DesignByContractException createWithReason:@"symbol is not allowed to not consume after it has consumed once"];
+            @throw [InvalidConversationStateException createWithReason:@"symbol is not allowed to not consume after it has consumed once"];
         }
         _symbolState = [StateFinished new];
         return _symbolState;

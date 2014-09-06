@@ -15,7 +15,7 @@
 #import "RepeatAlways.h"
 #import "TestToken2.h"
 #import "HCIsExceptionOfType.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 
 @interface AtomicSymbolTests : XCTestCase
 
@@ -41,8 +41,8 @@
     assertThatBool([symbol consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
     assertThatBool([symbol consume:_token1].isTokenConsumed,is(equalToBool(YES)));
     assertThatBool([symbol consume:_token1].isStateFinished,is(equalToBool(YES))); // would match as well but is not consumed
-    assertThat(^(){[symbol consume:_token1];}, throwsExceptionOfType(DesignByContractException.class));
-    assertThat(^(){[symbol consume:_token2];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[symbol consume:_token1];}, throwsExceptionOfType(InvalidConversationStateException.class));
+    assertThat(^(){[symbol consume:_token2];}, throwsExceptionOfType(InvalidConversationStateException.class));
 }
 
 - (void)test_consume_ShouldReturnSymbolResultOnce_WhenThereWouldNotHaveBeenMoreMatchesToBeConsumed
@@ -53,8 +53,8 @@
     assertThatBool([symbol consume:_token2].isTokenNotConsumed,is(equalToBool(YES)));
     assertThatBool([symbol consume:_token1].isTokenConsumed,is(equalToBool(YES)));
     assertThatBool([symbol consume:_token2].isStateFinished,is(equalToBool(YES))); // would not match as there for is not consumed
-    assertThat(^(){[symbol consume:_token1];}, throwsExceptionOfType(DesignByContractException.class));
-    assertThat(^(){[symbol consume:_token2];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[symbol consume:_token1];}, throwsExceptionOfType(InvalidConversationStateException.class));
+    assertThat(^(){[symbol consume:_token2];}, throwsExceptionOfType(InvalidConversationStateException.class));
 }
 
 @end

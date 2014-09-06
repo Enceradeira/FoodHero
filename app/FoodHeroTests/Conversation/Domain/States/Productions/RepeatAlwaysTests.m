@@ -15,7 +15,7 @@
 #import "ReturnsActionForTokenAlwaysSymbol.h"
 #import "TestToken2.h"
 #import "HCIsExceptionOfType.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 
 @interface RepeatAlwaysTests : XCTestCase
 
@@ -46,8 +46,8 @@
     // end of repetitions (because _token2 is never consumed)
     assertThatBool([repetition consume:_token2].isStateFinished,is(equalToBool(YES)));
     // no more consume allowed after state has finished
-    assertThat(^(){[repetition consume:_token1];}, throwsExceptionOfType(DesignByContractException.class));
-    assertThat(^(){[repetition consume:_token2];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^(){[repetition consume:_token1];}, throwsExceptionOfType(InvalidConversationStateException.class));
+    assertThat(^(){[repetition consume:_token2];}, throwsExceptionOfType(InvalidConversationStateException.class));
 }
 
 -(void)test_consume_ShouldReturnTokenConsumed_WhenTokenIsAlwaysConsumed{

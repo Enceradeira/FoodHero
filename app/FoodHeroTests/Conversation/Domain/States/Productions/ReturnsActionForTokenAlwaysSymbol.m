@@ -6,7 +6,7 @@
 #import "ReturnsActionForTokenAlwaysSymbol.h"
 #import "TestAction.h"
 #import "TokenConsumed.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "StateFinished.h"
 #import "TokenNotConsumed.h"
 
@@ -28,7 +28,7 @@
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     if (_symbolState.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"consume can't be called on finished state"];
+        @throw [InvalidConversationStateException createWithReason:@"consume can't be called on finished state"];
     }
     if (token.class == _tokenclass) {
         _symbolState = [TokenConsumed create:[TestAction create:self]];

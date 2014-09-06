@@ -4,7 +4,7 @@
 //
 
 #import "Alternation.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "StateFinished.h"
 #import "TokenNotConsumed.h"
 #import "RepeatSymbol.h"
@@ -40,7 +40,7 @@
 
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     if (_symbolState.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"Consume can't be called on finished result"];
+        @throw [InvalidConversationStateException createWithReason:@"Consume can't be called on finished result"];
     }
     if (_symbols.count == 0) {
         _symbolState = [StateFinished new];
@@ -50,7 +50,7 @@
     if (_choosenAlternative != nil) {
         id <ConsumeResult> result = [_choosenAlternative consume:token];
         if (result.isTokenNotConsumed) {
-            @throw [DesignByContractException createWithReason:@"Symbol is not allowed to not consume after it has consumed once to become the 'choosen alternative'"];
+            @throw [InvalidConversationStateException createWithReason:@"Symbol is not allowed to not consume after it has consumed once to become the 'choosen alternative'"];
         }
         else {
             // either the state is 'consumed' or 'finished'
@@ -64,7 +64,7 @@
             id <ConsumeResult> result = [symbol consume:token];
             if (result.isTokenNotConsumed) {
                 if (!_symbolState.isTokenNotConsumed) {
-                    @throw [DesignByContractException createWithReason:@"Symbol is not allowed to not consume after it has consumed once"];
+                    @throw [InvalidConversationStateException createWithReason:@"Symbol is not allowed to not consume after it has consumed once"];
                 }
                 // we'll try next alternative
             }

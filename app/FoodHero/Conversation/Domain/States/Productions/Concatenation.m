@@ -5,7 +5,7 @@
 
 #import "Concatenation.h"
 #import "StateFinished.h"
-#import "DesignByContractException.h"
+#import "InvalidConversationStateException.h"
 #import "TokenNotConsumed.h"
 
 @implementation Concatenation {
@@ -15,7 +15,7 @@
 }
 - (id <ConsumeResult>)consume:(ConversationToken *)token {
     if (_symbolState.isStateFinished) {
-        @throw [DesignByContractException createWithReason:@"Consume can't be called on finished result"];
+        @throw [InvalidConversationStateException createWithReason:@"Consume can't be called on finished result"];
     }
     if (_currentSymbolIdx >= _symbols.count) {
         return [StateFinished new];
@@ -25,7 +25,7 @@
     id <ConsumeResult> result = [currSymbol consume:token];
     if (result.isTokenNotConsumed) {
         if (!_symbolState.isTokenNotConsumed) {
-            @throw [DesignByContractException createWithReason:@"Symbol is not allowed to not consume after it has consumed once"];
+            @throw [InvalidConversationStateException createWithReason:@"Symbol is not allowed to not consume after it has consumed once"];
         }
         return result;
     }
@@ -45,7 +45,7 @@
                     [self resetState];
                     return _symbolState;
                 }
-                @throw [DesignByContractException createWithReason:@"Next symbol in concatenation doesn't consume token. This indicates an invalid state."];
+                @throw [InvalidConversationStateException createWithReason:@"Next symbol in concatenation doesn't consume token. This indicates an invalid state."];
             }
             else if (nextResult.isTokenConsumed) {
                 // next symbol was consumed so we stay in 'TokenConsumed'-state
