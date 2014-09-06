@@ -34,7 +34,7 @@ def send_button
   find_element(:name, 'send cuisine')
 end
 
-def click_send
+def touch_send
   send_button.click
 end
 
@@ -44,19 +44,19 @@ end
 
 def click_feedback_entry_and_send(entry_name)
   feedback_entry(entry_name)[0].click
-  click_send
+  touch_send
 end
 
 def text_field
   find_element(:name, 'cuisine text')
 end
 
-def click_text_field
+def touch_text_field
   text_field.click
 end
 
 def click_text_and_send_feedback(entry_name)
-  click_text_field
+  touch_text_field
   click_feedback_entry_and_send(entry_name)
 end
 
@@ -67,7 +67,7 @@ end
 
 def send_cheat(command)
   text_field.send_keys command
-  click_send
+  touch_send
 end
 
 def show_list_button
@@ -153,7 +153,7 @@ Then(/^I answer with I fixed the problem, please try again$/) do
 end
 
 When(/^I touch send without entering anything$/) do
-  click_send
+  touch_send
 end
 
 When(/^I don't like the restaurant$/) do
@@ -177,32 +177,32 @@ When(/^I like the restaurant$/) do
 end
 
 When(/^I choose something from the input list$/) do
-  click_text_field
+  touch_text_field
   feedback_entry('I like it')[0].click
 end
 
 When(/^I say try again$/) do
   show_list_button.click
   get_last_element_and_parameter('TryAgainEntry')[0].click
-  click_send
+  touch_send
 end
 
 When(/^I want to search for another restaurant$/) do
   show_list_button.click
   get_last_element_and_parameter('SearchForAnotherRestaurantEntry')[0].click
-  click_send
+  touch_send
 end
 
 When(/^I say that problem with location\-service has been fixed$/) do
-  click_text_field
+  touch_text_field
   get_last_element_and_parameter('DidResolveProblemWithAccessLocationServiceEntry')[0].click
-  click_send
+  touch_send
 end
 
 When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
   text_field.send_keys cuisines_as_string
 
-  click_send
+  touch_send
 end
 
 When(/^I wish to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
@@ -210,13 +210,13 @@ When(/^I wish to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
   split_at_comma(cuisines_as_string).each do |cuisine|
     get_last_element_and_parameter("CuisineEntry=#{cuisine}")[0].click
   end
-  click_send
+  touch_send
 end
 
 When(/^I say good bye$/) do
-  click_text_field
+  touch_text_field
   get_last_element_and_parameter('GoodByeEntry')[0].click
-  click_send
+  touch_send
 end
 
 
@@ -258,4 +258,9 @@ end
 And(/^I (can|can't) touch send$/) do |option|
   condition = option == "can't" ? be_falsey: be_truthy
   expect(send_button.enabled?).to condition
+end
+
+
+When(/^I touch the text field$/) do
+  touch_text_field
 end

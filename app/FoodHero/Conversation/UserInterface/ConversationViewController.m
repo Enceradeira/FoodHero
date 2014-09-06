@@ -136,7 +136,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_currentUserInputContainerViewController.view removeFromSuperview];
     [_currentUserInputContainerViewController removeFromParentViewController];
     _currentUserInputContainerViewController = nil;
-    [self disableUserInput];
+    [_currentViewState activate];
 }
 
 - (void)addUserInputViewController:(NSString *)identifier {
@@ -165,7 +165,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     if (![viewState isEqual:_currentViewState]) {
         _currentViewState = viewState;
         [viewState activate];
-        [self disableUserInput];
+        [_currentViewState activate];
     }
 }
 
@@ -214,12 +214,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     return cell;
 }
 
-- (void)disableUserInput {
-    [self setEnabledForCuisinePreferenceSend];
-    [self setEnabledForCuisinePreferenceList];
-    [self setEnabledForTextField];
-}
-
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     _userTextField.text = nil;
 
@@ -228,7 +222,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         id <UAction> inputAction = foodHeroBubble.inputAction;
         [inputAction accept:self];
     }
-    [self disableUserInput];
+    [_currentViewState activate];
 }
 
 - (void)askUserCuisinePreferenceAction {
@@ -255,29 +249,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [self changeUserInputViewController:@"SearchForAnotherRestaurant"];
 }
 
-
 - (IBAction)userTextFieldChanged:(id)sender {
-    [self setEnabledForCuisinePreferenceSend];
+    [_currentViewState activate];
 }
-
-- (void)setEnabledForCuisinePreferenceList {
-    self.userInputListButton.enabled =
-            ![_currentViewState isKindOfClass:ConversationViewStateListOrTextInput.class]
-                    && _currentUserInputContainerViewController != nil;
-}
-
-- (void)setEnabledForCuisinePreferenceSend {
-    NSString *text = self.userTextField.text;
-    self.userSendButton.enabled =
-            text.length > 0
-                    && _currentUserInputContainerViewController != nil;
-}
-
-
-- (void)setEnabledForTextField {
-    self.userTextField.enabled = _currentUserInputContainerViewController != nil;
-}
-
 
 - (IBAction)userSendButtonTouchUp:(id)sender {
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
@@ -331,4 +305,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     return NO;
 }
 
+- (BOOL)isUserInputEnabled {
+    return _currentUserInputContainerViewController != nil;
+}
 @end

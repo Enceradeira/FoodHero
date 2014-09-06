@@ -19,15 +19,21 @@ Feature: User interacts with app through conversation
 
   Scenario: I do things differently
     # choosing cuisine from list
-    When I wish to eat "Indian" food by choosing it
+    Given I wish to eat "Indian" food by choosing it
     And I allow access to the location-services
     Then I answer with "Indian" food
     And FoodHero suggests something for "Indian" food
     # clicking on bubble while input list is displayed
-    When I touch input list button
+    Given I touch input list button
     Then I can see the feedback list
     When I touch a conversation bubble
     Then I can't see the feedback list
+    # clicking on text field while input list is displayed but direct text-input disabled (which is the case for suggestion-feedback list)
+    When I touch input list button
+    Then I can see the feedback list
+    And I can't enter text
+    When I touch the text field
+    Then I can't enter text
 
   Scenario: A long conversation
     Given I wish to eat "British" food by typing it

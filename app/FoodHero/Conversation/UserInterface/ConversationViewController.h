@@ -40,4 +40,6 @@
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 
 - (NSInteger)optimalUserInputListHeight;
+
+- (BOOL)isUserInputEnabled;
 @end

@@ -6,6 +6,7 @@
 #import "ConversationViewState.h"
 #import "ConversationViewState+Protected.h"
 #import "FoodHeroColors.h"
+#import "ConversationViewStateListOrTextInput.h"
 
 @implementation ConversationViewState
 
@@ -18,13 +19,26 @@
 }
 
 - (void)activate {
-    UITextField *userCuisinePreferenceText = self.controller.userTextField;
-    userCuisinePreferenceText.enabled = self.isTextInputEnabled;
-    userCuisinePreferenceText.backgroundColor = self.isTextInputEnabled ? nil : [FoodHeroColors lightestBackgroundGrey];
+
+    // text input
+    UITextField *userTextField = self.controller.userTextField;
+    userTextField.enabled = self.isTextInputEnabled && _controller.isUserInputEnabled;
+    userTextField.backgroundColor = userTextField.enabled ? nil : [FoodHeroColors lightestBackgroundGrey];
 
     if (!self.isKeyboardVisible) {
         [self hideKeyboard];
     }
+
+    // send-button
+    NSString *text = userTextField.text;
+    _controller.userSendButton.enabled =
+            text.length > 0
+                    && _controller.isUserInputEnabled;
+
+    // list-button
+    self.controller.userInputListButton.enabled =
+            ![self isKindOfClass:ConversationViewStateListOrTextInput.class]
+                    && _controller.isUserInputEnabled;
 }
 
 - (BOOL)isEqual:(id)other {
