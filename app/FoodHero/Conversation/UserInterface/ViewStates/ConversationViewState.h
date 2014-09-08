@@ -10,6 +10,8 @@
 @interface ConversationViewState : NSObject
 - (instancetype)initWithController:(ConversationViewController *)controller;
 
+- (void)update;
+
 @property(nonatomic, readonly, weak) ConversationViewController *controller;
 
 - (void)activate;

@@ -217,14 +217,12 @@
     assertThat(restaurantFromPlace, is(equalTo(restaurant)));
 }
 
-- (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldThrowException_WhenRestaurantsAreNotInCache {
+- (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnNo_WhenRestaurantsAreNotInCache {
     Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [_searchService injectFindResults:@[restaurant1, restaurant2]];
 
-    assertThat(^() {
-        _repository.doRestaurantsHaveDifferentPriceLevels;
-    }, throwsExceptionOfType([DesignByContractException class]));
+    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(equalToBool(NO)));
 }
 
 - (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnYes_WhenRestaurantsHaveDifferentPriceLevels {

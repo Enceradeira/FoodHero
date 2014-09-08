@@ -16,6 +16,8 @@
 #import "CuisineTableViewController.h"
 #import "TyphoonComponents.h"
 #import "FoodHeroColors.h"
+#import "ConversationViewStateListOnlyInput.h"
+#import "CheatTextFieldController.h"
 
 const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;
 const UIViewAnimationOptions DEFAULT_ANIMATION_OPTION_CURVE = UIViewAnimationOptionCurveEaseOut;
@@ -30,7 +32,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     ConversationAppService *_appService;
     ConversationViewState *_currentViewState;
     UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
-    BOOL _isCheatingEnabled;
+    CheatTextFieldController *_cheatTextFieldController;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -136,7 +138,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_currentUserInputContainerViewController.view removeFromSuperview];
     [_currentUserInputContainerViewController removeFromParentViewController];
     _currentUserInputContainerViewController = nil;
-    [_currentViewState activate];
+    [_currentViewState update];
 }
 
 - (void)addUserInputViewController:(NSString *)identifier {
@@ -157,15 +159,12 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)setViewState:(ConversationViewState *)viewState {
-    if (_isCheatingEnabled) {
-        // when cheating is on we always want to allow text input
-        viewState = [ConversationViewStateListOrTextInput create:self animationDuration:0 animationCurve:UIViewAnimationCurveLinear];
-    }
-
     if (![viewState isEqual:_currentViewState]) {
         _currentViewState = viewState;
-        [viewState activate];
         [_currentViewState activate];
+    }
+    else {
+        [_currentViewState update];
     }
 }
 
@@ -250,22 +249,21 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)userTextFieldChanged:(id)sender {
-    [_currentViewState activate];
+    [_currentViewState update];
 }
 
 - (IBAction)userSendButtonTouchUp:(id)sender {
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
-    if ([_userTextField.text hasPrefix:@"C:"]) {
-        _isCheatingEnabled = YES;
-        [_appService processCheat:_userTextField.text];
+    if ([_userTextField.text hasPrefix:@"C:E"] && _cheatTextFieldController == nil) {
+        _cheatTextFieldController = [CheatTextFieldController createWithView: self.view applicationService:_appService];
     }
     else {
         UIViewController <UserInputViewController> *inputViewController = _currentUserInputContainerViewController;
         [self removeUserInputViewController];
         [inputViewController sendUserInput];
-        _userTextField.text = @"";
     }
+    _userTextField.text = @"";
 }
 
 - (void)hideKeyboard {

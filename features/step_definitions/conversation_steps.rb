@@ -51,6 +51,10 @@ def text_field
   find_element(:name, 'cuisine text')
 end
 
+def cheat_text_field
+  find_element(:name, 'cheat text')
+end
+
 def touch_text_field
   text_field.click
 end
@@ -66,8 +70,13 @@ def click_list_and_send_feedback(entry_name)
 end
 
 def send_cheat(command)
-  text_field.send_keys command
-  touch_send
+  unless @cheat_enabled
+    text_field.send_keys 'C:E' # enable cheating
+    touch_send
+    @cheat_enabled = true
+  end
+
+  cheat_text_field.send_keys command,:return
 end
 
 def show_list_button
@@ -103,6 +112,7 @@ end
 
 
 Then(/^FoodHero says that nothing was found$/) do
+sleep 10
   bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
   expect(bubble).not_to be_nil
 end

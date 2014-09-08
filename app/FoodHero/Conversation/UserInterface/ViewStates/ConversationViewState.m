@@ -18,16 +18,12 @@
     return self;
 }
 
-- (void)activate {
+- (void)update {
 
     // text input
     UITextField *userTextField = self.controller.userTextField;
     userTextField.enabled = self.isTextInputEnabled && _controller.isUserInputEnabled;
     userTextField.backgroundColor = userTextField.enabled ? nil : [FoodHeroColors lightestBackgroundGrey];
-
-    if (!self.isKeyboardVisible) {
-        [self hideKeyboard];
-    }
 
     // send-button
     NSString *text = userTextField.text;
@@ -39,6 +35,14 @@
     self.controller.userInputListButton.enabled =
             ![self isKindOfClass:ConversationViewStateListOrTextInput.class]
                     && _controller.isUserInputEnabled;
+}
+
+- (void)activate {
+    [self update];
+
+    if (!self.isKeyboardVisible) {
+        [self hideKeyboard];
+    }
 }
 
 - (BOOL)isEqual:(id)other {

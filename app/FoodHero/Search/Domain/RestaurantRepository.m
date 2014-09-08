@@ -135,10 +135,7 @@
 }
 
 - (BOOL)doRestaurantsHaveDifferentPriceLevels {
-    if (_placesCached == nil) {
-        @throw [DesignByContractException createWithReason:@"method can't be called with calling getPlacesByCuisine first"];
-    }
-    if (_placesCached.count == 0) {
+    if (_placesCached == nil || _placesCached.count == 0) {
         return NO;
     }
     NSUInteger firstPriceLevel = ((Place *) _placesCached[0]).priceLevel;
