@@ -29,6 +29,7 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfil.h"
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
+#import "UWantsToSearchForAnotherRestaurant.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -109,6 +110,25 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
 
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:[AskUserToTryAgainAction class]];
+}
+
+
+-(void)test_UCuisinePreference_ShouldResetConversation{
+    Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Great Yarmouth"].build;
+    Restaurant *tajMahal = [[[RestaurantBuilder alloc] withName:@"Taj Mahal"] withVicinity:@"Great Yarmouth"].build;
+
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindResults:@[kingsHead,tajMahal]];
+    }];
+
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:kingsHead]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:tajMahal]];
+    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+
+    // King's head should be suggested again since we started another search
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {

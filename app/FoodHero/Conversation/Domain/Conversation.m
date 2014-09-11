@@ -53,10 +53,20 @@
 }
 
 
-- (NSArray *)tokens {
-    return [_statements linq_select:^(Statement *s) {
-        return s.token;
-    }];
+- (NSArray *)tokensOfCurrentSearch {
+    Statement *lastOpeningQuestion = [[_statements
+            linq_where:^(Statement *s) {
+                return (BOOL) [s.token isKindOfClass:[FHOpeningQuestion class]];
+            }]
+            linq_lastOrNil];
+
+    NSUInteger currentSearchBeginCount = lastOpeningQuestion == nil ? 0 : [_statements indexOfObject:lastOpeningQuestion] + 1;
+
+    return [[_statements
+            linq_skip:currentSearchBeginCount]
+            linq_select:^(Statement *s) {
+                return s.token;
+            }];
 }
 
 - (void)addStatement:(ConversationToken *)token inputAction:(id <UAction>)inputAction {
@@ -106,7 +116,7 @@
 }
 
 - (NSArray *)negativeUserFeedback {
-    return [self.tokens linq_ofType:[USuggestionNegativeFeedback class]];
+    return [self.tokensOfCurrentSearch linq_ofType:[USuggestionNegativeFeedback class]];
 }
 
 - (SearchProfil *)currentSearchPreference {
@@ -114,12 +124,12 @@
 }
 
 - (ConversationToken *)lastSuggestionWarning {
-    return [[self.tokens linq_ofType:[FHWarningIfNotInPreferredRange class]] linq_lastOrNil];
+    return [[self.tokensOfCurrentSearch linq_ofType:[FHWarningIfNotInPreferredRange class]] linq_lastOrNil];
 }
 
 
 - (DistanceRange *)maxDistance {
-    USuggestionFeedbackForTooFarAway *lastFeedback = [[self.tokens linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
+    USuggestionFeedbackForTooFarAway *lastFeedback = [[self.tokensOfCurrentSearch linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
     if (lastFeedback == nil) {
         return [DistanceRange distanceRangeWithoutRestriction];
     }
@@ -131,7 +141,7 @@
 }
 
 - (NSString *)cuisine {
-    UCuisinePreference *preference = [[self.tokens linq_ofType:[UCuisinePreference class]] linq_lastOrNil];
+    UCuisinePreference *preference = [[self.tokensOfCurrentSearch linq_ofType:[UCuisinePreference class]] linq_lastOrNil];
     if (preference == nil) {
         @throw [DesignByContractException createWithReason:@"cuisine preference is unknown"];
     }
@@ -140,7 +150,7 @@
 
 - (PriceRange *)priceRange {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
-    for (ConversationToken *token in [self tokens]) {
+    for (ConversationToken *token in [self tokensOfCurrentSearch]) {
         if ([token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]) {
 
             NSUInteger priceLevel = ((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel;
@@ -162,7 +172,7 @@
 
 
 - (NSArray *)suggestedRestaurants {
-    return [[self.tokens linq_ofType:[FHSuggestionBase class]] linq_select:^(FHSuggestionBase *s) {
+    return [[self.tokensOfCurrentSearch linq_ofType:[FHSuggestionBase class]] linq_select:^(FHSuggestionBase *s) {
         return s.restaurant;
     }];
 }
