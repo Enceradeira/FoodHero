@@ -37,7 +37,10 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _restaurantRepository = [RestaurantRepositoryStub new];
-    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:[(id <ApplicationAssembly>) [TyphoonComponents factory] locationService]];
+
+    id locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
+    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:locationService schedulerFactory:schedulerFactory];
 }
 
 - (NSMutableArray *)restaurants:(NSInteger)nrRestaurants {

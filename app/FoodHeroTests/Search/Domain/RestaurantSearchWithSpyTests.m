@@ -30,7 +30,9 @@
     [TyphoonComponents configure:[StubAssembly new]];
 
     _restaurantRepository = [RestaurantRepositorySpy new];
-    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:[(id <ApplicationAssembly>) [TyphoonComponents factory] locationService]];
+    id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
+    id locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:locationService schedulerFactory:schedulerFactory];
 }
 
 - (RestaurantSearch *)search {

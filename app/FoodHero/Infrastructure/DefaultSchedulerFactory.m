@@ -10,11 +10,11 @@
 @implementation DefaultSchedulerFactory {
 
 }
-- (RACScheduler *)createAsynchScheduler {
+- (RACScheduler *)asynchScheduler {
     return [RACScheduler scheduler];
 }
 
-- (RACScheduler *)createMainThreadScheduler {
+- (RACScheduler *)mainThreadScheduler {
     return [RACScheduler mainThreadScheduler];
 }
 

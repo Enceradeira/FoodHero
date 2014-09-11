@@ -40,9 +40,10 @@
     _norwich = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
 
-    _locationManager = [CLLocationManagerProxyStub new];
-    _locationService = [[LocationService alloc] initWithLocationManager:_locationManager];
     id schedulerFactory = [AlwaysImmediateSchedulerFactory new];
+    _locationManager = [CLLocationManagerProxyStub new];
+    _locationService = [[LocationService alloc] initWithLocationManager:_locationManager schedulerFactory:schedulerFactory];
+
     _repository = [[RestaurantRepository alloc] initWithSearchService:[[GoogleRestaurantSearch alloc] init] locationService:_locationService schedulerFactory:schedulerFactory];
 }
 
@@ -92,30 +93,6 @@
         Restaurant *r = [_repository getRestaurantFromPlace:p];
         assertThatDouble(r.cuisineRelevance, is(equalTo(@(p.cuisineRelevance))));
     }
-
-}
-
-
-- (void)test_searchAlgorithm {
-
-    return;
-
-    RestaurantSearch *search = [[RestaurantSearch alloc] initWithRestaurantRepository:_repository locationService:_locationService];
-
-    [_locationManager injectLocations:@[_london]];
-
-    PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
-    DistanceRange *distanceRange = [DistanceRange distanceRangeNearerThan:500 / DISTANCE_DECREMENT_FACTOR];
-
-    [_conversation injectPriceRange:priceRange];
-    [_conversation injectCuisine:@"India"];
-    [_conversation injectMaxDistance:distanceRange];
-
-    // Mint Leaf Restaurant & Bar Score: 1 Distance: 281.4368329282141 Price:3 Id: ChIJPVJVmNEEdkgRNtbDFaq89yM
-    [self findAndLog:search];
-
-    //[_conversation injectPriceRange:[priceRange setMinHigherThan:1]];
-    [self findAndLog:search];
 
 }
 

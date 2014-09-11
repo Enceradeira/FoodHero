@@ -6,10 +6,11 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa.h>
 #import "CLLocationManagerProxy.h"
+#import "ISchedulerFactory.h"
 
 
 @interface LocationService : NSObject <CLLocationManagerDelegate>
-- (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager;
+- (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager schedulerFactory:(id <ISchedulerFactory>)schedulerFactory;
 
 - (RACSignal *)currentLocation;
 

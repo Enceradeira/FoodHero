@@ -10,11 +10,11 @@
 @implementation AlwaysImmediateSchedulerFactory {
 
 }
-- (RACScheduler *)createAsynchScheduler {
+- (RACScheduler *)asynchScheduler {
     return [RACScheduler immediateScheduler];
 }
 
-- (RACScheduler *)createMainThreadScheduler {
+- (RACScheduler *)mainThreadScheduler {
     return [RACScheduler immediateScheduler];
 }
 

@@ -15,6 +15,8 @@
 #import "CLLocationManagerProxySpy.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
+#import "TyphoonComponents.h"
+#import "AlwaysImmediateSchedulerFactory.h"
 
 
 @interface LocationServiceTests : XCTestCase
@@ -24,7 +26,8 @@
 @implementation LocationServiceTests
 
 - (LocationService *)service:(NSObject <CLLocationManagerProxy> *)clLocationManagerProxy {
-    return [[LocationService alloc] initWithLocationManager:clLocationManagerProxy];
+    id <ISchedulerFactory> schedulerFactory = [AlwaysImmediateSchedulerFactory new];
+    return [[LocationService alloc] initWithLocationManager:clLocationManagerProxy schedulerFactory:schedulerFactory];
 }
 
 - (LocationService *)serviceWithLocationManagerStub:(double)latitude longitude:(double)longitude {

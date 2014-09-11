@@ -7,7 +7,7 @@
 #import <ReactiveCocoa.h>
 
 @protocol ISchedulerFactory <NSObject>
-- (RACScheduler *)createAsynchScheduler;
+- (RACScheduler *)asynchScheduler;
 
-- (RACScheduler *)createMainThreadScheduler;
+- (RACScheduler *)mainThreadScheduler;
 @end

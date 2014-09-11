@@ -33,6 +33,7 @@
     RestaurantSearch *_restaurantSearch;
     id <TokenRandomizer> _tokenRandomizer;
     LocationService *_locationService;
+    id <ISchedulerFactory> _schedulerFactory;
 }
 
 - (instancetype)init {
@@ -41,6 +42,7 @@
         _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         _tokenRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
         _locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+        _schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
     }
     return self;
 }
@@ -49,7 +51,8 @@
 - (void)execute:(id <ConversationSource>)conversation {
     USuggestionNegativeFeedback *lastFeedback = [conversation.negativeUserFeedback linq_lastOrNil];
 
-    RACSignal *bestRestaurant = [_restaurantSearch findBest:conversation];
+    RACSignal *bestRestaurant = [[_restaurantSearch findBest:conversation]
+            deliverOn:_schedulerFactory.mainThreadScheduler];
     @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error) {
         @strongify(self);
@@ -88,7 +91,7 @@
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }
             else if (searchPreference.distanceRange.max < [restaurant.location distanceFromLocation:_locationService.lastKnownLocation]
-                    &&![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooFarAway class]]) {
+                    && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooFarAway class]]) {
                 [conversation addToken:[FHWarningIfNotInPreferredRangeTooFarAway create]];
                 [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
             }

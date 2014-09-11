@@ -8,6 +8,7 @@
 #import "LocationServiceAuthorizationStatusDeniedError.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
 #import "DesignByContractException.h"
+#import "ISchedulerFactory.h"
 
 @interface LocationService ()
 @property(atomic, readwrite) CLLocation *currentLocationHolder;
@@ -15,14 +16,16 @@
 
 @implementation LocationService {
     NSObject <CLLocationManagerProxy> *_locationManager;
+    id <ISchedulerFactory> _schedulerFactory;
 }
 
-- (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager {
+- (id)initWithLocationManager:(NSObject <CLLocationManagerProxy> *)locationManager schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
     self = [super init];
     if (self != nil) {
         _locationManager = locationManager;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         _locationManager.delegate = self;
+        _schedulerFactory = schedulerFactory;
     }
     return self;
 }
@@ -87,7 +90,10 @@
         return (BOOL) (next != nil);
     }];
 
-    RACSignal *oneNoneEmptyValue = [noneEmptyValues take:1];
+    RACSignal *oneNoneEmptyValue = [[noneEmptyValues
+            take:1]
+            deliverOn:_schedulerFactory.mainThreadScheduler]; // must be on MainThread to prevent deadlocks on stopUpdateLocation
+
     [oneNoneEmptyValue subscribeCompleted:^{
         [_locationManager stopUpdatingLocation];
     }];

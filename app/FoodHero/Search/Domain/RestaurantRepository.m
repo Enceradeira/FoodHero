@@ -8,10 +8,8 @@
 #import "RadiusCalculator.h"
 #import "SearchProfil.h"
 #import "GoogleRestaurantSearch.h"
-#import "DesignByContractException.h"
 #import "SearchException.h"
 #import "SearchError.h"
-#import "ISchedulerFactory.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -23,7 +21,7 @@
     BOOL _isSimulatingNoRestaurantFound;
     id <ISchedulerFactory> _schedulerFactory;
 }
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory{
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
@@ -36,10 +34,9 @@
 }
 
 - (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
-    RACSignal *asyncSignal = [[_locationService currentLocation]
-            deliverOn:[_schedulerFactory createAsynchScheduler]];
 
-    RACSignal *workSignal = [[asyncSignal
+    return [[[[_locationService currentLocation]
+            deliverOn:[_schedulerFactory asynchScheduler]]
             take:1]
             tryMap:^(CLLocation *currentLocation, NSError **error) {
                 BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
@@ -63,8 +60,6 @@
                 // yields all places as first element in sequence
                 return _placesCached;
             }];
-
-    return [workSignal deliverOn:[_schedulerFactory createMainThreadScheduler]];
 }
 
 - (NSArray *)fetchPlaces:(NSString *)cuisine currentLocation:(CLLocation *)currentLocation {
