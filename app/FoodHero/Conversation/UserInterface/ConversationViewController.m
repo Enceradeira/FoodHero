@@ -49,7 +49,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // Bubble View
     _bubbleView.delegate = self;
     _bubbleView.dataSource = self;
@@ -206,9 +206,13 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (UITableViewCell *)getConversationBubbleTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-    ConversationBubble *bubble = [self getStatementIndex:indexPath.row];
+    /* [tableView dequeueReusableCellWithIdentifier] isn't used because it caused the bubbles to flicker
+        when a cell was reconfigured with an other image. Images are anyway cached and managed by the AppService */
 
-    ConversationBubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:bubble.cellId forIndexPath:indexPath];
+    ConversationBubble *bubble = [self getStatementIndex:indexPath.row];
+    ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell *) [[ConversationBubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bubble.cellId];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.bubble = bubble;
     return cell;
 }
