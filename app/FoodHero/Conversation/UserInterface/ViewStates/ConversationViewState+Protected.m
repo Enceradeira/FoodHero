@@ -39,4 +39,8 @@
     @throw [DesignByContractException createWithReason:@"subclass must override method"];
 }
 
+- (BOOL)isUserInputListButtonEnabled {
+    @throw [DesignByContractException createWithReason:@"subclass must override method"];
+}
+
 @end

@@ -15,4 +15,6 @@
 - (BOOL)isTextInputEnabled;
 
 - (BOOL)isKeyboardVisible;
+
+- (BOOL)isUserInputListButtonEnabled;
 @end

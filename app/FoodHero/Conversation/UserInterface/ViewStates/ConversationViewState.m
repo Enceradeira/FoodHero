@@ -33,8 +33,8 @@
 
     // list-button
     self.controller.userInputListButton.enabled =
-            ![self isKindOfClass:ConversationViewStateListOrTextInput.class]
-                    && _controller.isUserInputEnabled;
+            self.isUserInputListButtonEnabled
+            && _controller.isUserInputEnabled;
 }
 
 - (void)activate {

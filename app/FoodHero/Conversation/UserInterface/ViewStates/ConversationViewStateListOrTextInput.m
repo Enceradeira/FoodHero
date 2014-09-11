@@ -52,4 +52,8 @@
     return YES;
 }
 
+- (BOOL)isUserInputListButtonEnabled {
+    return NO;
+}
+
 @end
