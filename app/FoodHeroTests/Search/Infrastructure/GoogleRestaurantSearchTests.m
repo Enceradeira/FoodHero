@@ -69,8 +69,6 @@
         assertThatDouble(prevPlace.cuisineRelevance, is(greaterThan(@(nextPlace.cuisineRelevance))));
     }
 
-    return; // Following test should be ok but Google returns a different result at the moment
-
     // grill should be more relevant because we search for Steak house
     GooglePlace *libraryGrill = [self findPlaceById:_placeIdLibraryGrillNorwich result:places];
     GooglePlace *maidsHead = [self findPlaceById:_placeIdMaidsHeadNorwich result:places];
