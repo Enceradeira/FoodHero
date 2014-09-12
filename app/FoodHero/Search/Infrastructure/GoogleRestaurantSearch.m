@@ -78,7 +78,14 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
      * relevance(place) = n*index(place) + 1
      * n = (relevance(place) - 1) / index(place)
     */
-    double n = (minRelevance - 1) / (places.count - 1);  // for most irrelevant place (last one)
+    double n;
+    if( places.count > 1) {
+        n = (minRelevance - 1) / (places.count - 1);  // for most irrelevant place (last one)
+    }
+
+    else{
+        n = 0;
+    }
 
     for (NSUInteger i = 0; i < places.count; i++) {
         NSDictionary *place = places[i];
