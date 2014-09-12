@@ -84,9 +84,10 @@
 
 - (void)test_findPlaces_ShouldReturnCuisineRelevanceGreaterThan0ForMostIrrelevantPlace_WhenSearchRadiusLessThanMaxSearchRadius {
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS / 2;
+    _parameter.cuisine = @"French";
     GooglePlace *mostIrrelevantPlace = [[_service findPlaces:_parameter] linq_lastOrNil];
 
-    assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(equalTo(@0.5)));
+    assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(greaterThan(@0)));
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {

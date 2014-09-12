@@ -106,7 +106,7 @@
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
                 @try {
                     Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
-                    NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
+                    // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
                     return restaurant;
                 }
                 @catch (SearchException *e) {

@@ -43,7 +43,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
         @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"radius %f is greater that GOOGLE_MAX_SEARCH_RADIUS", radius]];
     }
 
-    NSArray *types = @[@"restaurant", @"cafe", @"food"];
+    NSArray *types = @[@"restaurant", @"cafe"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
     NSString *keyword = [KeywordEncoder encodeString:parameter.cuisine];
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg",

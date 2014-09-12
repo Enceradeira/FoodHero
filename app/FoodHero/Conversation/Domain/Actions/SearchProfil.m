@@ -53,10 +53,11 @@
     double scoreForCuisineRelevance = place.cuisineRelevance;
 
     double score = scoreForDiffMaxDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice * scoreForCuisineRelevance;
-    NSLog([NSString stringWithFormat:@"Score: %f Distance: %f Price:%u Name: %@ (%@)", score, distance, place.priceLevel, restaurant.name, restaurant.placeId]);
+    /*
+    NSLog([NSString stringWithFormat:@"Score: %f Distance: %f Price:%u Name: %@, %@ (%@)", score, distance, place.priceLevel, restaurant.name, restaurant.vicinity, restaurant.placeId]);
     NSLog([NSString stringWithFormat:@"\t\t\tMaxDistance    : %f MinPrice    : %u MaxPrice:     %u", _distanceRange.max, _priceRange.min, _priceRange.max]);
     NSLog([NSString stringWithFormat:@"\t\t\tDiffMaxDistance: %f DiffMinPrice: %f DiffMaxPrice: %f CuisineRelevance: %f", scoreForDiffMaxDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice, scoreForCuisineRelevance]);
-
+    */
     if (score > 1) {
         @throw [DesignByContractException createWithReason:@"Score should not be greater than 1"];
     }
