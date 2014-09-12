@@ -6,6 +6,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "DesignByContractException.h"
 #import "SearchException.h"
+#import "KeywordEncoder.h"
 
 const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
 const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
@@ -44,7 +45,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
     NSArray *types = @[@"restaurant", @"cafe", @"food"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
-    NSString *keyword = [parameter.cuisine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *keyword = [KeywordEncoder encodeString:parameter.cuisine];
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg",
                                                        _baseAddress,
                                                        keyword,
