@@ -5,11 +5,18 @@
 
 #import "TextRepository.h"
 
-
 @implementation TextRepository {
 
     id <Randomizer> _randomizer;
 }
+
+const NSString *ContextFemaleCelebrity = @"FemaleCelebrity";
+const NSString *ContextMaleCelebrity = @"MaleCelebrity";
+const NSString *ContextGreeting = @"Greeting";
+const NSString *ContextPlace = @"Place";
+const NSString *ContextSuggestion = @"Suggestion";
+const NSString *ContextCelebrity = @"Celebrity";
+const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = @"SuggestionWithConfirmationIfInNewPreferredRangeCheaper";
 
 - (instancetype)initWithRandomizer:(id <Randomizer>)randomizer {
     self = [super init];
@@ -20,7 +27,7 @@
 }
 
 - (NSString *)getFemaleCelebrity {
-    return [_randomizer chooseOneTextFor:@"FemaleCelebrity" texts:@[
+    return [_randomizer chooseOneTextFor:ContextFemaleCelebrity texts:@[
             @"Taylor Swift",
             @"Zoe Saldana",
             @"Ariana Grande",
@@ -75,7 +82,7 @@
 }
 
 - (NSString *)getMaleCelebrity {
-    return [_randomizer chooseOneTextFor:@"MaleCelebrity" texts:@[
+    return [_randomizer chooseOneTextFor:ContextMaleCelebrity texts:@[
             @"Kanye West",
             @"Jay-Z",
             @"Henry Cavill",
@@ -130,7 +137,7 @@
     NSString *maleCelebrity = [self getMaleCelebrity];
     NSString *placeName = [self getPlace];
 
-    return [_randomizer chooseOneTextFor:@"Greeting" texts:@[
+    return [_randomizer chooseOneTextFor:ContextGreeting texts:@[
             @"Hi there.",
             @"Hello beautiful.",
             @"Have you put on your lipstick today?",
@@ -164,7 +171,7 @@
 }
 
 - (NSString *)getPlace {
-    NSString *placeName = [_randomizer chooseOneTextFor:@"Place" texts:@[
+    NSString *placeName = [_randomizer chooseOneTextFor:ContextPlace texts:@[
             @"Machu Picchu",
             @"the toilet",
             @"Llanfairpwllgwyngyll",
@@ -175,7 +182,7 @@
 }
 
 - (NSString *)getSuggestion {
-    return [_randomizer chooseOneTextFor:@"Suggestion" texts:@[
+    return [_randomizer chooseOneTextFor:ContextSuggestion texts:@[
             //@"Maybe you like %@?",
             //@"Would you fancy %@?",
             //@"What about %@?",
@@ -201,6 +208,13 @@
 }
 
 - (NSString *)getCelebrity {
-    return [_randomizer chooseOneTextFor:@"Celebrity" texts:@[[self getFemaleCelebrity], [self getMaleCelebrity]]];
+    return [_randomizer chooseOneTextFor:ContextCelebrity texts:@[[self getFemaleCelebrity], [self getMaleCelebrity]]];
+}
+
+- (NSString *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper {
+    return [_randomizer chooseOneTextFor:ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper texts:@[
+            @"If you like it cheaper, the %@ could be your choice",
+            @"If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."
+    ]];
 }
 @end

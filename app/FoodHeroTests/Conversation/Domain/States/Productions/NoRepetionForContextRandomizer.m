@@ -6,12 +6,11 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "NoRepetionForContextRandomizer.h"
 #import "DesignByContractException.h"
-#import "DefaultRandomizer.h"
 
 
 @implementation NoRepetionForContextRandomizer {
     NSMutableArray *_textAndBools;
-    NSString *_context;
+    NSString const *_context;
 }
 - (id)init {
     self = [super init];
@@ -30,7 +29,7 @@
     @throw [DesignByContractException createWithReason:@"Not implemented"];
 }
 
-- (NSString *)chooseOneTextFor:(NSString *)context texts:(NSArray *)texts {
+- (NSString *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
     if (![_context isEqualToString:context]) {
         return texts[0];
     }
@@ -65,7 +64,7 @@
     }];
 }
 
-- (void)configureContext:(NSString *)context {
+- (void)configureContext:(NSString const *)context {
     _context = context;
 }
 @end

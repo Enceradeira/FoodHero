@@ -28,7 +28,7 @@
     _repository = [[TextRepository alloc] initWithRandomizer:_randomizer];
 }
 
-- (void)assertCorrectTextsFor:(NSString *(^)())textFactory context:(NSString *)context {
+- (void)assertCorrectTextsFor:(NSString *(^)())textFactory context:(NSString const *)context {
     [_randomizer configureContext:context];
     do {
         NSString *text = textFactory();
@@ -41,35 +41,11 @@
     } while ([_randomizer hasMoreForContext]);
 }
 
-- (void)test_getGreeting_ShouldReturnTextForAllVariations {
-    [self assertCorrectTextsFor:^() {
-        return [_repository getGreeting];
-    }                   context:@"Greeting"];
-}
 
-- (void)test_getFemaleCelebrity_ShouldReturnTextForAllVariations {
-    [self assertCorrectTextsFor:^() {
-        return [_repository getFemaleCelebrity];
-    }                   context:@"FemaleCelebrity"];
-}
-
-- (void)test_getMaleCelebrity_ShouldReturnTextForAllVariations {
-    [self assertCorrectTextsFor:^() {
-        return [_repository getMaleCelebrity];
-    }                   context:@"MaleCelebrity"];
-}
-
-- (void)test_getPlace_ShouldReturnTextForAllVariations {
-    [self assertCorrectTextsFor:^() {
-        return [_repository getPlace];
-    }                   context:@"Place"];
-}
-
-- (void)test_getSuggestion_ShouldReturnTextForAllVariations {
-
-    [_randomizer configureContext:@"Suggestion"];
+- (void)assertCorrectTextsWithPlaceholderFor:(NSString *(^)())textFactory context:(NSString const *)context {
+    [_randomizer configureContext:context];
     do {
-        NSString *text = [_repository getSuggestion];
+        NSString *text = textFactory();
         //NSLog(text,"King's Head");
         assertThat(text, is(notNilValue()));
         assertThatInteger(text.length, is(greaterThan(@(0))));
@@ -77,6 +53,44 @@
         NSUInteger nrPlaceholders = [[text componentsSeparatedByString:@"%@"] count] - 1;
         assertThatInteger(nrPlaceholders, is(equalTo(@(1))));
     } while ([_randomizer hasMoreForContext]);
+}
+
+- (void)test_getGreeting_ShouldReturnTextForAllVariations {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getGreeting];
+    }                   context:ContextGreeting];
+}
+
+- (void)test_getFemaleCelebrity_ShouldReturnTextForAllVariations {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getFemaleCelebrity];
+    }                   context:ContextFemaleCelebrity];
+}
+
+- (void)test_getMaleCelebrity_ShouldReturnTextForAllVariations {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getMaleCelebrity];
+    }                   context:ContextMaleCelebrity];
+}
+
+- (void)test_getPlace_ShouldReturnTextForAllVariations {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getPlace];
+    }                   context:ContextPlace];
+}
+
+- (void)test_getSuggestion_ShouldReturnTextForAllVariations {
+
+    [self assertCorrectTextsWithPlaceholderFor:^() {
+        return _repository.getSuggestion;
+    }                                  context:ContextSuggestion];
+}
+
+
+- (void)test_getSuggestionWithConfirmationIfInNewPreferredRangeCheaper_ShouldReturnTexts {
+    [self assertCorrectTextsWithPlaceholderFor:^() {
+        return _repository.getSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
+    }                                  context:ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper];
 }
 
 - (void)test_getCelebrity_ShouldReturnTextForAllVariations {

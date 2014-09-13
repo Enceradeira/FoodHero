@@ -5,6 +5,8 @@
 
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.h"
 #import "Restaurant.h"
+#import "TyphoonComponents.h"
+#import "TextRepository.h"
 
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper {
@@ -19,6 +21,7 @@
 }
 
 - (NSString *)getText {
-    return @"If you like it cheaper, the '%@' could be your choice";
+    TextRepository * textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
+    return [textRepository getSuggestionWithConfirmationIfInNewPreferredRangeCheaper];
 }
 @end

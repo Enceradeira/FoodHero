@@ -6,6 +6,13 @@
 #import <Foundation/Foundation.h>
 #import "Randomizer.h"
 
+extern const NSString *ContextFemaleCelebrity;
+extern const NSString *ContextMaleCelebrity;
+extern const NSString *ContextGreeting;
+extern const NSString *ContextPlace;
+extern const NSString *ContextSuggestion;
+extern const NSString *ContextCelebrity;
+extern const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 
 @interface TextRepository : NSObject
 
@@ -22,4 +29,6 @@
 - (NSString *)getSuggestion;
 
 - (NSString *)getCelebrity;
+
+- (NSString *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 @end

@@ -10,5 +10,5 @@
 @interface NoRepetionForContextRandomizer : NSObject <Randomizer>
 - (BOOL)hasMoreForContext;
 
-- (void)configureContext:(NSString *)context;
+- (void)configureContext:(NSString const *)context;
 @end
