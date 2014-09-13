@@ -96,10 +96,4 @@
 
 }
 
-- (void)findAndLog:(RestaurantSearch *)search {
-    Restaurant *r = [[search findBest:_conversation] toArray][0];
-    NSLog(@"--------");
-    NSLog([NSString stringWithFormat:@"Best is: %@ %@", r.name, r.placeId]);
-}
-
 @end

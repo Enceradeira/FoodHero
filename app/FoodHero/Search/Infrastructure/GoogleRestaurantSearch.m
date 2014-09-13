@@ -51,9 +51,9 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
                                                        keyword,
                                                        coordinate.latitude,
                                                        coordinate.longitude,
-                                                       (NSUInteger) radius,
-                                                       parameter.minPriceLevel,
-                                                       parameter.maxPriceLevel,
+                                                       (unsigned int) radius,
+                                                       (unsigned int) parameter.minPriceLevel,
+                                                       (unsigned int) parameter.maxPriceLevel,
                                                        typesAsString];
 
     NSDictionary *json = [self fetchJSON:placeString];
@@ -79,11 +79,11 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
      * n = (relevance(place) - 1) / index(place)
     */
     double n;
-    if( places.count > 1) {
+    if (places.count > 1) {
         n = (minRelevance - 1) / (places.count - 1);  // for most irrelevant place (last one)
     }
 
-    else{
+    else {
         n = 0;
     }
 

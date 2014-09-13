@@ -53,9 +53,7 @@
 
     RACSignal *bestRestaurant = [[_restaurantSearch findBest:conversation]
             deliverOn:_schedulerFactory.mainThreadScheduler];
-    @weakify(self);
     [bestRestaurant subscribeError:^(NSError *error) {
-        @strongify(self);
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
             [conversation addToken:[FHBecauseUserDeniedAccessToLocationServices create]];
         }
@@ -70,7 +68,6 @@
         }
     }];
     [bestRestaurant subscribeNext:^(id next) {
-        @strongify(self);
         Restaurant *restaurant = next;
 
         if (lastFeedback != nil && lastFeedback.restaurant != nil) {

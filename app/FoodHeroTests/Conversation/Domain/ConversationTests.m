@@ -113,12 +113,12 @@
 }
 
 
--(void)test_UCuisinePreference_ShouldResetConversation{
+- (void)test_UCuisinePreference_ShouldResetConversation {
     Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Great Yarmouth"].build;
     Restaurant *tajMahal = [[[RestaurantBuilder alloc] withName:@"Taj Mahal"] withVicinity:@"Great Yarmouth"].build;
 
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindResults:@[kingsHead,tajMahal]];
+        [stub injectFindResults:@[kingsHead, tajMahal]];
     }];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
@@ -188,7 +188,7 @@
 
 - (void)test_currentSearchPreferenceCuisine_ShouldThrowException_WhenUserHasNotSpecifiedCuisineYet {
     assertThat(^() {
-        self.conversation.currentSearchPreference.cuisine;
+        [[self conversation] currentSearchPreference];
     }, throwsExceptionOfType([DesignByContractException class]));
 }
 
@@ -269,11 +269,11 @@
 
 - (void)test_lastSuggestionWarning_ShouldReturnLastSuggestionWarning {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
-    FHWarningIfNotInPreferredRangeTooCheap *lastWarning = [FHWarningIfNotInPreferredRangeTooCheap create];
+    [FHWarningIfNotInPreferredRangeTooCheap create];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
-        //[self.conversation addToken:lastWarning];
+    //[self.conversation addToken:lastWarning];
 
     ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
     assertThat(lastSuggestionWarning, is(notNilValue()));

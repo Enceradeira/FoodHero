@@ -27,6 +27,7 @@
 #import "TyphoonComponents.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "RestaurantBuilder.h"
+#import "SearchProfil.h"
 
 @interface FHConversationStateTests : XCTestCase <ConversationSource>
 
@@ -47,6 +48,19 @@
 -(void)addToken:(ConversationToken *)token{
 
 }
+
+- (NSArray *)negativeUserFeedback {
+    return nil;
+}
+
+- (SearchProfil *)currentSearchPreference {
+    return nil;
+}
+
+- (ConversationToken *)lastSuggestionWarning {
+    return nil;
+}
+
 
 -(void)test_consume_ShouldReturnTokenNotConsumed_WhenSomethingOtherThenFHGreetingIsAdded
 {

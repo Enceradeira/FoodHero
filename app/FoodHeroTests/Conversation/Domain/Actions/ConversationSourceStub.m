@@ -40,6 +40,9 @@
     return [SearchProfil createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
 }
 
+- (ConversationToken *)lastSuggestionWarning {
+    return nil;
+}
 
 - (NSString *)cuisine {
     return _cuisine;

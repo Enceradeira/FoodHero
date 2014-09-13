@@ -11,8 +11,8 @@
 #import "DefaultTokenRandomizer.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
-#import "ReturnsAlwaysStateFinishedSymbol.h"
 #import "TagAndToken.h"
+#import "FHConfirmation.h"
 
 @interface DefaultTokenRandomizerTests : XCTestCase
 
@@ -28,54 +28,56 @@
     _randomizer = [DefaultTokenRandomizer new];
 }
 
-- (TagAndToken *)tagAndSymbolFor:(ReturnsAlwaysStateFinishedSymbol *)symbol{
+- (TagAndToken *)tagAndTokenFor:(ConversationToken *)symbol {
     return [[TagAndToken alloc] initWithTag:@"Tag" token:symbol];
 }
 
 - (void)test_chooseOneSymbol_ShouldChooseASymbolRandomly {
-    id<Symbol> symbol1 = [ReturnsAlwaysStateFinishedSymbol new];
-    id<Symbol> symbol2 = [ReturnsAlwaysStateFinishedSymbol new];
-    NSArray *symbols = [NSArray arrayWithObjects:[self tagAndSymbolFor:symbol1],[self tagAndSymbolFor:symbol2],nil];
+    ConversationToken *symbol1 = [FHConfirmation new];
+    ConversationToken *symbol2 = [FHConfirmation new];
+    NSArray *symbols = @[[self tagAndTokenFor:symbol1], [self tagAndTokenFor:symbol2]];
 
     NSUInteger nrTests = 10;
     NSUInteger nrSymbol1 = 0;
     NSUInteger nrSymbol2 = 0;
-    for( NSUInteger i=0; i<nrTests; i++)
-    {
-        id <Symbol> chosenSymbol = [_randomizer chooseOneToken:symbols];
+    for (NSUInteger i = 0; i < nrTests; i++) {
+        id chosenSymbol = [_randomizer chooseOneToken:symbols];
         assertThat(chosenSymbol, is(notNilValue()));
-        if( chosenSymbol == symbol1){
+        if (chosenSymbol == symbol1) {
             nrSymbol1++;
         }
-        if( chosenSymbol == symbol2){
+        if (chosenSymbol == symbol2) {
             nrSymbol2++;
         }
     }
     assertThatUnsignedInt(nrSymbol1, greaterThan(@0));
     assertThatUnsignedInt(nrSymbol2, greaterThan(@0));
-    assertThatUnsignedInt(nrSymbol1+nrSymbol2, is(equalToUnsignedInt(nrTests)));
+    assertThatUnsignedInt(nrSymbol1 + nrSymbol2, is(equalToUnsignedInt(nrTests)));
 }
 
 - (void)test_chooseOneSymbol_ShouldOnlySymbol_WhenOneSymbolInList {
-    id<Symbol> onlySymbol = [ReturnsAlwaysStateFinishedSymbol new];
-    NSArray *symbols = [NSArray arrayWithObjects:[self tagAndSymbolFor:onlySymbol],nil];
+    ConversationToken *onlyToken = [FHConfirmation new];
+    NSArray *symbols = @[[self tagAndTokenFor:onlyToken]];
 
-    id <Symbol> chosenSymbol = [_randomizer chooseOneToken:symbols];
-    assertThat(chosenSymbol, is(equalTo(onlySymbol)));
+    id chosenSymbol = [_randomizer chooseOneToken:symbols];
+    assertThat(chosenSymbol, is(equalTo(onlyToken)));
 }
 
 - (void)test_chooseOneSymbol_ShouldThrowExcepction_WhenListIsEmpty {
-    assertThat(^(){[_randomizer chooseOneToken:[NSArray new]];}, throwsExceptionOfType(DesignByContractException.class));
+    assertThat(^() {
+        [_randomizer chooseOneToken:[NSArray new]];
+    }, throwsExceptionOfType(DesignByContractException.class));
 }
 
-- (void)test_doOptional_ShouldCallActionOnARandomBasis{
+- (void)test_doOptional_ShouldCallActionOnARandomBasis {
     __block NSUInteger nrCalls = 0;
-    void (^block)() = ^(){nrCalls++;};
+    void (^block)() = ^() {
+        nrCalls++;
+    };
 
     NSUInteger nrTests = 20;
-     for( NSUInteger i=0; i<nrTests; i++)
-    {
-        [_randomizer doOptionally:@"Tag" byCalling:block ];
+    for (NSUInteger i = 0; i < nrTests; i++) {
+        [_randomizer doOptionally:@"Tag" byCalling:block];
     }
 
     assertThatUnsignedInt(nrCalls, greaterThan(@0));

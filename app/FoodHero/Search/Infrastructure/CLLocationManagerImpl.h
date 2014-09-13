@@ -8,4 +8,5 @@
 
 
 @interface CLLocationManagerImpl : NSObject<CLLocationManagerProxy>
+- (id)initWithLocationManager:(CLLocationManager *)locationManager;
 @end

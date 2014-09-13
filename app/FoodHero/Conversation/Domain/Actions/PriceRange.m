@@ -23,13 +23,13 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
 
 - (instancetype)initWithMin:(NSUInteger)min max:(NSUInteger)max {
     if (max < min) {
-        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"max (%u) is smaller than min (%u)", max, min]];
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"max (%u) is smaller than min (%u)", (unsigned int) max, (unsigned int) min]];
     }
     if (max > GOOGLE_PRICE_LEVEL_MAX) {
-        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"max (%u) is greater than absolute maximum (%u)", max, GOOGLE_PRICE_LEVEL_MAX]];
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"max (%u) is greater than absolute maximum (%u)", (unsigned int) max, (unsigned int) GOOGLE_PRICE_LEVEL_MAX]];
     }
     if (min < GOOGLE_PRICE_LEVEL_MIN) {
-        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"min (%u) is smaller than absolute min (%u)", min, GOOGLE_PRICE_LEVEL_MIN]];
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"min (%u) is smaller than absolute min (%u)", (unsigned int) min, (unsigned int) GOOGLE_PRICE_LEVEL_MIN]];
     }
     self = [super init];
     if (self != nil) {
@@ -43,7 +43,7 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     NSUInteger newMax = value - 1;
     NSUInteger newMin = _min;
     if (newMax < GOOGLE_PRICE_LEVEL_MIN) {
-        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"invalid value %u", value]];
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"invalid value %u", (unsigned int) value]];
     }
     if (newMin > newMax) {
         newMin = newMax;
@@ -55,7 +55,7 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     NSUInteger newMin = value + 1;
     NSUInteger newMax = _max;
     if (newMin > GOOGLE_PRICE_LEVEL_MAX) {
-        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"invalid value %u", value]];
+        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"invalid value %u", (unsigned int) value]];
     }
     if (newMax < newMin) {
         newMax = newMin;
