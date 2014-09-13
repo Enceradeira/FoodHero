@@ -11,10 +11,14 @@
 }
 
 const NSString *ContextFemaleCelebrity = @"FemaleCelebrity";
+const NSString *ContextCommentChoice = @"CommentChoice";
+const NSString *ContextWhatToDoNextComment = @"WhatToDoNextComment";
+const NSString *ContextGoodByeAfterSuccess = @"GoodByeAfterSuccess";
 const NSString *ContextMaleCelebrity = @"MaleCelebrity";
 const NSString *ContextGreeting = @"Greeting";
 const NSString *ContextPlace = @"Place";
 const NSString *ContextSuggestion = @"Suggestion";
+const NSString *ContextOpeningQuestion = @"OpeningQuestion";
 const NSString *ContextCelebrity = @"Celebrity";
 const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = @"SuggestionWithConfirmationIfInNewPreferredRangeCheaper";
 
@@ -217,4 +221,49 @@ const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
             @"If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."
     ]];
 }
+
+- (NSString *)getGoodByeAfterSuccess {
+    return [_randomizer chooseOneTextFor:ContextGoodByeAfterSuccess texts:@[
+            @"See you!",
+            @"God bless you.",
+            @"Behave yourself, now.",
+            @"Don’t get a girl in trouble.",
+    ]];
+}
+
+- (NSString *)getCommentChoice {
+    return [_randomizer chooseOneTextFor:ContextCommentChoice texts:@[
+            @"Love this place. See you there.",
+            @"Yes!  I got you to do it!",
+            @"Bring me your leftovers.",
+            @"Yes!  You’ll be their third customer.",
+            @"Yes!  You can write the eulogy for their previous customer.",
+            @"Bring me a sandwich back and I’ll start building a vacation home.",
+            @"Ask for Ben, he’s my cousin.",
+            @"Yippideedee bananadorama bananadorama!",
+            @"Yay!  I’ll do my happy dance.  Please give me some privacy [doing happy dance].",
+            @"Fingers crossed—I hope you like it.",
+            @"It sounds corny, but I really do like helping people.",
+            @"Or you could just order a pizza and be done with it.",
+            @"I hope it is worthy of you.",
+            [NSString stringWithFormat:@"I’ll tell you what to order—some eggs and bacon with mayonnaise. That’s %@’s favorite.", [self getCelebrity]],
+            @"I want sprinkles!",
+            @"Bring your sweater.  Sometimes it can be chilly."
+    ]];
+}
+
+- (NSString *)getWhatToDoNextComment {
+    return [_randomizer chooseOneTextFor:ContextWhatToDoNextComment texts:@[
+            @"And now?",
+            @"I’m bored! Anything else?"
+    ]];
+}
+
+- (NSString *)getOpeningQuestion {
+    return [_randomizer chooseOneTextFor:ContextWhatToDoNextComment texts:@[
+            @"What kind of food would you like to eat?",
+            @"Do you like chickenbutts?  Or chicken feet?\n\nOr which food then?"
+    ]];
+}
+
 @end

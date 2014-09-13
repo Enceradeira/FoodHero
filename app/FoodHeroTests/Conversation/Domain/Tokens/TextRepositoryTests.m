@@ -55,36 +55,56 @@
     } while ([_randomizer hasMoreForContext]);
 }
 
-- (void)test_getGreeting_ShouldReturnTextForAllVariations {
+- (void)test_getGreeting_ShouldReturnTexts {
     [self assertCorrectTextsFor:^() {
         return [_repository getGreeting];
     }                   context:ContextGreeting];
 }
 
-- (void)test_getFemaleCelebrity_ShouldReturnTextForAllVariations {
+- (void)test_getOpeningQuestion_ShouldReturnTexts {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getOpeningQuestion];
+    }                   context:ContextOpeningQuestion];
+}
+
+- (void)test_getFemaleCelebrity_ShouldReturnTexts {
     [self assertCorrectTextsFor:^() {
         return [_repository getFemaleCelebrity];
     }                   context:ContextFemaleCelebrity];
 }
 
-- (void)test_getMaleCelebrity_ShouldReturnTextForAllVariations {
+- (void)test_getMaleCelebrity_ShouldReturnTexts {
     [self assertCorrectTextsFor:^() {
         return [_repository getMaleCelebrity];
     }                   context:ContextMaleCelebrity];
 }
 
-- (void)test_getPlace_ShouldReturnTextForAllVariations {
+- (void)test_getPlace_ShouldReturnTexts {
     [self assertCorrectTextsFor:^() {
         return [_repository getPlace];
     }                   context:ContextPlace];
 }
 
-- (void)test_getSuggestion_ShouldReturnTextForAllVariations {
+- (void)test_getSuggestion_ShouldReturnTexts {
 
     [self assertCorrectTextsWithPlaceholderFor:^() {
         return _repository.getSuggestion;
     }                                  context:ContextSuggestion];
 }
+
+- (void)test_getCommentChoice_ShouldReturnTexts {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getCommentChoice];
+    }                   context:ContextCommentChoice];
+}
+
+- (void)test_getWhatToDoNextComment_ShouldReturnTexts {
+
+    [self assertCorrectTextsFor:^() {
+        return _repository.getWhatToDoNextComment;
+    }                                  context:ContextWhatToDoNextComment];
+}
+
 
 
 - (void)test_getSuggestionWithConfirmationIfInNewPreferredRangeCheaper_ShouldReturnTexts {
@@ -93,10 +113,16 @@
     }                                  context:ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper];
 }
 
-- (void)test_getCelebrity_ShouldReturnTextForAllVariations {
+- (void)test_getCelebrity_ShouldReturnTexts {
     [self assertCorrectTextsFor:^() {
         return [_repository getCelebrity];
-    }                   context:@"Celebrity"];
+    }                   context:ContextCelebrity];
+}
+
+- (void)test_getGoodByeAfterSuccess_ShouldReturnTexts {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getGoodByeAfterSuccess];
+    }                   context:ContextGoodByeAfterSuccess];
 }
 
 

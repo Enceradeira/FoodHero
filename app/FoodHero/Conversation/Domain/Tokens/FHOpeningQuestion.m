@@ -4,13 +4,18 @@
 //
 
 #import "FHOpeningQuestion.h"
+#import "ApplicationAssembly.h"
+#import "TyphoonComponents.h"
+#import "TextRepository.h"
 
 
 @implementation FHOpeningQuestion {
 }
 
 + (FHOpeningQuestion *)create {
-    return [[FHOpeningQuestion alloc] initWithSemanticId:@"FH:OpeningQuestion" text:@"What kind of food would you like to eat?"];
+    TextRepository *textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
+    NSString *text = [textRepository getOpeningQuestion];
+    return [[FHOpeningQuestion alloc] initWithSemanticId:@"FH:OpeningQuestion" text:text];
 }
 
 @end

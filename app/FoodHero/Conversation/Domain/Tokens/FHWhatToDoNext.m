@@ -4,6 +4,9 @@
 //
 
 #import "FHWhatToDoNext.h"
+#import "TextRepository.h"
+#import "ApplicationAssembly.h"
+#import "TyphoonComponents.h"
 
 
 @implementation FHWhatToDoNext {
@@ -11,7 +14,11 @@
 }
 
 - (instancetype)init {
-    NSString *text = @"Now that you like that restaurant.\n\n Is there something else that I can do for you?";
+    TextRepository *textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
+    NSString *commentChoice = [textRepository getCommentChoice];
+    NSString *whatToDoNextComment = [textRepository getWhatToDoNextComment];
+
+    NSString *text = [NSString stringWithFormat:@"%@\n\n%@",commentChoice,whatToDoNextComment];
     return self = [super initWithSemanticId:@"FH:WhatToDoNext" text:text];
 }
 

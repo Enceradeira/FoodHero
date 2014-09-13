@@ -7,10 +7,14 @@
 #import "Randomizer.h"
 
 extern const NSString *ContextFemaleCelebrity;
+extern const NSString *ContextCommentChoice;
+extern const NSString *ContextWhatToDoNextComment;
+extern const NSString *ContextGoodByeAfterSuccess;
 extern const NSString *ContextMaleCelebrity;
 extern const NSString *ContextGreeting;
 extern const NSString *ContextPlace;
 extern const NSString *ContextSuggestion;
+extern const NSString *ContextOpeningQuestion;
 extern const NSString *ContextCelebrity;
 extern const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 
@@ -31,4 +35,12 @@ extern const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeChe
 - (NSString *)getCelebrity;
 
 - (NSString *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
+
+- (NSString *)getGoodByeAfterSuccess;
+
+- (NSString *)getCommentChoice;
+
+- (NSString *)getWhatToDoNextComment;
+
+- (NSString *)getOpeningQuestion;
 @end
