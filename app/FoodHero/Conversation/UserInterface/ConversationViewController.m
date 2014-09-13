@@ -33,6 +33,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     ConversationViewState *_currentViewState;
     UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
     CheatTextFieldController *_cheatTextFieldController;
+    NSMutableArray *_bubbleCells;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -49,6 +50,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _bubbleCells = [NSMutableArray new];
     
     // Bubble View
     _bubbleView.delegate = self;
@@ -206,14 +208,25 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (UITableViewCell *)getConversationBubbleTableViewCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-    /* [tableView dequeueReusableCellWithIdentifier] isn't used because it caused the bubbles to flicker
-        when a cell was reconfigured with an other image. Images are anyway cached and managed by the AppService */
+    /*
+        [tableView dequeueReusableCellWithIdentifier] isn't used because it caused the bubbles to flicker
+        when a cell was reconfigured with an other image. Images are anyway cached and managed by the AppService.
+
+        Furthermore the reconfiguration of the dequeued celled was animated since it's called during an animation
+        that changes the height of the UITableView. I couldn't get rid of that animation by other means.
+
+    */
+
+    if( indexPath.row < _bubbleCells.count){
+        return _bubbleCells[(NSUInteger) indexPath.row];
+    }
 
     ConversationBubble *bubble = [self getStatementIndex:indexPath.row];
     ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell *) [[ConversationBubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bubble.cellId];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.bubble = bubble;
+    [_bubbleCells addObject:cell];
     return cell;
 }
 
