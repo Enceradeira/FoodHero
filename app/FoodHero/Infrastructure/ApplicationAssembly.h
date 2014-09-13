@@ -36,7 +36,7 @@
 
 - (id)locationManagerProxy;
 
-- (id)tokenRandomizer;
+- (id)randomizer;
 
 - (id)restaurantRepository;
 

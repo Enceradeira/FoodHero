@@ -3,21 +3,26 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "DefaultTokenRandomizer.h"
+#import "DefaultRandomizer.h"
 #import "DesignByContractException.h"
 #import "TagAndToken.h"
 
 
-@implementation DefaultTokenRandomizer {
+@implementation DefaultRandomizer {
 
 }
 - (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens {
-    if (tagAndTokens.count == 0) {
+    return ((TagAndToken *) [self chooseOneFrom:tagAndTokens]).token;
+
+}
+
+- (id)chooseOneFrom:(NSArray *)array {
+    if (array.count == 0) {
         @throw [DesignByContractException createWithReason:@"there must be at least one symbol to choose from"];
     }
 
-    NSInteger randomIndex = arc4random() % tagAndTokens.count;
-    return ((TagAndToken *) tagAndTokens[(NSUInteger) randomIndex]).token;
+    NSInteger randomIndex = arc4random() % array.count;
+    return (array[(NSUInteger) randomIndex]);
 }
 
 - (void)doOptionally:(NSString *)string byCalling:(void (^)())block {
@@ -27,5 +32,8 @@
     }
 }
 
+- (NSString *)chooseOneTextFrom:(NSArray *)texts {
+    return [self chooseOneFrom:texts];
+}
 
 @end

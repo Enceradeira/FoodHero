@@ -137,7 +137,7 @@
 		23525942DB4D144A45B03188 /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A4D4CB0635BE2391A10 /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.m */; };
 		23525952AE8AD9925E9977CF /* AddTokenAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FF477756E484E35DF5F /* AddTokenAction.m */; };
 		2352595CC8706A7B380330A3 /* NoRestaurantsFoundError.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DDBFFF100FF3FB1B469 /* NoRestaurantsFoundError.m */; };
-		2352596DB90A8BCB6CF26E5F /* DefaultTokenRandomizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258497FD1447A340288F3 /* DefaultTokenRandomizerTests.m */; };
+		2352596DB90A8BCB6CF26E5F /* DefaultRandomizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258497FD1447A340288F3 /* DefaultRandomizerTests.m */; };
 		2352597751CD0CEE15E3561B /* CLLocationManagerProxyStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F7F7DDCCC7D86042755 /* CLLocationManagerProxyStub.m */; };
 		23525978A02706408D0E3150 /* FHBecauseUserIsNotAllowedToUseLocationServicesState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EB07D65C8FC4051933F /* FHBecauseUserIsNotAllowedToUseLocationServicesState.m */; };
 		2352598464756B926A0483A0 /* ConversationViewState+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */; };
@@ -212,7 +212,7 @@
 		23525F518171AFB7154DB17F /* FHConfirmationState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255C9687BEF184107B110 /* FHConfirmationState.m */; };
 		23525F574C72C851CB541B80 /* FHProposalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E58701A6BB52FCA4A3F /* FHProposalState.m */; };
 		23525F59C409DA7F7E8A3945 /* AtomicSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525718876CDA31F43361AB /* AtomicSymbol.m */; };
-		23525F8C696F86A86393D677 /* DefaultTokenRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FDDB7D1DE6BEC2C9594 /* DefaultTokenRandomizer.m */; };
+		23525F8C696F86A86393D677 /* DefaultRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FDDB7D1DE6BEC2C9594 /* DefaultRandomizer.m */; };
 		23525F98BD25BF15E8DEA7EA /* DefaultAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352568D2A237C26E4825DE9 /* DefaultAssembly.m */; };
 		23525F9DC864ADF4EF5F1050 /* USuggestionFeedbackForLiking.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255FB01E06559812CAD80 /* USuggestionFeedbackForLiking.m */; };
 		23525FAB31B1A67A1FC92BA5 /* ConversationCantFindRestaurantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */; };
@@ -355,7 +355,7 @@
 		235252E9D723D0D87EB99EF8 /* USuggestionNegativeFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionNegativeFeedback.h; sourceTree = "<group>"; };
 		235252F78FFA508D6B163634 /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		235253024A5D540D63E9C70B /* USuggestionFeedbackForTooFarAway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooFarAway.m; sourceTree = "<group>"; };
-		23525317ADC83C8452EA0B78 /* TokenRandomizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenRandomizer.h; sourceTree = "<group>"; };
+		23525317ADC83C8452EA0B78 /* Randomizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Randomizer.h; sourceTree = "<group>"; };
 		2352532D2FD874BA7333409D /* DefaultAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultAssembly.h; sourceTree = "<group>"; };
 		2352532F3DFD3673C16F58A5 /* FHWhatToDoNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWhatToDoNext.h; sourceTree = "<group>"; };
 		2352532FE8C29682329D925C /* AskUserToTryAgainAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserToTryAgainAction.m; sourceTree = "<group>"; };
@@ -469,7 +469,7 @@
 		23525757B571C49CF14C897B /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		2352577FE518FC992E1B318E /* FHGoodByeAfterSuccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHGoodByeAfterSuccess.h; sourceTree = "<group>"; };
 		235257BCFADCE4FC4575D7AB /* SearchAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAction.h; sourceTree = "<group>"; };
-		235257C2C65CC319F347DE3C /* DefaultTokenRandomizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTokenRandomizer.h; sourceTree = "<group>"; };
+		235257C2C65CC319F347DE3C /* DefaultRandomizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultRandomizer.h; sourceTree = "<group>"; };
 		235257C5F0CD53CE4D47160D /* DoOptionally.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoOptionally.h; sourceTree = "<group>"; };
 		235257CD558B47706156F59F /* CLLocationManagerProxySpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxySpy.h; sourceTree = "<group>"; };
 		235257F452F3D98BEB40C034 /* ConversationBubbleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleUser.m; sourceTree = "<group>"; };
@@ -481,7 +481,7 @@
 		235258238526A1C664198377 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		23525826A1685B7C449E2553 /* NoAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoAction.h; sourceTree = "<group>"; };
 		2352583090DD31278A9DAC54 /* FHWarningIfNotInPreferredRangeTooFarAwayState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWarningIfNotInPreferredRangeTooFarAwayState.h; sourceTree = "<group>"; };
-		235258497FD1447A340288F3 /* DefaultTokenRandomizerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTokenRandomizerTests.m; sourceTree = "<group>"; };
+		235258497FD1447A340288F3 /* DefaultRandomizerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultRandomizerTests.m; sourceTree = "<group>"; };
 		235258690BCFD51D6C3530DF /* TestToken2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestToken2.m; sourceTree = "<group>"; };
 		2352586D3474BAB3BC3C264F /* FHSuggestionWithConfirmationIfInNewPreferredRangeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionWithConfirmationIfInNewPreferredRangeState.h; sourceTree = "<group>"; };
 		23525871FB0563C6FA13D06F /* ConversationBubbleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleUser.h; sourceTree = "<group>"; };
@@ -674,7 +674,7 @@
 		23525FD43DD4FD87D7427681 /* ConversationConfirmationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationConfirmationTests.m; sourceTree = "<group>"; };
 		23525FD4CA49F086C54F9548 /* AskUserCuisinePreferenceAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserCuisinePreferenceAction.m; sourceTree = "<group>"; };
 		23525FD74FC08CC21C0741D5 /* UCuisinePreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCuisinePreference.h; sourceTree = "<group>"; };
-		23525FDDB7D1DE6BEC2C9594 /* DefaultTokenRandomizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTokenRandomizer.m; sourceTree = "<group>"; };
+		23525FDDB7D1DE6BEC2C9594 /* DefaultRandomizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultRandomizer.m; sourceTree = "<group>"; };
 		23525FE32558E3E36D3D9CA0 /* FMOpeningQuestionState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOpeningQuestionState.m; sourceTree = "<group>"; };
 		23525FF477756E484E35DF5F /* AddTokenAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTokenAction.m; sourceTree = "<group>"; };
 		23525FF496D398E4148F0A10 /* RestaurantsInRadiusAndPriceRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsInRadiusAndPriceRange.h; sourceTree = "<group>"; };
@@ -1003,7 +1003,7 @@
 			isa = PBXGroup;
 			children = (
 				23525DE38CE16D4F043A8F60 /* ConversationTokenTests.m */,
-				235258497FD1447A340288F3 /* DefaultTokenRandomizerTests.m */,
+				235258497FD1447A340288F3 /* DefaultRandomizerTests.m */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -1033,9 +1033,9 @@
 				2352593D17BD11FB31E474D7 /* UTryAgainNow.m */,
 				23525EE73A524293940DB4C0 /* FHSuggestionAsFollowUp.m */,
 				23525332D64B8F407746B5A1 /* FHSuggestionAsFollowUp.h */,
-				23525317ADC83C8452EA0B78 /* TokenRandomizer.h */,
-				23525FDDB7D1DE6BEC2C9594 /* DefaultTokenRandomizer.m */,
-				235257C2C65CC319F347DE3C /* DefaultTokenRandomizer.h */,
+				23525317ADC83C8452EA0B78 /* Randomizer.h */,
+				23525FDDB7D1DE6BEC2C9594 /* DefaultRandomizer.m */,
+				235257C2C65CC319F347DE3C /* DefaultRandomizer.h */,
 				235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */,
 				23525CA154B10964CC7B76D3 /* FHSuggestionBase.h */,
 				23525888667E49517F441496 /* SuggstionFeedback */,
@@ -1689,7 +1689,7 @@
 				235252A7D920E7DD025C16F6 /* Alternation.m in Sources */,
 				2352576ACD99DF1B238F023C /* TagAndToken.m in Sources */,
 				2352555CFC0BBB90C5B25ED1 /* FHSuggestionAsFollowUp.m in Sources */,
-				23525F8C696F86A86393D677 /* DefaultTokenRandomizer.m in Sources */,
+				23525F8C696F86A86393D677 /* DefaultRandomizer.m in Sources */,
 				235250447549516F84D8CB0B /* FHSuggestionBase.m in Sources */,
 				23525E2B79A75A18D4627790 /* SearchActionState.m in Sources */,
 				235250D9266A300101EC3F40 /* USuggestionNegativeFeedback.m in Sources */,
@@ -1822,7 +1822,7 @@
 				235256EFAF5328F249A28236 /* ConversationFirstProposalTests.m in Sources */,
 				2352578F928EFFD72A43CC1C /* ConversationProposalTests.m in Sources */,
 				2352544F8551A9E68B32C77A /* AlternationRandomizerStub.m in Sources */,
-				2352596DB90A8BCB6CF26E5F /* DefaultTokenRandomizerTests.m in Sources */,
+				2352596DB90A8BCB6CF26E5F /* DefaultRandomizerTests.m in Sources */,
 				235252A71291F128F7A3D5DB /* ConversationConfirmationIfInNewPreferredRangeTests.m in Sources */,
 				2352543C372FADC12A6209AD /* DoOptionallyTests.m in Sources */,
 				23525877482B2748CE8C6CD0 /* ConversationSuggestionWithConfirmationIfInNewPreferredRangeTests.m in Sources */,

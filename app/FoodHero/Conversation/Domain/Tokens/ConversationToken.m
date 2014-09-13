@@ -37,7 +37,7 @@
         @throw [DesignByContractException createWithReason:@"Attempt to concat two ConversationAction for different personas"];
     }
     NSString *semanticId = [NSString stringWithFormat:@"%@&%@", _semanticId, token.semanticId];
-    NSString *text = [NSString stringWithFormat:@"%@ %@", _text, token.text];
+    NSString *text = [NSString stringWithFormat:@"%@\n\n%@", _text, token.text];
     return [[ConversationToken alloc] initWithPersona:_persona semantidId:semanticId text:text];
 }
 

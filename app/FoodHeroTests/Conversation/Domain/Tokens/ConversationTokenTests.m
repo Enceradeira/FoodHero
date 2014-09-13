@@ -37,7 +37,7 @@
     assertThat(token, is(notNilValue()));
     assertThat(token.persona, is(equalTo(persona)));
     assertThat(token.semanticId, is(equalTo(@"FH:R1&FH:R2")));
-    assertThat(token.text, is(equalTo(@"Text1 Text2")));
+    assertThat(token.text, is(equalTo(@"Text1\n\nText2")));
 
 }
 

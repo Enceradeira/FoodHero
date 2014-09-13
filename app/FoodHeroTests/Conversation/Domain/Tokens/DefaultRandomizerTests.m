@@ -8,24 +8,24 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import "DefaultTokenRandomizer.h"
+#import "DefaultRandomizer.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "TagAndToken.h"
 #import "FHConfirmation.h"
 
-@interface DefaultTokenRandomizerTests : XCTestCase
+@interface DefaultRandomizerTests : XCTestCase
 
 @end
 
-@implementation DefaultTokenRandomizerTests {
-    DefaultTokenRandomizer *_randomizer;
+@implementation DefaultRandomizerTests {
+    DefaultRandomizer *_randomizer;
 }
 
 - (void)setUp {
     [super setUp];
 
-    _randomizer = [DefaultTokenRandomizer new];
+    _randomizer = [DefaultRandomizer new];
 }
 
 - (TagAndToken *)tagAndTokenFor:(ConversationToken *)symbol {
@@ -63,7 +63,7 @@
     assertThat(chosenSymbol, is(equalTo(onlyToken)));
 }
 
-- (void)test_chooseOneSymbol_ShouldThrowExcepction_WhenListIsEmpty {
+- (void)test_chooseOneSymbol_ShouldThrowException_WhenListIsEmpty {
     assertThat(^() {
         [_randomizer chooseOneToken:[NSArray new]];
     }, throwsExceptionOfType(DesignByContractException.class));
@@ -82,6 +82,35 @@
 
     assertThatUnsignedInt(nrCalls, greaterThan(@0));
     assertThatUnsignedInt(nrCalls, lessThan(@(nrTests)));
+}
+
+- (void)test_chooseOneText_ShouldThrowException_WhenListIsEmpty {
+    assertThat(^() {
+        [_randomizer chooseOneTextFrom:@[]];
+    }, throwsExceptionOfType(DesignByContractException.class));
+}
+
+- (void)test_chooseOneText_ShouldChooseATextRandomly {
+    NSString *text1 = @"Hello";
+    NSString *text2 = @"Bye";
+    NSArray *texts = @[text1, text2];
+
+    NSUInteger nrTests = 10;
+    NSUInteger nrText1 = 0;
+    NSUInteger nrText2 = 0;
+    for (NSUInteger i = 0; i < nrTests; i++) {
+        id chosenText = [_randomizer chooseOneTextFrom:texts];;
+        assertThat(chosenText, is(notNilValue()));
+        if (chosenText == text1) {
+            nrText1++;
+        }
+        if (chosenText == text2) {
+            nrText2++;
+        }
+    }
+    assertThatUnsignedInt(nrText1, greaterThan(@0));
+    assertThatUnsignedInt(nrText2, greaterThan(@0));
+    assertThatUnsignedInt(nrText1 + nrText2, is(equalToUnsignedInt(nrTests)));
 }
 
 @end

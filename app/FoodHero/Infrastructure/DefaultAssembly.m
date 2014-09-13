@@ -13,7 +13,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerImpl.h"
-#import "DefaultTokenRandomizer.h"
+#import "DefaultRandomizer.h"
 #import "CuisineTableViewController.h"
 #import "FeedbackTableViewController.h"
 #import "WhatToDoNextTableViewController.h"
@@ -145,8 +145,8 @@
                           }];
 }
 
-- (id)tokenRandomizer {
-    return [TyphoonDefinition withClass:[DefaultTokenRandomizer class]];;
+- (id)randomizer {
+    return [TyphoonDefinition withClass:[DefaultRandomizer class]];;
 }
 
 - (id)restaurantRepository {

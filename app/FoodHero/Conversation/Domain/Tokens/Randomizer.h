@@ -6,8 +6,11 @@
 #import <Foundation/Foundation.h>
 #import "Symbol.h"
 
-@protocol TokenRandomizer <NSObject>
+@protocol Randomizer <NSObject>
 - (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens;
 
 - (void)doOptionally:(NSString *)string byCalling:(void (^)())with;
+
+- (NSString *)chooseOneTextFrom:(NSArray *)texts;
+
 @end

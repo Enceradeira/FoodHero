@@ -37,6 +37,10 @@
     }
 }
 
+- (NSString *)chooseOneTextFrom:(NSArray *)texts {
+    return texts[0];
+}
+
 
 - (void)injectDontDo:(NSString *)tag {
     _dontToTag = tag;

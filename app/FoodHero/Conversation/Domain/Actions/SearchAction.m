@@ -15,7 +15,7 @@
 #import "FHNoRestaurantsFound.h"
 #import "FHSuggestion.h"
 #import "TyphoonComponents.h"
-#import "TokenRandomizer.h"
+#import "Randomizer.h"
 #import "TagAndToken.h"
 #import "FHSuggestionAsFollowUp.h"
 #import "USuggestionNegativeFeedback.h"
@@ -31,7 +31,7 @@
 @implementation SearchAction {
 
     RestaurantSearch *_restaurantSearch;
-    id <TokenRandomizer> _tokenRandomizer;
+    id <Randomizer> _tokenRandomizer;
     LocationService *_locationService;
     id <ISchedulerFactory> _schedulerFactory;
 }
@@ -40,7 +40,7 @@
     self = [super init];
     if (self != nil) {
         _restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-        _tokenRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] tokenRandomizer];
+        _tokenRandomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] randomizer];
         _locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
         _schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
     }

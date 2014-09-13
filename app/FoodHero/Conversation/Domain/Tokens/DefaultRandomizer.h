@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TokenRandomizer.h"
+#import "Randomizer.h"
 
 
-@interface DefaultTokenRandomizer : NSObject<TokenRandomizer>
+@interface DefaultRandomizer : NSObject<Randomizer>
 @end
