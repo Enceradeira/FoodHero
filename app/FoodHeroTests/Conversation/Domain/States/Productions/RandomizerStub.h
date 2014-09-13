@@ -7,7 +7,7 @@
 #import "Randomizer.h"
 
 
-@interface AlternationRandomizerStub: NSObject <Randomizer>
+@interface RandomizerStub : NSObject <Randomizer>
 - (void)injectChoice:(NSString *)tag;
 
 - (void)injectDontDo:(NSString *)tag;

@@ -10,6 +10,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "SearchException.h"
 #import "SearchError.h"
+#import "TextRepository.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;

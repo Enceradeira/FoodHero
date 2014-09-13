@@ -12,7 +12,7 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "AlternationRandomizerStub.h"
+#import "RandomizerStub.h"
 #import "RestaurantBuilder.h"
 
 @interface ConversationFindingRestaurantTests : ConversationTestsBase

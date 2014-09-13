@@ -4,11 +4,11 @@
 //
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
-#import "AlternationRandomizerStub.h"
+#import "RandomizerStub.h"
 #import "TagAndToken.h"
 
 
-@implementation AlternationRandomizerStub {
+@implementation RandomizerStub {
 
     NSString *_choosenTag;
     NSString *_dontToTag;
@@ -37,10 +37,9 @@
     }
 }
 
-- (NSString *)chooseOneTextFrom:(NSArray *)texts {
+- (NSString *)chooseOneTextFor:(NSString *)context texts:(NSArray *)texts {
     return texts[0];
 }
-
 
 - (void)injectDontDo:(NSString *)tag {
     _dontToTag = tag;

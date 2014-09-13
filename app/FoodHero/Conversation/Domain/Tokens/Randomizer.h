@@ -11,6 +11,6 @@
 
 - (void)doOptionally:(NSString *)string byCalling:(void (^)())with;
 
-- (NSString *)chooseOneTextFrom:(NSArray *)texts;
+- (NSString *)chooseOneTextFor:(NSString *)context texts:(NSArray *)texts;
 
 @end

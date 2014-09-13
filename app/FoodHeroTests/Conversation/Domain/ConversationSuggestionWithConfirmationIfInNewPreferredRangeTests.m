@@ -7,7 +7,7 @@
 #import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
-#import "AlternationRandomizerStub.h"
+#import "RandomizerStub.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"

@@ -5,6 +5,9 @@
 
 #import "FHSuggestionBase.h"
 #import "FHSuggestion.h"
+#import "TyphoonComponents.h"
+#import "Randomizer.h"
+#import "TextRepository.h"
 
 
 @implementation FHSuggestion {
@@ -18,6 +21,7 @@
 }
 
 - (NSString *)getText {
-    return @"Maybe you like the '%@'?";
+    TextRepository * textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
+    return [textRepository getSuggestion];
 }
 @end

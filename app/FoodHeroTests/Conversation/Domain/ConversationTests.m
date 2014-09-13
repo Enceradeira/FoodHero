@@ -21,7 +21,7 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooFarAway.h"
-#import "AlternationRandomizerStub.h"
+#import "RandomizerStub.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
 #import "HCIsExceptionOfType.h"

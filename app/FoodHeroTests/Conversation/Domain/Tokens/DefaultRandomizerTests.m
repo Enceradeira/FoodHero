@@ -84,9 +84,9 @@
     assertThatUnsignedInt(nrCalls, lessThan(@(nrTests)));
 }
 
-- (void)test_chooseOneText_ShouldThrowException_WhenListIsEmpty {
+- (void)test_chooseOneTextFor_ShouldThrowException_WhenListIsEmpty {
     assertThat(^() {
-        [_randomizer chooseOneTextFrom:@[]];
+        [_randomizer chooseOneTextFor:@"Context" texts:@[]];
     }, throwsExceptionOfType(DesignByContractException.class));
 }
 
@@ -99,7 +99,7 @@
     NSUInteger nrText1 = 0;
     NSUInteger nrText2 = 0;
     for (NSUInteger i = 0; i < nrTests; i++) {
-        id chosenText = [_randomizer chooseOneTextFrom:texts];;
+        id chosenText = [_randomizer chooseOneTextFor:@"Context" texts:texts];
         assertThat(chosenText, is(notNilValue()));
         if (chosenText == text1) {
             nrText1++;

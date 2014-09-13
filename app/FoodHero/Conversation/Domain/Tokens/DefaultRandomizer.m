@@ -32,7 +32,7 @@
     }
 }
 
-- (NSString *)chooseOneTextFrom:(NSArray *)texts {
+- (NSString *)chooseOneTextFor:(NSString *)context texts:(NSArray *)texts {
     return [self chooseOneFrom:texts];
 }
 

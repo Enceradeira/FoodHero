@@ -22,6 +22,7 @@
 #import "TryAgainTableViewController.h"
 #import "SearchForAnotherRestaurantTableViewController.h"
 #import "DefaultSchedulerFactory.h"
+#import "TextRepository.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -163,6 +164,16 @@
 
 - (id)schedulerFactory {
     return [TyphoonDefinition withClass:[DefaultSchedulerFactory class]];
+}
+
+- (id)textRepository {
+    return [TyphoonDefinition withClass:[TextRepository class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithRandomizer:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self randomizer]];
+
+                              }];
+                          }];
 }
 
 

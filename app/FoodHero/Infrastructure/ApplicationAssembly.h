@@ -4,6 +4,7 @@
 //
 
 @class RestaurantRepository;
+@class TextRepository;
 
 @protocol ApplicationAssembly
 - (id)problemWithAccessLocationServiceResolvedTableViewController;
@@ -41,4 +42,6 @@
 - (id)restaurantRepository;
 
 - (id)schedulerFactory;
+
+- (id)textRepository;
 @end

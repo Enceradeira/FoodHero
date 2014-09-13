@@ -9,7 +9,7 @@
 #import "CLLocationManagerProxyStub.h"
 #import "RestaurantSearchServiceStub.h"
 
-@class AlternationRandomizerStub;
+@class RandomizerStub;
 @class RestaurantRepository;
 
 @interface ConversationTestsBase : XCTestCase
@@ -17,7 +17,7 @@
 //@property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
-@property(nonatomic, readonly) AlternationRandomizerStub *tokenRandomizerStub;
+@property(nonatomic, readonly) RandomizerStub *tokenRandomizerStub;
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
 

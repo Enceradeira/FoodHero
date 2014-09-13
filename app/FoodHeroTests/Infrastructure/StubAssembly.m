@@ -7,7 +7,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
-#import "AlternationRandomizerStub.h"
+#import "RandomizerStub.h"
 #import "AlwaysImmediateSchedulerFactory.h"
 
 
@@ -26,7 +26,7 @@
 }
 
 - (id)randomizer {
-    return [TyphoonDefinition withClass:[AlternationRandomizerStub class] configuration:^(TyphoonDefinition *definition) {
+    return [TyphoonDefinition withClass:[RandomizerStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
 }
