@@ -34,6 +34,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
     CheatTextFieldController *_cheatTextFieldController;
     NSMutableArray *_bubbleCells;
+    BOOL _isLoading;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -49,9 +50,11 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)viewDidLoad {
+    _isLoading = YES;
+
     [super viewDidLoad];
     _bubbleCells = [NSMutableArray new];
-    
+
     // Bubble View
     _bubbleView.delegate = self;
     _bubbleView.dataSource = self;
@@ -75,8 +78,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         NSIndexPath *newIndex = [NSIndexPath indexPathForItem:index inSection:0];
         [newIndexes addObject:newIndex];
 
-        [_bubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
-        [_bubbleView scrollToRowAtIndexPath:newIndex atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        if (!_isLoading) {
+            [_bubbleView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationFade];
+            [_bubbleView scrollToRowAtIndexPath:newIndex atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        }
 
         [self configureUserInputFor:[self getStatementIndex:index]];
     }];
@@ -89,6 +94,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     _userInputHeaderView.layer.borderWidth = 0.5;
 
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
+    _isLoading = NO;
 }
 
 - (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion {
@@ -222,7 +228,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     */
 
-    if( indexPath.row < _bubbleCells.count){
+    if (indexPath.row < _bubbleCells.count) {
         return _bubbleCells[(NSUInteger) indexPath.row];
     }
 
@@ -278,7 +284,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
     if ([_userTextField.text hasPrefix:@"C:E"] && _cheatTextFieldController == nil) {
-        _cheatTextFieldController = [CheatTextFieldController createWithView: self.view applicationService:_appService];
+        _cheatTextFieldController = [CheatTextFieldController createWithView:self.view applicationService:_appService];
     }
     else {
         UIViewController <UserInputViewController> *inputViewController = _currentUserInputContainerViewController;

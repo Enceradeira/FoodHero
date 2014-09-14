@@ -146,6 +146,7 @@ const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
             @"Hello beautiful.",
             @"Have you put on your lipstick today?",
             @"‘Sup man?",
+            @"I’m tired.  I need coffee before I can continue.",
             @"Konnichiwa!",
             @"Guten Tag!",
             @"Bonjour!",

@@ -10,6 +10,7 @@
 #import "StubAssembly.h"
 #import "Personas.h"
 #import "RandomizerStub.h"
+#import "TextRepositoryStub.h"
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;
@@ -42,9 +43,14 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _restaurantSearchStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
-    _conversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
+    [self resetConversation];
     _tokenRandomizerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] randomizer];
+    _textRepositoryStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
     _expectedStatements = [NSMutableArray new];
+}
+
+- (void)resetConversation {
+    _conversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
 }
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration {
@@ -102,6 +108,13 @@
 
 - (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
     NSUInteger index = self.conversation.getStatementCount - 2;
+    NSMutableArray *list = [NSMutableArray new];
+    [self expectedStatementIs:semanticId userAction:userAction inList:list];
+    [self assertExpectedStatementsAtIndex:index inList:list];
+}
+
+- (void)assertThirdLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
+    NSUInteger index = self.conversation.getStatementCount - 3;
     NSMutableArray *list = [NSMutableArray new];
     [self expectedStatementIs:semanticId userAction:userAction inList:list];
     [self assertExpectedStatementsAtIndex:index inList:list];

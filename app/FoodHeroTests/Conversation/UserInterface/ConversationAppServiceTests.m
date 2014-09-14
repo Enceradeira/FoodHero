@@ -127,11 +127,11 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble1, isNot(sameInstance(bubble2)));
 }
 
-- (void)test_getSecondStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
+- (void)test_getThirdStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
     id userInput = [UCuisinePreference create:@"British or Indian Food"];
     [_service addUserInput:userInput];
 
-    ConversationBubble *bubble = [self getStatement:1];
+    ConversationBubble *bubble = [self getStatement:2];
 
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British or Indian Food")));

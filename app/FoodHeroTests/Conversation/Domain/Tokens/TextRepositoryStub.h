@@ -4,10 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationToken.h"
 #import "ITextRepository.h"
 
-@interface ConversationToken (Protected)
-+ (id <ITextRepository>)textRepository;
-- (id <ITextRepository>)textRepository;
+
+@interface TextRepositoryStub : NSObject <ITextRepository>
+- (void)injectGreeting:(NSString *)greeting;
 @end

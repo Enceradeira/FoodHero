@@ -36,13 +36,7 @@
     if (self != nil) {
         _statements = [NSMutableArray new];
 
-        FHGreeting *greetingToken = [FHGreeting create];
-        FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];
-
-        id <UAction> action = (id <UAction>) openingQuestionToken.createAction;
-
-        ConversationToken *token = [greetingToken concat:openingQuestionToken];
-        [self addStatement:token inputAction:action];
+        [self addToken:[FHGreeting create]];
     }
     return self;
 }
@@ -99,9 +93,18 @@
 
 - (RACSignal *)statementIndexes {
     NSUInteger __block index = 0;
-    return [RACObserve(self, self.statements) map:^(id next) {
-        return @(index++);
+
+    RACSubject *nextIndexSignal = [RACReplaySubject replaySubjectWithCapacity:RACReplaySubjectUnlimitedCapacity];
+    RACSignal *statementsChangedSignal = RACObserve(self, self.statements);
+    [statementsChangedSignal subscribeNext:^(NSArray *statements) {
+        for (NSUInteger i = 0; i < statements.count; i++) {
+            if (i >= index) {
+                [nextIndexSignal sendNext:@(index++)];
+            }
+        }
     }];
+
+    return nextIndexSignal;
 }
 
 - (NSArray *)negativeUserFeedback {

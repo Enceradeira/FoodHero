@@ -8,9 +8,8 @@
 #import "Conversation.h"
 #import "CLLocationManagerProxyStub.h"
 #import "RestaurantSearchServiceStub.h"
-
-@class RandomizerStub;
-@class RestaurantRepository;
+#import "RandomizerStub.h"
+#import "TextRepositoryStub.h"
 
 @interface ConversationTestsBase : XCTestCase
 
@@ -18,6 +17,9 @@
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) RandomizerStub *tokenRandomizerStub;
+@property(nonatomic, readonly) TextRepositoryStub *textRepositoryStub;
+
+- (void)resetConversation;
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
 
@@ -30,4 +32,6 @@
 - (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
 
 - (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
+
+- (void)assertThirdLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
 @end

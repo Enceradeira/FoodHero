@@ -9,6 +9,7 @@
 #import "CLLocationManagerProxyStub.h"
 #import "RandomizerStub.h"
 #import "AlwaysImmediateSchedulerFactory.h"
+#import "TextRepositoryStub.h"
 
 
 @implementation StubAssembly
@@ -33,6 +34,12 @@
 
 - (id)schedulerFactory {
     return [TyphoonDefinition withClass:[AlwaysImmediateSchedulerFactory class]];
+}
+
+- (id)textRepository {
+    return [TyphoonDefinition withClass:[TextRepositoryStub class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
 }
 
 

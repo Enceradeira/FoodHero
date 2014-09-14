@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Randomizer.h"
+#import "ITextRepository.h"
 
 extern const NSString *ContextFemaleCelebrity;
 extern const NSString *ContextCommentChoice;
@@ -18,29 +19,8 @@ extern const NSString *ContextOpeningQuestion;
 extern const NSString *ContextCelebrity;
 extern const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 
-@interface TextRepository : NSObject
+@interface TextRepository : NSObject <ITextRepository>
 
 - (instancetype)initWithRandomizer:(id <Randomizer>)randomizer;
 
-- (NSString *)getFemaleCelebrity;
-
-- (NSString *)getMaleCelebrity;
-
-- (NSString *)getGreeting;
-
-- (NSString *)getPlace;
-
-- (NSString *)getSuggestion;
-
-- (NSString *)getCelebrity;
-
-- (NSString *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
-
-- (NSString *)getGoodByeAfterSuccess;
-
-- (NSString *)getCommentChoice;
-
-- (NSString *)getWhatToDoNextComment;
-
-- (NSString *)getOpeningQuestion;
 @end

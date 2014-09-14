@@ -3,9 +3,6 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-@class RestaurantRepository;
-@class TextRepository;
-
 @protocol ApplicationAssembly
 - (id)problemWithAccessLocationServiceResolvedTableViewController;
 

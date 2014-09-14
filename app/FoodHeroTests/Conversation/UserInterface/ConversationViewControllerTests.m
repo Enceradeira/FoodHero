@@ -53,7 +53,7 @@
 - (void)test_Controller_ShouldGreatUserOnFirstRow {
     ConversationBubbleTableViewCell *firstRow = [self assertRow:0];
     
-    assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
+    assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting")));
 }
 
 @end

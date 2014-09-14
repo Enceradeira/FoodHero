@@ -9,8 +9,6 @@
 #import "RestaurantSearch.h"
 #import "FHAction.h"
 
-@class FHWhatToDoNext;
-
 
 @interface AddTokenAction : NSObject <FHAction>
 + (instancetype)create:(ConversationToken *)token;

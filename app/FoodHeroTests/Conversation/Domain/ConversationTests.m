@@ -30,6 +30,7 @@
 #import "SearchProfil.h"
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
+#import "PlayMusicAndAddTokenAction.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -50,13 +51,14 @@
 
 - (void)test_statementIndexes_ShouldStreamNewlyAddedStatements {
     NSMutableArray *receivedIndexes = [NSMutableArray new];
-    [[self.conversation statementIndexes] subscribeNext:^(id next) {
+    RACSignal *signal = [self.conversation statementIndexes];
+    [signal subscribeNext:^(id next) {
         [receivedIndexes addObject:next];
     }];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]]; // adds the answer & food-heros response
 
-    assertThat(receivedIndexes, contains(@0, @1, @2, nil));
+    assertThat(receivedIndexes, contains(@0, @1, @2, @3, nil));
 }
 
 
@@ -64,14 +66,14 @@
     Statement *statement = [self.conversation getStatement:0];
 
     assertThat(statement, is(notNilValue()));
-    assertThat(statement.semanticId, is(equalTo(@"FH:Greeting&FH:OpeningQuestion")));
+    assertThat(statement.semanticId, is(equalTo(@"FH:Greeting")));
     assertThat(statement.persona, is(equalTo(Personas.foodHero)));
-    assertThat(statement.inputAction.class, is(equalTo([AskUserCuisinePreferenceAction class])));
+    assertThat(statement.inputAction.class, is(nilValue()));
 }
 
-- (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForSecondStatement {
+- (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForThirdStatement {
     @try {
-        [self.conversation getStatement:1];
+        [self.conversation getStatement:2];
         XCTFail(@"An exception must be thrown");
     }
     @catch (DesignByContractException *exception) {
@@ -85,10 +87,10 @@
 }
 
 - (void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation {
-    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(1)));
+    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(2)));
 
     [self.conversation addToken:[UCuisinePreference create:@"British or Indian Food"]];
-    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(3)));
+    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(4)));
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion {
@@ -278,6 +280,26 @@
     ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
     assertThat(lastSuggestionWarning, is(notNilValue()));
     assertThat(lastSuggestionWarning.class, is(equalTo([FHWarningIfNotInPreferredRangeTooCheap class])));
+}
+
+- (void)test_FHGreeting_ShouldHaveTwoTemporallyDisconnectedParts_WhenFHNeedsCoffeeBeforeHeCanContinue {
+    [self.textRepositoryStub injectGreeting:@"I’m tired.  I need coffee before I can continue."];
+
+    [self resetConversation];
+
+    [self assertThirdLastStatementIs:@"FH:Greeting" userAction:nil];
+    [self assertSecondLastStatementIs:@"FH:Greeting" userAction:nil];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
+}
+
+-(void)test_statementIndexes_ShouldYieldGreetingAndOpeningQuestion{
+    __block NSInteger nrIndexes = 0;
+    RACSignal *signal = [self.conversation statementIndexes];
+    [signal subscribeNext:^(id next) {
+        nrIndexes++;
+    }];
+
+    assertThatInteger(nrIndexes, is(equalTo(@(2))));
 }
 
 @end

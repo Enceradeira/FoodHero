@@ -11,11 +11,11 @@
 
 @implementation ConversationToken (Protected)
 
-+ (TextRepository *)textRepository {
++ (id <ITextRepository>)textRepository {
     return [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
 }
 
-- (TextRepository *)textRepository {
+- (id <ITextRepository>)textRepository {
     return [ConversationToken textRepository];
 }
 
