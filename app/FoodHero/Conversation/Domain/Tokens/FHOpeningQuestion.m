@@ -4,10 +4,9 @@
 //
 
 #import "FHOpeningQuestion.h"
-#import "ApplicationAssembly.h"
-#import "TyphoonComponents.h"
 #import "TextRepository.h"
 #import "ConversationToken+Protected.h"
+#import "AskUserCuisinePreferenceAction.h"
 
 
 @implementation FHOpeningQuestion {
@@ -17,5 +16,10 @@
     NSString *text = [[self textRepository] getOpeningQuestion];
     return [[FHOpeningQuestion alloc] initWithSemanticId:@"FH:OpeningQuestion" text:text];
 }
+
+- (id <ConversationAction>)createAction {
+    return [AskUserCuisinePreferenceAction new];
+}
+
 
 @end

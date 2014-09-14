@@ -16,5 +16,4 @@
 
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text;
 
-- (id <ConversationAction>)createAction;
 @end

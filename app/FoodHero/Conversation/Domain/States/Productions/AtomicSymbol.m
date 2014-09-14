@@ -49,7 +49,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return nil;
+    return [token createAction];
 }
 
 @end

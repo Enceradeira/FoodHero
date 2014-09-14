@@ -17,8 +17,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AskUserWhatToDoNextAction new];
+    return [token createAction];
 }
-
 
 @end

@@ -9,6 +9,7 @@
 #import "Randomizer.h"
 #import "TextRepository.h"
 #import "ConversationToken+Protected.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHSuggestion {
@@ -24,4 +25,9 @@
 - (NSString *)getText {
     return [self.textRepository getSuggestion];
 }
+
+- (id <ConversationAction>)createAction{
+    return [AskUserSuggestionFeedbackAction new];
+}
+
 @end

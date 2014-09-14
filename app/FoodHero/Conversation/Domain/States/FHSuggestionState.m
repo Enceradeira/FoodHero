@@ -17,7 +17,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AskUserSuggestionFeedbackAction new];
+    return [token createAction];
 }
 
 @end

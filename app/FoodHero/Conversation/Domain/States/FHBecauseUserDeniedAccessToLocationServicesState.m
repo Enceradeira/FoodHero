@@ -15,7 +15,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AskUserIfProblemWithAccessLocationServiceResolved new];
+    return [token createAction];
 }
 
 @end

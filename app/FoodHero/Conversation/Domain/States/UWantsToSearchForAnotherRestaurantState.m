@@ -18,7 +18,6 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AddTokenAction create:[FHOpeningQuestion create]];
+    return [token createAction];
 }
-
 @end

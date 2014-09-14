@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Persona.h"
+#import "ConversationAction.h"
 
 
 @interface ConversationToken : NSObject
@@ -16,5 +17,7 @@
 - (instancetype)initWithSemanticId:(NSString *)semanticId text:(NSString *)text;
 
 - (ConversationToken *)concat:(ConversationToken *)token;
+
+- (id <ConversationAction>)createAction;
 
 @end

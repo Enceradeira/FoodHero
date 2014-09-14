@@ -4,8 +4,6 @@
 //
 
 #import "FHConfirmationState.h"
-#import "NoAction.h"
-#import "FHGreeting.h"
 #import "FHConfirmation.h"
 
 
@@ -17,7 +15,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [NoAction new];
+    return [token createAction];
 }
 
 @end

@@ -16,8 +16,6 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AskUserCuisinePreferenceAction new];
+    return [token createAction];
 }
-
-
 @end

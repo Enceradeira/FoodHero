@@ -8,6 +8,7 @@
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "ConversationToken+Protected.h"
+#import "AskUserWhatToDoNextAction.h"
 
 
 @implementation FHWhatToDoNext {
@@ -21,5 +22,10 @@
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@",commentChoice,whatToDoNextComment];
     return self = [super initWithSemanticId:@"FH:WhatToDoNext" text:text];
 }
+
+- (id <ConversationAction>)createAction{
+    return [AskUserWhatToDoNextAction new];
+}
+
 
 @end

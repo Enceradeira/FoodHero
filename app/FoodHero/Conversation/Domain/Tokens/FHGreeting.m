@@ -5,6 +5,7 @@
 #import "FHGreeting.h"
 #import "TextRepository.h"
 #import "ConversationToken+Protected.h"
+#import "NoAction.h"
 
 
 @implementation FHGreeting {
@@ -14,4 +15,9 @@
     NSString *text = [self.textRepository getGreeting];
     return [[FHGreeting alloc] initWithSemanticId:@"FH:Greeting" text:text];
 }
+
+- (id <ConversationAction>)createAction{
+    return [NoAction new];
+}
+
 @end

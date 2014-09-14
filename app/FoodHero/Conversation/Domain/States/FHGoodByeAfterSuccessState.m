@@ -17,7 +17,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AskUserWhatToDoAfterGoodByeAction new];
+    return [token createAction];
 }
 
 

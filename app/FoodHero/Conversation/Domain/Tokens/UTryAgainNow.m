@@ -4,11 +4,16 @@
 //
 
 #import "UTryAgainNow.h"
+#import "SearchAction.h"
 
 
 @implementation UTryAgainNow {
 }
 - (id)init {
     return [super initWithSemanticId:@"U:TryAgainNow" text:@"Please, try again"];
+}
+
+- (id <ConversationAction>)createAction {
+    return [SearchAction new];
 }
 @end

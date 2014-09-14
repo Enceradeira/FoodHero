@@ -6,6 +6,7 @@
 #import "FHGoodByeAfterSuccess.h"
 #import "TextRepository.h"
 #import "ConversationToken+Protected.h"
+#import "AskUserWhatToDoAfterGoodByeAction.h"
 
 
 @implementation FHGoodByeAfterSuccess {
@@ -15,6 +16,10 @@
     NSString *text = [[self textRepository] getGoodByeAfterSuccess];
     self = [super initWithSemanticId:@"FH:GoodByeAfterSuccess" text:text];
     return self;
+}
+
+- (id <ConversationAction>)createAction{
+    return [AskUserWhatToDoAfterGoodByeAction new];
 }
 
 

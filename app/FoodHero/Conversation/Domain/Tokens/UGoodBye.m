@@ -4,6 +4,8 @@
 //
 
 #import "UGoodBye.h"
+#import "FHGoodByeAfterSuccess.h"
+#import "AddTokenAction.h"
 
 
 @implementation UGoodBye {
@@ -11,5 +13,9 @@
 }
 - (id)init {
     return [super initWithSemanticId:@"U:GoodBye" text:@"No thanks! Good bye."];
+}
+
+- (id <ConversationAction>)createAction{
+    return [AddTokenAction create:[FHGoodByeAfterSuccess new]];
 }
 @end

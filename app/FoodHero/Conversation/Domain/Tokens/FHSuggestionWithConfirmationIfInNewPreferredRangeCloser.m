@@ -4,7 +4,7 @@
 //
 
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.h"
-#import "Restaurant.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeCloser {
@@ -20,5 +20,9 @@
 
 - (NSString *)getText {
     return @"The '%@' is closer";
+}
+
+- (id <ConversationAction>)createAction {
+    return [AskUserSuggestionFeedbackAction new];
 }
 @end

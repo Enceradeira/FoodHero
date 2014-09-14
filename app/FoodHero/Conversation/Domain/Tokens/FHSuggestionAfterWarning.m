@@ -4,6 +4,7 @@
 //
 
 #import "FHSuggestionAfterWarning.h"
+#import "AskUserSuggestionFeedbackAction.h"
 
 
 @implementation FHSuggestionAfterWarning {
@@ -20,5 +21,9 @@
 
 + (instancetype)create:(Restaurant *)restaurant {
     return [[FHSuggestionAfterWarning alloc] initWithRestaurant:restaurant];
+}
+
+- (id <ConversationAction>)createAction {
+    return [AskUserSuggestionFeedbackAction new];
 }
 @end

@@ -4,7 +4,6 @@
 //
 
 #import "FHNoRestaurantFoundState.h"
-#import "AskUserToTryAgainAction.h"
 #import "FHNoRestaurantsFound.h"
 
 
@@ -16,7 +15,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AskUserToTryAgainAction new];
+    return [token createAction];
 }
 
 @end

@@ -4,6 +4,7 @@
 //
 
 #import "FHNoRestaurantsFound.h"
+#import "AskUserToTryAgainAction.h"
 
 
 @implementation FHNoRestaurantsFound {
@@ -12,5 +13,9 @@
 + (ConversationToken *)create {
     NSString *text = @"That’s weird. I can’t find any restaurants right now.";
     return [[FHNoRestaurantsFound alloc] initWithSemanticId:@"FH:NoRestaurantsFound" text:text];
+}
+
+- (id <ConversationAction>)createAction{
+    return [AskUserToTryAgainAction new];
 }
 @end

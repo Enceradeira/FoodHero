@@ -20,7 +20,7 @@
 }
 
 - (id <ConversationAction>)createAction:(ConversationToken *)token {
-    return [AddTokenAction create:[FHGoodByeAfterSuccess new]];
+    return [token createAction];
 }
 
 
