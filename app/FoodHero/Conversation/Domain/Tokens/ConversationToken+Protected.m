@@ -4,9 +4,9 @@
 //
 
 #import "ConversationToken+Protected.h"
-#import "TextRepository.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
+#import "ISoundRepository.h"
 
 
 @implementation ConversationToken (Protected)
@@ -15,8 +15,16 @@
     return [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
 }
 
++ (id <ISoundRepository>)soundRepository {
+    return [(id <ApplicationAssembly>) [TyphoonComponents factory] soundRepository];
+}
+
 - (id <ITextRepository>)textRepository {
     return [ConversationToken textRepository];
+}
+
+- (id <ISoundRepository>)soundRepository {
+    return [ConversationToken soundRepository];
 }
 
 

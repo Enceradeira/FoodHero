@@ -8,8 +8,9 @@
 #import "NoAction.h"
 #import "AddTokenAction.h"
 #import "FHOpeningQuestion.h"
-#import "PlayMusicAndAddTokenAction.h"
+#import "PlaySoundAndAfterAddTokenAction.h"
 #import "GenericToken.h"
+#import "ISoundRepository.h"
 
 NSString *const SemanticId = @"FH:Greeting";
 
@@ -24,8 +25,9 @@ NSString *const SemanticId = @"FH:Greeting";
 - (id <ConversationAction>)createAction {
     if([self.text isEqualToString:@"I’m tired.  I need coffee before I can continue."]) {
         id <ConversationAction> action = [AddTokenAction create:[FHOpeningQuestion create]];
-        ConversationToken *token = [GenericToken createWithSemanticId:SemanticId text:@"Now I'm ready. What's up?" action:action];
-        return [PlayMusicAndAddTokenAction create:token];
+        ConversationToken *token = [GenericToken createWithSemanticId:SemanticId text:@"Now I feel better!\n\nWhat's up?" action:action];
+        Sound *sound = [self.soundRepository getNespressoSound];
+        return [PlaySoundAndAfterAddTokenAction create:token sound:sound];
     }
     return [AddTokenAction create:[FHOpeningQuestion create]];
 }

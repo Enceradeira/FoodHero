@@ -41,4 +41,6 @@
 - (id)schedulerFactory;
 
 - (id)textRepository;
+
+- (id)soundRepository;
 @end

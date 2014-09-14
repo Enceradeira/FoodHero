@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
+#import <XCTestCase+AsyncTesting.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
@@ -21,7 +22,6 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooFarAway.h"
-#import "RandomizerStub.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
 #import "HCIsExceptionOfType.h"
@@ -30,7 +30,6 @@
 #import "SearchProfil.h"
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
-#import "PlayMusicAndAddTokenAction.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -286,6 +285,7 @@
     [self.textRepositoryStub injectGreeting:@"I’m tired.  I need coffee before I can continue."];
 
     [self resetConversation];
+    [self XCA_waitForTimeout:0.1];   // context switch allows to play sound on main thread
 
     [self assertThirdLastStatementIs:@"FH:Greeting" userAction:nil];
     [self assertSecondLastStatementIs:@"FH:Greeting" userAction:nil];
