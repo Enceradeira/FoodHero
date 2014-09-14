@@ -12,7 +12,6 @@
 #import "DesignByContractException.h"
 #import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
-#import "FHConversationState.h"
 #import "FHAction.h"
 #import "USuggestionNegativeFeedback.h"
 #import "FHSuggestion.h"

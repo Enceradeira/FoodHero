@@ -70,7 +70,7 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestion {
-    [self.tokenRandomizerStub injectChoice:@"FH:Suggestion"];
+    [self.tokenRandomizerStub injectChoice:@"FH:Suggestnion"];
 
     [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build]]];
 

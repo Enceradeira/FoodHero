@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtomicSymbol.h"
+#import "ConversationToken.h"
 
 
 @interface FHGoodByeAfterSuccess : ConversationToken

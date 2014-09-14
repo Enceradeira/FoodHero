@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Symbol.h"
+#import "ConversationToken.h"
 
 @protocol Randomizer <NSObject>
 - (ConversationToken *)chooseOneToken:(NSArray *)tagAndTokens;
