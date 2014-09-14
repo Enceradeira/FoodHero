@@ -15,7 +15,6 @@
 #import "FHConversationState.h"
 #import "FHAction.h"
 #import "USuggestionNegativeFeedback.h"
-#import "TokenConsumed.h"
 #import "FHSuggestion.h"
 #import "UCuisinePreference.h"
 #import "USuggestionFeedbackForTooExpensive.h"
@@ -30,7 +29,7 @@
 @end
 
 @implementation Conversation {
-    FHConversationState *_state;
+
 }
 
 - (id)init {
@@ -38,13 +37,10 @@
     if (self != nil) {
         _statements = [NSMutableArray new];
 
-        _state = [FHConversationState new];
-
         FHGreeting *greetingToken = [FHGreeting create];
         FHOpeningQuestion *openingQuestionToken = [FHOpeningQuestion create];
 
-        [_state consume:greetingToken];
-        id <UAction> action = (id <UAction>) ((TokenConsumed *) [_state consume:openingQuestionToken]).action;
+        id <UAction> action = (id <UAction>) openingQuestionToken.createAction;
 
         ConversationToken *token = [greetingToken concat:openingQuestionToken];
         [self addStatement:token inputAction:action];
@@ -84,23 +80,17 @@
 }
 
 - (void)addToken:(ConversationToken *)token {
-    id <ConsumeResult> result = [_state consume:token];
-    if (!result.isTokenConsumed) {
-        @throw [DesignByContractException createWithReason:@"token was not consumed. This indicates an invalid state"];
+    id <ConversationAction> action = [token createAction];
+    id <UAction> userAction;
+    if ([action conformsToProtocol:@protocol(UAction)]) {
+        // User has to perform next action
+        userAction = (id <UAction>) action;
+        [self addStatement:token inputAction:userAction];
     }
     else {
-        id <ConversationAction> action = ((TokenConsumed *) result).action;
-        id <UAction> userAction;
-        if ([action conformsToProtocol:@protocol(UAction)]) {
-            // User has to perform next action
-            userAction = (id <UAction>) action;
-            [self addStatement:token inputAction:userAction];
-        }
-        else {
-            // FH has to perform next action
-            [self addStatement:token inputAction:nil];
-            [(id <FHAction>) action execute:self];
-        }
+        // FH has to perform next action
+        [self addStatement:token inputAction:nil];
+        [(id <FHAction>) action execute:self];
     }
 }
 
