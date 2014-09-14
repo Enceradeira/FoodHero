@@ -254,7 +254,7 @@ const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
 
 - (NSString *)getWhatToDoNextComment {
     return [_randomizer chooseOneTextFor:ContextWhatToDoNextComment texts:@[
-            @"And now?",
+            @"Anything else?",
             @"I’m bored! Anything else?"
     ]];
 }
