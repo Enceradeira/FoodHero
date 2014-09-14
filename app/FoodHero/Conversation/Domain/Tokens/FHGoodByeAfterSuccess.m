@@ -4,16 +4,15 @@
 //
 
 #import "FHGoodByeAfterSuccess.h"
-#import "TyphoonComponents.h"
 #import "TextRepository.h"
+#import "ConversationToken+Protected.h"
 
 
 @implementation FHGoodByeAfterSuccess {
 
 }
 - (instancetype)init {
-    TextRepository *textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
-    NSString *text = [textRepository getGoodByeAfterSuccess];
+    NSString *text = [[self textRepository] getGoodByeAfterSuccess];
     self = [super initWithSemanticId:@"FH:GoodByeAfterSuccess" text:text];
     return self;
 }

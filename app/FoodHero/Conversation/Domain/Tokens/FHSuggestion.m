@@ -8,6 +8,7 @@
 #import "TyphoonComponents.h"
 #import "Randomizer.h"
 #import "TextRepository.h"
+#import "ConversationToken+Protected.h"
 
 
 @implementation FHSuggestion {
@@ -21,7 +22,6 @@
 }
 
 - (NSString *)getText {
-    TextRepository * textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
-    return [textRepository getSuggestion];
+    return [self.textRepository getSuggestion];
 }
 @end

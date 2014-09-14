@@ -31,6 +31,7 @@
 		2352516345414DAFBC4D1664 /* GooglePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352522408BF6073928CCC48 /* GooglePlace.m */; };
 		2352516CEC3A47C0BB21AB1A /* SearchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF381A642E7AA0199F5 /* SearchAction.m */; };
 		23525170B3ED071688803C7F /* StatementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525606B9112D561A5FAC37 /* StatementTests.m */; };
+		2352518D3BA6195BAA557796 /* ConversationToken+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A9602C00D5EE3C4B292 /* ConversationToken+Protected.m */; };
 		2352518D934437EC9B68752C /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254AE12F0B92BC5B1315F /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensiveState.m */; };
 		2352519AD475278944C9FBA0 /* AskUserWhatToDoNextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EAC127BA84A3C617650 /* AskUserWhatToDoNextAction.m */; };
 		235251ADCB60EA2C03A63E78 /* CheatTextFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253BB86938B89044C8671 /* CheatTextFieldController.m */; };
@@ -528,6 +529,7 @@
 		23525A6B5B29ED404202D593 /* FHWarningIfNotInPreferredRangeTooCheapState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHWarningIfNotInPreferredRangeTooCheapState.m; sourceTree = "<group>"; };
 		23525A73391F93A71EBD7E0E /* UCuisinePreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCuisinePreference.m; sourceTree = "<group>"; };
 		23525A908B2FABDF3608A6F6 /* FHConversationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConversationState.h; sourceTree = "<group>"; };
+		23525A9602C00D5EE3C4B292 /* ConversationToken+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationToken+Protected.m"; sourceTree = "<group>"; };
 		23525AA96527DD678F2FBFCC /* ReturnsActionForTokenOnceSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnsActionForTokenOnceSymbol.m; sourceTree = "<group>"; };
 		23525AB45F30E82DEF54FC6D /* UGoodByeState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UGoodByeState.m; sourceTree = "<group>"; };
 		23525AB7B4B3BE8A17194B52 /* FHNoRestaurantsFound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHNoRestaurantsFound.m; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 		23525AF347A3C8D160DA1DC8 /* UWantsToSearchForAnotherRestaurantState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UWantsToSearchForAnotherRestaurantState.m; sourceTree = "<group>"; };
 		23525AF65EAEA55A2EDBD690 /* FHCommentState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHCommentState.m; sourceTree = "<group>"; };
 		23525AFD47D6547ED7F803EC /* FHSuggestionWithCommentState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionWithCommentState.h; sourceTree = "<group>"; };
+		23525B071BD2C0FE7AE551DB /* ConversationToken+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConversationToken+Protected.h"; sourceTree = "<group>"; };
 		23525B08F96DEAD44281E51A /* ReturnsAlwaysStateFinishedSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnsAlwaysStateFinishedSymbol.m; sourceTree = "<group>"; };
 		23525B10F0D8215802ECA2CC /* AnonymousUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymousUser.h; sourceTree = "<group>"; };
 		23525B126E30C00521AB1E28 /* TextRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextRepository.m; sourceTree = "<group>"; };
@@ -1082,6 +1085,8 @@
 				23525BB6E8A9E0852AF409CF /* FHWarningIfNotInPreferredRange.h */,
 				23525B126E30C00521AB1E28 /* TextRepository.m */,
 				2352534BD138DAC43DAB4E91 /* TextRepository.h */,
+				23525A9602C00D5EE3C4B292 /* ConversationToken+Protected.m */,
+				23525B071BD2C0FE7AE551DB /* ConversationToken+Protected.h */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -1792,6 +1797,7 @@
 				235251ADCB60EA2C03A63E78 /* CheatTextFieldController.m in Sources */,
 				2352544215B037983A160A12 /* KeywordEncoder.m in Sources */,
 				235250CE21A7328731B7A685 /* TextRepository.m in Sources */,
+				2352518D3BA6195BAA557796 /* ConversationToken+Protected.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

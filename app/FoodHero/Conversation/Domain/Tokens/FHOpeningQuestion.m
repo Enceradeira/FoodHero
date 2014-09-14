@@ -7,14 +7,14 @@
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "TextRepository.h"
+#import "ConversationToken+Protected.h"
 
 
 @implementation FHOpeningQuestion {
 }
 
 + (FHOpeningQuestion *)create {
-    TextRepository *textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
-    NSString *text = [textRepository getOpeningQuestion];
+    NSString *text = [[self textRepository] getOpeningQuestion];
     return [[FHOpeningQuestion alloc] initWithSemanticId:@"FH:OpeningQuestion" text:text];
 }
 

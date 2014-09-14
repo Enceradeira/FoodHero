@@ -3,17 +3,15 @@
 //
 
 #import "FHGreeting.h"
-#import "TyphoonComponents.h"
-#import "DefaultRandomizer.h"
 #import "TextRepository.h"
+#import "ConversationToken+Protected.h"
 
 
 @implementation FHGreeting {
 
 }
 + (FHGreeting *)create {
-    TextRepository *textRepository = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
-
-    return [[FHGreeting alloc] initWithSemanticId:@"FH:Greeting" text:[textRepository getGreeting]];
+    NSString *text = [self.textRepository getGreeting];
+    return [[FHGreeting alloc] initWithSemanticId:@"FH:Greeting" text:text];
 }
 @end
