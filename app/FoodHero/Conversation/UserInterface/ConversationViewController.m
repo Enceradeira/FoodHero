@@ -83,7 +83,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     // Input View
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationWillChange:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     _userInputHeaderView.layer.borderColor = [[FoodHeroColors darkerSepeartorGrey] CGColor];
     _userInputHeaderView.layer.borderWidth = 0.5;
 
@@ -174,9 +175,13 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)deviceOrientationDidChange:(id)deviceOrientationDidChange {
+- (void)deviceOrientationWillChange:(id)deviceOrientationDidChange {
     _currentViewState = nil;
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
+}
+
+- (void)deviceOrientationDidChange:(id)deviceOrientationDidChange {
+    [_bubbleCells removeAllObjects];
 }
 
 - (void)viewWillLayoutSubviews {
