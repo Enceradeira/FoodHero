@@ -8,7 +8,6 @@
 #import "ConversationSource.h"
 #import "RestaurantSearch.h"
 #import "AtomicSymbol.h"
-#import "SearchActionState.h"
 
-@interface UCuisinePreferenceState : SearchActionState
+@interface UCuisinePreferenceState : AtomicSymbol
 @end

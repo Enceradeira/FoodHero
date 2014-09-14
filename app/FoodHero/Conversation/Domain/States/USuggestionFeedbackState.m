@@ -4,7 +4,6 @@
 //
 
 #import "SearchAction.h"
-#import "SearchActionState.h"
 #import "USuggestionFeedbackState.h"
 #import "USuggestionNegativeFeedback.h"
 #import "UCuisinePreference.h"

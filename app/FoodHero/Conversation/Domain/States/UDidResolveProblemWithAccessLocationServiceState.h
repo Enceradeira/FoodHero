@@ -7,7 +7,6 @@
 #import "AtomicSymbol.h"
 #import "ConversationSource.h"
 #import "RestaurantSearch.h"
-#import "SearchActionState.h"
 
-@interface UDidResolveProblemWithAccessLocationServiceState : SearchActionState
+@interface UDidResolveProblemWithAccessLocationServiceState : AtomicSymbol
 @end

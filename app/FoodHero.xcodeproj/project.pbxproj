@@ -203,7 +203,6 @@
 		23525E06C77F4BC7196EAA27 /* RestaurantSearchParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */; };
 		23525E1A529A2F8EA799DE22 /* FHNoRestaurantsFound.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AB7B4B3BE8A17194B52 /* FHNoRestaurantsFound.m */; };
 		23525E1D97DFC3801C0366D3 /* TokenNotConsumed.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525646EE1F61597C0DEAD3 /* TokenNotConsumed.m */; };
-		23525E2B79A75A18D4627790 /* SearchActionState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250B379FA3C44088D24B9 /* SearchActionState.m */; };
 		23525E547C007CD968008518 /* Statement.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B606EA734C3976F26B1 /* Statement.m */; };
 		23525E55E1F7867B56565878 /* UDidResolveProblemWithAccessLocationServiceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253FEE81E1A048D1FB4D6 /* UDidResolveProblemWithAccessLocationServiceState.m */; };
 		23525E726D615BE8EB0F4568 /* RestaurantRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259F0564EACC22328D78F /* RestaurantRepository.m */; };
@@ -287,7 +286,6 @@
 		235250A45B37DCA998FF4B55 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		235250AA4E3D3E081401A36B /* RestaurantBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantBuilder.h; sourceTree = "<group>"; };
 		235250B0CF453E719D51919B /* LocationServiceAuthorizationStatusDeniedError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceAuthorizationStatusDeniedError.h; sourceTree = "<group>"; };
-		235250B379FA3C44088D24B9 /* SearchActionState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchActionState.m; sourceTree = "<group>"; };
 		235250CBBB8EE0F312AD453C /* FHConfirmationIfInNewPreferredRangeCheaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConfirmationIfInNewPreferredRangeCheaper.m; sourceTree = "<group>"; };
 		235250E09563FC61CC0D7118 /* ConversationSourceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSourceStub.h; sourceTree = "<group>"; };
 		235250E10A18AA180582A6A0 /* UGoodBye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UGoodBye.h; sourceTree = "<group>"; };
@@ -393,7 +391,6 @@
 		2352540DBFAE841556E3287C /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m; sourceTree = "<group>"; };
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525422B8901729789A0019 /* FHBecauseUserDeniedAccessToLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserDeniedAccessToLocationServices.m; sourceTree = "<group>"; };
-		2352544556DD1BD352997392 /* SearchActionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchActionState.h; sourceTree = "<group>"; };
 		23525448185DC7F638E0C758 /* FHSuggestionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionState.h; sourceTree = "<group>"; };
 		2352544F40B5FD5FBFF6DFF7 /* UWantsToSearchForAnotherRestaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWantsToSearchForAnotherRestaurant.h; sourceTree = "<group>"; };
 		23525463CF13180093616A7D /* UserInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInputViewController.h; sourceTree = "<group>"; };
@@ -927,8 +924,6 @@
 				23525039C0022D930C4B04B8 /* FHSuggestionOrSuggestionFollowUpState.h */,
 				23525F0F8461ACFB1AF34FBE /* FHSuggestionAsFollowUpState.m */,
 				2352510E035822AC6DFA6D07 /* FHSuggestionAsFollowUpState.h */,
-				235250B379FA3C44088D24B9 /* SearchActionState.m */,
-				2352544556DD1BD352997392 /* SearchActionState.h */,
 				23525AF65EAEA55A2EDBD690 /* FHCommentState.m */,
 				2352596F69F4D3F66E8A682B /* FHCommentState.h */,
 				23525C9BF916BE92BD72B95F /* FHConfirmationIfInNewPreferredRangeState.h */,
@@ -1709,7 +1704,6 @@
 				2352555CFC0BBB90C5B25ED1 /* FHSuggestionAsFollowUp.m in Sources */,
 				23525F8C696F86A86393D677 /* DefaultRandomizer.m in Sources */,
 				235250447549516F84D8CB0B /* FHSuggestionBase.m in Sources */,
-				23525E2B79A75A18D4627790 /* SearchActionState.m in Sources */,
 				235250D9266A300101EC3F40 /* USuggestionNegativeFeedback.m in Sources */,
 				235250CF67666C085DC4E611 /* USuggestionFeedbackForTooFarAway.m in Sources */,
 				2352593CA12A5F94BF83536F /* USuggestionFeedbackForTooExpensive.m in Sources */,

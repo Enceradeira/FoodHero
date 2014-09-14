@@ -5,16 +5,13 @@
 
 #import "UDidResolveProblemWithAccessLocationServiceState.h"
 #import "UDidResolveProblemWithAccessLocationService.h"
-#import "SearchAction.h"
-#import "RestaurantSearch.h"
-#import "UCuisinePreference.h"
 
 
 @implementation UDidResolveProblemWithAccessLocationServiceState {
 }
 
--(instancetype )init{
-    self = [super  initWithToken:UDidResolveProblemWithAccessLocationService.class];
+- (instancetype)init {
+    self = [super initWithToken:UDidResolveProblemWithAccessLocationService.class];
     return self;
 }
 

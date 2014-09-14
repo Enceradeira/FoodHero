@@ -7,8 +7,7 @@
 #import "AtomicSymbol.h"
 #import "RestaurantSearch.h"
 #import "ConversationSource.h"
-#import "SearchActionState.h"
 
 
-@interface UTryAgainNowState : SearchActionState
+@interface UTryAgainNowState : AtomicSymbol
 @end
