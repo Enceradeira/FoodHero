@@ -11,6 +11,7 @@
 #import "AlwaysImmediateSchedulerFactory.h"
 #import "TextRepositoryStub.h"
 #import "SoundRepositoryStub.h"
+#import "SoundPlayerFake.h"
 
 
 @implementation StubAssembly
@@ -47,6 +48,10 @@
     return [TyphoonDefinition withClass:[SoundRepositoryStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
+}
+
+- (id)soundPlayer {
+    return [TyphoonDefinition withClass:[SoundPlayerFake class]];
 }
 
 

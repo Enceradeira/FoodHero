@@ -5,6 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PlaySoundAndAfterAddTokenActionDelegate <NSObject>
+@protocol PlaySoundDelegate <NSObject>
 - (void)soundDidFinish;
 @end

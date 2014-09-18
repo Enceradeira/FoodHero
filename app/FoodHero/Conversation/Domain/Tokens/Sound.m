@@ -4,6 +4,7 @@
 //
 
 #import "Sound.h"
+#import "PlaySoundDelegate.h"
 
 
 @implementation Sound {

@@ -43,4 +43,6 @@
 - (id)textRepository;
 
 - (id)soundRepository;
+
+- (id)soundPlayer;
 @end

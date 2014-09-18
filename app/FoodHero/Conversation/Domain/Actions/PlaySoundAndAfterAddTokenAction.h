@@ -6,13 +6,10 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "FHAction.h"
-#import "PlaySoundAndAfterAddTokenActionDelegate.h"
+#import "PlaySoundDelegate.h"
 #import "Sound.h"
 
 
 @interface PlaySoundAndAfterAddTokenAction : NSObject <FHAction>
-
-- (void)setDelegate:(id <PlaySoundAndAfterAddTokenActionDelegate>)delegate;
-
 + (id <ConversationAction>)create:(ConversationToken *)token sound:(Sound *)sound;
 @end

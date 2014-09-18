@@ -24,6 +24,7 @@
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
 #import "SoundRepository.h"
+#import "SoundPlayer.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -181,6 +182,9 @@
     return [TyphoonDefinition withClass:[SoundRepository class]];
 }
 
+- (id)soundPlayer {
+    return [TyphoonDefinition withClass:[SoundPlayer class]];
+}
 
 - (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];

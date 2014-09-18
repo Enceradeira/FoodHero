@@ -11,6 +11,10 @@ Cucumber::Rake::Task.new do |t|
 end
 
 task :notify_build_succeeded do
+  puts '*** CHECKLIST *********'.yellow.bold
+  puts ' Did you hear the sound playing?'.yellow.bold
+
+  puts '\n If CHECKLIST OK then all is OK'.green
   puts '*** BUILD SUCCEEDED ***'.green.bold
 end
 

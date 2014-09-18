@@ -3,17 +3,18 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <AudioToolbox/AudioServices.h>
 #import "PlaySoundAndAfterAddTokenAction.h"
 #import "DesignByContractException.h"
-#import "Sound.h"
+#import "TyphoonComponents.h"
+#import "ISoundPlayer.h"
 
+
+@interface PlaySoundAndAfterAddTokenAction () <PlaySoundDelegate>
+@end
 
 @implementation PlaySoundAndAfterAddTokenAction {
 
     ConversationToken *_token;
-    SystemSoundID _soundID;
-    id <PlaySoundAndAfterAddTokenActionDelegate> _delgate;
     id <ConversationSource> _conversationSource;
     Sound *_sound;
 }
@@ -21,14 +22,11 @@
 - (void)execute:(id <ConversationSource>)conversationSource {
     _conversationSource = conversationSource;
 
-    NSString *soundPath = [[NSBundle mainBundle] pathForResource:_sound.file ofType:_sound.type];
-    NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef) soundUrl, &_soundID);
-    AudioServicesPlaySystemSound(_soundID);
-
-    [NSTimer scheduledTimerWithTimeInterval:_sound.length
-                                     target:self selector:@selector(soundDidFinish:) userInfo:conversationSource repeats:NO];
+    id <ISoundPlayer> soundPlayer = [(id <ApplicationAssembly>) [TyphoonComponents factory] soundPlayer];
+    [soundPlayer setDelegate:self];
+    [soundPlayer play:_sound delay:2];
 }
+
 
 - (instancetype)initWith:(ConversationToken *)token sound:(Sound *)sound {
     self = [super init];
@@ -40,8 +38,7 @@
 }
 
 
-- (void)soundDidFinish:(id)userInfo {
-    AudioServicesDisposeSystemSoundID(_soundID);
+- (void)soundDidFinish {
 
     if (_conversationSource == nil) {
         [DesignByContractException createWithReason:@"conversationSource should not be nil here"];
@@ -49,12 +46,6 @@
     else {
         [_conversationSource addToken:_token];
     }
-    [_delgate soundDidFinish];
-}
-
-
-- (void)setDelegate:(id <PlaySoundAndAfterAddTokenActionDelegate>)delegate {
-    _delgate = delegate;
 }
 
 + (id <ConversationAction>)create:(ConversationToken *)token sound:(Sound *)sound {
