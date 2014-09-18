@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <XCTestCase+AsyncTesting.h>
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
@@ -274,7 +273,6 @@
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
     [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
-    //[self.conversation addToken:lastWarning];
 
     ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
     assertThat(lastSuggestionWarning, is(notNilValue()));
@@ -285,9 +283,8 @@
     [self.textRepositoryStub injectGreeting:@"I’m tired.  I need coffee before I can continue."];
 
     [self resetConversation];
-    [self XCA_waitForTimeout:0.1];   // context switch allows to play sound on main thread
 
-    [self assertThirdLastStatementIs:@"FH:Greeting" userAction:nil];
+    assertThatUnsignedInt([self.conversation getStatementCount], is(equalTo(@(2))));
     [self assertSecondLastStatementIs:@"FH:Greeting" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 }

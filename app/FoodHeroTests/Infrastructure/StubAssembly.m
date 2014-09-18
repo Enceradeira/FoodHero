@@ -10,7 +10,6 @@
 #import "RandomizerStub.h"
 #import "AlwaysImmediateSchedulerFactory.h"
 #import "TextRepositoryStub.h"
-#import "SoundRepositoryStub.h"
 #import "SoundPlayerFake.h"
 
 
@@ -40,12 +39,6 @@
 
 - (id)textRepository {
     return [TyphoonDefinition withClass:[TextRepositoryStub class] configuration:^(TyphoonDefinition *definition) {
-        definition.scope = TyphoonScopeSingleton;
-    }];
-}
-
-- (id)soundRepository {
-    return [TyphoonDefinition withClass:[SoundRepositoryStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
 }

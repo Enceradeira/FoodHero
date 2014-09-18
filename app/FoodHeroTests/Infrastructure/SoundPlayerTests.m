@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <XCAsyncTestCase/XCTestCase+AsyncTesting.h>
 #import "SoundPlayer.h"
-#import "SoundRepositoryStub.h"
 
 @interface SoundPlayerTests : XCTestCase <PlaySoundDelegate>
 

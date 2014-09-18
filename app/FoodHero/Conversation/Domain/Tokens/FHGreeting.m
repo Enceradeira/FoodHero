@@ -23,13 +23,11 @@ NSString *const SemanticId = @"FH:Greeting";
 }
 
 - (id <ConversationAction>)createAction {
-    if([self.text isEqualToString:@"I’m tired.  I need coffee before I can continue."]) {
-        id <ConversationAction> action = [AddTokenAction create:[FHOpeningQuestion create]];
-        ConversationToken *token = [GenericToken createWithSemanticId:SemanticId text:@"Now I feel better!" action:action];
+   if([self.text isEqualToString:@"I’m tired.  I need coffee before I can continue."]) {
         Sound *sound = [self.soundRepository getNespressoSound];
-        return [PlaySoundAndAfterAddTokenAction create:token sound:sound];
-    }
-    return [AddTokenAction create:[FHOpeningQuestion create]];
+        return [PlaySoundAndAfterAddTokenAction create:[FHOpeningQuestion create] sound:sound];
+   }
+   return [AddTokenAction create:[FHOpeningQuestion create]];
 }
 
 @end
