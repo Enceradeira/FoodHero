@@ -11,4 +11,6 @@
 - (void)injectChoice:(NSString *)tag;
 
 - (void)injectDontDo:(NSString *)tag;
+
+- (void)injectChoiceForOneText:(NSString *)text;
 @end

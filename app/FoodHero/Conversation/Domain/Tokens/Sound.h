@@ -13,4 +13,10 @@
 
 + (instancetype)create:(NSString *)file type:(NSString *)type length:(float)length;
 
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToSound:(Sound *)sound;
+
+- (NSUInteger)hash;
+
 @end

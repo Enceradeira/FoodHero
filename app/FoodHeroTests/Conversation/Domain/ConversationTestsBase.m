@@ -9,8 +9,6 @@
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "Personas.h"
-#import "RandomizerStub.h"
-#import "TextRepositoryStub.h"
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;

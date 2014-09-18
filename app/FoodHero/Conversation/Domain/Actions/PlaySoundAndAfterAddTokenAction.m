@@ -48,7 +48,7 @@
     }
 }
 
-+ (id <ConversationAction>)create:(ConversationToken *)token sound:(Sound *)sound {
++ (instancetype)create:(ConversationToken *)token sound:(Sound *)sound {
     return [[PlaySoundAndAfterAddTokenAction alloc] initWith:token sound:sound];
 }
 

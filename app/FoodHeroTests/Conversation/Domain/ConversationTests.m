@@ -279,8 +279,10 @@
     assertThat(lastSuggestionWarning.class, is(equalTo([FHWarningIfNotInPreferredRangeTooCheap class])));
 }
 
-- (void)test_FHGreeting_ShouldHaveTwoTemporallyDisconnectedParts_WhenFHNeedsCoffeeBeforeHeCanContinue {
-    [self.textRepositoryStub injectGreeting:@"I’m tired.  I need coffee before I can continue."];
+- (void)test_FHGreeting_ShouldPlaySound_WhenTextIsAssociatedWithSound {
+    Sound *sound = [Sound new];
+    TextAndSound *textAndSound = [TextAndSound create:@"Hello" sound:sound];
+    [self.textRepositoryStub injectGreeting:textAndSound];
 
     [self resetConversation];
 
@@ -289,7 +291,7 @@
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 }
 
--(void)test_statementIndexes_ShouldYieldGreetingAndOpeningQuestion{
+- (void)test_statementIndexes_ShouldYieldGreetingAndOpeningQuestion {
     __block NSInteger nrIndexes = 0;
     RACSignal *signal = [self.conversation statementIndexes];
     [signal subscribeNext:^(id next) {

@@ -6,7 +6,11 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 
+@class TextAndSound;
+
 
 @interface FHGreeting : ConversationToken
-+ (FHGreeting *)create;
+- (instancetype)initWithSemanticIdAndText:(NSString *const)semanticId text:(TextAndSound *)textAndSound;
+
++ (instancetype)create;
 @end

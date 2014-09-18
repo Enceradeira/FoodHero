@@ -16,7 +16,7 @@
 
 @interface Statement : NSObject
 
-@property(nonatomic, readonly) id token;
+@property(nonatomic, readonly) ConversationToken * token;
 
 - (NSString *)text;
 

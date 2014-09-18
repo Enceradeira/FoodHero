@@ -9,25 +9,32 @@
 #import "AddTokenAction.h"
 #import "FHOpeningQuestion.h"
 #import "PlaySoundAndAfterAddTokenAction.h"
-#import "GenericToken.h"
-#import "ISoundRepository.h"
+#import "TextAndSound.h"
 
 NSString *const SemanticId = @"FH:Greeting";
 
 @implementation FHGreeting {
 
+    Sound *_sound;
 }
-+ (FHGreeting *)create {
-    NSString *text = [self.textRepository getGreeting];
-    return [[FHGreeting alloc] initWithSemanticId:SemanticId text:text];
++ (instancetype)create {
+    TextAndSound *text = [self.textRepository getGreeting];
+    return [[FHGreeting alloc] initWithSemanticIdAndText:SemanticId text:text];
+}
+
+- (instancetype)initWithSemanticIdAndText:(NSString *const)semanticId text:(TextAndSound *)textAndSound {
+    self = [super initWithSemanticId:semanticId text:textAndSound.text];
+    if (self != nil) {
+        _sound = textAndSound.sound;
+    }
+    return self;
 }
 
 - (id <ConversationAction>)createAction {
-   if([self.text isEqualToString:@"I’m tired.  I need coffee before I can continue."]) {
-        Sound *sound = [self.soundRepository getNespressoSound];
-        return [PlaySoundAndAfterAddTokenAction create:[FHOpeningQuestion create] sound:sound];
-   }
-   return [AddTokenAction create:[FHOpeningQuestion create]];
+    if (_sound != nil) {
+        return [PlaySoundAndAfterAddTokenAction create:[FHOpeningQuestion create] sound:_sound];
+    }
+    return [AddTokenAction create:[FHOpeningQuestion create]];
 }
 
 @end

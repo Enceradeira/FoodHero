@@ -29,18 +29,18 @@
     @throw [DesignByContractException createWithReason:@"Not implemented"];
 }
 
-- (NSString *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
+- (TextAndSound *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
     if (![_context isEqualToString:context]) {
         return texts[0];
     }
 
-    NSArray *newTexts = [texts linq_where:^(NSString *newText) {
+    NSArray *newTexts = [texts linq_where:^(TextAndSound *newText) {
         return (BOOL) ![_textAndBools linq_any:^(NSArray *textAndBool) {
-            NSString *text = (NSString *) textAndBool[0];
-            return (BOOL) [text isEqualToString:newText];
+            TextAndSound *text = (TextAndSound *) textAndBool[0];
+            return (BOOL) [text isEqual:newText];
         }];
     }];
-    [_textAndBools addObjectsFromArray:[newTexts linq_select:^(NSString *newText) {
+    [_textAndBools addObjectsFromArray:[newTexts linq_select:^(TextAndSound *newText) {
         return [@[newText, @(NO)] mutableCopy];
     }]];
 

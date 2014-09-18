@@ -21,7 +21,7 @@
 }
 
 - (NSString *)getText {
-    return [self.textRepository getSuggestionWithConfirmationIfInNewPreferredRangeCheaper];
+    return [self.textRepository getSuggestionWithConfirmationIfInNewPreferredRangeCheaper].text;
 }
 
 - (id <ConversationAction>)createAction {
