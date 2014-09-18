@@ -11,11 +11,15 @@ Cucumber::Rake::Task.new do |t|
 end
 
 task :notify_build_succeeded do
+  puts '*** BUILD SUCCEEDED ***'.green.bold
+end
+
+desc 'Prints a checklist for tests that must be checked manually'
+task :print_checklist do
   puts '*** CHECKLIST *********'.yellow
   puts ' Did you hear the sound playing?'.yellow.bold
 
-  puts "\n If CHECKLIST OK then all is OK".green
-  puts '*** BUILD SUCCEEDED ***'.green.bold
+  puts "\n If CHECKLIST is OK then all is OK".green
 end
 
 desc 'Opens XCode'
@@ -39,13 +43,18 @@ end
 
 desc 'Clean the build'
 task :clean do
-  XCodeBuildAction.new(:clean).execute!
+  XCodeBuildAction.new(:clean).execute!('FoodHero')
   BuildAction.execute!("rm -r -f #{AppPaths.dst_root}")
 end
 
 desc 'Run XCode unit-tests'
 task :xc_unit_tests => [:prepare_iOS_simulator] do
-  XCodeBuildAction.new(:test).execute!
+  XCodeBuildAction.new(:test).execute!('FoodHeroTests')
+end
+
+desc 'Run XCode integration-tests'
+task :xc_integration_tests => [:prepare_iOS_simulator] do
+  XCodeBuildAction.new(:test).execute!('FoodHeroIntegrationsTests')
 end
 
 desc 'Run Cucumber acceptance-tests'
@@ -54,16 +63,20 @@ end
 
 desc 'Build everything'
 task :build do
-  XCodeBuildAction.new(:build).execute!
+  XCodeBuildAction.new(:build).execute!('FoodHero')
 end
 
 desc 'Install build'
 task :install do
-  XCodeBuildAction.new(:install).execute!
+  XCodeBuildAction.new(:install).execute!('FoodHero')
+end
+
+desc 'Run all fast tests'
+task :test => [:clean, :check_appium_server, :xc_unit_tests, :acceptance_tests, :notify_build_succeeded] do
 end
 
 desc 'Run all tests'
-task :test => [:clean, :check_appium_server, :xc_unit_tests, :acceptance_tests, :notify_build_succeeded] do
+task :test_all => [:clean, :check_appium_server, :xc_unit_tests, :xc_integration_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
 end
 
 desc 'checks appium-server'

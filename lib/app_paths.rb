@@ -11,7 +11,4 @@ module AppPaths
     dst_root ||= File.expand_path 'app/Build/Products/Current'
   end
 
-  def self.scheme
-    @scheme ||= 'FoodHero'
-  end
 end

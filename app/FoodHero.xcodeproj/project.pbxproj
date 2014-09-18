@@ -200,11 +200,23 @@
 		8FD5A13B1995F86C009B9E39 /* List-Icon-Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */; };
 		8FD5A13C1995F86C009B9E39 /* List-Icon-Enabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */; };
 		8FD5A1401995FF24009B9E39 /* Empty-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */; };
+		8FEA3BF619CB4E4D00C67DDD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADE519614B83001ED357 /* XCTest.framework */; };
+		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
+		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
+		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
+		8FEA3C0019CB4E4D00C67DDD /* FoodHeroIntegrationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFF19CB4E4D00C67DDD /* FoodHeroIntegrationsTests.m */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		8FCBADE919614B83001ED357 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FCBADC119614B83001ED357 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8FCBADC819614B83001ED357;
+			remoteInfo = FoodHero;
+		};
+		8FEA3C0219CB4E4E00C67DDD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8FCBADC119614B83001ED357 /* Project object */;
 			proxyType = 1;
@@ -565,6 +577,11 @@
 		8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Disabled@2x.png"; sourceTree = "<group>"; };
 		8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Enabled@2x.png"; sourceTree = "<group>"; };
 		8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Empty-Icon@2x.png"; sourceTree = "<group>"; };
+		8FEA3BF519CB4E4D00C67DDD /* FoodHeroIntegrationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodHeroIntegrationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroIntegrationsTests-Info.plist"; sourceTree = "<group>"; };
+		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8FEA3BFF19CB4E4D00C67DDD /* FoodHeroIntegrationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodHeroIntegrationsTests.m; sourceTree = "<group>"; };
+		8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Prefix.pch"; sourceTree = "<group>"; };
 		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -588,6 +605,16 @@
 				8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */,
 				8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */,
 				CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FEA3BF219CB4E4D00C67DDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FEA3BF619CB4E4D00C67DDD /* XCTest.framework in Frameworks */,
+				8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */,
+				8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1117,7 @@
 			children = (
 				8FCBADD219614B83001ED357 /* FoodHero */,
 				8FCBADEB19614B83001ED357 /* FoodHeroTests */,
+				8FEA3BF919CB4E4D00C67DDD /* FoodHeroIntegrationsTests */,
 				8FCBADCB19614B83001ED357 /* Frameworks */,
 				8FCBADCA19614B83001ED357 /* Products */,
 				2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */,
@@ -1102,6 +1130,7 @@
 			children = (
 				8FCBADC919614B83001ED357 /* FoodHero.app */,
 				8FCBADE419614B83001ED357 /* FoodHeroTests.xctest */,
+				8FEA3BF519CB4E4D00C67DDD /* FoodHeroIntegrationsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1176,6 +1205,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8FEA3BF919CB4E4D00C67DDD /* FoodHeroIntegrationsTests */ = {
+			isa = PBXGroup;
+			children = (
+				8FEA3BFF19CB4E4D00C67DDD /* FoodHeroIntegrationsTests.m */,
+				8FEA3BFA19CB4E4D00C67DDD /* Supporting Files */,
+			);
+			path = FoodHeroIntegrationsTests;
+			sourceTree = "<group>";
+		};
+		8FEA3BFA19CB4E4D00C67DDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */,
+				8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */,
+				8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1218,6 +1266,24 @@
 			productReference = 8FCBADE419614B83001ED357 /* FoodHeroTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8FEA3BF419CB4E4D00C67DDD /* FoodHeroIntegrationsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FEA3C0619CB4E4E00C67DDD /* Build configuration list for PBXNativeTarget "FoodHeroIntegrationsTests" */;
+			buildPhases = (
+				8FEA3BF119CB4E4D00C67DDD /* Sources */,
+				8FEA3BF219CB4E4D00C67DDD /* Frameworks */,
+				8FEA3BF319CB4E4D00C67DDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8FEA3C0319CB4E4E00C67DDD /* PBXTargetDependency */,
+			);
+			name = FoodHeroIntegrationsTests;
+			productName = FoodHeroIntegrationsTests;
+			productReference = 8FEA3BF519CB4E4D00C67DDD /* FoodHeroIntegrationsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1228,6 +1294,9 @@
 				ORGANIZATIONNAME = "JENNIUS LTD";
 				TargetAttributes = {
 					8FCBADE319614B83001ED357 = {
+						TestTargetID = 8FCBADC819614B83001ED357;
+					};
+					8FEA3BF419CB4E4D00C67DDD = {
 						TestTargetID = 8FCBADC819614B83001ED357;
 					};
 				};
@@ -1246,6 +1315,7 @@
 			targets = (
 				8FCBADC819614B83001ED357 /* FoodHero */,
 				8FCBADE319614B83001ED357 /* FoodHeroTests */,
+				8FEA3BF419CB4E4D00C67DDD /* FoodHeroIntegrationsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1277,6 +1347,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FEA3BF319CB4E4D00C67DDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1531,6 +1609,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8FEA3BF119CB4E4D00C67DDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FEA3C0019CB4E4D00C67DDD /* FoodHeroIntegrationsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1538,6 +1624,11 @@
 			isa = PBXTargetDependency;
 			target = 8FCBADC819614B83001ED357 /* FoodHero */;
 			targetProxy = 8FCBADE919614B83001ED357 /* PBXContainerItemProxy */;
+		};
+		8FEA3C0319CB4E4E00C67DDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8FCBADC819614B83001ED357 /* FoodHero */;
+			targetProxy = 8FEA3C0219CB4E4E00C67DDD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1554,6 +1645,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				8FCBADEF19614B83001ED357 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FEA3BFD19CB4E4D00C67DDD /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1705,6 +1804,46 @@
 			};
 			name = Release;
 		};
+		8FEA3C0419CB4E4E00C67DDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8FEA3C0519CB4E4E00C67DDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Prefix.pch";
+				INFOPLIST_FILE = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1734,6 +1873,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		8FEA3C0619CB4E4E00C67DDD /* Build configuration list for PBXNativeTarget "FoodHeroIntegrationsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FEA3C0419CB4E4E00C67DDD /* Debug */,
+				8FEA3C0519CB4E4E00C67DDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
