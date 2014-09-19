@@ -14,6 +14,10 @@ TextAndSound *ts(NSString *text, Sound *sound) {
     return [TextAndSound create:text sound:sound];
 }
 
+TextAndSound *tst(NSString *text, NSString *textAfterSong, Sound *sound) {
+    return [TextAndSound create:text textAfterSong:textAfterSong sound:sound];
+}
+
 @implementation TextRepository {
 
     id <Randomizer> _randomizer;
@@ -183,12 +187,13 @@ NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
             t(@"You have three wishes…. Sorry, wrong program."),
             t([NSString stringWithFormat:@"Do you look more like %@ or %@?", femaleCelebrity, maleCelebrity]),
             t([NSString stringWithFormat:@"Greetings from %@!", placeName]),
-            t([NSString stringWithFormat:@"You just interrupted the most beautiful dream, about ----  %@.", dreamName])
+            t([NSString stringWithFormat:@"You just interrupted the most beautiful dream, about ----  %@.", dreamName]),
+            tst(@"Just a moment...", @"Sorry, I'was just chillin’ to some tunes.", [Sound create:@"riddle-fade-out-20.1s" type:@"wav" length:20.1f])
     ]];
 }
 
 - (TextAndSound *)getFood {
-     return [_randomizer chooseOneTextFor:ContextPlace texts:@[
+    return [_randomizer chooseOneTextFor:ContextPlace texts:@[
             t(@"ice cream"),
             t(@"wienerschnitzel"),
             t(@"samosas"),

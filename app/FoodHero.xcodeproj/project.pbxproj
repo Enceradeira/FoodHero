@@ -212,6 +212,7 @@
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */; };
+		8FD00C2219CC53E50072DCB4 /* riddle-fade-out-20.1s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8FD00C2119CC53E50072DCB4 /* riddle-fade-out-20.1s.wav */; };
 		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD46D8D19C60E3E0078C04C /* nespresso-16.6s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */; };
 		8FD5316D199CA325002519B1 /* RestaurantSearchWithStubTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5316C199CA325002519B1 /* RestaurantSearchWithStubTests.m */; };
@@ -587,6 +588,7 @@
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
+		8FD00C2119CC53E50072DCB4 /* riddle-fade-out-20.1s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "riddle-fade-out-20.1s.wav"; sourceTree = "<group>"; };
 		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nespresso-16.6s.wav"; sourceTree = "<group>"; };
 		8FD5316C199CA325002519B1 /* RestaurantSearchWithStubTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchWithStubTests.m; sourceTree = "<group>"; };
@@ -1304,6 +1306,7 @@
 				8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */,
 				8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */,
 				8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */,
+				8FD00C2119CC53E50072DCB4 /* riddle-fade-out-20.1s.wav */,
 				8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */,
 				8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */,
 				8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */,
@@ -1442,8 +1445,6 @@
 			mainGroup = 8FCBADC019614B83001ED357;
 			productRefGroup = 8FCBADCA19614B83001ED357 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				8FCBADC819614B83001ED357 /* FoodHero */,
@@ -1465,6 +1466,7 @@
 				8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */,
 				8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */,
 				8F5474521961797F00843FEE /* Main.storyboard in Resources */,
+				8FD00C2219CC53E50072DCB4 /* riddle-fade-out-20.1s.wav in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
 				8FD5A13C1995F86C009B9E39 /* List-Icon-Enabled@2x.png in Resources */,
 				8F60D0E31969ABC3007324B6 /* ConversationBubble-User@2x.png in Resources */,
@@ -2063,6 +2065,7 @@
 				8FEA3C0519CB4E4E00C67DDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

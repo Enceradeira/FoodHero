@@ -9,11 +9,14 @@
 
 @interface TextAndSound : NSObject
 @property(nonatomic, readonly) NSString *text;
+@property(nonatomic, readonly) NSString *textAfterSound;
 @property(nonatomic, readonly) Sound *sound;
 
 + (instancetype)create:(NSString *)text;
 
 + (instancetype)create:(NSString *)text sound:(Sound *)sound;
+
++ (TextAndSound *)create:(NSString *)text textAfterSong:(NSString *)textAfterSong sound:(Sound *)sound;
 
 - (BOOL)isEqual:(id)other;
 

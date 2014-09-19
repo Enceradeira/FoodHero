@@ -17,7 +17,7 @@ end
 desc 'Prints a checklist for tests that must be checked manually'
 task :print_checklist do
   puts '*** CHECKLIST *********'.yellow
-  puts ' Did you hear the sound playing?'.yellow.bold
+  puts ' Did you hear 2 sounds playing?'.yellow.bold
 
   puts "\n If CHECKLIST is OK then all is OK".green
 end
