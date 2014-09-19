@@ -29,6 +29,7 @@ NSString *const ContextPlace = @"Place";
 NSString *const ContextSuggestion = @"Suggestion";
 NSString *const ContextOpeningQuestion = @"OpeningQuestion";
 NSString *const ContextCelebrity = @"Celebrity";
+NSString *const ContextFood = @"Food";
 NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = @"SuggestionWithConfirmationIfInNewPreferredRangeCheaper";
 
 - (instancetype)initWithRandomizer:(id <Randomizer>)randomizer {
@@ -149,6 +150,7 @@ NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
     NSString *femaleCelebrity = [self getFemaleCelebrity].text;
     NSString *maleCelebrity = [self getMaleCelebrity].text;
     NSString *placeName = [self getPlace].text;
+    NSString *dreamName = [self getFood].text;
 
     return [_randomizer chooseOneTextFor:ContextGreeting texts:@[
             t(@"Hi there."),
@@ -180,7 +182,19 @@ NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
             t(@"Greetings from…Where am I?...Aaaah, I have no body!....Existential crisis!"),
             t(@"You have three wishes…. Sorry, wrong program."),
             t([NSString stringWithFormat:@"Do you look more like %@ or %@?", femaleCelebrity, maleCelebrity]),
-            t([NSString stringWithFormat:@"Greetings from %@!", placeName])
+            t([NSString stringWithFormat:@"Greetings from %@!", placeName]),
+            t([NSString stringWithFormat:@"You just interrupted the most beautiful dream, about ----  %@.", dreamName])
+    ]];
+}
+
+- (TextAndSound *)getFood {
+     return [_randomizer chooseOneTextFor:ContextPlace texts:@[
+            t(@"ice cream"),
+            t(@"wienerschnitzel"),
+            t(@"samosas"),
+            t(@"a chocolate fondue"),
+            t(@"lasagne"),
+            t(@"cheese burgers")
     ]];
 }
 

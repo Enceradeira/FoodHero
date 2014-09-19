@@ -32,7 +32,7 @@
     [_randomizer configureContext:context];
     do {
         TextAndSound *text = textFactory();
-        //NSLog(text);
+        // NSLog(text.text);
         assertThat(text, is(notNilValue()));
         assertThatInteger(text.text.length, is(greaterThan(@(0))));
         // check that all substitutions have take place
@@ -123,6 +123,13 @@
         return [_repository getGoodByeAfterSuccess];
     }                   context:ContextGoodByeAfterSuccess];
 }
+
+- (void)test_getFood_ShouldReturnTexts {
+    [self assertCorrectTextsFor:^() {
+        return [_repository getFood];
+    }                   context:ContextFood];
+}
+
 
 
 @end

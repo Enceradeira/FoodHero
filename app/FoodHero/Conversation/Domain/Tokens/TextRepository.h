@@ -17,10 +17,12 @@ extern NSString *const ContextPlace;
 extern NSString *const ContextSuggestion;
 extern NSString *const ContextOpeningQuestion;
 extern NSString *const ContextCelebrity;
+extern NSString *const ContextFood;
 extern NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 
 @interface TextRepository : NSObject <ITextRepository>
 
 - (instancetype)initWithRandomizer:(id <Randomizer>)randomizer;
 
+- (TextAndSound *)getFood;
 @end
