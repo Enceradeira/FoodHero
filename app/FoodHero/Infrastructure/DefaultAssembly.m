@@ -23,7 +23,6 @@
 #import "SearchForAnotherRestaurantTableViewController.h"
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
-#import "SoundRepository.h"
 #import "SoundPlayer.h"
 
 @implementation DefaultAssembly
@@ -176,10 +175,6 @@
 
                               }];
                           }];
-}
-
-- (id)soundRepository {
-    return [TyphoonDefinition withClass:[SoundRepository class]];
 }
 
 - (id)soundPlayer {

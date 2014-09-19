@@ -11,9 +11,5 @@
 @interface ConversationToken (Protected)
 + (id <ITextRepository>)textRepository;
 
-+ (id <ISoundRepository>)soundRepository;
-
-- (id <ISoundRepository>)soundRepository;
-
 - (id <ITextRepository>)textRepository;
 @end

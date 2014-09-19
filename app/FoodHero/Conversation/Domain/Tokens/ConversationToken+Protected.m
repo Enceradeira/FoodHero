@@ -15,17 +15,8 @@
     return [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
 }
 
-+ (id <ISoundRepository>)soundRepository {
-    return [(id <ApplicationAssembly>) [TyphoonComponents factory] soundRepository];
-}
-
 - (id <ITextRepository>)textRepository {
     return [ConversationToken textRepository];
 }
-
-- (id <ISoundRepository>)soundRepository {
-    return [ConversationToken soundRepository];
-}
-
 
 @end
