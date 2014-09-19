@@ -26,30 +26,6 @@ def wait_last_element_and_parameter(id)
   return bubble, parameter
 end
 
-def get_second_last_element_and_parameter(id)
-  bubble = (find_elements :xpath, "//*[contains(@name,'#{id}')]").last
-  if bubble.nil?
-    return nil
-  end
-  text = bubble.name
-  _, parameter = text.match(/^#{id}\w*=(.*)$/).to_a
-  return bubble, parameter
-end
-
-def wait_second_last_element_and_parameter(id)
-  bubble, parameter = nil
-  wait_true(30, 0.30) do
-    bubble, parameter = get_second_last_element_and_parameter(id)
-    if block_given?
-      block_test = parameter != nil && yield(parameter)
-    else
-      block_test = true
-    end
-    bubble != nil && block_test
-  end
-  return bubble, parameter
-end
-
 def split_at_comma(cuisines_as_string)
   cuisines_as_string.split(',').map { |s| s.strip }.select { |s| s != '' }
 end
@@ -120,7 +96,7 @@ Given(/^FoodHero can't access a network$/) do
 end
 
 Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
-  bubble, _ = wait_second_last_element_and_parameter('ConversationBubble-FH:Greeting')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting')
   expect(bubble).not_to be_nil
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:OpeningQuestion')
   expect(bubble).not_to be_nil
