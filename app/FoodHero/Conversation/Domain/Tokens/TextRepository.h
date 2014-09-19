@@ -7,17 +7,17 @@
 #import "Randomizer.h"
 #import "ITextRepository.h"
 
-extern const NSString *ContextFemaleCelebrity;
-extern const NSString *ContextCommentChoice;
-extern const NSString *ContextWhatToDoNextComment;
-extern const NSString *ContextGoodByeAfterSuccess;
-extern const NSString *ContextMaleCelebrity;
-extern const NSString *ContextGreeting;
-extern const NSString *ContextPlace;
-extern const NSString *ContextSuggestion;
-extern const NSString *ContextOpeningQuestion;
-extern const NSString *ContextCelebrity;
-extern const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
+extern NSString *const ContextFemaleCelebrity;
+extern NSString *const ContextCommentChoice;
+extern NSString *const ContextWhatToDoNextComment;
+extern NSString *const ContextGoodByeAfterSuccess;
+extern NSString *const ContextMaleCelebrity;
+extern NSString *const ContextGreeting;
+extern NSString *const ContextPlace;
+extern NSString *const ContextSuggestion;
+extern NSString *const ContextOpeningQuestion;
+extern NSString *const ContextCelebrity;
+extern NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 
 @interface TextRepository : NSObject <ITextRepository>
 

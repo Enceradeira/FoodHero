@@ -10,7 +10,7 @@ TextAndSound *t(NSString *text) {
     return [TextAndSound create:text];
 }
 
-TextAndSound *ts(NSString *text, Sound* sound) {
+TextAndSound *ts(NSString *text, Sound *sound) {
     return [TextAndSound create:text sound:sound];
 }
 
@@ -19,17 +19,17 @@ TextAndSound *ts(NSString *text, Sound* sound) {
     id <Randomizer> _randomizer;
 }
 
-const NSString *ContextFemaleCelebrity = @"FemaleCelebrity";
-const NSString *ContextCommentChoice = @"CommentChoice";
-const NSString *ContextWhatToDoNextComment = @"WhatToDoNextComment";
-const NSString *ContextGoodByeAfterSuccess = @"GoodByeAfterSuccess";
-const NSString *ContextMaleCelebrity = @"MaleCelebrity";
-const NSString *ContextGreeting = @"Greeting";
-const NSString *ContextPlace = @"Place";
-const NSString *ContextSuggestion = @"Suggestion";
-const NSString *ContextOpeningQuestion = @"OpeningQuestion";
-const NSString *ContextCelebrity = @"Celebrity";
-const NSString *ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = @"SuggestionWithConfirmationIfInNewPreferredRangeCheaper";
+NSString *const ContextFemaleCelebrity = @"FemaleCelebrity";
+NSString *const ContextCommentChoice = @"CommentChoice";
+NSString *const ContextWhatToDoNextComment = @"WhatToDoNextComment";
+NSString *const ContextGoodByeAfterSuccess = @"GoodByeAfterSuccess";
+NSString *const ContextMaleCelebrity = @"MaleCelebrity";
+NSString *const ContextGreeting = @"Greeting";
+NSString *const ContextPlace = @"Place";
+NSString *const ContextSuggestion = @"Suggestion";
+NSString *const ContextOpeningQuestion = @"OpeningQuestion";
+NSString *const ContextCelebrity = @"Celebrity";
+NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = @"SuggestionWithConfirmationIfInNewPreferredRangeCheaper";
 
 - (instancetype)initWithRandomizer:(id <Randomizer>)randomizer {
     self = [super init];
