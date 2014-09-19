@@ -25,7 +25,7 @@
 }
 
 - (void)tests_playSound_ShouldPlaySoundAndCallCallback {
-    Sound *sound = [Sound create:@"nespresso-16.6s" type:@"wav" length:0.3f];
+    Sound *sound = [Sound create:@"nespresso-16.6s" type:@"wav" length:0.01f];
 
     [_soundPlayer play:sound delay:0.0];
     [_soundPlayer setDelegate:self];

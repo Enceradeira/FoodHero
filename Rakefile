@@ -44,6 +44,8 @@ end
 desc 'Clean the build'
 task :clean do
   XCodeBuildAction.new(:clean).execute!('FoodHero')
+  XCodeBuildAction.new(:clean).execute!('FoodHeroTests')
+  XCodeBuildAction.new(:clean).execute!('FoodHeroIntegrationsTests')
   BuildAction.execute!("rm -r -f #{AppPaths.dst_root}")
 end
 
@@ -88,6 +90,6 @@ task :check_appium_server do
   end
 end
 
-task :default => [:test] do
+task :default => [:test_all] do
 end
 

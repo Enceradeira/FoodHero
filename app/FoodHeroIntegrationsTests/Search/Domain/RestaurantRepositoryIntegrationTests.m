@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
+#import <OCHamcrest/HCNumberAssert.h>
+#import <OCHamcrest/HCIs.h>
 #import "RestaurantRepository.h"
 #import "CLLocationManagerProxyStub.h"
 #import "GoogleRestaurantSearch.h"

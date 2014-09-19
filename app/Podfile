@@ -13,3 +13,9 @@ target :FoodHeroTests do
     pod 'XCAsyncTestCase'
 end
 
+target :FoodHeroIntegrationsTests do
+    pod 'OCHamcrest', '~> 4.0'
+    pod 'XCAsyncTestCase'
+end
+
+
