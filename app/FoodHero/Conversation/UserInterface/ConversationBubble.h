@@ -15,6 +15,8 @@
 @property(nonatomic, readonly) NSString *cellId;
 @property(nonatomic, readonly) UIImage *image;
 @property(nonatomic, readonly) NSUInteger index;
+@property(nonatomic, readonly) CGRect textRect;
+@property(nonatomic, readonly) UIFont *font;
 
 - (NSString *)semanticId;
 

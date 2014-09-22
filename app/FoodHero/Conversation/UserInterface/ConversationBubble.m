@@ -7,14 +7,12 @@
 //
 
 #import "ConversationBubble.h"
-#import "Restaurant.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCDFAInspection"
 
 @implementation ConversationBubble {
     UIImage *_image;
-    UIFont *_font;
     NSDictionary *_textAttritbutes;
     NSStringDrawingOptions _textDrawingOptions;
 
@@ -93,17 +91,8 @@
     _textAttritbutes = @{NSFontAttributeName : _font};
     _textDrawingOptions = NSStringDrawingUsesLineFragmentOrigin;
 
-    _image = [self renderTextIntoImage:[self getImage] text:[self text] viewWitdh:viewWidth];
-    return self;
-}
-
-- (CGFloat)calculateTextHeightFromImageWidth:(CGFloat)imageWidth text:(NSString *)text {
-    CGSize rectWithFixedWidth = CGSizeMake(imageWidth - [self textPaddingLeft] - [self textPaddingRight], 0);
-    CGRect rectWithWidthAndHeight = [text boundingRectWithSize:rectWithFixedWidth options:_textDrawingOptions attributes:_textAttritbutes context:nil];
-    return (CGFloat) ceil(rectWithWidthAndHeight.size.height);
-}
-
-- (UIImage *)renderTextIntoImage:(UIImage *)bubble text:(NSString *)text viewWitdh:(CGFloat)viewWidth {
+    UIImage *bubble = [self getImage];
+    NSString *text = [self text];
     CGFloat minHeight = bubble.size.height;
     CGFloat textHeight = [self calculateTextHeightFromImageWidth:[self width:viewWidth] text:text];
 
@@ -116,24 +105,33 @@
     CGFloat textX = resizedImageRect.origin.x + [self textPaddingLeft];
     CGFloat textY = resizedImageRect.origin.y + [self paddingTopText] + yOffset;
     CGFloat textWidth = resizedImageRect.size.width - [self textPaddingLeft] - [self textPaddingRight];
-    CGRect resizedTextRect = CGRectMake(textX, textY, textWidth, height);
 
     UIGraphicsBeginImageContextWithOptions(resizedImageRect.size, NO, bubble.scale);
 
     [bubble drawInRect:resizedImageRect];
-    [text drawWithRect:resizedTextRect options:_textDrawingOptions attributes:_textAttritbutes context:nil];
+
+    // [text drawWithRect:resizedTextRect options:_textDrawingOptions attributes:_textAttritbutes context:nil];
+
+    _textRect = CGRectMake(textX,textY,textWidth,textHeight);
 
     /*
     // Draw a rectangle showing border of text-rectangle
-    CGRect calculatedTextRect = CGRectMake(textX,textY,textWidth,textHeight);
+
     CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0, 0, 0, 1);
     CGContextStrokeRect(UIGraphicsGetCurrentContext(),calculatedTextRect);
     */
 
-    UIImage *bubbleWithText = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *bubbleImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    return bubbleWithText;
+    _image = bubbleImage;
+    return self;
+}
+
+- (CGFloat)calculateTextHeightFromImageWidth:(CGFloat)imageWidth text:(NSString *)text {
+    CGSize rectWithFixedWidth = CGSizeMake(imageWidth - [self textPaddingLeft] - [self textPaddingRight], 0);
+    CGRect rectWithWidthAndHeight = [text boundingRectWithSize:rectWithFixedWidth options:_textDrawingOptions attributes:_textAttritbutes context:nil];
+    return (CGFloat) ceil(rectWithWidthAndHeight.size.height);
 }
 
 - (Restaurant *)suggestedRestaurant {

@@ -37,26 +37,55 @@
     }
 
     _bubble = bubble;
-    _bubbleView = [[UIImageView alloc] initWithImage:bubble.image];
+
+    UIImage *image = bubble.image;
+
+    // Create View with image
+    _bubbleView = [[UIImageView alloc] initWithImage:image];
     [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    // Draw border around bubble image and cell
+    /*
+    _bubbleView.layer.borderColor = [UIColor redColor].CGColor;
+    _bubbleView.layer.borderWidth = 1.0f;
+    self.layer.borderColor = [UIColor blueColor].CGColor;
+    self.layer.borderWidth = 1.0f;
+    */
+
+    // Create TextView on top of ImageView
+    UITextView *textView = [self createTextView:bubble];
+    [_bubbleView addSubview:textView];
+
+    [containerView addSubview:_bubbleView];
+
+    NSArray *bubbleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[bubble getBubbleViewConstraint] options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:NSDictionaryOfVariableBindings(_bubbleView)];
+    [containerView addConstraints:bubbleConstraints];
+
 
     // following makes element accessable from acceptance tests
     [self setIsAccessibilityElement:YES];
     self.accessibilityLabel = bubble.text;
     self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", [AccessibilityHelper sanitizeForIdentifier:bubble.semanticId]];
 
+}
+
+- (UITextView *)createTextView:(ConversationBubble *)bubble {
+    UITextView *textView = [[UITextView alloc] initWithFrame:bubble.textRect];
+    textView.text = bubble.text;
+    // Draw border around bubble image and cell
     /*
-     // Draw border around bubble image and cell
-     _bubbleView.layer.borderColor = [UIColor redColor].CGColor;
-     _bubbleView.layer.borderWidth = 1.0f;
-     self.layer.borderColor = [UIColor blueColor].CGColor;
-     self.layer.borderWidth = 1.0f;
+    textView.layer.borderColor = [UIColor greenColor].CGColor;
+    textView.layer.borderWidth = 1.0f;
     */
+    textView.backgroundColor = [UIColor clearColor];
+    textView.font = _bubble.font;
 
-    [containerView addSubview:_bubbleView];
+    // http://stackoverflow.com/questions/746670/how-to-lose-margin-padding-in-uitextview
+    textView.textContainer.lineFragmentPadding = 0;
+    textView.textContainerInset = UIEdgeInsetsZero;
 
-    NSArray *bubbleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[bubble getBubbleViewConstraint] options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:NSDictionaryOfVariableBindings(_bubbleView)];
-    [containerView addConstraints:bubbleConstraints];
+    [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    return textView;
 }
 
 - (ConversationBubble *)bubble {
