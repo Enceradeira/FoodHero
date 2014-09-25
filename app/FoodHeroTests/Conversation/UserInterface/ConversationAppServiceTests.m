@@ -314,7 +314,7 @@ const CGFloat landscapeWidth = 400;
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
     [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"I like it" fhAnswer:@"FH:WhatToDoNext"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"I like it" fhAnswer:@"FH:WhatToDoNextAfterSuccess"];
 }
 
 @end

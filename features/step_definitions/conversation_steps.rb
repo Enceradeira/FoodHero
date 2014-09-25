@@ -112,7 +112,7 @@ Then(/^FoodHero asks what I wished to eat$/) do
 end
 
 And(/^FoodHero asks what to do next$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNext')
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextAfterSuccess')
   expect(bubble).not_to be_nil
 end
 

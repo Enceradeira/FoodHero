@@ -20,7 +20,7 @@
     NSString *whatToDoNextComment = [(self.textRepository) getWhatToDoNextComment].text;
 
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@",commentChoice,whatToDoNextComment];
-    return self = [super initWithSemanticId:@"FH:WhatToDoNext" text:text];
+    return self = [super initWithSemanticId:@"FH:WhatToDoNextAfterSuccess" text:text];
 }
 
 - (id <ConversationAction>)createAction{
