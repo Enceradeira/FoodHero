@@ -7,5 +7,5 @@
 #import "ConversationToken.h"
 
 
-@interface FHWhatToDoNext : ConversationToken
+@interface FHWhatToDoNextAfterFailure : ConversationToken
 @end

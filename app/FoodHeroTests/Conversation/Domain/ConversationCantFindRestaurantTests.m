@@ -10,6 +10,10 @@
 #import "UTryAgainNow.h"
 #import "AskUserToTryAgainAction.h"
 #import "ConversationTestsBase.h"
+#import "AskUserWhatToDoNextAction.h"
+#import "UWantsToSearchForAnotherRestaurant.h"
+#import "AskUserCuisinePreferenceAction.h"
+#import "UWantsToAbort.h"
 
 
 @interface ConversationCantFindRestaurantTests : ConversationTestsBase
@@ -67,6 +71,20 @@
     [self.conversation addToken:[UTryAgainNow new]];
 
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
+}
+
+- (void)test_UWantsToAbort_ShouldAddWhatToDoNextAfterFailure {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+
+    [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
+
+    [self.conversation addToken:[UWantsToAbort new]];
+    [self assertLastStatementIs:@"FH:WhatToDoNextAfterFailure" userAction:AskUserWhatToDoNextAction.class];
 }
 
 @end

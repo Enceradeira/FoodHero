@@ -3,7 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "FHWhatToDoNext.h"
+#import "FHWhatToDoNextAfterSuccess.h"
 #import "TextRepository.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
@@ -11,7 +11,7 @@
 #import "AskUserWhatToDoNextAction.h"
 
 
-@implementation FHWhatToDoNext {
+@implementation FHWhatToDoNextAfterSuccess {
 
 }
 

@@ -479,6 +479,28 @@
                                         </tableViewCellContentView>
                                         <color key="tintColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="JmB-ET-GrC" imageView="mTF-Qc-aCi" style="IBUITableViewCellStyleDefault" id="mFh-k0-vXn" customClass="ConversationTokenTableViewCell">
+                                        <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mFh-k0-vXn" id="Svj-G0-4kH">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Just forget about it" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JmB-ET-GrC">
+                                                    <rect key="frame" x="52" y="0.0" width="253" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Empty-Icon.png" id="mTF-Qc-aCi">
+                                                    <rect key="frame" x="15" y="10" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>

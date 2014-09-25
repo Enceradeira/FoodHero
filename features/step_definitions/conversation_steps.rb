@@ -116,6 +116,10 @@ And(/^FoodHero asks what to do next$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero asks what to do next after failure$/) do
+  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextAfterFailure')
+  expect(bubble).not_to be_nil
+end
 
 Then(/^FoodHero says that nothing was found$/) do
 sleep 10
@@ -200,6 +204,12 @@ end
 When(/^I say try again$/) do
   show_list_button.click
   get_last_element_and_parameter('TryAgainEntry')[0].click
+  touch_send
+end
+
+When(/^I want FoodHero to abort search$/) do
+  show_list_button.click
+  get_last_element_and_parameter('AbortEntry')[0].click
   touch_send
 end
 

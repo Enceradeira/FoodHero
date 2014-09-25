@@ -64,4 +64,8 @@ Feature: User interacts with app through conversation
     Given FoodHero can't access a network
     When I don't like the restaurant
     Then FoodHero says that nothing was found
+    When I want FoodHero to abort search
+    Then FoodHero asks what to do next after failure
+    When I say good bye
+    Then FoodHero says good bye
 
