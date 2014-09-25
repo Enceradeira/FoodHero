@@ -47,3 +47,11 @@ Feature: User interacts with app through conversation
     And FoodHero suggests something for "British" food
     When I touch input list button
     Then I can see last suggestion
+
+  Scenario: Use a cheat to see semantic-Ids of tokens
+    When I configure FoodHero to show Semantic-Ids
+    And I wish to eat "British" food by typing it
+    And I allow access to the location-services
+    Then FoodHero displays Semantic-ID "FH:Suggestion" in last suggestion
+
+

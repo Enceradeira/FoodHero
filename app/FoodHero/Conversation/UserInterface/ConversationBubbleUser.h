@@ -10,5 +10,5 @@
 #import "Statement.h"
 
 @interface ConversationBubbleUser : ConversationBubble
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index;
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index doRenderSemanticID:(BOOL)ID;
 @end

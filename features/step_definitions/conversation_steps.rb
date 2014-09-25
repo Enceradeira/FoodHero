@@ -87,6 +87,10 @@ Given(/^FoodHero will not find any restaurants$/) do
   send_cheat('C:FN') # find nothing
 end
 
+Given(/^I configure FoodHero to show Semantic\-Ids$/) do
+  send_cheat('C:SS') # show semantic-Id
+end
+
 When(/^FoodHero will find restaurants$/) do
   send_cheat('C:FS') # find something
 end
@@ -255,6 +259,11 @@ end
 Then(/^I can see last suggestion$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
   expect(bubble.displayed?).to be_truthy
+end
+
+Then(/^FoodHero displays Semantic\-ID "([^"]*)" in last suggestion/) do |semanticId|
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  expect(bubble.label).to include(semanticId)
 end
 
 Then(/^I (can|can't) touch input list button$/) do |option|

@@ -34,6 +34,7 @@ static UIImage *EmptyImage;
     NSArray *_feedbacks;
     LocationService *_locationService;
     RestaurantRepository *_restaurantRepository;
+    BOOL _doRenderSemanticID;
 }
 
 
@@ -46,6 +47,7 @@ static UIImage *EmptyImage;
 - (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository restaurantRepository:(RestaurantRepository *)restaurantRepository locationService:(LocationService *)locationService {
     self = [super init];
     if (self != nil) {
+        _doRenderSemanticID = NO;
         _bubbles = [NSMutableDictionary new];
         _locationService = locationService;
         _restaurantRepository = restaurantRepository;
@@ -86,10 +88,10 @@ static UIImage *EmptyImage;
         Statement *statement = [_conversation getStatement:index];
 
         if (statement.persona == Personas.foodHero) {
-            bubble = [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:bubbleWidth index:index inputAction:statement.inputAction];
+            bubble = [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:bubbleWidth index:index inputAction:statement.inputAction doRenderSemanticID:_doRenderSemanticID];
         }
         else {
-            bubble = [[ConversationBubbleUser alloc] initWithStatement:statement width:bubbleWidth index:index];
+            bubble = [[ConversationBubbleUser alloc] initWithStatement:statement width:bubbleWidth index:index doRenderSemanticID:_doRenderSemanticID];
         }
 
         _bubbles[key] = bubble;
@@ -184,5 +186,9 @@ static UIImage *EmptyImage;
     else if([command isEqualToString:@"C:NE"]) {
         [_restaurantRepository simulateNetworkError:YES];
     }
+    else if([command isEqualToString:@"C:SS"]) {
+        _doRenderSemanticID = YES;
+    }
+
 }
 @end

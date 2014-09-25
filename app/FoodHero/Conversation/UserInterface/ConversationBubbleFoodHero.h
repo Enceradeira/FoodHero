@@ -16,5 +16,5 @@
 
 @property(nonatomic, readonly) id <UAction> inputAction;
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index inputAction:(id <UAction>)inputAction;
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index inputAction:(id <UAction>)inputAction doRenderSemanticID:(BOOL)ID;
 @end

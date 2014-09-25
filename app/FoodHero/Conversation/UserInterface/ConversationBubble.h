@@ -22,7 +22,7 @@
 
 - (NSString *)text;
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index;
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index doRenderSemanticID:(BOOL)ID;
 
 - (CGFloat)textPaddingLeft;
 

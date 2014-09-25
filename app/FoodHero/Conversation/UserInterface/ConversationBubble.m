@@ -17,6 +17,7 @@
     NSStringDrawingOptions _textDrawingOptions;
 
     Statement *_statement;
+    BOOL _doRenderSemanticID;
 }
 
 - (UIImage *)getImage {
@@ -72,18 +73,24 @@
 }
 
 - (NSString *)text {
-    return _statement.text;
+    if( _doRenderSemanticID){
+        return [NSString stringWithFormat:@"%@\n\n(%@)",_statement.text,self.semanticId];
+    }
+    else {
+        return _statement.text;
+    }
 }
 
 - (NSString *)semanticId {
     return _statement.semanticId;
 }
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index {
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index doRenderSemanticID:(BOOL)doRenderSemanticID {
     self = [super init];
     if (self == nil)
         return nil;
 
+    _doRenderSemanticID = doRenderSemanticID;
     _statement = statement;
     _index = index;
 

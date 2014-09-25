@@ -11,8 +11,8 @@
 
 @implementation ConversationBubbleUser
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index {
-    self = [super initWithStatement:statement width:width index:index];
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index doRenderSemanticID:(BOOL)doRenderSemanticID {
+    self = [super initWithStatement:statement width:width index:index doRenderSemanticID:doRenderSemanticID];
     return self;
 }
 
