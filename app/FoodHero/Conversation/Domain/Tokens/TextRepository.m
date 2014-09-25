@@ -291,7 +291,7 @@ NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
 - (TextAndSound *)getOpeningQuestion {
     return [_randomizer chooseOneTextFor:ContextWhatToDoNextComment texts:@[
             t(@"What kind of food would you like to eat?"),
-            t(@"Do you like chickenbutts?  Or chicken feet?\n\nOr which food then?")
+            t(@"Do you like chickenbutts?  Or chicken feet?")
     ]];
 }
 
