@@ -5,7 +5,7 @@
 
 #import "USuggestionFeedbackForLiking.h"
 #import "AddTokenAction.h"
-#import "FHWhatToDoNextAfterSuccess.h"
+#import "FHWhatToDoNextCommentAfterSuccess.h"
 
 @implementation USuggestionFeedbackForLiking {
 }
@@ -16,7 +16,7 @@
 }
 
 - (id <ConversationAction>)createAction {
-    return [AddTokenAction create:[FHWhatToDoNextAfterSuccess new]];
+    return [AddTokenAction create:[FHWhatToDoNextCommentAfterSuccess new]];
 }
 
 @end

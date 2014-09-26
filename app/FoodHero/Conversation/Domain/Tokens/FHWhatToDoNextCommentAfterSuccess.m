@@ -3,7 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "FHWhatToDoNextAfterSuccess.h"
+#import "FHWhatToDoNextCommentAfterSuccess.h"
 #import "TextRepository.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
@@ -11,7 +11,7 @@
 #import "AskUserWhatToDoNextAction.h"
 
 
-@implementation FHWhatToDoNextAfterSuccess {
+@implementation FHWhatToDoNextCommentAfterSuccess {
 
 }
 
@@ -20,7 +20,7 @@
     NSString *whatToDoNextComment = [(self.textRepository) getWhatToDoNextComment].text;
 
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@",commentChoice,whatToDoNextComment];
-    return self = [super initWithSemanticId:@"FH:WhatToDoNextAfterSuccess" text:text];
+    return self = [super initWithSemanticId:@"FH:WhatToDoNextCommentAfterSuccess" text:text];
 }
 
 - (id <ConversationAction>)createAction{

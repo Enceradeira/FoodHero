@@ -35,7 +35,7 @@
 - (void)test_USuggestionFeedbackForLiking_ShouldAskUserWhatToDoNext {
     [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
 
-    [self assertLastStatementIs:@"FH:WhatToDoNextAfterSuccess" userAction:[AskUserWhatToDoNextAction class]];
+    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" userAction:[AskUserWhatToDoNextAction class]];
 }
 
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {

@@ -4,7 +4,7 @@
 //
 
 #import "AddTokenAction.h"
-#import "FHWhatToDoNextAfterSuccess.h"
+#import "FHWhatToDoNextCommentAfterSuccess.h"
 
 
 @implementation AddTokenAction {

@@ -3,7 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "FHWhatToDoNextAfterFailure.h"
+#import "FHWhatToDoNextCommentAfterFailure.h"
 #import "TextRepository.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
@@ -11,12 +11,12 @@
 #import "AskUserWhatToDoNextAction.h"
 
 
-@implementation FHWhatToDoNextAfterFailure {
+@implementation FHWhatToDoNextCommentAfterFailure {
 
 }
 
 - (instancetype)init {
-    return self = [super initWithSemanticId:@"FH:WhatToDoNextAfterFailure" text:@"I’m sorry it didn’t work out!\n\nIs there anything else?"];
+    return self = [super initWithSemanticId:@"FH:WhatToDoNextCommentAfterFailure" text:@"I’m sorry it didn’t work out!\n\nIs there anything else?"];
 }
 
 - (id <ConversationAction>)createAction{

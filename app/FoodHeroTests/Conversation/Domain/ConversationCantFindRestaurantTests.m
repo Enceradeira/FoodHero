@@ -84,7 +84,7 @@
     }];
 
     [self.conversation addToken:[UWantsToAbort new]];
-    [self assertLastStatementIs:@"FH:WhatToDoNextAfterFailure" userAction:AskUserWhatToDoNextAction.class];
+    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" userAction:AskUserWhatToDoNextAction.class];
 }
 
 @end
