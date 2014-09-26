@@ -28,6 +28,7 @@
 }
 
 - (void)startUpdatingLocation {
+    [_locationManager requestWhenInUseAuthorization];
     [_locationManager startUpdatingLocation];
 }
 

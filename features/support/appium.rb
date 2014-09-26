@@ -7,10 +7,10 @@ caps = {
         platformName: 'iOS',
         platformVersion: '8.0',
         deviceName: 'iPhone 5s', # one from 'instruments -s devices'
-        locationServicesEnabled: false,
-        locationServicesAuthorized: false,
-        autoAcceptAlerts: false,
-        noReset: false,
+        #locationServicesEnabled: false,
+        #locationServicesAuthorized: false,
+        #autoAcceptAlerts: false,
+        #noReset: false,
         app: AppPaths.app_path,
     },
     appium_lib: {

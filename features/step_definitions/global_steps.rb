@@ -39,7 +39,7 @@ Then(/^I see the login view$/) do
 end
 
 Then(/^FoodHero asks for access to the location\-services$/) do
-  expect(text 'Would Like to Use Your Current Location').to be_truthy
+  expect(text 'Location is required to search for restaurants close to where you are.').to be_truthy
 end
 
 When(/^I allow access to the location\-services$/) do
