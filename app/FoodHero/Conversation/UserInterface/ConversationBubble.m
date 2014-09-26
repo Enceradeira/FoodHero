@@ -74,7 +74,7 @@
 
 - (NSString *)text {
     if( _doRenderSemanticID){
-        return [NSString stringWithFormat:@"%@\n\n(%@)",_statement.text,self.semanticId];
+        return [NSString stringWithFormat:@"%@\n\n*************************\n%@",_statement.text,self.semanticId];
     }
     else {
         return _statement.text;
