@@ -1437,6 +1437,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "JENNIUS LTD";
 				TargetAttributes = {
+					8FCBADC819614B83001ED357 = {
+						DevelopmentTeam = 4TH3UN5ARZ;
+					};
 					8FCBADE319614B83001ED357 = {
 						TestTargetID = 8FCBADC819614B83001ED357;
 					};
@@ -1930,6 +1933,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
@@ -1945,6 +1949,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
