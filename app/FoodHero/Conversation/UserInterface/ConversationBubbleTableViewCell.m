@@ -8,6 +8,10 @@
 
 #import "ConversationBubbleTableViewCell.h"
 #import "AccessibilityHelper.h"
+#import "FoodHeroColors.h"
+
+@interface ConversationBubbleTableViewCell () <UIWebViewDelegate>
+@end
 
 @implementation ConversationBubbleTableViewCell {
     UIImageView *_bubbleView;
@@ -17,6 +21,7 @@
 - (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
+    self.userInteractionEnabled = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -42,6 +47,7 @@
 
     // Create View with image
     _bubbleView = [[UIImageView alloc] initWithImage:image];
+    _bubbleView.userInteractionEnabled = YES;
     [_bubbleView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     // Draw border around bubble image and cell
@@ -53,7 +59,7 @@
     */
 
     // Create TextView on top of ImageView
-    UITextView *textView = [self createTextView:bubble];
+    UIView *textView = [self createTextView:bubble];
     [_bubbleView addSubview:textView];
 
     [containerView addSubview:_bubbleView];
@@ -69,14 +75,68 @@
 
 }
 
-- (UITextView *)createTextView:(ConversationBubble *)bubble {
-    UITextView *textView = [[UITextView alloc] initWithFrame:bubble.textRect];
-    textView.text = bubble.text;
-    // Draw border around bubble image and cell
+- (UIView *)createTextView:(ConversationBubble *)bubble {
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:bubble.textRect];
+
+    UIFont *font = bubble.font;
+    CGFloat red;
+    CGFloat green;
+    CGFloat blue;
+    CGFloat alpha;
+    [[FoodHeroColors actionColor] getRed:&red green:&green blue:&blue alpha:&alpha];
+
+    NSString *htmlContentString = [NSString stringWithFormat:
+            @"<html>"
+                    "<style type=\"text/css\">"
+                    "body { background-color:transparent; font-family:Helvetica Neue; font-size:%f;}"
+                    "body { margin: 0; padding: 0; line-height: 1.2; white-space: pre-wrap; }"
+                    "a:link, a:visited { color: rgb(%i,%i,%i); }"
+                    "</style>"
+                    "<body>"
+                    "<a href=''>%@</a>"
+                    "</body></html>", font.pointSize, (int)(red * ColorDivisor), (int) (green * ColorDivisor), (int) (blue * ColorDivisor), bubble.text];
+
+
+    [webView loadHTMLString:htmlContentString baseURL:nil];
+    webView.delegate = self;
+    webView.backgroundColor = [UIColor clearColor];
+    webView.opaque = NO;
+    webView.userInteractionEnabled = YES;
+    webView.dataDetectorTypes = UIDataDetectorTypeLink;
+    webView.scrollView.scrollEnabled = NO;
+    [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    // draw border around WebView
     /*
+    webView.layer.borderColor = [UIColor greenColor].CGColor;
+    webView.layer.borderWidth = 1.0f;
+    */
+
+    return webView;
+}
+
+
+-(BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType{
+    if( navigationType == UIWebViewNavigationTypeLinkClicked){
+        NSLog(@"Link clicked");
+    }
+    return YES;
+}
+
+
+- (UIView *)createTextView2:(ConversationBubble *)bubble {
+    UITextView *textView = [[UITextView alloc] initWithFrame:bubble.textRect];
+    // textView.text = bubble.text;
+
+    NSDictionary *attributes = @{NSUnderlineStyleAttributeName : @(YES)};
+
+
+    textView.attributedText = [[NSAttributedString alloc] initWithString:bubble.text attributes:attributes];
+    // Draw border around bubble image and cell
+
     textView.layer.borderColor = [UIColor greenColor].CGColor;
     textView.layer.borderWidth = 1.0f;
-    */
+
     textView.backgroundColor = [UIColor clearColor];
     textView.font = _bubble.font;
 

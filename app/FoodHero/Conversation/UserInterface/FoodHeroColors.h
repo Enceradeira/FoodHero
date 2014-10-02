@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern const float ColorDivisor;
 
 @interface FoodHeroColors : NSObject
 + (UIColor *)lightestBackgroundGrey;
@@ -12,4 +13,6 @@
 + (UIColor *)lightestDrawningGrey;
 
 + (UIColor *)darkerSepeartorGrey;
+
++ (UIColor *)actionColor;
 @end
