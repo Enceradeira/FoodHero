@@ -9,9 +9,6 @@
 #import "ConversationBubble.h"
 #import "UAction.h"
 
-@protocol ConversationAction;
-@class Statement;
-
 @interface ConversationBubbleFoodHero : ConversationBubble
 
 @property(nonatomic, readonly) id <UAction> inputAction;

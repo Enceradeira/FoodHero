@@ -73,8 +73,8 @@
 }
 
 - (NSString *)text {
-    if( _doRenderSemanticID){
-        return [NSString stringWithFormat:@"%@\n\n*************************\n%@",_statement.text,self.semanticId];
+    if (_doRenderSemanticID) {
+        return [NSString stringWithFormat:@"%@\n\n*************************\n%@", _statement.text, self.semanticId];
     }
     else {
         return _statement.text;
@@ -119,7 +119,7 @@
 
     // [text drawWithRect:resizedTextRect options:_textDrawingOptions attributes:_textAttritbutes context:nil];
 
-    _textRect = CGRectMake(textX,textY,textWidth,textHeight);
+    _textRect = CGRectMake(textX, textY, textWidth, textHeight);
 
     /*
     // Draw a rectangle showing border of text-rectangle
@@ -143,6 +143,16 @@
 
 - (Restaurant *)suggestedRestaurant {
     return _statement.suggestedRestaurant;
+}
+
+- (NSObject *)textAsHtml {
+    if( self.suggestedRestaurant){
+        NSString *link = [NSString stringWithFormat:@"<a href=''>%@</a>",self.suggestedRestaurant.name];
+        return [self.text stringByReplacingOccurrencesOfString:@"%@" withString:link];
+    }
+    else{
+        return self.text;
+    }
 }
 @end
 

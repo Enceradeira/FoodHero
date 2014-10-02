@@ -12,9 +12,8 @@
 
 - (instancetype)initWithRestaurant:(Restaurant *)restaurant {
     NSString *nameAndPlace = [NSString stringWithFormat:@"%@, %@", restaurant.name, restaurant.vicinity];
-    NSString *text = [[NSString alloc] initWithFormat:[self getText], nameAndPlace];
 
-    self = [super initWithSemanticId:[NSString stringWithFormat:@"%@=%@", [self getTokenName], nameAndPlace] text:text];
+    self = [super initWithSemanticId:[NSString stringWithFormat:@"%@=%@", [self getTokenName], nameAndPlace] text:[self getText]];
     if (self != nil) {
         _restaurant = restaurant;
     }

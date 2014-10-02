@@ -85,6 +85,7 @@
     CGFloat alpha;
     [[FoodHeroColors actionColor] getRed:&red green:&green blue:&blue alpha:&alpha];
 
+
     NSString *htmlContentString = [NSString stringWithFormat:
             @"<html>"
                     "<style type=\"text/css\">"
@@ -93,8 +94,8 @@
                     "a:link, a:visited { color: rgb(%i,%i,%i); }"
                     "</style>"
                     "<body>"
-                    "<a href=''>%@</a>"
-                    "</body></html>", font.pointSize, (int)(red * ColorDivisor), (int) (green * ColorDivisor), (int) (blue * ColorDivisor), bubble.text];
+                    "%@"
+                    "</body></html>", font.pointSize, (int)(red * ColorDivisor), (int) (green * ColorDivisor), (int) (blue * ColorDivisor), bubble.textAsHtml];
 
 
     [webView loadHTMLString:htmlContentString baseURL:nil];

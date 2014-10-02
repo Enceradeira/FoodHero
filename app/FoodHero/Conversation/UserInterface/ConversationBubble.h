@@ -39,4 +39,6 @@
 - (NSString *)getBubbleViewConstraint;
 
 - (Restaurant *)suggestedRestaurant;
+
+- (NSObject *)textAsHtml;
 @end

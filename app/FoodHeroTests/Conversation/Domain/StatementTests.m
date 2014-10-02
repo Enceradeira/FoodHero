@@ -14,6 +14,7 @@
 #import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "RestaurantBuilder.h"
+#import "FHSuggestionAfterWarning.h"
 
 @interface StatementTests : XCTestCase
 
@@ -36,6 +37,11 @@
 
 - (void)test_suggestedRestaurant_ShouldReturnRestaurantFromToken_WhenTokenIsFHSuggestion {
     Statement *statement = [Statement create:[FHSuggestion create:_restaurant] inputAction:nil];
+    assertThat(statement.suggestedRestaurant, is(equalTo(_restaurant)));
+}
+
+- (void)test_suggestedRestaurant_ShouldReturnRestaurantFromToken_WhenTokenIsFHSuggestionAfterWarning {
+    Statement *statement = [Statement create:[FHSuggestionAfterWarning create:_restaurant] inputAction:nil];
     assertThat(statement.suggestedRestaurant, is(equalTo(_restaurant)));
 }
 

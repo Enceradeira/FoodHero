@@ -44,7 +44,7 @@
 }
 
 - (Restaurant *)suggestedRestaurant {
-    if ([_token isKindOfClass:[FHSuggestion class]]) {
+    if ([_token isKindOfClass:[FHSuggestionBase class]]) {
         return ((FHSuggestion *) _token).restaurant;
     }
     else if ([_token isKindOfClass:[USuggestionFeedback class]]) {
