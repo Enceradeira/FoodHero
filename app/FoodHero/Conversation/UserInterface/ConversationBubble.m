@@ -94,7 +94,7 @@
     _statement = statement;
     _index = index;
 
-    _font = [UIFont systemFontOfSize:16];
+    _font = [UIFont systemFontOfSize:17];
     _textAttritbutes = @{NSFontAttributeName : _font};
     _textDrawingOptions = NSStringDrawingUsesLineFragmentOrigin;
 
