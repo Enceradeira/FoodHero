@@ -205,6 +205,7 @@
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F60D0E31969ABC3007324B6 /* ConversationBubble-User@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */; };
+		8FC51ED019DEBAB000B39ACC /* Restaurant-Detail-Content-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC51ECF19DEBAB000B39ACC /* Restaurant-Detail-Content-Background@2x.png */; };
 		8FCBADCD19614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADCF19614B83001ED357 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCE19614B83001ED357 /* CoreGraphics.framework */; };
 		8FCBADD119614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
@@ -586,6 +587,7 @@
 		8F54745919619C0D00843FEE /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		8F54745A19619C0D00843FEE /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-User@2x.png"; sourceTree = "<group>"; };
+		8FC51ECF19DEBAB000B39ACC /* Restaurant-Detail-Content-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Restaurant-Detail-Content-Background@2x.png"; sourceTree = "<group>"; };
 		8FCBADC919614B83001ED357 /* FoodHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FCBADCC19614B83001ED357 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8FCBADCE19614B83001ED357 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1335,6 +1337,7 @@
 				8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */,
 				8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */,
 				8FD00C2119CC53E50072DCB4 /* riddle-fade-out-20.1s.wav */,
+				8FC51ECF19DEBAB000B39ACC /* Restaurant-Detail-Content-Background@2x.png */,
 				8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */,
 				8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */,
 				8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */,
@@ -1496,6 +1499,7 @@
 				8FD5A13A1995F86C009B9E39 /* Like-Icon@2x.png in Resources */,
 				8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */,
 				8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */,
+				8FC51ED019DEBAB000B39ACC /* Restaurant-Detail-Content-Background@2x.png in Resources */,
 				8F5474521961797F00843FEE /* Main.storyboard in Resources */,
 				8FD00C2219CC53E50072DCB4 /* riddle-fade-out-20.1s.wav in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
