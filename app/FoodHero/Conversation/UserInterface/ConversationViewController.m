@@ -237,6 +237,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.bubble = bubble;
+    cell.delegate = self;
     [_bubbleCells addObject:cell];
     return cell;
 }
@@ -320,6 +321,12 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self setViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
+}
+
+
+- (void)userDidTouchLinkInConversationBubbleWith:(Restaurant *)restaurant {
+    id controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (NSInteger)optimalUserInputListHeight {

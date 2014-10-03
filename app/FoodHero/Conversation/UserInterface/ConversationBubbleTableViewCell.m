@@ -95,7 +95,7 @@
                     "</style>"
                     "<body>"
                     "%@"
-                    "</body></html>", font.pointSize, (int)(red * ColorDivisor), (int) (green * ColorDivisor), (int) (blue * ColorDivisor), bubble.textAsHtml];
+                    "</body></html>", font.pointSize, (int) (red * ColorDivisor), (int) (green * ColorDivisor), (int) (blue * ColorDivisor), bubble.textAsHtml];
 
 
     [webView loadHTMLString:htmlContentString baseURL:nil];
@@ -117,9 +117,9 @@
 }
 
 
--(BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType{
-    if( navigationType == UIWebViewNavigationTypeLinkClicked){
-        NSLog(@"Link clicked");
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType == UIWebViewNavigationTypeLinkClicked && self.delegate) {
+        [self.delegate userDidTouchLinkInConversationBubbleWith:self.bubble.suggestedRestaurant];
     }
     return YES;
 }

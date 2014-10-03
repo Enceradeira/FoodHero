@@ -367,6 +367,9 @@
                                     <segue destination="f14-hB-uXh" kind="push" identifier="mapView" id="UFj-i6-g0O"/>
                                 </connections>
                             </button>
+                            <connections>
+                                <segue destination="i91-h0-nMD" kind="push" id="4q4-lp-y3e"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -384,6 +387,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1t-2u-Gy7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="165" y="889"/>
+        </scene>
+        <!--Restaurant Detail Controller-->
+        <scene sceneID="R00-m1-BaV">
+            <objects>
+                <viewController storyboardIdentifier="RestaurantDetail" id="i91-h0-nMD" userLabel="Restaurant Detail Controller" customClass="RestaurantDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sXS-J8-4ml"/>
+                        <viewControllerLayoutGuide type="bottom" id="6TC-gc-LIk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YHr-bq-rcQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSv-0J-x1p">
+                                <rect key="frame" x="128" y="273" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hhb-KF-aif"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lca-eL-8ex" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="701" y="1633"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="HRM-u1-pSN">
@@ -409,7 +439,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdP-I1-wYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="721" y="391"/>
+            <point key="canvasLocation" x="683" y="250"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="fxC-fX-uGw">
@@ -435,7 +465,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvE-HK-cfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="721" y="1140"/>
+            <point key="canvasLocation" x="678" y="934"/>
         </scene>
         <!--Try Again Table View Controllr-->
         <scene sceneID="CX3-j1-keR">

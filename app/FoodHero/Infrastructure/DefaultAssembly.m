@@ -24,6 +24,7 @@
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
 #import "SoundPlayer.h"
+#import "RestaurantDetailViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -82,6 +83,10 @@
 
         }];
     }];
+}
+
+- (id)restaurantDetailViewController {
+    return [TyphoonDefinition withClass:[RestaurantDetailViewController class]];
 }
 
 - (id)conversationViewController {

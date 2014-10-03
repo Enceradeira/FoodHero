@@ -16,6 +16,8 @@
 
 - (id)cuisineTableViewController;
 
+- (id)restaurantDetailViewController;
+
 - (id)navigationViewController;
 
 - (id)conversationViewController;
