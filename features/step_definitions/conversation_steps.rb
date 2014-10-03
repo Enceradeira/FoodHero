@@ -154,6 +154,15 @@ Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_st
   last_suggestions << next_suggestion
 end
 
+When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
+  # wait until next suggestion appears
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
+  expect(bubble).not_to be_nil
+  link = bubble.find_element(:xpath, './/UIALink')
+  expect(link).not_to be_nil
+  link.click
+end
+
 Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
@@ -295,3 +304,4 @@ end
 When(/^I touch the text field$/) do
   touch_text_field
 end
+
