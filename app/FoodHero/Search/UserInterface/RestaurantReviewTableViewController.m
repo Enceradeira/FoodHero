@@ -10,4 +10,24 @@
 
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *identifier;
+    if (indexPath.row == 0) {
+        identifier = @"Rating";
+    }
+    else if (indexPath.row == 1) {
+        identifier = @"Summary";
+    }
+    else {
+        identifier = @"Comment";
+    }
+
+    return [tableView dequeueReusableCellWithIdentifier:identifier];
+}
+
 @end

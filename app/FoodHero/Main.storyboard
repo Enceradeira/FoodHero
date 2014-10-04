@@ -440,7 +440,7 @@
         <scene sceneID="hgY-Zq-eG4">
             <objects>
                 <tableViewController id="ihR-Mp-2f8" userLabel="Restaurant Detail Table View Controller" customClass="RestaurantDetailTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4oA-KK-ebg">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="43" sectionHeaderHeight="22" sectionFooterHeight="22" id="4oA-KK-ebg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -791,35 +791,84 @@ Norwich, Norfolk NR1 3DN</string>
         <scene sceneID="Prj-4d-rVS">
             <objects>
                 <tableViewController id="1Yp-k8-2Xl" userLabel="Restaurant Review Table View Controlller" customClass="RestaurantReviewTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="82Z-tQ-6rj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="43" sectionHeaderHeight="22" sectionFooterHeight="22" id="82Z-tQ-6rj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="224"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="O3y-mi-Is8">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3nm-cg-Tdg">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3nm-cg-Tdg" id="UMe-UR-7x0">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" red="0.90980398650000005" green="0.81960791349999995" blue="0.56862747670000002" alpha="1" colorSpace="deviceRGB"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XgF-bf-zc0">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XgF-bf-zc0" id="BTE-cG-JQu">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AKd-sh-Trv">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AKd-sh-Trv" id="kBD-VW-WCH">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <color key="separatorColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Rating" rowHeight="40" id="3nm-cg-Tdg" userLabel="Rating Table Cell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3nm-cg-Tdg" id="UMe-UR-7x0">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MpE-ER-u5I">
+                                            <rect key="frame" x="28" y="9" width="30" height="21"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="SCd-z5-2x5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="wa4-sP-Z6J">
+                                            <rect key="frame" x="68" y="11" width="95" height="17"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="MpE-ER-u5I" firstAttribute="leading" secondItem="UMe-UR-7x0" secondAttribute="leadingMargin" constant="20" id="KaT-AT-ItY"/>
+                                        <constraint firstAttribute="centerY" secondItem="wa4-sP-Z6J" secondAttribute="centerY" id="elx-I8-aAW"/>
+                                        <constraint firstAttribute="centerY" secondItem="MpE-ER-u5I" secondAttribute="centerY" id="lqP-Pz-FtU"/>
+                                        <constraint firstItem="wa4-sP-Z6J" firstAttribute="leading" secondItem="MpE-ER-u5I" secondAttribute="trailing" constant="10" id="yQQ-8n-10e"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.90980398650000005" green="0.81960791349999995" blue="0.56862747670000002" alpha="1" colorSpace="deviceRGB"/>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Summary" rowHeight="60" id="XgF-bf-zc0" userLabel="Summary Table Cell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XgF-bf-zc0" id="BTE-cG-JQu">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zux-nq-Xbq">
+                                            <rect key="frame" x="28" y="13" width="274" height="33"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zux-nq-Xbq" firstAttribute="leading" secondItem="BTE-cG-JQu" secondAttribute="leadingMargin" constant="20" id="AwB-ii-ceQ"/>
+                                        <constraint firstItem="zux-nq-Xbq" firstAttribute="top" secondItem="BTE-cG-JQu" secondAttribute="topMargin" constant="5" id="VeD-Jr-PiO"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zux-nq-Xbq" secondAttribute="trailing" constant="10" id="bdV-XJ-yfX"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="zux-nq-Xbq" secondAttribute="bottom" constant="5" id="o37-PB-b2t"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.90980398650000005" green="0.81960791349999995" blue="0.56862747670000002" alpha="1" colorSpace="deviceRGB"/>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Comment" rowHeight="50" id="AKd-sh-Trv" userLabel="Comment Table Cell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AKd-sh-Trv" id="kBD-VW-WCH">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loved Dahi Puri and Masala dosa at Namaste India - John" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5mU-fL-IYM">
+                                            <rect key="frame" x="28" y="13" width="274" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="5mU-fL-IYM" firstAttribute="top" secondItem="kBD-VW-WCH" secondAttribute="topMargin" constant="5" id="GX3-LC-mFO"/>
+                                        <constraint firstItem="5mU-fL-IYM" firstAttribute="leading" secondItem="kBD-VW-WCH" secondAttribute="leadingMargin" constant="20" id="Q7n-pD-iOT"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="5mU-fL-IYM" secondAttribute="bottom" constant="5" id="Sxt-sf-bS2"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="5mU-fL-IYM" secondAttribute="trailing" constant="10" id="Z4J-5t-gKf"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="1Yp-k8-2Xl" id="ARp-Df-tVE"/>
                             <outlet property="delegate" destination="1Yp-k8-2Xl" id="UVE-Ko-ou2"/>
@@ -828,7 +877,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpn-hW-GSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="705" y="2158.5"/>
+            <point key="canvasLocation" x="705" y="2150"/>
         </scene>
     </scenes>
     <resources>
@@ -837,6 +886,7 @@ Norwich, Norfolk NR1 3DN</string>
         <image name="List-Icon-Enabled.png" width="22" height="22"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>
+        <image name="rating-stars-4.0.png" width="95" height="17"/>
         <image name="world-icon.png" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
