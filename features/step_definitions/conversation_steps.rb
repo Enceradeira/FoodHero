@@ -169,10 +169,8 @@ end
 
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   # wait until next suggestion appears
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
-
-  expect(bubble).not_to be_nil
-  link = bubble.find_element(:xpath, './/UIALink')
+  wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
+  link = find_element(:xpath, "//*[contains(@name,'ConversationBubble-FH:Suggestion')]//UIALink")
   expect(link).not_to be_nil
   link.click
 end
