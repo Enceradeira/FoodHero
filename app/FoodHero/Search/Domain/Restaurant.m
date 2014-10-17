@@ -14,6 +14,7 @@
       openingHours:(NSString *)openingHours
        phoneNumber:(NSString *)phoneNumber
                url:(NSString *)url
+  urlForDisplaying:(NSString *)urlForDisplaying
              types:(NSArray *)types
            placeId:(NSString *)placeId
           location:(CLLocation *)location
@@ -29,6 +30,7 @@
         _openingHours = openingHours;
         _phoneNumber = phoneNumber;
         _url = url;
+        _urlForDisplaying = urlForDisplaying;
     }
     return self;
 }
@@ -40,6 +42,7 @@
                   openingHours:(NSString *)openingHours
                    phoneNumber:(NSString *)phoneNumber
                            url:(NSString *)url
+              urlForDisplaying:(NSString *)urlForDisplaying
                          types:(NSArray *)types
                        placeId:(NSString *)placeId
                       location:(CLLocation *)location
@@ -52,6 +55,7 @@
                                openingHours:openingHours
                                 phoneNumber:phoneNumber
                                         url:url
+                           urlForDisplaying:urlForDisplaying
                                       types:types
                                     placeId:placeId
                                    location:location

@@ -15,6 +15,7 @@
 @property(nonatomic, readonly) NSString *openingStatus;
 @property(nonatomic, readonly) NSString *openingHours;
 @property(nonatomic, readonly) NSString *phoneNumber;
+@property(nonatomic, readonly) NSString *urlForDisplaying;
 @property(nonatomic, readonly) NSString *url;
 @property(nonatomic, readonly) NSArray *types;
 
@@ -25,6 +26,7 @@
                   openingHours:(NSString *)openingHours
                    phoneNumber:(NSString *)phoneNumber
                            url:(NSString *)url
+              urlForDisplaying:(NSString *)urlForDisplaying
                          types:(NSArray *)types
                        placeId:(NSString *)placeId
                       location:(CLLocation *)location

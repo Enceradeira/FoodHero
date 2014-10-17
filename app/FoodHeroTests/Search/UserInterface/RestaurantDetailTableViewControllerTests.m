@@ -61,7 +61,7 @@
 
 - (void)test_url_ShouldBeRestaurantPhoneNumber {
     assertThatUnsignedInt(_ctrl.url.text.length, is(greaterThan(@0)));
-    assertThat(_ctrl.url.text, is(equalTo(_restaurant.url)));
+    assertThat(_ctrl.url.text, is(equalTo(_restaurant.urlForDisplaying)));
 }
 
 

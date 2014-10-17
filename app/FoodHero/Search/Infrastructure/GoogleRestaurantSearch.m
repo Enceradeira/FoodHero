@@ -123,13 +123,15 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
         openingHoursDescription = [hours descriptionForDate:[NSDate date]];
     }
 
+    NSString *website = [result valueForKey:@"website"];
     return [Restaurant createWithName:[result valueForKey:@"name"]
                              vicinity:[result valueForKey:@"vicinity"]
                               address:[self buildAddress:result]
                         openingStatus:openingStatus
                          openingHours:openingHoursDescription
                           phoneNumber:[result valueForKey:@"formatted_phone_number"]
-                                  url:[self buildUrl:result]
+                                  url:website
+                     urlForDisplaying:[self buildUrlForDisplaying:website]
                                 types:[result valueForKey:@"types"]
                               placeId:[result valueForKey:@"place_id"]
                              location:place.location
@@ -138,9 +140,9 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
 }
 
-- (NSString *)buildUrl:(NSArray *)result {
+- (NSString *)buildUrlForDisplaying:(NSString *)website {
 
-    GoogleURL *googleURL = [GoogleURL create:[result valueForKey:@"website"]];
+    GoogleURL *googleURL = [GoogleURL create:website];
     return googleURL.userFriendlyURL;
 }
 

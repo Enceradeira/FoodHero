@@ -20,6 +20,7 @@
     NSString *_phoneNumber;
     NSString *_openingHours;
     NSString *_openingStatus;
+    NSString *_urlForDisplaying;
 }
 
 - (Restaurant *)build {
@@ -33,7 +34,8 @@
     NSString *openingStatus = _openingStatus == nil ? @"Open now" : _openingStatus;
     NSString *openingHours = _openingHours == nil ? @"12:00-3:00 pm\n5:30-11:15 pm" : _openingHours;
     NSString *phoneNumber = _phoneNumber == nil ? @"01603 777885" : _phoneNumber;
-    NSString *url = _url == nil ? @"www.namaste.co.uk" : _url;
+    NSString *url = _url == nil ? @"http://www.namaste.co.uk" : _url;
+    NSString *urlForDisplaying = _urlForDisplaying == nil ? @"namaste.co.uk" : _urlForDisplaying;
     return [Restaurant createWithName:name
                              vicinity:vicinity
                               address:address
@@ -41,6 +43,7 @@
                          openingHours:openingHours
                           phoneNumber:phoneNumber
                                   url:url
+                     urlForDisplaying:urlForDisplaying
                                 types:@[@"restaurant"]
                               placeId:[[NSUUID UUID] UUIDString]
                              location:location
@@ -97,6 +100,11 @@
 
 - (RestaurantBuilder *)withUrl:(NSString *)url {
     _url = url;
+    return self;
+}
+
+- (RestaurantBuilder *)withUrlForDisplaying:(NSString *)url {
+    _urlForDisplaying = url;
     return self;
 }
 @end

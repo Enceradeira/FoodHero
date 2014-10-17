@@ -159,7 +159,8 @@
     assertThatUnsignedInt(restaurant.openingStatus.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.openingHours.length, is(greaterThan(@0U)));
     assertThat(restaurant.phoneNumber, is(equalTo(@"020 7734 1401")));
-    assertThat(restaurant.url, is(equalTo(@"veeraswamy.com")));
+    assertThat(restaurant.urlForDisplaying, is(equalTo(@"veeraswamy.com")));
+    assertThat(restaurant.url, is(equalTo(@"http://www.veeraswamy.com/")));
     assertThat(restaurant.openingHours, containsString(@"am"));
     assertThat(restaurant.openingHours, containsString(@"pm"));
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));

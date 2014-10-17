@@ -520,6 +520,9 @@ Norwich, Norfolk NR1 3DN</string>
                                                     <state key="normal" image="phone-receiver-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="phoneNumberTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="odJ-Qo-oIx"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA">
                                                     <rect key="frame" x="70" y="10" width="109" height="20"/>
@@ -550,6 +553,9 @@ Norwich, Norfolk NR1 3DN</string>
                                                     <state key="normal" image="world-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="urlTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="MXg-mU-7cd"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
                                                     <rect key="frame" x="70" y="10" width="200" height="20"/>
@@ -580,6 +586,9 @@ Norwich, Norfolk NR1 3DN</string>
                                                     <state key="normal" image="directions-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="Uwi-rJ-4Ea"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13">
                                                     <rect key="frame" x="70" y="10" width="77" height="20"/>
