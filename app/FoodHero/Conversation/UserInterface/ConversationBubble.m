@@ -72,7 +72,7 @@
     return _image.size.height;
 }
 
-- (NSString *)text {
+- (NSString *)textSource {
     if (_doRenderSemanticID) {
         return [NSString stringWithFormat:@"%@\n\n*************************\n%@", _statement.text, self.semanticId];
     }
@@ -146,14 +146,23 @@
 }
 
 - (NSObject *)textAsHtml {
-    if( self.suggestedRestaurant){
-        NSString *link = [NSString stringWithFormat:@"<a href=''>%@</a>",self.suggestedRestaurant.name];
-        return [self.text stringByReplacingOccurrencesOfString:@"%@" withString:link];
+    return [self substituteRestaurantPlaceHolderWith:@"<a href=''>%@</a>"];
+}
+
+- (NSString *)text {
+    return [self substituteRestaurantPlaceHolderWith:@"%@"];
+}
+
+- (NSString *)substituteRestaurantPlaceHolderWith:(NSString *)format {
+    if (self.suggestedRestaurant) {
+        NSString *link = [NSString stringWithFormat:format, self.suggestedRestaurant.name];
+        return [self.textSource stringByReplacingOccurrencesOfString:@"%@" withString:link];
     }
-    else{
-        return self.text;
+    else {
+        return self.textSource;
     }
 }
+
 @end
 
 #pragma clang diagnostic pop

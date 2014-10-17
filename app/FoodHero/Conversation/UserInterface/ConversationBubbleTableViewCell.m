@@ -70,7 +70,7 @@
 
     // following makes element accessable from acceptance tests
     [self setIsAccessibilityElement:YES];
-    self.accessibilityLabel = bubble.text;
+    self.accessibilityLabel = bubble.textSource;
     self.accessibilityIdentifier = [NSString stringWithFormat:@"%@-%@", @"ConversationBubble", [AccessibilityHelper sanitizeForIdentifier:bubble.semanticId]];
 
 }
@@ -90,7 +90,7 @@
             @"<html>"
                     "<style type=\"text/css\">"
                     "body { background-color:transparent; font-family:Helvetica Neue; font-size:%f;}"
-                    "body { margin: 0; padding: 0; line-height: 1.2; white-space: pre-wrap; }"
+                    "body { margin: 0; padding: -1; line-height: 1.2; white-space: pre-wrap; }"
                     "a:link, a:visited { color: rgb(%i,%i,%i); }"
                     "</style>"
                     "<body>"
@@ -122,31 +122,6 @@
         [self.delegate userDidTouchLinkInConversationBubbleWith:self.bubble.suggestedRestaurant];
     }
     return YES;
-}
-
-
-- (UIView *)createTextView2:(ConversationBubble *)bubble {
-    UITextView *textView = [[UITextView alloc] initWithFrame:bubble.textRect];
-    // textView.text = bubble.text;
-
-    NSDictionary *attributes = @{NSUnderlineStyleAttributeName : @(YES)};
-
-
-    textView.attributedText = [[NSAttributedString alloc] initWithString:bubble.text attributes:attributes];
-    // Draw border around bubble image and cell
-
-    textView.layer.borderColor = [UIColor greenColor].CGColor;
-    textView.layer.borderWidth = 1.0f;
-
-    textView.backgroundColor = [UIColor clearColor];
-    textView.font = _bubble.font;
-
-    // http://stackoverflow.com/questions/746670/how-to-lose-margin-padding-in-uitextview
-    textView.textContainer.lineFragmentPadding = 0;
-    textView.textContainerInset = UIEdgeInsetsZero;
-
-    [textView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    return textView;
 }
 
 - (ConversationBubble *)bubble {
