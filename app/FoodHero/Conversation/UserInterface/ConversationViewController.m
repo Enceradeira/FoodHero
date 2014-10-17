@@ -18,6 +18,8 @@
 #import "FoodHeroColors.h"
 #import "ConversationViewStateListOnlyInput.h"
 #import "CheatTextFieldController.h"
+#import "RestaurantsInRadiusAndPriceRange.h"
+#import "RestaurantDetailViewController.h"
 
 const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;
 const UIViewAnimationOptions DEFAULT_ANIMATION_OPTION_CURVE = UIViewAnimationOptionCurveEaseOut;
@@ -325,7 +327,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 
 - (void)userDidTouchLinkInConversationBubbleWith:(Restaurant *)restaurant {
-    id controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+    RestaurantDetailViewController* controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+    [controller setRestaurant:restaurant];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

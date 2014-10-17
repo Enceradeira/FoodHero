@@ -3,10 +3,13 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "GoogleRestaurantSearch.h"
 #import "DesignByContractException.h"
 #import "SearchException.h"
 #import "KeywordEncoder.h"
+#import "GoogleOpeningHours.h"
+#import "GoogleURL.h"
 
 const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
 const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
@@ -109,14 +112,51 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     NSDictionary *json = [self fetchJSON:placeString];
 
     NSArray *result = json[@"result"];
+
+    NSDictionary *openingHours = [result valueForKey:@"opening_hours"];
+    NSString *openingStatus = @"";
+    NSString *openingHoursDescription = @"";
+    if (openingHours) {
+        openingStatus = [openingHours[@"open_now"] boolValue] ? @"Open now" : @"Closed now";
+        NSArray *openingPeriods = openingHours[@"periods"];
+        GoogleOpeningHours *hours = [GoogleOpeningHours createWithPeriods:openingPeriods];
+        openingHoursDescription = [hours descriptionForDate:[NSDate date]];
+    }
+
     return [Restaurant createWithName:[result valueForKey:@"name"]
                              vicinity:[result valueForKey:@"vicinity"]
+                              address:[self buildAddress:result]
+                        openingStatus:openingStatus
+                         openingHours:openingHoursDescription
+                          phoneNumber:[result valueForKey:@"formatted_phone_number"]
+                                  url:[self buildUrl:result]
                                 types:[result valueForKey:@"types"]
                               placeId:[result valueForKey:@"place_id"]
                              location:place.location
                            priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]
                      cuisineRelevance:place.cuisineRelevance];
 
+}
+
+- (NSString *)buildUrl:(NSArray *)result {
+
+    GoogleURL *googleURL = [GoogleURL create:[result valueForKey:@"website"]];
+    return googleURL.userFriendlyURL;
+}
+
+- (NSString *)buildAddress:(NSArray *)result {
+    NSString *formattedAddress = [result valueForKey:@"formatted_address"];
+    NSString *seperator = @", ";
+    NSArray *addressLines = [formattedAddress componentsSeparatedByString:seperator];
+    NSUInteger nrAddressComponents = addressLines.count - 1; // last component is country which we don't want to output
+    NSUInteger nrAddressComponentsLine1 = nrAddressComponents / 2;
+    NSUInteger nrAddressComponentsLine2 = nrAddressComponents - nrAddressComponentsLine1;
+    NSArray *addressComponentsLine1 = [addressLines linq_take:nrAddressComponentsLine1];
+    NSArray *addressComponentsLine2 = [[addressLines linq_skip:nrAddressComponentsLine1] linq_take:nrAddressComponentsLine2];
+    NSString *addressLine1 = [addressComponentsLine1 componentsJoinedByString:seperator];
+    NSString *addressLine2 = [addressComponentsLine2 componentsJoinedByString:seperator];
+    NSString *address = [NSString stringWithFormat:@"%@\n%@", addressLine1, addressLine2];
+    return address;
 }
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled {

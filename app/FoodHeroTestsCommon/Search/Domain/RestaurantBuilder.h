@@ -18,4 +18,14 @@
 - (RestaurantBuilder *)withPriceLevel:(NSUInteger)priceLevel;
 
 - (RestaurantBuilder *)withCuisineRelevance:(double)cuisineRelevance;
+
+- (RestaurantBuilder *)withAddress:(NSString *)address;
+
+- (RestaurantBuilder *)withOpeningStatus:(NSString *)openingStatus;
+
+- (RestaurantBuilder *)withOpeningHours:(NSString *)openingHours;
+
+- (RestaurantBuilder *)withPhoneNumber:(NSString *)phoneNumber;
+
+- (RestaurantBuilder *)withUrl:(NSString *)url;
 @end

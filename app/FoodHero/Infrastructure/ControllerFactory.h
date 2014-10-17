@@ -9,6 +9,10 @@
 #import <Typhoon.h>
 #import "ConversationViewController.h"
 
+@class RestaurantDetailTableViewController;
+
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
+
++ (RestaurantDetailTableViewController *)createRestaurantDetailTableViewController;
 @end

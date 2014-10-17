@@ -402,12 +402,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1R-ki-xsE" userLabel="Review Container View">
-                                <rect key="frame" x="0.0" y="344" width="320" height="224"/>
-                                <connections>
-                                    <segue destination="1Yp-k8-2Xl" kind="embed" id="upQ-gF-ToW"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQJ-nN-uqH" userLabel="Detail Container View">
                                 <rect key="frame" x="0.0" y="64" width="320" height="290"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -416,6 +410,12 @@
                                 </constraints>
                                 <connections>
                                     <segue destination="ihR-Mp-2f8" kind="embed" id="GJG-Wt-7bg"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1R-ki-xsE" userLabel="Review Container View">
+                                <rect key="frame" x="0.0" y="344" width="320" height="224"/>
+                                <connections>
+                                    <segue destination="1Yp-k8-2Xl" kind="embed" id="upQ-gF-ToW"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -431,6 +431,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hhb-KF-aif"/>
+                    <connections>
+                        <outlet property="_detailView" destination="jQJ-nN-uqH" id="h8K-fE-OjK"/>
+                        <outlet property="_reviewView" destination="H1R-ki-xsE" id="rrK-7y-yJj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lca-eL-8ex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -439,7 +443,7 @@
         <!--Restaurant Detail Table View Controller-->
         <scene sceneID="hgY-Zq-eG4">
             <objects>
-                <tableViewController id="ihR-Mp-2f8" userLabel="Restaurant Detail Table View Controller" customClass="RestaurantDetailTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RestaurantDetailTableViewController" id="ihR-Mp-2f8" userLabel="Restaurant Detail Table View Controller" customClass="RestaurantDetailTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="43" sectionHeaderHeight="22" sectionFooterHeight="22" id="4oA-KK-ebg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -453,14 +457,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="wds-Xd-QZW" id="2qX-Hu-NmN">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Namaste India Norwich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Om-yh-Ima">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Namaste India Norwich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8Om-yh-Ima">
                                                     <rect key="frame" x="28" y="18" width="284" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ro5-yl-N6Q">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ro5-yl-N6Q">
                                                     <rect key="frame" x="28" y="44" width="284" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">2a Opie St
@@ -475,7 +479,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="yAp-Wn-5PN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -517,7 +521,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA">
                                                     <rect key="frame" x="70" y="10" width="109" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -547,7 +551,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
                                                     <rect key="frame" x="70" y="10" width="200" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -613,6 +617,14 @@ Norwich, Norfolk NR1 3DN</string>
                             <outlet property="delegate" destination="ihR-Mp-2f8" id="bFl-V6-dac"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="address" destination="Ro5-yl-N6Q" id="Dz8-c9-veS"/>
+                        <outlet property="name" destination="8Om-yh-Ima" id="5KY-g5-Al2"/>
+                        <outlet property="openingHours" destination="sL3-sc-bC0" id="OKl-iq-Xlh"/>
+                        <outlet property="openingStatus" destination="sDf-Kb-5Yc" id="KjJ-bb-Q6o"/>
+                        <outlet property="phoneNumber" destination="MqQ-Ob-lEA" id="QV5-qq-Tez"/>
+                        <outlet property="url" destination="aeG-HU-mIG" id="Nej-mn-6aU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XyN-1U-jAH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -790,7 +802,7 @@ Norwich, Norfolk NR1 3DN</string>
         <!--Restaurant Review Table View Controlller-->
         <scene sceneID="Prj-4d-rVS">
             <objects>
-                <tableViewController id="1Yp-k8-2Xl" userLabel="Restaurant Review Table View Controlller" customClass="RestaurantReviewTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RestaurantReviewTableViewController" id="1Yp-k8-2Xl" userLabel="Restaurant Review Table View Controlller" customClass="RestaurantReviewTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="43" sectionHeaderHeight="22" sectionFooterHeight="22" id="82Z-tQ-6rj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="224"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

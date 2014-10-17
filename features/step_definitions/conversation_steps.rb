@@ -13,6 +13,10 @@ def get_last_element_and_parameter(id)
 end
 
 def wait_last_element_and_parameter(id)
+  #json = source # this seems to make things more stable ?????
+  #puts '---------------- before wait -------------------------------------'
+  #puts json
+
   bubble, parameter = nil
   wait_true(30, 0.30) do
     bubble, parameter = get_last_element_and_parameter(id)
@@ -23,6 +27,11 @@ def wait_last_element_and_parameter(id)
     end
     bubble != nil && block_test
   end
+
+  #json = source # this seems to make things more stable ?????
+  #puts '---------------- after wait -------------------------------------'
+  #puts json
+
   return bubble, parameter
 end
 
@@ -81,6 +90,10 @@ end
 
 def show_list_button
   find_element(:name, 'show cuisine list')
+end
+
+def expect_restaurant_detail_view
+  expect(text 'Directions').to be_truthy
 end
 
 Given(/^FoodHero will not find any restaurants$/) do
@@ -157,6 +170,7 @@ end
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   # wait until next suggestion appears
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
+
   expect(bubble).not_to be_nil
   link = bubble.find_element(:xpath, './/UIALink')
   expect(link).not_to be_nil
@@ -303,5 +317,9 @@ end
 
 When(/^I touch the text field$/) do
   touch_text_field
+end
+
+Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
+  wait_true { text 'Directions' }
 end
 

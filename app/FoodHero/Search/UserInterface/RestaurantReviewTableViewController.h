@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RestaurantController.h"
 
 
-@interface RestaurantReviewTableViewController : UITableViewController
+@interface RestaurantReviewTableViewController : UITableViewController <RestaurantController>
 @end

@@ -4,10 +4,12 @@
 //
 
 #import "RestaurantReviewTableViewController.h"
+#import "Restaurant.h"
 
 
 @implementation RestaurantReviewTableViewController {
 
+    Restaurant *_restaurant;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -29,5 +31,10 @@
 
     return [tableView dequeueReusableCellWithIdentifier:identifier];
 }
+
+- (void)setRestaurant:(Restaurant *)restaurant {
+    _restaurant = restaurant;
+}
+
 
 @end

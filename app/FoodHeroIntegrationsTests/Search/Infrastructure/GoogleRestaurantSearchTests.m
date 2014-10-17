@@ -26,6 +26,7 @@
     CLLocation *_norwich;
     CLLocation *_london;
     NSString *_placeIdVeeraswamyLondon;
+    NSString *_placeIdEveningRiverCruiseYork;
 }
 
 - (void)setUp {
@@ -34,6 +35,7 @@
     _placeIdLibraryGrillNorwich = @"ChIJZzNZ0-Dj2UcRn1Eq2l80nbw";
     _placeIdMaidsHeadNorwich = @"ChIJicLqAOjj2UcR1qA1_M1zFRI";
     _placeIdVeeraswamyLondon = @"ChIJnVRkK9QEdkgRz8uiqq2HfjM";
+    _placeIdEveningRiverCruiseYork = @"ChIJh_uMeqYxeUgR0_Wzw6fzne4";
 
 
     // Maids Head Hotel, Tombland, Norwich
@@ -127,7 +129,7 @@
     }, throwsExceptionOfType([DesignByContractException class]));
 }
 
--(void)test_findPlaces_ShouldThrowException_WhenThereIsANetworkingError{
+- (void)test_findPlaces_ShouldThrowException_WhenThereIsANetworkingError {
     _service.baseAddress = @"https://jennius.com"; // this should throw a networking error since no search is available at this address
     _service.timeout = 0.1;
 
@@ -136,7 +138,7 @@
     }, throwsExceptionOfType([SearchException class]));
 }
 
--(void)test_getRestaurantForPlace_ShouldThrowException_WhenThereIsANetworkingError{
+- (void)test_getRestaurantForPlace_ShouldThrowException_WhenThereIsANetworkingError {
     _service.baseAddress = @"https://jennius.com"; // this should throw a networking error since no search is available at this address
     _service.timeout = 0.1;
 
@@ -153,10 +155,25 @@
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
+    assertThat(restaurant.address, is(equalTo(@"Mezzanine Floor, Victoria House\n99-101 Regent St, London W1B 4RS")));
+    assertThatUnsignedInt(restaurant.openingStatus.length, is(greaterThan(@0U)));
+    assertThatUnsignedInt(restaurant.openingHours.length, is(greaterThan(@0U)));
+    assertThat(restaurant.phoneNumber, is(equalTo(@"020 7734 1401")));
+    assertThat(restaurant.url, is(equalTo(@"veeraswamy.com")));
+    assertThat(restaurant.openingHours, containsString(@"am"));
+    assertThat(restaurant.openingHours, containsString(@"pm"));
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
+}
+
+-(void)test_getRestaurantForPlace_ShouldSetNoInfoAboutOpeningHours_WhenNoOpeningHoursAvailable{
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdEveningRiverCruiseYork location:[CLLocation new] cuisineRelevance:34];
+
+    Restaurant *restaurant = [_service getRestaurantForPlace:place];
+    assertThat(restaurant.openingHours, is(equalTo(@"")));
+    assertThat(restaurant.openingStatus, is(equalTo(@"")));
 }
 
 @end
