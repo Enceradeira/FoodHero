@@ -276,7 +276,8 @@ end
 
 And(/^I touch a conversation bubble$/) do
   # wait until next suggestion appears
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  # bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  bubble = find_element(:xpath, '//UIATableCell/UIAWebView/UIAStaticText')
   bubble.click
 end
 
