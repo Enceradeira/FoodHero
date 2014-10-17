@@ -6,7 +6,8 @@ Feature: Navigation in app
 
     When I wish to eat "British" food by typing it
     And I allow access to the location-services
-    And I go to the restaurants-details for the last suggested restaurant
+    Then FoodHero suggests something for "British" food
+    When I go to the restaurants-details for the last suggested restaurant
     Then I see the restaurant-details for the last suggested restaurant
 
     When I go back

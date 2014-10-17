@@ -168,8 +168,6 @@ Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_st
 end
 
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
-  # wait until next suggestion appears
-  wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
   link = find_element(:xpath, "//*[contains(@name,'ConversationBubble-FH:Suggestion')]//UIALink")
   expect(link).not_to be_nil
   link.click
@@ -319,5 +317,8 @@ end
 
 Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
   wait_true { text 'Directions' }
+  restaurant = last_suggestions.last
+  restaurant_name = restaurant.split(', ').first
+  expect(text restaurant_name).to be_truthy
 end
 

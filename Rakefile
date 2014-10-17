@@ -83,14 +83,14 @@ end
 
 desc 'checks appium-server'
 task :check_appium_server do
-  #
-  #unless AppiumServer.is_running?
-  #  message = "Appium-Server is not running. Start Appium-Server with 'appium'"
-  #  puts message.red.bold
-  #  raise StandardError.new message
-  #end
 
-  puts "CHECK APPIUM IS DISABLED!".yellow.bold
+  unless AppiumServer.is_running?
+    message = "Appium-Server is not running. Start Appium-Server with 'appium'"
+    puts message.red.bold
+    raise StandardError.new message
+  end
+
+  #puts "CHECK APPIUM IS DISABLED!".yellow.bold
 end
 
 task :default => [:test_all] do
