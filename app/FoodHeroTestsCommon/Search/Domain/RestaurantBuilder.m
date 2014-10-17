@@ -21,6 +21,7 @@
     NSString *_openingHours;
     NSString *_openingStatus;
     NSString *_urlForDisplaying;
+    NSArray *_addressComponents;
 }
 
 - (Restaurant *)build {
@@ -28,6 +29,7 @@
     NSString *name = _name == nil ? @"Raj Palace" : _name;
     NSString *vicinity = _vicinity == nil ? @"18 Cathedral Street, Norwich" : _vicinity;
     NSString *address = _address == nil ? @"18 Cathedral Street\nNR1 1LX Norwich" : _address;
+    NSArray *addressComponents = _addressComponents == nil ? @[@"18 Cathedral Street", @"Norwich", @"NR1 1LX", @"United Kingdom"] : _addressComponents;
     CLLocation *location = _location == nil ? [[CLLocation alloc] initWithLatitude:45.88879 longitude:1.55668] : _location;
     NSUInteger priceLevel = _priceLevelSet ? _priceLevel : 2;
     double cuisineRelevance = _cuisineRelevanceSet ? _cuisineRelevance : 0.8;
@@ -39,6 +41,7 @@
     return [Restaurant createWithName:name
                              vicinity:vicinity
                               address:address
+                    addressComponents:addressComponents
                         openingStatus:openingStatus
                          openingHours:openingHours
                           phoneNumber:phoneNumber
@@ -82,6 +85,12 @@
     _address = address;
     return self;
 }
+
+- (RestaurantBuilder *)withAddressComponents:(NSArray *)components {
+    _addressComponents = components;
+    return self;
+}
+
 
 - (RestaurantBuilder *)withOpeningStatus:(NSString *)openingStatus {
     _openingStatus = openingStatus;

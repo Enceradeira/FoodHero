@@ -13,6 +13,7 @@
 #import "TyphoonComponents.h"
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantBuilder.h"
+#import "CLLocationManagerProxyStub.h"
 
 @interface RestaurantDetailTableViewControllerTests : XCTestCase
 
@@ -62,6 +63,13 @@
 - (void)test_url_ShouldBeRestaurantPhoneNumber {
     assertThatUnsignedInt(_ctrl.url.text.length, is(greaterThan(@0)));
     assertThat(_ctrl.url.text, is(equalTo(_restaurant.urlForDisplaying)));
+}
+
+-(void)test_bla{
+    LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    [locationService.currentLocation toArray]; // force location being available as lastKnownLocation
+
+    [_ctrl directionsTouched:self];
 }
 
 

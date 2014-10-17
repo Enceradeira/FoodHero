@@ -3,8 +3,12 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantDetailTableViewController.h"
 #import "Restaurant.h"
+#import "TyphoonComponents.h"
+#import "LocationService.h"
+#import "KeywordEncoder.h"
 
 
 @implementation RestaurantDetailTableViewController {
@@ -49,5 +53,18 @@
 }
 
 - (IBAction)directionsTouched:(id)sender {
+    LocationService* locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    CLLocationCoordinate2D coordinate = locationService.lastKnownLocation.coordinate;
+
+    NSArray * encodedComponents = [_restaurant.addressComponents linq_select:^(NSString* component){
+        return [KeywordEncoder encodeString:component];
+    }];
+    NSString *restaurantAddressEncoded = [encodedComponents componentsJoinedByString:@","];
+
+    //NSString *url = [NSString stringWithFormat:@"https://www.google.co.uk/maps/dir/%f,%f/El+Piano+York,+Grape+Ln,+York,+North+Yorkshire+YO1+7HU,+United+Kingdom",coordinate.latitude, coordinate.longitude];
+    //NSString *url = [NSString stringWithFormat:@"https://www.google.co.uk/maps/dir/%f,%f/51.509897,-0.138002",coordinate.latitude, coordinate.longitude];
+    NSString *url = [NSString stringWithFormat:@"https://www.google.com/maps/dir/%f,%f/%@",coordinate.latitude, coordinate.longitude,restaurantAddressEncoded];
+    NSURL *webUrl = [NSURL URLWithString:url];
+    [[UIApplication sharedApplication] openURL:webUrl];
 }
 @end

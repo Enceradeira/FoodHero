@@ -10,6 +10,7 @@
 - (id)initWithName:(NSString *)name
           vicinity:(NSString *)vicinity
            address:(NSString *)address
+ addressComponents:(NSArray *)addressComponents
      openingStatus:(NSString *)openingStatus
       openingHours:(NSString *)openingHours
        phoneNumber:(NSString *)phoneNumber
@@ -31,6 +32,7 @@
         _phoneNumber = phoneNumber;
         _url = url;
         _urlForDisplaying = urlForDisplaying;
+        _addressComponents = addressComponents;
     }
     return self;
 }
@@ -38,6 +40,7 @@
 + (Restaurant *)createWithName:(NSString *)name
                       vicinity:(NSString *)vicinity
                        address:(NSString *)address
+             addressComponents:(NSArray *)addressComponents
                  openingStatus:(NSString *)openingStatus
                   openingHours:(NSString *)openingHours
                    phoneNumber:(NSString *)phoneNumber
@@ -51,6 +54,7 @@
     return [[Restaurant alloc] initWithName:name
                                    vicinity:vicinity
                                     address:address
+                          addressComponents:addressComponents
                               openingStatus:openingStatus
                                openingHours:openingHours
                                 phoneNumber:phoneNumber

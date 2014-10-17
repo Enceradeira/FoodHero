@@ -12,6 +12,7 @@
 @property(nonatomic, readonly) NSString *vicinity;
 @property(nonatomic, readonly) NSString *name;
 @property(nonatomic, readonly) NSString *address;
+@property(nonatomic, readonly) NSArray *addressComponents;
 @property(nonatomic, readonly) NSString *openingStatus;
 @property(nonatomic, readonly) NSString *openingHours;
 @property(nonatomic, readonly) NSString *phoneNumber;
@@ -22,6 +23,7 @@
 + (Restaurant *)createWithName:(NSString *)name
                       vicinity:(NSString *)vicinity
                        address:(NSString *)address
+             addressComponents:(NSArray *)addressComponents
                  openingStatus:(NSString *)openingStatus
                   openingHours:(NSString *)openingHours
                    phoneNumber:(NSString *)phoneNumber

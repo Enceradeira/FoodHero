@@ -127,6 +127,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     return [Restaurant createWithName:[result valueForKey:@"name"]
                              vicinity:[result valueForKey:@"vicinity"]
                               address:[self buildAddress:result]
+                    addressComponents:[self buildAddressComponents:result]
                         openingStatus:openingStatus
                          openingHours:openingHoursDescription
                           phoneNumber:[result valueForKey:@"formatted_phone_number"]
@@ -138,6 +139,13 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
                            priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]
                      cuisineRelevance:place.cuisineRelevance];
 
+}
+
+- (NSArray *)buildAddressComponents:(NSArray *)result {
+    NSArray *addressComponents = [[result valueForKey:@"address_components"] linq_select:^(NSDictionary *entry){
+        return entry[@"long_name"];
+    }];
+    return addressComponents;
 }
 
 - (NSString *)buildUrlForDisplaying:(NSString *)website {

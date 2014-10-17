@@ -156,6 +156,10 @@
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
     assertThat(restaurant.address, is(equalTo(@"Mezzanine Floor, Victoria House\n99-101 Regent St, London W1B 4RS")));
+    assertThatUnsignedInt([restaurant.addressComponents count], is(greaterThan(@0U)));
+    for (NSString *component in restaurant.addressComponents) {
+        assertThatUnsignedInt(component.length, is(greaterThan(@0U)));
+    }
     assertThatUnsignedInt(restaurant.openingStatus.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.openingHours.length, is(greaterThan(@0U)));
     assertThat(restaurant.phoneNumber, is(equalTo(@"020 7734 1401")));
@@ -169,7 +173,7 @@
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
 }
 
--(void)test_getRestaurantForPlace_ShouldSetNoInfoAboutOpeningHours_WhenNoOpeningHoursAvailable{
+- (void)test_getRestaurantForPlace_ShouldSetNoInfoAboutOpeningHours_WhenNoOpeningHoursAvailable {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdEveningRiverCruiseYork location:[CLLocation new] cuisineRelevance:34];
 
     Restaurant *restaurant = [_service getRestaurantForPlace:place];
