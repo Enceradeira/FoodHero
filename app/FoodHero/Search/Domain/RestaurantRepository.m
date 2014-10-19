@@ -10,7 +10,6 @@
 #import "GoogleRestaurantSearch.h"
 #import "SearchException.h"
 #import "SearchError.h"
-#import "TextRepository.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -21,6 +20,7 @@
     NSMutableDictionary *_restaurantsCached;
     BOOL _isSimulatingNoRestaurantFound;
     id <ISchedulerFactory> _schedulerFactory;
+    NSTimeInterval _responseDelay;
 }
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
     self = [super init];
@@ -30,6 +30,7 @@
         _restaurantsCached = [NSMutableDictionary new];
         _schedulerFactory = schedulerFactory;
         _isSimulatingNoRestaurantFound = NO;
+        _responseDelay = 0;
     }
     return self;
 }
@@ -58,6 +59,8 @@
                         _placesCached = nil; // return nil; therefor error will be returned
                     }
                 }
+                // sleep a bit to test asynchronous behaviour of the app
+                [NSThread sleepForTimeInterval:_responseDelay];
                 // yields all places as first element in sequence
                 return _placesCached;
             }];
@@ -147,5 +150,9 @@
 - (void)simulateNetworkError:(BOOL)simulationEnabled {
     _placesCached = nil;
     [_searchService simulateNetworkError:simulationEnabled];
+}
+
+- (void)simulateSlowResponse:(BOOL)enabled {
+    _responseDelay = enabled ? 5 : 0;
 }
 @end

@@ -155,7 +155,7 @@
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
-    assertThat(restaurant.address, is(equalTo(@"Mezzanine Floor, Victoria House\n99-101 Regent St, London W1B 4RS")));
+    assertThat(restaurant.address, is(equalTo(@"99 Regent St\nLondon W1B 4EZ")));
     assertThatUnsignedInt([restaurant.addressComponents count], is(greaterThan(@0U)));
     for (NSString *component in restaurant.addressComponents) {
         assertThatUnsignedInt(component.length, is(greaterThan(@0U)));
@@ -165,8 +165,7 @@
     assertThat(restaurant.phoneNumber, is(equalTo(@"020 7734 1401")));
     assertThat(restaurant.urlForDisplaying, is(equalTo(@"veeraswamy.com")));
     assertThat(restaurant.url, is(equalTo(@"http://www.veeraswamy.com/")));
-    assertThat(restaurant.openingHours, containsString(@"am"));
-    assertThat(restaurant.openingHours, containsString(@"pm"));
+        assertThat(restaurant.openingHours, containsString(@"pm"));
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));

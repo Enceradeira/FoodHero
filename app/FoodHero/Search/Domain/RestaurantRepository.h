@@ -19,4 +19,6 @@
 - (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound;
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled;
+
+- (void)simulateSlowResponse:(BOOL)enabled;
 @end

@@ -112,6 +112,11 @@ Given(/^FoodHero can't access a network$/) do
   send_cheat('C:NE') # find network exception
 end
 
+
+Given(/^FoodHero is very slow in responding$/) do
+  send_cheat('C:BS') # be slow
+end
+
 Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
   bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting')
   expect(bubble).not_to be_nil
@@ -322,4 +327,3 @@ Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
   restaurant_name = restaurant.split(', ').first
   expect(text restaurant_name).to be_truthy
 end
-

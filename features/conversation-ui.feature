@@ -8,6 +8,7 @@ Feature: User interacts with app through conversation
     When I touch send without entering anything
     Then FoodHero still greets me and asks what I wished to eat
 
+    Given FoodHero is very slow in responding
     When I wish to eat "American" food by choosing it
     And I allow access to the location-services
     Then I can't touch input list button

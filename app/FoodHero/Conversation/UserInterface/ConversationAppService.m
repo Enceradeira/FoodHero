@@ -35,6 +35,7 @@ static UIImage *EmptyImage;
     LocationService *_locationService;
     RestaurantRepository *_restaurantRepository;
     BOOL _doRenderSemanticID;
+    NSTimeInterval _interactionDelay;
 }
 
 
@@ -74,6 +75,8 @@ static UIImage *EmptyImage;
 
 - (void)addUserInput:(ConversationToken *)userInput {
     [_conversation addToken:userInput];
+    // delays for integration testing
+    [NSThread sleepForTimeInterval:_interactionDelay];
 }
 
 - (NSInteger)getStatementCount {
@@ -184,10 +187,16 @@ static UIImage *EmptyImage;
         [_restaurantRepository simulateNoRestaurantFound:YES];
     }
     else if([command isEqualToString:@"C:NE"]) {
+        // network error
         [_restaurantRepository simulateNetworkError:YES];
     }
     else if([command isEqualToString:@"C:SS"]) {
+        // show semantic-id
         _doRenderSemanticID = YES;
+    }
+    else if([command isEqualToString:@"C:BS"]) {
+        // be slow
+        [_restaurantRepository simulateSlowResponse:YES];
     }
 
 }
