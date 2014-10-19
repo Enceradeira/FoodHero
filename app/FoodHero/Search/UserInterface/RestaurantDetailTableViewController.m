@@ -23,7 +23,28 @@
     imageView.contentMode = UIViewContentModeBottom;
     self.tableView.backgroundView = imageView;
 
+    [self addTapGesture:self.openingHours handledBy:@selector(openingHoursTouched:)];
+    [self addTapGesture:self.phoneNumber handledBy:@selector(phoneNumberTouched:)];
+    [self addTapGesture:self.url handledBy:@selector(urlTouched:)];
+    [self addTapGesture:self.directions handledBy:@selector(directionsTouched:)];
+
     [self bind];
+}
+
+- (void)addTapGesture:(UILabel *)view handledBy:(SEL)handler {
+    UITapGestureRecognizer *tapGesture =
+            [[UITapGestureRecognizer alloc] initWithTarget:self action:handler];
+    [view addGestureRecognizer:tapGesture];
+}
+
+- (void)openingHoursTouched:(id)sender {
+    /*
+
+    popover = [[UIPopoverController alloc]
+            initWithContentViewController:viewControllerForPopover];
+    [popover presentPopoverFromRect:anchor.frame
+                             inView:anchor.superview
+           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES]*/
 }
 
 - (void)setRestaurant:(Restaurant *)restaurant {
@@ -53,17 +74,15 @@
 }
 
 - (IBAction)directionsTouched:(id)sender {
-    LocationService* locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
     CLLocationCoordinate2D coordinate = locationService.lastKnownLocation.coordinate;
 
-    NSArray * encodedComponents = [_restaurant.addressComponents linq_select:^(NSString* component){
+    NSArray *encodedComponents = [_restaurant.addressComponents linq_select:^(NSString *component) {
         return [KeywordEncoder encodeString:component];
     }];
     NSString *restaurantAddressEncoded = [encodedComponents componentsJoinedByString:@","];
 
-    //NSString *url = [NSString stringWithFormat:@"https://www.google.co.uk/maps/dir/%f,%f/El+Piano+York,+Grape+Ln,+York,+North+Yorkshire+YO1+7HU,+United+Kingdom",coordinate.latitude, coordinate.longitude];
-    //NSString *url = [NSString stringWithFormat:@"https://www.google.co.uk/maps/dir/%f,%f/51.509897,-0.138002",coordinate.latitude, coordinate.longitude];
-    NSString *url = [NSString stringWithFormat:@"https://www.google.com/maps/dir/%f,%f/%@",coordinate.latitude, coordinate.longitude,restaurantAddressEncoded];
+    NSString *url = [NSString stringWithFormat:@"https://www.google.com/maps/dir/%f,%f/%@", coordinate.latitude, coordinate.longitude, restaurantAddressEncoded];
     NSURL *webUrl = [NSURL URLWithString:url];
     [[UIApplication sharedApplication] openURL:webUrl];
 }
