@@ -559,7 +559,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <action selector="urlTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="MXg-mU-7cd"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
                                                     <rect key="frame" x="70" y="10" width="200" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -574,6 +574,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <constraint firstItem="sxe-2K-opT" firstAttribute="leading" secondItem="6MP-1C-9Ox" secondAttribute="leadingMargin" constant="20" id="1Lk-Y9-Yh5"/>
                                                 <constraint firstAttribute="centerY" secondItem="aeG-HU-mIG" secondAttribute="centerY" id="Psv-7D-thT"/>
                                                 <constraint firstItem="aeG-HU-mIG" firstAttribute="leading" secondItem="sxe-2K-opT" secondAttribute="trailing" constant="20" id="Whq-TD-tlv"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aeG-HU-mIG" secondAttribute="trailingMargin" constant="15" id="p6h-Mc-JP5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
