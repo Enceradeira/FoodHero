@@ -9,7 +9,11 @@
 #import "TyphoonComponents.h"
 #import "LocationService.h"
 #import "KeywordEncoder.h"
+#import "OpeningHoursViewController.h"
 
+
+@interface RestaurantDetailTableViewController () <UIPopoverPresentationControllerDelegate>
+@end
 
 @implementation RestaurantDetailTableViewController {
 
@@ -38,14 +42,26 @@
 }
 
 - (void)openingHoursTouched:(id)sender {
-    /*
 
-    popover = [[UIPopoverController alloc]
-            initWithContentViewController:viewControllerForPopover];
-    [popover presentPopoverFromRect:anchor.frame
-                             inView:anchor.superview
-           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES]*/
+    OpeningHoursViewController *ctrl = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"OpeningHoursViewController"];
+    ctrl.modalPresentationStyle = UIModalPresentationPopover;
+    ctrl.openingHours = _restaurant.openingHours;
+
+    UIPopoverPresentationController *popoverCtrl = [ctrl popoverPresentationController];
+    popoverCtrl.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    popoverCtrl.sourceView = self.openingHours;
+    CGRect bounds = self.openingHours.bounds;
+    NSInteger margins = 5;
+    popoverCtrl.sourceRect = CGRectMake(bounds.origin.x, bounds.origin.y + margins, bounds.size.width, bounds.size.height);
+    popoverCtrl.delegate = self;
+
+    [self presentViewController:ctrl animated:YES completion:nil];
 }
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
+}
+
 
 - (void)setRestaurant:(Restaurant *)restaurant {
     _restaurant = restaurant;
@@ -57,7 +73,7 @@
     self.name.text = _restaurant.name;
     self.address.text = _restaurant.address;
     self.openingStatus.text = _restaurant.openingStatus;
-    self.openingHours.text = _restaurant.openingHours;
+    self.openingHours.text = _restaurant.openingHoursToday;
     self.phoneNumber.text = _restaurant.phoneNumber;
     self.url.text = _restaurant.urlForDisplaying;
 }

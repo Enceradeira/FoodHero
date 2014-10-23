@@ -38,7 +38,7 @@
     }
 }
 
-- (TextAndSound *)chooseOneTextFor:(NSString *)context texts:(NSArray *)texts {
+- (TextAndSound *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
     if (_choiseForOneText != nil) {
         return [[texts linq_where:^(TextAndSound *textAndSound) {
             return [textAndSound.text isEqualToString:_choiseForOneText];

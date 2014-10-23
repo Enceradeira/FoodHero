@@ -161,11 +161,12 @@
         assertThatUnsignedInt(component.length, is(greaterThan(@0U)));
     }
     assertThatUnsignedInt(restaurant.openingStatus.length, is(greaterThan(@0U)));
-    assertThatUnsignedInt(restaurant.openingHours.length, is(greaterThan(@0U)));
+    assertThatUnsignedInt(restaurant.openingHoursToday.length, is(greaterThan(@0U)));
+    assertThatUnsignedInt(restaurant.openingHours.count, is(greaterThan(@0U)));
     assertThat(restaurant.phoneNumber, is(equalTo(@"020 7734 1401")));
     assertThat(restaurant.urlForDisplaying, is(equalTo(@"veeraswamy.com")));
     assertThat(restaurant.url, is(equalTo(@"http://www.veeraswamy.com/")));
-        assertThat(restaurant.openingHours, containsString(@"pm"));
+        assertThat(restaurant.openingHoursToday, containsString(@"pm"));
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
@@ -176,7 +177,7 @@
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdEveningRiverCruiseYork location:[CLLocation new] cuisineRelevance:34];
 
     Restaurant *restaurant = [_service getRestaurantForPlace:place];
-    assertThat(restaurant.openingHours, is(equalTo(@"")));
+    assertThat(restaurant.openingHoursToday, is(equalTo(@"")));
     assertThat(restaurant.openingStatus, is(equalTo(@"")));
 }
 

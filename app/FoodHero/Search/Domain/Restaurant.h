@@ -14,7 +14,8 @@
 @property(nonatomic, readonly) NSString *address;
 @property(nonatomic, readonly) NSArray *addressComponents;
 @property(nonatomic, readonly) NSString *openingStatus;
-@property(nonatomic, readonly) NSString *openingHours;
+@property(nonatomic, readonly) NSString *openingHoursToday;
+@property(nonatomic, strong) NSArray *openingHours;
 @property(nonatomic, readonly) NSString *phoneNumber;
 @property(nonatomic, readonly) NSString *urlForDisplaying;
 @property(nonatomic, readonly) NSString *url;
@@ -25,7 +26,8 @@
                        address:(NSString *)address
              addressComponents:(NSArray *)addressComponents
                  openingStatus:(NSString *)openingStatus
-                  openingHours:(NSString *)openingHours
+             openingHoursToday:(NSString *)openingHoursToday
+                  openingHours:(NSArray *)openingHours
                    phoneNumber:(NSString *)phoneNumber
                            url:(NSString *)url
               urlForDisplaying:(NSString *)urlForDisplaying

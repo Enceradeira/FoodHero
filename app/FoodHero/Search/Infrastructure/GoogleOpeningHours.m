@@ -5,11 +5,15 @@
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "GoogleOpeningHours.h"
+#import "OpeningHour.h"
+#import "TyphoonComponents.h"
+#import "IEnvironment.h"
 
 
 @implementation GoogleOpeningHours {
 
     NSArray *_openingPeriods;
+    id <IEnvironment> _environment;
 }
 + (instancetype)createWithPeriods:(NSArray *)openingPeriods {
     return [[GoogleOpeningHours alloc] initWithPeriods:openingPeriods];
@@ -19,20 +23,30 @@
     self = [super init];
     if (self) {
         _openingPeriods = openingPeriods;
+        _environment = [(id <ApplicationAssembly>) [TyphoonComponents factory] environment];
     }
     return self;
 }
 
 - (NSString *)descriptionForDate:(NSDate *)date {
+    NSInteger weekday = [self getDayInWeek:date];
+
+    return [self buildDescriptionForWeekday:weekday separator:@"\n"];
+}
+
+- (NSInteger)getDayInWeek:(NSDate *)date {
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comps = [gregorian components:NSCalendarUnitWeekday fromDate:date];
     NSInteger weekday = [comps weekday] - 1;
+    return weekday;
+}
 
-    NSArray *openingPeriodToday = [_openingPeriods linq_where:^(NSDictionary *period) {
+- (NSString *)buildDescriptionForWeekday:(NSInteger)weekday separator:(NSString *)separator {
+    NSArray *openingPeriodOfWeekday = [_openingPeriods linq_where:^(NSDictionary *period) {
         NSDictionary *openInfo = period[@"open"];
         return (BOOL) ([openInfo[@"day"] integerValue] == weekday);
     }];
-    NSArray *openingPeriodTodayComponents = [openingPeriodToday linq_select:^(NSDictionary *period) {
+    NSArray *openingPeriodTodayComponents = [openingPeriodOfWeekday linq_select:^(NSDictionary *period) {
         id open = period[@"open"];
         id close = period[@"close"];
         NSArray *openTime = [self formatTime:open[@"time"]];
@@ -46,7 +60,7 @@
             return [NSString stringWithFormat:@"%@ %@-%@ %@", openTime[0], openTime[1], closeTime[0], closeTime[1]];
         }
     }];
-    NSString *openingPeriodTodayString = [openingPeriodTodayComponents componentsJoinedByString:@"\n"];
+    NSString *openingPeriodTodayString = [openingPeriodTodayComponents componentsJoinedByString:separator];
     return openingPeriodTodayString;
 }
 
@@ -75,5 +89,21 @@
     }
 
     return @[[NSString stringWithFormat:@"%i:%@", hours, minutes], postfix];
+}
+
+- (NSArray *)descriptionForWeek {
+    NSInteger currDayInWeek = [self getDayInWeek:[_environment now]];
+
+    NSMutableArray *description = [NSMutableArray new];
+    NSArray *weekdays = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
+
+    for (NSUInteger sunToSat = 0; sunToSat < 7; sunToSat++) {
+        NSUInteger monToSun = sunToSat == 6 ? 0 : sunToSat + 1;
+
+        NSString *desc = [self buildDescriptionForWeekday:monToSun separator:@", "];
+        NSString *openingHours = [desc isEqualToString:@""] ? @"closed" : desc;
+        [description addObject:[OpeningHour create:weekdays[monToSun] hours:openingHours isToday:currDayInWeek == monToSun]];
+    }
+    return description;
 }
 @end

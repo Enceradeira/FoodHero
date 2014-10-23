@@ -115,20 +115,23 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 
     NSDictionary *openingHours = [result valueForKey:@"opening_hours"];
     NSString *openingStatus = @"";
-    NSString *openingHoursDescription = @"";
+    NSString *openingHoursTodayDescription = @"";
+    NSArray *openingHoursDescription = @[];
     if (openingHours) {
         openingStatus = [openingHours[@"open_now"] boolValue] ? @"Open now" : @"Closed now";
         NSArray *openingPeriods = openingHours[@"periods"];
         GoogleOpeningHours *hours = [GoogleOpeningHours createWithPeriods:openingPeriods];
-        openingHoursDescription = [hours descriptionForDate:[NSDate date]];
+        openingHoursTodayDescription = [hours descriptionForDate:[NSDate date]];
+        openingHoursDescription = [hours descriptionForWeek];
     }
-
     NSString *website = [result valueForKey:@"website"];
+
     return [Restaurant createWithName:[result valueForKey:@"name"]
                              vicinity:[result valueForKey:@"vicinity"]
                               address:[self buildAddress:result]
                     addressComponents:[self buildAddressComponents:result]
                         openingStatus:openingStatus
+                    openingHoursToday:openingHoursTodayDescription
                          openingHours:openingHoursDescription
                           phoneNumber:[result valueForKey:@"formatted_phone_number"]
                                   url:website
@@ -142,7 +145,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 }
 
 - (NSArray *)buildAddressComponents:(NSArray *)result {
-    NSArray *addressComponents = [[result valueForKey:@"address_components"] linq_select:^(NSDictionary *entry){
+    NSArray *addressComponents = [[result valueForKey:@"address_components"] linq_select:^(NSDictionary *entry) {
         return entry[@"long_name"];
     }];
     return addressComponents;

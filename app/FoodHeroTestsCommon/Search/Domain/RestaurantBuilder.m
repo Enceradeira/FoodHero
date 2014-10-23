@@ -4,6 +4,7 @@
 //
 
 #import "RestaurantBuilder.h"
+#import "OpeningHour.h"
 
 
 @implementation RestaurantBuilder {
@@ -18,10 +19,11 @@
     NSString *_address;
     NSString *_url;
     NSString *_phoneNumber;
-    NSString *_openingHours;
+    NSString *_openingHoursToday;
     NSString *_openingStatus;
     NSString *_urlForDisplaying;
     NSArray *_addressComponents;
+    NSArray *_openingHours;
 }
 
 - (Restaurant *)build {
@@ -34,15 +36,25 @@
     NSUInteger priceLevel = _priceLevelSet ? _priceLevel : 2;
     double cuisineRelevance = _cuisineRelevanceSet ? _cuisineRelevance : 0.8;
     NSString *openingStatus = _openingStatus == nil ? @"Open now" : _openingStatus;
-    NSString *openingHours = _openingHours == nil ? @"12:00-3:00 pm\n5:30-11:15 pm" : _openingHours;
+    NSString *openingHoursToday = _openingHoursToday == nil ? @"12:00-3:00 pm\n5:30-11:15 pm" : _openingHoursToday;
+    NSArray *openingHours = _openingHours == nil ? @[
+            [OpeningHour create:@"Monday" hours:@"closed" isToday:NO],
+            [OpeningHour create:@"Tuesday" hours:@"12:00-3:00 pm\n5:30-11:15 pm" isToday:NO],
+            [OpeningHour create:@"Wednesday" hours:@"12:00-3:00 pm\n5:30-11:15 pm" isToday:NO],
+            [OpeningHour create:@"Thursday" hours:@"12:00-3:00 pm\n5:30-11:15 pm" isToday:NO],
+            [OpeningHour create:@"Friday" hours:@"12:00-3:00 pm\n5:30-11:15 pm" isToday:YES],
+            [OpeningHour create:@"Saturday" hours:@"12:00-3:00 pm\n5:30-11:15 pm" isToday:NO],
+            [OpeningHour create:@"Sunday" hours:@"12:00-3:00 pm\n5:30-11:15 pm" isToday:NO]] : _openingHours;
     NSString *phoneNumber = _phoneNumber == nil ? @"01603 777885" : _phoneNumber;
     NSString *url = _url == nil ? @"http://www.namaste.co.uk" : _url;
     NSString *urlForDisplaying = _urlForDisplaying == nil ? @"namaste.co.uk" : _urlForDisplaying;
+
     return [Restaurant createWithName:name
                              vicinity:vicinity
                               address:address
                     addressComponents:addressComponents
                         openingStatus:openingStatus
+                    openingHoursToday:openingHoursToday
                          openingHours:openingHours
                           phoneNumber:phoneNumber
                                   url:url
@@ -97,7 +109,12 @@
     return self;
 }
 
-- (RestaurantBuilder *)withOpeningHours:(NSString *)openingHours {
+- (RestaurantBuilder *)withOpeningHoursToday:(NSString *)openingHours {
+    _openingHoursToday = openingHours;
+    return self;
+}
+
+- (RestaurantBuilder *)withOpeningHours:(NSArray *)openingHours {
     _openingHours = openingHours;
     return self;
 }

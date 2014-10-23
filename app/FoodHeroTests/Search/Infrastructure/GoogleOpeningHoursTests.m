@@ -9,6 +9,10 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest.h>
 #import "GoogleOpeningHours.h"
+#import "OpeningHour.h"
+#import "TyphoonComponents.h"
+#import "StubAssembly.h"
+#import "EnvironmentStub.h"
 
 @interface GoogleOpeningHoursTests : XCTestCase
 
@@ -16,10 +20,14 @@
 
 @implementation GoogleOpeningHoursTests {
     NSArray *_periods;
+    EnvironmentStub *_environment;
 }
 
 - (void)setUp {
     [super setUp];
+
+    [TyphoonComponents configure:[StubAssembly new]];
+    _environment = [(id <ApplicationAssembly>) [TyphoonComponents factory] environment];
 
     _periods = @[
             // Sunday (day 0)
@@ -73,8 +81,43 @@
     return [[GoogleOpeningHours createWithPeriods:_periods] descriptionForDate:dayOfWeek];
 }
 
-- (void)test_descriptionForDate_ShouldReturnFormattedDescriptionOfOpeningHours_WhenOnePeriod {
+- (void)test_descriptionForWeek_ShouldBeYesForToday_WhenEntryIsToday {
+    NSDate *monday = [self getDayOfWeek:1];
+    [_environment injectNow:monday];
 
+    NSArray *descriptions = [[GoogleOpeningHours createWithPeriods:_periods] descriptionForWeek];
+
+    for (OpeningHour *openingHour in descriptions) {
+        if ([openingHour.day isEqualToString:@"Monday"]) {
+            assertThatBool(openingHour.isToday, is(equalToBool(YES)));
+        }
+        else {
+            assertThatBool(openingHour.isToday, is(equalToBool(NO)));
+        }
+    }
+}
+
+- (void)test_descriptionForWeek_ShouldReturnFormattedDescription {
+    NSArray *desc = [[GoogleOpeningHours createWithPeriods:_periods] descriptionForWeek];
+    assertThatInt(desc.count, is(equalTo(@(7))));
+
+    assertThat(((OpeningHour *) desc[0]).day, is(equalTo(@"Monday")));
+    assertThat(((OpeningHour *) desc[0]).hours, is(equalTo(@"7:30 am-12:00 pm, 1:00-5:00 pm, 11:30 pm-2:00 am")));
+    assertThat(((OpeningHour *) desc[1]).day, is(equalTo(@"Tuesday")));
+    assertThat(((OpeningHour *) desc[1]).hours, is(equalTo(@"7:30 am-1:00 pm, 6:45 pm-1:00 am")));
+    assertThat(((OpeningHour *) desc[2]).day, is(equalTo(@"Wednesday")));
+    assertThat(((OpeningHour *) desc[2]).hours, is(equalTo(@"7:30 am-12:00 pm, 1:00-6:00 pm, 6:15-11:30 pm")));
+    assertThat(((OpeningHour *) desc[3]).day, is(equalTo(@"Thursday")));
+    assertThat(((OpeningHour *) desc[3]).hours, is(equalTo(@"closed")));
+    assertThat(((OpeningHour *) desc[4]).day, is(equalTo(@"Friday")));
+    assertThat(((OpeningHour *) desc[4]).hours, is(equalTo(@"7:30 am-11:00 pm")));
+    assertThat(((OpeningHour *) desc[5]).day, is(equalTo(@"Saturday")));
+    assertThat(((OpeningHour *) desc[5]).hours, is(equalTo(@"7:30-11:30 am")));
+    assertThat(((OpeningHour *) desc[6]).day, is(equalTo(@"Sunday")));
+    assertThat(((OpeningHour *) desc[6]).hours, is(equalTo(@"12:00 am-12:00 pm, 1:15 pm-12:00 am")));
+}
+
+- (void)test_descriptionForDate_ShouldReturnFormattedDescriptionOfOpeningHours_WhenOnePeriod {
     NSString *desc = [self descriptionForDate:[self getDayOfWeek:5]];
 
     assertThat(desc, is(equalTo(@"7:30 am-11:00 pm")));

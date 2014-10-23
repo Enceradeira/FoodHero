@@ -12,4 +12,6 @@
 - (id)initWithPeriods:(NSArray *)array;
 
 - (NSString *)descriptionForDate:(NSDate *)date;
+
+- (NSArray *)descriptionForWeek;
 @end

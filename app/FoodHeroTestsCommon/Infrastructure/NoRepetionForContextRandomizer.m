@@ -30,7 +30,7 @@
 }
 
 - (TextAndSound *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
-    if (![_context isEqualToString:context]) {
+    if (![_context isEqualToString:(NSString *) context]) {
         return texts[0];
     }
 

@@ -11,4 +11,8 @@ module AppPaths
     dst_root ||= File.expand_path 'app/Build/Products/Current'
   end
 
+  def self.version
+    '8.1'
+  end
+
 end

@@ -10,9 +10,12 @@
 #import "ConversationViewController.h"
 
 @class RestaurantDetailTableViewController;
+@class OpeningHoursViewController;
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
 
 + (RestaurantDetailTableViewController *)createRestaurantDetailTableViewController;
+
++ (OpeningHoursViewController *)createOpeningHoursViewControllerTests;
 @end

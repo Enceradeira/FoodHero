@@ -25,6 +25,7 @@
 #import "TextRepository.h"
 #import "SoundPlayer.h"
 #import "RestaurantDetailViewController.h"
+#import "Environment.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -184,6 +185,10 @@
 
 - (id)soundPlayer {
     return [TyphoonDefinition withClass:[SoundPlayer class]];
+}
+
+- (id)environment {
+    return [TyphoonDefinition withClass:[Environment class]];
 }
 
 - (id)restaurantSearchService {

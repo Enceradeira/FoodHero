@@ -23,9 +23,13 @@
 
 - (RestaurantBuilder *)withOpeningStatus:(NSString *)openingStatus;
 
-- (RestaurantBuilder *)withOpeningHours:(NSString *)openingHours;
+- (RestaurantBuilder *)withOpeningHoursToday:(NSString *)openingHours;
+
+- (RestaurantBuilder *)withOpeningHours:(NSArray *)openingHours;
 
 - (RestaurantBuilder *)withPhoneNumber:(NSString *)phoneNumber;
 
 - (RestaurantBuilder *)withUrl:(NSString *)url;
+
+- (RestaurantBuilder *)withUrlForDisplaying:(NSString *)url;
 @end

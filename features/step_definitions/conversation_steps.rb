@@ -269,9 +269,13 @@ When(/^I say good bye$/) do
   touch_send
 end
 
-
 When(/^I touch input list button$/) do
   show_list_button.click
+end
+
+When(/^I tough today's opening hours$/) do
+  label = find_element(:name, "today's opening hours")
+  label.click
 end
 
 Then(/^I can see the feedback list$/) do
@@ -326,4 +330,14 @@ Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
   restaurant = last_suggestions.last
   restaurant_name = restaurant.split(', ').first
   expect(text restaurant_name).to be_truthy
+end
+
+Then(/^I see the week's opening hours$/) do
+  daily_opening_hours = find_elements(:xpath,"//*[contains(@name,'opening hour of that day')]")
+  expect(daily_opening_hours.count).to be(7)
+end
+
+When(/^I dismiss the week's opening hours$/) do
+  # tap somewhere outside the opening hours
+  execute_script 'mobile: tap', :x => 50, :y => 50
 end

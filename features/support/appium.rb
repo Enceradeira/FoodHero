@@ -5,7 +5,7 @@ require_relative '../../lib/app_paths'
 caps = {
     caps: {
         platformName: 'iOS',
-        platformVersion: '8.0',
+        platformVersion: AppPaths.version,
         deviceName: 'iPhone 5s', # one from 'instruments -s devices'
         #locationServicesEnabled: false,
         #locationServicesAuthorized: false,

@@ -9,7 +9,10 @@ Feature: Navigation in app
     Then FoodHero suggests something for "British" food
     When I go to the restaurants-details for the last suggested restaurant
     Then I see the restaurant-details for the last suggested restaurant
+    When I tough today's opening hours
+    Then I see the week's opening hours
 
+    When I dismiss the week's opening hours
     When I go back
     Then I see the conversation view
 

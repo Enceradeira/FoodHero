@@ -12,7 +12,8 @@
            address:(NSString *)address
  addressComponents:(NSArray *)addressComponents
      openingStatus:(NSString *)openingStatus
-      openingHours:(NSString *)openingHours
+ openingHoursToday:(NSString *)openingHoursToday
+      openingHours:(NSArray *)openingHours
        phoneNumber:(NSString *)phoneNumber
                url:(NSString *)url
   urlForDisplaying:(NSString *)urlForDisplaying
@@ -28,6 +29,7 @@
         _types = types;
         _address = address;
         _openingStatus = openingStatus;
+        _openingHoursToday = openingHoursToday;
         _openingHours = openingHours;
         _phoneNumber = phoneNumber;
         _url = url;
@@ -42,7 +44,8 @@
                        address:(NSString *)address
              addressComponents:(NSArray *)addressComponents
                  openingStatus:(NSString *)openingStatus
-                  openingHours:(NSString *)openingHours
+             openingHoursToday:(NSString *)openingHoursToday
+                  openingHours:(NSArray *)openingHours
                    phoneNumber:(NSString *)phoneNumber
                            url:(NSString *)url
               urlForDisplaying:(NSString *)urlForDisplaying
@@ -56,6 +59,7 @@
                                     address:address
                           addressComponents:addressComponents
                               openingStatus:openingStatus
+                          openingHoursToday:openingHoursToday
                                openingHours:openingHours
                                 phoneNumber:phoneNumber
                                         url:url
