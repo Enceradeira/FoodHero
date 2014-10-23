@@ -517,8 +517,22 @@ Norwich, Norfolk NR1 3DN</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="hzf-Se-7zH" id="FUw-3d-Apb">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA">
+                                                    <rect key="frame" x="70" y="5" width="109" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="qE4-Y6-J6c"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-HM-HGv">
-                                                    <rect key="frame" x="28" y="9" width="22" height="22"/>
+                                                    <rect key="frame" x="22" y="3" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="Oyj-Vd-Kms"/>
+                                                        <constraint firstAttribute="width" constant="35" id="VqB-fh-pGN"/>
+                                                    </constraints>
                                                     <state key="normal" image="phone-receiver-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -526,21 +540,14 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <action selector="phoneNumberTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="odJ-Qo-oIx"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA">
-                                                    <rect key="frame" x="70" y="10" width="109" height="20"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="MqQ-Ob-lEA" secondAttribute="centerY" id="31F-dN-h5g"/>
-                                                <constraint firstItem="MqQ-Ob-lEA" firstAttribute="leading" secondItem="J9e-HM-HGv" secondAttribute="trailing" constant="20" id="Abq-Cb-fJM"/>
-                                                <constraint firstAttribute="centerY" secondItem="J9e-HM-HGv" secondAttribute="centerY" id="CYI-1U-mmr"/>
-                                                <constraint firstItem="J9e-HM-HGv" firstAttribute="leading" secondItem="FUw-3d-Apb" secondAttribute="leadingMargin" constant="20" id="a2K-cl-Pgn"/>
+                                                <constraint firstItem="MqQ-Ob-lEA" firstAttribute="leading" secondItem="J9e-HM-HGv" secondAttribute="trailing" constant="13" id="lrp-Br-qZb"/>
+                                                <constraint firstAttribute="centerY" secondItem="MqQ-Ob-lEA" secondAttribute="centerY" id="qkq-Ru-cnw"/>
+                                                <constraint firstAttribute="centerY" secondItem="J9e-HM-HGv" secondAttribute="centerY" id="rvB-rB-uoC"/>
+                                                <constraint firstItem="J9e-HM-HGv" firstAttribute="leading" secondItem="FUw-3d-Apb" secondAttribute="leadingMargin" constant="14" id="v25-9i-1zf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -551,7 +558,11 @@ Norwich, Norfolk NR1 3DN</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sxe-2K-opT">
-                                                    <rect key="frame" x="28" y="9" width="22" height="22"/>
+                                                    <rect key="frame" x="22" y="3" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="7HD-dX-HdS"/>
+                                                        <constraint firstAttribute="height" constant="35" id="dbO-zt-8xz"/>
+                                                    </constraints>
                                                     <state key="normal" image="world-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -560,8 +571,11 @@ Norwich, Norfolk NR1 3DN</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
-                                                    <rect key="frame" x="70" y="10" width="200" height="20"/>
+                                                    <rect key="frame" x="70" y="3" width="200" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="uw0-ll-nj2"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -570,11 +584,10 @@ Norwich, Norfolk NR1 3DN</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="sxe-2K-opT" secondAttribute="centerY" id="1B4-sg-eYx"/>
-                                                <constraint firstItem="sxe-2K-opT" firstAttribute="leading" secondItem="6MP-1C-9Ox" secondAttribute="leadingMargin" constant="20" id="1Lk-Y9-Yh5"/>
-                                                <constraint firstAttribute="centerY" secondItem="aeG-HU-mIG" secondAttribute="centerY" id="Psv-7D-thT"/>
-                                                <constraint firstItem="aeG-HU-mIG" firstAttribute="leading" secondItem="sxe-2K-opT" secondAttribute="trailing" constant="20" id="Whq-TD-tlv"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aeG-HU-mIG" secondAttribute="trailingMargin" constant="15" id="p6h-Mc-JP5"/>
+                                                <constraint firstItem="aeG-HU-mIG" firstAttribute="leading" secondItem="sxe-2K-opT" secondAttribute="trailing" constant="13" id="44k-Ez-Jfg"/>
+                                                <constraint firstAttribute="centerY" secondItem="sxe-2K-opT" secondAttribute="centerY" id="LaY-gy-93L"/>
+                                                <constraint firstItem="sxe-2K-opT" firstAttribute="leading" secondItem="6MP-1C-9Ox" secondAttribute="leadingMargin" constant="14" id="t8U-iT-osq"/>
+                                                <constraint firstAttribute="centerY" secondItem="aeG-HU-mIG" secondAttribute="centerY" id="x8v-Bd-JyX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -585,7 +598,11 @@ Norwich, Norfolk NR1 3DN</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19A-3M-klq">
-                                                    <rect key="frame" x="28" y="9" width="22" height="22"/>
+                                                    <rect key="frame" x="22" y="3" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="75S-gq-FVM"/>
+                                                        <constraint firstAttribute="width" constant="35" id="bAI-GX-U7L"/>
+                                                    </constraints>
                                                     <state key="normal" image="directions-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -594,8 +611,11 @@ Norwich, Norfolk NR1 3DN</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13">
-                                                    <rect key="frame" x="70" y="10" width="77" height="20"/>
+                                                    <rect key="frame" x="70" y="3" width="77" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="hqY-j2-JUP"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -604,10 +624,10 @@ Norwich, Norfolk NR1 3DN</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="Ef5-Er-q13" firstAttribute="leading" secondItem="19A-3M-klq" secondAttribute="trailing" constant="20" id="2Im-dF-94I"/>
-                                                <constraint firstAttribute="centerY" secondItem="19A-3M-klq" secondAttribute="centerY" id="FLB-at-5uN"/>
-                                                <constraint firstItem="19A-3M-klq" firstAttribute="leading" secondItem="l0b-S4-8Xr" secondAttribute="leadingMargin" constant="20" id="Oed-YK-CeG"/>
-                                                <constraint firstAttribute="centerY" secondItem="Ef5-Er-q13" secondAttribute="centerY" id="jMp-co-lwY"/>
+                                                <constraint firstItem="Ef5-Er-q13" firstAttribute="leading" secondItem="19A-3M-klq" secondAttribute="trailing" constant="13" id="CwI-wP-FPb"/>
+                                                <constraint firstItem="19A-3M-klq" firstAttribute="leading" secondItem="l0b-S4-8Xr" secondAttribute="leadingMargin" constant="14" id="EKq-W6-hy9"/>
+                                                <constraint firstAttribute="centerY" secondItem="Ef5-Er-q13" secondAttribute="centerY" id="SU3-Yl-wZE"/>
+                                                <constraint firstAttribute="centerY" secondItem="19A-3M-klq" secondAttribute="centerY" id="aMl-Jy-oyb"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
