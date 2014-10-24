@@ -484,7 +484,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL3-sc-bC0">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL3-sc-bC0" customClass="UILabelWithTouchReaction">
                                                     <rect key="frame" x="128" y="94" width="99" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <accessibility key="accessibilityConfiguration" label="today's opening hours"/>
@@ -517,17 +517,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="hzf-Se-7zH" id="FUw-3d-Apb">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA">
-                                                    <rect key="frame" x="70" y="5" width="109" height="30"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="qE4-Y6-J6c"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-HM-HGv">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-HM-HGv" customClass="UIButtonWithTouchReaction">
                                                     <rect key="frame" x="22" y="3" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="Oyj-Vd-Kms"/>
@@ -540,6 +530,16 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <action selector="phoneNumberTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="odJ-Qo-oIx"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01603 662016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-Ob-lEA" customClass="UILabelWithTouchReaction">
+                                                    <rect key="frame" x="70" y="5" width="109" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="qE4-Y6-J6c"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -557,7 +557,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="zFk-58-Lu6" id="6MP-1C-9Ox">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sxe-2K-opT">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sxe-2K-opT" customClass="UIButtonWithTouchReaction">
                                                     <rect key="frame" x="22" y="3" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="7HD-dX-HdS"/>
@@ -570,7 +570,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <action selector="urlTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="MXg-mU-7cd"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.namasteindian.co.uk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-HU-mIG" customClass="UILabelWithTouchReaction">
                                                     <rect key="frame" x="70" y="3" width="200" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -597,7 +597,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="YfC-9B-j7g" id="l0b-S4-8Xr">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19A-3M-klq">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19A-3M-klq" customClass="UIButtonWithTouchReaction">
                                                     <rect key="frame" x="22" y="3" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="75S-gq-FVM"/>
@@ -610,7 +610,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="Uwi-rJ-4Ea"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13" customClass="UILabelWithTouchReaction">
                                                     <rect key="frame" x="70" y="3" width="77" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -652,11 +652,14 @@ Norwich, Norfolk NR1 3DN</string>
                     <connections>
                         <outlet property="address" destination="Ro5-yl-N6Q" id="Dz8-c9-veS"/>
                         <outlet property="directions" destination="Ef5-Er-q13" id="6yi-sa-XYP"/>
+                        <outlet property="directionsButton" destination="19A-3M-klq" id="hbN-NV-e1e"/>
                         <outlet property="name" destination="8Om-yh-Ima" id="5KY-g5-Al2"/>
                         <outlet property="openingHours" destination="sL3-sc-bC0" id="OKl-iq-Xlh"/>
                         <outlet property="openingStatus" destination="sDf-Kb-5Yc" id="KjJ-bb-Q6o"/>
+                        <outlet property="phoneButton" destination="J9e-HM-HGv" id="hdN-9t-Vkz"/>
                         <outlet property="phoneNumber" destination="MqQ-Ob-lEA" id="QV5-qq-Tez"/>
                         <outlet property="url" destination="aeG-HU-mIG" id="plP-K9-ezo"/>
+                        <outlet property="urlButton" destination="sxe-2K-opT" id="2fF-EU-Rac"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XyN-1U-jAH" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -27,6 +27,10 @@
     imageView.contentMode = UIViewContentModeBottom;
     self.tableView.backgroundView = imageView;
 
+    [_urlButton imageView].highlightedImage = [UIImage imageNamed:@"world-icon-transparent@2x.png"];
+    [_phoneButton imageView].highlightedImage = [UIImage imageNamed:@"phone-receiver-icon-transparent@2x.png"];
+    [_directionsButton imageView].highlightedImage = [UIImage imageNamed:@"directions-icon-transparent@2x.png"];
+
     [self addTapGesture:self.openingHours handledBy:@selector(openingHoursTouched:)];
     [self addTapGesture:self.phoneNumber handledBy:@selector(phoneNumberTouched:)];
     [self addTapGesture:self.url handledBy:@selector(urlTouched:)];
@@ -41,8 +45,7 @@
     [view addGestureRecognizer:tapGesture];
 }
 
-- (void)openingHoursTouched:(id)sender {
-
+- (void)openingHoursTouched:(UITapGestureRecognizer *)sender {
     OpeningHoursViewController *ctrl = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"OpeningHoursViewController"];
     ctrl.modalPresentationStyle = UIModalPresentationPopover;
     ctrl.openingHours = _restaurant.openingHours;
@@ -78,18 +81,18 @@
     self.url.text = _restaurant.urlForDisplaying;
 }
 
-- (IBAction)phoneNumberTouched:(id)sender {
+- (IBAction)phoneNumberTouched:(UITapGestureRecognizer *)sender {
     NSString *cleanedString = [[_restaurant.phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
     NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cleanedString]];
     [[UIApplication sharedApplication] openURL:telURL];
 }
 
-- (IBAction)urlTouched:(id)sender {
+- (IBAction)urlTouched:(UITapGestureRecognizer *)sender {
     NSURL *webUrl = [NSURL URLWithString:_restaurant.url];
     [[UIApplication sharedApplication] openURL:webUrl];
 }
 
-- (IBAction)directionsTouched:(id)sender {
+- (IBAction)directionsTouched:(UITapGestureRecognizer *)sender {
     LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
     CLLocationCoordinate2D coordinate = locationService.lastKnownLocation.coordinate;
 

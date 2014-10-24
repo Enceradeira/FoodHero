@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
 @property (weak, nonatomic) IBOutlet UILabel *url;
 @property (weak, nonatomic) IBOutlet UILabel *directions;
+@property (weak, nonatomic) IBOutlet UIButton *directionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *urlButton;
+@property (weak, nonatomic) IBOutlet UIButton *phoneButton;
 
 - (void)openingHoursTouched:(id)sender;
 
