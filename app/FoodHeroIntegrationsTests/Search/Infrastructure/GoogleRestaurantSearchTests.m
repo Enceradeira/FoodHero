@@ -117,7 +117,7 @@
     NSArray *places = [[_service findPlaces:_parameter] linq_take:5];  // test on 5 places, not all 200
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
     for (GooglePlace *place in places) {
-        Restaurant *restaurant = [_service getRestaurantForPlace:place];
+        Restaurant *restaurant = [_service getRestaurantForPlace:place currentLocation:_norwich];
         assertThatUnsignedInt(restaurant.priceLevel, is(equalTo(@4)));
     }
 }
@@ -144,14 +144,14 @@
 
     assertThat(^() {
         GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
-        [_service getRestaurantForPlace:place];
+        [_service getRestaurantForPlace:place currentLocation:_norwich];
     }, throwsExceptionOfType([SearchException class]));
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
-    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london cuisineRelevance:34];
 
-    Restaurant *restaurant = [_service getRestaurantForPlace:place];
+    Restaurant *restaurant = [_service getRestaurantForPlace:place currentLocation:_norwich];
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
@@ -166,17 +166,27 @@
     assertThat(restaurant.phoneNumber, is(equalTo(@"020 7734 1401")));
     assertThat(restaurant.urlForDisplaying, is(equalTo(@"veeraswamy.com")));
     assertThat(restaurant.url, is(equalTo(@"http://www.veeraswamy.com/")));
-        assertThat(restaurant.openingHoursToday, containsString(@"pm"));
+    assertThat(restaurant.openingHoursToday, containsString(@"pm"));
     assertThat(restaurant.placeId, is(equalTo(place.placeId)));
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
+    assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
+}
+
+- (void)test_getRestaurantForPlace_ShouldReturnCorrectDistanceFromCurrentLocation {
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london cuisineRelevance:34];
+
+    Restaurant *restaurantAsSeenInNorwich = [_service getRestaurantForPlace:place currentLocation:_norwich];
+    Restaurant *restaurantAsSeenInLondon = [_service getRestaurantForPlace:place currentLocation:_london];
+
+    assertThatDouble(restaurantAsSeenInNorwich.distance, is(greaterThan(@(restaurantAsSeenInLondon.distance))));
 }
 
 - (void)test_getRestaurantForPlace_ShouldSetNoInfoAboutOpeningHours_WhenNoOpeningHoursAvailable {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdEveningRiverCruiseYork location:[CLLocation new] cuisineRelevance:34];
 
-    Restaurant *restaurant = [_service getRestaurantForPlace:place];
+    Restaurant *restaurant = [_service getRestaurantForPlace:place currentLocation:_norwich];
     assertThat(restaurant.openingHoursToday, is(equalTo(@"")));
     assertThat(restaurant.openingStatus, is(equalTo(@"")));
 }

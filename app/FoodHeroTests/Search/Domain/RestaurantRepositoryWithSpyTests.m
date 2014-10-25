@@ -72,6 +72,8 @@
 }
 
 - (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {
+    [self getPlacesByCuisine:@"Swiss"]; // this queries the location which is a precondition for getRestaurantFromPlace
+
     Restaurant *place = [[RestaurantBuilder alloc] build];
     assertThat([_repository getRestaurantFromPlace:place], is(notNilValue()));
     assertThat([_repository getRestaurantFromPlace:place], is(notNilValue()));

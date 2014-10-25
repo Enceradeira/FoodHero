@@ -24,6 +24,7 @@
     NSString *_urlForDisplaying;
     NSArray *_addressComponents;
     NSArray *_openingHours;
+    double _distance;
 }
 
 - (Restaurant *)build {
@@ -48,6 +49,7 @@
     NSString *phoneNumber = _phoneNumber == nil ? @"01603 777885" : _phoneNumber;
     NSString *url = _url == nil ? @"http://www.namaste.co.uk" : _url;
     NSString *urlForDisplaying = _urlForDisplaying == nil ? @"namaste.co.uk" : _urlForDisplaying;
+    double distance = _distance == 0 ? 1.34 : _distance;
 
     return [Restaurant createWithName:name
                              vicinity:vicinity
@@ -62,6 +64,7 @@
                                 types:@[@"restaurant"]
                               placeId:[[NSUUID UUID] UUIDString]
                              location:location
+                             distance:distance
                            priceLevel:priceLevel
                      cuisineRelevance:cuisineRelevance];
 }
@@ -131,6 +134,11 @@
 
 - (RestaurantBuilder *)withUrlForDisplaying:(NSString *)url {
     _urlForDisplaying = url;
+    return self;
+}
+
+- (RestaurantBuilder *)withDistance:(double)distance {
+    _distance = distance;
     return self;
 }
 @end

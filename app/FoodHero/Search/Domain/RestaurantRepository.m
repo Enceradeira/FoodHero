@@ -127,7 +127,7 @@
 - (Restaurant *)getRestaurantFromPlace:(Place *)place {
     Restaurant *restaurant = _restaurantsCached[place.placeId];
     if (restaurant == nil) {
-        restaurant = [_searchService getRestaurantForPlace:place];
+        restaurant = [_searchService getRestaurantForPlace:place currentLocation:_locationService.lastKnownLocation];
         _restaurantsCached[place.placeId] = restaurant;
     }
     return restaurant;

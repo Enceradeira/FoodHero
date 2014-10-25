@@ -79,6 +79,16 @@
     self.openingHours.text = _restaurant.openingHoursToday;
     self.phoneNumber.text = _restaurant.phoneNumber;
     self.url.text = _restaurant.urlForDisplaying;
+    double meters = _restaurant.distance;
+    double miles = meters / 1000 * 0.621;
+    if( miles >= 0.2){
+        self.directions.text = [NSString stringWithFormat:@"%.1f miles away",miles];
+    }
+    else{
+        double yards = meters * 1.093613;
+        self.directions.text = [NSString stringWithFormat:@"%.0f yards away",yards];
+    }
+
 }
 
 - (IBAction)phoneNumberTouched:(UITapGestureRecognizer *)sender {

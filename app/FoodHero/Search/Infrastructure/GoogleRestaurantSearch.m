@@ -106,14 +106,11 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     return restaurants;
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, place.placeId];
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
+    NSArray *details = [self fetchPlaceDetails:place];
+    double distance = [self fetchPlaceDirections:place currentLocation:currentLocation];
 
-    NSDictionary *json = [self fetchJSON:placeString];
-
-    NSArray *result = json[@"result"];
-
-    NSDictionary *openingHours = [result valueForKey:@"opening_hours"];
+    NSDictionary *openingHours = [details valueForKey:@"opening_hours"];
     NSString *openingStatus = @"";
     NSString *openingHoursTodayDescription = @"";
     NSArray *openingHoursDescription = @[];
@@ -124,24 +121,58 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
         openingHoursTodayDescription = [hours descriptionForDate:[NSDate date]];
         openingHoursDescription = [hours descriptionForWeek];
     }
-    NSString *website = [result valueForKey:@"website"];
+    NSString *website = [details valueForKey:@"website"];
 
-    return [Restaurant createWithName:[result valueForKey:@"name"]
-                             vicinity:[result valueForKey:@"vicinity"]
-                              address:[self buildAddress:result]
-                    addressComponents:[self buildAddressComponents:result]
+    return [Restaurant createWithName:[details valueForKey:@"name"]
+                             vicinity:[details valueForKey:@"vicinity"]
+                              address:[self buildAddress:details]
+                    addressComponents:[self buildAddressComponents:details]
                         openingStatus:openingStatus
                     openingHoursToday:openingHoursTodayDescription
                          openingHours:openingHoursDescription
-                          phoneNumber:[result valueForKey:@"formatted_phone_number"]
+                          phoneNumber:[details valueForKey:@"formatted_phone_number"]
                                   url:website
                      urlForDisplaying:[self buildUrlForDisplaying:website]
-                                types:[result valueForKey:@"types"]
-                              placeId:[result valueForKey:@"place_id"]
+                                types:[details valueForKey:@"types"]
+                              placeId:[details valueForKey:@"place_id"]
                              location:place.location
-                           priceLevel:[[result valueForKey:@"price_level"] unsignedIntValue]
+                             distance:distance
+                           priceLevel:[[details valueForKey:@"price_level"] unsignedIntValue]
                      cuisineRelevance:place.cuisineRelevance];
 
+}
+
+- (double)fetchPlaceDirections:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
+    CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
+    CLLocationCoordinate2D placeCoordinate = place.location.coordinate;
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/directions/json?origin=%f,%f&destination=%f,%f&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, currentCoordinate.latitude, currentCoordinate.longitude, placeCoordinate.latitude, placeCoordinate.longitude];
+
+    NSDictionary *json = [self fetchJSON:placeString];
+
+    NSArray *routes = json[@"routes"];
+    NSArray *legs = [routes linq_selectMany:^(NSDictionary *route) {
+        return route[@"legs"];
+    }];
+    NSArray *distances = [legs linq_select:^(NSDictionary *leg) {
+        NSDictionary *distance = leg[@"distance"];
+        return distance[@"value"];
+    }];
+
+    double meters = 0;
+    for (NSNumber *distance in distances) {
+        meters += [distance doubleValue];
+    }
+
+    return meters;
+}
+
+- (NSArray *)fetchPlaceDetails:(GooglePlace *)place {
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, place.placeId];
+
+    NSDictionary *json = [self fetchJSON:placeString];
+
+    NSArray *result = json[@"result"];
+    return result;
 }
 
 - (NSArray *)buildAddressComponents:(NSArray *)result {

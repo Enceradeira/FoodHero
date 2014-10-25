@@ -28,7 +28,7 @@
     return [NSArray new];
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)location {
     _nrCallsToGetRestaurantForPlace++;
     return [[RestaurantBuilder alloc] build];
 }

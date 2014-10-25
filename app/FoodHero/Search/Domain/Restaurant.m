@@ -20,6 +20,7 @@
              types:(NSArray *)types
            placeId:(NSString *)placeId
           location:(CLLocation *)location
+        distance:(double)distance
         priceLevel:(NSUInteger)priceLevel
   cuisineRelevance:(double)cuisineRelevance {
     self = [super initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
@@ -35,6 +36,7 @@
         _url = url;
         _urlForDisplaying = urlForDisplaying;
         _addressComponents = addressComponents;
+        _distance = distance;
     }
     return self;
 }
@@ -52,6 +54,7 @@
                          types:(NSArray *)types
                        placeId:(NSString *)placeId
                       location:(CLLocation *)location
+                      distance:(double)distance
                     priceLevel:(NSUInteger)priceLevel
               cuisineRelevance:(double)cuisineRelevance {
     return [[Restaurant alloc] initWithName:name
@@ -67,6 +70,7 @@
                                       types:types
                                     placeId:placeId
                                    location:location
+                                   distance:distance
                                  priceLevel:priceLevel
                            cuisineRelevance:cuisineRelevance];
 }
