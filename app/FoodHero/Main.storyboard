@@ -547,6 +547,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <constraint firstItem="Ef5-Er-q13" firstAttribute="leading" secondItem="19A-3M-klq" secondAttribute="trailing" constant="13" id="CwI-wP-FPb"/>
                                                 <constraint firstItem="19A-3M-klq" firstAttribute="leading" secondItem="l0b-S4-8Xr" secondAttribute="leadingMargin" constant="14" id="EKq-W6-hy9"/>
                                                 <constraint firstAttribute="centerY" secondItem="Ef5-Er-q13" secondAttribute="centerY" id="SU3-Yl-wZE"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Ef5-Er-q13" secondAttribute="trailing" id="XJC-fa-oIE"/>
                                                 <constraint firstAttribute="centerY" secondItem="19A-3M-klq" secondAttribute="centerY" id="aMl-Jy-oyb"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -584,6 +585,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="MqQ-Ob-lEA" secondAttribute="trailing" id="DeY-J8-Gg4"/>
                                                 <constraint firstItem="MqQ-Ob-lEA" firstAttribute="leading" secondItem="J9e-HM-HGv" secondAttribute="trailing" constant="13" id="lrp-Br-qZb"/>
                                                 <constraint firstAttribute="centerY" secondItem="MqQ-Ob-lEA" secondAttribute="centerY" id="qkq-Ru-cnw"/>
                                                 <constraint firstAttribute="centerY" secondItem="J9e-HM-HGv" secondAttribute="centerY" id="rvB-rB-uoC"/>
@@ -626,6 +628,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <constraints>
                                                 <constraint firstItem="aeG-HU-mIG" firstAttribute="leading" secondItem="sxe-2K-opT" secondAttribute="trailing" constant="13" id="44k-Ez-Jfg"/>
                                                 <constraint firstAttribute="centerY" secondItem="sxe-2K-opT" secondAttribute="centerY" id="LaY-gy-93L"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aeG-HU-mIG" secondAttribute="trailing" id="ji9-BT-5IC"/>
                                                 <constraint firstItem="sxe-2K-opT" firstAttribute="leading" secondItem="6MP-1C-9Ox" secondAttribute="leadingMargin" constant="14" id="t8U-iT-osq"/>
                                                 <constraint firstAttribute="centerY" secondItem="aeG-HU-mIG" secondAttribute="centerY" id="x8v-Bd-JyX"/>
                                             </constraints>
