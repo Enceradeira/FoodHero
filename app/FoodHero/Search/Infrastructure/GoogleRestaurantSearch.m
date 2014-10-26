@@ -13,6 +13,7 @@
 
 const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
 const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
+NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
 
 @implementation GoogleRestaurantSearch {
 
@@ -49,7 +50,7 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
     NSArray *types = @[@"restaurant", @"cafe"];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
     NSString *keyword = [KeywordEncoder encodeString:parameter.cuisine];
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg",
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@",
                                                        _baseAddress,
                                                        keyword,
                                                        coordinate.latitude,
@@ -57,7 +58,8 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
                                                        (unsigned int) radius,
                                                        (unsigned int) parameter.minPriceLevel,
                                                        (unsigned int) parameter.maxPriceLevel,
-                                                       typesAsString];
+                                                       typesAsString,
+                                                       GOOGLE_API_KEY];
 
     NSDictionary *json = [self fetchJSON:placeString];
 
@@ -145,7 +147,13 @@ const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 - (double)fetchPlaceDirections:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
     CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
     CLLocationCoordinate2D placeCoordinate = place.location.coordinate;
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/directions/json?origin=%f,%f&destination=%f,%f&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, currentCoordinate.latitude, currentCoordinate.longitude, placeCoordinate.latitude, placeCoordinate.longitude];
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/directions/json?origin=%f,%f&destination=%f,%f&key=%@",
+                                                       _baseAddress,
+                                                       currentCoordinate.latitude,
+                                                       currentCoordinate.longitude,
+                                                       placeCoordinate.latitude,
+                                                       placeCoordinate.longitude,
+                                                       GOOGLE_API_KEY];
 
     NSDictionary *json = [self fetchJSON:placeString];
 
