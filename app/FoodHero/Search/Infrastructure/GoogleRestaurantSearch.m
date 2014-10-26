@@ -4,6 +4,7 @@
 //
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
+#import <ReactiveCocoa.h>
 #import "GoogleRestaurantSearch.h"
 #import "DesignByContractException.h"
 #import "SearchException.h"
@@ -18,6 +19,7 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
 @implementation GoogleRestaurantSearch {
 
     BOOL _simulateNetworkError;
+    NSOperationQueue *_queue;
 }
 
 - (id)init {
@@ -25,6 +27,7 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
     if (self) {
         _baseAddress = @"https://maps.googleapis.com";
         _timeout = 60;
+        _queue = [[NSOperationQueue alloc] init];
     }
 
     return self;
@@ -61,7 +64,14 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
                                                        typesAsString,
                                                        GOOGLE_API_KEY];
 
-    NSDictionary *json = [self fetchJSON:placeString];
+    __block NSDictionary *json;
+    NSError *error;
+    RACSignal *fetchSignal = [self fetchJSON:placeString];
+    [fetchSignal subscribeNext:^(NSDictionary *j) {
+        json = j;
+    }];
+    [fetchSignal waitUntilCompleted:&error];
+    [self handleError:error];
 
     NSMutableArray *restaurants = [NSMutableArray new];
     NSArray *places = json[@"results"];
@@ -108,10 +118,7 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
     return restaurants;
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
-    NSArray *details = [self fetchPlaceDetails:place];
-    double distance = [self fetchPlaceDirections:place currentLocation:currentLocation];
-
+- (Restaurant *)createRestaurantFromPlace:(GooglePlace *)place details:(NSArray *)details distance:(NSNumber *)distance {
     NSDictionary *openingHours = [details valueForKey:@"opening_hours"];
     NSString *openingStatus = @"";
     NSString *openingHoursTodayDescription = @"";
@@ -138,13 +145,33 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
                                 types:[details valueForKey:@"types"]
                               placeId:[details valueForKey:@"place_id"]
                              location:place.location
-                             distance:distance
+                             distance:distance.doubleValue
                            priceLevel:[[details valueForKey:@"price_level"] unsignedIntValue]
                      cuisineRelevance:place.cuisineRelevance];
-
 }
 
-- (double)fetchPlaceDirections:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
+    __block Restaurant *restaurant;
+
+    RACSignal *detailsSignal = [self fetchPlaceDetails:place];
+    RACSignal *directionsSignal = [self fetchPlaceDirections:place currentLocation:currentLocation];
+    RACSignal *restaurantSignal = [RACSignal combineLatest:@[detailsSignal, directionsSignal]
+                                                    reduce:^(NSArray *details, NSNumber *distance) {
+                                                        return [self createRestaurantFromPlace:place details:details distance:distance];
+                                                    }];
+
+
+    [restaurantSignal subscribeNext:^(Restaurant *r) {
+        restaurant = r;
+    }];
+    NSError *error;
+    [restaurantSignal waitUntilCompleted:&error];
+    [self handleError:error];
+
+    return restaurant;
+}
+
+- (RACSignal *)fetchPlaceDirections:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
     CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
     CLLocationCoordinate2D placeCoordinate = place.location.coordinate;
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/directions/json?origin=%f,%f&destination=%f,%f&key=%@",
@@ -155,32 +182,31 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
                                                        placeCoordinate.longitude,
                                                        GOOGLE_API_KEY];
 
-    NSDictionary *json = [self fetchJSON:placeString];
+    return [[self fetchJSON:placeString] map:^(NSDictionary *json) {
 
-    NSArray *routes = json[@"routes"];
-    NSArray *legs = [routes linq_selectMany:^(NSDictionary *route) {
-        return route[@"legs"];
+        NSArray *routes = json[@"routes"];
+        NSArray *legs = [routes linq_selectMany:^(NSDictionary *route) {
+            return route[@"legs"];
+        }];
+        NSArray *distances = [legs linq_select:^(NSDictionary *leg) {
+            NSDictionary *distance = leg[@"distance"];
+            return distance[@"value"];
+        }];
+
+        double meters = 0;
+        for (NSNumber *distance in distances) {
+            meters += [distance doubleValue];
+        }
+        return @(meters);
     }];
-    NSArray *distances = [legs linq_select:^(NSDictionary *leg) {
-        NSDictionary *distance = leg[@"distance"];
-        return distance[@"value"];
-    }];
-
-    double meters = 0;
-    for (NSNumber *distance in distances) {
-        meters += [distance doubleValue];
-    }
-
-    return meters;
 }
 
-- (NSArray *)fetchPlaceDetails:(GooglePlace *)place {
+- (RACSignal *)fetchPlaceDetails:(GooglePlace *)place {
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, place.placeId];
 
-    NSDictionary *json = [self fetchJSON:placeString];
-
-    NSArray *result = json[@"result"];
-    return result;
+    return [[self fetchJSON:placeString] map:^(NSDictionary *json) {
+        return json[@"result"];
+    }];
 }
 
 - (NSArray *)buildAddressComponents:(NSArray *)result {
@@ -216,26 +242,32 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
 }
 
 
-- (NSDictionary *)fetchJSON:(NSString *)placeString {
+- (RACSignal *)fetchJSON:(NSString *)placeString {
 
     NSURL *placeURL = [NSURL URLWithString:placeString];
-    NSError *error;
-
     NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:_timeout];
-    NSURLResponse *response;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    [self handleError:error];
 
-    NSDictionary *json;
-    @try {
-        json = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-    }
-    @catch (NSException *exp) {
-        @throw;
-    }
+    return [RACSignal startEagerlyWithScheduler:[RACScheduler scheduler] block:^(id <RACSubscriber> subscriber) {
 
-    [self handleError:error];
-    return json;
+        [NSURLConnection sendAsynchronousRequest:request queue:_queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            if (error) {
+                [subscriber sendError:error];
+            }
+            else {
+                NSDictionary *json;
+
+                NSError *jsonError;
+                json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                if (jsonError) {
+                    [subscriber sendError:jsonError];
+                }
+                else {
+                    [subscriber sendNext:json];
+                }
+            }
+            [subscriber sendCompleted];
+        }];
+    }];
 }
 
 
