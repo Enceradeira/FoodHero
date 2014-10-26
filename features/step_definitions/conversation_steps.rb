@@ -326,7 +326,11 @@ When(/^I touch the text field$/) do
 end
 
 Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
-  wait_true { text 'Directions' }
+  # directions
+  directions = find_elements(:xpath,"//UIAStaticText[contains(@name,'miles away') or contains(@name,'yards away')]")
+  expect(directions.count).to be(1)
+  # wait_true { text 'Directions' }
+  # restaurant name
   restaurant = last_suggestions.last
   restaurant_name = restaurant.split(', ').first
   expect(text restaurant_name).to be_truthy
