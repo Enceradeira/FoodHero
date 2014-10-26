@@ -78,4 +78,32 @@
     assertThat(_ctrl.directions.text, is(equalTo(@"328 yards away")));
 }
 
+-(void)test_phoneButton_ShouldBeHidden_WhenNoPhoneNumberAvailable{
+    _restaurant = [[[RestaurantBuilder alloc] withPhoneNumber:@""] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThatBool(_ctrl.phoneButton.hidden, is(equalTo(@(YES))));
+}
+
+-(void)test_phoneButton_ShouldNotBeHidden_WhenPhoneNumberAvailable{
+    _restaurant = [[[RestaurantBuilder alloc] withPhoneNumber:@"07872 222122"] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThatBool(_ctrl.phoneButton.hidden, is(equalTo(@(NO))));
+}
+
+-(void)test_urlButton_ShouldBeHidden_WhenNoUrlAvailable{
+    _restaurant = [[[RestaurantBuilder alloc] withUrlForDisplaying:@""] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThatBool(_ctrl.urlButton.hidden, is(equalTo(@(YES))));
+}
+
+-(void)test_urlButton_ShouldNotBeHidden_WhenUrlAvailable{
+    _restaurant = [[[RestaurantBuilder alloc] withUrlForDisplaying:@"www.test.com"] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThatBool(_ctrl.urlButton.hidden, is(equalTo(@(NO))));
+}
+
 @end

@@ -77,8 +77,15 @@
     self.address.text = _restaurant.address;
     self.openingStatus.text = _restaurant.openingStatus;
     self.openingHours.text = _restaurant.openingHoursToday;
-    self.phoneNumber.text = _restaurant.phoneNumber;
-    self.url.text = _restaurant.urlForDisplaying;
+    
+    NSString *phoneNumber = _restaurant.phoneNumber;
+    self.phoneNumber.text = phoneNumber;
+    self.phoneButton.hidden = phoneNumber.length == 0;
+
+    NSString *urlForDisplaying = _restaurant.urlForDisplaying;
+    self.url.text = urlForDisplaying;
+    self.urlButton.hidden = urlForDisplaying.length == 0;
+
     double meters = _restaurant.distance;
     double miles = meters / 1000 * 0.621;
     if( miles >= 0.2){
