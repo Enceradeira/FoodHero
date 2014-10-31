@@ -910,7 +910,7 @@
 		466EF4A10F6A461CAC03EAD8 /* UISlider+RACSignalSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UISlider+RACSignalSupport.h"; path = "ReactiveCocoaFramework/ReactiveCocoa/UISlider+RACSignalSupport.h"; sourceTree = "<group>"; };
 		46C3A7315F3A40489426064B /* libPods-FoodHeroIntegrationsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroIntegrationsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C86A8310B14B55A821B875 /* TyphoonInjectionByType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TyphoonInjectionByType.m; path = Source/Definition/Injections/TyphoonInjectionByType.m; sourceTree = "<group>"; };
-		48489B12E41548D1A40A87E7 /* RACCompoundDisposableProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; name = RACCompoundDisposableProvider.d; path = ReactiveCocoaFramework/ReactiveCocoa/RACCompoundDisposableProvider.d; sourceTree = "<group>"; };
+		48489B12E41548D1A40A87E7 /* RACCompoundDisposableProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.dtrace; name = RACCompoundDisposableProvider.d; path = ReactiveCocoaFramework/ReactiveCocoa/RACCompoundDisposableProvider.d; sourceTree = "<group>"; };
 		485590F831704245A56F8746 /* RACMulticastConnection+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RACMulticastConnection+Private.h"; path = "ReactiveCocoaFramework/ReactiveCocoa/RACMulticastConnection+Private.h"; sourceTree = "<group>"; };
 		48B107315A864368BE42CC23 /* RACEmptySignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACEmptySignal.h; path = ReactiveCocoaFramework/ReactiveCocoa/RACEmptySignal.h; sourceTree = "<group>"; };
 		48C2B15A0DB548FCAB6BB434 /* Pods-FoodHeroTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FoodHeroTests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -1038,7 +1038,7 @@
 		7B95863888D74F71A1A6FDAC /* RACBehaviorSubject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACBehaviorSubject.m; path = ReactiveCocoaFramework/ReactiveCocoa/RACBehaviorSubject.m; sourceTree = "<group>"; };
 		7BA9B077A4DC43809EF57204 /* TyphoonAssemblyDefinitionBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TyphoonAssemblyDefinitionBuilder.m; path = Source/Factory/Block/TyphoonAssemblyDefinitionBuilder.m; sourceTree = "<group>"; };
 		7BC9BBA3DCA044D68E74DF79 /* RACSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACSignal.m; path = ReactiveCocoaFramework/ReactiveCocoa/RACSignal.m; sourceTree = "<group>"; };
-		7C30EFBD521C45F28EA0A00A /* RACSignalProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; name = RACSignalProvider.d; path = ReactiveCocoaFramework/ReactiveCocoa/RACSignalProvider.d; sourceTree = "<group>"; };
+		7C30EFBD521C45F28EA0A00A /* RACSignalProvider.d */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.dtrace; name = RACSignalProvider.d; path = ReactiveCocoaFramework/ReactiveCocoa/RACSignalProvider.d; sourceTree = "<group>"; };
 		7C51C846F50A47CB8022066A /* RACQueueScheduler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACQueueScheduler.h; path = ReactiveCocoaFramework/ReactiveCocoa/RACQueueScheduler.h; sourceTree = "<group>"; };
 		7CB6031AC01746F184A5C094 /* RACEmptySignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACEmptySignal.m; path = ReactiveCocoaFramework/ReactiveCocoa/RACEmptySignal.m; sourceTree = "<group>"; };
 		7D2C901923B14090B3240531 /* TyphoonMatchedConfigDefinition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TyphoonMatchedConfigDefinition.m; path = Source/Configuration/DefinitionOptionConfiguration/Factory/TyphoonMatchedConfigDefinition.m; sourceTree = "<group>"; };
@@ -1628,7 +1628,6 @@
 				E949A80DFBFB43C4B34D8C3B /* Support Files */,
 				56540592337340CFA2F8B8F3 /* no-arc */,
 			);
-			name = Typhoon;
 			path = Typhoon;
 			sourceTree = "<group>";
 		};
@@ -1796,7 +1795,6 @@
 				88C6CD5D6DCC42E39B55A4E5 /* OCHamcrest.h */,
 				FE6D7A032BC34B1C9E1AC84E /* Support Files */,
 			);
-			name = OCHamcrest;
 			path = OCHamcrest;
 			sourceTree = "<group>";
 		};
@@ -1853,7 +1851,6 @@
 				F97C982BC0A34636BF17468C /* UI */,
 				B18EBA312EEE4DDC844622C5 /* no-arc */,
 			);
-			name = ReactiveCocoa;
 			path = ReactiveCocoa;
 			sourceTree = "<group>";
 		};
@@ -1928,7 +1925,6 @@
 				06FF6384B2C84A4EBF0CDD5A /* NSDictionary+LinqExtensions.m */,
 				0E72AAE81BBD410AB681DF41 /* Support Files */,
 			);
-			name = LinqToObjectiveC;
 			path = LinqToObjectiveC;
 			sourceTree = "<group>";
 		};
@@ -2093,7 +2089,6 @@
 				8EB0C091A50343E497851904 /* XCTestCase+AsyncTesting.m */,
 				FAFB686A34AC444DAB54A0EF /* Support Files */,
 			);
-			name = XCAsyncTestCase;
 			path = XCAsyncTestCase;
 			sourceTree = "<group>";
 		};
@@ -2831,8 +2826,6 @@
 			mainGroup = 6AC50685039F4522BF20F426;
 			productRefGroup = 8714A31B3AA148E99307311D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				C98C3F14F0FB429EB275131F /* Pods-FoodHero */,
@@ -3409,6 +3402,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PODS_FOODHEROINTEGRATIONSTESTS_XCASYNCTESTCASE_FRAMEWORK_SEARCH_PATHS}",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3673,6 +3670,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PODS_FOODHEROINTEGRATIONSTESTS_XCASYNCTESTCASE_FRAMEWORK_SEARCH_PATHS}",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pods-FoodHeroIntegrationsTests-XCAsyncTestCase-prefix.pch";
@@ -3703,6 +3704,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PODS_FOODHEROTESTS_XCASYNCTESTCASE_FRAMEWORK_SEARCH_PATHS}",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3849,6 +3854,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PODS_FOODHEROTESTS_XCASYNCTESTCASE_FRAMEWORK_SEARCH_PATHS}",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pods-FoodHeroTests-XCAsyncTestCase-prefix.pch";
