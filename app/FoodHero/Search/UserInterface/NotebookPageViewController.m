@@ -19,7 +19,7 @@
     [super viewDidLoad];
 
     // have the _notebookPageView start where the _notebookColumnsView end
-    _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width -10;
+    _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width;
 
     _notebookPageView.backgroundColor = [FoodHeroColors yellowColor];
 

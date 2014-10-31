@@ -414,10 +414,10 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnj-3e-u9D">
-                                <rect key="frame" x="27" y="334" width="277" height="234"/>
+                                <rect key="frame" x="27" y="334" width="258" height="234"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7b-mO-Fig">
-                                        <rect key="frame" x="0.0" y="10" width="277" height="206"/>
+                                        <rect key="frame" x="0.0" y="10" width="258" height="206"/>
                                         <connections>
                                             <segue destination="Dzm-Q1-sKz" kind="embed" id="TqP-4j-cOB"/>
                                         </connections>
@@ -440,7 +440,7 @@
                             <constraint firstItem="jQJ-nN-uqH" firstAttribute="top" secondItem="sXS-J8-4ml" secondAttribute="bottom" id="aos-hy-ieu"/>
                             <constraint firstItem="Jnj-3e-u9D" firstAttribute="top" secondItem="jQJ-nN-uqH" secondAttribute="bottom" id="p2g-eM-dXX"/>
                             <constraint firstAttribute="bottom" secondItem="Jnj-3e-u9D" secondAttribute="bottom" id="wC2-Ug-mHc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jnj-3e-u9D" secondAttribute="trailing" id="zfi-mR-LnR"/>
+                            <constraint firstAttribute="trailing" secondItem="Jnj-3e-u9D" secondAttribute="trailing" constant="35" id="zfi-mR-LnR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hhb-KF-aif"/>
@@ -966,7 +966,7 @@ Norwich, Norfolk NR1 3DN</string>
                                 <rect key="frame" x="-8" y="0.0" width="328" height="230"/>
                                 <color key="backgroundColor" red="0.90980392694473267" green="0.81960785388946533" blue="0.56862747669219971" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Notebook.png" translatesAutoresizingMaskIntoConstraints="NO" id="mLf-vw-4bK" customClass="UIImageViewAligned">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Notebook-small.png" translatesAutoresizingMaskIntoConstraints="NO" id="mLf-vw-4bK" customClass="UIImageViewAligned">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="alignLeft" value="YES"/>
@@ -1152,7 +1152,7 @@ Norwich, Norfolk NR1 3DN</string>
         <image name="Empty-Icon.png" width="22" height="22"/>
         <image name="List-Icon-Disabled.png" width="22" height="22"/>
         <image name="List-Icon-Enabled.png" width="22" height="22"/>
-        <image name="Notebook.png" width="25" height="212"/>
+        <image name="Notebook-small.png" width="25" height="121"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>
         <image name="rating-stars-4.0.png" width="95" height="17"/>
