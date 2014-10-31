@@ -4,21 +4,24 @@
 //
 
 #import "RestaurantReviewSummaryViewController.h"
+#import "FoodHeroColors.h"
 
 
 @implementation RestaurantReviewSummaryViewController {
 
-    __weak IBOutlet UIImageView *backgroundView;
+    __weak IBOutlet UIImageView *_notebookColumnsView;
+    __weak IBOutlet NSLayoutConstraint *_notebookPageLeftConstraint;
+    __weak IBOutlet UIView *_notebookPageView;
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIImage *image = [[UIImage imageNamed:@"Notebook.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 40, 0, 0) resizingMode:UIImageResizingModeStretch];
+    // have the _notebookPageView start where the _notebookColumnsView end
+    _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width;
 
-    backgroundView.contentMode =  UIViewContentModeLeft;
-    backgroundView.image = image;
+    _notebookPageView.backgroundColor = [FoodHeroColors yellowColor];
 }
 
 

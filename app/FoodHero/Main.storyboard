@@ -950,41 +950,34 @@ Norwich, Norfolk NR1 3DN</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mLf-vw-4bK">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZP-y3-7L2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                <color key="backgroundColor" red="0.90980392694473267" green="0.81960785388946533" blue="0.56862747669219971" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Notebook.png" translatesAutoresizingMaskIntoConstraints="NO" id="mLf-vw-4bK" customClass="UIImageViewAligned">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="alignLeft" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="oeV-XR-VdJ">
-                                <rect key="frame" x="117" y="36" width="95" height="17"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="3.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEV-AW-K13">
-                                <rect key="frame" x="76" y="28" width="30" height="21"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="r9x-FX-tkl"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjP-JR-MVx">
-                                <rect key="frame" x="35" y="74" width="274" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mLf-vw-4bK" firstAttribute="top" secondItem="imA-Mu-26N" secondAttribute="top" id="kbs-XK-uNb"/>
-                            <constraint firstAttribute="bottom" secondItem="mLf-vw-4bK" secondAttribute="bottom" id="o8t-W9-87k"/>
-                            <constraint firstAttribute="trailing" secondItem="mLf-vw-4bK" secondAttribute="trailing" id="rHa-eH-Tju"/>
-                            <constraint firstItem="mLf-vw-4bK" firstAttribute="leading" secondItem="imA-Mu-26N" secondAttribute="leading" id="roB-MC-1C8"/>
+                            <constraint firstItem="mLf-vw-4bK" firstAttribute="top" secondItem="imA-Mu-26N" secondAttribute="top" id="0cX-sa-9fC"/>
+                            <constraint firstItem="OZP-y3-7L2" firstAttribute="top" secondItem="imA-Mu-26N" secondAttribute="top" id="6bD-uf-n8h"/>
+                            <constraint firstItem="xha-tL-lJj" firstAttribute="top" secondItem="mLf-vw-4bK" secondAttribute="bottom" id="Ezj-Vl-QQn"/>
+                            <constraint firstAttribute="bottom" secondItem="OZP-y3-7L2" secondAttribute="bottom" id="N0d-xx-b5C"/>
+                            <constraint firstAttribute="trailing" secondItem="OZP-y3-7L2" secondAttribute="trailing" id="Nha-JR-211"/>
+                            <constraint firstItem="mLf-vw-4bK" firstAttribute="leading" secondItem="imA-Mu-26N" secondAttribute="leading" id="UZq-Tq-lPp"/>
+                            <constraint firstItem="OZP-y3-7L2" firstAttribute="leading" secondItem="imA-Mu-26N" secondAttribute="leading" id="is2-Wo-qc1"/>
+                            <constraint firstAttribute="trailing" secondItem="mLf-vw-4bK" secondAttribute="trailing" id="pZF-wM-gnZ"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
                     <connections>
-                        <outlet property="backgroundView" destination="mLf-vw-4bK" id="AWm-jm-uY2"/>
+                        <outlet property="_notebookColumnsView" destination="mLf-vw-4bK" id="glv-hJ-2VP"/>
+                        <outlet property="_notebookPageView" destination="OZP-y3-7L2" id="JS4-FI-syw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-1k-UYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1007,6 +1000,25 @@ Norwich, Norfolk NR1 3DN</string>
                                 <rect key="frame" x="16" y="81" width="274" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="8qa-QD-MOO">
+                                <rect key="frame" x="51" y="114" width="95" height="17"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="3.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qS-yA-8C0">
+                                <rect key="frame" x="10" y="106" width="30" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="QaP-sb-OCX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaY-RJ-X5N">
+                                <rect key="frame" x="-31" y="152" width="274" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1081,6 +1093,7 @@ Norwich, Norfolk NR1 3DN</string>
         <image name="Empty-Icon.png" width="22" height="22"/>
         <image name="List-Icon-Disabled.png" width="22" height="22"/>
         <image name="List-Icon-Enabled.png" width="22" height="22"/>
+        <image name="Notebook.png" width="25" height="212"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>
         <image name="rating-stars-4.0.png" width="95" height="17"/>

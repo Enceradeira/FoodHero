@@ -26,4 +26,8 @@ const float ColorDivisor = 255.0f;
 + (UIColor *)actionColor {
     return [UIColor colorWithRed:144 / ColorDivisor green:32 / ColorDivisor blue:27 / ColorDivisor alpha:1];
 }
+
++ (UIColor *)yellowColor {
+    return [UIColor colorWithRed:232 / ColorDivisor green:209 / ColorDivisor blue:145 / ColorDivisor alpha:1];
+}
 @end
