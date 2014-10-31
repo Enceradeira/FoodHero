@@ -6,6 +6,7 @@ target :FoodHero do
     pod "Typhoon"
     pod "LinqToObjectiveC"
     pod "ReactiveCocoa"
+    pod "UIImageViewAligned", :path => './../UIImageViewAligned'
 end
 
 target :FoodHeroTests do
