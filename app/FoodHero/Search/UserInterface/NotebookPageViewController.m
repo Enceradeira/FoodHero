@@ -19,16 +19,18 @@
     [super viewDidLoad];
 
     // have the _notebookPageView start where the _notebookColumnsView end
-    _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width;
+    _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width -10;
 
     _notebookPageView.backgroundColor = [FoodHeroColors yellowColor];
 
     // _notebookPage with drop-shadow
-    CALayer *layer = _notebookPageView.layer;
-    layer.masksToBounds = NO;
-    layer.shadowColor = [UIColor blackColor].CGColor;
-    layer.shadowOffset = CGSizeMake(3.0f, 2.0f);
-    layer.shadowOpacity = 0.3f;
+    _notebookPageView.layer.masksToBounds = NO;
+    _notebookPageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _notebookPageView.layer.shadowOffset = CGSizeMake(3.0f, 2.0f);
+    _notebookPageView.layer.shadowOpacity = 0.3f;
+
+    // _notebookPage with round corners
+    _notebookPageView.layer.cornerRadius = 8.0f;
 }
 
 
