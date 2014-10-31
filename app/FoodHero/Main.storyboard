@@ -938,10 +938,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="701" y="2201"/>
         </scene>
-        <!--Restaurant Review Summary View Controller-->
+        <!--Notebook Page View Controller-->
         <scene sceneID="cct-ns-3EY">
             <objects>
-                <viewController storyboardIdentifier="RestaurantReviewSummaryViewController" id="mMt-4t-Vct" customClass="RestaurantReviewSummaryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotebookPageViewController" id="mMt-4t-Vct" userLabel="Notebook Page View Controller" customClass="NotebookPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TXp-54-4iU"/>
                         <viewControllerLayoutGuide type="bottom" id="xha-tL-lJj"/>

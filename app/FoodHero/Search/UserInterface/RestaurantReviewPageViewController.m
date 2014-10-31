@@ -17,7 +17,7 @@
     [super viewDidLoad];
 
     self.dataSource = self;
-    _summaryController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
+    _summaryController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"NotebookPageViewController"];
     _commentController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewCommentViewController"];;
 
 

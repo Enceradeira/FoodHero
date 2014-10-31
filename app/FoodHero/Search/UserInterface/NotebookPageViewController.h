@@ -6,5 +6,5 @@
 #import <Foundation/Foundation.h>
 
 
-@interface RestaurantReviewSummaryViewController : UIViewController
+@interface NotebookPageViewController : UIViewController
 @end

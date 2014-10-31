@@ -3,11 +3,11 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "RestaurantReviewSummaryViewController.h"
+#import "NotebookPageViewController.h"
 #import "FoodHeroColors.h"
 
 
-@implementation RestaurantReviewSummaryViewController {
+@implementation NotebookPageViewController {
 
     __weak IBOutlet UIImageView *_notebookColumnsView;
     __weak IBOutlet NSLayoutConstraint *_notebookPageLeftConstraint;
