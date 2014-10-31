@@ -196,7 +196,6 @@
 		23525D7A43B08031D2D592BB /* ConversationBubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525718C284A5A291BEC9D4 /* ConversationBubbleTableViewCell.m */; };
 		23525D92526B979719806CBE /* RestaurantRepositoryWithSpyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250670F0E7F51A6EEFFBD /* RestaurantRepositoryWithSpyTests.m */; };
 		23525DADB348726C1A1FA29F /* DistanceRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C7573C3DC628AEC5CAA /* DistanceRange.m */; };
-		23525DBDC51B72F3219EBE1A /* RestaurantReviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352544D60A3AD609F293F08 /* RestaurantReviewTableViewController.m */; };
 		23525DC3F98A5E13177AE208 /* NoRepetionForContextRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E3D49CCC6E3813C7C99 /* NoRepetionForContextRandomizer.m */; };
 		23525DC5BD64AA76BEABE8AC /* TryAgainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259D007ED4EAAAF5C6D7D /* TryAgainTableViewController.m */; };
 		23525DD36BC5801E655E48E8 /* ConversationViewController+ViewDimensionCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525129D661BF310556513F /* ConversationViewController+ViewDimensionCalculator.m */; };
@@ -398,7 +397,6 @@
 		2352540DBFAE841556E3287C /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m; sourceTree = "<group>"; };
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525422B8901729789A0019 /* FHBecauseUserDeniedAccessToLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserDeniedAccessToLocationServices.m; sourceTree = "<group>"; };
-		2352544D60A3AD609F293F08 /* RestaurantReviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewTableViewController.m; sourceTree = "<group>"; };
 		2352544F40B5FD5FBFF6DFF7 /* UWantsToSearchForAnotherRestaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWantsToSearchForAnotherRestaurant.h; sourceTree = "<group>"; };
 		23525463CF13180093616A7D /* UserInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInputViewController.h; sourceTree = "<group>"; };
 		2352546CC1123CB2BECE5818 /* TextRepositoryStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextRepositoryStub.h; sourceTree = "<group>"; };
@@ -592,7 +590,6 @@
 		23525DBD61F01B14BAEFF68E /* ProblemWithAccessLocationServiceResolvedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemWithAccessLocationServiceResolvedTableViewController.h; sourceTree = "<group>"; };
 		23525DDBFFF100FF3FB1B469 /* NoRestaurantsFoundError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoRestaurantsFoundError.m; sourceTree = "<group>"; };
 		23525DE38CE16D4F043A8F60 /* ConversationTokenTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTokenTests.m; sourceTree = "<group>"; };
-		23525DE3CE0FFAFEF3C70A29 /* RestaurantReviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantReviewTableViewController.h; sourceTree = "<group>"; };
 		23525DF381A642E7AA0199F5 /* SearchAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAction.m; sourceTree = "<group>"; };
 		23525DF8C6B1B3FE8FDB6662 /* RestaurantReviewCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewCommentViewController.m; sourceTree = "<group>"; };
 		23525DFA3E6C3A56F2834248 /* PlaySoundAndAfterAddTokenAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaySoundAndAfterAddTokenAction.h; sourceTree = "<group>"; };
@@ -1140,8 +1137,6 @@
 				235258137FBDEA1C27540425 /* RestaurantDetailViewController.h */,
 				23525871F5597AB825B20E50 /* RestaurantDetailTableViewController.m */,
 				235253383DF3B3E2B4277369 /* RestaurantDetailTableViewController.h */,
-				2352544D60A3AD609F293F08 /* RestaurantReviewTableViewController.m */,
-				23525DE3CE0FFAFEF3C70A29 /* RestaurantReviewTableViewController.h */,
 				2352579E3E3C577A713404A3 /* RestaurantController.h */,
 				23525FCED1C804160C6B734D /* OpeningHoursViewController.m */,
 				23525E6902366B71F482DBA3 /* OpeningHoursViewController.h */,
@@ -1878,7 +1873,6 @@
 				23525BB51244CEA1043A95F5 /* FHWhatToDoNextCommentAfterFailure.m in Sources */,
 				23525471E41557698C5419DF /* RestaurantDetailViewController.m in Sources */,
 				235252941AA6C3F1F382FF37 /* RestaurantDetailTableViewController.m in Sources */,
-				23525DBDC51B72F3219EBE1A /* RestaurantReviewTableViewController.m in Sources */,
 				235254D63CEC0157516AD840 /* GoogleOpeningHours.m in Sources */,
 				235250E237C2F6036575D296 /* GoogleURL.m in Sources */,
 				235257B175028BA0C8E3FE33 /* OpeningHoursViewController.m in Sources */,
