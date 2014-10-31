@@ -996,6 +996,12 @@ Norwich, Norfolk NR1 3DN</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeN-SB-4pm">
+                                <rect key="frame" x="0.0" y="20" width="320" height="210"/>
+                                <connections>
+                                    <segue destination="mMt-4t-Vct" kind="embed" id="9GY-l1-vwD"/>
+                                </connections>
+                            </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loved Dahi Puri and Masala dosa at Namaste India - John" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG1-el-Msx">
                                 <rect key="frame" x="16" y="81" width="274" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1004,6 +1010,12 @@ Norwich, Norfolk NR1 3DN</string>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eeN-SB-4pm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" id="Dgz-Wb-S3f"/>
+                            <constraint firstAttribute="trailing" secondItem="eeN-SB-4pm" secondAttribute="trailing" id="aZR-fL-evC"/>
+                            <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="gEu-CY-4b9" secondAttribute="bottom" id="hy1-ZQ-nDm"/>
+                            <constraint firstItem="JpX-Rg-Q8j" firstAttribute="top" secondItem="eeN-SB-4pm" secondAttribute="bottom" id="x1g-QZ-WEE"/>
+                        </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
@@ -1138,4 +1150,7 @@ Norwich, Norfolk NR1 3DN</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="I6A-XB-tjQ"/>
+    </inferredMetricsTieBreakers>
 </document>
