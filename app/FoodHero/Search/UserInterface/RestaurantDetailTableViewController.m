@@ -23,10 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Restaurant-Detail-Content-Background.png"]];
-    imageView.contentMode = UIViewContentModeBottom;
-    self.tableView.backgroundView = imageView;
-
     [_urlButton imageView].highlightedImage = [UIImage imageNamed:@"world-icon-transparent@2x.png"];
     [_phoneButton imageView].highlightedImage = [UIImage imageNamed:@"phone-receiver-icon-transparent@2x.png"];
     [_directionsButton imageView].highlightedImage = [UIImage imageNamed:@"directions-icon-transparent@2x.png"];
