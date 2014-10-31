@@ -48,3 +48,9 @@
 #define COCOAPODS_VERSION_MINOR_Typhoon_no_arc 1
 #define COCOAPODS_VERSION_PATCH_Typhoon_no_arc 0
 
+// UIImageViewAligned
+#define COCOAPODS_POD_AVAILABLE_UIImageViewAligned
+#define COCOAPODS_VERSION_MAJOR_UIImageViewAligned 0
+#define COCOAPODS_VERSION_MINOR_UIImageViewAligned 0
+#define COCOAPODS_VERSION_PATCH_UIImageViewAligned 1
+
