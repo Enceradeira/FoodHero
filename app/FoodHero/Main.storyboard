@@ -416,7 +416,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1R-ki-xsE" userLabel="Review Container View">
                                 <rect key="frame" x="0.0" y="344" width="320" height="224"/>
                                 <connections>
-                                    <segue destination="1Yp-k8-2Xl" kind="embed" id="upQ-gF-ToW"/>
+                                    <segue destination="Dzm-Q1-sKz" kind="embed" id="5mS-0K-nXb"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -843,7 +843,7 @@ Norwich, Norfolk NR1 3DN</string>
             <objects>
                 <tableViewController storyboardIdentifier="RestaurantReviewTableViewController" id="1Yp-k8-2Xl" userLabel="Restaurant Review Table View Controlller" customClass="RestaurantReviewTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="43" sectionHeaderHeight="22" sectionFooterHeight="22" id="82Z-tQ-6rj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="224"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
@@ -928,14 +928,103 @@ Norwich, Norfolk NR1 3DN</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpn-hW-GSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="705" y="2150"/>
+            <point key="canvasLocation" x="336" y="2959"/>
+        </scene>
+        <!--Restaurant Review Page View Controller-->
+        <scene sceneID="vC1-Q3-jyZ">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Dzm-Q1-sKz" userLabel="Restaurant Review Page View Controller" customClass="RestaurantReviewPageViewController" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6EI-MY-ucr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="701" y="2201"/>
+        </scene>
+        <!--Restaurant Review Summary View Controller-->
+        <scene sceneID="cct-ns-3EY">
+            <objects>
+                <viewController storyboardIdentifier="RestaurantReviewSummaryViewController" id="mMt-4t-Vct" customClass="RestaurantReviewSummaryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TXp-54-4iU"/>
+                        <viewControllerLayoutGuide type="bottom" id="xha-tL-lJj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="imA-Mu-26N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mLf-vw-4bK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="oeV-XR-VdJ">
+                                <rect key="frame" x="117" y="36" width="95" height="17"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="3.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEV-AW-K13">
+                                <rect key="frame" x="76" y="28" width="30" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="r9x-FX-tkl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjP-JR-MVx">
+                                <rect key="frame" x="35" y="74" width="274" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mLf-vw-4bK" firstAttribute="top" secondItem="imA-Mu-26N" secondAttribute="top" id="kbs-XK-uNb"/>
+                            <constraint firstAttribute="bottom" secondItem="mLf-vw-4bK" secondAttribute="bottom" id="o8t-W9-87k"/>
+                            <constraint firstAttribute="trailing" secondItem="mLf-vw-4bK" secondAttribute="trailing" id="rHa-eH-Tju"/>
+                            <constraint firstItem="mLf-vw-4bK" firstAttribute="leading" secondItem="imA-Mu-26N" secondAttribute="leading" id="roB-MC-1C8"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="230"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="mLf-vw-4bK" id="AWm-jm-uY2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-1k-UYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1131" y="2204"/>
+        </scene>
+        <!--Restaurant Review Comment View Controller-->
+        <scene sceneID="B6y-Ln-b5b">
+            <objects>
+                <viewController storyboardIdentifier="RestaurantReviewCommentViewController" id="TRB-BJ-F49" userLabel="Restaurant Review Comment View Controller" customClass="RestaurantReviewCommentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gEu-CY-4b9"/>
+                        <viewControllerLayoutGuide type="bottom" id="JpX-Rg-Q8j"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YZb-mf-DsF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loved Dahi Puri and Masala dosa at Namaste India - John" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG1-el-Msx">
+                                <rect key="frame" x="16" y="81" width="274" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="230"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HuI-pO-YkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1131" y="2494"/>
         </scene>
         <!--Opening Hours Table View Controller-->
         <scene sceneID="FkI-pc-7Wr">
             <objects>
                 <tableViewController storyboardIdentifier="OpeningHoursViewController" id="YYu-o7-FVO" userLabel="Opening Hours Table View Controller" customClass="OpeningHoursViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="20" sectionHeaderHeight="22" sectionFooterHeight="22" id="IIF-bK-Cu2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -980,10 +1069,12 @@ Norwich, Norfolk NR1 3DN</string>
                             <outlet property="delegate" destination="YYu-o7-FVO" id="99J-Lw-v9I"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="100"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32A-Fw-NpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1142" y="2018.5"/>
+            <point key="canvasLocation" x="1131" y="1867"/>
         </scene>
     </scenes>
     <resources>
