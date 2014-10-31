@@ -22,6 +22,13 @@
     _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width;
 
     _notebookPageView.backgroundColor = [FoodHeroColors yellowColor];
+
+    // _notebookPage with drop-shadow
+    CALayer *layer = _notebookPageView.layer;
+    layer.masksToBounds = NO;
+    layer.shadowColor = [UIColor blackColor].CGColor;
+    layer.shadowOffset = CGSizeMake(3.0f, 2.0f);
+    layer.shadowOpacity = 0.3f;
 }
 
 
