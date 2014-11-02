@@ -132,6 +132,11 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
     }
     NSString *website = [details valueForKey:@"website"];
 
+    NSArray *reviews = [[details valueForKey:@"reviews"] linq_select:^(NSDictionary *review) {
+        return [RestaurantReview create:review[@"text"]];
+    }];
+    NSNumber *ratingNumber = [details valueForKey:@"rating"];
+    RestaurantRating *rating = [RestaurantRating createRating:[ratingNumber doubleValue] withReviews:reviews];
     return [Restaurant createWithName:[details valueForKey:@"name"]
                              vicinity:[details valueForKey:@"vicinity"]
                               address:[self buildAddress:details]
@@ -147,7 +152,8 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
                              location:place.location
                              distance:distance.doubleValue
                            priceLevel:[[details valueForKey:@"price_level"] unsignedIntValue]
-                     cuisineRelevance:place.cuisineRelevance];
+                     cuisineRelevance:place.cuisineRelevance
+                               rating:rating];
 }
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {

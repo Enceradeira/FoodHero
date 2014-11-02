@@ -5,6 +5,7 @@
 
 #import "RestaurantBuilder.h"
 #import "OpeningHour.h"
+#import "RestaurantReviewBuilder.h"
 
 
 @implementation RestaurantBuilder {
@@ -25,6 +26,7 @@
     NSArray *_addressComponents;
     NSArray *_openingHours;
     double _distance;
+    RestaurantReview *_review;
 }
 
 - (Restaurant *)build {
@@ -50,6 +52,7 @@
     NSString *url = _url == nil ? @"http://www.namaste.co.uk" : _url;
     NSString *urlForDisplaying = _urlForDisplaying == nil ? @"namaste.co.uk" : _urlForDisplaying;
     double distance = _distance == 0 ? 1.34 : _distance;
+    RestaurantReview *review = _review == nil ? [[RestaurantReviewBuilder alloc] build] : _review;
 
     return [Restaurant createWithName:name
                              vicinity:vicinity
@@ -66,7 +69,8 @@
                              location:location
                              distance:distance
                            priceLevel:priceLevel
-                     cuisineRelevance:cuisineRelevance];
+                     cuisineRelevance:cuisineRelevance
+                               rating:review];
 }
 
 - (RestaurantBuilder *)withName:(NSString *)name {
@@ -139,6 +143,11 @@
 
 - (RestaurantBuilder *)withDistance:(double)distance {
     _distance = distance;
+    return self;
+}
+
+- (RestaurantBuilder *)withReview:(RestaurantReview *)review {
+    _review = review;
     return self;
 }
 @end

@@ -172,6 +172,15 @@
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
     assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
+
+    RestaurantRating *rating = restaurant.rating;
+    assertThat(rating, is(notNilValue()));
+    assertThatDouble(rating.rating, is(greaterThan(@(0))));
+    assertThatInt(rating.summary.text.length, is(greaterThan(@(0))));
+    assertThatInt(rating.reviews.count, is(greaterThan(@(0))));
+    for (RestaurantReview *review in rating.reviews) {
+        assertThatInt(review.text.length, is(greaterThan(@(0))));
+    }
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnCorrectDistanceFromCurrentLocation {

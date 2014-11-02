@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "GooglePlace.h"
 #import "Place.h"
+#import "RestaurantRating.h"
 
 
 @interface Restaurant : Place
@@ -21,6 +22,7 @@
 @property(nonatomic, readonly) NSString *url;
 @property(nonatomic, readonly) NSArray *types;
 @property(nonatomic, readonly) double distance;
+@property(nonatomic, readonly) RestaurantRating*rating;
 
 + (Restaurant *)createWithName:(NSString *)name
                       vicinity:(NSString *)vicinity
@@ -37,5 +39,6 @@
                       location:(CLLocation *)location
                       distance:(double)distance
                     priceLevel:(NSUInteger)priceLevel
-              cuisineRelevance:(double)cuisineRelevance;
+              cuisineRelevance:(double)cuisineRelevance
+                        rating:(RestaurantRating *)rating;
 @end
