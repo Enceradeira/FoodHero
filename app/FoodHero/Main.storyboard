@@ -27,7 +27,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="WhatToDoNext" id="KqU-sc-Pph" userLabel="WhatToDoNextController" customClass="WhatToDoNextTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TfI-y5-qVs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -91,17 +91,19 @@
                             <outlet property="delegate" destination="KqU-sc-Pph" id="zED-tT-pMg"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ovy-n3-HJB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-440" y="1633"/>
+            <point key="canvasLocation" x="-416" y="1448"/>
         </scene>
         <!--ProblemWithAccessLocationServiceResolved Table View Controller-->
         <scene sceneID="hsv-qp-KrI">
             <objects>
                 <tableViewController storyboardIdentifier="ProblemWithAccessLocationServiceResolved" id="qse-kR-7zd" userLabel="ProblemWithAccessLocationServiceResolved Table View Controller" customClass="ProblemWithAccessLocationServiceResolvedTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="q4j-pq-frg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -137,17 +139,19 @@
                             <outlet property="delegate" destination="qse-kR-7zd" id="zND-zL-rC2"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYn-Ew-XOd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-440" y="2289"/>
+            <point key="canvasLocation" x="-416" y="1695"/>
         </scene>
         <!--Feedback Table View Controller-->
         <scene sceneID="ApE-ik-xtA">
             <objects>
                 <tableViewController storyboardIdentifier="Feedback" id="WzS-TJ-yEO" userLabel="Feedback Table View Controller" customClass="FeedbackTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="T9U-Bk-Cko">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -175,17 +179,19 @@
                             <outlet property="delegate" destination="WzS-TJ-yEO" id="ETs-GU-8ha"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AmR-Yt-KKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-87" y="1633"/>
+            <point key="canvasLocation" x="-71" y="1448"/>
         </scene>
         <!--Cuisine Table View Controller-->
         <scene sceneID="hYK-zT-eVP">
             <objects>
                 <tableViewController storyboardIdentifier="Cuisine" id="o8v-VU-phG" userLabel="Cuisine Table View Controller" customClass="CuisineTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jaA-Ys-JK0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -214,10 +220,12 @@
                             <outlet property="delegate" destination="o8v-VU-phG" id="wQ8-NB-b2e"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qat-MK-FAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="1633"/>
+            <point key="canvasLocation" x="282" y="1449"/>
         </scene>
         <!--Food Hero-->
         <scene sceneID="qo0-gW-NQz">
@@ -738,7 +746,7 @@ Norwich, Norfolk NR1 3DN</string>
             <objects>
                 <tableViewController storyboardIdentifier="TryAgain" id="AgF-W7-ZYW" userLabel="Try Again Table View Controllr" customClass="TryAgainTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="buS-7i-dmv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -796,17 +804,19 @@ Norwich, Norfolk NR1 3DN</string>
                             <outlet property="delegate" destination="AgF-W7-ZYW" id="H4A-Xh-cxB"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BtB-Ul-Gkf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-87" y="2289"/>
+            <point key="canvasLocation" x="-63" y="1695"/>
         </scene>
         <!--Search For Another Restaurant Controller-->
         <scene sceneID="uOX-KV-K7v">
             <objects>
                 <tableViewController storyboardIdentifier="SearchForAnotherRestaurant" id="Tam-Jf-atS" userLabel="Search For Another Restaurant Controller" customClass="SearchForAnotherRestaurantTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qt1-nt-7Rk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -845,10 +855,12 @@ Norwich, Norfolk NR1 3DN</string>
                             <outlet property="delegate" destination="Tam-Jf-atS" id="eZZ-Wd-qDU"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnZ-Or-IWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="2295"/>
+            <point key="canvasLocation" x="282" y="1695"/>
         </scene>
         <!--Restaurant Review Page View Controller-->
         <scene sceneID="vC1-Q3-jyZ">
@@ -903,7 +915,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-1k-UYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1542" y="2320"/>
+            <point key="canvasLocation" x="1564" y="2141"/>
         </scene>
         <!--Restaurant Review Comment View Controller-->
         <scene sceneID="B6y-Ln-b5b">
@@ -943,7 +955,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuI-pO-YkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113" y="2464"/>
+            <point key="canvasLocation" x="1135" y="2310"/>
         </scene>
         <!--Opening Hours Table View Controller-->
         <scene sceneID="FkI-pc-7Wr">
@@ -1000,7 +1012,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32A-Fw-NpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1131" y="1867"/>
+            <point key="canvasLocation" x="1135" y="1766"/>
         </scene>
         <!--Restaurant Review Summary Controller-->
         <scene sceneID="35t-qN-8ZF">
@@ -1053,7 +1065,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yiJ-j2-I90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113" y="2149"/>
+            <point key="canvasLocation" x="1135" y="1995"/>
         </scene>
     </scenes>
     <resources>
