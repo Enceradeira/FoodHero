@@ -17,11 +17,16 @@
 - (id)initRating:(double)rating withReviews:(NSArray *)reviews {
     self = [super init];
     if (self) {
+
+        NSArray *cleanReviews = [reviews linq_where:^(RestaurantReview *r) {
+            return (BOOL) (r.text != nil && ![r.text isEqualToString:@""]);
+        }];
+
         _rating = rating;
-        if (reviews.count > 0) {
-            _summary = reviews[0];
+        if (cleanReviews.count > 0) {
+            _summary = cleanReviews[0];
         }
-        _reviews = [reviews linq_skip:1];
+        _reviews = [cleanReviews linq_skip:1];
     }
     return self;
 }

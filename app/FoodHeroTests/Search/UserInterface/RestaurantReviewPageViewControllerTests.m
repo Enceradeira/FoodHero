@@ -45,33 +45,6 @@
     return [[[[RestaurantRatingBuilder alloc] withRating:3.2] withReviews:reviews] build];
 }
 
-/*
-- (void)test_presentationCountForPageViewController_ShouldBe3_When3ReviewsAvailable {
-    NSArray *reviews = @[[self review:@"Nice location"], [self review:@"Good food"], [self review:@"Good beer"]];
-    RestaurantRating *rating = [self rating:reviews];
-
-    [_ctrl setRating:rating];
-
-    assertThatInt([_ctrl presentationCountForPageViewController:_ctrl], is(equalToInt(3)));
-}
-
-- (void)test_presentationCountForPageViewController_ShouldBe1_When1ReviewsAvailable {
-    NSArray *reviews = @[[self review:@"Nice location"]];
-    RestaurantRating *rating = [self rating:reviews];
-
-    [_ctrl setRating:rating];
-
-    assertThatInt([_ctrl presentationCountForPageViewController:_ctrl], is(equalToInt(1)));
-}
-
-- (void)test_presentationCountForPageViewController_ShouldBe0_WhenNoReviewAvailable {
-    RestaurantRating *rating = [self rating:@[]];
-
-    [_ctrl setRating:rating];
-
-    assertThatInt([_ctrl presentationCountForPageViewController:_ctrl], is(equalToInt(0)));
-} */
-
 - (void)test_viewDidLoad_DisplaysSummaryController {
     [_ctrl setRestaurant:[[RestaurantBuilder alloc] build]];
 

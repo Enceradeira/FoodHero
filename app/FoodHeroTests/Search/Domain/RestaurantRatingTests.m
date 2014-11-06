@@ -57,4 +57,14 @@
     assertThatInt(rating.reviews.count, is(greaterThan(@(0))));
 }
 
+- (void)test_create_ShouldDropEmptyReviews_WhenTextOnReviewIsEmpty {
+    RestaurantReview *review1 = [[[RestaurantReviewBuilder alloc] withText:@""] build];
+    RestaurantReview *review2 = [[[RestaurantReviewBuilder alloc] withText:@"Nice place"] build];
+
+    RestaurantRating *rating = [RestaurantRating createRating:3.2 withReviews:@[review1, review2]];
+    assertThat(rating, is(notNilValue()));
+    assertThat(rating.summary, is(equalTo(review2)));
+    assertThatInt(rating.reviews.count, is(equalTo(@(0))));
+}
+
 @end

@@ -13,6 +13,7 @@
 @class OpeningHoursViewController;
 @class RestaurantReviewSummaryViewController;
 @class RestaurantReviewPageViewController;
+@class RestaurantReviewCommentViewController;
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
@@ -22,6 +23,8 @@
 + (OpeningHoursViewController *)createOpeningHoursViewController;
 
 + (RestaurantReviewSummaryViewController *)createRestaurantReviewSummaryViewController;
+
++ (RestaurantReviewCommentViewController *)createRestaurantReviewCommentViewController;
 
 + (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController;
 @end

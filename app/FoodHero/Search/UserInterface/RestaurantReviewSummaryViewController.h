@@ -5,9 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import "RestaurantRating.h"
+#import "NotebookPageHostViewController.h"
 
 
-@interface RestaurantReviewSummaryViewController : UIViewController
+@interface RestaurantReviewSummaryViewController : NotebookPageHostViewController
 @property(weak, nonatomic) IBOutlet UIImageView *ratingImage;
 @property(weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property(weak, nonatomic) IBOutlet UILabel *summaryLabel;

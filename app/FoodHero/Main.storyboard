@@ -944,17 +944,21 @@ Norwich, Norfolk NR1 3DN</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YGr-HT-Prm" secondAttribute="trailing" constant="20" id="6KE-Ai-4n1"/>
                             <constraint firstAttribute="trailing" secondItem="eeN-SB-4pm" secondAttribute="trailing" id="DrF-Eg-Dvt"/>
                             <constraint firstItem="YGr-HT-Prm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" constant="20" id="F2B-MK-JUU"/>
                             <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="YZb-mf-DsF" secondAttribute="top" id="Kfx-RI-tmY"/>
                             <constraint firstItem="JpX-Rg-Q8j" firstAttribute="top" secondItem="eeN-SB-4pm" secondAttribute="bottom" id="M4W-3D-ceU"/>
                             <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="YGr-HT-Prm" secondAttribute="top" constant="-20" id="VWc-Mz-OcA"/>
                             <constraint firstItem="eeN-SB-4pm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" id="iG1-A2-DaT"/>
+                            <constraint firstAttribute="trailing" secondItem="YGr-HT-Prm" secondAttribute="trailing" constant="20" id="ka1-xG-M8K"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
+                    <connections>
+                        <outlet property="leftBorderConstraint" destination="F2B-MK-JUU" id="aTN-Jg-BbC"/>
+                        <outlet property="reviewLabel" destination="YGr-HT-Prm" id="fN8-2a-1wi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuI-pO-YkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

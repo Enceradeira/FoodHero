@@ -11,6 +11,7 @@
 #import "OpeningHoursViewController.h"
 #import "RestaurantReviewSummaryViewController.h"
 #import "RestaurantReviewPageViewController.h"
+#import "RestaurantReviewCommentViewController.h"
 
 @implementation ControllerFactory
 + (ConversationViewController *)createConversationViewController {
@@ -35,6 +36,12 @@
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
 
     return [storyboard instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
+}
+
++ (RestaurantReviewCommentViewController *)createRestaurantReviewCommentViewController {
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+
+    return [storyboard instantiateViewControllerWithIdentifier:@"RestaurantReviewCommentViewController"];
 }
 
 + (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController {
