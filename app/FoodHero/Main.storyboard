@@ -930,24 +930,27 @@ Norwich, Norfolk NR1 3DN</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeN-SB-4pm">
-                                <rect key="frame" x="0.0" y="20" width="320" height="210"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                                 <connections>
                                     <segue destination="mMt-4t-Vct" kind="embed" identifier="Container" id="9GY-l1-vwD"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loved Dahi Puri and Masala dosa at Namaste India - John" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG1-el-Msx">
-                                <rect key="frame" x="16" y="81" width="274" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-HT-Prm">
+                                <rect key="frame" x="20" y="20" width="280" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eeN-SB-4pm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" id="Dgz-Wb-S3f"/>
-                            <constraint firstAttribute="trailing" secondItem="eeN-SB-4pm" secondAttribute="trailing" id="aZR-fL-evC"/>
-                            <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="gEu-CY-4b9" secondAttribute="bottom" id="hy1-ZQ-nDm"/>
-                            <constraint firstItem="JpX-Rg-Q8j" firstAttribute="top" secondItem="eeN-SB-4pm" secondAttribute="bottom" id="x1g-QZ-WEE"/>
+                            <constraint firstAttribute="trailing" secondItem="YGr-HT-Prm" secondAttribute="trailing" constant="20" id="6KE-Ai-4n1"/>
+                            <constraint firstAttribute="trailing" secondItem="eeN-SB-4pm" secondAttribute="trailing" id="DrF-Eg-Dvt"/>
+                            <constraint firstItem="YGr-HT-Prm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" constant="20" id="F2B-MK-JUU"/>
+                            <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="YZb-mf-DsF" secondAttribute="top" id="Kfx-RI-tmY"/>
+                            <constraint firstItem="JpX-Rg-Q8j" firstAttribute="top" secondItem="eeN-SB-4pm" secondAttribute="bottom" id="M4W-3D-ceU"/>
+                            <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="YGr-HT-Prm" secondAttribute="top" constant="-20" id="VWc-Mz-OcA"/>
+                            <constraint firstItem="eeN-SB-4pm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" id="iG1-A2-DaT"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1046,16 +1049,15 @@ Norwich, Norfolk NR1 3DN</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ba2-ns-Amk">
-                                <rect key="frame" x="104" y="21" width="110" height="19"/>
+                                <rect key="frame" x="64" y="21" width="110" height="19"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="ba2-ns-Amk" secondAttribute="trailing" constant="90" id="7zd-mo-YNz"/>
-                            <constraint firstItem="ba2-ns-Amk" firstAttribute="leading" secondItem="O8J-dc-XQ0" secondAttribute="trailing" constant="60" id="AAy-l1-JbZ"/>
+                            <constraint firstItem="ba2-ns-Amk" firstAttribute="leading" secondItem="O8J-dc-XQ0" secondAttribute="trailing" constant="20" id="AAy-l1-JbZ"/>
                             <constraint firstAttribute="bottom" secondItem="J4P-vH-Air" secondAttribute="bottom" id="Acz-nJ-CCf"/>
                             <constraint firstAttribute="trailing" secondItem="vaY-RJ-X5N" secondAttribute="trailing" constant="20" id="EvM-UH-Nqp"/>
-                            <constraint firstItem="O8J-dc-XQ0" firstAttribute="top" secondItem="sLg-y0-2NJ" secondAttribute="bottom" id="O0f-ir-9R7"/>
+                            <constraint firstItem="J4P-vH-Air" firstAttribute="top" secondItem="O8J-dc-XQ0" secondAttribute="top" constant="-20" id="Kd5-oA-hL0"/>
                             <constraint firstAttribute="trailing" secondItem="J4P-vH-Air" secondAttribute="trailing" id="OPN-mQ-iZN"/>
                             <constraint firstItem="O8J-dc-XQ0" firstAttribute="leading" secondItem="5ln-xF-N0h" secondAttribute="leading" constant="20" id="Q72-dS-UyI"/>
                             <constraint firstItem="J4P-vH-Air" firstAttribute="top" secondItem="5ln-xF-N0h" secondAttribute="top" id="Xhu-u8-Dte"/>
@@ -1095,6 +1097,6 @@ Norwich, Norfolk NR1 3DN</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="I6A-XB-tjQ"/>
+        <segue reference="9GY-l1-vwD"/>
     </inferredMetricsTieBreakers>
 </document>
