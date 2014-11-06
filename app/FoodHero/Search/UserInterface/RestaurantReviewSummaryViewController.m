@@ -23,8 +23,8 @@
 - (void)bind {
     self.ratingImage.image = [RatingStarsImageRepository getImageForRating:_rating.rating].image;
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", _rating.rating];
-    self.ratingLabel.accessibilityIdentifier =  @"ReviewSummary";
     self.summaryLabel.text = _rating.summary.text;
+    self.summaryLabel.accessibilityIdentifier =  @"ReviewSummary";
 }
 
 - (void)setRating:(RestaurantRating *)rating {

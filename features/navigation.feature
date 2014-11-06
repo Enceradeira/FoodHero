@@ -13,6 +13,8 @@ Feature: Navigation in app
     Then I see the week's opening hours
 
     When I dismiss the week's opening hours
+    Then I see the review summary
+
     When I go back
     Then I see the conversation view
 

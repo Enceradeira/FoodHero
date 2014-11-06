@@ -341,7 +341,25 @@ Then(/^I see the week's opening hours$/) do
   expect(daily_opening_hours.count).to be(7)
 end
 
+Then(/^I see the review summary$/) do
+  review_summary = find_element(:name, 'ReviewSummary')
+  expect(review_summary).not_to be_nil
+end
+
+Then(/^I see a review comment$/) do
+  review_summary = find_element(:name, 'ReviewComment')
+  expect(review_summary).not_to be_nil
+end
+
 When(/^I dismiss the week's opening hours$/) do
   # tap somewhere outside the opening hours
   execute_script 'mobile: tap', :x => 50, :y => 50
 end
+
+=begin
+When(/^I navigate to next review page$/) do
+  execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
+end
+=end
+
+

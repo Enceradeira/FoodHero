@@ -894,6 +894,9 @@ Norwich, Norfolk NR1 3DN</string>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <accessibility key="accessibilityConfiguration" label="Notebook">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstItem="mLf-vw-4bK" firstAttribute="top" secondItem="imA-Mu-26N" secondAttribute="top" id="0cX-sa-9fC"/>
                             <constraint firstItem="OZP-y3-7L2" firstAttribute="top" secondItem="imA-Mu-26N" secondAttribute="top" id="6bD-uf-n8h"/>
