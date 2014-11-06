@@ -11,11 +11,17 @@
 
 @class RestaurantDetailTableViewController;
 @class OpeningHoursViewController;
+@class RestaurantReviewSummaryViewController;
+@class RestaurantReviewPageViewController;
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
 
 + (RestaurantDetailTableViewController *)createRestaurantDetailTableViewController;
 
-+ (OpeningHoursViewController *)createOpeningHoursViewControllerTests;
++ (OpeningHoursViewController *)createOpeningHoursViewController;
+
++ (RestaurantReviewSummaryViewController *)createRestaurantReviewSummaryViewController;
+
++ (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController;
 @end

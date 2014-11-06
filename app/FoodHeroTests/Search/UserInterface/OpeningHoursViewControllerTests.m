@@ -26,7 +26,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly assembly]];
-    _ctrl = [ControllerFactory createOpeningHoursViewControllerTests];
+    _ctrl = [ControllerFactory createOpeningHoursViewController];
     _ctrl.view.hidden = NO;
 }
 

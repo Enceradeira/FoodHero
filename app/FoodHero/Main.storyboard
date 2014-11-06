@@ -865,7 +865,7 @@ Norwich, Norfolk NR1 3DN</string>
         <!--Restaurant Review Page View Controller-->
         <scene sceneID="vC1-Q3-jyZ">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Dzm-Q1-sKz" userLabel="Restaurant Review Page View Controller" customClass="RestaurantReviewPageViewController" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="RestaurantReviewPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Dzm-Q1-sKz" userLabel="Restaurant Review Page View Controller" customClass="RestaurantReviewPageViewController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6EI-MY-ucr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="701" y="2201"/>
@@ -932,7 +932,7 @@ Norwich, Norfolk NR1 3DN</string>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeN-SB-4pm">
                                 <rect key="frame" x="0.0" y="20" width="320" height="210"/>
                                 <connections>
-                                    <segue destination="mMt-4t-Vct" kind="embed" id="9GY-l1-vwD"/>
+                                    <segue destination="mMt-4t-Vct" kind="embed" identifier="Container" id="9GY-l1-vwD"/>
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loved Dahi Puri and Masala dosa at Namaste India - John" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG1-el-Msx">
@@ -1029,39 +1029,50 @@ Norwich, Norfolk NR1 3DN</string>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4P-vH-Air">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                                 <connections>
-                                    <segue destination="mMt-4t-Vct" kind="embed" id="I6A-XB-tjQ"/>
+                                    <segue destination="mMt-4t-Vct" kind="embed" identifier="Container" id="I6A-XB-tjQ"/>
                                 </connections>
                             </containerView>
-                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="8qa-QD-MOO">
-                                <rect key="frame" x="137" y="39" width="95" height="17"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaY-RJ-X5N">
-                                <rect key="frame" x="53" y="82" width="274" height="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaY-RJ-X5N">
+                                <rect key="frame" x="20" y="61" width="280" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="3.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qS-yA-8C0">
-                                <rect key="frame" x="87" y="37" width="30" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8J-dc-XQ0">
+                                <rect key="frame" x="20" y="20" width="24" height="21"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="QaP-sb-OCX"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ba2-ns-Amk">
+                                <rect key="frame" x="104" y="21" width="110" height="19"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="J4P-vH-Air" firstAttribute="leading" secondItem="5ln-xF-N0h" secondAttribute="leading" id="1tc-fs-bxB"/>
-                            <constraint firstAttribute="bottom" secondItem="J4P-vH-Air" secondAttribute="bottom" id="KpY-tn-i01"/>
-                            <constraint firstAttribute="trailing" secondItem="J4P-vH-Air" secondAttribute="trailing" id="TKK-ot-S9S"/>
-                            <constraint firstItem="J4P-vH-Air" firstAttribute="top" secondItem="5ln-xF-N0h" secondAttribute="top" id="eEO-5i-D8X"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ba2-ns-Amk" secondAttribute="trailing" constant="90" id="7zd-mo-YNz"/>
+                            <constraint firstItem="ba2-ns-Amk" firstAttribute="leading" secondItem="O8J-dc-XQ0" secondAttribute="trailing" constant="60" id="AAy-l1-JbZ"/>
+                            <constraint firstAttribute="bottom" secondItem="J4P-vH-Air" secondAttribute="bottom" id="Acz-nJ-CCf"/>
+                            <constraint firstAttribute="trailing" secondItem="vaY-RJ-X5N" secondAttribute="trailing" constant="20" id="EvM-UH-Nqp"/>
+                            <constraint firstItem="O8J-dc-XQ0" firstAttribute="top" secondItem="sLg-y0-2NJ" secondAttribute="bottom" id="O0f-ir-9R7"/>
+                            <constraint firstAttribute="trailing" secondItem="J4P-vH-Air" secondAttribute="trailing" id="OPN-mQ-iZN"/>
+                            <constraint firstItem="O8J-dc-XQ0" firstAttribute="leading" secondItem="5ln-xF-N0h" secondAttribute="leading" constant="20" id="Q72-dS-UyI"/>
+                            <constraint firstItem="J4P-vH-Air" firstAttribute="top" secondItem="5ln-xF-N0h" secondAttribute="top" id="Xhu-u8-Dte"/>
+                            <constraint firstItem="J4P-vH-Air" firstAttribute="leading" secondItem="5ln-xF-N0h" secondAttribute="leading" id="ZwO-qk-HIK"/>
+                            <constraint firstItem="vaY-RJ-X5N" firstAttribute="leading" secondItem="O8J-dc-XQ0" secondAttribute="leading" id="gQ3-Bt-kI6"/>
+                            <constraint firstItem="ba2-ns-Amk" firstAttribute="centerY" secondItem="O8J-dc-XQ0" secondAttribute="centerY" id="hde-eH-Gb8"/>
+                            <constraint firstItem="vaY-RJ-X5N" firstAttribute="top" secondItem="O8J-dc-XQ0" secondAttribute="bottom" constant="20" id="wrD-0G-6BO"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
+                    <connections>
+                        <outlet property="leftBorderConstraint" destination="Q72-dS-UyI" id="lea-tf-Q1a"/>
+                        <outlet property="ratingImage" destination="ba2-ns-Amk" id="EFe-tW-y8I"/>
+                        <outlet property="ratingLabel" destination="O8J-dc-XQ0" id="FZS-5F-Iua"/>
+                        <outlet property="summaryLabel" destination="vaY-RJ-X5N" id="iNc-xQ-2oN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yiJ-j2-I90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1075,7 +1086,7 @@ Norwich, Norfolk NR1 3DN</string>
         <image name="Notebook-small.png" width="25" height="121"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>
-        <image name="rating-stars-4.0.png" width="95" height="17"/>
+        <image name="rating-stars-4.0.png" width="110" height="19"/>
         <image name="world-icon.png" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

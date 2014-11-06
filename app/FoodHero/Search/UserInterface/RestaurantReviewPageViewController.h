@@ -7,5 +7,5 @@
 #import "RestaurantController.h"
 
 
-@interface RestaurantReviewPageViewController : UIPageViewController <RestaurantController, UIPageViewControllerDataSource>
+@interface RestaurantReviewPageViewController : UIPageViewController <RestaurantController,UIPageViewControllerDataSource>
 @end

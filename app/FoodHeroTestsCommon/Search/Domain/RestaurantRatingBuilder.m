@@ -26,4 +26,15 @@
     ];
 }
 
+- (RestaurantRatingBuilder *)withRating:(double)rating {
+    _rating = rating;
+    return self;
+}
+
+- (RestaurantRatingBuilder *)withReviews:(NSArray *)reviews {
+    _reviews = reviews;
+    return self;
+}
+
+
 @end

@@ -5,47 +5,81 @@
 
 #import "RestaurantReviewPageViewController.h"
 #import "TyphoonComponents.h"
+#import "RestaurantReviewSummaryViewController.h"
+#import "RestaurantReviewCommentViewController.h"
 #import "Restaurant.h"
 
 
 @implementation RestaurantReviewPageViewController {
-
-    id _summaryController;
-    id _commentController;
+    RestaurantRating *_rating;
+    NSUInteger _index;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.dataSource = self;
-    _summaryController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
-    _commentController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewCommentViewController"];;
 
-
-    NSArray *controllers = @[_summaryController];
+    NSArray *controllers = @[[self createSummaryController]];
     [self setViewControllers:controllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+
+    _index = 0;
+}
+
+- (RestaurantReviewSummaryViewController *)createSummaryController {
+    RestaurantReviewSummaryViewController *summaryController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
+    [summaryController setRating:_rating];
+    return summaryController;
 }
 
 
-
-- (void)setRestaurant:(Restaurant *)restaurant {
-
+- (RestaurantReviewCommentViewController *)createCommentControllerFor:(RestaurantReview *)review {
+    RestaurantReviewCommentViewController *commentController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewCommentViewController"];
+    [commentController setReview:review];
+    return commentController;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    return _summaryController;
+    if (_index == 0) {
+        return nil;
+    }
+    if (_index == 1) {
+        _index--;
+        return [self createSummaryController];
+    }
+    else {
+        _index--;
+        return [self createCommentControllerFor:_rating.reviews[_index - 1]];
+    }
 }
+
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    return _commentController;
+    if (_index < _rating.reviews.count) {
+        _index++;
+        return [self createCommentControllerFor:_rating.reviews[_index - 1]];
+    }
+    else {
+        return nil;
+    }
 }
 
+-(void)setRestaurant:(Restaurant *)restaurant {
+    _rating = restaurant.rating;
+}
+
+/*
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return 2;
+    if (!_rating.summary) {
+        return 0;
+    }
+    else {
+        return _rating.reviews.count + 1;
+    }
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return 0;
-}
+} */
 
 
 @end

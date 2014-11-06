@@ -34,4 +34,7 @@
 }
 
 
+- (CGFloat)paddingLeft {
+    return _notebookPageLeftConstraint.constant;
+}
 @end

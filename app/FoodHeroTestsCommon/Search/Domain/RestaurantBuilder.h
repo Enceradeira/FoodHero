@@ -34,4 +34,6 @@
 - (RestaurantBuilder *)withUrlForDisplaying:(NSString *)url;
 
 - (RestaurantBuilder *)withDistance:(double)distance;
+
+- (RestaurantBuilder *)withReview:(RestaurantRating *)review;
 @end

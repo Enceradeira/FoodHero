@@ -7,4 +7,5 @@
 
 
 @interface NotebookPageViewController : UIViewController
+- (CGFloat)paddingLeft;
 @end

@@ -8,4 +8,8 @@
 
 @interface RestaurantRatingBuilder : NSObject
 - (RestaurantRating *)build;
+
+- (RestaurantRatingBuilder *)withRating:(double)rating;
+
+- (RestaurantRatingBuilder *)withReviews:(NSArray *)reviews;
 @end

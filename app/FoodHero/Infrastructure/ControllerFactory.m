@@ -9,6 +9,8 @@
 #import "ControllerFactory.h"
 #import "TyphoonComponents.h"
 #import "OpeningHoursViewController.h"
+#import "RestaurantReviewSummaryViewController.h"
+#import "RestaurantReviewPageViewController.h"
 
 @implementation ControllerFactory
 + (ConversationViewController *)createConversationViewController {
@@ -23,9 +25,21 @@
     return [storyboard instantiateViewControllerWithIdentifier:@"RestaurantDetailTableViewController"];
 }
 
-+ (OpeningHoursViewController *)createOpeningHoursViewControllerTests {
++ (OpeningHoursViewController *)createOpeningHoursViewController {
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
 
     return [storyboard instantiateViewControllerWithIdentifier:@"OpeningHoursViewController"];
+}
+
++ (RestaurantReviewSummaryViewController *)createRestaurantReviewSummaryViewController {
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+
+    return [storyboard instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
+}
+
++ (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController {
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+
+    return [storyboard instantiateViewControllerWithIdentifier:@"RestaurantReviewPageViewController"];
 }
 @end

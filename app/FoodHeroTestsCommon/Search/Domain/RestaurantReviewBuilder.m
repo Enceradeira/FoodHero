@@ -11,7 +11,7 @@
     NSString *_text;
 }
 - (RestaurantReview *)build {
-    return [RestaurantReview create:_text ? @"Nice, cosy but expensive place" : _text];
+    return [RestaurantReview create:!_text ? @"Nice, cosy but expensive place" : _text];
 }
 
 - (RestaurantReviewBuilder *)withText:(NSString *)text {

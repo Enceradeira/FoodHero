@@ -4,7 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RestaurantReview.h"
 
 
 @interface RestaurantReviewCommentViewController : UIViewController
+@property(nonatomic) RestaurantReview *review;
 @end
