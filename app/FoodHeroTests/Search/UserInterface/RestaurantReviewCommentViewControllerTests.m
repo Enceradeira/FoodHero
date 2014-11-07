@@ -12,9 +12,7 @@
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
 #import "RestaurantReviewSummaryViewController.h"
-#import "RestaurantRatingBuilder.h"
 #import "RestaurantReviewBuilder.h"
-#import "RestaurantBuilder.h"
 #import "RatingStarsImageRepository.h"
 #import "RestaurantReviewCommentViewController.h"
 
@@ -33,10 +31,25 @@
     _ctrl = [ControllerFactory createRestaurantReviewCommentViewController];
     _ctrl.view.hidden = NO;
 
-    [_ctrl setReview:[[[RestaurantReviewBuilder alloc] withText:@"Nice location"] build]];
+    [_ctrl setReview:[[[[[[RestaurantReviewBuilder alloc] withText:@"Nice location"] withRating:2.5] withAuthor:@"John Wayne"] date:[NSDate date]] build]];
 }
 
 - (void)test_summaryLabel_ShouldContainSummary {
     assertThat(_ctrl.reviewLabel.text, is(equalTo(@"Nice location")));
 }
+
+- (void)test_ratingLabel_ShouldContainRating {
+    assertThat(_ctrl.ratingLabel.text, is(equalTo(@"2.5")));
+}
+
+- (void)test_ratingImage_ShouldContainRatingImage {
+    UIImage *image = [RatingStarsImageRepository getImageForRating:2.5].image;
+
+    assertThat(_ctrl.ratingImage.image, is(equalTo(image)));
+}
+
+- (void)test_signatureLabelLabel_ShouldContainSignature {
+    assertThat(_ctrl.signatureLabel.text, is(equalTo(@"Today by John Wayne")));
+}
+
 @end

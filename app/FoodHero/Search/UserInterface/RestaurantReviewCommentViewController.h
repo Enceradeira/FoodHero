@@ -11,4 +11,8 @@
 @interface RestaurantReviewCommentViewController : NotebookPageHostViewController
 @property(nonatomic) RestaurantReview *review;
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
+@property (weak, nonatomic) IBOutlet UILabel *signatureLabel;
+@property(weak, nonatomic) IBOutlet UIImageView *ratingImage;
+@property(weak, nonatomic) IBOutlet UILabel *ratingLabel;
+
 @end

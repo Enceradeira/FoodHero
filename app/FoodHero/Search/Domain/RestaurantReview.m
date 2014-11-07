@@ -9,14 +9,17 @@
 @implementation RestaurantReview {
 
 }
-+ (instancetype)create:(NSString *)review {
-    return [[RestaurantReview alloc] init:review];
++ (instancetype)create:(NSString *)review rating:(double)rating author:(NSString *)author date:(NSDate *)date {
+    return [[RestaurantReview alloc] init:review rating:rating author:author date:date];
 }
 
-- (id)init:(NSString *)review {
+- (id)init:(NSString *)review rating:(double)rating author:(NSString *)author date:(NSDate *)date {
     self = [super init];
-    if( self){
+    if (self) {
         _text = review;
+        _rating = rating;
+        _author = author;
+        _date = date;
     }
     return self;
 }

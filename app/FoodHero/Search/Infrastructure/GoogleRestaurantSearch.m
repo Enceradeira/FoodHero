@@ -132,7 +132,8 @@
     NSString *website = [details valueForKey:@"website"];
 
     NSArray *reviews = [[details valueForKey:@"reviews"] linq_select:^(NSDictionary *review) {
-        return [RestaurantReview create:review[@"text"]];
+        NSDate *date =[NSDate dateWithTimeIntervalSince1970:[review[@"time"] doubleValue]];
+        return [RestaurantReview create:review[@"text"] rating:[review[@"rating"] doubleValue] author:review[@"author_name"] date:date];
     }];
     NSNumber *ratingNumber = [details valueForKey:@"rating"];
     RestaurantRating *rating = [RestaurantRating createRating:[ratingNumber doubleValue] withReviews:reviews];

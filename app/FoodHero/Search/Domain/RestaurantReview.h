@@ -9,8 +9,11 @@
 @interface RestaurantReview : NSObject
 
 @property(nonatomic, readonly) NSString *text;
+@property(nonatomic, readonly) double rating;
+@property(nonatomic, readonly) NSString *author;
+@property(nonatomic, readonly) NSDate *date;
 
-+ (instancetype)create:(NSString *)review;
++ (instancetype)create:(NSString *)review rating:(double)rating author:(NSString *)author date:(NSDate *)date;
 
-- (id)init:(NSString *)review;
+- (id)init:(NSString *)review rating:(double)rating author:(NSString *)author date:(NSDate *)date;
 @end

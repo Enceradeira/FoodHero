@@ -9,9 +9,15 @@
 @implementation RestaurantReviewBuilder {
 
     NSString *_text;
+    double _rating;
+    NSString *_author;
+    NSDate *_date;
 }
 - (RestaurantReview *)build {
-    return [RestaurantReview create:!_text ? @"Nice, cosy but expensive place" : _text];
+    NSString *text = !_text ? @"Nice, cosy but expensive place" : _text;
+    NSString *author = _author == nil ? @"Franzl Meyer" : _author;
+    NSDate *date = _date == nil ? [NSDate date] : _date;
+    return [RestaurantReview create:text rating:_rating author:author date:date];
 }
 
 - (RestaurantReviewBuilder *)withText:(NSString *)text {
@@ -19,4 +25,18 @@
     return self;
 }
 
+- (RestaurantReviewBuilder *)withRating:(double)rating {
+    _rating = rating;
+    return self;
+}
+
+- (RestaurantReviewBuilder *)withAuthor:(NSString *)name {
+    _author = name;
+    return self;
+}
+
+- (RestaurantReviewBuilder *)date:(NSDate *)date {
+    _date = date;
+    return self;
+}
 @end

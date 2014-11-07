@@ -175,12 +175,12 @@
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
     assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
     assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@1U)));  // there should be more than 1 photo to have a meaningful test here
-    for (id<IPhoto> photo in restaurant.photos) {
+    for (id <IPhoto> photo in restaurant.photos) {
         NSArray *photos = [[photo image] toArray]; // force loading by enumerating image-Signal
-        assertThatUnsignedInt(photos.count,is(equalTo(@1)) );
+        assertThatUnsignedInt(photos.count, is(equalTo(@1)));
     }
-    assertThatBool(((id<IPhoto>)restaurant.photos[0]).isEagerlyLoaded,is(equalToBool(YES)));
-    assertThatBool(((id<IPhoto>)restaurant.photos[1]).isEagerlyLoaded,is(equalToBool(NO)));
+    assertThatBool(((id <IPhoto>) restaurant.photos[0]).isEagerlyLoaded, is(equalToBool(YES)));
+    assertThatBool(((id <IPhoto>) restaurant.photos[1]).isEagerlyLoaded, is(equalToBool(NO)));
 
     RestaurantRating *rating = restaurant.rating;
     assertThat(rating, is(notNilValue()));
@@ -188,6 +188,9 @@
     assertThatInt(rating.reviews.count, is(greaterThan(@(0))));
     for (RestaurantReview *review in rating.reviews) {
         assertThatInt(review.text.length, is(greaterThan(@(0))));
+        assertThatInt(review.author.length, is(greaterThan(@(0))));
+        assertThat(review.date, is(notNilValue()));
+        assertThatDouble(review.rating, is(greaterThan(@(0))));
     }
 }
 

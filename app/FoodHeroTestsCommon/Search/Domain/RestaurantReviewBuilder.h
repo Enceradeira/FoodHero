@@ -11,4 +11,10 @@
 - (RestaurantReview *)build;
 
 - (RestaurantReviewBuilder *)withText:(NSString *)text;
+
+- (RestaurantReviewBuilder *)withRating:(double)d;
+
+- (RestaurantReviewBuilder *)withAuthor:(NSString *)name;
+
+- (RestaurantReviewBuilder *)date:(NSDate *)date;
 @end
