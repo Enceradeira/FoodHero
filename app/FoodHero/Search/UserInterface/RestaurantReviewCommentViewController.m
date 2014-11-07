@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <SORelativeDateTransformer.h>
 #import "RestaurantReviewCommentViewController.h"
 #import "RatingStarsImageRepository.h"
 #import "FoodHeroColors.h"
@@ -38,18 +39,14 @@
     self.signatureLabel.text = [NSString stringWithFormat:@"%@ by %@", [self convertToRelativeDate:_review.date], _review.author];
     self.signatureLabel.textColor = [FoodHeroColors darkGrey];
 
-    if( self.reviewLabel.font.pointSize < self.signatureLabel.font.pointSize){
+    if (self.reviewLabel.font.pointSize < self.signatureLabel.font.pointSize) {
         // ensure that font of signature is never larger than of review text
         self.signatureLabel.font = self.reviewLabel.font;
     }
 }
 
 - (NSString *)convertToRelativeDate:(NSDate *)date {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    dateFormatter.doesRelativeDateFormatting = YES;
-    return [dateFormatter stringFromDate:date];
+    return [[SORelativeDateTransformer registeredTransformer] transformedValue:date];
 }
 
 

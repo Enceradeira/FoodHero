@@ -49,7 +49,7 @@
 }
 
 - (void)test_signatureLabelLabel_ShouldContainSignature {
-    assertThat(_ctrl.signatureLabel.text, is(equalTo(@"Today by John Wayne")));
+    assertThat(_ctrl.signatureLabel.text, is(equalTo(@"now by John Wayne")));
 }
 
 @end
