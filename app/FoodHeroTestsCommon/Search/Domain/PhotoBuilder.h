@@ -11,6 +11,6 @@
 @interface PhotoBuilder : NSObject
 - (id <IPhoto>)build;
 
-- (instancetype)withUrl:(NSString*)url;
+- (instancetype)withImage:(UIImage *)image;
 
 @end

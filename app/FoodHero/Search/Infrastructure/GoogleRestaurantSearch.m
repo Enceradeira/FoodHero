@@ -136,8 +136,10 @@
     }];
     NSNumber *ratingNumber = [details valueForKey:@"rating"];
     RestaurantRating *rating = [RestaurantRating createRating:[ratingNumber doubleValue] withReviews:reviews];
+    __block NSUInteger countPhotos = 0;
     NSArray *photos = [[details valueForKey:@"photos"] linq_select:^(NSDictionary *photo) {
-        return [GooglePhoto create:photo[@"photo_reference"] height:[photo[@"height"] unsignedIntValue] width:[photo[@"width"] unsignedIntValue]];
+        countPhotos++;
+        return [GooglePhoto create:photo[@"photo_reference"] height:[photo[@"height"] unsignedIntValue] width:[photo[@"width"] unsignedIntValue] loadEagerly:countPhotos == 1];
     }];
     return [Restaurant createWithName:[details valueForKey:@"name"]
                              vicinity:[details valueForKey:@"vicinity"]

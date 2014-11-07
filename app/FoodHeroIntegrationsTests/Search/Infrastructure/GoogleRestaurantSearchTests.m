@@ -174,18 +174,13 @@
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
     assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
-    assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@0U)));
+    assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@1U)));  // there should be more than 1 photo to have a meaningful test here
     for (id<IPhoto> photo in restaurant.photos) {
-        NSString *url = [photo url];
-        assertThat(url, containsString(@"http"));
-        NSURL *placeURL = [NSURL URLWithString:url];
-        NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5];
-        NSURLResponse *response = nil;
-        NSError *error = nil;
-        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        assertThat(error,is(nilValue()));
-        assertThat(response,is(notNilValue()));
+        NSArray *photos = [[photo image] toArray]; // force loading by enumerating image-Signal
+        assertThatUnsignedInt(photos.count,is(equalTo(@1)) );
     }
+    assertThatBool(((id<IPhoto>)restaurant.photos[0]).isEagerlyLoaded,is(equalToBool(YES)));
+    assertThatBool(((id<IPhoto>)restaurant.photos[1]).isEagerlyLoaded,is(equalToBool(NO)));
 
     RestaurantRating *rating = restaurant.rating;
     assertThat(rating, is(notNilValue()));

@@ -8,42 +8,54 @@
 
 
 @interface PhotoStub : NSObject <IPhoto>
-- (id)init:(NSString *)url;
+- (id)init:(UIImage *)image;
 @end
 
 @implementation PhotoStub {
-    NSString *_url;
+    UIImage *_image;
 }
 
-- (id)init:(NSString *)url {
+- (id)init:(UIImage *)image {
     self = [super init];
     if (self) {
-        _url = url;
+        _image = image;
     }
     return self;
 }
 
-- (NSString *)url {
-    return _url;
+- (RACSignal *)image {
+    return [RACSignal startEagerlyWithScheduler:[RACScheduler immediateScheduler] block:^(id <RACSubscriber> subscriber) {
+        if (_image) {
+            [subscriber sendNext:_image];
+            [subscriber sendCompleted];
+        }
+        else {
+            [subscriber sendError:nil];
+        }
+    }];
 }
 
-+ (instancetype)create:(NSString *)url {
-    return [[PhotoStub alloc] init:url];
+- (BOOL)isEagerlyLoaded {
+    return NO;
+}
+
++ (instancetype)create:(UIImage *)image {
+    return [[PhotoStub alloc] init:image];
 }
 
 @end
 
 @implementation PhotoBuilder {
 
-    NSString *_url;
+    UIImage *_image;
 }
 
 - (id <IPhoto>)build {
-    return [PhotoStub create:_url == nil ? @"http://rack.3.mshcdn.com/media/ZgkyMDEzLzA3LzE4L2I1L0dvb2dsZU1hcHNSLmQ0OWY4LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/9e01169a/119/GoogleMapsRestaurant.jpg" : _url];
+    return [PhotoStub create:_image == nil ? [UIImage new] : _image];
 }
 
-- (instancetype)withUrl:(NSString *)url {
-    _url = url;
+- (instancetype)withImage:(UIImage *)image {
+    _image = image;
     return self;
 }
 

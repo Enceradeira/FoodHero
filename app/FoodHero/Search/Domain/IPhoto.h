@@ -4,7 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveCocoa.h>
 
 @protocol IPhoto <NSObject>
-- (NSString *)url;
+- (RACSignal *)image;
+
+- (BOOL)isEagerlyLoaded;
 @end

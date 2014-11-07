@@ -8,5 +8,7 @@
 
 
 @interface GooglePhoto : NSObject <IPhoto>
-+ (instancetype)create:(NSString *)photoReference height:(NSUInteger)height width:(NSUInteger)width;
++ (instancetype)create:(NSString *)photoReference height:(NSUInteger)height width:(NSUInteger)width loadEagerly:(BOOL)loadEagerly;
+
+- (RACSignal *)image;
 @end

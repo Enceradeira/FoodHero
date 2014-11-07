@@ -79,8 +79,8 @@
 
 - (NSArray *)defaultPhotos {
     return @[
-            [[[PhotoBuilder alloc] withUrl:@"http://media-cdn.tripadvisor.com/media/photo-s/01/c3/5f/cc/punjab-indian-restaurant.jpg"] build],
-            [[[PhotoBuilder alloc] withUrl:@"http://www.baltiking-sheffield.co.uk/wp-content/uploads/2012/05/food21.jpg"] build]
+            [[PhotoBuilder alloc] build],
+            [[PhotoBuilder alloc] build]
     ];
 }
 
