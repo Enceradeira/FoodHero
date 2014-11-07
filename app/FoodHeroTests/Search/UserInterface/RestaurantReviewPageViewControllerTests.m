@@ -18,6 +18,7 @@
 #import "RestaurantReviewCommentViewController.h"
 #import "RestaurantBuilder.h"
 #import "PhotoBuilder.h"
+#import "RestaurantPhotoViewController.h"
 
 @interface RestaurantReviewPageViewControllerTests : XCTestCase
 
@@ -55,15 +56,17 @@
     assertThat(subController.class, is(RestaurantReviewSummaryViewController.class));
 }
 
-- (void)test_viewControllerShouldNavigateCorrectly_When2Reviews {
+- (void)test_viewControllerShouldNavigateCorrectly{
     RestaurantReview *review = [self review:@"Good food"];
     RestaurantRating *rating = [self rating:@[ review]];
-    NSArray*photos = @[[[PhotoBuilder alloc] build]];
+    id photo1 = [[PhotoBuilder alloc] build];
+    id photo2 = [[PhotoBuilder alloc] build];
+    NSArray*photos = @[photo1,photo2];
     Restaurant *restaurant = [[[[RestaurantBuilder alloc] withReview:rating] withPhotos:photos] build];
     [_ctrl setRestaurant:restaurant];
     [self showView];
 
-    // first page is displayed (summary)
+    // first page is displayed (summary & photo 1)
     UIViewController *nextController = _ctrl.viewControllers[0];
     assertThat(nextController.class, is(equalTo(RestaurantReviewSummaryViewController.class)));
     assertThat(((RestaurantReviewSummaryViewController *) nextController).restaurant, is(equalTo(restaurant)));
@@ -71,9 +74,17 @@
     nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
     assertThat(nextController.class, is(RestaurantReviewCommentViewController.class));
     assertThat(((RestaurantReviewCommentViewController *) nextController).review, is(equalTo(review)));
+    // go to next page (photo 2)
+    nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
+    assertThat(nextController.class, is(RestaurantPhotoViewController.class));
+    assertThat(((RestaurantPhotoViewController *) nextController).photo, is(equalTo(photo2)));
     // go to next page (which doesn't exist)
     nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
     assertThat(nextController, is(nilValue()));
+    // go to prev page (review)
+    nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
+    assertThat(nextController.class, is(RestaurantReviewCommentViewController.class));
+    assertThat(((RestaurantReviewCommentViewController *) nextController).review, is(equalTo(review)));
     // go to prev controller (summary)
     nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
     assertThat(nextController.class, is(equalTo(RestaurantReviewSummaryViewController.class)));

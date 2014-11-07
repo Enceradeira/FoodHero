@@ -14,6 +14,7 @@
 @class RestaurantReviewSummaryViewController;
 @class RestaurantReviewPageViewController;
 @class RestaurantReviewCommentViewController;
+@class RestaurantPhotoViewController;
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
@@ -25,6 +26,8 @@
 + (RestaurantReviewSummaryViewController *)createRestaurantReviewSummaryViewController;
 
 + (RestaurantReviewCommentViewController *)createRestaurantReviewCommentViewController;
+
++ (RestaurantPhotoViewController *)createRestaurantPhotoViewController;
 
 + (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController;
 @end
