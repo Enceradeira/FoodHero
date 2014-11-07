@@ -948,15 +948,15 @@ Norwich, Norfolk NR1 3DN</string>
                                 <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-HT-Prm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-HT-Prm">
                                 <rect key="frame" x="20" y="51" width="280" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago by Maria Füdlistaller" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NUc-rT-PAF">
-                                <rect key="frame" x="20" y="108" width="280" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago by Maria Füdlistaller" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUc-rT-PAF">
+                                <rect key="frame" x="20" y="108" width="280" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -970,12 +970,12 @@ Norwich, Norfolk NR1 3DN</string>
                             <constraint firstItem="5dm-pC-kPL" firstAttribute="centerY" secondItem="2gN-BB-nc5" secondAttribute="centerY" id="MaX-Uv-JYd"/>
                             <constraint firstAttribute="trailing" secondItem="YGr-HT-Prm" secondAttribute="trailing" constant="20" id="RxV-It-CmS"/>
                             <constraint firstItem="eeN-SB-4pm" firstAttribute="leading" secondItem="YZb-mf-DsF" secondAttribute="leading" id="StG-xJ-mV0"/>
+                            <constraint firstItem="eeN-SB-4pm" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YGr-HT-Prm" secondAttribute="bottom" constant="36" id="Tvf-Um-gsp"/>
                             <constraint firstItem="NUc-rT-PAF" firstAttribute="top" secondItem="YGr-HT-Prm" secondAttribute="bottom" constant="10" id="XVb-kn-Xa2"/>
                             <constraint firstAttribute="trailing" secondItem="NUc-rT-PAF" secondAttribute="trailing" constant="20" id="Zbe-JW-gVn"/>
                             <constraint firstItem="eeN-SB-4pm" firstAttribute="top" secondItem="YZb-mf-DsF" secondAttribute="top" id="cTl-Da-0C3"/>
                             <constraint firstItem="YGr-HT-Prm" firstAttribute="top" secondItem="5dm-pC-kPL" secondAttribute="bottom" constant="10" id="fQ6-wY-ZKR"/>
                             <constraint firstAttribute="bottom" secondItem="eeN-SB-4pm" secondAttribute="bottom" id="h8X-by-gzf"/>
-                            <constraint firstItem="JpX-Rg-Q8j" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NUc-rT-PAF" secondAttribute="bottom" constant="20" id="hQH-YI-k6X"/>
                             <constraint firstItem="2gN-BB-nc5" firstAttribute="leading" secondItem="5dm-pC-kPL" secondAttribute="trailing" constant="20" id="lkY-yw-Zwp"/>
                             <constraint firstItem="YGr-HT-Prm" firstAttribute="leading" secondItem="NUc-rT-PAF" secondAttribute="leading" id="wOV-W1-R5r"/>
                         </constraints>

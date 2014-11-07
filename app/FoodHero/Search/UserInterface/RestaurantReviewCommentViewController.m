@@ -5,6 +5,7 @@
 
 #import "RestaurantReviewCommentViewController.h"
 #import "RatingStarsImageRepository.h"
+#import "FoodHeroColors.h"
 
 
 @implementation RestaurantReviewCommentViewController {
@@ -27,12 +28,20 @@
 }
 
 - (void)bind {
-    _reviewLabel.text = _review.text;
-    _reviewLabel.accessibilityIdentifier = @"ReviewComment";
+    self.reviewLabel.text = _review.text;
+    self.reviewLabel.accessibilityIdentifier = @"ReviewComment";
+    self.reviewLabel.textColor = [FoodHeroColors darkGrey];
 
     self.ratingImage.image = [RatingStarsImageRepository getImageForRating:_review.rating].image;
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", _review.rating];
+    self.ratingLabel.textColor = [FoodHeroColors darkGrey];
     self.signatureLabel.text = [NSString stringWithFormat:@"%@ by %@", [self convertToRelativeDate:_review.date], _review.author];
+    self.signatureLabel.textColor = [FoodHeroColors darkGrey];
+
+    if( self.reviewLabel.font.pointSize < self.signatureLabel.font.pointSize){
+        // ensure that font of signature is never larger than of review text
+        self.signatureLabel.font = self.reviewLabel.font;
+    }
 }
 
 - (NSString *)convertToRelativeDate:(NSDate *)date {
