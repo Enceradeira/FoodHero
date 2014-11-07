@@ -8,7 +8,6 @@
 
 @interface RestaurantRating : NSObject
 @property(readonly, nonatomic) double rating;
-@property(readonly, nonatomic) RestaurantReview *summary;
 @property(readonly, nonatomic) NSArray *reviews;
 
 + (instancetype)createRating:(double)rating withReviews:(NSArray *)reviews;

@@ -5,10 +5,10 @@
 
 #import "RestaurantReviewSummaryViewController.h"
 #import "RatingStarsImageRepository.h"
+#import "IPhoto.h"
 
 
 @implementation RestaurantReviewSummaryViewController {
-    RestaurantRating *_rating;
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
 }
 
@@ -21,14 +21,25 @@
 }
 
 - (void)bind {
-    self.ratingImage.image = [RatingStarsImageRepository getImageForRating:_rating.rating].image;
-    self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", _rating.rating];
-    self.summaryLabel.text = _rating.summary.text;
-    self.summaryLabel.accessibilityIdentifier =  @"ReviewSummary";
+    RestaurantRating *rating = _restaurant.rating;
+
+    self.ratingImage.image = [RatingStarsImageRepository getImageForRating:rating.rating].image;
+    self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", rating.rating];
+    self.ratingLabel.accessibilityIdentifier = @"ReviewSummary";
+
+    UIImage *image = nil;
+    if (_restaurant.photos.count > 0) {
+        id<IPhoto> photo = _restaurant.photos[0];
+        CGSize photoSize = self.photoView.bounds.size;
+        NSURL *url = [NSURL URLWithString:[photo getUrlForHeight:(NSUInteger) photoSize.height andWidth:(NSUInteger) photoSize.width]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        image = [[UIImage alloc] initWithData:data];
+    }
+    self.photoView.image = image;
 }
 
-- (void)setRating:(RestaurantRating *)rating {
-    _rating = rating;
+- (void)setRestaurant:(Restaurant *)restaurant {
+    _restaurant = restaurant;
     [self bind];
 }
 @end

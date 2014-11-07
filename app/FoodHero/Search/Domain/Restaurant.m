@@ -4,7 +4,6 @@
 //
 
 #import "Restaurant.h"
-#import "RestaurantReview.h"
 
 
 @implementation Restaurant
@@ -24,7 +23,8 @@
           distance:(double)distance
         priceLevel:(NSUInteger)priceLevel
   cuisineRelevance:(double)cuisineRelevance
-            rating:(RestaurantRating *)rating {
+            rating:(RestaurantRating *)rating
+            photos:(NSArray *)photos {
     self = [super initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
     if (self != nil) {
         _name = name;
@@ -40,6 +40,7 @@
         _addressComponents = addressComponents;
         _distance = distance;
         _rating = rating;
+        _photos = photos;
     }
     return self;
 }
@@ -60,7 +61,8 @@
                       distance:(double)distance
                     priceLevel:(NSUInteger)priceLevel
               cuisineRelevance:(double)cuisineRelevance
-                        rating:(RestaurantRating *)rating {
+                        rating:(RestaurantRating *)rating
+                        photos:(NSArray *)photos {
     return [[Restaurant alloc] initWithName:name
                                    vicinity:vicinity
                                     address:address
@@ -77,6 +79,7 @@
                                    distance:distance
                                  priceLevel:priceLevel
                            cuisineRelevance:cuisineRelevance
-                                     rating:rating];
+                                     rating:rating
+                                     photos:photos];
 }
 @end

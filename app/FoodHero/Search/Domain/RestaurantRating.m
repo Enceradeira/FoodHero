@@ -23,10 +23,7 @@
         }];
 
         _rating = rating;
-        if (cleanReviews.count > 0) {
-            _summary = cleanReviews[0];
-        }
-        _reviews = [cleanReviews linq_skip:1];
+        _reviews = cleanReviews;
     }
     return self;
 }

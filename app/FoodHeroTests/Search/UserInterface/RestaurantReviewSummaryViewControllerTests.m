@@ -16,6 +16,7 @@
 #import "RestaurantReviewBuilder.h"
 #import "RestaurantBuilder.h"
 #import "RatingStarsImageRepository.h"
+#import "PhotoBuilder.h"
 
 @interface RestaurantReviewSummaryViewControllerTests : XCTestCase
 
@@ -31,23 +32,36 @@
     [TyphoonComponents configure:[StubAssembly assembly]];
     _ctrl = [ControllerFactory createRestaurantReviewSummaryViewController];
     _ctrl.view.hidden = NO;
-
-    NSArray *reviews = @[[[[RestaurantReviewBuilder alloc] withText:@"Nice location"] build]];
-    RestaurantRating *rating = [[[[RestaurantRatingBuilder alloc] withRating:3.2] withReviews:reviews] build];
-    [_ctrl setRating:rating];
 }
 
 
 - (void)test_ratingLabel_ShouldContainRating {
+    RestaurantRating *rating = [[[[RestaurantRatingBuilder alloc] withRating:3.2] withReviews:@[]] build];
+    [_ctrl setRestaurant:[[[RestaurantBuilder alloc] withReview:rating] build]];
+
     assertThat(_ctrl.ratingLabel.text, is(equalTo(@"3.2")));
 }
 
 - (void)test_ratingImage_ShouldContainRatingImage {
+    NSArray *reviews = @[[[[RestaurantReviewBuilder alloc] withText:@"Nice location"] build]];
+    RestaurantRating *rating = [[[[RestaurantRatingBuilder alloc] withRating:3.2] withReviews:reviews] build];
+    [_ctrl setRestaurant:[[[RestaurantBuilder alloc] withReview:rating] build]];
+
     UIImage *image = [RatingStarsImageRepository getImageForRating:3].image;
     assertThat(_ctrl.ratingImage.image, is(equalTo(image)));
 }
 
-- (void)test_summaryLabel_ShouldContainSummary {
-    assertThat(_ctrl.summaryLabel.text, is(equalTo(@"Nice location")));
+- (void)test_imageView_ShouldDisplayImage {
+    id photo = [[PhotoBuilder alloc] build];
+
+    [_ctrl setRestaurant:[[[RestaurantBuilder alloc] withPhotos:@[photo]] build]];
+
+    assertThat(_ctrl.photoView.image, is(notNilValue()));
+}
+
+- (void)test_imageView_ShouldBeNil_WhenNoPhotosAvailable {
+    [_ctrl setRestaurant:[[[RestaurantBuilder alloc] withPhotos:@[]] build]];
+
+    assertThat(_ctrl.photoView.image, is(nilValue()));
 }
 @end

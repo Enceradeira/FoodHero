@@ -22,7 +22,8 @@
 @property(nonatomic, readonly) NSString *url;
 @property(nonatomic, readonly) NSArray *types;
 @property(nonatomic, readonly) double distance;
-@property(nonatomic, readonly) RestaurantRating*rating;
+@property(nonatomic, readonly) RestaurantRating *rating;
+@property(nonatomic, readonly) NSArray *photos;
 
 + (Restaurant *)createWithName:(NSString *)name
                       vicinity:(NSString *)vicinity
@@ -40,5 +41,6 @@
                       distance:(double)distance
                     priceLevel:(NSUInteger)priceLevel
               cuisineRelevance:(double)cuisineRelevance
-                        rating:(RestaurantRating *)rating;
+                        rating:(RestaurantRating *)rating
+                        photos:(NSArray *)photos;
 @end

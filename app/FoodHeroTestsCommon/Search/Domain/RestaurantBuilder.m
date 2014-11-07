@@ -6,6 +6,7 @@
 #import "RestaurantBuilder.h"
 #import "OpeningHour.h"
 #import "RestaurantRatingBuilder.h"
+#import "PhotoBuilder.h"
 
 
 @implementation RestaurantBuilder {
@@ -27,6 +28,7 @@
     NSArray *_openingHours;
     double _distance;
     RestaurantRating *_rating;
+    NSArray *_photos;
 }
 
 - (Restaurant *)build {
@@ -54,6 +56,7 @@
     double distance = _distance == 0 ? 1.34 : _distance;
     RestaurantRating *rating = _rating == nil ? [[RestaurantRatingBuilder alloc] build] : _rating;
 
+    NSArray *photos = _photos == nil ? [self defaultPhotos] : _photos;
     return [Restaurant createWithName:name
                              vicinity:vicinity
                               address:address
@@ -70,7 +73,15 @@
                              distance:distance
                            priceLevel:priceLevel
                      cuisineRelevance:cuisineRelevance
-                               rating:rating];
+                               rating:rating
+                               photos:photos];
+}
+
+- (NSArray *)defaultPhotos {
+    return @[
+            [[[PhotoBuilder alloc] withUrl:@"http://media-cdn.tripadvisor.com/media/photo-s/01/c3/5f/cc/punjab-indian-restaurant.jpg"] build],
+            [[[PhotoBuilder alloc] withUrl:@"http://www.baltiking-sheffield.co.uk/wp-content/uploads/2012/05/food21.jpg"] build]
+    ];
 }
 
 - (RestaurantBuilder *)withName:(NSString *)name {
@@ -148,6 +159,11 @@
 
 - (RestaurantBuilder *)withReview:(RestaurantRating *)review {
     _rating = review;
+    return self;
+}
+
+- (RestaurantBuilder *)withPhotos:(NSArray *)photos {
+    _photos = photos;
     return self;
 }
 @end

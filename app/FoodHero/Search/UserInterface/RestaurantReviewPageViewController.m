@@ -7,11 +7,10 @@
 #import "TyphoonComponents.h"
 #import "RestaurantReviewSummaryViewController.h"
 #import "RestaurantReviewCommentViewController.h"
-#import "Restaurant.h"
 
 
 @implementation RestaurantReviewPageViewController {
-    RestaurantRating *_rating;
+    Restaurant *_restaurant;
     NSUInteger _index;
 }
 - (void)viewDidLoad {
@@ -27,7 +26,7 @@
 
 - (RestaurantReviewSummaryViewController *)createSummaryController {
     RestaurantReviewSummaryViewController *summaryController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
-    [summaryController setRating:_rating];
+    [summaryController setRestaurant:_restaurant];
     return summaryController;
 }
 
@@ -48,23 +47,23 @@
     }
     else {
         _index--;
-        return [self createCommentControllerFor:_rating.reviews[_index - 1]];
+        return [self createCommentControllerFor:_restaurant.rating.reviews[_index - 1]];
     }
 }
 
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    if (_index < _rating.reviews.count) {
+    if (_index < _restaurant.rating.reviews.count) {
         _index++;
-        return [self createCommentControllerFor:_rating.reviews[_index - 1]];
+        return [self createCommentControllerFor:_restaurant.rating.reviews[_index - 1]];
     }
     else {
         return nil;
     }
 }
 
--(void)setRestaurant:(Restaurant *)restaurant {
-    _rating = restaurant.rating;
+- (void)setRestaurant:(Restaurant *)restaurant {
+    _restaurant = restaurant;
 }
 
 /*

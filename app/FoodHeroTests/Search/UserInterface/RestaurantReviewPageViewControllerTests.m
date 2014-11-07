@@ -17,6 +17,7 @@
 #import "RestaurantReviewSummaryViewController.h"
 #import "RestaurantReviewCommentViewController.h"
 #import "RestaurantBuilder.h"
+#import "PhotoBuilder.h"
 
 @interface RestaurantReviewPageViewControllerTests : XCTestCase
 
@@ -55,15 +56,17 @@
 }
 
 - (void)test_viewControllerShouldNavigateCorrectly_When2Reviews {
-    RestaurantReview *summary = [self review:@"Nice location"];
     RestaurantReview *review = [self review:@"Good food"];
-    RestaurantRating *rating = [self rating:@[summary, review]];
-    [_ctrl setRestaurant:[[[RestaurantBuilder alloc] withReview:rating] build]];
+    RestaurantRating *rating = [self rating:@[ review]];
+    NSArray*photos = @[[[PhotoBuilder alloc] build]];
+    Restaurant *restaurant = [[[[RestaurantBuilder alloc] withReview:rating] withPhotos:photos] build];
+    [_ctrl setRestaurant:restaurant];
     [self showView];
 
     // first page is displayed (summary)
     UIViewController *nextController = _ctrl.viewControllers[0];
-    assertThat(((RestaurantReviewSummaryViewController *) nextController).rating, is(equalTo(rating)));
+    assertThat(nextController.class, is(equalTo(RestaurantReviewSummaryViewController.class)));
+    assertThat(((RestaurantReviewSummaryViewController *) nextController).restaurant, is(equalTo(restaurant)));
     // go to next page (review)
     nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
     assertThat(nextController.class, is(RestaurantReviewCommentViewController.class));
@@ -73,7 +76,8 @@
     assertThat(nextController, is(nilValue()));
     // go to prev controller (summary)
     nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
-    assertThat(((RestaurantReviewSummaryViewController *) nextController).rating, is(equalTo(rating)));
+    assertThat(nextController.class, is(equalTo(RestaurantReviewSummaryViewController.class)));
+    assertThat(((RestaurantReviewSummaryViewController *) nextController).restaurant, is(equalTo(restaurant)));
     // go to prev controller (which doesn't exists)
     nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
     assertThat(nextController, is(nilValue()));

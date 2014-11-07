@@ -13,6 +13,7 @@
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "SearchException.h"
+#import "IPhoto.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -172,11 +173,22 @@
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
     assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
+    assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@0U)));
+    for (id<IPhoto> photo in restaurant.photos) {
+        NSString *url = [photo getUrlForHeight:100 andWidth:200];
+        assertThat(url, containsString(@"http"));
+        NSURL *placeURL = [NSURL URLWithString:url];
+        NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5];
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        assertThat(error,is(nilValue()));
+        assertThat(response,is(notNilValue()));
+    }
 
     RestaurantRating *rating = restaurant.rating;
     assertThat(rating, is(notNilValue()));
     assertThatDouble(rating.rating, is(greaterThan(@(0))));
-    assertThatInt(rating.summary.text.length, is(greaterThan(@(0))));
     assertThatInt(rating.reviews.count, is(greaterThan(@(0))));
     for (RestaurantReview *review in rating.reviews) {
         assertThatInt(review.text.length, is(greaterThan(@(0))));

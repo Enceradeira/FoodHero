@@ -11,10 +11,39 @@
 #import "KeywordEncoder.h"
 #import "GoogleOpeningHours.h"
 #import "GoogleURL.h"
+#import "IPhoto.h"
 
 const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
 const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
 NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
+NSString *const GOOGLE_BASE_ADDRESS = @"https://maps.googleapis.com";
+
+@interface GooglePhoto : NSObject <IPhoto>
+- (id)init:(NSString *)reference;
+
++ (instancetype)create:(NSString *)photoReference;
+@end
+
+@implementation GooglePhoto {
+    NSString *_photoReference;
+}
+- (NSString *)getUrlForHeight:(NSUInteger)height andWidth:(NSUInteger)width {
+    return [NSString stringWithFormat:@"%@/maps/api/place/photo?photoreference=%@&maxheight=%u&maxwidth=%u&key=%@", GOOGLE_BASE_ADDRESS, _photoReference, height, width, GOOGLE_API_KEY];
+}
+
+- (id)init:(NSString *)reference {
+    self = [super init];
+    if (self != nil) {
+        _photoReference = reference;
+    }
+    return self;
+}
+
++ (instancetype)create:(NSString *)photoReference {
+    return [[GooglePhoto alloc] init:photoReference];
+}
+@end
+
 
 @implementation GoogleRestaurantSearch {
 
@@ -25,7 +54,7 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
 - (id)init {
     self = [super init];
     if (self) {
-        _baseAddress = @"https://maps.googleapis.com";
+        _baseAddress = GOOGLE_BASE_ADDRESS;
         _timeout = 60;
         _queue = [[NSOperationQueue alloc] init];
     }
@@ -137,6 +166,9 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
     }];
     NSNumber *ratingNumber = [details valueForKey:@"rating"];
     RestaurantRating *rating = [RestaurantRating createRating:[ratingNumber doubleValue] withReviews:reviews];
+    NSArray *photos = [[details valueForKey:@"photos"] linq_select:^(NSDictionary *photo) {
+        return [GooglePhoto create:photo[@"photo_reference"]];
+    }];
     return [Restaurant createWithName:[details valueForKey:@"name"]
                              vicinity:[details valueForKey:@"vicinity"]
                               address:[self buildAddress:details]
@@ -153,7 +185,8 @@ NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
                              distance:distance.doubleValue
                            priceLevel:[[details valueForKey:@"price_level"] unsignedIntValue]
                      cuisineRelevance:place.cuisineRelevance
-                               rating:rating];
+                               rating:rating
+                               photos:photos];
 }
 
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {

@@ -36,4 +36,6 @@
 - (RestaurantBuilder *)withDistance:(double)distance;
 
 - (RestaurantBuilder *)withReview:(RestaurantRating *)review;
+
+- (RestaurantBuilder *)withPhotos:(NSArray *)photos;
 @end
