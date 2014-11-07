@@ -14,6 +14,7 @@
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
+#import "GoogleDefinitions.h"
 
 @interface RadiusCalculatorTests : XCTestCase
 

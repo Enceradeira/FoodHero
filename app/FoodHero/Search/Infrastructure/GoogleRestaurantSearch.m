@@ -11,38 +11,8 @@
 #import "KeywordEncoder.h"
 #import "GoogleOpeningHours.h"
 #import "GoogleURL.h"
-#import "IPhoto.h"
-
-const NSUInteger GOOGLE_MAX_SEARCH_RESULTS = 200;
-const NSUInteger GOOGLE_MAX_SEARCH_RADIUS = 50000;
-NSString *const GOOGLE_API_KEY = @"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg";
-NSString *const GOOGLE_BASE_ADDRESS = @"https://maps.googleapis.com";
-
-@interface GooglePhoto : NSObject <IPhoto>
-- (id)init:(NSString *)reference;
-
-+ (instancetype)create:(NSString *)photoReference;
-@end
-
-@implementation GooglePhoto {
-    NSString *_photoReference;
-}
-- (NSString *)getUrlForHeight:(NSUInteger)height andWidth:(NSUInteger)width {
-    return [NSString stringWithFormat:@"%@/maps/api/place/photo?photoreference=%@&maxheight=%u&maxwidth=%u&key=%@", GOOGLE_BASE_ADDRESS, _photoReference, height, width, GOOGLE_API_KEY];
-}
-
-- (id)init:(NSString *)reference {
-    self = [super init];
-    if (self != nil) {
-        _photoReference = reference;
-    }
-    return self;
-}
-
-+ (instancetype)create:(NSString *)photoReference {
-    return [[GooglePhoto alloc] init:photoReference];
-}
-@end
+#import "GoogleDefinitions.h"
+#import "GooglePhoto.h"
 
 
 @implementation GoogleRestaurantSearch {
@@ -167,7 +137,7 @@ NSString *const GOOGLE_BASE_ADDRESS = @"https://maps.googleapis.com";
     NSNumber *ratingNumber = [details valueForKey:@"rating"];
     RestaurantRating *rating = [RestaurantRating createRating:[ratingNumber doubleValue] withReviews:reviews];
     NSArray *photos = [[details valueForKey:@"photos"] linq_select:^(NSDictionary *photo) {
-        return [GooglePhoto create:photo[@"photo_reference"]];
+        return [GooglePhoto create:photo[@"photo_reference"] height:[photo[@"height"] unsignedIntValue] width:[photo[@"width"] unsignedIntValue]];
     }];
     return [Restaurant createWithName:[details valueForKey:@"name"]
                              vicinity:[details valueForKey:@"vicinity"]

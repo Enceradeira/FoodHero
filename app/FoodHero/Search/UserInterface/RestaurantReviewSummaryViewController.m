@@ -6,6 +6,7 @@
 #import "RestaurantReviewSummaryViewController.h"
 #import "RatingStarsImageRepository.h"
 #import "IPhoto.h"
+#import "FoodHeroColors.h"
 
 
 @implementation RestaurantReviewSummaryViewController {
@@ -17,6 +18,9 @@
 
     leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
 
+    self.ratingLabel.accessibilityIdentifier = @"ReviewSummary";
+    self.ratingLabel.textColor = [FoodHeroColors darkGrey];
+
     [self bind];
 }
 
@@ -25,13 +29,11 @@
 
     self.ratingImage.image = [RatingStarsImageRepository getImageForRating:rating.rating].image;
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", rating.rating];
-    self.ratingLabel.accessibilityIdentifier = @"ReviewSummary";
 
     UIImage *image = nil;
     if (_restaurant.photos.count > 0) {
         id<IPhoto> photo = _restaurant.photos[0];
-        CGSize photoSize = self.photoView.bounds.size;
-        NSURL *url = [NSURL URLWithString:[photo getUrlForHeight:(NSUInteger) photoSize.height andWidth:(NSUInteger) photoSize.width]];
+        NSURL *url = [NSURL URLWithString:[photo url]];
         NSData *data = [NSData dataWithContentsOfURL:url];
         image = [[UIImage alloc] initWithData:data];
     }

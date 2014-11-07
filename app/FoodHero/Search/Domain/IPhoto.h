@@ -6,5 +6,5 @@
 #import <Foundation/Foundation.h>
 
 @protocol IPhoto <NSObject>
--(NSString*)getUrlForHeight:(NSUInteger)height andWidth:(NSUInteger)width;
+- (NSString *)url;
 @end

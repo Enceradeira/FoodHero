@@ -14,9 +14,6 @@
 @implementation PhotoStub {
     NSString *_url;
 }
-- (NSString *)getUrlForHeight:(NSUInteger)height andWidth:(NSUInteger)width {
-    return _url;
-}
 
 - (id)init:(NSString *)url {
     self = [super init];
@@ -24,6 +21,10 @@
         _url = url;
     }
     return self;
+}
+
+- (NSString *)url {
+    return _url;
 }
 
 + (instancetype)create:(NSString *)url {

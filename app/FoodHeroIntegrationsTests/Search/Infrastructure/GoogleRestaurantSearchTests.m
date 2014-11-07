@@ -14,6 +14,7 @@
 #import "DesignByContractException.h"
 #import "SearchException.h"
 #import "IPhoto.h"
+#import "GoogleDefinitions.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -175,7 +176,7 @@
     assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
     assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@0U)));
     for (id<IPhoto> photo in restaurant.photos) {
-        NSString *url = [photo getUrlForHeight:100 andWidth:200];
+        NSString *url = [photo url];
         assertThat(url, containsString(@"http"));
         NSURL *placeURL = [NSURL URLWithString:url];
         NSURLRequest *request = [NSURLRequest requestWithURL:placeURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5];

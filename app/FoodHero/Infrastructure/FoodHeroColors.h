@@ -17,4 +17,6 @@ extern const float ColorDivisor;
 + (UIColor *)actionColor;
 
 + (UIColor *)yellowColor;
+
++ (UIColor *)darkGrey;
 @end

@@ -30,4 +30,8 @@ const float ColorDivisor = 255.0f;
 + (UIColor *)yellowColor {
     return [UIColor colorWithRed:232 / ColorDivisor green:209 / ColorDivisor blue:145 / ColorDivisor alpha:1];
 }
+
++ (UIColor *)darkGrey {
+    return [UIColor colorWithRed:61 / ColorDivisor green:61 / ColorDivisor blue:61 / ColorDivisor alpha:1];
+}
 @end

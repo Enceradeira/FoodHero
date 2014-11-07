@@ -6,6 +6,7 @@
 #import "RadiusCalculator.h"
 #import "GoogleRestaurantSearch.h"
 #import "DesignByContractException.h"
+#import "GoogleDefinitions.h"
 
 
 @implementation RadiusCalculator {

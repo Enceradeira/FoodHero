@@ -12,6 +12,7 @@
 		235250447549516F84D8CB0B /* FHSuggestionBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */; };
 		23525052817BB4CEC5F635B9 /* Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F6AFE493DB60BD52A44 /* Feedback.m */; };
 		23525053CFE46D9E7E154CDD /* FHWarningIfNotInPreferredRangeTooCheap.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DB231081A6203B85876 /* FHWarningIfNotInPreferredRangeTooCheap.m */; };
+		2352505CAD24D7ED820FA375 /* GoogleDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252CE3846FC327DC26E96 /* GoogleDefinitions.m */; };
 		235250734CA0CCC931B7EF7B /* ConversationConfirmationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FD43DD4FD87D7427681 /* ConversationConfirmationTests.m */; };
 		23525076AF52DEFDE042B2EB /* GoogleRestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D061BA4618AC6480CE4 /* GoogleRestaurantSearch.m */; };
 		2352508003C1DD0D07111F9B /* FHConfirmationIfInNewPreferredRangeCheaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250CBBB8EE0F312AD453C /* FHConfirmationIfInNewPreferredRangeCheaper.m */; };
@@ -91,6 +92,7 @@
 		23525536CFEA512BE6C57C69 /* RestaurantRepositoryStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A6F9B6FCDA493D164A7 /* RestaurantRepositoryStub.m */; };
 		23525541ADE5D20EBE04BA8E /* GoogleURLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FFE1563377297C5C54A /* GoogleURLTests.m */; };
 		2352554402210AAFC9813ABA /* CLLocationManagerProxyStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253B0E028EFF69C99B59F /* CLLocationManagerProxyStub.m */; };
+		2352554FC04F7D8C57004E4E /* GooglePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251EE3C85EE6BB669B3A9 /* GooglePhoto.m */; };
 		235255580D0D40B6B62EAC37 /* RestaurantRepositoryIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352513BEC4237E518103D00 /* RestaurantRepositoryIntegrationTests.m */; };
 		2352555CFC0BBB90C5B25ED1 /* FHSuggestionAsFollowUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EE73A524293940DB4C0 /* FHSuggestionAsFollowUp.m */; };
 		2352558E99B8B8C47800F507 /* CLLocationManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */; };
@@ -360,6 +362,7 @@
 		235251E64411B05ED74316AD /* ConversationConfirmationIfInNewPreferredRangeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationConfirmationIfInNewPreferredRangeTests.m; sourceTree = "<group>"; };
 		235251E7D1AA18E6350323C7 /* DesignByContractException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignByContractException.h; sourceTree = "<group>"; };
 		235251EA5A0D884CB454868A /* Statement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statement.h; sourceTree = "<group>"; };
+		235251EE3C85EE6BB669B3A9 /* GooglePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePhoto.m; sourceTree = "<group>"; };
 		235251FB11B4A23E429364C1 /* USuggestionFeedbackForTooExpensive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForTooExpensive.h; sourceTree = "<group>"; };
 		23525202B35FD2709974DE80 /* RestaurantReviewSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewSummaryViewController.m; sourceTree = "<group>"; };
 		23525211CE9824D6BEFE1ACC /* ITextRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITextRepository.h; sourceTree = "<group>"; };
@@ -382,6 +385,7 @@
 		235252B0B810B986440D1799 /* ConversationBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubble.h; sourceTree = "<group>"; };
 		235252B2DB6301395AEFB6AD /* RestaurantRepositoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepositoryTests.h; sourceTree = "<group>"; };
 		235252C58BDB51E26960AF6B /* RestaurantsInRadiusAndPriceRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsInRadiusAndPriceRange.h; sourceTree = "<group>"; };
+		235252CE3846FC327DC26E96 /* GoogleDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleDefinitions.m; sourceTree = "<group>"; };
 		235252CFAD5A142BE13FAFC8 /* FHNoRestaurantsFound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHNoRestaurantsFound.h; sourceTree = "<group>"; };
 		235252D3FDF07707FCEFD56E /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
 		235252DDB3A0A49BC39D335E /* Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feedback.h; sourceTree = "<group>"; };
@@ -475,6 +479,7 @@
 		235256656E6D9F6FFE1B70D2 /* OpeningHour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpeningHour.m; sourceTree = "<group>"; };
 		23525665B09A758C77A764D4 /* FHConfirmation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConfirmation.h; sourceTree = "<group>"; };
 		2352568D2A237C26E4825DE9 /* DefaultAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultAssembly.m; sourceTree = "<group>"; };
+		23525698BA6C2C9853F1F34A /* GooglePhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePhoto.h; sourceTree = "<group>"; };
 		235256A426D9D5223B2D9103 /* ConversationSourceSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationSourceSpy.m; sourceTree = "<group>"; };
 		235256AF86A100FB695B7E8E /* DefaultSchedulerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSchedulerFactory.h; sourceTree = "<group>"; };
 		235256B0E2FA7D44AB6BAC42 /* FHSuggestionBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionBase.m; sourceTree = "<group>"; };
@@ -506,6 +511,7 @@
 		23525826A1685B7C449E2553 /* NoAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoAction.h; sourceTree = "<group>"; };
 		2352584264E295E74EAAA051 /* RestaurantBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantBuilder.h; sourceTree = "<group>"; };
 		235258497FD1447A340288F3 /* DefaultRandomizerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultRandomizerTests.m; sourceTree = "<group>"; };
+		23525862D089688CEE92FEB5 /* GoogleDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleDefinitions.h; sourceTree = "<group>"; };
 		23525871F5597AB825B20E50 /* RestaurantDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailTableViewController.m; sourceTree = "<group>"; };
 		23525871FB0563C6FA13D06F /* ConversationBubbleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleUser.h; sourceTree = "<group>"; };
 		2352587742DCFF7582BD7F37 /* RandomizerStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomizerStub.m; sourceTree = "<group>"; };
@@ -933,6 +939,10 @@
 				2352533380406EC192051E56 /* GoogleOpeningHours.h */,
 				2352597F7050F34D8047D44A /* GoogleURL.m */,
 				23525899A1997D5440D5159B /* GoogleURL.h */,
+				235251EE3C85EE6BB669B3A9 /* GooglePhoto.m */,
+				23525698BA6C2C9853F1F34A /* GooglePhoto.h */,
+				235252CE3846FC327DC26E96 /* GoogleDefinitions.m */,
+				23525862D089688CEE92FEB5 /* GoogleDefinitions.h */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1988,6 +1998,8 @@
 				235253888AACFD29818CA386 /* RatingStarsImageRepository.m in Sources */,
 				23525F5FC84C5F7D14600E21 /* RatingStarsImage.m in Sources */,
 				23525B2EFD64F015B75BD974 /* NotebookPageHostViewController.m in Sources */,
+				2352554FC04F7D8C57004E4E /* GooglePhoto.m in Sources */,
+				2352505CAD24D7ED820FA375 /* GoogleDefinitions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

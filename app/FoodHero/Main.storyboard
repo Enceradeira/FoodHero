@@ -1052,8 +1052,12 @@ Norwich, Norfolk NR1 3DN</string>
                             <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ba2-ns-Amk">
                                 <rect key="frame" x="64" y="21" width="110" height="19"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eSD-o3-9wu">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eSD-o3-9wu" customClass="UIImageViewAligned">
                                 <rect key="frame" x="20" y="61" width="280" height="149"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="alignLeft" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="alignTop" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

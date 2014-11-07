@@ -15,14 +15,12 @@
 #import "CLLocationManagerProxyStub.h"
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantBuilder.h"
-#import "GoogleRestaurantSearch.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
 #import "RestaurantRepositoryTests.h"
 #import "PriceRange.h"
-#import "HCIsExceptionOfType.h"
-#import "DesignByContractException.h"
 #import "SearchException.h"
 #import "SearchError.h"
+#import "GoogleDefinitions.h"
 
 @interface RestaurantRepositoryWithStubTests : RestaurantRepositoryTests
 
