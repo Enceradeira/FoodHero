@@ -10,4 +10,6 @@
 - (RACSignal *)image;
 
 - (BOOL)isEagerlyLoaded;
+
+- (void)preFetchImage;
 @end

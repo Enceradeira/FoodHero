@@ -76,7 +76,18 @@
     }
 
     _index++;
+    [self prefetchNextPhoto];
     return [self createControllerForObject:_objects[_index]];
+}
+
+- (void)prefetchNextPhoto {
+    NSUInteger nextIndex = _index+1;
+    if( nextIndex < _objects.count ) {
+        id nextObject = _objects[nextIndex];
+        if([nextObject conformsToProtocol:@protocol(IPhoto)]){
+            [((id<IPhoto>)nextObject) preFetchImage];
+        }
+    }
 }
 
 - (void)setRestaurant:(Restaurant *)restaurant {

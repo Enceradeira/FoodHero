@@ -22,6 +22,10 @@
     return _isEagerlyLoaded;
 }
 
+- (void)preFetchImage {
+    RACSignal *dummy = [self image];
+}
+
 
 - (id)init:(NSString *)reference height:(NSUInteger)height width:(NSUInteger)width loadEagerly:(BOOL)loadEagerly {
     self = [super init];
@@ -30,7 +34,7 @@
         _originalHeight = height;
         _originalWidth = width;
         if (loadEagerly) {
-            RACSignal *dummySignal = [self image];
+            [self preFetchImage];
             _isEagerlyLoaded = loadEagerly;
         }
     }

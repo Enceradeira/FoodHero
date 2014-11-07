@@ -39,6 +39,11 @@
     return NO;
 }
 
+- (void)preFetchImage {
+
+}
+
+
 + (instancetype)create:(UIImage *)image {
     return [[PhotoStub alloc] init:image];
 }
