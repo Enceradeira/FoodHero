@@ -1,5 +1,5 @@
 //
-// Created by Jorg on 30/10/14.
+// Created by Jorg on 08/11/14.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
@@ -7,6 +7,5 @@
 #import "INotebookPageController.h"
 
 
-@interface NotebookPageViewController : UIViewController   <INotebookPageController>
-
+@interface LargeNotebookPageViewController : UIViewController <INotebookPageController>
 @end

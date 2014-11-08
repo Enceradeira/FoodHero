@@ -12,7 +12,7 @@
 @implementation NotebookPageHostViewController {
 
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
-    NotebookPageViewController *_notebookController;
+    UIViewController<INotebookPageController> *_notebookController;
     NotebookPageMode _pageMode;
 }
 
@@ -24,7 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _notebookController = [ControllerFactory createNotebookPageViewController];
+    if(_pageMode == NotebookPageModeSmall) {
+        _notebookController = [ControllerFactory createNotebookPageViewController];
+    }
+    else{
+        _notebookController = [ControllerFactory createLargeNotebookPageViewController];
+    }
     UIView *containerView = [self getContainerView];
     if (!containerView) {
         @throw [DesignByContractException createWithReason:@"no container-view returned"];

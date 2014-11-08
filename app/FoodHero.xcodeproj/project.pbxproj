@@ -58,6 +58,7 @@
 		23525336D6CC6ED7D63D9656 /* RestaurantPhotoViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352520E989B3D8266666154 /* RestaurantPhotoViewControllerTests.m */; };
 		2352533AAC70CB3332E4591D /* ConversationSourceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256A426D9D5223B2D9103 /* ConversationSourceSpy.m */; };
 		23525341AEBA67717DB93A76 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525571F0DDE4CE1AB185D9 /* Restaurant.m */; };
+		23525347FA5C7295B2646524 /* LargeNotebookPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525813A32B599B948011A1 /* LargeNotebookPageViewController.m */; };
 		2352536443817FE2A185A44F /* IntegrationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F0D9052167CD36FC9FC /* IntegrationAssembly.m */; };
 		23525376A2F25F9B522550D4 /* AlwaysImmediateSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC8C07D9998AC2FE292 /* AlwaysImmediateSchedulerFactory.m */; };
 		235253888AACFD29818CA386 /* RatingStarsImageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259706EC64A29C0B15763 /* RatingStarsImageRepository.m */; };
@@ -513,6 +514,7 @@
 		23525805D3B4F38868E93662 /* RestaurantRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepository.h; sourceTree = "<group>"; };
 		2352580BDB1614BBA8F5A7D0 /* UDidResolveProblemWithAccessLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDidResolveProblemWithAccessLocationService.m; sourceTree = "<group>"; };
 		235258137FBDEA1C27540425 /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
+		23525813A32B599B948011A1 /* LargeNotebookPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeNotebookPageViewController.m; sourceTree = "<group>"; };
 		235258238526A1C664198377 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
 		23525826A1685B7C449E2553 /* NoAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoAction.h; sourceTree = "<group>"; };
 		2352584264E295E74EAAA051 /* RestaurantBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantBuilder.h; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 		23525C11EE11932E1E05FAC6 /* AskUserWhatToDoAfterGoodByeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserWhatToDoAfterGoodByeAction.m; sourceTree = "<group>"; };
 		23525C1FF2E5AF4689A965D2 /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
 		23525C2836018B47E0FB793C /* RestaurantReviewCommentViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewCommentViewControllerTests.m; sourceTree = "<group>"; };
+		23525C302FCB6D22B105C615 /* INotebookPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INotebookPageController.h; sourceTree = "<group>"; };
 		23525C378B991F1E29F6D8EF /* USuggestionFeedbackForTooFarAway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForTooFarAway.h; sourceTree = "<group>"; };
 		23525C4316442BC2EB419936 /* CheatTextFieldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheatTextFieldController.h; sourceTree = "<group>"; };
 		23525C4496FABE39CF2D1B5E /* RestaurantRepositoryStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepositoryStub.h; sourceTree = "<group>"; };
@@ -635,6 +638,7 @@
 		23525D39093B3550F697CE21 /* UActionVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UActionVisitor.h; sourceTree = "<group>"; };
 		23525D3BC16B4FCB514983EA /* RandomizerStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomizerStub.h; sourceTree = "<group>"; };
 		23525D474EB17547DF507232 /* FeedbackForTooFarAway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackForTooFarAway.h; sourceTree = "<group>"; };
+		23525D4FF0757B9F597A3BD1 /* LargeNotebookPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeNotebookPageViewController.h; sourceTree = "<group>"; };
 		23525D517F02BD35D3760948 /* FeedbackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackTableViewController.h; sourceTree = "<group>"; };
 		23525D6282DB07A825F147CF /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		23525D63A79559A8109F2F66 /* RestaurantSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchService.h; sourceTree = "<group>"; };
@@ -1231,6 +1235,9 @@
 				2352577C9B933310D30BBCAC /* RestaurantPhotoViewController.m */,
 				23525121761DF5A72FA84199 /* RestaurantPhotoViewController.h */,
 				235258844AFDC45A933EFDDC /* INotebookPageHostViewController.h */,
+				23525813A32B599B948011A1 /* LargeNotebookPageViewController.m */,
+				23525D4FF0757B9F597A3BD1 /* LargeNotebookPageViewController.h */,
+				23525C302FCB6D22B105C615 /* INotebookPageController.h */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -2014,6 +2021,7 @@
 				2352554FC04F7D8C57004E4E /* GooglePhoto.m in Sources */,
 				2352505CAD24D7ED820FA375 /* GoogleDefinitions.m in Sources */,
 				235259786EF053E26DF64D24 /* RestaurantPhotoViewController.m in Sources */,
+				23525347FA5C7295B2646524 /* LargeNotebookPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -870,6 +870,27 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="701" y="2201"/>
         </scene>
+        <!--Large Notebook Page View Controller-->
+        <scene sceneID="EYi-7g-tYq">
+            <objects>
+                <viewController storyboardIdentifier="LargeNotebookPageViewController" id="E8v-hL-Wkk" userLabel="Large Notebook Page View Controller" customClass="LargeNotebookPageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RIL-oz-cGz"/>
+                        <viewControllerLayoutGuide type="bottom" id="RPi-w7-ROd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lma-lZ-HuT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.90980398650000005" green="0.81960791349999995" blue="0.56862747670000002" alpha="1" colorSpace="deviceRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="_notebookPageView" destination="lma-lZ-HuT" id="4v0-Yk-HU1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L2j-mT-5Kb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1556" y="2141"/>
+        </scene>
         <!--Notebook Page View Controller-->
         <scene sceneID="cct-ns-3EY">
             <objects>
@@ -918,7 +939,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-1k-UYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1564" y="2141"/>
+            <point key="canvasLocation" x="1556" y="2597"/>
         </scene>
         <!--Restaurant Photo View Controller-->
         <scene sceneID="8iY-yM-Ayc">
