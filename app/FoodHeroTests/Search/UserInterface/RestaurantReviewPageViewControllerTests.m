@@ -13,12 +13,8 @@
 #import "ControllerFactory.h"
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
-#import "RestaurantReviewPageViewController.h"
-#import "RestaurantReviewSummaryViewController.h"
-#import "RestaurantReviewCommentViewController.h"
 #import "RestaurantBuilder.h"
 #import "PhotoBuilder.h"
-#import "RestaurantPhotoViewController.h"
 
 @interface RestaurantReviewPageViewControllerTests : XCTestCase
 
@@ -56,7 +52,17 @@
     assertThat(subController.class, is(RestaurantReviewSummaryViewController.class));
 }
 
+
+- (NotebookPageHostViewController *)viewControllerAfterViewController:(NotebookPageHostViewController *)viewControllerAfterViewController {
+    return (NotebookPageHostViewController *) [_ctrl pageViewController:_ctrl viewControllerAfterViewController:viewControllerAfterViewController];
+}
+
+- (NotebookPageHostViewController *)viewControllerBeforeViewController:(NotebookPageHostViewController *)viewControllerBeforeViewController {
+    return (NotebookPageHostViewController *) [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:viewControllerBeforeViewController];
+}
+
 - (void)test_viewControllerShouldNavigateCorrectly{
+    // Summary, Review and Photo (3 Controllers)
     RestaurantReview *review = [self review:@"Good food"];
     RestaurantRating *rating = [self rating:@[ review]];
     id photo1 = [[PhotoBuilder alloc] build];
@@ -67,31 +73,73 @@
     [self showView];
 
     // first page is displayed (summary & photo 1)
-    UIViewController *nextController = _ctrl.viewControllers[0];
+    NotebookPageHostViewController *nextController = _ctrl.viewControllers[0];
     assertThat(nextController.class, is(equalTo(RestaurantReviewSummaryViewController.class)));
     assertThat(((RestaurantReviewSummaryViewController *) nextController).restaurant, is(equalTo(restaurant)));
+    assertThatInt(nextController.pageMode, is(equalTo(@(NotebookPageModeSmall))));
     // go to next page (review)
-    nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
+    nextController = [self viewControllerAfterViewController:nextController];
     assertThat(nextController.class, is(RestaurantReviewCommentViewController.class));
     assertThat(((RestaurantReviewCommentViewController *) nextController).review, is(equalTo(review)));
+    assertThatInt(nextController.pageMode, is(equalTo(@(NotebookPageModeSmall))));
     // go to next page (photo 2)
-    nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
+    nextController = [self viewControllerAfterViewController:nextController];
     assertThat(nextController.class, is(RestaurantPhotoViewController.class));
     assertThat(((RestaurantPhotoViewController *) nextController).photo, is(equalTo(photo2)));
+    assertThatInt(nextController.pageMode, is(equalTo(@(NotebookPageModeSmall))));
     // go to next page (which doesn't exist)
-    nextController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:nextController];
+    nextController = [self viewControllerAfterViewController:nextController];
     assertThat(nextController, is(nilValue()));
     // go to prev page (review)
-    nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
+    nextController = [self viewControllerBeforeViewController:nextController];
     assertThat(nextController.class, is(RestaurantReviewCommentViewController.class));
     assertThat(((RestaurantReviewCommentViewController *) nextController).review, is(equalTo(review)));
+    assertThatInt(nextController.pageMode, is(equalTo(@(NotebookPageModeSmall))));
     // go to prev controller (summary)
-    nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
+    nextController = [self viewControllerBeforeViewController:nextController];
     assertThat(nextController.class, is(equalTo(RestaurantReviewSummaryViewController.class)));
     assertThat(((RestaurantReviewSummaryViewController *) nextController).restaurant, is(equalTo(restaurant)));
+    assertThatInt(nextController.pageMode, is(equalTo(@(NotebookPageModeSmall))));
     // go to prev controller (which doesn't exists)
-    nextController = [_ctrl pageViewController:_ctrl viewControllerBeforeViewController:nextController];
+    nextController = [self viewControllerBeforeViewController:nextController];
     assertThat(nextController, is(nilValue()));
+}
+
+
+-(void)test_createCloneOfCurrentlyVisibleControllerForEnlargedView_ShouldDoWhatMethodDescribes{
+    // Summary, Review and Photo (3 Controllers)
+    RestaurantReview *review = [self review:@"Good food"];
+    RestaurantRating *rating = [self rating:@[ review]];
+    id photo1 = [[PhotoBuilder alloc] build];
+    id photo2 = [[PhotoBuilder alloc] build];
+    NSArray*photos = @[photo1,photo2];
+    Restaurant *restaurant = [[[[RestaurantBuilder alloc] withReview:rating] withPhotos:photos] build];
+    [_ctrl setRestaurant:restaurant];
+    [self showView];
+
+    // Summary view is displayed
+    UIViewController *currentController = _ctrl.viewControllers[0];
+    UIViewController <INotebookPageHostViewController> *clone = [_ctrl createCloneOfCurrentlyVisibleControllerForEnlargedView];
+    assertThat(clone.class, is(equalTo(RestaurantReviewSummaryViewController.class)));
+    assertThat(((RestaurantReviewSummaryViewController *) clone).restaurant, is(equalTo(restaurant)));
+    assertThat(clone, isNot(sameInstance(currentController)));
+    assertThatInt(clone.pageMode, is(equalTo(@(NotebookPageModeLarge))));
+
+    currentController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:currentController];
+    // Comment view is displayed
+    clone = [_ctrl createCloneOfCurrentlyVisibleControllerForEnlargedView];
+    assertThat(clone.class, is(equalTo(RestaurantReviewCommentViewController.class)));
+    assertThat(((RestaurantReviewCommentViewController *) clone).review, is(equalTo(review)));
+    assertThat(clone, isNot(sameInstance(currentController)));
+    assertThatInt(clone.pageMode, is(equalTo(@(NotebookPageModeLarge))));
+
+    currentController = [_ctrl pageViewController:_ctrl viewControllerAfterViewController:currentController];
+    // Photo view is displayed
+    clone = [_ctrl createCloneOfCurrentlyVisibleControllerForEnlargedView];
+    assertThat(clone.class, is(equalTo(RestaurantPhotoViewController.class)));
+    assertThat(((RestaurantPhotoViewController *) clone).photo, is(equalTo(photo2)));
+    assertThat(clone, isNot(sameInstance(currentController)));
+    assertThatInt(clone.pageMode, is(equalTo(@(NotebookPageModeLarge))));
 }
 
 

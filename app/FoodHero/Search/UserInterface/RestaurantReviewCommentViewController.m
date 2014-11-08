@@ -11,6 +11,7 @@
 
 @implementation RestaurantReviewCommentViewController {
 
+    __weak IBOutlet UIView *_containerView;
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
 }
 
@@ -49,5 +50,8 @@
     return [[SORelativeDateTransformer registeredTransformer] transformedValue:date];
 }
 
+- (UIView *)getContainerView {
+    return _containerView;
+}
 
 @end

@@ -11,10 +11,8 @@
 #import "ControllerFactory.h"
 #import "StubAssembly.h"
 #import "TyphoonComponents.h"
-#import "RestaurantReviewSummaryViewController.h"
 #import "RestaurantReviewBuilder.h"
 #import "RatingStarsImageRepository.h"
-#import "RestaurantReviewCommentViewController.h"
 
 @interface RestaurantReviewCommentViewControllerTests : XCTestCase
 
@@ -29,6 +27,7 @@
 
     [TyphoonComponents configure:[StubAssembly assembly]];
     _ctrl = [ControllerFactory createRestaurantReviewCommentViewController];
+    [_ctrl embedNotebookWith:NotebookPageModeSmall];
     _ctrl.view.hidden = NO;
 
     [_ctrl setReview:[[[[[[RestaurantReviewBuilder alloc] withText:@"Nice location"] withRating:2.5] withAuthor:@"John Wayne"] date:[NSDate date]] build]];
@@ -50,6 +49,10 @@
 
 - (void)test_signatureLabelLabel_ShouldContainSignature {
     assertThat(_ctrl.signatureLabel.text, is(equalTo(@"now by John Wayne")));
+}
+
+- (void)test_embedNotebookWith_ShouldNotCrash {
+    [_ctrl embedNotebookWith:NotebookPageModeSmall];
 }
 
 @end

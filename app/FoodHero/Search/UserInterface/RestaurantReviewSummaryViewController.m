@@ -13,6 +13,7 @@
 
 @implementation RestaurantReviewSummaryViewController {
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
+    __weak IBOutlet UIView *_containerView;
 }
 
 - (void)viewDidLoad {
@@ -32,7 +33,7 @@
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", rating.rating];
 
     if (_restaurant.photos.count > 0) {
-        id<ISchedulerFactory> schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
+        id <ISchedulerFactory> schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
         RACScheduler *mainThreadScheduler = [schedulerFactory mainThreadScheduler];
 
         id <IPhoto> photo = _restaurant.photos[0];
@@ -45,5 +46,9 @@
 - (void)setRestaurant:(Restaurant *)restaurant {
     _restaurant = restaurant;
     [self bind];
+}
+
+- (UIView *)getContainerView {
+    return _containerView;
 }
 @end

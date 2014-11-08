@@ -4,8 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "INotebookPageHostViewController.h"
 
-
-@interface NotebookPageHostViewController : UIViewController
-- (CGFloat)notebookPaddingLeft;
+@interface NotebookPageHostViewController : UIViewController <INotebookPageHostViewController>
 @end

@@ -521,6 +521,7 @@
 		23525871F5597AB825B20E50 /* RestaurantDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailTableViewController.m; sourceTree = "<group>"; };
 		23525871FB0563C6FA13D06F /* ConversationBubbleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleUser.h; sourceTree = "<group>"; };
 		2352587742DCFF7582BD7F37 /* RandomizerStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomizerStub.m; sourceTree = "<group>"; };
+		235258844AFDC45A933EFDDC /* INotebookPageHostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INotebookPageHostViewController.h; sourceTree = "<group>"; };
 		235258892D3D9E931704531B /* GooglePhotoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePhotoTests.m; sourceTree = "<group>"; };
 		2352588D56941DE6F99F60F9 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
 		23525899A1997D5440D5159B /* GoogleURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleURL.h; sourceTree = "<group>"; };
@@ -1229,6 +1230,7 @@
 				235252DDDDA5A6D3AC1ADBC8 /* NotebookPageHostViewController.h */,
 				2352577C9B933310D30BBCAC /* RestaurantPhotoViewController.m */,
 				23525121761DF5A72FA84199 /* RestaurantPhotoViewController.h */,
+				235258844AFDC45A933EFDDC /* INotebookPageHostViewController.h */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";

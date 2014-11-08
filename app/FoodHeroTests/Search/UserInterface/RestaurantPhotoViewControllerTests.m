@@ -31,6 +31,7 @@
 
     [TyphoonComponents configure:[StubAssembly assembly]];
     _ctrl = [ControllerFactory createRestaurantPhotoViewController];
+    [_ctrl embedNotebookWith:NotebookPageModeLarge];
     _ctrl.view.hidden = NO;
 
     _image = [UIImage new];
@@ -40,6 +41,10 @@
 
 - (void)test_imageView_ShouldContainImage {
     assertThat(_ctrl.imageView.image, is(equalTo(_image)));
+}
+
+-(void)test_embedNotebookWith_ShouldNotCrash{
+    [_ctrl embedNotebookWith:NotebookPageModeSmall];
 }
 
 @end

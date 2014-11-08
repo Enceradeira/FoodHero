@@ -31,6 +31,7 @@
 
     [TyphoonComponents configure:[StubAssembly assembly]];
     _ctrl = [ControllerFactory createRestaurantReviewSummaryViewController];
+    [_ctrl embedNotebookWith:NotebookPageModeSmall];
     _ctrl.view.hidden = NO;
 }
 
@@ -63,5 +64,9 @@
     [_ctrl setRestaurant:[[[RestaurantBuilder alloc] withPhotos:@[]] build]];
 
     assertThat(_ctrl.photoView.image, is(nilValue()));
+}
+
+-(void)test_embedNotebookWith_ShouldNotCrash{
+    [_ctrl embedNotebookWith:NotebookPageModeSmall];
 }
 @end

@@ -451,7 +451,7 @@
                             <constraint firstAttribute="trailing" secondItem="Jnj-3e-u9D" secondAttribute="trailing" constant="35" id="zfi-mR-LnR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="hhb-KF-aif"/>
+                    <navigationItem key="navigationItem" title="Restaurant" id="hhb-KF-aif"/>
                     <connections>
                         <outlet property="_detailView" destination="jQJ-nN-uqH" id="h8K-fE-OjK"/>
                         <outlet property="_reviewView" destination="K7b-mO-Fig" id="8Ey-PN-qKb"/>
@@ -934,9 +934,6 @@ Norwich, Norfolk NR1 3DN</string>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qex-MI-kaW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
-                                <connections>
-                                    <segue destination="mMt-4t-Vct" kind="embed" identifier="Container" id="N2P-JG-BK6"/>
-                                </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hSS-h2-WN7">
                                 <rect key="frame" x="20" y="40" width="280" height="170"/>
@@ -957,6 +954,7 @@ Norwich, Norfolk NR1 3DN</string>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
                     <connections>
+                        <outlet property="_containerView" destination="Qex-MI-kaW" id="Ocs-z0-rgS"/>
                         <outlet property="imageView" destination="hSS-h2-WN7" id="u1i-MI-c4t"/>
                         <outlet property="leftBorderConstraint" destination="7q1-wb-M5r" id="mbB-1k-G7g"/>
                     </connections>
@@ -979,9 +977,6 @@ Norwich, Norfolk NR1 3DN</string>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeN-SB-4pm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
-                                <connections>
-                                    <segue destination="mMt-4t-Vct" kind="embed" identifier="Container" id="9GY-l1-vwD"/>
-                                </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="2gN-BB-nc5">
                                 <rect key="frame" x="64" y="21" width="110" height="19"/>
@@ -1028,6 +1023,7 @@ Norwich, Norfolk NR1 3DN</string>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
                     <connections>
+                        <outlet property="_containerView" destination="eeN-SB-4pm" id="rGg-mI-xPE"/>
                         <outlet property="leftBorderConstraint" destination="Djr-tN-xSN" id="Ldf-nx-QdG"/>
                         <outlet property="ratingImage" destination="2gN-BB-nc5" id="jcJ-ch-hut"/>
                         <outlet property="ratingLabel" destination="5dm-pC-kPL" id="31H-RX-kkS"/>
@@ -1110,9 +1106,6 @@ Norwich, Norfolk NR1 3DN</string>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4P-vH-Air">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
-                                <connections>
-                                    <segue destination="mMt-4t-Vct" kind="embed" identifier="Container" id="I6A-XB-tjQ"/>
-                                </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating-stars-4.0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ba2-ns-Amk">
                                 <rect key="frame" x="64" y="21" width="110" height="19"/>
@@ -1151,6 +1144,7 @@ Norwich, Norfolk NR1 3DN</string>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="230"/>
                     <connections>
+                        <outlet property="_containerView" destination="J4P-vH-Air" id="3mm-kS-UgD"/>
                         <outlet property="leftBorderConstraint" destination="Q72-dS-UyI" id="lea-tf-Q1a"/>
                         <outlet property="photoView" destination="eSD-o3-9wu" id="deH-mb-Mns"/>
                         <outlet property="ratingImage" destination="ba2-ns-Amk" id="EFe-tW-y8I"/>
@@ -1177,7 +1171,4 @@ Norwich, Norfolk NR1 3DN</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="N2P-JG-BK6"/>
-    </inferredMetricsTieBreakers>
 </document>

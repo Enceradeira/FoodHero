@@ -5,7 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import "RestaurantController.h"
+#import "INotebookPageHostViewController.h"
 
 
-@interface RestaurantReviewPageViewController : UIPageViewController <RestaurantController,UIPageViewControllerDataSource>
+@interface RestaurantReviewPageViewController : UIPageViewController <RestaurantController, UIPageViewControllerDataSource>
+- (UIViewController <INotebookPageHostViewController> *)createCloneOfCurrentlyVisibleControllerForEnlargedView;
 @end

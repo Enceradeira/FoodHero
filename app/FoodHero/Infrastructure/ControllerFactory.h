@@ -8,13 +8,14 @@
 
 #import <Typhoon.h>
 #import "ConversationViewController.h"
+#import "RestaurantPhotoViewController.h"
+#import "OpeningHoursViewController.h"
+#import "RestaurantDetailTableViewController.h"
+#import "RestaurantReviewSummaryViewController.h"
+#import "RestaurantReviewCommentViewController.h"
+#import "RestaurantReviewPageViewController.h"
 
-@class RestaurantDetailTableViewController;
-@class OpeningHoursViewController;
-@class RestaurantReviewSummaryViewController;
-@class RestaurantReviewPageViewController;
-@class RestaurantReviewCommentViewController;
-@class RestaurantPhotoViewController;
+@class NotebookPageViewController;
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
@@ -30,4 +31,6 @@
 + (RestaurantPhotoViewController *)createRestaurantPhotoViewController;
 
 + (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController;
+
++ (NotebookPageViewController *)createNotebookPageViewController;
 @end

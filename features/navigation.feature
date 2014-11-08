@@ -15,6 +15,12 @@ Feature: Navigation in app
     When I dismiss the week's opening hours
     Then I see the review summary
 
+    Then I touch the review summary
+    Then I see the review summary enlarged
+
+    When I go back to the restaurants-details
+    Then I see the review summary
+
     When I go back
     Then I see the conversation view
 

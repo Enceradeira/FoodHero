@@ -10,6 +10,7 @@
 
 @implementation RestaurantPhotoViewController {
 
+    __weak IBOutlet UIView *_containerView;
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
 }
 - (void)viewDidLoad {
@@ -32,4 +33,10 @@
     _photo = photo;
     [self bind];
 }
+
+- (UIView *)getContainerView {
+    return _containerView;
+}
+
+
 @end

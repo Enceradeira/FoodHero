@@ -8,11 +8,7 @@
 
 #import "ControllerFactory.h"
 #import "TyphoonComponents.h"
-#import "OpeningHoursViewController.h"
-#import "RestaurantReviewSummaryViewController.h"
-#import "RestaurantReviewPageViewController.h"
-#import "RestaurantReviewCommentViewController.h"
-#import "RestaurantPhotoViewController.h"
+#import "NotebookPageViewController.h"
 
 @implementation ControllerFactory
 + (ConversationViewController *)createConversationViewController {
@@ -55,5 +51,11 @@
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
 
     return [storyboard instantiateViewControllerWithIdentifier:@"RestaurantReviewPageViewController"];
+}
+
++ (NotebookPageViewController *)createNotebookPageViewController {
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+
+    return [storyboard instantiateViewControllerWithIdentifier:@"NotebookPageViewController"];
 }
 @end

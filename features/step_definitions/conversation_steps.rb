@@ -64,6 +64,14 @@ def cheat_text_field
   find_element(:name, 'cheat text')
 end
 
+def review_summary
+  find_element(:name, 'ReviewSummary')
+end
+
+def button_restaurant
+  button('Restaurant')
+end
+
 def touch_text_field
   text_field.click
 end
@@ -290,6 +298,10 @@ And(/^I touch a conversation bubble$/) do
   bubble.click
 end
 
+When(/^I go back to the restaurants\-details$/) do
+  button_restaurant.click
+end
+
 Then(/^I can't see the feedback list$/) do
   entry = feedback_entry('I like it')[0]
   expect(entry.displayed?).to be_falsey
@@ -325,6 +337,10 @@ When(/^I touch the text field$/) do
   touch_text_field
 end
 
+Then(/^I touch the review summary$/) do
+  review_summary.click
+end
+
 Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
   # directions
   directions = find_elements(:xpath,"//UIAStaticText[contains(@name,'miles away') or contains(@name,'yards away')]")
@@ -342,8 +358,12 @@ Then(/^I see the week's opening hours$/) do
 end
 
 Then(/^I see the review summary$/) do
-  review_summary = find_element(:name, 'ReviewSummary')
   expect(review_summary).not_to be_nil
+end
+
+Then(/^I see the review summary enlarged$/) do
+  expect(review_summary).not_to be_nil
+  expect(button_restaurant).not_to be_nil # in addition to the review-summary on the enlarged view is also a back button
 end
 
 Then(/^I see a review comment$/) do
@@ -361,5 +381,3 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
-
-

@@ -4,12 +4,12 @@
 //
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
-#import "RestaurantReviewPageViewController.h"
 #import "TyphoonComponents.h"
 #import "RestaurantReviewSummaryViewController.h"
 #import "RestaurantReviewCommentViewController.h"
 #import "IPhoto.h"
 #import "RestaurantPhotoViewController.h"
+#import "ControllerFactory.h"
 
 
 @implementation RestaurantReviewPageViewController {
@@ -22,42 +22,48 @@
 
     self.dataSource = self;
 
-    NSArray *controllers = @[[self createSummaryController:_restaurant]];
+    UIViewController <INotebookPageHostViewController> *summaryController = [self createSummaryController:_restaurant];
+    [summaryController embedNotebookWith:NotebookPageModeSmall];
+
+    NSArray *controllers = @[summaryController];
     [self setViewControllers:controllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 
     _index = 0;
 }
 
-- (RestaurantReviewSummaryViewController *)createSummaryController:(Restaurant *)restaurant {
-    RestaurantReviewSummaryViewController *ctrl = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewSummaryViewController"];
+- (UIViewController <INotebookPageHostViewController> *)createSummaryController:(Restaurant *)restaurant {
+    RestaurantReviewSummaryViewController *ctrl = [ControllerFactory createRestaurantReviewSummaryViewController];
     [ctrl setRestaurant:restaurant];
     return ctrl;
 }
 
 
-- (RestaurantReviewCommentViewController *)createCommentControllerFor:(RestaurantReview *)review {
-    RestaurantReviewCommentViewController *ctrl = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantReviewCommentViewController"];
+- (UIViewController <INotebookPageHostViewController> *)createCommentControllerFor:(RestaurantReview *)review {
+    RestaurantReviewCommentViewController *ctrl = [ControllerFactory createRestaurantReviewCommentViewController];
     [ctrl setReview:review];
     return ctrl;
 }
 
-- (UIViewController *)createPhotoControllerFor:(id <IPhoto>)photo {
-    RestaurantPhotoViewController *ctrl = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantPhotoViewController"];
+- (UIViewController <INotebookPageHostViewController> *)createPhotoControllerFor:(id <IPhoto>)photo {
+    RestaurantPhotoViewController *ctrl = [ControllerFactory createRestaurantPhotoViewController];
     [ctrl setPhoto:photo];
     return ctrl;
 }
 
 
-- (UIViewController *)createControllerForObject:(id)object {
+- (UIViewController <INotebookPageHostViewController> *)createControllerForObject:(id)object mode:(NotebookPageMode)mode {
+    UIViewController <INotebookPageHostViewController> *ctrl;
     if ([object isKindOfClass:[Restaurant class]]) {
-        return [self createSummaryController:object];
+        ctrl = [self createSummaryController:object];
     }
     else if ([object isKindOfClass:[RestaurantReview class]]) {
-        return [self createCommentControllerFor:object];
+        ctrl = [self createCommentControllerFor:object];
     }
     else {
-        return [self createPhotoControllerFor:object];
+        ctrl = [self createPhotoControllerFor:object];
     }
+    [ctrl embedNotebookWith:mode];
+    return ctrl;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
@@ -66,7 +72,7 @@
     }
 
     _index--;
-    return [self createControllerForObject:_objects[_index]];
+    return [self createControllerForObject:_objects[_index] mode:NotebookPageModeSmall];
 }
 
 
@@ -77,15 +83,15 @@
 
     _index++;
     [self prefetchNextPhoto];
-    return [self createControllerForObject:_objects[_index]];
+    return [self createControllerForObject:_objects[_index] mode:NotebookPageModeSmall];
 }
 
 - (void)prefetchNextPhoto {
-    NSUInteger nextIndex = _index+1;
-    if( nextIndex < _objects.count ) {
+    NSUInteger nextIndex = _index + 1;
+    if (nextIndex < _objects.count) {
         id nextObject = _objects[nextIndex];
-        if([nextObject conformsToProtocol:@protocol(IPhoto)]){
-            [((id<IPhoto>)nextObject) preFetchImage];
+        if ([nextObject conformsToProtocol:@protocol(IPhoto)]) {
+            [((id <IPhoto>) nextObject) preFetchImage];
         }
     }
 }
@@ -106,19 +112,7 @@
     _objects = objects;
 }
 
-/*
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    if (!_rating.summary) {
-        return 0;
-    }
-    else {
-        return _rating.reviews.count + 1;
-    }
+- (UIViewController <INotebookPageHostViewController> *)createCloneOfCurrentlyVisibleControllerForEnlargedView {
+    return [self createControllerForObject:_objects[_index] mode:NotebookPageModeLarge];
 }
-
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-    return 0;
-} */
-
-
 @end
