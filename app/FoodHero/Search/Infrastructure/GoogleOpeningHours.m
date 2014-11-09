@@ -88,7 +88,7 @@
         hours -= 12;
     }
 
-    return @[[NSString stringWithFormat:@"%i:%@", hours, minutes], postfix];
+    return @[[NSString stringWithFormat:@"%li:%@", (long)hours, minutes], postfix];
 }
 
 - (NSArray *)descriptionForWeek {

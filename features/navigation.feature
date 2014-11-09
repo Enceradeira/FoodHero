@@ -1,6 +1,6 @@
 Feature: Navigation in app
 
-  Scenario: I starts Food Hero and explore app
+  Scenario: I start Food Hero and explore app
     Given FoodHero has started
     Then I see the conversation view
 

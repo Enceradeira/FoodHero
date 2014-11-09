@@ -15,7 +15,7 @@
     BOOL _isEagerlyLoaded;
 }
 - (NSString *)url {
-    return [NSString stringWithFormat:@"%@/maps/api/place/photo?photoreference=%@&maxheight=%u&maxwidth=%u&key=%@", GOOGLE_BASE_ADDRESS, _photoReference, _originalHeight, _originalWidth, GOOGLE_API_KEY];
+    return [NSString stringWithFormat:@"%@/maps/api/place/photo?photoreference=%@&maxheight=%li&maxwidth=%li&key=%@", GOOGLE_BASE_ADDRESS, _photoReference, (long)_originalHeight, (long)_originalWidth, GOOGLE_API_KEY];
 }
 
 - (BOOL)isEagerlyLoaded {
@@ -23,7 +23,7 @@
 }
 
 - (void)preFetchImage {
-    RACSignal *dummy = [self image];
+    [self image];
 }
 
 
