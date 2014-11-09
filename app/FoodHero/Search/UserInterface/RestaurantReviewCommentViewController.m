@@ -11,6 +11,7 @@
 
 @implementation RestaurantReviewCommentViewController {
 
+    __weak IBOutlet NSLayoutConstraint *_distanceRatingToReviewContstraint;
     __weak IBOutlet UIView *_containerView;
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
 }
@@ -19,6 +20,16 @@
     [super viewDidLoad];
 
     leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
+
+    if( self.pageMode == NotebookPageModeLarge){
+        UIFont *reviewFont = [(self.reviewLabel.font) fontWithSize:17];
+        self.reviewLabel.font = reviewFont;
+
+        UIFont *signatureFont = [(self.signatureLabel.font) fontWithSize:15];
+        self.signatureLabel.font = signatureFont;
+
+        _distanceRatingToReviewContstraint.constant = _distanceRatingToReviewContstraint.constant * 2;
+    }
 
     [self bind];
 }

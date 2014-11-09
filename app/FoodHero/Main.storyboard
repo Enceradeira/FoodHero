@@ -1033,7 +1033,7 @@ Norwich, Norfolk NR1 3DN</string>
                                 <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-HT-Prm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpretentious curry house with a BYOB policy, turningout meat-free regional Indian dishes." lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25000000000000006" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-HT-Prm">
                                 <rect key="frame" x="20" y="51" width="280" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
@@ -1069,6 +1069,7 @@ Norwich, Norfolk NR1 3DN</string>
                     <size key="freeformSize" width="320" height="230"/>
                     <connections>
                         <outlet property="_containerView" destination="eeN-SB-4pm" id="rGg-mI-xPE"/>
+                        <outlet property="_distanceRatingToReviewContstraint" destination="fQ6-wY-ZKR" id="oHk-jO-Epq"/>
                         <outlet property="leftBorderConstraint" destination="Djr-tN-xSN" id="Ldf-nx-QdG"/>
                         <outlet property="ratingImage" destination="2gN-BB-nc5" id="jcJ-ch-hut"/>
                         <outlet property="ratingLabel" destination="5dm-pC-kPL" id="31H-RX-kkS"/>
