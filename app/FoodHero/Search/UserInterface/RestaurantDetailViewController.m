@@ -8,6 +8,7 @@
 #import "Restaurant.h"
 #import "ControllerFactory.h"
 #import "DesignByContractException.h"
+#import "LargeRestaurantReviewViewController.h"
 
 
 @implementation RestaurantDetailViewController {
@@ -28,9 +29,7 @@
 }
 
 - (void)reviewViewTapped:(id)reviewViewTapped {
-    UIViewController* ctrl = [self.pageViewController createCloneOfCurrentlyVisibleControllerForEnlargedView];
-    ctrl.navigationItem.backBarButtonItem.title = @"Restaurant";
-    [self.navigationController pushViewController:ctrl animated:YES];
+    [self performSegueWithIdentifier:@"LargeRestaurantReview" sender:self];
 }
 
 
@@ -39,10 +38,20 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    id <RestaurantController> controller = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"LargeRestaurantReview"]) {
+       // push-segue for enlarged review view
+        UIViewController *ctrl = [self.pageViewController createCloneOfCurrentlyVisibleControllerForEnlargedView];
 
-    [controller setRestaurant:_restaurant];
-    [super prepareForSegue:segue sender:sender];
+        LargeRestaurantReviewViewController *destination = segue.destinationViewController;
+        [destination addContent:ctrl];
+    }
+    else {
+        // embed-segue for embedded content
+        id <RestaurantController> controller = segue.destinationViewController;
+
+        [controller setRestaurant:_restaurant];
+        [super prepareForSegue:segue sender:sender];
+    }
 }
 
 - (RestaurantReviewPageViewController *)pageViewController {

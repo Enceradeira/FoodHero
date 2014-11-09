@@ -14,9 +14,7 @@
 #import "RestaurantReviewSummaryViewController.h"
 #import "RestaurantReviewCommentViewController.h"
 #import "RestaurantReviewPageViewController.h"
-
-@class NotebookPageViewController;
-@class LargeNotebookPageViewController;
+#import "NotebookPageViewController.h"
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
@@ -34,6 +32,4 @@
 + (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController;
 
 + (NotebookPageViewController *)createNotebookPageViewController;
-
-+ (LargeNotebookPageViewController *)createLargeNotebookPageViewController;
 @end

@@ -25,20 +25,19 @@
     [super viewDidLoad];
 
     if(_pageMode == NotebookPageModeSmall) {
+        // Display a notebook in background
         _notebookController = [ControllerFactory createNotebookPageViewController];
-    }
-    else{
-        _notebookController = [ControllerFactory createLargeNotebookPageViewController];
-    }
-    UIView *containerView = [self getContainerView];
-    if (!containerView) {
-        @throw [DesignByContractException createWithReason:@"no container-view returned"];
-    }
 
-    [self addChildViewController:_notebookController];
-    _notebookController.view.frame = containerView.frame;
-    [containerView addSubview:_notebookController.view];
-    [_notebookController didMoveToParentViewController:self];
+        UIView *containerView = [self getContainerView];
+        if (!containerView) {
+            @throw [DesignByContractException createWithReason:@"no container-view returned"];
+        }
+
+        [self addChildViewController:_notebookController];
+        _notebookController.view.frame = containerView.frame;
+        [containerView addSubview:_notebookController.view];
+        [_notebookController didMoveToParentViewController:self];
+    }
 }
 
 
@@ -52,7 +51,7 @@
 
 - (CGFloat)notebookPaddingLeft {
     if (!_notebookController) {
-        @throw [DesignByContractException createWithReason:@"NotebookController was not created using embedNotebookWith:"];
+        return 0;
     }
     return _notebookController.paddingLeft;
 }

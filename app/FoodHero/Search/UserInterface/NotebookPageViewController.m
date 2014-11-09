@@ -5,6 +5,7 @@
 
 #import "NotebookPageViewController.h"
 #import "FoodHeroColors.h"
+#import "NotebookBackgroundConfigurator.h"
 
 
 @implementation NotebookPageViewController {
@@ -21,16 +22,7 @@
     // have the _notebookPageView start where the _notebookColumnsView end
     _notebookPageLeftConstraint.constant = _notebookColumnsView.image.size.width;
 
-    _notebookPageView.backgroundColor = [FoodHeroColors yellowColor];
-
-    // _notebookPage with drop-shadow
-    _notebookPageView.layer.masksToBounds = NO;
-    _notebookPageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _notebookPageView.layer.shadowOffset = CGSizeMake(3.0f, 2.0f);
-    _notebookPageView.layer.shadowOpacity = 0.3f;
-
-    // _notebookPage with round corners
-    _notebookPageView.layer.cornerRadius = 8.0f;
+    [NotebookBackgroundConfigurator configure:_notebookPageView];
 }
 
 

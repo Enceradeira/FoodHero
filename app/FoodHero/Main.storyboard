@@ -455,11 +455,56 @@
                     <connections>
                         <outlet property="_detailView" destination="jQJ-nN-uqH" id="h8K-fE-OjK"/>
                         <outlet property="_reviewView" destination="K7b-mO-Fig" id="8Ey-PN-qKb"/>
+                        <segue destination="fcW-5q-l0i" kind="push" identifier="LargeRestaurantReview" id="Mqu-z5-2wN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lca-eL-8ex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="701" y="1632"/>
+        </scene>
+        <!--Large Restaruant Review View Controller-->
+        <scene sceneID="oui-3y-LSu">
+            <objects>
+                <viewController storyboardIdentifier="LargeRestaurantReviewViewController" id="fcW-5q-l0i" userLabel="Large Restaruant Review View Controller" customClass="LargeRestaurantReviewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ek3-Jn-0JO"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yxw-De-e3t"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fpj-8P-DZQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBz-BP-euS">
+                                <rect key="frame" x="20" y="86" width="280" height="462"/>
+                                <color key="backgroundColor" red="0.90980392160000001" green="0.81960784310000001" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rx9-js-jiU">
+                                <rect key="frame" x="20" y="86" width="280" height="462"/>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rx9-js-jiU" firstAttribute="top" secondItem="Ek3-Jn-0JO" secondAttribute="bottom" constant="22" id="46C-lg-5ev"/>
+                            <constraint firstItem="Yxw-De-e3t" firstAttribute="top" secondItem="rx9-js-jiU" secondAttribute="bottom" constant="20" id="KYz-fc-z2k"/>
+                            <constraint firstItem="OBz-BP-euS" firstAttribute="leading" secondItem="rx9-js-jiU" secondAttribute="leading" id="My9-8k-Fqf"/>
+                            <constraint firstItem="rx9-js-jiU" firstAttribute="leading" secondItem="fpj-8P-DZQ" secondAttribute="leading" constant="20" id="SyS-5l-IZh"/>
+                            <constraint firstItem="OBz-BP-euS" firstAttribute="top" secondItem="rx9-js-jiU" secondAttribute="top" id="ePx-7v-zkm"/>
+                            <constraint firstItem="OBz-BP-euS" firstAttribute="bottom" secondItem="rx9-js-jiU" secondAttribute="bottom" id="fwh-Cq-Khh"/>
+                            <constraint firstItem="OBz-BP-euS" firstAttribute="trailing" secondItem="rx9-js-jiU" secondAttribute="trailing" id="nUJ-Tk-i1q"/>
+                            <constraint firstAttribute="trailing" secondItem="rx9-js-jiU" secondAttribute="trailing" constant="20" id="wAr-UL-cb4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Zoom" id="8me-cH-TyV">
+                        <barButtonItem key="backBarButtonItem" title="Restaurant" id="OwR-ct-jFO"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="_backgroundView" destination="OBz-BP-euS" id="tFL-0N-62t"/>
+                        <outlet property="_containerView" destination="rx9-js-jiU" id="Vzr-jT-FTW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="waW-b5-pGD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1136" y="1632"/>
         </scene>
         <!--Restaurant Detail Table View Controller-->
         <scene sceneID="hgY-Zq-eG4">
@@ -687,7 +732,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XyN-1U-jAH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1136" y="1507"/>
+            <point key="canvasLocation" x="1125.5" y="2233"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="HRM-u1-pSN">
@@ -870,27 +915,6 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="701" y="2201"/>
         </scene>
-        <!--Large Notebook Page View Controller-->
-        <scene sceneID="EYi-7g-tYq">
-            <objects>
-                <viewController storyboardIdentifier="LargeNotebookPageViewController" id="E8v-hL-Wkk" userLabel="Large Notebook Page View Controller" customClass="LargeNotebookPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RIL-oz-cGz"/>
-                        <viewControllerLayoutGuide type="bottom" id="RPi-w7-ROd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lma-lZ-HuT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.90980398650000005" green="0.81960791349999995" blue="0.56862747670000002" alpha="1" colorSpace="deviceRGB"/>
-                    </view>
-                    <connections>
-                        <outlet property="_notebookPageView" destination="lma-lZ-HuT" id="4v0-Yk-HU1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L2j-mT-5Kb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1556" y="2141"/>
-        </scene>
         <!--Notebook Page View Controller-->
         <scene sceneID="cct-ns-3EY">
             <objects>
@@ -939,7 +963,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-1k-UYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1556" y="2597"/>
+            <point key="canvasLocation" x="1546" y="3323"/>
         </scene>
         <!--Restaurant Photo View Controller-->
         <scene sceneID="8iY-yM-Ayc">
@@ -982,7 +1006,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yH7-t1-dRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="2613"/>
+            <point key="canvasLocation" x="1125" y="3339"/>
         </scene>
         <!--Restaurant Review Comment View Controller-->
         <scene sceneID="B6y-Ln-b5b">
@@ -1054,7 +1078,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuI-pO-YkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="2310"/>
+            <point key="canvasLocation" x="1125" y="3036"/>
         </scene>
         <!--Opening Hours Table View Controller-->
         <scene sceneID="FkI-pc-7Wr">
@@ -1111,7 +1135,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32A-Fw-NpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="1766"/>
+            <point key="canvasLocation" x="1125" y="2492"/>
         </scene>
         <!--Restaurant Review Summary Controller-->
         <scene sceneID="35t-qN-8ZF">
@@ -1174,7 +1198,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yiJ-j2-I90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="1995"/>
+            <point key="canvasLocation" x="1125" y="2721"/>
         </scene>
     </scenes>
     <resources>

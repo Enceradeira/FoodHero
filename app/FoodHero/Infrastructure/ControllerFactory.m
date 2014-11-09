@@ -9,7 +9,6 @@
 #import "ControllerFactory.h"
 #import "TyphoonComponents.h"
 #import "NotebookPageViewController.h"
-#import "LargeNotebookPageViewController.h"
 
 @implementation ControllerFactory
 + (ConversationViewController *)createConversationViewController {
@@ -58,11 +57,5 @@
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
 
     return [storyboard instantiateViewControllerWithIdentifier:@"NotebookPageViewController"];
-}
-
-+ (LargeNotebookPageViewController *)createLargeNotebookPageViewController {
-    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
-
-    return [storyboard instantiateViewControllerWithIdentifier:@"LargeNotebookPageViewController"];
 }
 @end
