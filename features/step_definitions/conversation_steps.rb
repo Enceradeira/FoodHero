@@ -18,7 +18,7 @@ def wait_last_element_and_parameter(id)
   #puts json
 
   bubble, parameter = nil
-  wait_true(30, 0.30) do
+  wait_true({:timeout => 30, :interval=>0.3}) do
     bubble, parameter = get_last_element_and_parameter(id)
     if block_given?
       block_test = parameter != nil && yield(parameter)
