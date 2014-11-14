@@ -17,14 +17,14 @@
 }
 
 + (void)writeReview:(RestaurantReview *)review toView:(id <IRestaurantReviewCommentViewController>)controller {
-    UILabel *reviewLabel = controller.getReviewLabel;
+    id <IUITextVisualizer> reviewLabel = controller.getReviewLabel;
     UIImageView *ratingImage = controller.getRatingImage;
     UILabel *ratingLabel = controller.getRatingLabel;
     UILabel *signatureLabel = controller.getSignatureLabel;
 
-    reviewLabel.text = review.text;
-    reviewLabel.accessibilityIdentifier = @"ReviewComment";
-    reviewLabel.textColor = [FoodHeroColors darkGrey];
+    [reviewLabel setText:review.text];
+    [reviewLabel setAccessibilityIdentifier:@"ReviewComment"];
+    [reviewLabel setTextColor:[FoodHeroColors darkGrey]];
     ratingImage.image = [RatingStarsImageRepository getImageForRating:review.rating].image;
 
     ratingLabel.text = [NSString stringWithFormat:@"%.1f", review.rating];

@@ -33,7 +33,7 @@
 }
 
 - (void)test_summaryLabel_ShouldContainSummary {
-    assertThat(_ctrl.reviewLabel.text, is(equalTo(@"Nice location")));
+    assertThat(_ctrl.reviewTextView.text, is(equalTo(@"Nice location")));
 }
 
 - (void)test_ratingLabel_ShouldContainRating {

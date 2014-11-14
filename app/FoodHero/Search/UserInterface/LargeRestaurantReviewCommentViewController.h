@@ -11,7 +11,8 @@
 
 
 @interface LargeRestaurantReviewCommentViewController : UIViewController <IRestaurantReviewCommentViewController>
-@property(weak, nonatomic) IBOutlet UILabel *reviewLabel;
+
+@property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property(weak, nonatomic) IBOutlet UILabel *signatureLabel;
 @property(weak, nonatomic) IBOutlet UIImageView *ratingImage;
 @property(weak, nonatomic) IBOutlet UILabel *ratingLabel;

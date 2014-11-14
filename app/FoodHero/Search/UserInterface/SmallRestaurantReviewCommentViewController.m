@@ -4,6 +4,7 @@
 //
 
 #import "SmallRestaurantReviewCommentViewController.h"
+#import "UILabelVisualizer.h"
 
 
 @implementation SmallRestaurantReviewCommentViewController {
@@ -30,8 +31,8 @@
     }
 }
 
-- (UILabel *)getReviewLabel {
-    return self.reviewLabel;
+- (id <IUITextVisualizer>)getReviewLabel {
+    return [UILabelVisualizer create:self.reviewLabel];
 }
 
 - (UILabel *)getSignatureLabel {

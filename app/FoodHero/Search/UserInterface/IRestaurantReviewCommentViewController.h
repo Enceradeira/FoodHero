@@ -5,9 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import "RestaurantReview.h"
+#import "IUITextVisualizer.h"
 
 @protocol IRestaurantReviewCommentViewController <NSObject>
-- (UILabel *)getReviewLabel;
+- (id <IUITextVisualizer>)getReviewLabel;
 
 - (UILabel *)getSignatureLabel;
 

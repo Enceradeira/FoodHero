@@ -4,10 +4,10 @@
 //
 
 #import "LargeRestaurantReviewCommentViewController.h"
+#import "UITextViewVisualizer.h"
 
 
 @implementation LargeRestaurantReviewCommentViewController {
-
 }
 
 - (void)viewDidLoad {
@@ -16,9 +16,15 @@
     [self bind];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
-- (UILabel *)getReviewLabel {
-    return self.reviewLabel;
+    [_reviewTextView flashScrollIndicators];
+}
+
+
+- (id <IUITextVisualizer>)getReviewLabel {
+    return [UITextViewVisualizer create:self.reviewTextView];
 }
 
 - (UILabel *)getSignatureLabel {
