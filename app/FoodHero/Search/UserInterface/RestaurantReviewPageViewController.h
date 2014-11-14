@@ -9,5 +9,5 @@
 
 
 @interface RestaurantReviewPageViewController : UIPageViewController <RestaurantController, UIPageViewControllerDataSource>
-- (UIViewController <INotebookPageHostViewController> *)createCloneOfCurrentlyVisibleControllerForEnlargedView;
+- (UIViewController *)createCloneOfCurrentlyVisibleControllerForEnlargedView;
 @end

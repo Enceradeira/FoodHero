@@ -12,9 +12,10 @@
 #import "OpeningHoursViewController.h"
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantReviewSummaryViewController.h"
-#import "RestaurantReviewCommentViewController.h"
+#import "SmallRestaurantReviewCommentViewController.h"
 #import "RestaurantReviewPageViewController.h"
 #import "NotebookPageViewController.h"
+#import "LargeRestaurantReviewCommentViewController.h"
 
 @interface ControllerFactory : NSObject
 + (ConversationViewController *)createConversationViewController;
@@ -25,11 +26,13 @@
 
 + (RestaurantReviewSummaryViewController *)createRestaurantReviewSummaryViewController;
 
-+ (RestaurantReviewCommentViewController *)createRestaurantReviewCommentViewController;
++ (SmallRestaurantReviewCommentViewController *)createSmallRestaurantReviewCommentViewController;
 
 + (RestaurantPhotoViewController *)createRestaurantPhotoViewController;
 
 + (RestaurantReviewPageViewController *)createRestaurantReviewPageViewController;
 
 + (NotebookPageViewController *)createNotebookPageViewController;
+
++ (LargeRestaurantReviewCommentViewController *)createLargeRestaurantReviewCommentViewController;
 @end

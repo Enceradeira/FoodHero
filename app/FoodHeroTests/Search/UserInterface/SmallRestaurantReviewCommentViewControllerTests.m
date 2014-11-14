@@ -14,19 +14,19 @@
 #import "RestaurantReviewBuilder.h"
 #import "RatingStarsImageRepository.h"
 
-@interface RestaurantReviewCommentViewControllerTests : XCTestCase
+@interface SmallRestaurantReviewCommentViewControllerTests : XCTestCase
 
 @end
 
-@implementation RestaurantReviewCommentViewControllerTests {
-    RestaurantReviewCommentViewController *_ctrl;
+@implementation SmallRestaurantReviewCommentViewControllerTests {
+    SmallRestaurantReviewCommentViewController *_ctrl;
 }
 
 - (void)setUp {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly assembly]];
-    _ctrl = [ControllerFactory createRestaurantReviewCommentViewController];
+    _ctrl = [ControllerFactory createSmallRestaurantReviewCommentViewController];
     [_ctrl embedNotebookWith:NotebookPageModeSmall];
     _ctrl.view.hidden = NO;
 

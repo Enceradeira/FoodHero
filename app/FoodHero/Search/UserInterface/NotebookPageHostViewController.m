@@ -40,15 +40,6 @@
     }
 }
 
-
-/*
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSString *segueName = segue.identifier;
-    if ([segueName isEqualToString:@"Container"]) {
-        _notebookController = (NotebookPageViewController *) [segue destinationViewController];
-    }
-} */
-
 - (CGFloat)notebookPaddingLeft {
     if (!_notebookController) {
         return 0;

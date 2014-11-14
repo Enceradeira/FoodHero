@@ -6,7 +6,7 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "TyphoonComponents.h"
 #import "RestaurantReviewSummaryViewController.h"
-#import "RestaurantReviewCommentViewController.h"
+#import "SmallRestaurantReviewCommentViewController.h"
 #import "IPhoto.h"
 #import "RestaurantPhotoViewController.h"
 #import "ControllerFactory.h"
@@ -38,8 +38,14 @@
 }
 
 
-- (UIViewController <INotebookPageHostViewController> *)createCommentControllerFor:(RestaurantReview *)review {
-    RestaurantReviewCommentViewController *ctrl = [ControllerFactory createRestaurantReviewCommentViewController];
+- (UIViewController <INotebookPageHostViewController> *)createSmallCommentController:(RestaurantReview *)review {
+    SmallRestaurantReviewCommentViewController *ctrl = [ControllerFactory createSmallRestaurantReviewCommentViewController];
+    [ctrl setReview:review];
+    return ctrl;
+}
+
+- (UIViewController *)createLargeCommentController:(RestaurantReview *)review {
+    LargeRestaurantReviewCommentViewController *ctrl = [ControllerFactory createLargeRestaurantReviewCommentViewController];
     [ctrl setReview:review];
     return ctrl;
 }
@@ -51,18 +57,26 @@
 }
 
 
-- (UIViewController <INotebookPageHostViewController> *)createControllerForObject:(id)object mode:(NotebookPageMode)mode {
+- (UIViewController *)createControllerForObject:(id)object mode:(NotebookPageMode)mode {
     UIViewController <INotebookPageHostViewController> *ctrl;
     if ([object isKindOfClass:[Restaurant class]]) {
         ctrl = [self createSummaryController:object];
+        [ctrl embedNotebookWith:mode];
     }
     else if ([object isKindOfClass:[RestaurantReview class]]) {
-        ctrl = [self createCommentControllerFor:object];
+        if( mode == NotebookPageModeSmall) {
+            ctrl = [self createSmallCommentController:object];
+            [ctrl embedNotebookWith:mode];
+        }
+        else{
+            return [self createLargeCommentController:object];
+        }
     }
     else {
         ctrl = [self createPhotoControllerFor:object];
+        [ctrl embedNotebookWith:mode];
     }
-    [ctrl embedNotebookWith:mode];
+
     return ctrl;
 }
 
@@ -112,7 +126,7 @@
     _objects = objects;
 }
 
-- (UIViewController <INotebookPageHostViewController> *)createCloneOfCurrentlyVisibleControllerForEnlargedView {
+- (UIViewController *)createCloneOfCurrentlyVisibleControllerForEnlargedView {
     return [self createControllerForObject:_objects[_index] mode:NotebookPageModeLarge];
 }
 @end
