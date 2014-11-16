@@ -1,0 +1,5 @@
+#include "Pods-FoodHero-Typhoon.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/Typhoon" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/LinqToObjectiveC" "${PODS_ROOT}/Headers/Public/OCHamcrest" "${PODS_ROOT}/Headers/Public/ReactiveCocoa" "${PODS_ROOT}/Headers/Public/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/Public/SORelativeDateTransformer" "${PODS_ROOT}/Headers/Public/Typhoon" "${PODS_ROOT}/Headers/Public/UIImageViewAligned" "${PODS_ROOT}/Headers/Public/Wit" "${PODS_ROOT}/Headers/Public/XCAsyncTestCase"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}

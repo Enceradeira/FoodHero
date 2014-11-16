@@ -1,5 +1,6 @@
 # Uncomment this line to define a global platform for your project
 
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, "8.0"
 
 target :FoodHero do
@@ -8,6 +9,7 @@ target :FoodHero do
     pod "ReactiveCocoa"
     pod "UIImageViewAligned", :path => './../UIImageViewAligned'
     pod "SORelativeDateTransformer"
+    pod 'Wit', '~> 3.0.0'
 end
 
 target :FoodHeroTests do

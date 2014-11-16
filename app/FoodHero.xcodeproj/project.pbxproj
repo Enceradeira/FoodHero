@@ -110,10 +110,10 @@
 		2352564B7B1FF0CA90E9DC5D /* AskUserCuisinePreferenceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FD4CA49F086C54F9548 /* AskUserCuisinePreferenceAction.m */; };
 		2352564E92C1AE453737CFBB /* ConversationTokenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C5AE2B1384673941B96 /* ConversationTokenTableViewCell.m */; };
 		2352565473BEEA7FAE5385C4 /* RestaurantDetailTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253AC3685FAB3459DE094 /* RestaurantDetailTableViewControllerTests.m */; };
-		235256578F2B65309DB1A631 /* ConversationIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C61D20DA1A93CE3282D /* ConversationIntegrationTests.m */; };
 		235256791478A94CCD3BE73E /* LargeRestaurantReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525130B25B176B9F80F98E /* LargeRestaurantReviewViewController.m */; };
 		2352568F08684D4936A6C5B8 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251996A185437DF584FB5 /* Personas.m */; };
 		2352568FACD5C630704F3D39 /* FHGoodByeAfterSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255F864D57F257B56084E /* FHGoodByeAfterSuccess.m */; };
+		23525692CF1FC353EEB00641 /* ConversationIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AB91A6F0C982291B958 /* ConversationIntegrationTests.m */; };
 		235256B9EDBB425F115F5A1D /* FHWhatToDoNextCommentAfterSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525712D29413868C162D44 /* FHWhatToDoNextCommentAfterSuccess.m */; };
 		235256D104437B6424FC20B6 /* LargeRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255C28F5BFA6BC8287CC0 /* LargeRestaurantReviewCommentViewController.m */; };
 		235256EFAF5328F249A28236 /* ConversationFirstProposalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FB6A7CA7732B6D83DA9 /* ConversationFirstProposalTests.m */; };
@@ -175,6 +175,7 @@
 		23525A5C3592B89EE8B116FC /* RestaurantRepositoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352514D2B510D7CD992B257 /* RestaurantRepositoryTests.m */; };
 		23525A7B796AAF1CE0533F56 /* USuggestionFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E33BB9EBF846A7A4794 /* USuggestionFeedback.m */; };
 		23525A8C5D6D2056ADFD9AA9 /* CLLocationManagerProxySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */; };
+		23525A8D64FF944392F48A9D /* ConversationAppServiceIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258E8D101DF0493551064 /* ConversationAppServiceIntegrationTests.m */; };
 		23525A9397E6DF40988AE898 /* RestaurantReviewPageViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AC8355C100D6ED953B0 /* RestaurantReviewPageViewControllerTests.m */; };
 		23525ABCA737D5A1ADACF083 /* Cuisine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EB1D250FAF7DC76D56F /* Cuisine.m */; };
 		23525AD674F92A7FCD80EFA0 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253F117606594F4E18A31 /* Place.m */; };
@@ -314,7 +315,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		010351527A08BC7FFE9CD449 /* Pods-FoodHeroIntegrationsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroIntegrationsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroIntegrationsTests/Pods-FoodHeroIntegrationsTests.release.xcconfig"; sourceTree = "<group>"; };
 		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		135B99A3EEB77C125525C257 /* Pods-FoodHero.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.release.xcconfig"; sourceTree = "<group>"; };
 		235250072299A349297C76F8 /* ConversationViewStateListOrTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewStateListOrTextInput.m; sourceTree = "<group>"; };
 		2352500E77FD978526911096 /* UILabelVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelVisualizer.h; sourceTree = "<group>"; };
 		23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceTests.m; sourceTree = "<group>"; };
@@ -545,6 +548,7 @@
 		235258ADF2C939973C179EBA /* RadiusCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusCalculatorTests.m; sourceTree = "<group>"; };
 		235258BB5DE0F58FEB0342ED /* UTryAgainNow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTryAgainNow.h; sourceTree = "<group>"; };
 		235258DD6B1DCB71CF04DCEF /* UGoodBye.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UGoodBye.m; sourceTree = "<group>"; };
+		235258E8D101DF0493551064 /* ConversationAppServiceIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceIntegrationTests.m; sourceTree = "<group>"; };
 		235258E9456D24B4F1902530 /* LargeRestaurantReviewCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeRestaurantReviewCommentViewController.h; sourceTree = "<group>"; };
 		235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewState+Protected.m"; sourceTree = "<group>"; };
 		235258F0B360233DE7BEB6E3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -585,6 +589,7 @@
 		23525A9602C00D5EE3C4B292 /* ConversationToken+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationToken+Protected.m"; sourceTree = "<group>"; };
 		23525A99EA72D11BF5116C43 /* HCIsExceptionOfType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCIsExceptionOfType.h; sourceTree = "<group>"; };
 		23525AB7B4B3BE8A17194B52 /* FHNoRestaurantsFound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHNoRestaurantsFound.m; sourceTree = "<group>"; };
+		23525AB91A6F0C982291B958 /* ConversationIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationIntegrationTests.m; sourceTree = "<group>"; };
 		23525AC2BACD77CDBD93F7FF /* TextAndSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAndSound.h; sourceTree = "<group>"; };
 		23525AC8355C100D6ED953B0 /* RestaurantReviewPageViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewPageViewControllerTests.m; sourceTree = "<group>"; };
 		23525AED9FB005B543D590C5 /* RadiusCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusCalculator.m; sourceTree = "<group>"; };
@@ -632,7 +637,6 @@
 		23525C48379EC148C7360C11 /* GoogleOpeningHoursTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleOpeningHoursTests.m; sourceTree = "<group>"; };
 		23525C4A139EFD78754D149C /* USuggestionFeedbackForLiking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionFeedbackForLiking.h; sourceTree = "<group>"; };
 		23525C5AE2B1384673941B96 /* ConversationTokenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTokenTableViewCell.m; sourceTree = "<group>"; };
-		23525C61D20DA1A93CE3282D /* ConversationIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationIntegrationTests.m; sourceTree = "<group>"; };
 		23525C6413A6A189DF6DB298 /* SearchError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchError.m; sourceTree = "<group>"; };
 		23525C650A06DDEF7A995D25 /* RestaurantRatingBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRatingBuilder.m; sourceTree = "<group>"; };
 		23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAction.h; sourceTree = "<group>"; };
@@ -723,8 +727,9 @@
 		23525FF477756E484E35DF5F /* AddTokenAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTokenAction.m; sourceTree = "<group>"; };
 		23525FFD133B4B57A619342E /* HCIsExceptionOfType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCIsExceptionOfType.m; sourceTree = "<group>"; };
 		23525FFE1563377297C5C54A /* GoogleURLTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleURLTests.m; sourceTree = "<group>"; };
-		26012BB1B98A47E098227E9E /* Pods-FoodHeroIntegrationsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroIntegrationsTests.xcconfig"; path = "Pods/Pods-FoodHeroIntegrationsTests.xcconfig"; sourceTree = "<group>"; };
-		2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.xcconfig"; path = "Pods/Pods-FoodHero.xcconfig"; sourceTree = "<group>"; };
+		4D010B6D5D2DC4982B5DF0DC /* Pods-FoodHeroTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroTests/Pods-FoodHeroTests.release.xcconfig"; sourceTree = "<group>"; };
+		58996D3209F8BBDEDC93CD56 /* Pods-FoodHeroTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroTests/Pods-FoodHeroTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroIntegrationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroIntegrationsTests/Pods-FoodHeroIntegrationsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Checked@2x.png"; sourceTree = "<group>"; };
 		8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Unchecked@2x.png"; sourceTree = "<group>"; };
@@ -776,8 +781,8 @@
 		8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroIntegrationsTests-Info.plist"; sourceTree = "<group>"; };
 		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Prefix.pch"; sourceTree = "<group>"; };
-		A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.xcconfig"; path = "Pods/Pods-FoodHeroTests.xcconfig"; sourceTree = "<group>"; };
 		F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroIntegrationsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -954,6 +959,14 @@
 			path = Infrastructure;
 			sourceTree = "<group>";
 		};
+		235253CDB21ADFF74DA9F44A /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				235258E8D101DF0493551064 /* ConversationAppServiceIntegrationTests.m */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
 		2352545A884F245D04E22354 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,7 +1003,7 @@
 		235254E85CCA27BC5A914E19 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				23525C61D20DA1A93CE3282D /* ConversationIntegrationTests.m */,
+				23525AB91A6F0C982291B958 /* ConversationIntegrationTests.m */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1370,6 +1383,7 @@
 			isa = PBXGroup;
 			children = (
 				235254E85CCA27BC5A914E19 /* Domain */,
+				235253CDB21ADFF74DA9F44A /* UserInterface */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -1528,10 +1542,8 @@
 				8FEA3BF919CB4E4D00C67DDD /* FoodHeroIntegrationsTests */,
 				8FCBADCB19614B83001ED357 /* Frameworks */,
 				8FCBADCA19614B83001ED357 /* Products */,
-				2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */,
-				A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */,
-				26012BB1B98A47E098227E9E /* Pods-FoodHeroIntegrationsTests.xcconfig */,
 				23525A97A8A5B5546D538778 /* FoodHeroTestsCommon */,
+				F991584F51D5F88FBFD42184 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1655,6 +1667,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F991584F51D5F88FBFD42184 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */,
+				135B99A3EEB77C125525C257 /* Pods-FoodHero.release.xcconfig */,
+				6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */,
+				010351527A08BC7FFE9CD449 /* Pods-FoodHeroIntegrationsTests.release.xcconfig */,
+				58996D3209F8BBDEDC93CD56 /* Pods-FoodHeroTests.debug.xcconfig */,
+				4D010B6D5D2DC4982B5DF0DC /* Pods-FoodHeroTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1747,6 +1772,8 @@
 			mainGroup = 8FCBADC019614B83001ED357;
 			productRefGroup = 8FCBADCA19614B83001ED357 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				8FCBADC819614B83001ED357 /* FoodHero */,
@@ -1858,7 +1885,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-FoodHeroIntegrationsTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodHeroIntegrationsTests/Pods-FoodHeroIntegrationsTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		826E68EA9FCE4383A482A031 /* Check Pods Manifest.lock */ = {
@@ -1888,7 +1915,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-FoodHeroTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodHeroTests/Pods-FoodHeroTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F7D2460F0C594202AD6E4F0A /* Copy Pods Resources */ = {
@@ -1903,7 +1930,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-FoodHero-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2141,7 +2168,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				235256578F2B65309DB1A631 /* ConversationIntegrationTests.m in Sources */,
 				235255580D0D40B6B62EAC37 /* RestaurantRepositoryIntegrationTests.m in Sources */,
 				235257BE5E61CA1B23DC6694 /* AlwaysImmediateSchedulerFactory.m in Sources */,
 				235251EE92383E27DE80754D /* HCIsExceptionOfType.m in Sources */,
@@ -2167,6 +2193,8 @@
 				235258027C21EF43C7B98B3C /* RestaurantReviewBuilder.m in Sources */,
 				235254C41EA0FC9FF7A6CC60 /* RestaurantRatingBuilder.m in Sources */,
 				23525B7945384409374D7642 /* PhotoBuilder.m in Sources */,
+				23525692CF1FC353EEB00641 /* ConversationIntegrationTests.m in Sources */,
+				23525A8D64FF944392F48A9D /* ConversationAppServiceIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2285,7 +2313,7 @@
 		};
 		8FCBADF619614B83001ED357 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */;
+			baseConfigurationReference = F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2302,7 +2330,7 @@
 		};
 		8FCBADF719614B83001ED357 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B62F4A5BA724C0883A67471 /* Pods-FoodHero.xcconfig */;
+			baseConfigurationReference = 135B99A3EEB77C125525C257 /* Pods-FoodHero.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2319,7 +2347,7 @@
 		};
 		8FCBADF919614B83001ED357 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */;
+			baseConfigurationReference = 58996D3209F8BBDEDC93CD56 /* Pods-FoodHeroTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2344,7 +2372,7 @@
 		};
 		8FCBADFA19614B83001ED357 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5B12E02E3AA41E69D7C0516 /* Pods-FoodHeroTests.xcconfig */;
+			baseConfigurationReference = 4D010B6D5D2DC4982B5DF0DC /* Pods-FoodHeroTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2365,7 +2393,7 @@
 		};
 		8FEA3C0419CB4E4E00C67DDD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26012BB1B98A47E098227E9E /* Pods-FoodHeroIntegrationsTests.xcconfig */;
+			baseConfigurationReference = 6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2389,7 +2417,7 @@
 		};
 		8FEA3C0519CB4E4E00C67DDD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26012BB1B98A47E098227E9E /* Pods-FoodHeroIntegrationsTests.xcconfig */;
+			baseConfigurationReference = 010351527A08BC7FFE9CD449 /* Pods-FoodHeroIntegrationsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
 				FRAMEWORK_SEARCH_PATHS = (

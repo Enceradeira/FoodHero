@@ -1,6 +1,0 @@
-#include "Pods-FoodHeroIntegrationsTests-XCAsyncTestCase.xcconfig"
-FRAMEWORK_SEARCH_PATHS = ${PODS_FOODHEROINTEGRATIONSTESTS_XCASYNCTESTCASE_FRAMEWORK_SEARCH_PATHS}
-GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/XCAsyncTestCase" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/LinqToObjectiveC" "${PODS_ROOT}/Headers/OCHamcrest" "${PODS_ROOT}/Headers/ReactiveCocoa" "${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/SORelativeDateTransformer" "${PODS_ROOT}/Headers/Typhoon" "${PODS_ROOT}/Headers/UIImageViewAligned" "${PODS_ROOT}/Headers/XCAsyncTestCase"
-OTHER_LDFLAGS = -ObjC ${PODS_FOODHEROINTEGRATIONSTESTS_XCASYNCTESTCASE_OTHER_LDFLAGS}
-PODS_ROOT = ${SRCROOT}
