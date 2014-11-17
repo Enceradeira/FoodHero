@@ -26,6 +26,7 @@
 #import "SoundPlayer.h"
 #import "RestaurantDetailViewController.h"
 #import "Environment.h"
+#import "WitSpeechRecognitionService.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -101,14 +102,25 @@
     ];
 }
 
+- (id)speechRecognitionService {
+    return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithSchedulerFactory:accessToken:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self schedulerFactory]];
+                                  [method injectParameterWith:@"DD2C4J3PUPYIB54FU4RTENECFZN7GXZ2"]; // Instance "FoodHero"
+                              }];
+                          }];
+}
+
 - (id)conversationAppService {
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
         configuration:^(TyphoonDefinition *definition) {
-            [definition useInitializer:@selector(initWithConversationRepository:restaurantRepository:locationService:) parameters:^(TyphoonMethod *method) {
+            [definition useInitializer:@selector(initWithConversationRepository:restaurantRepository:locationService:speechRegocnitionService:) parameters:^(TyphoonMethod *method) {
                 [method injectParameterWith:[self conversationRepository]];
                 [method injectParameterWith:[self restaurantRepository]];
                 [method injectParameterWith:[self locationService]];
+                [method injectParameterWith:[self speechRecognitionService]];
             }];
             definition.scope = TyphoonScopeSingleton; // Because it holds state
         }

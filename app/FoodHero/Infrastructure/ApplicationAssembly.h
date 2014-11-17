@@ -22,6 +22,8 @@
 
 - (id)conversationViewController;
 
+-(id)speechRecognitionService;
+
 - (id)conversationAppService;
 
 - (id)conversationRepository;

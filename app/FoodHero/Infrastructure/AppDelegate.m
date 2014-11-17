@@ -7,6 +7,7 @@
 //
 
 #import <Typhoon.h>
+#import <Wit/Wit.h>
 #import "AppDelegate.h"
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"

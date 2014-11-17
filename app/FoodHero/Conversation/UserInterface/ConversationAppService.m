@@ -23,6 +23,9 @@
 #import "FeedbackForTooFarAway.h"
 #import "RestaurantRepository.h"
 #import "SearchProfil.h"
+#import "ISpeechRecognitionService.h"
+#import "SpeechInterpretation.h"
+#import "UCuisinePreference.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -36,6 +39,7 @@ static UIImage *EmptyImage;
     RestaurantRepository *_restaurantRepository;
     BOOL _doRenderSemanticID;
     NSTimeInterval _interactionDelay;
+    id <ISpeechRecognitionService> _speechRecognitionService;
 }
 
 
@@ -45,13 +49,17 @@ static UIImage *EmptyImage;
     EmptyImage = [UIImage imageNamed:@"Empty-Icon.png"];
 }
 
-- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository restaurantRepository:(RestaurantRepository *)restaurantRepository locationService:(LocationService *)locationService {
+- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
+                          restaurantRepository:(RestaurantRepository *)restaurantRepository
+                               locationService:(LocationService *)locationService
+                       speechRegocnitionService:(id <ISpeechRecognitionService>)speechRecognitionService {
     self = [super init];
     if (self != nil) {
         _doRenderSemanticID = NO;
         _bubbles = [NSMutableDictionary new];
         _locationService = locationService;
         _restaurantRepository = restaurantRepository;
+        _speechRecognitionService = speechRecognitionService;
         _conversation = conversationRepository.get;
         _cuisines =
                 [@[@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese"]
@@ -178,26 +186,36 @@ static UIImage *EmptyImage;
 }
 
 - (void)processCheat:(NSString *)command {
-    if([command isEqualToString:@"C:FS"]){
+    if ([command isEqualToString:@"C:FS"]) {
         // find something
         [_restaurantRepository simulateNoRestaurantFound:NO];
     }
-    else if([command isEqualToString:@"C:FN"]){
+    else if ([command isEqualToString:@"C:FN"]) {
         // find nothing
         [_restaurantRepository simulateNoRestaurantFound:YES];
     }
-    else if([command isEqualToString:@"C:NE"]) {
+    else if ([command isEqualToString:@"C:NE"]) {
         // network error
         [_restaurantRepository simulateNetworkError:YES];
     }
-    else if([command isEqualToString:@"C:SS"]) {
+    else if ([command isEqualToString:@"C:SS"]) {
         // show semantic-id
         _doRenderSemanticID = YES;
     }
-    else if([command isEqualToString:@"C:BS"]) {
+    else if ([command isEqualToString:@"C:BS"]) {
         // be slow
         [_restaurantRepository simulateSlowResponse:YES];
     }
 
+}
+
+- (void)addUserCuisinePreference:(NSString *)string {
+    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        if([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1){
+            [self addUserInput:[UCuisinePreference create:interpretation.entities[0]]];
+        }
+    }];
 }
 @end

@@ -6,35 +6,54 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <XCAsyncTestCase/XCTestCase+AsyncTesting.h>
+#import "ApplicationAssembly.h"
+#import "TyphoonComponents.h"
+#import "ConversationAppService.h"
+#import "ConversationBubbleUser.h"
+#import "IntegrationAssembly.h"
 
 @interface ConversationAppServiceIntegrationTests : XCTestCase
 
 @end
 
-@implementation ConversationAppServiceIntegrationTests
+@implementation ConversationAppServiceIntegrationTests {
+    ConversationAppService *_service;
+}
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+
+    [TyphoonComponents configure:[IntegrationAssembly new]];
+    _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+- (ConversationBubble *)getStatementWithIndex:(NSUInteger)index {
+    ConversationBubble *bubble = [_service getStatement:index bubbleWidth:350];
+    return bubble;
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+- (ConversationBubble *)waitStatementWithIndex:(NSUInteger)index {
+    [_service.statementIndexes subscribeNext:^(id next) {
+        if ([_service getStatementCount] - 1 >= index) {
+            [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
+        }
     }];
+    [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
+    return [self getStatementWithIndex:index];
 }
+
+- (void)test_addUserCuisinePreference_ShouldAddUCuisinePreferenceToConversation {
+    [_service addUserCuisinePreference:@"I whished to eat Korean food"];
+
+    ConversationBubble *bubble = [self waitStatementWithIndex:2];
+
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=Korean")));
+    assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
+}
+
 
 @end

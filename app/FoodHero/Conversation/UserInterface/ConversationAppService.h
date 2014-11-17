@@ -10,6 +10,7 @@
 #import "ConversationBubble.h"
 #import "ConversationRepository.h"
 #import "LocationService.h"
+#import "ISpeechRecognitionService.h"
 
 @class RACSignal;
 @class ConversationToken;
@@ -19,7 +20,10 @@
 
 @interface ConversationAppService : NSObject
 
-- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository restaurantRepository:(RestaurantRepository *)restaurantRepository locationService:(LocationService *)locationService;
+- (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
+                          restaurantRepository:(RestaurantRepository *)restaurantRepository
+                               locationService:(LocationService *)locationService
+                      speechRegocnitionService:(id <ISpeechRecognitionService>)speechRecognitionService;
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 
@@ -45,4 +49,5 @@
 
 - (Feedback *)getFeedback:(NSUInteger)index;
 
+- (void)addUserCuisinePreference:(NSString *)string;
 @end
