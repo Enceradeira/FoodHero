@@ -40,9 +40,10 @@
 
 - (TextAndSound *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
     if (_choiseForOneText != nil) {
-        return [[texts linq_where:^(TextAndSound *textAndSound) {
+        TextAndSound *choice = [[texts linq_where:^(TextAndSound *textAndSound) {
             return [textAndSound.text isEqualToString:_choiseForOneText];
         }] linq_firstOrNil];
+        return choice ? choice : texts[0];
     }
     return texts[0];
 }

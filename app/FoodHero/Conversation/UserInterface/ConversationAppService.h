@@ -11,12 +11,8 @@
 #import "ConversationRepository.h"
 #import "LocationService.h"
 #import "ISpeechRecognitionService.h"
-
-@class RACSignal;
-@class ConversationToken;
-@class Cuisine;
-@class Feedback;
-@class RestaurantRepository;
+#import "RestaurantRepository.h"
+#import "Feedback.h"
 
 @interface ConversationAppService : NSObject
 
@@ -38,12 +34,6 @@
 - (void)processCheat:(NSString *)command;
 
 - (NSInteger)getStatementCount;
-
-- (NSInteger)getCuisineCount;
-
-- (Cuisine *)getCuisine:(NSUInteger)index;
-
-- (NSString *)getSelectedCuisineText;
 
 - (NSInteger)getFeedbackCount;
 

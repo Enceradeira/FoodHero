@@ -74,14 +74,14 @@
 }
 
 - (RACSignal *)interpretString:(NSString *)string customData:(id)customData {
-    RACSignal *signal = [RACSignal startEagerlyWithScheduler:_schedulerFactory.mainThreadScheduler block:^(id <RACSubscriber> subscriber) {
+    RACSignal *signal = [[RACSignal startEagerlyWithScheduler:_schedulerFactory.asynchScheduler block:^(id <RACSubscriber> subscriber) {
         Wit *wit = [[Wit alloc] init];
         wit.accessToken = _accessToken;
         //enabling detectSpeechStop will automatically stop listening the microphone when the user stop talking
         wit.detectSpeechStop = WITVadConfigDetectSpeechStop;
         wit.delegate = [WitDelegate create:subscriber];
         [wit interpretString:string customData:customData];
-    }];
+    }] deliverOn:[_schedulerFactory mainThreadScheduler]];
 
     return signal;
 }

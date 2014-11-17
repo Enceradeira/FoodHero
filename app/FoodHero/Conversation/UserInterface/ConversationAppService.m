@@ -12,7 +12,6 @@
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
-#import "Cuisine.h"
 #import "Feedback.h"
 #import "DesignByContractException.h"
 #import "USuggestionFeedbackForTooFarAway.h"
@@ -23,7 +22,6 @@
 #import "FeedbackForTooFarAway.h"
 #import "RestaurantRepository.h"
 #import "SearchProfil.h"
-#import "ISpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
 #import "UCuisinePreference.h"
 
@@ -61,11 +59,6 @@ static UIImage *EmptyImage;
         _restaurantRepository = restaurantRepository;
         _speechRecognitionService = speechRecognitionService;
         _conversation = conversationRepository.get;
-        _cuisines =
-                [@[@"African", @"American", @"Asian", @"Bakery", @"Barbecue", @"British", @"Café", @"Cajun & Creole", @"Caribbean", @"Chinese", @"Continental", @"Delicatessen", @"Dessert", @"Eastern European", @"Fusion", @"European", @"French", @"German", @"Global/International", @"Greek", @"Indian", @"Irish", @"Italian", @"Japanese", @"Mediterranean", @"Mexican/Southwestern", @"Middle Eastern", @"Pizza", @"Pub", @"Seafood", @"Soups", @"South American", @"Spanish", @"Steakhouse", @"Sushi", @"Thai", @"Vegetarian", @"Vietnamese"]
-                        linq_select:^(NSString *name) {
-                            return [Cuisine create:name];
-                        }];
 
         _feedbacks = @[
                 [FeedbackForTooFarAway create:EmptyImage choiceText:@"It's too far away" locationService:_locationService],
@@ -112,38 +105,6 @@ static UIImage *EmptyImage;
 
 - (RACSignal *)statementIndexes {
     return _conversation.statementIndexes;
-}
-
-- (NSInteger)getCuisineCount {
-    return _cuisines.count;
-}
-
-- (Cuisine *)getCuisine:(NSUInteger)index {
-    return _cuisines[index];
-}
-
-- (NSString *)getSelectedCuisineText {
-    NSMutableString *text = [NSMutableString new];
-    NSArray *cuisines = [[_cuisines
-            linq_where:^(Cuisine *c) {
-                return c.isSelected;
-            }]
-            linq_sort:^(Cuisine *c) {
-                return c.isSelectedTimeStamp;
-            }];
-
-    for (NSInteger i = 0; i < cuisines.count; i++) {
-        Cuisine *cuisine = cuisines[(NSUInteger) i];
-        [text appendString:cuisine.name];
-        if (i <= (NSInteger) cuisines.count - 3) {
-            [text appendString:@", "];
-        }
-        else if (i <= (NSInteger) cuisines.count - 2) {
-            [text appendString:@" or "];
-        }
-    }
-
-    return text;
 }
 
 - (NSArray *)feedbackFiltered {

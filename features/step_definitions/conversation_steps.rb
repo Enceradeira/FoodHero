@@ -258,16 +258,8 @@ When(/^I say that problem with location\-service has been fixed$/) do
 end
 
 When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
-  text_field.send_keys cuisines_as_string
+  text_field.send_keys "I want to eat #{cuisines_as_string} food"
 
-  touch_send
-end
-
-When(/^I wish to eat "([^"]*)" food by choosing it$/) do |cuisines_as_string|
-  show_list_button.click
-  split_at_comma(cuisines_as_string).each do |cuisine|
-    get_last_element_and_parameter("CuisineEntry=#{cuisine}")[0].click
-  end
   touch_send
 end
 

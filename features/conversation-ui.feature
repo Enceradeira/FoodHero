@@ -9,7 +9,7 @@ Feature: User interacts with app through conversation
     Then FoodHero still greets me and asks what I wished to eat
 
     Given FoodHero is very slow in responding
-    When I wish to eat "American" food by choosing it
+    When I wish to eat "American" food by typing it
     And I allow access to the location-services
     Then I can't touch input list button
     And I can't enter text
@@ -20,7 +20,7 @@ Feature: User interacts with app through conversation
 
   Scenario: I do things differently
     # choosing cuisine from list
-    Given I wish to eat "Indian" food by choosing it
+    Given I wish to eat "Indian" food by typing it
     And I allow access to the location-services
     Then I answer with "Indian" food
     And FoodHero suggests something for "Indian" food

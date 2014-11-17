@@ -16,7 +16,6 @@
 #import "ConversationAppService.h"
 #import "StubAssembly.h"
 #import "UCuisinePreference.h"
-#import "Cuisine.h"
 #import "Feedback.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
@@ -54,14 +53,6 @@ const CGFloat landscapeWidth = 400;
     return bubble;
 }
 
-- (NSArray *)cuisines {
-    NSMutableArray *cuisines = [NSMutableArray new];
-    for (NSUInteger i = 0; i < [_service getCuisineCount]; i++) {
-        [cuisines addObject:[_service getCuisine:i]];
-    }
-    return cuisines;
-}
-
 - (NSArray *)feedbacks {
     NSMutableArray *feedbacks = [NSMutableArray new];
     for (NSUInteger i = 0; i < [_service getFeedbackCount]; i++) {
@@ -84,13 +75,6 @@ const CGFloat landscapeWidth = 400;
         [statements addObject:[_service getStatement:i bubbleWidth:147]];
     }
     return statements;
-}
-
-- (Cuisine *)cuisine:(NSString *)name {
-    Cuisine *african = [[[self cuisines] linq_where:^(Cuisine *c) {
-        return [c.name isEqualToString:name];
-    }] linq_firstOrNil];
-    return african;
 }
 
 - (void)assertUserFeedbackForLastSuggestedRestaurant:(NSString *)feedback fhAnswer:(NSString *)fhAnswer {
@@ -136,48 +120,6 @@ const CGFloat landscapeWidth = 400;
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British or Indian Food")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
-}
-
-- (void)test_getCuisineCount_ShouldReturnCountGreaterThan0 {
-    assertThatInteger([_service getCuisineCount], is(greaterThan(@0)));
-}
-
-- (void)test_getCuisine_ShouldReturnCuisineForIndex {
-    Cuisine *cuisine0 = [_service getCuisine:0];
-    Cuisine *cuisine1 = [_service getCuisine:1];
-
-    assertThat(cuisine0, is(notNilValue()));
-    assertThat(cuisine1, is(notNilValue()));
-}
-
-- (void)test_getCuisine_ShouldAlwaysReturnSameInstance {
-    Cuisine *cuisine = [_service getCuisine:0];
-    cuisine.isSelected = !cuisine.isSelected;
-
-    Cuisine *cuisineSameInstance = [_service getCuisine:0];
-    assertThatBool(cuisine.isSelected, is(equalToBool(cuisineSameInstance.isSelected)));
-}
-
-- (void)test_getSelectedCuisineText_ShouldBeEmpty_WhenNoCuisineSelected {
-    assertThat([_service getSelectedCuisineText], is(equalTo(@"")));
-}
-
-- (void)test_getSelectedCuisineText_ShouldContainCuisine_WhenOneCuisineSelected {
-    [self cuisine:@"African"].isSelected = YES;
-    assertThat([_service getSelectedCuisineText], is(equalTo(@"African")));
-}
-
-- (void)test_getSelectedCuisineText_ShouldContainTwoCuisines_WhenTwoCuisinesSelected {
-    [self cuisine:@"Greek"].isSelected = YES;
-    [self cuisine:@"African"].isSelected = YES;
-    assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek or African")));
-}
-
-- (void)test_getSelectedCuisineText_ShouldContainThreeCuisines_WhenThreeCuisinesSelected {
-    [self cuisine:@"Greek"].isSelected = YES;
-    [self cuisine:@"African"].isSelected = YES;
-    [self cuisine:@"German"].isSelected = YES;
-    assertThat([_service getSelectedCuisineText], is(equalTo(@"Greek, African or German")));
 }
 
 - (void)test_getFeedbackCount_ShouldReturnCountGreaterThan0 {

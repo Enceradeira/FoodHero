@@ -13,13 +13,13 @@
 #import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateListOrTextInput.h"
-#import "CuisineTableViewController.h"
 #import "TyphoonComponents.h"
 #import "FoodHeroColors.h"
 #import "ConversationViewStateListOnlyInput.h"
 #import "CheatTextFieldController.h"
-#import "RestaurantsInRadiusAndPriceRange.h"
 #import "RestaurantDetailViewController.h"
+#import "UserInputViewController.h"
+#import "NullInputViewController.h"
 
 const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;
 const UIViewAnimationOptions DEFAULT_ANIMATION_OPTION_CURVE = UIViewAnimationOptionCurveEaseOut;
@@ -136,8 +136,13 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)changeUserInputViewController:(NSString *)identifier {
     [self removeUserInputViewController];
-    [self addUserInputViewController:identifier];
-
+    if (identifier != nil) {
+        [self addUserInputViewControllerWithIdentifier:identifier];
+    }
+    else {
+        id nullInputController = [(id <ApplicationAssembly>) [TyphoonComponents factory] nullUserInputController];
+        [self addUserInputViewController:nullInputController];
+    }
 }
 
 - (void)removeUserInputViewController {
@@ -152,8 +157,14 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_currentViewState update];
 }
 
-- (void)addUserInputViewController:(NSString *)identifier {
-    _currentUserInputContainerViewController = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
+- (void)addUserInputViewControllerWithIdentifier:(NSString *)identifier {
+    UIViewController <UserInputViewController> *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
+    [self addUserInputViewController:controller];
+
+}
+
+- (void)addUserInputViewController:(UIViewController <UserInputViewController> *)controller {
+    _currentUserInputContainerViewController = controller;
     _currentUserInputContainerViewController.parentController = self;
     UIView *controllerView = _currentUserInputContainerViewController.view;
     [controllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -235,7 +246,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     }
 
     ConversationBubble *bubble = [self getStatementIndex:indexPath.row];
-    ConversationBubbleTableViewCell *cell = (ConversationBubbleTableViewCell *) [[ConversationBubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bubble.cellId];
+    ConversationBubbleTableViewCell *cell = [[ConversationBubbleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:bubble.cellId];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.bubble = bubble;
@@ -256,7 +267,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserCuisinePreferenceAction {
-    [self changeUserInputViewController:@"Cuisine"];
+    [self changeUserInputViewController:nil];
 }
 
 - (void)askUserSuggestionFeedback {
@@ -327,7 +338,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 
 - (void)userDidTouchLinkInConversationBubbleWith:(Restaurant *)restaurant {
-    RestaurantDetailViewController* controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+    RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
     [controller setRestaurant:restaurant];
     [self.navigationController pushViewController:controller animated:YES];
 }

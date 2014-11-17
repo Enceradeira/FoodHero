@@ -14,8 +14,6 @@
 
 - (id)feedbackTableViewController;
 
-- (id)cuisineTableViewController;
-
 - (id)restaurantDetailViewController;
 
 - (id)navigationViewController;
@@ -49,4 +47,6 @@
 - (id)soundPlayer;
 
 - (id)environment;
+
+- (id)nullUserInputController;
 @end

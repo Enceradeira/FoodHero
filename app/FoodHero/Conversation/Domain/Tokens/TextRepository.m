@@ -241,7 +241,9 @@ NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeCheaper = 
 }
 
 - (TextAndSound *)getCelebrity {
-    return [_randomizer chooseOneTextFor:ContextCelebrity texts:@[[self getFemaleCelebrity], [self getMaleCelebrity]]];
+    TextAndSound *femaleCelebrity = [self getFemaleCelebrity];
+    TextAndSound *maleCelebrity = [self getMaleCelebrity];
+    return [_randomizer chooseOneTextFor:ContextCelebrity texts:@[femaleCelebrity, maleCelebrity]];
 }
 
 - (TextAndSound *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper {
