@@ -12,7 +12,6 @@
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "RandomizerStub.h"
 #import "RestaurantBuilder.h"
 
 @interface ConversationFindingRestaurantTests : ConversationTestsBase
@@ -23,13 +22,13 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    [self.conversation addToken:[UCuisinePreference create:@"Test"]];
+    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" userAction:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    [self.conversation addToken:[UCuisinePreference create:@"Test"]];
+    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
@@ -39,7 +38,7 @@
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
     [self.conversation addToken:[UTryAgainNow new]];
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
@@ -78,7 +77,7 @@
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 
-    [self.conversation addToken:[UCuisinePreference create:@"Test"]];
+    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self configureRestaurantSearchForLatitude:12 longitude:44 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];

@@ -175,7 +175,7 @@ static UIImage *EmptyImage;
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1){
-            [self addUserInput:[UCuisinePreference create:interpretation.entities[0]]];
+            [self addUserInput:[UCuisinePreference create:interpretation.entities[0] text:interpretation.text]];
         }
     }];
 }

@@ -28,7 +28,7 @@
     [super setUp];
     _restaurant = [[RestaurantBuilder alloc] build];
 
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
 }
 
@@ -49,7 +49,7 @@
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 
-    [self.conversation addToken:[UCuisinePreference create:@"norwegian food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"norwegian food" text:@"norwegian food"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
@@ -60,7 +60,7 @@
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 
-    [self.conversation addToken:[UCuisinePreference create:@"norwegian food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"norwegian food" text:@"norwegian food"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 

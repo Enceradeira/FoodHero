@@ -25,7 +25,7 @@
     [super setUp];
 
     // Move Conversation into ProposalState by going through FirstProposal)
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
 }
 

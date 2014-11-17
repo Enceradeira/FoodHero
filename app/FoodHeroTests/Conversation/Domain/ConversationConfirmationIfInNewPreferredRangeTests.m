@@ -26,7 +26,7 @@
 
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {

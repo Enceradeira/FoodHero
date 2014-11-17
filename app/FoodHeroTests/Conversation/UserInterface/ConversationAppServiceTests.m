@@ -16,7 +16,6 @@
 #import "ConversationAppService.h"
 #import "StubAssembly.h"
 #import "UCuisinePreference.h"
-#import "Feedback.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "RestaurantSearchServiceStub.h"
@@ -112,13 +111,13 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_getThirdStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
-    id userInput = [UCuisinePreference create:@"British or Indian Food"];
+    id userInput = [UCuisinePreference create:@"British" text:@"I like British food"];
     [_service addUserInput:userInput];
 
     ConversationBubble *bubble = [self getStatement:2];
 
     assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British or Indian Food")));
+    assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
@@ -129,10 +128,10 @@ const CGFloat landscapeWidth = 400;
 - (void)test_getFeedback_ShouldNotReturnFeedbackForTooExpensive_WhenPriceRangeMinIsAlreadyLowestPossible {
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Alp Inn" withPriceLeel:0 withRelevance:1];
     Restaurant *otherRestaurant = [self restaurantWithName:@"Posh Cow" withPriceLeel:4 withRelevance:0.8];
-    [_searchServiceStub injectFindResults:@[cheapRestaurant,otherRestaurant]];
+    [_searchServiceStub injectFindResults:@[cheapRestaurant, otherRestaurant]];
 
     // let FH suggest the cheap restaurant
-    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food" text:@"I like Swiss food"]];
 
     // user finds cheapest possible restaurant too cheap
     Feedback *tooExpensiveFeedback = [self feedbackFor:USuggestionFeedbackForTooExpensive.class];
@@ -149,7 +148,7 @@ const CGFloat landscapeWidth = 400;
     [_searchServiceStub injectFindResults:@[restaurant1, restaurant2]];
 
     // let FH suggest a restaurant
-    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food" text:@"I like Swiss food"]];
 
     // feedback to request cheaper should be removed since all Restaurants have the same price level
     Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooExpensive.class];
@@ -163,7 +162,7 @@ const CGFloat landscapeWidth = 400;
     [_searchServiceStub injectFindResults:@[suggestedRestaurant, otherRestaurant]];
 
     // let FH suggest the expensive restaurant
-    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food" text:@"I like Swiss food"]];
 
     // user finds most expensive restaurant too cheap
     Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap.class];
@@ -180,7 +179,7 @@ const CGFloat landscapeWidth = 400;
     [_searchServiceStub injectFindResults:@[restaurant1, restaurant2]];
 
     // let FH suggest a restaurant
-    [_service addUserInput:[UCuisinePreference create:@"Swiss food"]];
+    [_service addUserInput:[UCuisinePreference create:@"Swiss food" text:@"I like Swiss food"]];
 
     // feedback to request more expensive should be removed since all Restaurants have the same price level
     Feedback *tooCheapFeedback = [self feedbackFor:USuggestionFeedbackForTooCheap.class];
@@ -226,7 +225,7 @@ const CGFloat landscapeWidth = 400;
     [_locationManager injectLatitude:45 longitude:0];
     [_searchServiceStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
 
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
 }
 
@@ -235,7 +234,7 @@ const CGFloat landscapeWidth = 400;
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];
     [_searchServiceStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
 
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Maharaja" which has higher relevance
+    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest "Maharaja" which has higher relevance
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too expensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
@@ -244,18 +243,18 @@ const CGFloat landscapeWidth = 400;
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:4 withRelevance:0.9];
     [_searchServiceStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
 
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest "Chippy" which has higher relevance
+    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest "Chippy" which has higher relevance
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIrDontLikeThatRestaurant {
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
-    [_service addUserInput:[UCuisinePreference create:@"Indian"]]; // lets FH suggest a restaurant
+    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I like it" fhAnswer:@"FH:WhatToDoNextCommentAfterSuccess"];
 }
 

@@ -25,7 +25,7 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHSuggestion_WhenProblemIsResolvedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorized];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
@@ -35,7 +35,7 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
@@ -48,7 +48,7 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     // user changes location and finds something
     [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
@@ -63,7 +63,7 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
@@ -77,7 +77,7 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];

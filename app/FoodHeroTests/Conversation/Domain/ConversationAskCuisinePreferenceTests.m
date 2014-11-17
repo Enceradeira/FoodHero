@@ -15,13 +15,13 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    [self.conversation addToken:[UCuisinePreference create:@"Test"]];
+    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" userAction:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    [self.conversation addToken:[UCuisinePreference create:@"Test"]];
+    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }

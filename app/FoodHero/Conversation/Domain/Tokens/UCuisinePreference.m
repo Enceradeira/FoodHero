@@ -10,11 +10,12 @@
 @implementation UCuisinePreference {
 
 }
-+ (instancetype)create:(NSString *)parameter {
-    return [[UCuisinePreference alloc] initWithSemanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", parameter] text:parameter];
-}
-
 - (id <ConversationAction>)createAction {
     return [SearchAction new];
 }
+
++ (instancetype)create:(NSString *)parameter text:(NSString *)text {
+    return [[UCuisinePreference alloc] initWithSemanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", parameter] text:text];
+}
+
 @end

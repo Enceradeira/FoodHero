@@ -26,7 +26,7 @@
 
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food"]];
+    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 }
 
 
