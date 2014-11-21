@@ -180,30 +180,58 @@ const CGFloat landscapeWidth = 400;
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
 }
 
--(void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService{
+- (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
     [_service addUserSolvedProblemWithAccessLocationService:@"I fixed it! Hurray!"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble * b){
-        return (BOOL)([b.semanticId isEqualToString:@"U:DidResolveProblemWithAccessLocationService"]);
+    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+        return (BOOL) ([b.semanticId isEqualToString:@"U:DidResolveProblemWithAccessLocationService"]);
     }];
 
     assertThatBool(any, is(equalToBool(YES)));
 }
 
--(void)test_addUserWantsToSearchForAnotherRestaurant_ShouldAddUWantsToSearchForAnotherRestaurant{
+- (void)test_addUserWantsToSearchForAnotherRestaurant_ShouldAddUWantsToSearchForAnotherRestaurant {
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
     [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
     [_service addUserInput:[UGoodBye new]];
 
     [_service addUserWantsToSearchForAnotherRestaurant:@"Do it again!"];
-    BOOL any = [[self statements] linq_any:^(ConversationBubble * b){
-        return (BOOL)([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
+
+    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+        return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
     }];
 
     assertThatBool(any, is(equalToBool(YES)));
 }
 
+- (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUTryAgain_WhenUserSaysTryAgain {
+    [_searchServiceStub injectFindNothing];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+
+    [self injectInterpretation:@"Try again please" intent:@"tryAgainNow" entities:nil];
+    [_service addUserAnswerAfterNoRestaurantWasFound:@"Try again please"];
+
+    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+        return (BOOL) ([b.semanticId isEqualToString:@"U:TryAgainNow"]);
+    }];
+
+    assertThatBool(any, is(equalToBool(YES)));
+}
+
+- (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUWantsToAbort_WhenUserWantsToAbort {
+    [_searchServiceStub injectFindNothing];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+
+    [self injectInterpretation:@"Just forget about it" intent:@"abort" entities:nil];
+    [_service addUserAnswerAfterNoRestaurantWasFound:@"Just forget about it"];
+
+    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+        return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToAbort"]);
+    }];
+
+    assertThatBool(any, is(equalToBool(YES)));
+}
 
 @end

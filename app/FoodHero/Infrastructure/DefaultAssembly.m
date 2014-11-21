@@ -15,7 +15,6 @@
 #import "CLLocationManagerImpl.h"
 #import "DefaultRandomizer.h"
 #import "WhatToDoNextTableViewController.h"
-#import "TryAgainTableViewController.h"
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
 #import "SoundPlayer.h"
@@ -31,15 +30,6 @@
 
 - (id)whatToDoNextTableViewController {
     return [TyphoonDefinition withClass:[WhatToDoNextTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
-            [method injectParameterWith:[self conversationAppService]];
-
-        }];
-    }];
-}
-
-- (id)tryAgainTableViewController {
-    return [TyphoonDefinition withClass:[TryAgainTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 

@@ -284,7 +284,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserToTryAgainAction {
-    [self changeUserInputViewController:@"TryAgain" nilSelector:nil];
+    [self changeUserInputViewController:nil nilSelector:@selector(addUserAnswerAfterNoRestaurantWasFound:)];
 }
 
 - (void)askUserWhatToDoAfterGoodBye {

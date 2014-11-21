@@ -23,6 +23,8 @@
 #import "USuggestionFeedbackForLiking.h"
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
+#import "UTryAgainNow.h"
+#import "UWantsToAbort.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -164,11 +166,24 @@ static UIImage *EmptyImage;
     }];
 }
 
--(void)addUserSolvedProblemWithAccessLocationService:(NSString*) string {
+- (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string {
     [self addUserInput:[UDidResolveProblemWithAccessLocationService new]];
 }
 
--(void)addUserWantsToSearchForAnotherRestaurant:(NSString*) string {
+- (void)addUserWantsToSearchForAnotherRestaurant:(NSString *)string {
     [self addUserInput:[UWantsToSearchForAnotherRestaurant new]];
+}
+
+- (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string {
+    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
+            [self addUserInput:[UTryAgainNow new]];
+        }
+        else if ([interpretation.intent isEqualToString:@"abort"]) {
+            [self addUserInput:[UWantsToAbort new]];
+        }
+    }];
 }
 @end

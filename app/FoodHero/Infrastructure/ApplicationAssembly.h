@@ -7,8 +7,6 @@
 
 - (id)whatToDoNextTableViewController;
 
-- (id)tryAgainTableViewController;
-
 - (id)restaurantDetailViewController;
 
 - (id)navigationViewController;

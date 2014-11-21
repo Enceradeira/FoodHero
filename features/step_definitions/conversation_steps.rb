@@ -238,14 +238,12 @@ When(/^I choose something from the input list$/) do
 end
 
 When(/^I say try again$/) do
-  show_list_button.click
-  get_last_element_and_parameter('TryAgainEntry')[0].click
+  text_field.send_keys('Please, try again')
   touch_send
 end
 
 When(/^I want FoodHero to abort search$/) do
-  show_list_button.click
-  get_last_element_and_parameter('AbortEntry')[0].click
+  text_field.send_keys('Just forget about it!')
   touch_send
 end
 

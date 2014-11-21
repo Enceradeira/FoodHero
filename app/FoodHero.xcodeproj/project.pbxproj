@@ -221,7 +221,6 @@
 		23525D92526B979719806CBE /* RestaurantRepositoryWithSpyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250670F0E7F51A6EEFFBD /* RestaurantRepositoryWithSpyTests.m */; };
 		23525DADB348726C1A1FA29F /* DistanceRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C7573C3DC628AEC5CAA /* DistanceRange.m */; };
 		23525DC3F98A5E13177AE208 /* NoRepetionForContextRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E3D49CCC6E3813C7C99 /* NoRepetionForContextRandomizer.m */; };
-		23525DC5BD64AA76BEABE8AC /* TryAgainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259D007ED4EAAAF5C6D7D /* TryAgainTableViewController.m */; };
 		23525DD36BC5801E655E48E8 /* ConversationViewController+ViewDimensionCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525129D661BF310556513F /* ConversationViewController+ViewDimensionCalculator.m */; };
 		23525DE7DC5FB5EEC513B9C7 /* TextRepositoryStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255FAF6CCF3DA9065F7D9 /* TextRepositoryStub.m */; };
 		23525E06C77F4BC7196EAA27 /* RestaurantSearchParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */; };
@@ -385,7 +384,6 @@
 		23525211CE9824D6BEFE1ACC /* ITextRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITextRepository.h; sourceTree = "<group>"; };
 		2352522408BF6073928CCC48 /* GooglePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlace.m; sourceTree = "<group>"; };
 		235252243CA79D13851B4AEE /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
-		235252301E339D75A5FC26F7 /* TryAgainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TryAgainTableViewController.h; sourceTree = "<group>"; };
 		2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
 		2352524FE3F5DB99242CF2E9 /* StubAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubAssembly.h; sourceTree = "<group>"; };
 		2352525768BB6B16A85D8A88 /* RatingStarsImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingStarsImage.h; sourceTree = "<group>"; };
@@ -564,7 +562,6 @@
 		235259B3494BFC30343514C1 /* RadiusCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusCalculator.h; sourceTree = "<group>"; };
 		235259BCF0792967307DAF8A /* RestaurantRatingBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRatingBuilder.h; sourceTree = "<group>"; };
 		235259C5693453BC115EF146 /* NoSpeechInterpretationError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoSpeechInterpretationError.m; sourceTree = "<group>"; };
-		235259D007ED4EAAAF5C6D7D /* TryAgainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TryAgainTableViewController.m; sourceTree = "<group>"; };
 		235259ECD4FA42D01FB54C0E /* LargeRestaurantReviewCommentViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeRestaurantReviewCommentViewControllerTests.m; sourceTree = "<group>"; };
 		235259F0564EACC22328D78F /* RestaurantRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRepository.m; sourceTree = "<group>"; };
 		235259FCD78D61D26F9F0709 /* SearchError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchError.h; sourceTree = "<group>"; };
@@ -920,8 +917,6 @@
 				23525B222B8E0DA3B8C93D4D /* WhatToDoNextTableViewController.h */,
 				235256FE3EF62DC3650E410E /* UserInputViewTableViewController.m */,
 				2352511C2BE971DBCCAB3B92 /* WhatToDoNextTableViewController.m */,
-				235259D007ED4EAAAF5C6D7D /* TryAgainTableViewController.m */,
-				235252301E339D75A5FC26F7 /* TryAgainTableViewController.h */,
 				23525DF3AB499D5AF74043B6 /* NullInputViewController.m */,
 				23525FBCC5CFCCB5EAE72E08 /* NullInputViewController.h */,
 			);
@@ -2042,7 +2037,6 @@
 				2352549C3C703A2A07CDB5DE /* FHWarningIfNotInPreferredRangeTooExpensive.m in Sources */,
 				23525CC6498291803FCFCBC6 /* FHWarningIfNotInPreferredRangeTooFarAway.m in Sources */,
 				23525C2E17A498E468F0DC27 /* FHWarningIfNotInPreferredRange.m in Sources */,
-				23525DC5BD64AA76BEABE8AC /* TryAgainTableViewController.m in Sources */,
 				23525990B3D4903EF1E3D603 /* SearchException.m in Sources */,
 				235252706234320FC2292311 /* SearchError.m in Sources */,
 				2352570771C4EC05CA40C569 /* DefaultSchedulerFactory.m in Sources */,
