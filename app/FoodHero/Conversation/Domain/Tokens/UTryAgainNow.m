@@ -9,11 +9,15 @@
 
 @implementation UTryAgainNow {
 }
-- (id)init {
-    return [super initWithSemanticId:@"U:TryAgainNow" text:@"Please, try again"];
+- (id)initWithText:(NSString *)text {
+    return [super initWithSemanticId:@"U:TryAgainNow" text:text];
 }
 
 - (id <ConversationAction>)createAction {
     return [SearchAction new];
+}
+
++ (instancetype)create:(NSString *)text {
+    return [[UTryAgainNow alloc] initWithText:text];
 }
 @end

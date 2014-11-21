@@ -8,4 +8,5 @@
 
 
 @interface UWantsToSearchForAnotherRestaurant : ConversationToken
++ (instancetype)create:(NSString *)text;
 @end

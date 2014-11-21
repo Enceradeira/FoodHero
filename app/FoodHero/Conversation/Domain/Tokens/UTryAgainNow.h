@@ -8,4 +8,5 @@
 
 
 @interface UTryAgainNow : ConversationToken
++ (instancetype)create:(NSString *)text;
 @end

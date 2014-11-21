@@ -168,11 +168,11 @@ static UIImage *EmptyImage;
 }
 
 - (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string {
-    [self addUserInput:[UDidResolveProblemWithAccessLocationService new]];
+    [self addUserInput:[UDidResolveProblemWithAccessLocationService create:string]];
 }
 
 - (void)addAnswerAfterForWhatToAfterGoodBye:(NSString *)string {
-    [self addUserInput:[UWantsToSearchForAnotherRestaurant new]];
+    [self addUserInput:[UWantsToSearchForAnotherRestaurant create:string]];
 }
 
 - (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string {
@@ -180,10 +180,10 @@ static UIImage *EmptyImage;
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
-            [self addUserInput:[UTryAgainNow new]];
+            [self addUserInput:[UTryAgainNow create:interpretation.text]];
         }
         else if ([interpretation.intent isEqualToString:@"abort"]) {
-            [self addUserInput:[UWantsToAbort new]];
+            [self addUserInput:[UWantsToAbort create:interpretation.text]];
         }
     }];
 }
@@ -193,10 +193,10 @@ static UIImage *EmptyImage;
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"goodBye"]) {
-            [self addUserInput:[UGoodBye new]];
+            [self addUserInput:[UGoodBye create:interpretation.text]];
         }
         else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
-            [self addUserInput:[UWantsToSearchForAnotherRestaurant new]];
+            [self addUserInput:[UWantsToSearchForAnotherRestaurant create:interpretation.text]];
         }
     }];
 }

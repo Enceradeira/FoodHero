@@ -41,11 +41,11 @@
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
     [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
 
-    [self.conversation addToken:[UGoodBye new]];
+    [self.conversation addToken:[UGoodBye create:@"Bye, Bye"]];
     [self assertSecondLastStatementIs:@"U:GoodBye" userAction:nil];
     [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" userAction:[AskUserWhatToDoAfterGoodByeAction class]];
 
-    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
+    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant create:@"Search again, please"]];
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 
@@ -55,7 +55,7 @@
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
     [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
-    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
+    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant create:@"Again please"]];
 
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];

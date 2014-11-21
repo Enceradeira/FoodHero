@@ -11,12 +11,16 @@
 @implementation UWantsToSearchForAnotherRestaurant {
 
 }
-- (id)init {
-    return [super initWithSemanticId:@"U:WantsToSearchForAnotherRestaurant" text:@"Search for another restaurant, please"];
+- (id)initWithText:(NSString *)text {
+    return [super initWithSemanticId:@"U:WantsToSearchForAnotherRestaurant" text:text];
 }
 
 - (id <ConversationAction>)createAction {
     return [AddTokenAction create:[FHOpeningQuestion create]];
+}
+
++ (instancetype)create:(NSString *)text {
+    return [[UWantsToSearchForAnotherRestaurant alloc] initWithText:text];
 }
 
 @end

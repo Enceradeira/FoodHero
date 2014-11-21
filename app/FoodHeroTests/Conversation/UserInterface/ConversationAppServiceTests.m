@@ -135,7 +135,7 @@ const CGFloat landscapeWidth = 400;
 
     [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest "Maharaja" which has higher relevance
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too posh" recognizedIntent:@"tooExpensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"too expensive!!" recognizedIntent:@"tooExpensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooCheap {
@@ -145,17 +145,17 @@ const CGFloat landscapeWidth = 400;
 
     [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest "Chippy" which has higher relevance
 
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It looks too cheap" recognizedIntent:@"tooCheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"I'm not that cheap" recognizedIntent:@"tooCheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIrDontLikeThatRestaurant {
     [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"I don't like that restaurant" recognizedIntent:@"Dislike" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"What a crap place" recognizedIntent:@"Dislike" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
     [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"I like it" recognizedIntent:@"Like" fhAnswer:@"FH:WhatToDoNextCommentAfterSuccess"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"That's cool" recognizedIntent:@"Like" fhAnswer:@"FH:WhatToDoNextCommentAfterSuccess"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway {
@@ -177,7 +177,7 @@ const CGFloat landscapeWidth = 400;
     [_searchServiceStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
 
     [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
+    [self assertUserFeedbackForLastSuggestedRestaurant:@"too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
 }
 
 - (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
@@ -185,11 +185,12 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
     [_service addUserSolvedProblemWithAccessLocationService:@"I fixed it! Hurray!"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+    ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:DidResolveProblemWithAccessLocationService"]);
-    }];
+    }] linq_firstOrNil];
 
-    assertThatBool(any, is(equalToBool(YES)));
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.textSource, is(equalTo(@"I fixed it! Hurray!")));
 }
 
 - (void)test_addAnswerAfterForWhatToAfterGoodBye_ShouldAddUWantsToSearchForAnotherRestaurant {
@@ -197,69 +198,74 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
     [_service addUserInput:[UGoodBye new]];
 
-    [_service addAnswerAfterForWhatToAfterGoodBye:@"Do it again!"];
+    [_service addAnswerAfterForWhatToAfterGoodBye:@"search again!"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+    ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
-    }];
+    }] linq_firstOrNil];
 
-    assertThatBool(any, is(equalToBool(YES)));
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.textSource, is(equalTo(@"search again!")));
 }
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUTryAgain_WhenUserSaysTryAgain {
     [_searchServiceStub injectFindNothing];
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
 
-    [self injectInterpretation:@"Try again please" intent:@"tryAgainNow" entities:nil];
-    [_service addUserAnswerAfterNoRestaurantWasFound:@"Try again please"];
+    [self injectInterpretation:@"again please!!" intent:@"tryAgainNow" entities:nil];
+    [_service addUserAnswerAfterNoRestaurantWasFound:@"again please!!"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+    ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:TryAgainNow"]);
-    }];
+    }] linq_firstOrNil];
 
-    assertThatBool(any, is(equalToBool(YES)));
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.textSource, is(equalTo(@"again please!!")));
 }
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUWantsToAbort_WhenUserWantsToAbort {
     [_searchServiceStub injectFindNothing];
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
 
-    [self injectInterpretation:@"Just forget about it" intent:@"abort" entities:nil];
-    [_service addUserAnswerAfterNoRestaurantWasFound:@"Just forget about it"];
+    [self injectInterpretation:@"Forget it" intent:@"abort" entities:nil];
+    [_service addUserAnswerAfterNoRestaurantWasFound:@"Forget it"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+    ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToAbort"]);
-    }];
+    }] linq_firstOrNil];
 
-    assertThatBool(any, is(equalToBool(YES)));
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.textSource, is(equalTo(@"Forget it")));
 }
 
 - (void)test_addUserAnswerForWhatToDoNext_ShouldAddUWantsToSearchForAnotherRestaurant_WhenUserWantsToSearchForAnotherRestaurant {
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
     [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
 
-    [self injectInterpretation:@"Search for another restaurant" intent:@"searchForAnotherRestaurant" entities:nil];
-    [_service addUserAnswerForWhatToDoNext:@"Search for another restaurant"];
+    [self injectInterpretation:@"Search again" intent:@"searchForAnotherRestaurant" entities:nil];
+    [_service addUserAnswerForWhatToDoNext:@"Search again"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+    ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
-    }];
+    }] linq_firstOrNil];
 
-    assertThatBool(any, is(equalToBool(YES)));
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.textSource, is(equalTo(@"Search again")));
 }
 
 - (void)test_addUserAnswerForWhatToDoNext_ShouldAddUGoodBye_WhenUserSaysGoodBye {
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
     [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
 
-    [self injectInterpretation:@"No thanks! Good bye" intent:@"goodBye" entities:nil];
-    [_service addUserAnswerForWhatToDoNext:@"No thanks! Good bye"];
+    [self injectInterpretation:@"No thanks!" intent:@"goodBye" entities:nil];
+    [_service addUserAnswerForWhatToDoNext:@"No thanks!"];
 
-    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+    ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:GoodBye"]);
-    }];
+    }] linq_firstOrNil];
 
-    assertThatBool(any, is(equalToBool(YES)));
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.textSource, is(equalTo(@"No thanks!")));
 }
 
 @end

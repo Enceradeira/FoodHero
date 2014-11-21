@@ -8,4 +8,5 @@
 
 
 @interface UGoodBye : ConversationToken
++ (ConversationToken *)create:(NSString *)text;
 @end

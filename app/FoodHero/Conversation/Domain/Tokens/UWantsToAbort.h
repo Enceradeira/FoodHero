@@ -8,4 +8,5 @@
 
 
 @interface UWantsToAbort : ConversationToken
++ (instancetype)create:(NSString *)text;
 @end

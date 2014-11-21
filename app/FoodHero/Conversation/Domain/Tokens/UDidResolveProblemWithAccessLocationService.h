@@ -7,4 +7,5 @@
 #import "ConversationToken.h"
 
 @interface UDidResolveProblemWithAccessLocationService : ConversationToken
++ (instancetype)create:(NSString *)text;
 @end

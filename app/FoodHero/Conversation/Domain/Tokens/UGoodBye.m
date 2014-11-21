@@ -11,11 +11,15 @@
 @implementation UGoodBye {
 
 }
-- (id)init {
-    return [super initWithSemanticId:@"U:GoodBye" text:@"No thanks! Good bye."];
+- (id)initWithText:(NSString *)text {
+    return [super initWithSemanticId:@"U:GoodBye" text:text];
 }
 
-- (id <ConversationAction>)createAction{
+- (id <ConversationAction>)createAction {
     return [AddTokenAction create:[FHGoodByeAfterSuccess new]];
+}
+
++ (instancetype)create:(NSString *)text {
+    return [[UGoodBye alloc] initWithText:text];
 }
 @end
