@@ -22,6 +22,7 @@
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
 #import "UDidResolveProblemWithAccessLocationService.h"
+#import "UWantsToSearchForAnotherRestaurant.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -165,5 +166,9 @@ static UIImage *EmptyImage;
 
 -(void)addUserSolvedProblemWithAccessLocationService:(NSString*) string {
     [self addUserInput:[UDidResolveProblemWithAccessLocationService new]];
+}
+
+-(void)addUserWantsToSearchForAnotherRestaurant:(NSString*) string {
+    [self addUserInput:[UWantsToSearchForAnotherRestaurant new]];
 }
 @end

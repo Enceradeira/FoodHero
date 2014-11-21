@@ -16,7 +16,6 @@
 #import "DefaultRandomizer.h"
 #import "WhatToDoNextTableViewController.h"
 #import "TryAgainTableViewController.h"
-#import "SearchForAnotherRestaurantTableViewController.h"
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
 #import "SoundPlayer.h"
@@ -41,15 +40,6 @@
 
 - (id)tryAgainTableViewController {
     return [TyphoonDefinition withClass:[TryAgainTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
-            [method injectParameterWith:[self conversationAppService]];
-
-        }];
-    }];
-}
-
-- (id)searchForAnotherRestaurantTableViewController {
-    return [TyphoonDefinition withClass:[SearchForAnotherRestaurantTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 

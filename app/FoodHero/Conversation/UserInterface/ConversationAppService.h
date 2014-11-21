@@ -37,4 +37,6 @@
 - (void)addUserSuggestionFeedback:(NSString *)string;
 
 - (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string;
+
+- (void)addUserWantsToSearchForAnotherRestaurant:(NSString *)string;
 @end

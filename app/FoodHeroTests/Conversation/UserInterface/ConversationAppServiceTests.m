@@ -23,6 +23,7 @@
 #import "CLLocationManagerProxyStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
+#import "UGoodBye.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -186,6 +187,19 @@ const CGFloat landscapeWidth = 400;
 
     BOOL any = [[self statements] linq_any:^(ConversationBubble * b){
         return (BOOL)([b.semanticId isEqualToString:@"U:DidResolveProblemWithAccessLocationService"]);
+    }];
+
+    assertThatBool(any, is(equalToBool(YES)));
+}
+
+-(void)test_addUserWantsToSearchForAnotherRestaurant_ShouldAddUWantsToSearchForAnotherRestaurant{
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
+    [_service addUserInput:[UGoodBye new]];
+
+    [_service addUserWantsToSearchForAnotherRestaurant:@"Do it again!"];
+    BOOL any = [[self statements] linq_any:^(ConversationBubble * b){
+        return (BOOL)([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
     }];
 
     assertThatBool(any, is(equalToBool(YES)));

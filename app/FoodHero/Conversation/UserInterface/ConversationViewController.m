@@ -288,7 +288,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserWhatToDoAfterGoodBye {
-    [self changeUserInputViewController:@"SearchForAnotherRestaurant" nilSelector:nil];
+    [self changeUserInputViewController:nil nilSelector:@selector(addUserWantsToSearchForAnotherRestaurant:)];
 }
 
 - (IBAction)userTextFieldChanged:(id)sender {

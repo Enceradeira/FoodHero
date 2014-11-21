@@ -250,8 +250,7 @@ When(/^I want FoodHero to abort search$/) do
 end
 
 When(/^I want to search for another restaurant$/) do
-  show_list_button.click
-  get_last_element_and_parameter('SearchForAnotherRestaurantEntry')[0].click
+  text_field.send_keys('Search again, please!')
   touch_send
 end
 

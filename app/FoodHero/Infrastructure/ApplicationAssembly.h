@@ -5,8 +5,6 @@
 
 @protocol ApplicationAssembly
 
-- (id)searchForAnotherRestaurantTableViewController;
-
 - (id)whatToDoNextTableViewController;
 
 - (id)tryAgainTableViewController;
