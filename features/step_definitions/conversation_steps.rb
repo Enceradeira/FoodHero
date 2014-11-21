@@ -191,7 +191,7 @@ Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
   expect(parameter).to eq(cuisines_as_string)
 end
 
-Then(/^I answer with "([^"]*)"$/) do |answer|
+Then(/^I see my answer "([^"]*)"$/) do |answer|
   bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback') { |p| p.eql? answer }
   expect(parameter).to eq(answer)
   expect(bubble).not_to be_nil
