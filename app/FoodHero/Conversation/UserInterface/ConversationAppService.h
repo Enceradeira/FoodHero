@@ -35,4 +35,6 @@
 - (void)addUserCuisinePreference:(NSString *)string;
 
 - (void)addUserSuggestionFeedback:(NSString *)string;
+
+- (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string;
 @end

@@ -280,7 +280,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserIfProblemWithAccessLocationServiceResolved {
-    [self changeUserInputViewController:@"ProblemWithAccessLocationServiceResolved" nilSelector:nil];
+    [self changeUserInputViewController:nil nilSelector:@selector(addUserSolvedProblemWithAccessLocationService:)];
 }
 
 - (void)askUserToTryAgainAction {

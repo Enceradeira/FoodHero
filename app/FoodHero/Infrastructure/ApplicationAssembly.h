@@ -4,7 +4,6 @@
 //
 
 @protocol ApplicationAssembly
-- (id)problemWithAccessLocationServiceResolvedTableViewController;
 
 - (id)searchForAnotherRestaurantTableViewController;
 

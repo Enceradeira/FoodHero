@@ -256,9 +256,8 @@ When(/^I want to search for another restaurant$/) do
 end
 
 When(/^I say that problem with location\-service has been fixed$/) do
-  touch_text_field
-  get_last_element_and_parameter('DidResolveProblemWithAccessLocationServiceEntry')[0].click
-  touch_send
+    text_field.send_keys("It's fixed now")
+    touch_send
 end
 
 When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|

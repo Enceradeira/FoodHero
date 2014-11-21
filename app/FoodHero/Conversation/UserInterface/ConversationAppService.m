@@ -21,6 +21,7 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
+#import "UDidResolveProblemWithAccessLocationService.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -160,5 +161,9 @@ static UIImage *EmptyImage;
             [self addUserInput:[USuggestionFeedbackForLiking create:restaurant text:interpretation.text]];
         }
     }];
+}
+
+-(void)addUserSolvedProblemWithAccessLocationService:(NSString*) string {
+    [self addUserInput:[UDidResolveProblemWithAccessLocationService new]];
 }
 @end

@@ -61,15 +61,16 @@ const CGFloat landscapeWidth = 400;
     return statements;
 }
 
+- (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status {
+    [_locationManager injectAuthorizationStatus:status];
+}
+
 - (Restaurant *)restaurantWithName:(NSString *)name withPriceLeel:(NSUInteger)priceLevel withRelevance:(double)cuisineRelevance {
     return [[[[[[RestaurantBuilder alloc] withName:name] withVicinity:@"Norwich"] withPriceLevel:priceLevel] withCuisineRelevance:cuisineRelevance] build];
 }
 
 - (void)assertUserFeedbackForLastSuggestedRestaurant:(NSString *)text recognizedIntent:(NSString *)type fhAnswer:(NSString *)fhAnswer {
-    SpeechInterpretation *interpretation = [SpeechInterpretation new];
-    interpretation.intent = [NSString stringWithFormat:@"setSuggestionFeedback_%@", type];
-    interpretation.text = text;
-    [_speechRecognitionService injectInterpretation:interpretation];
+    [self injectInterpretation:text intent:[NSString stringWithFormat:@"setSuggestionFeedback_%@", type] entities:nil];
 
     [_service addUserSuggestionFeedback:text];
 
@@ -81,6 +82,18 @@ const CGFloat landscapeWidth = 400;
     assertThat(newFhSuggestion.semanticId, is(equalTo(fhAnswer)));
 }
 
+- (void)injectInterpretation:(NSString *)text intent:(NSString *)intent entities:(NSArray *)entities {
+    SpeechInterpretation *interpretation = [SpeechInterpretation new];
+    interpretation.intent = intent;
+    interpretation.text = text;
+    interpretation.entities = entities;
+    [_speechRecognitionService injectInterpretation:interpretation];
+}
+
+- (void)addRecognizedUserCuisinePreference:(NSString *)text intent:(NSString *)intent entities:(NSArray *)entities {
+    [self injectInterpretation:text intent:intent entities:entities];
+    [_service addUserCuisinePreference:text];
+}
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
     ConversationBubble *bubble1 = [self getStatement:0];
@@ -164,6 +177,18 @@ const CGFloat landscapeWidth = 400;
 
     [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"It's too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
+}
+
+-(void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService{
+    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [_service addUserSolvedProblemWithAccessLocationService:@"I fixed it! Hurray!"];
+
+    BOOL any = [[self statements] linq_any:^(ConversationBubble * b){
+        return (BOOL)([b.semanticId isEqualToString:@"U:DidResolveProblemWithAccessLocationService"]);
+    }];
+
+    assertThatBool(any, is(equalToBool(YES)));
 }
 
 

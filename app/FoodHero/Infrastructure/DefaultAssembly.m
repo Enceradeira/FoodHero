@@ -15,7 +15,6 @@
 #import "CLLocationManagerImpl.h"
 #import "DefaultRandomizer.h"
 #import "WhatToDoNextTableViewController.h"
-#import "ProblemWithAccessLocationServiceResolvedTableViewController.h"
 #import "TryAgainTableViewController.h"
 #import "SearchForAnotherRestaurantTableViewController.h"
 #import "DefaultSchedulerFactory.h"
@@ -29,15 +28,6 @@
 @implementation DefaultAssembly
 - (id)navigationViewController {
     return [TyphoonDefinition withClass:[NavigationController class]];
-}
-
-- (id)problemWithAccessLocationServiceResolvedTableViewController {
-    return [TyphoonDefinition withClass:[ProblemWithAccessLocationServiceResolvedTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
-            [method injectParameterWith:[self conversationAppService]];
-
-        }];
-    }];
 }
 
 - (id)whatToDoNextTableViewController {
