@@ -25,6 +25,7 @@
 #import "UWantsToSearchForAnotherRestaurant.h"
 #import "UTryAgainNow.h"
 #import "UWantsToAbort.h"
+#import "UGoodBye.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -170,7 +171,7 @@ static UIImage *EmptyImage;
     [self addUserInput:[UDidResolveProblemWithAccessLocationService new]];
 }
 
-- (void)addUserWantsToSearchForAnotherRestaurant:(NSString *)string {
+- (void)addAnswerAfterForWhatToAfterGoodBye:(NSString *)string {
     [self addUserInput:[UWantsToSearchForAnotherRestaurant new]];
 }
 
@@ -183,6 +184,19 @@ static UIImage *EmptyImage;
         }
         else if ([interpretation.intent isEqualToString:@"abort"]) {
             [self addUserInput:[UWantsToAbort new]];
+        }
+    }];
+}
+
+- (void)addUserAnswerForWhatToDoNext:(NSString *)string {
+    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        if ([interpretation.intent isEqualToString:@"goodBye"]) {
+            [self addUserInput:[UGoodBye new]];
+        }
+        else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
+            [self addUserInput:[UWantsToSearchForAnotherRestaurant new]];
         }
     }];
 }

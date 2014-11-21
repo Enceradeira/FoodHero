@@ -8,7 +8,6 @@ Feature: User interacts with app through conversation
     And I wish to eat "British" food by typing it
     Then FoodHero asks for access to the location-services
     When I allow access to the location-services
-    Then I answer with "British" food
     Then FoodHero suggests something for "British" food
 
     When I don't like the restaurant
@@ -31,7 +30,14 @@ Feature: User interacts with app through conversation
     Then I answer with "Like"
     And FoodHero asks what to do next
 
-    When I say good bye
+    When I want to search for another restaurant
+    Then FoodHero asks what I wished to eat
+
+    When I wish to eat "American" food by typing it
+    And FoodHero suggests something else for "American" food
+    And I like the restaurant
+    And FoodHero asks what to do next
+    And I say good bye
     Then FoodHero says good bye
 
     When I want to search for another restaurant

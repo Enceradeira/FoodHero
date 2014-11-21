@@ -276,7 +276,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserWhatToDoNext {
-    [self changeUserInputViewController:@"WhatToDoNext" nilSelector:nil];
+    [self changeUserInputViewController:nil nilSelector:@selector(addUserAnswerForWhatToDoNext:)];
 }
 
 - (void)askUserIfProblemWithAccessLocationServiceResolved {
@@ -288,7 +288,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserWhatToDoAfterGoodBye {
-    [self changeUserInputViewController:nil nilSelector:@selector(addUserWantsToSearchForAnotherRestaurant:)];
+    [self changeUserInputViewController:nil nilSelector:@selector(addAnswerAfterForWhatToAfterGoodBye:)];
 }
 
 - (IBAction)userTextFieldChanged:(id)sender {

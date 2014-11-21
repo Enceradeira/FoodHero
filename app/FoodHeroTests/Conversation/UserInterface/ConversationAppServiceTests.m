@@ -192,12 +192,12 @@ const CGFloat landscapeWidth = 400;
     assertThatBool(any, is(equalToBool(YES)));
 }
 
-- (void)test_addUserWantsToSearchForAnotherRestaurant_ShouldAddUWantsToSearchForAnotherRestaurant {
+- (void)test_addAnswerAfterForWhatToAfterGoodBye_ShouldAddUWantsToSearchForAnotherRestaurant {
     [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
     [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
     [_service addUserInput:[UGoodBye new]];
 
-    [_service addUserWantsToSearchForAnotherRestaurant:@"Do it again!"];
+    [_service addAnswerAfterForWhatToAfterGoodBye:@"Do it again!"];
 
     BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
@@ -229,6 +229,34 @@ const CGFloat landscapeWidth = 400;
 
     BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToAbort"]);
+    }];
+
+    assertThatBool(any, is(equalToBool(YES)));
+}
+
+- (void)test_addUserAnswerForWhatToDoNext_ShouldAddUWantsToSearchForAnotherRestaurant_WhenUserWantsToSearchForAnotherRestaurant {
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
+
+    [self injectInterpretation:@"Search for another restaurant" intent:@"searchForAnotherRestaurant" entities:nil];
+    [_service addUserAnswerForWhatToDoNext:@"Search for another restaurant"];
+
+    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+        return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
+    }];
+
+    assertThatBool(any, is(equalToBool(YES)));
+}
+
+- (void)test_addUserAnswerForWhatToDoNext_ShouldAddUGoodBye_WhenUserSaysGoodBye {
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
+
+    [self injectInterpretation:@"No thanks! Good bye" intent:@"goodBye" entities:nil];
+    [_service addUserAnswerForWhatToDoNext:@"No thanks! Good bye"];
+
+    BOOL any = [[self statements] linq_any:^(ConversationBubble *b) {
+        return (BOOL) ([b.semanticId isEqualToString:@"U:GoodBye"]);
     }];
 
     assertThatBool(any, is(equalToBool(YES)));

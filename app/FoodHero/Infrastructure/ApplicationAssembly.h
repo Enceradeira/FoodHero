@@ -5,8 +5,6 @@
 
 @protocol ApplicationAssembly
 
-- (id)whatToDoNextTableViewController;
-
 - (id)restaurantDetailViewController;
 
 - (id)navigationViewController;

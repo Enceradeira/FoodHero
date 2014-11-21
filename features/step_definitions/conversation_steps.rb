@@ -148,7 +148,6 @@ Then(/^FoodHero asks what to do next after failure$/) do
 end
 
 Then(/^FoodHero says that nothing was found$/) do
-sleep 10
   bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
   expect(bubble).not_to be_nil
 end
@@ -264,8 +263,8 @@ When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
 end
 
 When(/^I say good bye$/) do
-  touch_text_field
-  get_last_element_and_parameter('GoodByeEntry')[0].click
+  text_field.send_keys 'No thanks! Good bye'
+
   touch_send
 end
 

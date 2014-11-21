@@ -14,7 +14,6 @@
 #import "RestaurantSearch.h"
 #import "CLLocationManagerImpl.h"
 #import "DefaultRandomizer.h"
-#import "WhatToDoNextTableViewController.h"
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
 #import "SoundPlayer.h"
@@ -26,15 +25,6 @@
 @implementation DefaultAssembly
 - (id)navigationViewController {
     return [TyphoonDefinition withClass:[NavigationController class]];
-}
-
-- (id)whatToDoNextTableViewController {
-    return [TyphoonDefinition withClass:[WhatToDoNextTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
-            [method injectParameterWith:[self conversationAppService]];
-
-        }];
-    }];
 }
 
 - (id)restaurantDetailViewController {
