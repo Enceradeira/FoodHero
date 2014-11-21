@@ -14,6 +14,7 @@
 #import "ConversationAppService.h"
 #import "ConversationBubbleUser.h"
 #import "IntegrationAssembly.h"
+#import "CLLocationManagerProxyStub.h"
 
 @interface ConversationAppServiceIntegrationTests : XCTestCase
 
@@ -27,7 +28,13 @@
     [super setUp];
 
     [TyphoonComponents configure:[IntegrationAssembly new]];
-    _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
+
+    id <ApplicationAssembly> factory = (id <ApplicationAssembly>) [TyphoonComponents factory];
+    _service = [factory conversationAppService];
+
+    id locationManagerProxy = [factory locationManagerProxy];
+    CLLocation *london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+    [locationManagerProxy injectLocations:@[london]];
 }
 
 - (ConversationBubble *)getStatementWithIndex:(NSUInteger)index {
@@ -37,11 +44,12 @@
 
 - (ConversationBubble *)waitStatementWithIndex:(NSUInteger)index {
     [_service.statementIndexes subscribeNext:^(id next) {
-        if ([_service getStatementCount] - 1 >= index) {
+        if ([_service getStatementCount]  > index) {
             [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
         }
     }];
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self XCA_notify:XCTAsyncTestCaseStatusUnknown]; // reset in order that we can wait again
     return [self getStatementWithIndex:index];
 }
 
@@ -55,5 +63,16 @@
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
+- (void)test_addUserSuggestionFeedback_ShouldAddUSuggestionFeedbackToConversation {
+    [_service addUserCuisinePreference:@"I wished to eat Indian food"];
+    [self waitStatementWithIndex:3];
+
+    [_service addUserSuggestionFeedback:@"It's too far away"];
+    ConversationBubble *bubble = [self waitStatementWithIndex:4];
+
+    assertThat(bubble, is(notNilValue()));
+    assertThat(bubble.semanticId, is(equalTo(@"U:SuggestionFeedback=tooFarAway")));
+    assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
+}
 
 @end

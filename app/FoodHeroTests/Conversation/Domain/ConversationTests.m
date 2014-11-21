@@ -122,8 +122,8 @@
     }];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:kingsHead]];
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:tajMahal]];
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:kingsHead text:@"I don't like that restaurant"]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:tajMahal text:@"I like it"]];
     [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
 
@@ -142,14 +142,14 @@
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:kingsHead]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:kingsHead text:nil]];
 
     [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {
-    USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build]];
-    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:[CLLocation new]];
+    USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build] text:nil];
+    USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:[CLLocation new] text:nil];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
     [self.conversation addToken:feedback1];
@@ -163,7 +163,7 @@
 
 - (void)test_negativeUserFeedback_ShouldBeEmpty_WhenUserHasOnlyGivenPositiveFeedback {
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:[[RestaurantBuilder alloc] build]]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:[[RestaurantBuilder alloc] build] text:@"I like it"]];
 
     assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
 }
@@ -178,10 +178,10 @@
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];  // 1. Restaurant suggested
 
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"]; // make FH choose a different type of suggestion
-    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build]]]; // 2. Restaurant suggested
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
 
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"]; // make FH choose a different type of suggestion
-    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build]]]; // 3. Restaurant suggested
+    [self.conversation addToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]]; // 3. Restaurant suggested
     NSArray *restaurants = [self.conversation suggestedRestaurants];
     assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
@@ -211,7 +211,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant text:nil]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(priceLevel - 1))));
 }
@@ -221,7 +221,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:restaurant text:nil]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(GOOGLE_PRICE_LEVEL_MIN))));
 }
@@ -231,7 +231,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(priceLevel + 1))));
 }
@@ -241,7 +241,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(GOOGLE_PRICE_LEVEL_MAX))));
 }
@@ -258,7 +258,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_london]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_london text:nil]];
 
     assertThatDouble(self.conversation.currentSearchPreference.distanceRange.max, is(lessThan(@(distance))));
 }
@@ -272,7 +272,7 @@
     [FHWarningIfNotInPreferredRangeTooCheap create];
 
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
     ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
     assertThat(lastSuggestionWarning, is(notNilValue()));

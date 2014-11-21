@@ -28,9 +28,9 @@
 - (void)test_USuggestionFeedback_ShouldAddUserStatement {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
 
-    [self assertSecondLastStatementIs:@"U:SuggestionFeedback=It looks too cheap" userAction:nil];
+    [self assertSecondLastStatementIs:@"U:SuggestionFeedback=tooCheap" userAction:nil];
 }
 
 

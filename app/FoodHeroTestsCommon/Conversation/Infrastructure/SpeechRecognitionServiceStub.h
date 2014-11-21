@@ -6,6 +6,9 @@
 #import <Foundation/Foundation.h>
 #import "ISpeechRecognitionService.h"
 
+@class SpeechInterpretation;
+
 
 @interface SpeechRecognitionServiceStub : NSObject <ISpeechRecognitionService>
+- (void)injectInterpretation:(SpeechInterpretation *)interpretation;
 @end

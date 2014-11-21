@@ -9,4 +9,6 @@
 
 @interface NullInputViewController : UIViewController <UserInputViewController>
 - (void)setConversationAppService:(ConversationAppService *)service;
+
+- (void)setInputHandler:(SEL)inputHandler;
 @end

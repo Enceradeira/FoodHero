@@ -4,15 +4,14 @@
 //
 
 #import "USuggestionFeedbackForNotLikingAtAll.h"
-#import "FHSuggestion.h"
 
 
 @implementation USuggestionFeedbackForNotLikingAtAll {
 
 }
 
-+ (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForNotLikingAtAll alloc] initWithRestaurant:restaurant text:@"I don't like that restaurant"];
++ (instancetype)create:(Restaurant *)restaurant text:(NSString *)text {
+    return [[USuggestionFeedbackForNotLikingAtAll alloc] initWithRestaurant:restaurant text:text type:@"Dislike"];
 }
 
 - (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {

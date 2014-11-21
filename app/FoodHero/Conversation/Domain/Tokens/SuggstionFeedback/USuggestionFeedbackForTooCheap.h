@@ -8,5 +8,5 @@
 
 
 @interface USuggestionFeedbackForTooCheap : USuggestionNegativeFeedback
-+ (instancetype)create:(Restaurant *)restaurant;
++ (instancetype)create:(Restaurant *)restaurant text:(NSString *)text;
 @end

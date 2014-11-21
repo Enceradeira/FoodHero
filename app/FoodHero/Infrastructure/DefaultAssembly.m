@@ -14,7 +14,6 @@
 #import "RestaurantSearch.h"
 #import "CLLocationManagerImpl.h"
 #import "DefaultRandomizer.h"
-#import "FeedbackTableViewController.h"
 #import "WhatToDoNextTableViewController.h"
 #import "ProblemWithAccessLocationServiceResolvedTableViewController.h"
 #import "TryAgainTableViewController.h"
@@ -34,15 +33,6 @@
 
 - (id)problemWithAccessLocationServiceResolvedTableViewController {
     return [TyphoonDefinition withClass:[ProblemWithAccessLocationServiceResolvedTableViewController class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
-            [method injectParameterWith:[self conversationAppService]];
-
-        }];
-    }];
-}
-
-- (id)feedbackTableViewController {
-    return [TyphoonDefinition withClass:[FeedbackTableViewController class] configuration:^(TyphoonDefinition *definition) {
         [definition injectMethod:@selector(setAppService:) parameters:^(TyphoonMethod *method) {
             [method injectParameterWith:[self conversationAppService]];
 

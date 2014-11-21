@@ -193,9 +193,8 @@ Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
 end
 
 Then(/^I answer with "([^"]*)"$/) do |answer|
-  sanitized_answer = answer.tr("'", '')
-  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback') { |p| p.eql? sanitized_answer }
-  expect(parameter).to eq(sanitized_answer)
+  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback') { |p| p.eql? answer }
+  expect(parameter).to eq(answer)
   expect(bubble).not_to be_nil
 end
 
@@ -209,23 +208,28 @@ When(/^I touch send without entering anything$/) do
 end
 
 When(/^I don't like the restaurant$/) do
-  click_text_and_send_feedback('I dont like that restaurant')
+  text_field.send_keys('I dont like that restaurant')
+  touch_send
 end
 
 When(/^I find the restaurant too far away$/) do
-  click_list_and_send_feedback('Its too far away')
+  text_field.send_keys  ('Its too far away')
+  touch_send
 end
 
 When(/^I find the restaurant looks too cheap$/) do
-  click_text_and_send_feedback('It looks too cheap')
+  text_field.send_keys('It looks too cheap')
+  touch_send
 end
 
 When(/^I find the restaurant looks too expensive$/) do
-  click_list_and_send_feedback('It looks too expensive')
+  text_field.send_keys('It looks too expensive')
+  touch_send
 end
 
 When(/^I like the restaurant$/) do
-  click_text_and_send_feedback('I like it')
+  text_field.send_keys('I like it')
+  touch_send
 end
 
 When(/^I choose something from the input list$/) do

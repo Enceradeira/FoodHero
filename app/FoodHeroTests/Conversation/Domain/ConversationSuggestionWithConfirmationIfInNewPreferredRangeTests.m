@@ -32,20 +32,20 @@
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
     [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:[CLLocation new]]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:[CLLocation new] text:nil]];
 
     [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
 
     [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }

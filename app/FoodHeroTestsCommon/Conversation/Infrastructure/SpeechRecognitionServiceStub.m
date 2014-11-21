@@ -4,9 +4,19 @@
 //
 
 #import "SpeechRecognitionServiceStub.h"
+#import "SpeechInterpretation.h"
 
 
 @implementation SpeechRecognitionServiceStub {
 
+    SpeechInterpretation *_interpretation;
 }
+- (RACSignal *)interpretString:(NSString *)string customData:(id)customData {
+    return [RACSignal return:_interpretation ? _interpretation : [SpeechInterpretation new]];
+}
+
+- (void)injectInterpretation:(SpeechInterpretation *)interpretation {
+    _interpretation = interpretation;
+}
+
 @end

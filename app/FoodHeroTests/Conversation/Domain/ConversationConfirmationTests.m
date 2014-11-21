@@ -32,7 +32,7 @@
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
     [super assertLastStatementIs:@"FH:Confirmation" userAction:nil];
 }

@@ -12,6 +12,7 @@
 
     ConversationViewController *_parentController;
     ConversationAppService *_appService;
+    SEL _inputHandler;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -32,7 +33,7 @@
 
 - (void)sendUserInput {
     NSString *text = _parentController.userTextField.text;
-    [_appService addUserCuisinePreference:text];
+    [_appService performSelector:_inputHandler withObject:text];
 }
 
 
@@ -40,4 +41,7 @@
     return 0;
 }
 
+- (void)setInputHandler:(SEL)inputHandler {
+    _inputHandler = inputHandler;
+}
 @end

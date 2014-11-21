@@ -26,7 +26,7 @@ Feature: User interacts with app through conversation
     And FoodHero suggests something for "Indian" food
     # clicking on bubble while input list is displayed
     Given I touch input list button
-    Then I can see the feedback list
+    #Then I can see the feedback list -> commented because the feedback list is obsolete but can't be removed yet
     When I touch a conversation bubble
     Then I can't see the feedback list
     # clicking on text field while input list is displayed but direct text-input disabled (which is the case for suggestion-feedback list)

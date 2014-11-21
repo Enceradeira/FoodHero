@@ -14,6 +14,6 @@
 
 @property(nonatomic, readonly) Restaurant *restaurant;
 
-- (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text;
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text type:(NSString*)type;
 
 @end

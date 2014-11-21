@@ -12,8 +12,6 @@
 
 - (id)tryAgainTableViewController;
 
-- (id)feedbackTableViewController;
-
 - (id)restaurantDetailViewController;
 
 - (id)navigationViewController;

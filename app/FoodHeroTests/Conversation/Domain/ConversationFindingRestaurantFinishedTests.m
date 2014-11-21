@@ -33,13 +33,13 @@
 }
 
 - (void)test_USuggestionFeedbackForLiking_ShouldAskUserWhatToDoNext {
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
 
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" userAction:[AskUserWhatToDoNextAction class]];
 }
 
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
 
     [self.conversation addToken:[UGoodBye new]];
     [self assertSecondLastStatementIs:@"U:GoodBye" userAction:nil];
@@ -54,7 +54,7 @@
 }
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
     [self.conversation addToken:[UWantsToSearchForAnotherRestaurant new]];
 
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];

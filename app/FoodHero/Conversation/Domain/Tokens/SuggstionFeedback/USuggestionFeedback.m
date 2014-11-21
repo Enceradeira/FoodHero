@@ -9,8 +9,8 @@
 
 @implementation USuggestionFeedback {
 }
-- (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text {
-    NSString *semanticId = [NSString stringWithFormat:@"U:SuggestionFeedback=%@", text];
+- (instancetype)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text type:(NSString *)type{
+    NSString *semanticId = [NSString stringWithFormat:@"U:SuggestionFeedback=%@", type];
     self = [super initWithSemanticId:semanticId text:text];
     if (self != nil) {
         _restaurant = restaurant;

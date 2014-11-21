@@ -4,7 +4,6 @@
 //
 
 #import "UserInputViewTableViewController.h"
-#import "FeedbackTableViewCell.h"
 #import "DesignByContractException.h"
 #import "ConversationTokenTableViewCell.h"
 #import "ConversationViewStateListOnlyInput.h"
@@ -19,7 +18,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    _selectedCell = (FeedbackTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+    _selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
     self.parentController.userTextField.text = @"";
     [self.parentController animateViewThatMovesToTextInput:self.selectedCell.textLabel completion:^(BOOL completed) {
         self.parentController.userTextField.text = self.selectedCell.textLabel.text;

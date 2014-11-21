@@ -12,8 +12,8 @@
 
 }
 
-+ (instancetype)create:(Restaurant *)restaurant {
-    return [[USuggestionFeedbackForTooCheap alloc] initWithRestaurant:restaurant text:@"It looks too cheap"];
++ (instancetype)create:(Restaurant *)restaurant text:(NSString *)text {
+    return [[USuggestionFeedbackForTooCheap alloc] initWithRestaurant:restaurant text:text type:@"tooCheap"];
 }
 
 - (ConversationToken *)foodHeroConfirmationToken {

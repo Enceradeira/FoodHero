@@ -36,14 +36,14 @@
         return [service injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
     }];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" userAction:nil];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
     CLLocation *location = [CLLocation new];
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:location]];
+    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:location text:nil]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" userAction:nil];
 }
@@ -55,7 +55,7 @@
         return [service injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
     }];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" userAction:nil];
 }

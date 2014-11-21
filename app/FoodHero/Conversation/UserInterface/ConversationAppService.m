@@ -12,18 +12,15 @@
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
-#import "Feedback.h"
 #import "DesignByContractException.h"
+#import "SpeechInterpretation.h"
+#import "UCuisinePreference.h"
+#import "USuggestionFeedback.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "USuggestionFeedbackForLiking.h"
-#import "FeedbackForTooFarAway.h"
-#import "RestaurantRepository.h"
-#import "SearchProfil.h"
-#import "SpeechInterpretation.h"
-#import "UCuisinePreference.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -50,7 +47,7 @@ static UIImage *EmptyImage;
 - (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
                           restaurantRepository:(RestaurantRepository *)restaurantRepository
                                locationService:(LocationService *)locationService
-                       speechRegocnitionService:(id <ISpeechRecognitionService>)speechRecognitionService {
+                      speechRegocnitionService:(id <ISpeechRecognitionService>)speechRecognitionService {
     self = [super init];
     if (self != nil) {
         _doRenderSemanticID = NO;
@@ -59,13 +56,6 @@ static UIImage *EmptyImage;
         _restaurantRepository = restaurantRepository;
         _speechRecognitionService = speechRecognitionService;
         _conversation = conversationRepository.get;
-
-        _feedbacks = @[
-                [FeedbackForTooFarAway create:EmptyImage choiceText:@"It's too far away" locationService:_locationService],
-                [Feedback create:USuggestionFeedbackForTooExpensive.class image:EmptyImage choiceText:@"It looks too expensive"],
-                [Feedback create:USuggestionFeedbackForTooCheap.class image:EmptyImage choiceText:@"It looks too cheap"],
-                [Feedback create:USuggestionFeedbackForNotLikingAtAll.class image:EmptyImage choiceText:@"I don't like that restaurant"],
-                [Feedback create:USuggestionFeedbackForLiking.class image:LikeImage choiceText:@"I like it"]];
     }
     return self;
 }
@@ -107,43 +97,12 @@ static UIImage *EmptyImage;
     return _conversation.statementIndexes;
 }
 
-- (NSArray *)feedbackFiltered {
-    if (_conversation.suggestedRestaurants.count == 0) {
-        return _feedbacks;
-    }
-
-    SearchProfil *searchProfile = [_conversation currentSearchPreference];
-    BOOL restaurantsHavePriceLevel = [_restaurantRepository doRestaurantsHaveDifferentPriceLevels];
-    return [_feedbacks linq_where:^(Feedback *f) {
-        bool isPriceLevelAtMinimum = searchProfile.priceRange.max == GOOGLE_PRICE_LEVEL_MIN;
-        bool isPriceLevelAtMaximum = searchProfile.priceRange.min == GOOGLE_PRICE_LEVEL_MAX;
-        bool isTooExpensiveFeedback = f.tokenClass == [USuggestionFeedbackForTooExpensive class];
-        bool isTooCheapFeedback = f.tokenClass == [USuggestionFeedbackForTooCheap class];
-        return (BOOL) (
-                !((isPriceLevelAtMinimum || !restaurantsHavePriceLevel) && isTooExpensiveFeedback)
-                        &&
-                        !((isPriceLevelAtMaximum || !restaurantsHavePriceLevel) && isTooCheapFeedback));
-    }];
-}
-
-- (NSInteger)getFeedbackCount {
-    return [self.feedbackFiltered count];
-}
-
-- (Feedback *)getFeedback:(NSUInteger)index {
-    return self.feedbackFiltered[index];
-}
-
 - (Restaurant *)getLastSuggestedRestaurant {
     NSArray *restaurants = _conversation.suggestedRestaurants;
     if (restaurants.count == 0) {
         @throw [DesignByContractException createWithReason:@"no restaurants have ever been suggested to user"];
     }
     return [restaurants linq_lastOrNil];
-}
-
-- (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback {
-    [self addUserInput:[feedback createTokenFor:[self getLastSuggestedRestaurant]]];
 }
 
 - (void)processCheat:(NSString *)command {
@@ -174,8 +133,31 @@ static UIImage *EmptyImage;
     RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
-        if([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1){
+        if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
             [self addUserInput:[UCuisinePreference create:interpretation.entities[0] text:interpretation.text]];
+        }
+    }];
+}
+
+- (void)addUserSuggestionFeedback:(NSString *)string {
+    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        Restaurant *restaurant = [self getLastSuggestedRestaurant];
+        if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooFarAway"]) {
+            [self addUserInput:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_locationService.lastKnownLocation text:interpretation.text]];
+        }
+        else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooExpensive"]) {
+            [self addUserInput:[USuggestionFeedbackForTooExpensive create:restaurant text:interpretation.text]];
+        }
+        else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooCheap"]) {
+            [self addUserInput:[USuggestionFeedbackForTooCheap create:restaurant text:interpretation.text]];
+        }
+        else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Dislike"]) {
+            [self addUserInput:[USuggestionFeedbackForNotLikingAtAll create:restaurant text:interpretation.text]];
+        }
+        else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Like"]) {
+            [self addUserInput:[USuggestionFeedbackForLiking create:restaurant text:interpretation.text]];
         }
     }];
 }

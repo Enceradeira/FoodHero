@@ -10,9 +10,8 @@
 @implementation USuggestionFeedbackForLiking {
 }
 
-+ (instancetype)create:(Restaurant *)restaurant {
-    NSString *text = @"I like it";
-    return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant text:text];
++ (instancetype)create:(Restaurant *)restaurant text:(NSString *)text {
+    return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant text:text type:@"Like"];
 }
 
 - (id <ConversationAction>)createAction {

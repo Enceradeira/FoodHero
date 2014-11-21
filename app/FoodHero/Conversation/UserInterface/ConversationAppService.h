@@ -12,7 +12,6 @@
 #import "LocationService.h"
 #import "ISpeechRecognitionService.h"
 #import "RestaurantRepository.h"
-#import "Feedback.h"
 
 @interface ConversationAppService : NSObject
 
@@ -29,15 +28,11 @@
 
 - (void)addUserInput:(ConversationToken *)userInput;
 
-- (void)addUserFeedbackForLastSuggestedRestaurant:(Feedback *)feedback;
-
 - (void)processCheat:(NSString *)command;
 
 - (NSInteger)getStatementCount;
 
-- (NSInteger)getFeedbackCount;
-
-- (Feedback *)getFeedback:(NSUInteger)index;
-
 - (void)addUserCuisinePreference:(NSString *)string;
+
+- (void)addUserSuggestionFeedback:(NSString *)string;
 @end

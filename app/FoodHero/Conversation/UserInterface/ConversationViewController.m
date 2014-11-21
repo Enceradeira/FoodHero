@@ -134,13 +134,14 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [self setViewState:[ConversationViewStateNormal create:self animationCurve:animationCurve aimationDuration:animationDuration]];
 }
 
-- (void)changeUserInputViewController:(NSString *)identifier {
+- (void)changeUserInputViewController:(NSString *)identifier nilSelector:(SEL)nilSelector {
     [self removeUserInputViewController];
     if (identifier != nil) {
         [self addUserInputViewControllerWithIdentifier:identifier];
     }
     else {
-        id nullInputController = [(id <ApplicationAssembly>) [TyphoonComponents factory] nullUserInputController];
+        NullInputViewController * nullInputController = [(id <ApplicationAssembly>) [TyphoonComponents factory] nullUserInputController];
+        [nullInputController setInputHandler:nilSelector];
         [self addUserInputViewController:nullInputController];
     }
 }
@@ -267,27 +268,27 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)askUserCuisinePreferenceAction {
-    [self changeUserInputViewController:nil];
+    [self changeUserInputViewController:nil nilSelector:@selector(addUserCuisinePreference:)];
 }
 
 - (void)askUserSuggestionFeedback {
-    [self changeUserInputViewController:@"Feedback"];
+    [self changeUserInputViewController:nil nilSelector:@selector(addUserSuggestionFeedback:)];
 }
 
 - (void)askUserWhatToDoNext {
-    [self changeUserInputViewController:@"WhatToDoNext"];
+    [self changeUserInputViewController:@"WhatToDoNext" nilSelector:nil];
 }
 
 - (void)askUserIfProblemWithAccessLocationServiceResolved {
-    [self changeUserInputViewController:@"ProblemWithAccessLocationServiceResolved"];
+    [self changeUserInputViewController:@"ProblemWithAccessLocationServiceResolved" nilSelector:nil];
 }
 
 - (void)askUserToTryAgainAction {
-    [self changeUserInputViewController:@"TryAgain"];
+    [self changeUserInputViewController:@"TryAgain" nilSelector:nil];
 }
 
 - (void)askUserWhatToDoAfterGoodBye {
-    [self changeUserInputViewController:@"SearchForAnotherRestaurant"];
+    [self changeUserInputViewController:@"SearchForAnotherRestaurant" nilSelector:nil];
 }
 
 - (IBAction)userTextFieldChanged:(id)sender {

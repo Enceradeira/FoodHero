@@ -83,7 +83,7 @@
 
     Restaurant *firstRestaurant = [self findBest];
 
-    [self conversationHasNegativeUserFeedback:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant]];
+    [self conversationHasNegativeUserFeedback:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant text:@"I don't like that restaurant"]];
 
     assertThat([self findBest].placeId, isNot(equalTo(firstRestaurant.placeId)));
 }

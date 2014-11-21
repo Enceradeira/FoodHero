@@ -13,12 +13,12 @@
 
 }
 
-+ (instancetype)create:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location {
-    return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant text:@"It's too far away" currentUserLocation:location];
++ (instancetype)create:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text {
+    return [[USuggestionFeedbackForTooFarAway alloc] initWithRestaurant:restaurant text:text currentUserLocation:location];
 }
 
 - (id)initWithRestaurant:(Restaurant *)restaurant text:(NSString *)text currentUserLocation:(CLLocation *)location {
-    self = [super initWithRestaurant:restaurant text:text];
+    self = [super initWithRestaurant:restaurant text:text type:@"tooFarAway"];
     if (self != nil) {
         if( location == nil){
             @throw [DesignByContractException createWithReason:@"location can't be nil"];

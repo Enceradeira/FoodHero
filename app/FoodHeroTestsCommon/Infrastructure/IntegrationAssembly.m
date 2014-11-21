@@ -6,6 +6,7 @@
 #import "IntegrationAssembly.h"
 #import "RandomizerStub.h"
 #import "WitSpeechRecognitionService.h"
+#import "CLLocationManagerProxyStub.h"
 
 
 @implementation IntegrationAssembly {
@@ -28,4 +29,9 @@
                           }];
 }
 
+- (id)locationManagerProxy {
+    return [TyphoonDefinition withClass:[CLLocationManagerProxyStub class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
+}
 @end

@@ -46,7 +46,7 @@
 }
 
 - (void)test_suggestedRestaurant_ShouldReturnRestaurantFromToken_WhenTokenIsFHSuggestionFeedback {
-    Statement *statement = [Statement create:[USuggestionFeedbackForNotLikingAtAll create:_restaurant] inputAction:nil];
+    Statement *statement = [Statement create:[USuggestionFeedbackForNotLikingAtAll create:_restaurant text:@"I don't like that restaurant"] inputAction:nil];
     assertThat(statement.suggestedRestaurant, is(equalTo(_restaurant)));
 }
 

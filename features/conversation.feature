@@ -12,23 +12,23 @@ Feature: User interacts with app through conversation
     Then FoodHero suggests something for "British" food
 
     When I don't like the restaurant
-    Then I answer with "I don't like that restaurant"
+    Then I answer with "Dislike"
     And FoodHero suggests something else for "British" food
 
     When I find the restaurant too far away
-    Then I answer with "It's too far away"
+    Then I answer with "tooFarAway"
     And FoodHero suggests something else for "British" food
 
     When I find the restaurant looks too cheap
-    Then I answer with "It looks too cheap"
+    Then I answer with "tooCheap"
     And FoodHero suggests something else for "British" food
 
     When I find the restaurant looks too expensive
-    Then I answer with "It looks too expensive"
+    Then I answer with "tooExpensive"
     And FoodHero suggests something else for "British" food
 
     When I like the restaurant
-    Then I answer with "I like it"
+    Then I answer with "Like"
     And FoodHero asks what to do next
 
     When I say good bye

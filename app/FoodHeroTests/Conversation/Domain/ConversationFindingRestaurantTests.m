@@ -83,7 +83,7 @@
         [stub injectFindNothing];
     }];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
@@ -95,7 +95,7 @@
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
@@ -114,10 +114,10 @@
     [self.conversation addToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant]];
+    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
