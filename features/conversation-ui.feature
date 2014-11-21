@@ -18,6 +18,7 @@ Feature: User interacts with app through conversation
     Then I can touch input list button
     And I can enter text
 
+  @ignore
   Scenario: I do things differently
     # choosing cuisine from list
     Given I wish to eat "Indian" food by typing it
