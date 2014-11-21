@@ -26,8 +26,6 @@
 
 - (RACSignal *)statementIndexes;
 
-- (void)addUserInput:(ConversationToken *)userInput;
-
 - (void)processCheat:(NSString *)command;
 
 - (NSInteger)getStatementCount;

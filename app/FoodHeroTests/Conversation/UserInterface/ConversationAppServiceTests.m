@@ -91,9 +91,19 @@ const CGFloat landscapeWidth = 400;
     [_speechRecognitionService injectInterpretation:interpretation];
 }
 
-- (void)addRecognizedUserCuisinePreference:(NSString *)text intent:(NSString *)intent entities:(NSArray *)entities {
-    [self injectInterpretation:text intent:intent entities:entities];
+- (void)addRecognizedUserCuisinePreference:(NSString *)text entities:(NSArray *)entities {
+    [self injectInterpretation:text intent:@"setFoodPreference" entities:entities];
     [_service addUserCuisinePreference:text];
+}
+
+- (void)addRecognizedUserSuggestionFeedback:(NSString *)text intent:(NSString*)intent {
+    [self injectInterpretation:text intent:intent entities:nil];
+    [_service addUserSuggestionFeedback:text];
+}
+
+- (void)addRecognizedUserAnswerForWhatToDoNext:(NSString *)text intent:(NSString*)intent {
+    [self injectInterpretation:text intent:intent entities:nil];
+    [_service addUserAnswerForWhatToDoNext:text];
 }
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
@@ -111,8 +121,7 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_getThirdStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
-    id userInput = [UCuisinePreference create:@"British" text:@"I like British food"];
-    [_service addUserInput:userInput];
+    [self addRecognizedUserCuisinePreference:@"I like British food" entities:@[@"British"]];
 
     ConversationBubble *bubble = [self getStatement:2];
 
@@ -132,8 +141,7 @@ const CGFloat landscapeWidth = 400;
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Maharaja" withPriceLeel:4 withRelevance:1];
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];
     [_searchServiceStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
-
-    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest "Maharaja" which has higher relevance
+    [self addRecognizedUserCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];; // lets FH suggest "Maharaja" which has higher relevance
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"too expensive!!" recognizedIntent:@"tooExpensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
@@ -142,19 +150,18 @@ const CGFloat landscapeWidth = 400;
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Chippy" withPriceLeel:0 withRelevance:1];
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:4 withRelevance:0.9];
     [_searchServiceStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
-
-    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest "Chippy" which has higher relevance
+    [self addRecognizedUserCuisinePreference:@"I like Indian food" entities:@[@"Indian"]]; // lets FH suggest "Chippy" which has higher relevance
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I'm not that cheap" recognizedIntent:@"tooCheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIrDontLikeThatRestaurant {
-    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
+    [self addRecognizedUserCuisinePreference:@"I like Indian food" entities:@[@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"What a crap place" recognizedIntent:@"Dislike" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
-    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
+    [self addRecognizedUserCuisinePreference:@"I like Indian food" entities:@[@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"That's cool" recognizedIntent:@"Like" fhAnswer:@"FH:WhatToDoNextCommentAfterSuccess"];
 }
 
@@ -176,13 +183,13 @@ const CGFloat landscapeWidth = 400;
     [_locationManager injectLatitude:45 longitude:0];
     [_searchServiceStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
 
-    [_service addUserInput:[UCuisinePreference create:@"Indian" text:@"I like Indian food"]]; // lets FH suggest a restaurant
+    [self addRecognizedUserCuisinePreference:@"I like Indian food" entities:@[@"Indian"]]; // lets FH suggest a restaurant
     [self assertUserFeedbackForLastSuggestedRestaurant:@"too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
 }
 
 - (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
     [_service addUserSolvedProblemWithAccessLocationService:@"I fixed it! Hurray!"];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
@@ -194,9 +201,9 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_addAnswerAfterForWhatToAfterGoodBye_ShouldAddUWantsToSearchForAnotherRestaurant {
-    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
-    [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
-    [_service addUserInput:[UGoodBye new]];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
+    [self addRecognizedUserSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
+    [self addRecognizedUserAnswerForWhatToDoNext:@"Good bye mi love" intent:@"goodBye"];
 
     [_service addAnswerAfterForWhatToAfterGoodBye:@"search again!"];
 
@@ -210,7 +217,7 @@ const CGFloat landscapeWidth = 400;
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUTryAgain_WhenUserSaysTryAgain {
     [_searchServiceStub injectFindNothing];
-    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"again please!!" intent:@"tryAgainNow" entities:nil];
     [_service addUserAnswerAfterNoRestaurantWasFound:@"again please!!"];
@@ -225,7 +232,7 @@ const CGFloat landscapeWidth = 400;
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUWantsToAbort_WhenUserWantsToAbort {
     [_searchServiceStub injectFindNothing];
-    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"Forget it" intent:@"abort" entities:nil];
     [_service addUserAnswerAfterNoRestaurantWasFound:@"Forget it"];
@@ -239,8 +246,8 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_addUserAnswerForWhatToDoNext_ShouldAddUWantsToSearchForAnotherRestaurant_WhenUserWantsToSearchForAnotherRestaurant {
-    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
-    [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
+    [self addRecognizedUserSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
 
     [self injectInterpretation:@"Search again" intent:@"searchForAnotherRestaurant" entities:nil];
     [_service addUserAnswerForWhatToDoNext:@"Search again"];
@@ -254,8 +261,8 @@ const CGFloat landscapeWidth = 400;
 }
 
 - (void)test_addUserAnswerForWhatToDoNext_ShouldAddUGoodBye_WhenUserSaysGoodBye {
-    [self addRecognizedUserCuisinePreference:@"I love Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
-    [self addRecognizedUserCuisinePreference:@"I like it" intent:@"setSuggestionFeedback_Like" entities:nil];
+    [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
+    [self addRecognizedUserSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
 
     [self injectInterpretation:@"No thanks!" intent:@"goodBye" entities:nil];
     [_service addUserAnswerForWhatToDoNext:@"No thanks!"];
