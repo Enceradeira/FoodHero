@@ -34,7 +34,7 @@
     NSMutableArray *interpretations = [NSMutableArray new];
     NSString *text = @"I want to eat Indian food";
 
-    RACSignal *result = [_service interpretString:text customData:nil];
+    RACSignal *result = [_service interpretString:text state:@"Test"];
 
     // Assert
     [result subscribeNext:^(SpeechInterpretation *i) {
@@ -63,7 +63,7 @@
     NSString *invalidToken = @"asdhf82q3z0483q148";
     WitSpeechRecognitionService *service = [[WitSpeechRecognitionService alloc] initWithSchedulerFactory:schedulers accessToken:invalidToken];
 
-    RACSignal *result = [service interpretString:@"Funny text" customData:nil];
+    RACSignal *result = [service interpretString:@"Funny text" state:@"Test"];
 
     __block NSError *error = nil;
     [result subscribeError:^(NSError *e) {

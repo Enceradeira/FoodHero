@@ -135,7 +135,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)addUserCuisinePreference:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForFoodPreference"];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
@@ -145,7 +145,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)addUserSuggestionFeedback:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForSuggestionFeedback"];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         Restaurant *restaurant = [self getLastSuggestedRestaurant];
@@ -176,7 +176,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"noRestaurantWasFound"];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
@@ -189,7 +189,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)addUserAnswerForWhatToDoNext:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string customData:nil];
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForWhatToDoNext"];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"goodBye"]) {

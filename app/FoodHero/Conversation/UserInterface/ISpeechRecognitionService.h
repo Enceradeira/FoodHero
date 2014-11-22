@@ -7,5 +7,5 @@
 #import <ReactiveCocoa.h>
 
 @protocol ISpeechRecognitionService <NSObject>
-- (RACSignal *)interpretString:(NSString *)string customData:(id)customData;
+- (RACSignal *)interpretString:(NSString *)string state:(NSString*)state;
 @end
