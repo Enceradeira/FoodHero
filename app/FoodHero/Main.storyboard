@@ -84,13 +84,13 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
-                                                <accessibility key="accessibilityConfiguration" label="show cuisine list"/>
-                                                <state key="normal" image="List-Icon-Enabled.png">
+                                                <accessibility key="accessibilityConfiguration" label="microphone"/>
+                                                <state key="normal" image="Mic-Enabled.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="disabled" image="List-Icon-Disabled.png"/>
-                                                <state key="selected" image="List-Icon-Disabled.png"/>
-                                                <state key="highlighted" image="List-Icon-Disabled.png"/>
+                                                <state key="disabled" image="Mic-Disabled.png"/>
+                                                <state key="selected" image="Mic-Disabled.png"/>
+                                                <state key="highlighted" image="Mic-Disabled.png"/>
                                                 <connections>
                                                     <action selector="userInputListButtonTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="bme-5j-kB9"/>
                                                 </connections>
@@ -937,8 +937,8 @@ Norwich, Norfolk NR1 3DN</string>
         </scene>
     </scenes>
     <resources>
-        <image name="List-Icon-Disabled.png" width="22" height="22"/>
-        <image name="List-Icon-Enabled.png" width="22" height="22"/>
+        <image name="Mic-Disabled.png" width="22" height="22"/>
+        <image name="Mic-Enabled.png" width="22" height="22"/>
         <image name="Notebook-small.png" width="25" height="121"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>

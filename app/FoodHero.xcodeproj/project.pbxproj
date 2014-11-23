@@ -271,8 +271,6 @@
 		8FD46D8D19C60E3E0078C04C /* nespresso-16.6s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */; };
 		8FD5316D199CA325002519B1 /* RestaurantSearchWithStubTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5316C199CA325002519B1 /* RestaurantSearchWithStubTests.m */; };
 		8FD5A13A1995F86C009B9E39 /* Like-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */; };
-		8FD5A13B1995F86C009B9E39 /* List-Icon-Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */; };
-		8FD5A13C1995F86C009B9E39 /* List-Icon-Enabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */; };
 		8FD5A1401995FF24009B9E39 /* Empty-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */; };
 		8FE109D91A062D4A0059C4D0 /* rating-stars-0.0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109CE1A062D4A0059C4D0 /* rating-stars-0.0@2x.png */; };
 		8FE109DA1A062D4A0059C4D0 /* rating-stars-0.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE109CF1A062D4A0059C4D0 /* rating-stars-0.5@2x.png */; };
@@ -292,6 +290,8 @@
 		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
+		8FEAC8DB1A21E94200B60864 /* Mic-Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEAC8D91A21E94200B60864 /* Mic-Disabled@2x.png */; };
+		8FEAC8DC1A21E94200B60864 /* Mic-Enabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEAC8DA1A21E94200B60864 /* Mic-Enabled@2x.png */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -749,8 +749,6 @@
 		8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nespresso-16.6s.wav"; sourceTree = "<group>"; };
 		8FD5316C199CA325002519B1 /* RestaurantSearchWithStubTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchWithStubTests.m; sourceTree = "<group>"; };
 		8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Like-Icon@2x.png"; sourceTree = "<group>"; };
-		8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Disabled@2x.png"; sourceTree = "<group>"; };
-		8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "List-Icon-Enabled@2x.png"; sourceTree = "<group>"; };
 		8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Empty-Icon@2x.png"; sourceTree = "<group>"; };
 		8FE109CE1A062D4A0059C4D0 /* rating-stars-0.0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-stars-0.0@2x.png"; sourceTree = "<group>"; };
 		8FE109CF1A062D4A0059C4D0 /* rating-stars-0.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-stars-0.5@2x.png"; sourceTree = "<group>"; };
@@ -770,6 +768,8 @@
 		8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroIntegrationsTests-Info.plist"; sourceTree = "<group>"; };
 		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Prefix.pch"; sourceTree = "<group>"; };
+		8FEAC8D91A21E94200B60864 /* Mic-Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mic-Disabled@2x.png"; sourceTree = "<group>"; };
+		8FEAC8DA1A21E94200B60864 /* Mic-Enabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mic-Enabled@2x.png"; sourceTree = "<group>"; };
 		F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroIntegrationsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1609,20 +1609,20 @@
 				8FE109D51A062D4A0059C4D0 /* rating-stars-3.5@2x.png */,
 				8FE109D61A062D4A0059C4D0 /* rating-stars-4.0@2x.png */,
 				8FE109D71A062D4A0059C4D0 /* rating-stars-4.5@2x.png */,
+				8FEAC8D91A21E94200B60864 /* Mic-Disabled@2x.png */,
+				8FEAC8DA1A21E94200B60864 /* Mic-Enabled@2x.png */,
 				8FE109D81A062D4A0059C4D0 /* rating-stars-5.0@2x.png */,
 				8FC51ED119DED09A00B39ACC /* world-icon@2x.png */,
 				8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */,
 				8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */,
 				8FD46D8C19C60E3E0078C04C /* nespresso-16.6s.wav */,
 				8F72B46D1A03C13B0093B077 /* Notebook-small@2x.png */,
-				8FD5A1381995F86C009B9E39 /* List-Icon-Disabled@2x.png */,
 				8FD00C2119CC53E50072DCB4 /* riddle-fade-out-20.1s.wav */,
 				8FC51ED719DED10700B39ACC /* phone-receiver-icon@2x.png */,
 				8FC51ED919DED10B00B39ACC /* directions-icon@2x.png */,
 				8FE35F0E19FAAED8007CE198 /* directions-icon-transparent@2x.png */,
 				8FE35F0F19FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png */,
 				8FE35F1019FAAED8007CE198 /* world-icon-transparent@2x.png */,
-				8FD5A1391995F86C009B9E39 /* List-Icon-Enabled@2x.png */,
 				8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */,
 				8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */,
 				8FCBADD819614B83001ED357 /* main.m */,
@@ -1776,8 +1776,6 @@
 			mainGroup = 8FCBADC019614B83001ED357;
 			productRefGroup = 8FCBADCA19614B83001ED357 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				8FCBADC819614B83001ED357 /* FoodHero */,
@@ -1810,8 +1808,8 @@
 				8FD00C2219CC53E50072DCB4 /* riddle-fade-out-20.1s.wav in Resources */,
 				8FE109DA1A062D4A0059C4D0 /* rating-stars-0.5@2x.png in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
-				8FD5A13C1995F86C009B9E39 /* List-Icon-Enabled@2x.png in Resources */,
 				8FE109E31A062D4A0059C4D0 /* rating-stars-5.0@2x.png in Resources */,
+				8FEAC8DB1A21E94200B60864 /* Mic-Disabled@2x.png in Resources */,
 				8FE35F1319FAAED8007CE198 /* world-icon-transparent@2x.png in Resources */,
 				8FE109DE1A062D4A0059C4D0 /* rating-stars-2.5@2x.png in Resources */,
 				8F60D0E31969ABC3007324B6 /* ConversationBubble-User@2x.png in Resources */,
@@ -1821,10 +1819,10 @@
 				8FD46D8D19C60E3E0078C04C /* nespresso-16.6s.wav in Resources */,
 				8F72B46E1A03C13B0093B077 /* Notebook-small@2x.png in Resources */,
 				8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */,
+				8FEAC8DC1A21E94200B60864 /* Mic-Enabled@2x.png in Resources */,
 				2352547DDBFD70DF2CAD7744 /* simulator_gps_coordinates.gpx in Resources */,
 				8FC51ED819DED10700B39ACC /* phone-receiver-icon@2x.png in Resources */,
 				8FC51ED219DED09A00B39ACC /* world-icon@2x.png in Resources */,
-				8FD5A13B1995F86C009B9E39 /* List-Icon-Disabled@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
