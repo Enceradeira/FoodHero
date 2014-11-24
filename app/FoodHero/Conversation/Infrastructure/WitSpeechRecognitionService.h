@@ -6,10 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "ISpeechRecognitionService.h"
 #import "ISchedulerFactory.h"
-
+#import "IAudioSession.h"
 
 @interface WitSpeechRecognitionService : NSObject <ISpeechRecognitionService>
 
-- (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory accessToken:(NSString *)accessToken;
+- (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory
+                             accessToken:(NSString *)accessToken
+                            audioSession:(id <IAudioSession>)audioSession;
 
 @end

@@ -7,6 +7,7 @@
 #import "RandomizerStub.h"
 #import "WitSpeechRecognitionService.h"
 #import "CLLocationManagerProxyStub.h"
+#import "AudioSessionStub.h"
 
 
 @implementation IntegrationAssembly {
@@ -22,9 +23,10 @@
 - (id)speechRecognitionService {
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSchedulerFactory:accessToken:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithSchedulerFactory:accessToken:audioSession:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self schedulerFactory]];
                                   [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero-Test"
+                                  [method injectParameterWith:[self audioSession]];
                               }];
                           }];
 }
@@ -34,4 +36,12 @@
         definition.scope = TyphoonScopeSingleton;
     }];
 }
+
+- (id)audioSession {
+    return [TyphoonDefinition withClass:[AudioSessionStub class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
+}
+
+
 @end

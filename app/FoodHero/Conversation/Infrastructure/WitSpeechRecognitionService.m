@@ -8,6 +8,7 @@
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
 #import "NoSpeechInterpretationError.h"
+#import "MissingAudioRecordionPermissonError.h"
 
 @interface WitDelegate : NSObject <WitDelegate>
 + (id <WitDelegate>)create:(id <RACSubscriber>)subscriber;
@@ -75,14 +76,17 @@
     id <ISchedulerFactory> _schedulerFactory;
     NSString *_accessToken;
     Wit *_configuredWit;
+    id <IAudioSession> _audioSession;
 }
 
-- (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory accessToken:(NSString *)accessToken {
+- (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory
+                             accessToken:(NSString *)accessToken
+                            audioSession:(id <IAudioSession>)audioSession {
     self = [super init];
     if (self) {
         _schedulerFactory = schedulerFactory;
         _accessToken = accessToken;
-
+        _audioSession = audioSession;
     }
 
     return self;
@@ -114,11 +118,22 @@
 
 - (RACSignal *)recordAndInterpretUserVoice:(NSString *)state {
     RACSignal *signal = [RACSignal startEagerlyWithScheduler:_schedulerFactory.mainThreadScheduler block:^(id <RACSubscriber> subscriber) {
-        [self setContext:state subscriber:subscriber];
-        [self.wit start];
+        [_audioSession requestRecordPermission:^(BOOL granted) {
+            if (granted) {
+                [self setContext:state subscriber:subscriber];
+                [self.wit start];
+            }
+            else {
+               [subscriber sendError:[MissingAudioRecordionPermissonError new]];
+            }
+        }];
     }];
 
     return signal;
+}
+
+- (AVAudioSessionRecordPermission)recordPermission {
+    return [_audioSession recordPermission];
 }
 
 

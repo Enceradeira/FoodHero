@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+@import AVFoundation;
+
 #import <ReactiveCocoa.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
@@ -82,6 +84,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         }
 
         [self configureUserInputFor:[self getStatementIndex:index]];
+        [_appService recordPermission];
     }];
 
     // Input View
@@ -94,6 +97,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
     _isLoading = NO;
+}
+
+- (AVAudioSessionRecordPermission)recordPermission {
+    return [_appService recordPermission];
 }
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
@@ -181,7 +188,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
         id <IUAction> nextAction = foodHeroBubble.inputAction;
-        if( nextAction ) {
+        if (nextAction) {
             // sometimes FH produces more than one bubble in sequence but just one holds and inputAction which should not be overwritten
             // this is the case e.g
             _currentInputAction = nextAction;
@@ -191,7 +198,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_currentViewState update];
 }
 
- - (void)inputActionDidFinish {
+- (void)inputActionDidFinish {
     _currentInputAction = nil;
     [_currentViewState update];
 }
@@ -218,8 +225,15 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)userMicButtonTouchUp:(id)sender {
-    [_appService addUserVoiceForInputAction:_currentInputAction];
-    [self inputActionDidFinish];
+    id <IUAction> oldInputAction = _currentInputAction;
+    RACSignal *signal = [_appService addUserVoiceForInputAction:_currentInputAction];
+    [signal subscribeError:^(NSError *error) {
+        _currentInputAction = oldInputAction; // restore inputAction because it couldn't be processed
+        [_currentViewState update];
+    }];
+    [signal subscribeCompleted:^() {
+        [self inputActionDidFinish];
+    }];
 }
 
 - (void)keyboardWillShow:(id)notification {

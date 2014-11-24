@@ -17,6 +17,8 @@
 #import "StubAssembly.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
+#import "IAudioSession.h"
+#import "AudioSessionStub.h"
 
 @interface ConversationViewControllerTests : XCTestCase
 
@@ -66,21 +68,6 @@
     assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting")));
 }
 
-- (void)test_userMicButtonTouchUp_ShouldDisableInputDuringProcessing {
-    [_ctrl userTextField].text = @"ahhm";  // in order that send-button enables
-    [_ctrl userMicButtonTouchUp:self];
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
-    assertThatBool(_ctrl.userTextField.enabled, is(equalToBool(NO)));
-    assertThatBool(_ctrl.userSendButton.enabled, is(equalToBool(NO)));
-
-    [self injectInterpretation:@"I want Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(YES)));
-    assertThatBool(_ctrl.userTextField.enabled, is(equalToBool(YES)));
-    assertThatBool(_ctrl.userSendButton.enabled, is(equalToBool(NO))); // because userTextField is empty now
-}
-
 - (void)test_userMicButtonTouchUp_ShouldAddNewConversationBubble {
     NSUInteger bubbleCount = [_bubbleView visibleCells].count;
 
@@ -88,5 +75,52 @@
     [self injectInterpretation:@"I want Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
 
     assertThatInt([_bubbleView visibleCells].count, is(greaterThan(@(bubbleCount))));
+}
+
+-(void)test_userMicButtonTouchUp_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
+    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
+
+    [_ctrl userMicButtonTouchUp:self];
+
+    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
+}
+
+-(void)test_userMicButtonTouchUp_ShouldNotDisableUserInput_WhenNoPermissionForMicrophone{
+    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
+
+    [_ctrl userMicButtonTouchUp:self];
+
+    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
+    assertThatBool(_ctrl.userTextField.enabled, is(equalToBool(YES)));
+    assertThatBool(_ctrl.userSendButton.enabled, is(equalToBool(NO))); // because userTextField is empty
+}
+
+-(void)test_Controller_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
+    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
+
+    _ctrl = [ControllerFactory createConversationViewController];
+    _ctrl.view.hidden = NO;
+
+    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
+}
+
+-(void)test_Controller_ShouldEnableMicButton_WhenPermissionForMicrophone{
+    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionGranted];
+
+    _ctrl = [ControllerFactory createConversationViewController];
+    _ctrl.view.hidden = NO;
+
+
+    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(YES)));
+}
+
+-(void)test_Controller_ShouldEnableMicButton_WhenUnknownPermissionForMicrophone{
+    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionUndetermined];
+
+    _ctrl = [ControllerFactory createConversationViewController];
+    _ctrl.view.hidden = NO;
+
+
+    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(YES)));
 }
 @end

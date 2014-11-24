@@ -35,7 +35,7 @@
 
 - (void)setConversationAppService:(ConversationAppService *)service;
 
-- (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion;
+- (AVAudioSessionRecordPermission)recordPermission;
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
 

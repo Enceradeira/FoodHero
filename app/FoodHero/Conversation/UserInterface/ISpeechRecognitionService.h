@@ -10,4 +10,6 @@
 - (RACSignal *)interpretString:(NSString *)string state:(NSString*)state;
 
 - (RACSignal *)recordAndInterpretUserVoice:(NSString *)state;
+
+- (enum AVAudioSessionRecordPermission)recordPermission;
 @end

@@ -14,6 +14,8 @@
 #import "SpeechInterpretation.h"
 #import "IntegrationAssembly.h"
 #import "NoSpeechInterpretationError.h"
+#import "AudioSessionStub.h"
+#import "MissingAudioRecordionPermissonError.h"
 
 @interface WitSpeechRecognitionServiceIntegrationTests : XCTestCase
 
@@ -21,6 +23,7 @@
 
 @implementation WitSpeechRecognitionServiceIntegrationTests {
     WitSpeechRecognitionService *_service;
+    AudioSessionStub* _audioSessionStub;
 }
 
 - (void)setUp {
@@ -28,6 +31,7 @@
 
     [TyphoonComponents configure:[IntegrationAssembly new]];
     _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] speechRecognitionService];
+    _audioSessionStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] audioSession];
 }
 
 - (void)test_interpretString_ShouldReturnInterpretation_WhenStringMadeSense {
@@ -61,7 +65,7 @@
 - (void)test_interpretString_ShouldReturnError_WhenWitCantBeReached {
     id schedulers = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
     NSString *invalidToken = @"asdhf82q3z0483q148";
-    WitSpeechRecognitionService *service = [[WitSpeechRecognitionService alloc] initWithSchedulerFactory:schedulers accessToken:invalidToken];
+    WitSpeechRecognitionService *service = [[WitSpeechRecognitionService alloc] initWithSchedulerFactory:schedulers accessToken:invalidToken audioSession:_audioSessionStub];
 
     RACSignal *result = [service interpretString:@"Funny text" state:@"Test"];
 
@@ -78,8 +82,28 @@
     }];
 
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
-
     assertThat(error.class, is(equalTo(NoSpeechInterpretationError.class)));
+    assertThatBool(completed, is(equalToBool(NO)));
+}
+
+-(void)test_recordAndInterpretUserVoice_ShouldReturnError_WhenNoRecordPermission{
+    [_audioSessionStub injectRecordPermission:AVAudioSessionRecordPermissionDenied];
+
+    RACSignal *result = [_service recordAndInterpretUserVoice:@"Test"];
+
+    __block NSError *error = nil;
+    [result subscribeError:^(NSError *e) {
+        error = e;
+        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
+    }];
+    __block BOOL completed = NO;
+    [result subscribeCompleted:^() {
+        completed = YES;
+        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
+    }];
+
+    [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
+    assertThat(error.class, is(equalTo(MissingAudioRecordionPermissonError.class)));
     assertThatBool(completed, is(equalToBool(NO)));
 }
 

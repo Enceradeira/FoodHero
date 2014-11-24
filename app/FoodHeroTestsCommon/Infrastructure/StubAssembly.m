@@ -13,6 +13,7 @@
 #import "SoundPlayerFake.h"
 #import "EnvironmentStub.h"
 #import "SpeechRecognitionServiceStub.h"
+#import "AudioSessionStub.h"
 
 
 @implementation StubAssembly
@@ -57,6 +58,12 @@
 
 - (id)speechRecognitionService {
     return [TyphoonDefinition withClass:[SpeechRecognitionServiceStub class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
+}
+
+- (id)audioSession {
+    return [TyphoonDefinition withClass:[AudioSessionStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
 }

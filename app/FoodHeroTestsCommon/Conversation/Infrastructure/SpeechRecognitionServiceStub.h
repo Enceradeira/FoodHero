@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+@import AVFoundation;
 #import <Foundation/Foundation.h>
 #import "ISpeechRecognitionService.h"
 
@@ -11,4 +12,6 @@
 
 @interface SpeechRecognitionServiceStub : NSObject <ISpeechRecognitionService>
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation;
+
+- (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission;
 @end

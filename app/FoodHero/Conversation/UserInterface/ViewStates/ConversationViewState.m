@@ -34,7 +34,8 @@
     // list-button
     self.controller.userMicButton.enabled =
             self.isUserInputListButtonEnabled
-            && _controller.isUserInputEnabled;
+            && _controller.isUserInputEnabled
+            && _controller.recordPermission  != AVAudioSessionRecordPermissionDenied;
 }
 
 - (void)activate {

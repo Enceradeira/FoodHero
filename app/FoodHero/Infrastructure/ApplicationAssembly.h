@@ -39,4 +39,6 @@
 
 - (id)environment;
 
+- (id)audioSession;
+
 @end

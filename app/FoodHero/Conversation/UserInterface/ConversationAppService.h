@@ -6,14 +6,13 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+@import AVFoundation;
 #import <Foundation/Foundation.h>
 #import "ConversationBubble.h"
 #import "ConversationRepository.h"
 #import "LocationService.h"
 #import "ISpeechRecognitionService.h"
 #import "RestaurantRepository.h"
-
-@class AskUserIfProblemWithAccessLocationServiceResolved;
 
 @interface ConversationAppService : NSObject
 
@@ -34,5 +33,7 @@
 
 - (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction;
 
-- (void)addUserVoiceForInputAction:(id <IUAction>)inputAction;
+- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction;
+
+- (AVAudioSessionRecordPermission)recordPermission;
 @end

@@ -240,9 +240,15 @@ static UIImage *EmptyImage;
     }
 }
 
-- (void)addUserVoiceForInputAction:(id <IUAction>)inputAction {
+- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction {
     RACSignal *signal = [_speechRecognitionService recordAndInterpretUserVoice:[inputAction getStateName]];
 
     [self subscribeAnswerForAskForFoodPreference:signal];
+
+    return signal;
+}
+
+- (AVAudioSessionRecordPermission)recordPermission {
+    return [_speechRecognitionService recordPermission];
 }
 @end
