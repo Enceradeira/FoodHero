@@ -11,16 +11,11 @@
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationViewStateNormal.h"
-#import "ConversationViewStateListOrTextInput.h"
 #import "TyphoonComponents.h"
 #import "FoodHeroColors.h"
-#import "ConversationViewStateListOnlyInput.h"
 #import "CheatTextFieldController.h"
 #import "RestaurantDetailViewController.h"
-#import "UserInputViewController.h"
-#import "NullInputViewController.h"
 #import "ConversationViewStateTextInput.h"
-#import "DesignByContractException.h"
 
 const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;
 const UIViewAnimationOptions DEFAULT_ANIMATION_OPTION_CURVE = UIViewAnimationOptionCurveEaseOut;
@@ -101,91 +96,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     _isLoading = NO;
 }
 
-- (void)animateViewThatMovesToTextInput:(UIView *)view completion:(void (^)(BOOL finished))completion {
-    UIView *originalSuperview = view.superview;
-
-    // position of text input
-    CGRect textinputFrame = _userTextField.frame;
-    CGRect convertedTextinputFrame = [_userTextField.superview convertRect:textinputFrame toView:[self view]];
-
-    // position of view
-    CGRect viewFrame = view.frame;
-    CGRect convertedViewFrame = [view convertRect:viewFrame toView:[self view]];
-
-    // temporally move view into top-view
-    [view removeFromSuperview];
-    view.frame = CGRectMake(convertedViewFrame.origin.x, convertedViewFrame.origin.y, convertedViewFrame.size.width, convertedViewFrame.size.height);
-    [[self view] addSubview:view];
-    [[self view] bringSubviewToFront:view];
-
-    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION delay:DEFAULT_ANIMATION_DELAY options:DEFAULT_ANIMATION_OPTION_CURVE animations:^{
-        // move view to position of text input
-        NSInteger paddingLeft = 10;
-        view.frame = CGRectMake(convertedTextinputFrame.origin.x + paddingLeft, convertedTextinputFrame.origin.y, convertedTextinputFrame.size.width - paddingLeft, convertedTextinputFrame.size.height);
-    }                completion:^(BOOL completed) {
-
-        // move view back to original super-view
-        [view removeFromSuperview];
-        view.frame = viewFrame;
-        [originalSuperview addSubview:view];
-        completion(completed);
-    }];
-}
-
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
     [self setViewState:[ConversationViewStateNormal create:self animationCurve:animationCurve aimationDuration:animationDuration]];
 }
-
-/*
-- (void)changeUserInputViewController:(NSString *)identifier nilSelector:(SEL)nilSelector {
-    [self removeUserInputViewController];
-    if (identifier != nil) {
-        [self addUserInputViewControllerWithIdentifier:identifier];
-    }
-    else {
-        NullInputViewController *nullInputController = [(id <ApplicationAssembly>) [TyphoonComponents factory] nullUserInputController];
-        [nullInputController setInputHandler:nilSelector];
-        [self addUserInputViewController:nullInputController];
-    }
-}
-  */
-/*
-- (void)removeUserInputViewController {
-    if (_currentUserInputContainerViewController == nil) {
-        return;
-    }
-
-    [_currentUserInputContainerViewController willMoveToParentViewController:nil];
-    [_currentUserInputContainerViewController.view removeFromSuperview];
-    [_currentUserInputContainerViewController removeFromParentViewController];
-    _currentUserInputContainerViewController = nil;
-    [_currentViewState update];
-} */
-
-/*
-- (void)addUserInputViewControllerWithIdentifier:(NSString *)identifier {
-    UIViewController <UserInputViewController> *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
-    [self addUserInputViewController:controller];
-
-}*/
-
-/*
-- (void)addUserInputViewController:(UIViewController <UserInputViewController> *)controller {
-    _currentUserInputContainerViewController = controller;
-    _currentUserInputContainerViewController.parentController = self;
-    UIView *controllerView = _currentUserInputContainerViewController.view;
-    [controllerView setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-    [self addChildViewController:_currentUserInputContainerViewController];
-
-    [_userInputContainerView addSubview:controllerView];
-    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-
-    [_currentUserInputContainerViewController didMoveToParentViewController:self];
-} */
 
 - (void)setViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
@@ -267,9 +180,19 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
-        _currentInputAction = foodHeroBubble.inputAction;
+        id <IUAction> nextAction = foodHeroBubble.inputAction;
+        if( nextAction ) {
+            // sometimes FH produces more than one bubble in sequence but just one holds and inputAction which should not be overwritten
+            // this is the case e.g
+            _currentInputAction = nextAction;
+        }
     }
 
+    [_currentViewState update];
+}
+
+ - (void)inputActionDidFinish {
+    _currentInputAction = nil;
     [_currentViewState update];
 }
 
@@ -285,10 +208,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     }
     else {
         [_appService addUserText:_userTextField.text forInputAction:_currentInputAction];
-        _currentInputAction = nil;
+        [self inputActionDidFinish];
     }
     _userTextField.text = @"";
-    [_currentViewState update];
 }
 
 - (void)hideKeyboard {
@@ -296,12 +218,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)userMicButtonTouchUp:(id)sender {
-    RACSignal *result = [_appService addUserVoiceForInputAction:_currentInputAction];
-    [result subscribeCompleted:^() {
-        _userTextField.text = @"";
-    }];
-    _currentInputAction = nil;
-    [_currentViewState update];
+    [_appService addUserVoiceForInputAction:_currentInputAction];
+    [self inputActionDidFinish];
 }
 
 - (void)keyboardWillShow:(id)notification {

@@ -39,5 +39,4 @@
 
 - (id)environment;
 
-- (id)nullUserInputController;
 @end

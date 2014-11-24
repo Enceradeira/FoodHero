@@ -20,7 +20,6 @@
 #import "RestaurantDetailViewController.h"
 #import "Environment.h"
 #import "WitSpeechRecognitionService.h"
-#import "NullInputViewController.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -142,16 +141,6 @@
 
 - (id)environment {
     return [TyphoonDefinition withClass:[Environment class]];
-}
-
-- (id)nullUserInputController {
-    return [TyphoonDefinition withClass:[NullInputViewController class]
-                          configuration:^(TyphoonDefinition *definition) {
-                              [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:[self conversationAppService]];
-
-                              }];
-                          }];
 }
 
 

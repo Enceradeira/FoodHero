@@ -6,7 +6,6 @@
 #import "ConversationViewState.h"
 #import "ConversationViewState+Protected.h"
 #import "FoodHeroColors.h"
-#import "ConversationViewStateListOrTextInput.h"
 #import "ConversationViewController.h"
 
 @implementation ConversationViewState

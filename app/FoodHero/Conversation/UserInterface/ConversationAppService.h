@@ -34,5 +34,5 @@
 
 - (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction;
 
-- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction;
+- (void)addUserVoiceForInputAction:(id <IUAction>)inputAction;
 @end
