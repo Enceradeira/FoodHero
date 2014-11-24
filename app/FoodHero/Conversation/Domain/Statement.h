@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Persona.h"
 #import "ConversationAction.h"
-#import "UAction.h"
+#import "IUAction.h"
 #import "Restaurant.h"
 #import "ConversationToken.h"
 
@@ -24,11 +24,11 @@
 
 - (Persona *)persona;
 
-- (id)initWithToken:(ConversationToken *)token inputAction:(id <UAction>)inputAction;
+- (id)initWithToken:(ConversationToken *)token inputAction:(id <IUAction>)inputAction;
 
-+ (Statement *)create:(ConversationToken *)token inputAction:(id <UAction>)inputAction;
++ (Statement *)create:(ConversationToken *)token inputAction:(id <IUAction>)inputAction;
 
-- (id <UAction>)inputAction;
+- (id <IUAction>)inputAction;
 
 - (Restaurant *)suggestedRestaurant;
 

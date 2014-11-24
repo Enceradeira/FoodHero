@@ -58,7 +58,7 @@
             }];
 }
 
-- (void)addStatement:(ConversationToken *)token inputAction:(id <UAction>)inputAction {
+- (void)addStatement:(ConversationToken *)token inputAction:(id <IUAction>)inputAction {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
     Statement *statement = [Statement create:token inputAction:inputAction];
     [statementProxy addObject:statement];
@@ -74,10 +74,10 @@
 
 - (void)addToken:(ConversationToken *)token {
     id <ConversationAction> action = [token createAction];
-    id <UAction> userAction;
-    if ([action conformsToProtocol:@protocol(UAction)]) {
+    id <IUAction> userAction;
+    if ([action conformsToProtocol:@protocol(IUAction)]) {
         // User has to perform next action
-        userAction = (id <UAction>) action;
+        userAction = (id <IUAction>) action;
         [self addStatement:token inputAction:userAction];
     }
     else {

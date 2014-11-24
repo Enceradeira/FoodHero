@@ -9,9 +9,8 @@
 @implementation AskUserIfProblemWithAccessLocationServiceResolved {
 
 }
-- (void)accept:(id <UActionVisitor>)visitor {
-    [visitor askUserIfProblemWithAccessLocationServiceResolved];
+- (NSString *)getStateName {
+    return @"afterCantAccessLocationService";
 }
-
 
 @end

@@ -24,6 +24,13 @@
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
 #import "UGoodBye.h"
+#import "AskUserCuisinePreferenceAction.h"
+#import "AskUserSuggestionFeedbackAction.h"
+#import "AskUserToTryAgainAction.h"
+#import "AskUserWhatToDoNextAction.h"
+#import "UDidResolveProblemWithAccessLocationService.h"
+#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "AskUserWhatToDoAfterGoodByeAction.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -73,7 +80,7 @@ const CGFloat landscapeWidth = 400;
 - (void)assertUserFeedbackForLastSuggestedRestaurant:(NSString *)text recognizedIntent:(NSString *)type fhAnswer:(NSString *)fhAnswer {
     [self injectInterpretation:text intent:[NSString stringWithFormat:@"setSuggestionFeedback_%@", type] entities:nil];
 
-    [_service addUserSuggestionFeedback:text];
+    [_service addUserText:text forInputAction:[AskUserSuggestionFeedbackAction new]];
 
     NSArray *statementsReversed = [[self statements] linq_reverse];
     ConversationBubble *userFeedback = statementsReversed[1];
@@ -93,17 +100,17 @@ const CGFloat landscapeWidth = 400;
 
 - (void)addRecognizedUserCuisinePreference:(NSString *)text entities:(NSArray *)entities {
     [self injectInterpretation:text intent:@"setFoodPreference" entities:entities];
-    [_service addUserCuisinePreference:text];
+    [_service addUserText:text forInputAction:[AskUserCuisinePreferenceAction new]];
 }
 
 - (void)addRecognizedUserSuggestionFeedback:(NSString *)text intent:(NSString*)intent {
     [self injectInterpretation:text intent:intent entities:nil];
-    [_service addUserSuggestionFeedback:text];
+    [_service addUserText:text forInputAction:[AskUserSuggestionFeedbackAction new]];
 }
 
 - (void)addRecognizedUserAnswerForWhatToDoNext:(NSString *)text intent:(NSString*)intent {
     [self injectInterpretation:text intent:intent entities:nil];
-    [_service addUserAnswerForWhatToDoNext:text];
+    [_service addUserText:text forInputAction:[AskUserWhatToDoNextAction new]];
 }
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
@@ -134,7 +141,7 @@ const CGFloat landscapeWidth = 400;
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet {
     [self injectInterpretation:@"It's too far away" intent: @"setSuggestionFeedback_tooFarAway" entities:nil];
     assertThat(^() {
-        return [_service addUserSuggestionFeedback:@"It's too far away"];
+        return [_service addUserText:@"It's too far away" forInputAction:[AskUserSuggestionFeedbackAction new]];
     }, throwsExceptionOfType(DesignByContractException.class));
 }
 
@@ -191,7 +198,7 @@ const CGFloat landscapeWidth = 400;
 - (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
-    [_service addUserSolvedProblemWithAccessLocationService:@"I fixed it! Hurray!"];
+    [_service addUserText:@"I fixed it! Hurray!" forInputAction:[AskUserIfProblemWithAccessLocationServiceResolved new]];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:DidResolveProblemWithAccessLocationService"]);
@@ -206,7 +213,7 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
     [self addRecognizedUserAnswerForWhatToDoNext:@"Good bye mi love" intent:@"goodBye"];
 
-    [_service addAnswerAfterForWhatToAfterGoodBye:@"search again!"];
+    [_service addUserText:@"search again!" forInputAction:[AskUserWhatToDoAfterGoodByeAction new]];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
@@ -221,7 +228,7 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"again please!!" intent:@"tryAgainNow" entities:nil];
-    [_service addUserAnswerAfterNoRestaurantWasFound:@"again please!!"];
+    [_service addUserText:@"again please!!" forInputAction:[AskUserToTryAgainAction new]];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:TryAgainNow"]);
@@ -236,7 +243,7 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"Forget it" intent:@"abort" entities:nil];
-    [_service addUserAnswerAfterNoRestaurantWasFound:@"Forget it"];
+    [_service addUserText:@"Forget it" forInputAction:[AskUserToTryAgainAction new]];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToAbort"]);
@@ -251,7 +258,7 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
 
     [self injectInterpretation:@"Search again" intent:@"searchForAnotherRestaurant" entities:nil];
-    [_service addUserAnswerForWhatToDoNext:@"Search again"];
+    [_service addUserText:@"Search again" forInputAction:[AskUserWhatToDoNextAction new]];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:WantsToSearchForAnotherRestaurant"]);
@@ -266,7 +273,7 @@ const CGFloat landscapeWidth = 400;
     [self addRecognizedUserSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
 
     [self injectInterpretation:@"No thanks!" intent:@"goodBye" entities:nil];
-    [_service addUserAnswerForWhatToDoNext:@"No thanks!"];
+    [_service addUserText:@"No thanks!" forInputAction:[AskUserWhatToDoNextAction new]];
 
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
         return (BOOL) ([b.semanticId isEqualToString:@"U:GoodBye"]);

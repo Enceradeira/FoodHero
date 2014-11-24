@@ -8,5 +8,5 @@
 #import "UAction.h"
 
 
-@interface AskUserIfProblemWithAccessLocationServiceResolved : NSObject<UAction>
+@interface AskUserIfProblemWithAccessLocationServiceResolved : UAction
 @end

@@ -7,11 +7,11 @@
 //
 
 #import "ConversationBubble.h"
-#import "UAction.h"
+#import "IUAction.h"
 
 @interface ConversationBubbleFoodHero : ConversationBubble
 
-@property(nonatomic, readonly) id <UAction> inputAction;
+@property(nonatomic, readonly) id <IUAction> inputAction;
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index inputAction:(id <UAction>)inputAction doRenderSemanticID:(BOOL)ID;
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index inputAction:(id <IUAction>)inputAction doRenderSemanticID:(BOOL)ID;
 @end

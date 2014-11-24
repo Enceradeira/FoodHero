@@ -10,7 +10,6 @@
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationBubbleFoodHero.h"
-#import "ConversationViewState.h"
 #import "ConversationViewStateNormal.h"
 #import "ConversationViewStateListOrTextInput.h"
 #import "TyphoonComponents.h"
@@ -20,6 +19,8 @@
 #import "RestaurantDetailViewController.h"
 #import "UserInputViewController.h"
 #import "NullInputViewController.h"
+#import "ConversationViewStateTextInput.h"
+#import "DesignByContractException.h"
 
 const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;
 const UIViewAnimationOptions DEFAULT_ANIMATION_OPTION_CURVE = UIViewAnimationOptionCurveEaseOut;
@@ -33,10 +34,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 @implementation ConversationViewController {
     ConversationAppService *_appService;
     ConversationViewState *_currentViewState;
-    UIViewController <UserInputViewController> *_currentUserInputContainerViewController;
     CheatTextFieldController *_cheatTextFieldController;
     NSMutableArray *_bubbleCells;
     BOOL _isLoading;
+    id <IUAction> _currentInputAction;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -96,6 +97,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     _userInputHeaderView.layer.borderWidth = 0.5;
 
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
+
     _isLoading = NO;
 }
 
@@ -134,6 +136,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [self setViewState:[ConversationViewStateNormal create:self animationCurve:animationCurve aimationDuration:animationDuration]];
 }
 
+/*
 - (void)changeUserInputViewController:(NSString *)identifier nilSelector:(SEL)nilSelector {
     [self removeUserInputViewController];
     if (identifier != nil) {
@@ -145,7 +148,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         [self addUserInputViewController:nullInputController];
     }
 }
-
+  */
+/*
 - (void)removeUserInputViewController {
     if (_currentUserInputContainerViewController == nil) {
         return;
@@ -156,14 +160,16 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_currentUserInputContainerViewController removeFromParentViewController];
     _currentUserInputContainerViewController = nil;
     [_currentViewState update];
-}
+} */
 
+/*
 - (void)addUserInputViewControllerWithIdentifier:(NSString *)identifier {
     UIViewController <UserInputViewController> *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:identifier];
     [self addUserInputViewController:controller];
 
-}
+}*/
 
+/*
 - (void)addUserInputViewController:(UIViewController <UserInputViewController> *)controller {
     _currentUserInputContainerViewController = controller;
     _currentUserInputContainerViewController.parentController = self;
@@ -179,7 +185,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_userInputContainerView addConstraint:[NSLayoutConstraint constraintWithItem:_userInputContainerView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:controllerView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
 
     [_currentUserInputContainerViewController didMoveToParentViewController:self];
-}
+} */
 
 - (void)setViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
@@ -261,34 +267,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
-        id <UAction> inputAction = foodHeroBubble.inputAction;
-        [inputAction accept:self];
+        _currentInputAction = foodHeroBubble.inputAction;
     }
-    [_currentViewState activate];
-}
 
-- (void)askUserCuisinePreferenceAction {
-    [self changeUserInputViewController:nil nilSelector:@selector(addUserCuisinePreference:)];
-}
-
-- (void)askUserSuggestionFeedback {
-    [self changeUserInputViewController:nil nilSelector:@selector(addUserSuggestionFeedback:)];
-}
-
-- (void)askUserWhatToDoNext {
-    [self changeUserInputViewController:nil nilSelector:@selector(addUserAnswerForWhatToDoNext:)];
-}
-
-- (void)askUserIfProblemWithAccessLocationServiceResolved {
-    [self changeUserInputViewController:nil nilSelector:@selector(addUserSolvedProblemWithAccessLocationService:)];
-}
-
-- (void)askUserToTryAgainAction {
-    [self changeUserInputViewController:nil nilSelector:@selector(addUserAnswerAfterNoRestaurantWasFound:)];
-}
-
-- (void)askUserWhatToDoAfterGoodBye {
-    [self changeUserInputViewController:nil nilSelector:@selector(addAnswerAfterForWhatToAfterGoodBye:)];
+    [_currentViewState update];
 }
 
 - (IBAction)userTextFieldChanged:(id)sender {
@@ -302,11 +284,11 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         _cheatTextFieldController = [CheatTextFieldController createWithView:self.view applicationService:_appService];
     }
     else {
-        UIViewController <UserInputViewController> *inputViewController = _currentUserInputContainerViewController;
-        [self removeUserInputViewController];
-        [inputViewController sendUserInput];
+        [_appService addUserText:_userTextField.text forInputAction:_currentInputAction];
+        _currentInputAction = nil;
     }
     _userTextField.text = @"";
+    [_currentViewState update];
 }
 
 - (void)hideKeyboard {
@@ -314,17 +296,12 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)userMicButtonTouchUp:(id)sender {
-    [self setUserInputControlEnabled:NO];
-    RACSignal *result = [_appService recordAndInterpretUserVoice];
+    RACSignal *result = [_appService addUserVoiceForInputAction:_currentInputAction];
     [result subscribeCompleted:^() {
-        [self setUserInputControlEnabled:YES];
+        _userTextField.text = @"";
     }];
-}
-
-- (void)setUserInputControlEnabled:(BOOL)value {
-    self.userMicButton.enabled = value;
-    self.userTextField.enabled = value;
-    self.userSendButton.enabled = value;
+    _currentInputAction = nil;
+    [_currentViewState update];
 }
 
 - (void)keyboardWillShow:(id)notification {
@@ -339,7 +316,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     NSNumber *animationCurverNumber = (NSNumber *) [userInfo valueForKey:@"UIKeyboardAnimationCurveUserInfoKey"];
     UIViewAnimationCurve animationCurve = (UIViewAnimationCurve) animationCurverNumber.integerValue;
 
-    [_currentUserInputContainerViewController notifyUserWantsTextInput:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration];
+    //[_currentUserInputContainerViewController notifyUserWantsTextInput:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration];
+    [self setViewState:[ConversationViewStateTextInput create:self heigth:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -355,7 +333,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (NSInteger)optimalUserInputListHeight {
-    return _currentUserInputContainerViewController.optimalViewHeight;
+    // return _currentUserInputContainerViewController.optimalViewHeight;
+    return 0;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -364,6 +343,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (BOOL)isUserInputEnabled {
-    return _currentUserInputContainerViewController != nil;
+    return _currentInputAction != nil;
 }
 @end

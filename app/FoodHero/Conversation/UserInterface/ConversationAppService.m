@@ -26,9 +26,16 @@
 #import "UTryAgainNow.h"
 #import "UWantsToAbort.h"
 #import "UGoodBye.h"
+#import "AskUserCuisinePreferenceAction.h"
+#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
+#import "AskUserSuggestionFeedbackAction.h"
+#import "AskUserToTryAgainAction.h"
+#import "AskUserWhatToDoNextAction.h"
+#import "AskUserWhatToDoAfterGoodByeAction.h"
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
+
 
 @implementation ConversationAppService {
     NSMutableDictionary *_bubbles;
@@ -142,14 +149,14 @@ static UIImage *EmptyImage;
     }];
 }
 
-- (void)addUserCuisinePreference:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForFoodPreference"];
+- (void)addUserCuisinePreference:(NSString *)string action:(id <IUAction>)action {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
 
     [self subscribeAnswerForAskForFoodPreference:signal];
 }
 
-- (void)addUserSuggestionFeedback:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForSuggestionFeedback"];
+- (void)addUserSuggestionFeedback:(NSString *)string action:(id <IUAction>)action {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         Restaurant *restaurant = [self getLastSuggestedRestaurant];
@@ -179,8 +186,9 @@ static UIImage *EmptyImage;
     [self addUserInput:[UWantsToSearchForAnotherRestaurant create:string]];
 }
 
-- (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"noRestaurantWasFound"];
+
+- (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string action:(id <IUAction>)action {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
@@ -192,8 +200,8 @@ static UIImage *EmptyImage;
     }];
 }
 
-- (void)addUserAnswerForWhatToDoNext:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForWhatToDoNext"];
+- (void)addUserAnswerForWhatToDoNext:(NSString *)string action:(id <IUAction>)action {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
 
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"goodBye"]) {
@@ -205,8 +213,35 @@ static UIImage *EmptyImage;
     }];
 }
 
-- (RACSignal *)recordAndInterpretUserVoice {
-    RACSignal *signal = [_speechRecognitionService recordAndInterpretUserVoice:@"askForFoodPreference"];
+- (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction {
+    if ([inputAction isEqual:[AskUserCuisinePreferenceAction new]]) {
+        [self addUserCuisinePreference:string action:inputAction];
+    }
+    else if ([inputAction isEqual:[AskUserSuggestionFeedbackAction new]]) {
+        [self addUserSuggestionFeedback:string action:inputAction];
+    }
+    else if ([inputAction isEqual:[AskUserIfProblemWithAccessLocationServiceResolved new]]) {
+        [self addUserSolvedProblemWithAccessLocationService:string];
+    }
+    else if ([inputAction isEqual:[AskUserWhatToDoAfterGoodByeAction new]]) {
+
+        [self addAnswerAfterForWhatToAfterGoodBye:string];
+    }
+    else if ([inputAction isEqual:[AskUserToTryAgainAction new]]) {
+
+        [self addUserAnswerAfterNoRestaurantWasFound:string action:inputAction];
+    }
+    else if ([inputAction isEqual:[AskUserWhatToDoNextAction new]]) {
+
+        [self addUserAnswerForWhatToDoNext:string action:inputAction];
+    }
+    else {
+        @throw [DesignByContractException createWithReason:@"unhandled inputAction"];
+    }
+}
+
+- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction {
+    RACSignal *signal = [_speechRecognitionService recordAndInterpretUserVoice:[inputAction getStateName]];
 
     [self subscribeAnswerForAskForFoodPreference:signal];
 

@@ -31,7 +31,7 @@
     return [[UIImage imageNamed:@"ConversationBubble-FoodHero.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 32, 22 + 8, 32 + 11)];
 }
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index inputAction:(id <UAction>)inputAction doRenderSemanticID:(BOOL)doRenderSemanticID {
+- (id)initWithStatement:(Statement *)statement width:(CGFloat)width index:(NSUInteger)index inputAction:(id <IUAction>)inputAction doRenderSemanticID:(BOOL)doRenderSemanticID {
     self = [super initWithStatement:statement width:width index:index doRenderSemanticID:doRenderSemanticID];
     if (self) {
         _inputAction = inputAction;

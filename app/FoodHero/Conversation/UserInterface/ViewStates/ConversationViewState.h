@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationViewController.h"
+
+@class ConversationViewController;
 
 
 @interface ConversationViewState : NSObject

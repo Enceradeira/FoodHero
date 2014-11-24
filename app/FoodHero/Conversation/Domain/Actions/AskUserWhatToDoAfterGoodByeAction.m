@@ -9,8 +9,8 @@
 @implementation AskUserWhatToDoAfterGoodByeAction {
 
 }
-- (void)accept:(id <UActionVisitor>)visitor {
-    [visitor askUserWhatToDoAfterGoodBye];
+- (NSString *)getStateName {
+    return @"afterGoodByeAfterSuccess";
 }
 
 

@@ -7,6 +7,5 @@
 #import "ConversationAction.h"
 #import "UAction.h"
 
-
-@interface AskUserWhatToDoNextAction : NSObject <UAction>
+@interface AskUserWhatToDoNextAction : UAction
 @end

@@ -6,6 +6,5 @@
 #import <Foundation/Foundation.h>
 #import "UAction.h"
 
-
-@interface AskUserWhatToDoAfterGoodByeAction : NSObject <UAction>
+@interface AskUserWhatToDoAfterGoodByeAction : UAction
 @end

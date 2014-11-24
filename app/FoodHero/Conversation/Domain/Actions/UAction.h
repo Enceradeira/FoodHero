@@ -1,12 +1,16 @@
 //
-// Created by Jorg on 17/07/2014.
+// Created by Jorg on 24/11/14.
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationAction.h"
-#import "UActionVisitor.h"
+#import "IUAction.h"
 
-@protocol UAction <ConversationAction>
-- (void)accept:(id <UActionVisitor>)visitor;
+
+@interface UAction : NSObject <IUAction>
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToAction:(UAction *)action;
+
+- (NSUInteger)hash;
 @end

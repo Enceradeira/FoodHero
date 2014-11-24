@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ConversationAppService.h"
 #import "ConversationBubbleTableViewCellDelegate.h"
+#import "ConversationViewState.h"
 
-@class ConversationViewState;
-
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UActionVisitor, UIGestureRecognizerDelegate, ConversationBubbleTableViewCellDelegate>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ConversationBubbleTableViewCellDelegate>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userTextField;

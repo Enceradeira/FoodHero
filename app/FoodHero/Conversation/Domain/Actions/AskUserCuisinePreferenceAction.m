@@ -9,12 +9,10 @@
 @implementation AskUserCuisinePreferenceAction {
 
 }
-+ (id <ConversationAction>)create {
-    return [AskUserCuisinePreferenceAction new];
+
+- (NSString *)getStateName {
+    return @"askForFoodPreference";
 }
 
-- (void)accept:(id <UActionVisitor>)visitor {
-    [visitor askUserCuisinePreferenceAction];
-}
 
 @end

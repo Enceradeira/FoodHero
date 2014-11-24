@@ -13,6 +13,8 @@
 #import "ISpeechRecognitionService.h"
 #import "RestaurantRepository.h"
 
+@class AskUserIfProblemWithAccessLocationServiceResolved;
+
 @interface ConversationAppService : NSObject
 
 - (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
@@ -30,17 +32,7 @@
 
 - (NSInteger)getStatementCount;
 
-- (void)addUserCuisinePreference:(NSString *)string;
+- (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction;
 
-- (void)addUserSuggestionFeedback:(NSString *)string;
-
-- (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string;
-
-- (void)addAnswerAfterForWhatToAfterGoodBye:(NSString *)string;
-
-- (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string;
-
-- (void)addUserAnswerForWhatToDoNext:(NSString *)string;
-
-- (RACSignal *)recordAndInterpretUserVoice;
+- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction;
 @end

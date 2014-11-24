@@ -231,6 +231,7 @@
 		23525ED284E1EDEBE61A5BC4 /* ConversationBubbleFoodHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352573782B74E2013DD4CB2 /* ConversationBubbleFoodHero.m */; };
 		23525ED8179CBED6CEFC005A /* PlaySoundAndAfterAddTokenActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253213832B7A0B9360455 /* PlaySoundAndAfterAddTokenActionTests.m */; };
 		23525F2901255641C1507CB2 /* ConversationViewStateListOnlyInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255D06585DA6FBF9FA232 /* ConversationViewStateListOnlyInput.m */; };
+		23525F2AC7BFA6BE484CAD5C /* UAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253BF5A516B4A3EAB74A3 /* UAction.m */; };
 		23525F41C6D616A1CD3BC493 /* NullInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF3AB499D5AF74043B6 /* NullInputViewController.m */; };
 		23525F4595F5BAF0214136C2 /* ConversationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251B83ED57675395C3C84 /* ConversationTests.m */; };
 		23525F554BEC71178F7D2EDD /* SoundPlayerFake.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B9482947F9693E5FA0B /* SoundPlayerFake.m */; };
@@ -384,6 +385,7 @@
 		23525211CE9824D6BEFE1ACC /* ITextRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITextRepository.h; sourceTree = "<group>"; };
 		2352522408BF6073928CCC48 /* GooglePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlace.m; sourceTree = "<group>"; };
 		235252243CA79D13851B4AEE /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
+		2352522F178DF9A4223F59FF /* UAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAction.h; sourceTree = "<group>"; };
 		2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
 		2352524FE3F5DB99242CF2E9 /* StubAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubAssembly.h; sourceTree = "<group>"; };
 		2352525768BB6B16A85D8A88 /* RatingStarsImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingStarsImage.h; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 		235253B0E028EFF69C99B59F /* CLLocationManagerProxyStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerProxyStub.m; sourceTree = "<group>"; };
 		235253B7566895C3ED6BB54F /* ConversationTestsBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTestsBase.h; sourceTree = "<group>"; };
 		235253BB86938B89044C8671 /* CheatTextFieldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheatTextFieldController.m; sourceTree = "<group>"; };
+		235253BF5A516B4A3EAB74A3 /* UAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAction.m; sourceTree = "<group>"; };
 		235253C05FA7822B59725CC5 /* ConversationSourceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationSourceStub.m; sourceTree = "<group>"; };
 		235253C71436B4EE5682A346 /* KeywordEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeywordEncoder.m; sourceTree = "<group>"; };
 		235253F117606594F4E18A31 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
@@ -594,7 +597,7 @@
 		23525B297260F06444B602A9 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		23525B2E0B7D04B33770A67F /* ConversationSourceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSourceStub.h; sourceTree = "<group>"; };
 		23525B2FB3F30212ABA98373 /* ConversationSuggestionWithConfirmationIfInNewPreferredRangeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationSuggestionWithConfirmationIfInNewPreferredRangeTests.m; sourceTree = "<group>"; };
-		23525B34D00C8BF7E8859201 /* UAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAction.h; sourceTree = "<group>"; };
+		23525B34D00C8BF7E8859201 /* IUAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUAction.h; sourceTree = "<group>"; };
 		23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchParams.m; sourceTree = "<group>"; };
 		23525B53C01DF83A5D0EE49B /* RestaurantRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRating.m; sourceTree = "<group>"; };
 		23525B56F02D7CC5D01EFAF6 /* USuggestionNegativeFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionNegativeFeedback.m; sourceTree = "<group>"; };
@@ -650,7 +653,6 @@
 		23525D061BA4618AC6480CE4 /* GoogleRestaurantSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleRestaurantSearch.m; sourceTree = "<group>"; };
 		23525D18AAB9A4164A13FCA6 /* RatingStarsImageRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingStarsImageRepository.h; sourceTree = "<group>"; };
 		23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerProxySpy.m; sourceTree = "<group>"; };
-		23525D39093B3550F697CE21 /* UActionVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UActionVisitor.h; sourceTree = "<group>"; };
 		23525D3BC16B4FCB514983EA /* RandomizerStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomizerStub.h; sourceTree = "<group>"; };
 		23525D6282DB07A825F147CF /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		23525D63A79559A8109F2F66 /* RestaurantSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchService.h; sourceTree = "<group>"; };
@@ -886,7 +888,7 @@
 				23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */,
 				2352532FE8C29682329D925C /* AskUserToTryAgainAction.m */,
 				23525E384AF51605647C688D /* AskUserToTryAgainAction.h */,
-				23525B34D00C8BF7E8859201 /* UAction.h */,
+				23525B34D00C8BF7E8859201 /* IUAction.h */,
 				23525BA988AE776A22AFA1EE /* FHAction.h */,
 				23525C7953448EBE76142383 /* AskUserWhatToDoNextAction.h */,
 				23525EAC127BA84A3C617650 /* AskUserWhatToDoNextAction.m */,
@@ -894,7 +896,6 @@
 				23525126EA2C0B3DFCED5B2C /* AddTokenAction.h */,
 				23525C11EE11932E1E05FAC6 /* AskUserWhatToDoAfterGoodByeAction.m */,
 				235253A67C58FCC835570068 /* AskUserWhatToDoAfterGoodByeAction.h */,
-				23525D39093B3550F697CE21 /* UActionVisitor.h */,
 				23525E68DCB6A0AD821122E3 /* PriceRange.m */,
 				23525EDAE6621340C0A611B2 /* PriceRange.h */,
 				235253F864FB2EA189922D98 /* SearchProfil.m */,
@@ -905,6 +906,8 @@
 				23525DFA3E6C3A56F2834248 /* PlaySoundAndAfterAddTokenAction.h */,
 				235254E006925A1976EC51F0 /* PlaySoundDelegate.h */,
 				235250D8D915261378A306D0 /* ISoundPlayer.h */,
+				235253BF5A516B4A3EAB74A3 /* UAction.m */,
+				2352522F178DF9A4223F59FF /* UAction.h */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -2080,6 +2083,7 @@
 				235252F5772A21A737D62EE1 /* SpeechInterpretation.m in Sources */,
 				23525F87D71657854824B89B /* NoSpeechInterpretationError.m in Sources */,
 				23525F41C6D616A1CD3BC493 /* NullInputViewController.m in Sources */,
+				23525F2AC7BFA6BE484CAD5C /* UAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

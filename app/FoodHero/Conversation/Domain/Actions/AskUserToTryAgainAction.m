@@ -9,8 +9,8 @@
 @implementation AskUserToTryAgainAction {
 
 }
-- (void)accept:(id <UActionVisitor>)visitor {
-    [visitor askUserToTryAgainAction];
+- (NSString *)getStateName {
+    return @"noRestaurantWasFound";
 }
 
 

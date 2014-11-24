@@ -9,8 +9,8 @@
 @implementation AskUserSuggestionFeedbackAction {
 
 }
-- (void)accept:(id <UActionVisitor>)visitor {
-    [visitor askUserSuggestionFeedback];
+- (NSString *)getStateName {
+    return @"askForSuggestionFeedback";
 }
 
 
