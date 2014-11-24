@@ -19,7 +19,7 @@
 @property(weak, nonatomic) IBOutlet UIView *userInputContainerView;
 @property(weak, nonatomic) IBOutlet UIView *userInputHeaderView;
 @property(weak, nonatomic) IBOutlet UIButton *userSendButton;
-@property(weak, nonatomic) IBOutlet UIButton *userInputListButton;
+@property(weak, nonatomic) IBOutlet UIButton *userMicButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeaderHeightConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewHeightConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
@@ -32,7 +32,7 @@
 
 - (void)hideKeyboard;
 
-- (IBAction)userInputListButtonTouchUp:(id)sender;
+- (IBAction)userMicButtonTouchUp:(id)sender;
 
 - (void)setConversationAppService:(ConversationAppService *)service;
 

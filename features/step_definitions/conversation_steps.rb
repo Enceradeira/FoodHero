@@ -81,11 +81,6 @@ def click_text_and_send_feedback(entry_name)
   click_feedback_entry_and_send(entry_name)
 end
 
-def click_list_and_send_feedback(entry_name)
-  show_list_button.click
-  click_feedback_entry_and_send(entry_name)
-end
-
 def send_cheat(command)
   unless @cheat_enabled
     text_field.send_keys 'C:E' # enable cheating
@@ -96,8 +91,8 @@ def send_cheat(command)
   cheat_text_field.send_keys command,:return
 end
 
-def show_list_button
-  find_element(:name, 'show cuisine list')
+def microphone_button
+  find_element(:name, 'microphone')
 end
 
 def expect_restaurant_detail_view
@@ -269,7 +264,7 @@ When(/^I say good bye$/) do
 end
 
 When(/^I touch input list button$/) do
-  show_list_button.click
+  microphone_button.click
 end
 
 When(/^I tough today's opening hours$/) do
@@ -308,9 +303,9 @@ Then(/^FoodHero displays Semantic\-ID "([^"]*)" in last suggestion/) do |semanti
   expect(bubble.label).to include(semanticId)
 end
 
-Then(/^I (can|can't) touch input list button$/) do |option|
+Then(/^I (can|can't) touch the microphone button$/) do |option|
   condition = option == "can't" ? be_falsey: be_truthy
-  expect(show_list_button.enabled?).to condition
+  expect(microphone_button.enabled?).to condition
 end
 
 And(/^I (can|can't) enter text$/) do |option|
@@ -340,6 +335,12 @@ Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
   # restaurant name
   restaurant = last_suggestions.last
   restaurant_name = restaurant.split(', ').first
+
+  # handle a anomaly that sometimes occurs at our test-location 'Apple'
+  if restaurant_name == 'Saint Michaels Alley'
+    restaurant_name = "Saint Michael's Alley"
+  end
+
   expect(text restaurant_name).to be_truthy
 end
 

@@ -54,6 +54,15 @@
     assertThat(_ctrl.openingHours.text, is(equalTo(_restaurant.openingHoursToday)));
 }
 
+
+- (void)test_openingHours_ShouldDisplaySeeOpeningHoursHere_WhenRestaurantClosedToday {
+    _restaurant = [[[RestaurantBuilder alloc] withOpeningHoursToday:@""] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThatUnsignedInt(_ctrl.openingHours.text.length, is(greaterThan(@0)));
+    assertThat(_ctrl.openingHours.text, is(equalTo(@"see opening hours here")));
+}
+
 - (void)test_phoneNumber_ShouldBeRestaurantPhoneNumber {
     assertThatUnsignedInt(_ctrl.phoneNumber.text.length, is(greaterThan(@0)));
     assertThat(_ctrl.phoneNumber.text, is(equalTo(_restaurant.phoneNumber)));

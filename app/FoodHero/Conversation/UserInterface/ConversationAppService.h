@@ -41,4 +41,6 @@
 - (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string;
 
 - (void)addUserAnswerForWhatToDoNext:(NSString *)string;
+
+- (RACSignal *)recordAndInterpretUserVoice;
 @end

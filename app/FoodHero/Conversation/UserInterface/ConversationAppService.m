@@ -134,14 +134,18 @@ static UIImage *EmptyImage;
 
 }
 
-- (void)addUserCuisinePreference:(NSString *)string {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForFoodPreference"];
-
+- (void)subscribeAnswerForAskForFoodPreference:(RACSignal *)signal {
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
             [self addUserInput:[UCuisinePreference create:interpretation.entities[0] text:interpretation.text]];
         }
     }];
+}
+
+- (void)addUserCuisinePreference:(NSString *)string {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:@"askForFoodPreference"];
+
+    [self subscribeAnswerForAskForFoodPreference:signal];
 }
 
 - (void)addUserSuggestionFeedback:(NSString *)string {
@@ -199,5 +203,13 @@ static UIImage *EmptyImage;
             [self addUserInput:[UWantsToSearchForAnotherRestaurant create:interpretation.text]];
         }
     }];
+}
+
+- (RACSignal *)recordAndInterpretUserVoice {
+    RACSignal *signal = [_speechRecognitionService recordAndInterpretUserVoice:@"askForFoodPreference"];
+
+    [self subscribeAnswerForAskForFoodPreference:signal];
+
+    return signal;
 }
 @end

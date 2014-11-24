@@ -11,4 +11,5 @@
 @interface WitSpeechRecognitionService : NSObject <ISpeechRecognitionService>
 
 - (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory accessToken:(NSString *)accessToken;
+
 @end

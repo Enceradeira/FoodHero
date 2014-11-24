@@ -132,6 +132,7 @@ const CGFloat landscapeWidth = 400;
 
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldThrowException_WhenNoRestaurantSuggestedYet {
+    [self injectInterpretation:@"It's too far away" intent: @"setSuggestionFeedback_tooFarAway" entities:nil];
     assertThat(^() {
         return [_service addUserSuggestionFeedback:@"It's too far away"];
     }, throwsExceptionOfType(DesignByContractException.class));

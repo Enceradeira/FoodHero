@@ -7,16 +7,30 @@
 #import "SpeechInterpretation.h"
 
 
-@implementation SpeechRecognitionServiceStub {
+@interface SpeechRecognitionServiceStub ()
+@property(atomic, readwrite) SpeechInterpretation *interpretation;
+@end
 
-    SpeechInterpretation *_interpretation;
+@implementation SpeechRecognitionServiceStub {
 }
+
+- (RACSignal *)getInterpretationSignal {
+    RACSignal *values = RACObserve(self, self.interpretation);
+    return [[values filter:^(SpeechInterpretation *i) {
+        return (BOOL) (i != nil);
+    }] take:1];
+}
+
 - (RACSignal *)interpretString:(NSString *)string state:(id)customData {
-    return [RACSignal return:_interpretation ? _interpretation : [SpeechInterpretation new]];
+    return [self getInterpretationSignal];
+}
+
+- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state {
+    return [self getInterpretationSignal];
 }
 
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation {
-    _interpretation = interpretation;
+    self.interpretation = interpretation;
 }
 
 @end

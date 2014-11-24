@@ -3,7 +3,7 @@ Feature: User interacts with app through conversation
   Background:
     Given FoodHero has started
 
-  Scenario: I log in for the first time and go through all suggestion feedbacks
+  Scenario: I log in for the first time and go through all suggestion feedback
     When FoodHero greets me and asks what I wished to eat
     And I wish to eat "British" food by typing it
     Then FoodHero asks for access to the location-services
@@ -33,7 +33,7 @@ Feature: User interacts with app through conversation
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
 
-    When I wish to eat "American" food by typing it
+    When I wish to eat "Asian" food by typing it
     And FoodHero suggests something else for "American" food
     And I like the restaurant
     And FoodHero asks what to do next

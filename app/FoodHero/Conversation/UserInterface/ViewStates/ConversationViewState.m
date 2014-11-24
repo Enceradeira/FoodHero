@@ -32,7 +32,7 @@
                     && _controller.isUserInputEnabled;
 
     // list-button
-    self.controller.userInputListButton.enabled =
+    self.controller.userMicButton.enabled =
             self.isUserInputListButtonEnabled
             && _controller.isUserInputEnabled;
 }

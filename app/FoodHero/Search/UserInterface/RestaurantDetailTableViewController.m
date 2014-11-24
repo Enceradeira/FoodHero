@@ -72,7 +72,12 @@
     self.name.text = _restaurant.name;
     self.address.text = _restaurant.address;
     self.openingStatus.text = _restaurant.openingStatus;
-    self.openingHours.text = _restaurant.openingHoursToday;
+    if([_restaurant.openingHoursToday isEqualToString:@""]){
+        self.openingHours.text = @"see opening hours here";
+    }
+    else {
+        self.openingHours.text = _restaurant.openingHoursToday;
+    }
     
     NSString *phoneNumber = _restaurant.phoneNumber;
     self.phoneNumber.text = phoneNumber;

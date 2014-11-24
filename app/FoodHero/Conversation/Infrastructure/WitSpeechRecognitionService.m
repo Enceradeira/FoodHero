@@ -43,6 +43,19 @@
     }
 }
 
+- (void)witActivityDetectorStarted {
+
+}
+
+- (void)witDidStartRecording {
+    NSLog(@"Recording startet");
+}
+
+- (void)witDidStopRecording {
+    NSLog(@"Recording stopped");
+}
+
+
 - (id)init:(id <RACSubscriber>)subscriber {
     self = [super init];
     if (self) {
@@ -61,6 +74,7 @@
 
     id <ISchedulerFactory> _schedulerFactory;
     NSString *_accessToken;
+    Wit *_configuredWit;
 }
 
 - (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory accessToken:(NSString *)accessToken {
@@ -68,23 +82,41 @@
     if (self) {
         _schedulerFactory = schedulerFactory;
         _accessToken = accessToken;
+
     }
 
     return self;
 }
 
-- (RACSignal *)interpretString:(NSString *)string state:(NSString*)state {
+- (void)setContext:(NSString *)state subscriber:(id <RACSubscriber>)subscriber {
+    [self.wit setContext:@{@"state" : state}];
+    self.wit.delegate = [WitDelegate create:subscriber];
+}
+
+- (Wit *)wit {
+    if (!_configuredWit) {
+        _configuredWit = [Wit sharedInstance];
+        _configuredWit.accessToken = _accessToken;
+        _configuredWit.detectSpeechStop = WITVadConfigDetectSpeechStop;
+    }
+    return _configuredWit;
+}
+
+- (RACSignal *)interpretString:(NSString *)string state:(NSString *)state {
     RACSignal *signal = [[RACSignal startEagerlyWithScheduler:_schedulerFactory.asynchScheduler block:^(id <RACSubscriber> subscriber) {
-        Wit *wit = [[Wit alloc] init];
+        [self setContext:state subscriber:subscriber];
 
-        [wit setContext:@{@"state":state}];
-
-        wit.accessToken = _accessToken;
-        //enabling detectSpeechStop will automatically stop listening the microphone when the user stop talking
-        wit.detectSpeechStop = WITVadConfigDetectSpeechStop;
-        wit.delegate = [WitDelegate create:subscriber];
-        [wit interpretString:string customData:state];
+        [self.wit interpretString:string customData:state];
     }] deliverOn:[_schedulerFactory mainThreadScheduler]];
+
+    return signal;
+}
+
+- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state {
+    RACSignal *signal = [RACSignal startEagerlyWithScheduler:_schedulerFactory.mainThreadScheduler block:^(id <RACSubscriber> subscriber) {
+        [self setContext:state subscriber:subscriber];
+        [self.wit start];
+    }];
 
     return signal;
 }

@@ -140,7 +140,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         [self addUserInputViewControllerWithIdentifier:identifier];
     }
     else {
-        NullInputViewController * nullInputController = [(id <ApplicationAssembly>) [TyphoonComponents factory] nullUserInputController];
+        NullInputViewController *nullInputController = [(id <ApplicationAssembly>) [TyphoonComponents factory] nullUserInputController];
         [nullInputController setInputHandler:nilSelector];
         [self addUserInputViewController:nullInputController];
     }
@@ -313,8 +313,18 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [(self.userTextField) resignFirstResponder];
 }
 
-- (IBAction)userInputListButtonTouchUp:(id)sender {
-    [_currentUserInputContainerViewController notifyUserWantsListInput:UIViewAnimationCurveEaseOut animationDuration:0.25];
+- (IBAction)userMicButtonTouchUp:(id)sender {
+    [self setUserInputControlEnabled:NO];
+    RACSignal *result = [_appService recordAndInterpretUserVoice];
+    [result subscribeCompleted:^() {
+        [self setUserInputControlEnabled:YES];
+    }];
+}
+
+- (void)setUserInputControlEnabled:(BOOL)value {
+    self.userMicButton.enabled = value;
+    self.userTextField.enabled = value;
+    self.userSendButton.enabled = value;
 }
 
 - (void)keyboardWillShow:(id)notification {

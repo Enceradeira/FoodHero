@@ -11,11 +11,11 @@ Feature: User interacts with app through conversation
     Given FoodHero is very slow in responding
     When I wish to eat "American" food by typing it
     And I allow access to the location-services
-    Then I can't touch input list button
+    Then I can't touch the microphone button
     And I can't enter text
     And I can't touch send
     When FoodHero suggests something for "African" food
-    Then I can touch input list button
+    Then I can touch the microphone button
     And I can enter text
 
   @ignore

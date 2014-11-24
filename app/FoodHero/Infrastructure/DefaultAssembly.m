@@ -48,6 +48,7 @@
                               [definition useInitializer:@selector(initWithSchedulerFactory:accessToken:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self schedulerFactory]];
                                   [method injectParameterWith:@"DD2C4J3PUPYIB54FU4RTENECFZN7GXZ2"]; // Instance "FoodHero"
+                                  // FoodHero-Test [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero"
                               }];
                           }];
 }
