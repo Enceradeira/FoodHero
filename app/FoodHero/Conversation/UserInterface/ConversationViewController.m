@@ -188,7 +188,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
         id <IUAction> nextAction = foodHeroBubble.inputAction;
+
         if (nextAction) {
+            NSLog(@"action %@ request", nextAction.class);
             // sometimes FH produces more than one bubble in sequence but just one holds and inputAction which should not be overwritten
             // this is the case e.g
             _currentInputAction = nextAction;
@@ -199,6 +201,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)inputActionDidFinish {
+    NSLog(@"action %@ cleared", _currentInputAction.class);
     _currentInputAction = nil;
     [_currentViewState update];
 }
@@ -225,15 +228,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)userMicButtonTouchUp:(id)sender {
-    id <IUAction> oldInputAction = _currentInputAction;
-    RACSignal *signal = [_appService addUserVoiceForInputAction:_currentInputAction];
-    [signal subscribeError:^(NSError *error) {
-        _currentInputAction = oldInputAction; // restore inputAction because it couldn't be processed
-        [_currentViewState update];
-    }];
-    [signal subscribeCompleted:^() {
-        [self inputActionDidFinish];
-    }];
+    [_appService addUserVoiceForInputAction:_currentInputAction];
+    [self inputActionDidFinish];
 }
 
 - (void)keyboardWillShow:(id)notification {

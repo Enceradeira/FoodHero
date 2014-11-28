@@ -85,16 +85,6 @@
     assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
 }
 
--(void)test_userMicButtonTouchUp_ShouldNotDisableUserInput_WhenNoPermissionForMicrophone{
-    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
-
-    [_ctrl userMicButtonTouchUp:self];
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
-    assertThatBool(_ctrl.userTextField.enabled, is(equalToBool(YES)));
-    assertThatBool(_ctrl.userSendButton.enabled, is(equalToBool(NO))); // because userTextField is empty
-}
-
 -(void)test_Controller_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
     [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
 
