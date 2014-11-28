@@ -141,7 +141,7 @@ static UIImage *EmptyImage;
 
 }
 
-- (void)subscribeAnswerForAskForFoodPreference:(RACSignal *)signal {
+- (void)subscribeInterpretationOfCuisinePreference:(RACSignal *)signal {
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
             [self addUserInput:[UCuisinePreference create:interpretation.entities[0] text:interpretation.text]];
@@ -149,15 +149,7 @@ static UIImage *EmptyImage;
     }];
 }
 
-- (void)addUserCuisinePreference:(NSString *)string action:(id <IUAction>)action {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
-
-    [self subscribeAnswerForAskForFoodPreference:signal];
-}
-
-- (void)addUserSuggestionFeedback:(NSString *)string action:(id <IUAction>)action {
-    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
-
+- (void)subscribeInterpretationOfSuggestionFeedback:(RACSignal *)signal {
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         Restaurant *restaurant = [self getLastSuggestedRestaurant];
         if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooFarAway"]) {
@@ -178,6 +170,52 @@ static UIImage *EmptyImage;
     }];
 }
 
+- (void)subscribeInterpretationOfWhatToDoNext:(RACSignal *)signal {
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        if ([interpretation.intent isEqualToString:@"goodBye"]) {
+            [self addUserInput:[UGoodBye create:interpretation.text]];
+        }
+        else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
+            [self addUserInput:[UWantsToSearchForAnotherRestaurant create:interpretation.text]];
+        }
+    }];
+}
+
+- (void)subscribeInterpretationOfAnswerAfterNoRestaurantWasFound:(RACSignal *)signal {
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
+            [self addUserInput:[UTryAgainNow create:interpretation.text]];
+        }
+        else if ([interpretation.intent isEqualToString:@"abort"]) {
+            [self addUserInput:[UWantsToAbort create:interpretation.text]];
+        }
+    }];
+}
+
+- (void)subscribeInterpretationOfAskUserIfProblemWithAccessLocationServiceResolved:(RACSignal *)signal {
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        [self addUserSolvedProblemWithAccessLocationService:interpretation.text];
+    }];
+}
+
+- (void)subscribeInterpretationOfAskUserWhatToDoAfterGoodBye:(RACSignal *)signal {
+    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
+        [self addAnswerAfterForWhatToAfterGoodBye:interpretation.text];
+    }];
+}
+
+- (void)addUserCuisinePreference:(NSString *)string action:(id <IUAction>)action {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
+
+    [self subscribeInterpretationOfCuisinePreference:signal];
+}
+
+- (void)addUserSuggestionFeedback:(NSString *)string action:(id <IUAction>)action {
+    RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
+
+    [self subscribeInterpretationOfSuggestionFeedback:signal];
+}
+
 - (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string {
     [self addUserInput:[UDidResolveProblemWithAccessLocationService create:string]];
 }
@@ -190,28 +228,15 @@ static UIImage *EmptyImage;
 - (void)addUserAnswerAfterNoRestaurantWasFound:(NSString *)string action:(id <IUAction>)action {
     RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
 
-    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
-        if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
-            [self addUserInput:[UTryAgainNow create:interpretation.text]];
-        }
-        else if ([interpretation.intent isEqualToString:@"abort"]) {
-            [self addUserInput:[UWantsToAbort create:interpretation.text]];
-        }
-    }];
+    [self subscribeInterpretationOfAnswerAfterNoRestaurantWasFound:signal];
 }
 
 - (void)addUserAnswerForWhatToDoNext:(NSString *)string action:(id <IUAction>)action {
     RACSignal *signal = [_speechRecognitionService interpretString:string state:[action getStateName]];
 
-    [signal subscribeNext:^(SpeechInterpretation *interpretation) {
-        if ([interpretation.intent isEqualToString:@"goodBye"]) {
-            [self addUserInput:[UGoodBye create:interpretation.text]];
-        }
-        else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
-            [self addUserInput:[UWantsToSearchForAnotherRestaurant create:interpretation.text]];
-        }
-    }];
+    [self subscribeInterpretationOfWhatToDoNext:signal];
 }
+
 
 - (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction {
     if ([inputAction isEqual:[AskUserCuisinePreferenceAction new]]) {
@@ -242,8 +267,28 @@ static UIImage *EmptyImage;
 
 - (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction {
     RACSignal *signal = [_speechRecognitionService recordAndInterpretUserVoice:[inputAction getStateName]];
+    if ([inputAction isEqual:[AskUserCuisinePreferenceAction new]]) {
+        [self subscribeInterpretationOfCuisinePreference:signal];
+    }
+    else if ([inputAction isEqual:[AskUserSuggestionFeedbackAction new]]) {
+        [self subscribeInterpretationOfSuggestionFeedback:signal];
+    }
+    else if ([inputAction isEqual:[AskUserIfProblemWithAccessLocationServiceResolved new]]) {
+        [self subscribeInterpretationOfAskUserIfProblemWithAccessLocationServiceResolved:signal];
+    }
+    else if ([inputAction isEqual:[AskUserWhatToDoAfterGoodByeAction new]]) {
+        [self subscribeInterpretationOfAskUserWhatToDoAfterGoodBye:signal];
+    }
+    else if ([inputAction isEqual:[AskUserToTryAgainAction new]]) {
+        [self subscribeInterpretationOfAnswerAfterNoRestaurantWasFound:signal];
+    }
+    else if ([inputAction isEqual:[AskUserWhatToDoNextAction new]]) {
+        [self subscribeInterpretationOfWhatToDoNext:signal];
+    }
+    else {
+        @throw [DesignByContractException createWithReason:@"unhandled inputAction"];
+    }
 
-    [self subscribeAnswerForAskForFoodPreference:signal];
 
     return signal;
 }
