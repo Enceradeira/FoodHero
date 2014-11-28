@@ -13,5 +13,9 @@
     return @"noRestaurantWasFound";
 }
 
+- (void)accept:(id <IUActionVisitor>)visitor {
+    [visitor visitAskUserToTryAgainAction:self];
+}
+
 
 @end

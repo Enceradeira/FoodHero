@@ -13,4 +13,9 @@
     return @"afterCantAccessLocationService";
 }
 
+- (void)accept:(id <IUActionVisitor>)visitor {
+    [visitor visitAskUserIfProblemWithAccessLocationServiceResolved:self];
+}
+
+
 @end

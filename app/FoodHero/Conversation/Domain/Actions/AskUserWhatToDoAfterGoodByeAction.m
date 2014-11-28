@@ -13,5 +13,8 @@
     return @"afterGoodByeAfterSuccess";
 }
 
+- (void)accept:(id <IUActionVisitor>)visitor {
+    [visitor visitAskUserWhatToDoAfterGoodByeAction:self];
+}
 
 @end

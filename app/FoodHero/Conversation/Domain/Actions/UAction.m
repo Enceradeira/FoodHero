@@ -4,6 +4,7 @@
 //
 
 #import "UAction.h"
+#import "DesignByContractException.h"
 
 
 @implementation UAction {
@@ -29,6 +30,14 @@
 
 - (NSUInteger)hash {
     return [super hash];
+}
+
+- (NSString *)getStateName {
+    @throw [DesignByContractException createWithReason:@"methode must be override"];
+}
+
+- (void)accept:(id <IUActionVisitor>)visitor {
+    @throw [DesignByContractException createWithReason:@"methode must be override"];
 }
 
 

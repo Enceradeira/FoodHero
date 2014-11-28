@@ -13,5 +13,8 @@
     return @"askForWhatToDoNext";
 }
 
+- (void)accept:(id <IUActionVisitor>)visitor {
+    [visitor visitAskUserWhatToDoNextAction:self];
+}
 
 @end

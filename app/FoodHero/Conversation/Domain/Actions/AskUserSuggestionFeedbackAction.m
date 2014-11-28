@@ -13,5 +13,8 @@
     return @"askForSuggestionFeedback";
 }
 
+- (void)accept:(id <IUActionVisitor>)visitor {
+    [visitor visitAskUserSuggestionFeedbackAction:self];
+}
 
 @end

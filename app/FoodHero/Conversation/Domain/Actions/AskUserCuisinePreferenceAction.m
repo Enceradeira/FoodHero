@@ -14,5 +14,9 @@
     return @"askForFoodPreference";
 }
 
+- (void)accept:(id <IUActionVisitor>)visitor {
+    [visitor visitAskUserCuisinePreferenceAction:self];
+}
+
 
 @end

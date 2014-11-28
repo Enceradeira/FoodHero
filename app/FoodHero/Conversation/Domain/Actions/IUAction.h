@@ -5,7 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationAction.h"
+#import "IUActionVisitor.h"
 
 @protocol IUAction <ConversationAction>
 - (NSString *)getStateName;
+
+- (void)accept:(id <IUActionVisitor>)visitor;
 @end
