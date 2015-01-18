@@ -13,12 +13,12 @@ target :FoodHero do
 end
 
 target :FoodHeroTests do
-    pod 'OCHamcrest', '~> 4.0'
+    pod 'OCHamcrest'
     pod 'XCAsyncTestCase'
 end
 
 target :FoodHeroIntegrationsTests do
-    pod 'OCHamcrest', '~> 4.0'
+    pod 'OCHamcrest'
     pod 'XCAsyncTestCase'
 end
 
