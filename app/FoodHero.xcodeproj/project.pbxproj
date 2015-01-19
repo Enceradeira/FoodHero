@@ -265,7 +265,6 @@
 		8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADD519614B83001ED357 /* InfoPlist.strings */; };
 		8FCBADD919614B83001ED357 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBADD819614B83001ED357 /* main.m */; };
 		8FCBADDF19614B83001ED357 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADDE19614B83001ED357 /* Images.xcassets */; };
-		8FCBADE619614B83001ED357 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADE519614B83001ED357 /* XCTest.framework */; };
 		8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
@@ -290,7 +289,6 @@
 		8FE35F1119FAAED8007CE198 /* directions-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE35F0E19FAAED8007CE198 /* directions-icon-transparent@2x.png */; };
 		8FE35F1219FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE35F0F19FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png */; };
 		8FE35F1319FAAED8007CE198 /* world-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE35F1019FAAED8007CE198 /* world-icon-transparent@2x.png */; };
-		8FEA3BF619CB4E4D00C67DDD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADE519614B83001ED357 /* XCTest.framework */; };
 		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
@@ -752,7 +750,6 @@
 		8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHero-Prefix.pch"; sourceTree = "<group>"; };
 		8FCBADDE19614B83001ED357 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8FCBADE419614B83001ED357 /* FoodHeroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodHeroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FCBADE519614B83001ED357 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
@@ -802,7 +799,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FCBADE619614B83001ED357 /* XCTest.framework in Frameworks */,
 				8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */,
 				8FCBADE719614B83001ED357 /* Foundation.framework in Frameworks */,
 				CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */,
@@ -813,7 +809,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FEA3BF619CB4E4D00C67DDD /* XCTest.framework in Frameworks */,
 				8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */,
 				8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */,
 				15FABA1344B84D579A5CCC9E /* libPods-FoodHeroIntegrationsTests.a in Frameworks */,
@@ -1579,7 +1574,6 @@
 				8FCBADCC19614B83001ED357 /* Foundation.framework */,
 				8FCBADCE19614B83001ED357 /* CoreGraphics.framework */,
 				8FCBADD019614B83001ED357 /* UIKit.framework */,
-				8FCBADE519614B83001ED357 /* XCTest.framework */,
 				87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */,
 				0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */,
 				F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */,
