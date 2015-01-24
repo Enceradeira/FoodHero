@@ -250,6 +250,7 @@
 		23525FD2C238FDB1B96CC6C2 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */; };
 		23525FE859887103A2D77FA9 /* RestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B80261B3766FA8C59DD /* RestaurantSearch.m */; };
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
+		8F1C96F41A73A747009369BE /* TalkerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96F31A73A747009369BE /* TalkerEngine.swift */; };
 		8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */; };
 		8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */; };
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
@@ -730,6 +731,8 @@
 		58996D3209F8BBDEDC93CD56 /* Pods-FoodHeroTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroTests/Pods-FoodHeroTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroIntegrationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroIntegrationsTests/Pods-FoodHeroIntegrationsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F1C96F21A73A746009369BE /* FoodHero-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHero-Bridging-Header.h"; sourceTree = "<group>"; };
+		8F1C96F31A73A747009369BE /* TalkerEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngine.swift; sourceTree = "<group>"; };
 		8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Checked@2x.png"; sourceTree = "<group>"; };
 		8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Unchecked@2x.png"; sourceTree = "<group>"; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -1545,6 +1548,14 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		8F1C96F11A73A72F009369BE /* Talker */ = {
+			isa = PBXGroup;
+			children = (
+				8F1C96F31A73A747009369BE /* TalkerEngine.swift */,
+			);
+			name = Talker;
+			sourceTree = "<group>";
+		};
 		8FCBADC019614B83001ED357 = {
 			isa = PBXGroup;
 			children = (
@@ -1584,6 +1595,8 @@
 		8FCBADD219614B83001ED357 /* FoodHero */ = {
 			isa = PBXGroup;
 			children = (
+				8F1C96F21A73A746009369BE /* FoodHero-Bridging-Header.h */,
+				8F1C96F11A73A72F009369BE /* Talker */,
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
@@ -2090,6 +2103,7 @@
 				23525202FBFE79C0EBCC0E77 /* RecordAndInterpretUserVoiceVisitor.m in Sources */,
 				23525AD68EF8E0A6306143C4 /* SpeechRecognitionVisitor.m in Sources */,
 				2352526B236FF494B3CAC67A /* InterpretStringVisitor.m in Sources */,
+				8F1C96F41A73A747009369BE /* TalkerEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2327,12 +2341,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoodHero/FoodHero-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2344,12 +2362,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoodHero/FoodHero-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
