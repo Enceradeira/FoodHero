@@ -12,8 +12,12 @@ import FoodHero
 
 public class TalkerEngineTests: XCTestCase{
 
-    public func  test_Talk()    {
+    public func  test_Talk_StartConversation()    {
+        let script = Script().Say("Hello");
+
         let te = TalkerEngine()
+
+
         
     }
     

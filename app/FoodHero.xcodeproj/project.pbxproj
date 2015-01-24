@@ -119,6 +119,7 @@
 		23525692CF1FC353EEB00641 /* ConversationIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AB91A6F0C982291B958 /* ConversationIntegrationTests.m */; };
 		235256B9EDBB425F115F5A1D /* FHWhatToDoNextCommentAfterSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525712D29413868C162D44 /* FHWhatToDoNextCommentAfterSuccess.m */; };
 		235256D104437B6424FC20B6 /* LargeRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255C28F5BFA6BC8287CC0 /* LargeRestaurantReviewCommentViewController.m */; };
+		235256E1C4D918EFFB7991F9 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352580237AED4093A3BF06C /* Script.swift */; };
 		235256EFAF5328F249A28236 /* ConversationFirstProposalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FB6A7CA7732B6D83DA9 /* ConversationFirstProposalTests.m */; };
 		235256FC5A3EBF4A1A710236 /* Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B22432105C1D6A77875 /* Environment.m */; };
 		2352570771C4EC05CA40C569 /* DefaultSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BB27C1E1F83F948F913 /* DefaultSchedulerFactory.m */; };
@@ -528,6 +529,7 @@
 		235257F00234C66B84E9AE7B /* UWantsToAbort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWantsToAbort.h; sourceTree = "<group>"; };
 		235257F452F3D98BEB40C034 /* ConversationBubbleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleUser.m; sourceTree = "<group>"; };
 		235257F96D81770B94CB0774 /* AccessibilityHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessibilityHelper.m; sourceTree = "<group>"; };
+		2352580237AED4093A3BF06C /* Script.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		23525805D3B4F38868E93662 /* RestaurantRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepository.h; sourceTree = "<group>"; };
 		2352580BDB1614BBA8F5A7D0 /* UDidResolveProblemWithAccessLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDidResolveProblemWithAccessLocationService.m; sourceTree = "<group>"; };
 		235258137FBDEA1C27540425 /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
@@ -1056,6 +1058,7 @@
 				23525C6ACAADE8081F988502 /* TalkerEngine.swift */,
 				23525B142694A76979C81927 /* LICENSE */,
 				235255CCA0365DADC74637AE /* README.md */,
+				2352580237AED4093A3BF06C /* Script.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2121,6 +2124,7 @@
 				23525AD68EF8E0A6306143C4 /* SpeechRecognitionVisitor.m in Sources */,
 				2352526B236FF494B3CAC67A /* InterpretStringVisitor.m in Sources */,
 				23525795A3651114728273ED /* TalkerEngine.swift in Sources */,
+				235256E1C4D918EFFB7991F9 /* Script.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
