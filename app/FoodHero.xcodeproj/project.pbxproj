@@ -82,6 +82,7 @@
 		23525484E20003F76F9CF9F8 /* GoogleRestaurantSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250DA742E10FF0071F0E2 /* GoogleRestaurantSearchTests.m */; };
 		235254942B06ED74508069B4 /* StubAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251A6990E7DD0093B2A61 /* StubAssembly.m */; };
 		23525498940EDF90F9C6AEEA /* GenericToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EFD1BAC766B9F82F3B1 /* GenericToken.m */; };
+		23525499EE0EA8B597823130 /* TalkerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235252F58FC893E377AB110C /* TalkerEngineTests.swift */; };
 		2352549C3C703A2A07CDB5DE /* FHWarningIfNotInPreferredRangeTooExpensive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352539BA10D7CB2EE82E44F /* FHWarningIfNotInPreferredRangeTooExpensive.m */; };
 		235254BF85C079EE34875198 /* RestaurantRatingBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C650A06DDEF7A995D25 /* RestaurantRatingBuilder.m */; };
 		235254C41EA0FC9FF7A6CC60 /* RestaurantRatingBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C650A06DDEF7A995D25 /* RestaurantRatingBuilder.m */; };
@@ -129,6 +130,7 @@
 		2352576538E45E8CF8CA5D28 /* DesignByContractException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525346FC989D1AB1AF0541 /* DesignByContractException.m */; };
 		23525786BE26134F837E65B4 /* WitSpeechRecognitionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525527D1286C66382364DE /* WitSpeechRecognitionService.m */; };
 		2352578F928EFFD72A43CC1C /* ConversationProposalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251B554A8AEC0DA943F23 /* ConversationProposalTests.m */; };
+		23525795A3651114728273ED /* TalkerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525C6ACAADE8081F988502 /* TalkerEngine.swift */; };
 		235257B175028BA0C8E3FE33 /* OpeningHoursViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FCED1C804160C6B734D /* OpeningHoursViewController.m */; };
 		235257BD681DD51A49CE731E /* UIButtonWithTouchReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352529A5DD0CAED53DA5741 /* UIButtonWithTouchReaction.m */; };
 		235257BE5E61CA1B23DC6694 /* AlwaysImmediateSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC8C07D9998AC2FE292 /* AlwaysImmediateSchedulerFactory.m */; };
@@ -250,7 +252,6 @@
 		23525FD2C238FDB1B96CC6C2 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */; };
 		23525FE859887103A2D77FA9 /* RestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B80261B3766FA8C59DD /* RestaurantSearch.m */; };
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
-		8F1C96F41A73A747009369BE /* TalkerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96F31A73A747009369BE /* TalkerEngine.swift */; };
 		8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */; };
 		8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */; };
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
@@ -411,6 +412,7 @@
 		235252D3FDF07707FCEFD56E /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
 		235252DDDDA5A6D3AC1ADBC8 /* NotebookPageHostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotebookPageHostViewController.h; sourceTree = "<group>"; };
 		235252E9D723D0D87EB99EF8 /* USuggestionNegativeFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USuggestionNegativeFeedback.h; sourceTree = "<group>"; };
+		235252F58FC893E377AB110C /* TalkerEngineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineTests.swift; sourceTree = "<group>"; };
 		235252F78FFA508D6B163634 /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
 		235253024A5D540D63E9C70B /* USuggestionFeedbackForTooFarAway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooFarAway.m; sourceTree = "<group>"; };
 		235253105AFBC70237B4D751 /* FHWhatToDoNextCommentAfterFailure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHWhatToDoNextCommentAfterFailure.h; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 		23525C6413A6A189DF6DB298 /* SearchError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchError.m; sourceTree = "<group>"; };
 		23525C650A06DDEF7A995D25 /* RestaurantRatingBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRatingBuilder.m; sourceTree = "<group>"; };
 		23525C6675F9FA8BAC4F15B6 /* ConversationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAction.h; sourceTree = "<group>"; };
+		23525C6ACAADE8081F988502 /* TalkerEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngine.swift; sourceTree = "<group>"; };
 		23525C6B10F20D3B0DE36984 /* NoSpeechInterpretationError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoSpeechInterpretationError.h; sourceTree = "<group>"; };
 		23525C72C427D2F532AF2675 /* RestaurantBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantBuilder.m; sourceTree = "<group>"; };
 		23525C7573C3DC628AEC5CAA /* DistanceRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistanceRange.m; sourceTree = "<group>"; };
@@ -732,7 +735,7 @@
 		6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHeroIntegrationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHeroIntegrationsTests/Pods-FoodHeroIntegrationsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHero.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F1C96F21A73A746009369BE /* FoodHero-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHero-Bridging-Header.h"; sourceTree = "<group>"; };
-		8F1C96F31A73A747009369BE /* TalkerEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngine.swift; sourceTree = "<group>"; };
+		8F1C96F61A73A8C6009369BE /* FoodHeroTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Checked@2x.png"; sourceTree = "<group>"; };
 		8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Unchecked@2x.png"; sourceTree = "<group>"; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -980,6 +983,14 @@
 			path = Infrastructure;
 			sourceTree = "<group>";
 		};
+		2352548446BE3A88CCFE2015 /* Talker */ = {
+			isa = PBXGroup;
+			children = (
+				235252F58FC893E377AB110C /* TalkerEngineTests.swift */,
+			);
+			path = Talker;
+			sourceTree = "<group>";
+		};
 		2352548CDC3D1CE0E240A50A /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -1035,6 +1046,14 @@
 				23525C7B25127625938D35D2 /* InterpretStringVisitor.h */,
 			);
 			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		235255A53A91EFB2F1F12B01 /* Talker */ = {
+			isa = PBXGroup;
+			children = (
+				23525C6ACAADE8081F988502 /* TalkerEngine.swift */,
+			);
+			path = Talker;
 			sourceTree = "<group>";
 		};
 		235256197905AE8BA4A136F2 /* Tokens */ = {
@@ -1548,14 +1567,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		8F1C96F11A73A72F009369BE /* Talker */ = {
-			isa = PBXGroup;
-			children = (
-				8F1C96F31A73A747009369BE /* TalkerEngine.swift */,
-			);
-			name = Talker;
-			sourceTree = "<group>";
-		};
 		8FCBADC019614B83001ED357 = {
 			isa = PBXGroup;
 			children = (
@@ -1596,7 +1607,6 @@
 			isa = PBXGroup;
 			children = (
 				8F1C96F21A73A746009369BE /* FoodHero-Bridging-Header.h */,
-				8F1C96F11A73A72F009369BE /* Talker */,
 				8FCBADDE19614B83001ED357 /* Images.xcassets */,
 				8FCBADD319614B83001ED357 /* Supporting Files */,
 				8F5474511961797F00843FEE /* Main.storyboard */,
@@ -1606,6 +1616,7 @@
 				23525A80F96B0738BD7D120B /* Conversation */,
 				23525F230837ECB7E861B87D /* Infrastructure */,
 				23525BFD9C17808C4AF9CBCC /* simulator_gps_coordinates.gpx */,
+				235255A53A91EFB2F1F12B01 /* Talker */,
 			);
 			path = FoodHero;
 			sourceTree = "<group>";
@@ -1653,10 +1664,12 @@
 		8FCBADEB19614B83001ED357 /* FoodHeroTests */ = {
 			isa = PBXGroup;
 			children = (
+				8F1C96F61A73A8C6009369BE /* FoodHeroTests-Bridging-Header.h */,
 				8FCBADEC19614B83001ED357 /* Supporting Files */,
 				2352548CDC3D1CE0E240A50A /* Infrastructure */,
 				235256C3B2523F47811F71A6 /* Search */,
 				23525A601DE17C68573B8D4D /* Conversation */,
+				2352548446BE3A88CCFE2015 /* Talker */,
 			);
 			path = FoodHeroTests;
 			sourceTree = "<group>";
@@ -2103,7 +2116,7 @@
 				23525202FBFE79C0EBCC0E77 /* RecordAndInterpretUserVoiceVisitor.m in Sources */,
 				23525AD68EF8E0A6306143C4 /* SpeechRecognitionVisitor.m in Sources */,
 				2352526B236FF494B3CAC67A /* InterpretStringVisitor.m in Sources */,
-				8F1C96F41A73A747009369BE /* TalkerEngine.swift in Sources */,
+				23525795A3651114728273ED /* TalkerEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2182,6 +2195,7 @@
 				23525C7B6BEFD0A983116253 /* SpeechRecognitionServiceStub.m in Sources */,
 				23525B8B36997BC9189C2927 /* ConversationAppServiceSpyTests.m in Sources */,
 				23525654D5D80117DD3755E3 /* SpeechRecognitionServiceSpy.m in Sources */,
+				23525499EE0EA8B597823130 /* TalkerEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2381,6 +2395,7 @@
 			baseConfigurationReference = 58996D3209F8BBDEDC93CD56 /* Pods-FoodHeroTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2394,7 +2409,10 @@
 				);
 				INFOPLIST_FILE = "FoodHeroTests/FoodHeroTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroTests/FoodHeroTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
@@ -2406,6 +2424,7 @@
 			baseConfigurationReference = 4D010B6D5D2DC4982B5DF0DC /* Pods-FoodHeroTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2415,7 +2434,9 @@
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHeroTests/FoodHeroTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroTests/FoodHeroTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
