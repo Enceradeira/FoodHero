@@ -8,10 +8,21 @@
 
 import Foundation
 
-public class TalkerEngine: NSObject{
-    public override init(){}
-    public func  Talk() -> Bool    {
-        let signal = RACSignal.empty()
-        return true
+public class TalkerEngine: NSObject {
+    let script : Script
+    public init(_ script: Script) {
+        self.script = script
+    }
+
+    public func talk() -> RACSignal {
+        let signal = RACSignal.createSignal {
+            subscriber in
+
+            subscriber.sendNext("Hello")
+
+            subscriber.sendCompleted()
+            return nil
+        }
+        return signal
     }
 }
