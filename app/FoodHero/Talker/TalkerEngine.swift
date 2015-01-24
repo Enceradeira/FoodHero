@@ -9,18 +9,21 @@
 import Foundation
 
 public class TalkerEngine: NSObject {
-    let script : Script
+    private let _script: Script
+
     public init(_ script: Script) {
-        self.script = script
+        self._script = script
     }
 
-    public func talk() -> RACSignal {
+    public func execute() -> RACSignal {
         let signal = RACSignal.createSignal {
-            subscriber in
+            listener in
 
-            subscriber.sendNext("Hello")
+            for utterance in self._script.utterances{
+                utterance.execute(listener)
+            }
 
-            subscriber.sendCompleted()
+            listener.sendCompleted()
             return nil
         }
         return signal

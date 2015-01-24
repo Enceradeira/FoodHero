@@ -5,12 +5,31 @@
 
 import Foundation
 
-public class Script {
-    public init() {
 
+public class Script {
+    private var _utterances: [Utterance]
+
+    public init() {
+        _utterances = []
     }
 
-    public func Say(text: String) -> Script {
+    var utterances: [Utterance] {
+        return _utterances
+    }
+
+    public func say(text: String) -> Script {
+        var text2 = text
+        var lastUtterance = (utterances.last as? ImmediateUtterance);
+        if (lastUtterance != nil) {
+            _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(text))
+        }
+        _utterances.append(ImmediateUtterance(text))
         return self
     }
+
+    public func waitResponse(response: RACSignal) -> Script {
+        _utterances.append(DelayedUtterance(response))
+        return self;
+    }
+
 }

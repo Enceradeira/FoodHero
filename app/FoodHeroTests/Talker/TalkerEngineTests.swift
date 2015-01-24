@@ -12,20 +12,34 @@ import FoodHero
 
 public class TalkerEngineTests: XCTestCase {
 
-    func talkUsing(script: Script) -> RACSignal {
-        return TalkerEngine(script).talk()
+    func getDialogFor(script: Script) -> RACSignal {
+        return TalkerEngine(script).execute()
     }
 
-    public func test_talk_shouldSaySomething() {
-        let dialog = talkUsing(Script().Say("Hello"));
+    func executeDialogFor(script: Script) -> [String] {
+        let dialog = getDialogFor(script)
+        return (dialog.toArray() as [String])
+    }
 
-        let result = (dialog.toArray() as [String])[0]
+    public func test_talk_shouldUtterSomething() {
+        let script = Script().say("Hello")
 
-        XCTAssertEqual(result, "Hello")
+        let utterance = executeDialogFor(script)[0]
+
+        XCTAssertEqual(utterance, "Hello")
+    }
+
+    public func test_talk_shouldRepeat_WhenScriptExecutedTwice() {
+        let script = Script().say("Hello")
+
+        for index in 1 ... 2 {
+            let utterance = executeDialogFor(script)[0]
+            XCTAssertEqual(utterance, "Hello")
+        }
     }
 
     public func test_talk_shouldComplete_WhenNothingIsToBeSaid() {
-        let dialog = talkUsing(Script());
+        let dialog = getDialogFor(Script());
 
         let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
 
@@ -33,11 +47,38 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     public func test_talk_shouldComplete_WhenEverythingHasBeenSaid() {
-        let dialog = talkUsing(Script().Say("Hello").Say("World"));
+        let dialog = getDialogFor(Script().say("Hello").say("World"));
 
         let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
 
         XCTAssertEqual(hasCompleted, true)
     }
 
+    public func test_talk_shouldUtterOnlyOnce_WhenMonolog() {
+        let script = Script().say("Hello").say("World")
+
+        let utterance = executeDialogFor(script)[0]
+
+        XCTAssertEqual(utterance, "Hello\n\nWorld")
+    }
+
+    public func test_talk_shouldListenToReponse() {
+        let signal = RACSignal.createSignal {
+            subscriber in
+            subscriber.sendNext("Good")
+            return nil
+        }
+
+        let script = Script()
+        .say("How are you?")
+        .waitResponse(signal);
+
+        let utterance = executeDialogFor(script)
+
+        XCTAssertEqual(utterance.count, 2)
+        if (utterance.count >= 2) {
+            XCTAssertEqual(utterance[0], "How are you?")
+            XCTAssertEqual(utterance[1], "Good")
+        }
+    }
 }
