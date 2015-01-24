@@ -479,6 +479,7 @@
 		235255A4206F68F4CD94364F /* ConversationAppServiceSpyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceSpyTests.m; sourceTree = "<group>"; };
 		235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskUserIfProblemWithAccessLocationServiceResolved.m; sourceTree = "<group>"; };
 		235255C28F5BFA6BC8287CC0 /* LargeRestaurantReviewCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeRestaurantReviewCommentViewController.m; sourceTree = "<group>"; };
+		235255CCA0365DADC74637AE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = README.md; sourceTree = "<group>"; };
 		235255D9C35E7F69356D1390 /* FHConfirmation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConfirmation.m; sourceTree = "<group>"; };
 		235255E32B27352179C071B2 /* FHSuggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestion.m; sourceTree = "<group>"; };
 		235255F60315CEEA7CE4F1D4 /* InterpretStringVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterpretStringVisitor.m; sourceTree = "<group>"; };
@@ -598,6 +599,7 @@
 		23525B0F2D270AE2CF5629E2 /* RecordAndInterpretUserVoiceVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAndInterpretUserVoiceVisitor.m; sourceTree = "<group>"; };
 		23525B10F0D8215802ECA2CC /* AnonymousUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymousUser.h; sourceTree = "<group>"; };
 		23525B126E30C00521AB1E28 /* TextRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextRepository.m; sourceTree = "<group>"; };
+		23525B142694A76979C81927 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		23525B17D6A3CCCDCD4CDE9F /* LargeRestaurantReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeRestaurantReviewViewController.h; sourceTree = "<group>"; };
 		23525B1DECA512BF32AD938F /* FoodHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodHero.m; sourceTree = "<group>"; };
 		23525B22432105C1D6A77875 /* Environment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Environment.m; sourceTree = "<group>"; };
@@ -1052,6 +1054,8 @@
 			isa = PBXGroup;
 			children = (
 				23525C6ACAADE8081F988502 /* TalkerEngine.swift */,
+				23525B142694A76979C81927 /* LICENSE */,
+				235255CCA0365DADC74637AE /* README.md */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
