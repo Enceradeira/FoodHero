@@ -10,20 +10,39 @@ import Foundation
 
 public class TalkerEngine: NSObject {
     private let _script: Script
+    private let _input: RACSignal
 
-    public init(_ script: Script) {
+    public init(_ script: Script, _ input: RACSignal) {
         self._script = script
+        self._input = input
+    }
+
+    private func produceNext(utterances: [Utterance], _ listener: RACSubscriber) {
+        if (utterances.isEmpty) {
+            listener.sendCompleted()
+        } else {
+            let next = utterances.first!;
+            let nextCompleted = next.execute(_input)
+            nextCompleted.subscribeNext {
+                listener.sendNext($0)
+            }
+            nextCompleted.subscribeCompleted({
+                let nextUtterances = utterances.filter {
+                    $0 !== next
+                }
+                self.produceNext(nextUtterances, listener)
+            })
+        }
     }
 
     public func execute() -> RACSignal {
+
         let signal = RACSignal.createSignal {
             listener in
 
-            for utterance in self._script.utterances{
-                utterance.execute(listener)
-            }
+            let utterances = self._script.utterances
+            self.produceNext(utterances, listener)
 
-            listener.sendCompleted()
             return nil
         }
         return signal

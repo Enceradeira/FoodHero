@@ -12,8 +12,20 @@ import FoodHero
 
 public class TalkerEngineTests: XCTestCase {
 
+    var _input: RACSubject?
+
+    public override func setUp() {
+        super.setUp()
+
+        _input = RACSubject()
+    }
+
+    func respondWith(text: String) {
+        _input!.sendNext(text)
+    }
+
     func getDialogFor(script: Script) -> RACSignal {
-        return TalkerEngine(script).execute()
+        return TalkerEngine(script, _input!).execute()
     }
 
     func executeDialogFor(script: Script) -> [String] {
@@ -71,14 +83,19 @@ public class TalkerEngineTests: XCTestCase {
 
         let script = Script()
         .say("How are you?")
-        .waitResponse(signal);
+        .waitResponse();
 
-        let utterance = executeDialogFor(script)
+        respondWith("Good")
+        let dialog = getDialogFor(script)
 
-        XCTAssertEqual(utterance.count, 2)
-        if (utterance.count >= 2) {
-            XCTAssertEqual(utterance[0], "How are you?")
-            XCTAssertEqual(utterance[1], "Good")
+        dialog.filter {
+            (text: AnyObject?) -> Bool in
+            return (text! as String) == "Good"
+        }.subscribeNext {
+            t in
+            self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded);
         }
+
+        XCA_waitForTimeout(1)
     }
 }

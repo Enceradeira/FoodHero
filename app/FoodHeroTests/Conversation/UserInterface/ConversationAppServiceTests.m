@@ -36,7 +36,8 @@
 const CGFloat portraitWidth = 200;
 const CGFloat landscapeWidth = 400;
 
-@implementation ConversationAppServiceTests {
+@implementation
+ConversationAppServiceTests {
     ConversationAppService *_service;
     RestaurantSearchServiceStub *_searchServiceStub;
     CLLocationManagerProxyStub *_locationManager;

@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol Utterance {
-    func execute(subscriber: RACSubscriber)
+protocol Utterance: class {
+    func execute(_ input: RACSignal) -> RACSignal
 }

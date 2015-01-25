@@ -27,8 +27,8 @@ public class Script {
         return self
     }
 
-    public func waitResponse(response: RACSignal) -> Script {
-        _utterances.append(DelayedUtterance(response))
+    public func waitResponse() -> Script {
+        _utterances.append(DelayedUtterance())
         return self;
     }
 

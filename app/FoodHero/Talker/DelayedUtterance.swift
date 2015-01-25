@@ -6,12 +6,14 @@
 import Foundation
 
 class DelayedUtterance: Utterance {
-    private let signal: RACSignal;
-    init(_ signal: RACSignal) {
-        self.signal = signal
-    }
+    func execute(_ input: RACSignal) -> RACSignal {
+        return RACSignal.createSignal {
+            listener in
+            input.subscribeNext {
+                listener.sendNext($0)
+                listener.sendCompleted()
+            }
+        }
 
-    func execute(listener: RACSubscriber) {
-        signal.subscribeNext({ listener.sendNext($0) })
     }
 }

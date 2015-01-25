@@ -11,14 +11,19 @@ class ImmediateUtterance: Utterance {
         self.text = text
     }
 
-    func execute(listener: RACSubscriber) {
-        listener.sendNext(text)
+    func execute(_ input: RACSignal) -> RACSignal {
+        return RACSignal.createSignal({
+            l in
+            l.sendNext(self.text)
+            l.sendCompleted()
+            return nil
+        })
     }
 
     func concat(utterance: ImmediateUtterance) -> ImmediateUtterance {
         var text1 = self.text;
         var text2 = utterance.text;
-       return ImmediateUtterance("\(text1)\n\n\(text2)")
+        return ImmediateUtterance("\(text1)\n\n\(text2)")
     }
 
 }
