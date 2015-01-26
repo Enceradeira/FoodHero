@@ -33,11 +33,11 @@ public class TalkerEngineTests: XCTestCase {
         return (dialog.toArray() as [String])
     }
 
-    func assert(#utterance: String, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil) {
-        assert(utterance: utterance, inDialog: executeScript(script), atPosition: expectedPosition)
+    func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil) {
+        assert(utterance: utterance, exists: exists, inDialog: executeScript(script), atPosition: expectedPosition)
     }
 
-    func assert(#utterance: String, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
+    func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
         var positionCount: Int = 0
         var actualPosition: Int? = nil
 
@@ -57,21 +57,36 @@ public class TalkerEngineTests: XCTestCase {
 
             // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
             dispatch_async(dispatch_get_main_queue()) {
-                self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded)
+                self.XCA_notify(exists ? XCTAsyncTestCaseStatus.Succeeded : XCTAsyncTestCaseStatus.Failed)
             }
         }
 
-        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.01)
+        let timeoutUSeconds: UInt32 = 10 /*10 ms*/ * 1000;
+        if (!exists) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                let waitBeforeTimeoutPreventedUSeconds = timeoutUSeconds * 8 / 10
+                usleep(waitBeforeTimeoutPreventedUSeconds)  // just before the timeout arises Succeeded is signaled to end the wait for the not existing element
+                self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded)
+            }
+        }
+        let timeoutSeconds = NSTimeInterval(Float(timeoutUSeconds) / 1000000)
+        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: timeoutSeconds)
 
         if (expectedPosition != nil) {
             XCTAssertEqual(actualPosition ?? (-1), expectedPosition!, "Utterance is at wrong position")
         }
     }
 
+    func assert(#dialog: [NSString], forExecutedScript script: Script) {
+        for index in 0 ... dialog.count - 1 {
+            assert(utterance: dialog[index], exists: true, inExecutedScript: script, atPosition: index)
+        }
+    }
+
     public func test_talk_shouldUtterSomething() {
         let script = Script().say("Hello")
 
-        assert(utterance: "Hello", inExecutedScript: script, atPosition: 0)
+        assert(dialog: ["Hello"], forExecutedScript: script)
     }
 
     public func test_talk_shouldRepeat_WhenScriptExecutedTwice() {
@@ -79,7 +94,7 @@ public class TalkerEngineTests: XCTestCase {
 
         for index in 1 ... 2 {
             let utterance = executeDialogFor(script)[0]
-            assert(utterance: "Hello", inExecutedScript: script, atPosition: 0)
+            assert(dialog: ["Hello"], forExecutedScript: script)
         }
     }
 
@@ -104,16 +119,29 @@ public class TalkerEngineTests: XCTestCase {
 
         let utterance = executeDialogFor(script)[0]
 
-        assert(utterance: "Hello\n\nWorld", inExecutedScript: script, atPosition: 0)
+        assert(dialog: ["Hello\n\nWorld"], forExecutedScript: script)
     }
 
     public func test_talk_shouldListenToReponse() {
         let script = Script()
         .say("How are you?")
-        .waitResponse();
+        .waitResponse()
 
         responseIs("Good")
 
-        assert(utterance: "Good", inExecutedScript: script, atPosition: 1)
+        assert(dialog: ["How are you?", "Good"], forExecutedScript: script)
+    }
+
+    public func test_talk_shouldWaitResponseAndThenContinue() {
+        let script = Script()
+        .say("How are you?")
+        .waitResponse()
+        .say("I'm fine, thanks!")
+
+        assert(utterance: "I'm fine, thanks!", exists: false, inExecutedScript: script)
+
+        responseIs("Good, and you?")
+
+        assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"], forExecutedScript: script)
     }
 }
