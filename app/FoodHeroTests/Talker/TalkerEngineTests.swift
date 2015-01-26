@@ -12,33 +12,68 @@ import FoodHero
 
 public class TalkerEngineTests: XCTestCase {
 
-    var _input: RACSubject?
+    var _input: NSMutableArray?
 
     public override func setUp() {
         super.setUp()
 
-        _input = RACSubject()
+        _input = NSMutableArray()
     }
 
-    func respondWith(text: String) {
-        _input!.sendNext(text)
+    func responseIs(text: String) {
+        _input!.addObject(text)
     }
 
-    func getDialogFor(script: Script) -> RACSignal {
-        return TalkerEngine(script, _input!).execute()
+    func executeScript(script: Script) -> RACSignal {
+        return TalkerEngine(script, _input!.rac_sequence).execute()
     }
 
     func executeDialogFor(script: Script) -> [String] {
-        let dialog = getDialogFor(script)
+        let dialog = executeScript(script)
         return (dialog.toArray() as [String])
+    }
+
+    func assert(#utterance: String, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil) {
+        assert(utterance: utterance, inDialog: executeScript(script), atPosition: expectedPosition)
+    }
+
+    func assert(#utterance: String, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
+        var positionCount: Int = 0
+        var actualPosition: Int? = nil
+
+        dialog.map {
+            (text: AnyObject?) in
+            return [text!, positionCount++]
+        }.filter {
+            (tuple: AnyObject?) in
+            let array = (tuple as [AnyObject])
+            let currentUtterance = array[0] as String
+            return currentUtterance == utterance
+        }.subscribeNext {
+            (tuple: AnyObject?) in
+            let array = (tuple as [AnyObject])
+            if (actualPosition == nil) {
+                let number = array[1] as NSNumber
+                actualPosition = Int(number.intValue)
+            }
+
+            // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
+            dispatch_async(dispatch_get_main_queue()) {
+                self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded)
+            }
+        }
+
+        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.01)
+
+        if (expectedPosition != nil) {
+            XCTAssertEqual(actualPosition ?? (-1), expectedPosition!, "Utterance is at wrong position")
+        }
     }
 
     public func test_talk_shouldUtterSomething() {
         let script = Script().say("Hello")
 
-        let utterance = executeDialogFor(script)[0]
-
-        XCTAssertEqual(utterance, "Hello")
+        assert(utterance: "Hello", inExecutedScript: script, atPosition: 0)
     }
 
     public func test_talk_shouldRepeat_WhenScriptExecutedTwice() {
@@ -46,12 +81,12 @@ public class TalkerEngineTests: XCTestCase {
 
         for index in 1 ... 2 {
             let utterance = executeDialogFor(script)[0]
-            XCTAssertEqual(utterance, "Hello")
+            assert(utterance: "Hello", inExecutedScript: script, atPosition: 0)
         }
     }
 
     public func test_talk_shouldComplete_WhenNothingIsToBeSaid() {
-        let dialog = getDialogFor(Script());
+        let dialog = executeScript(Script());
 
         let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
 
@@ -59,7 +94,7 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     public func test_talk_shouldComplete_WhenEverythingHasBeenSaid() {
-        let dialog = getDialogFor(Script().say("Hello").say("World"));
+        let dialog = executeScript(Script().say("Hello").say("World"));
 
         let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
 
@@ -71,31 +106,16 @@ public class TalkerEngineTests: XCTestCase {
 
         let utterance = executeDialogFor(script)[0]
 
-        XCTAssertEqual(utterance, "Hello\n\nWorld")
+        assert(utterance: "Hello\n\nWorld", inExecutedScript: script, atPosition: 0)
     }
 
     public func test_talk_shouldListenToReponse() {
-        let signal = RACSignal.createSignal {
-            subscriber in
-            subscriber.sendNext("Good")
-            return nil
-        }
-
         let script = Script()
         .say("How are you?")
         .waitResponse();
 
-        respondWith("Good")
-        let dialog = getDialogFor(script)
+        responseIs("Good")
 
-        dialog.filter {
-            (text: AnyObject?) -> Bool in
-            return (text! as String) == "Good"
-        }.subscribeNext {
-            t in
-            self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded);
-        }
-
-        XCA_waitForTimeout(1)
+        assert(utterance: "Good", inExecutedScript: script, atPosition: 1)
     }
 }

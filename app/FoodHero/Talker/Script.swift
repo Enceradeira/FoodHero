@@ -23,7 +23,9 @@ public class Script {
         if (lastUtterance != nil) {
             _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(text))
         }
-        _utterances.append(ImmediateUtterance(text))
+        else{
+            _utterances.append(ImmediateUtterance(text))
+        }
         return self
     }
 
