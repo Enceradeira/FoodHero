@@ -168,6 +168,7 @@
 		235259786EF053E26DF64D24 /* RestaurantPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352577C9B933310D30BBCAC /* RestaurantPhotoViewController.m */; };
 		23525982F3968BAB01EBD813 /* RestaurantRatingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525729BB851260410BB8BC /* RestaurantRatingTests.m */; };
 		2352598464756B926A0483A0 /* ConversationViewState+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */; };
+		2352598C399908FE19F8456F /* GenericWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235252B0AD9C924C9E3ED82A /* GenericWrapper.swift */; };
 		23525990B3D4903EF1E3D603 /* SearchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525080E9F5707B526FD461 /* SearchException.m */; };
 		235259AE6453AB23050E7A8C /* ConversationViewStateNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */; };
 		235259B0D6C763FCF25F830B /* IntegrationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F0D9052167CD36FC9FC /* IntegrationAssembly.m */; };
@@ -409,6 +410,7 @@
 		2352529C430FC43DF2A29542 /* TextAndSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextAndSound.m; sourceTree = "<group>"; };
 		235252A06F41B6A42065D1B9 /* FHSuggestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestion.h; sourceTree = "<group>"; };
 		235252A275392979B2BC9884 /* ConversationFindingRestaurantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationFindingRestaurantTests.m; sourceTree = "<group>"; };
+		235252B0AD9C924C9E3ED82A /* GenericWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericWrapper.swift; path = ../../FoodHeroTests/Talker/GenericWrapper.swift; sourceTree = "<group>"; };
 		235252B0B810B986440D1799 /* ConversationBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubble.h; sourceTree = "<group>"; };
 		235252B0DB009E78C9929858 /* AudioSessionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioSessionStub.m; sourceTree = "<group>"; };
 		235252B2DB6301395AEFB6AD /* RestaurantRepositoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepositoryTests.h; sourceTree = "<group>"; };
@@ -1565,6 +1567,7 @@
 				23525BD6D8D9880BE2A2DCBB /* UIButtonWithTouchReaction.h */,
 				23525B86AD8E88E6D148D212 /* IUITextVisualizer.h */,
 				2352547C0E442B846C79053F /* IAudioSession.h */,
+				235252B0AD9C924C9E3ED82A /* GenericWrapper.swift */,
 				23525F3F2E42FEC4CC3BC50D /* AudioSession.m */,
 				23525A8E490E7857355BCDB1 /* AudioSession.h */,
 				23525C0C93AC466289EABE07 /* MissingAudioRecordionPermissonError.m */,
@@ -2137,6 +2140,7 @@
 				2352566D39E0165AFFF12837 /* Utterance.swift in Sources */,
 				23525EFE393332D76D3AE5C9 /* ImmediateUtterance.swift in Sources */,
 				23525867BD37AC303A107E4C /* DelayedUtterance.swift in Sources */,
+				2352598C399908FE19F8456F /* GenericWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

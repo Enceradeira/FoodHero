@@ -43,18 +43,16 @@ public class TalkerEngineTests: XCTestCase {
 
         dialog.map {
             (text: AnyObject?) in
-            return [text!, positionCount++]
+            return GenericWrapper(text: (text! as String), position: positionCount++)
         }.filter {
-            (tuple: AnyObject?) in
-            let array = (tuple as [AnyObject])
-            let currentUtterance = array[0] as String
-            return currentUtterance == utterance
+            (object: AnyObject?) in
+            let tuple = (object as GenericWrapper<(text:String, position:Int)>)
+            return tuple.element.text == utterance
         }.subscribeNext {
-            (tuple: AnyObject?) in
-            let array = (tuple as [AnyObject])
+            (object: AnyObject?) in
+            let tuple = (object as GenericWrapper<(text:String, position:Int)>)
             if (actualPosition == nil) {
-                let number = array[1] as NSNumber
-                actualPosition = Int(number.intValue)
+                actualPosition = tuple.element.position
             }
 
             // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
