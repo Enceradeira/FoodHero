@@ -6,24 +6,24 @@
 import Foundation
 
 class ImmediateUtterance: Utterance {
-    private let text: String
-    init(_ text: String) {
-        self.text = text
+    private let _texts: Choices
+    init(_ texts: Choices) {
+        self._texts = texts
     }
 
     func execute(_ input: RACSignal) -> RACSignal {
         return RACSignal.createSignal({
             l in
-            l.sendNext(self.text)
+            l.sendNext(self._texts.getOne())
             l.sendCompleted()
             return nil
         })
     }
 
     func concat(utterance: ImmediateUtterance) -> ImmediateUtterance {
-        var text1 = self.text;
-        var text2 = utterance.text;
-        return ImmediateUtterance("\(text1)\n\n\(text2)")
+        var text1 = self._texts;
+        var text2 = utterance._texts;
+        return ImmediateUtterance(text1.concat(text2))
     }
 
 }

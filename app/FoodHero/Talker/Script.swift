@@ -8,23 +8,28 @@ import Foundation
 
 public class Script {
     private var _utterances: [Utterance]
+    private let _randomizer: Randomizer
 
-    public init() {
+    public init(_ randomizer:Randomizer) {
         _utterances = []
+        _randomizer = randomizer
     }
 
     var utterances: [Utterance] {
         return _utterances
     }
 
-    public func say(text: String) -> Script {
-        var text2 = text
+    public func say(text:String)->Script{
+        return say(oneOf:[text])
+    }
+
+    public func say(oneOf texts: [String]) -> Script {
         var lastUtterance = (utterances.last as? ImmediateUtterance);
         if (lastUtterance != nil) {
-            _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(text))
+            _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(Choices(texts,_randomizer)))
         }
         else{
-            _utterances.append(ImmediateUtterance(text))
+            _utterances.append(ImmediateUtterance(Choices(texts,_randomizer)))
         }
         return self
     }
