@@ -10,7 +10,7 @@ public class TalkerRandomizer: Randomizer {
     public init() {
     }
 
-    public func chooseOne(choices: [String]) -> String {
+    public func chooseOne(from choices: [String], forTag tag: RandomizerTags) -> String {
         precondition(choices.count > 0, "choises is empty")
 
         let randomIndex = (arc4random() % UInt32(choices.count))

@@ -23,8 +23,15 @@ public class TalkerEngineTests: XCTestCase {
     }
 
 
-    func TestScript() -> Script {
-        return Script(_randomizer!)
+    func TestScript(_ resources: ScriptResources? = nil) -> Script {
+        var context = TalkerContext()
+        context.randomizer = _randomizer!
+        context.resources = resources ?? ScriptResources(_randomizer!)
+        return Script(context)
+    }
+
+    func TestScriptResources() -> ScriptResources {
+        return ScriptResources(_randomizer!)
     }
 
     func responseIs(text: String) {
@@ -93,8 +100,8 @@ public class TalkerEngineTests: XCTestCase {
         XCTAssertEqual(nr, dialog.count, "The number of utterances in the exectued script is wrong")
     }
 
-    func randomizerChooses(#index: Int) {
-        _randomizer!.injectChoice(index: index)
+    func randomizerWillChoose(forTag tag: RandomizerTags, #index: Int) {
+        _randomizer!.willChoose(forTag: tag, index: index)
     }
 
 }

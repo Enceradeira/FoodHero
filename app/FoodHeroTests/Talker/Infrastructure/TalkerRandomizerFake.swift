@@ -7,16 +7,18 @@ import Foundation
 import FoodHero
 
 class TalkerRandomizerFake: Randomizer {
-    private var choiceIndex: Int?
+    private var _configuredChoices = [RandomizerTags:Int]()
 
-    public init(){}
-
-    public func chooseOne(choices: [String]) -> String {
-        precondition(choices.count > 0, "choises is empty")
-        return choices[choiceIndex ?? 0]
+    internal init() {
     }
 
-    public func injectChoice(#index: Int?) {
-        choiceIndex = index
+    internal func chooseOne(from choices: [String], forTag tag:RandomizerTags) -> String {
+        precondition(choices.count > 0, "choises is empty")
+
+        return choices[_configuredChoices[tag] ?? 0]
+    }
+
+    internal func willChoose(forTag tag: RandomizerTags, #index: Int) {
+        _configuredChoices[tag] = index
     }
 }

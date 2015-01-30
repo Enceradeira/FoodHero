@@ -8,15 +8,44 @@ import FoodHero
 
 class TalkerEngineRandomnessTests: TalkerEngineTests {
 
-
     func test_talk_ShouldVaryItsUtterances() {
         let choices = ["Hello", "What's up"]
 
         let script = TestScript().say(oneOf: choices)
 
         for i in 0 ... choices.count - 1 {
-            randomizerChooses(index: i)
+            randomizerWillChoose(forTag: RandomizerTags.Texts, index: i)
             assert(dialog: [choices[i]], forExecutedScript: script)
         }
+    }
+
+    func test_talk_ShouldSubstituteParametersOfTheUtteranceRandomly() {
+        var resources = TestScriptResources().add(parameter: "food", withValues: ["Indian", "Chinese"])
+
+        let script = TestScript(resources).say("Do you like {food} food?")
+
+        randomizerWillChoose(forTag: RandomizerTags.TextParameters, index: 0)
+        assert(dialog: ["Do you like Indian food?"], forExecutedScript: script)
+
+        randomizerWillChoose(forTag: RandomizerTags.TextParameters, index: 1)
+        assert(dialog: ["Do you like Chinese food?"], forExecutedScript: script)
+    }
+
+    func test_talk_ShouldCrash_WhenSubstitutionParametersCantBeResolved() {
+        let script = TestScript().say("Do you like {food}?")
+
+        XCTAssertEqual(false, true)
+    }
+
+    func test_talk_ShouldCrash_WhenTextContainsInvalidSyntax() {
+        let script = TestScript().say("Do you like {food}?")
+
+        XCTAssertEqual(false, true)
+    }
+
+    func test_talk_ShouldCrash_WhenParameterHasNoValuesConfigured() {
+        let script = TestScript().say("Do you like {food}?")
+
+        XCTAssertEqual(false, true)
     }
 }

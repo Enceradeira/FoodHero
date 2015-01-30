@@ -8,11 +8,11 @@ import Foundation
 class Choices: NSObject {
     private let _texts: [String] = []
     private var _next: Choices?
-    private let _randomizer: Randomizer
-    init(_ choices: [String], _ randomizer: Randomizer) {
+    private let _context: TalkerContext
+    init(_ choices: [String], _ context: TalkerContext) {
         precondition(choices.count > 0, "invalid argument choises. Choises can't be empty")
         _texts = choices
-        _randomizer = randomizer
+        _context = context
     }
 
     private func collectConcatenation(current: Choices?) -> [Choices] {
@@ -23,16 +23,16 @@ class Choices: NSObject {
         }
     }
 
-    func concat(_ choices: Choices) -> Choices {
-        let choises1 = Choices(_texts,_randomizer)
-        let choises2 = Choices(choices._texts,_randomizer)
+    func concat(choices: Choices) -> Choices {
+        let choises1 = Choices(_texts, _context)
+        let choises2 = Choices(choices._texts, _context)
         choises1._next = choises2
         return choises1
     }
 
     func getOne() -> String {
         let texts = collectConcatenation(self).map {
-            choices in self._randomizer.chooseOne(choices._texts)
+            choices in self._context.resources.resolve(self._context.randomizer.chooseOne(from: choices._texts, forTag: RandomizerTags.Texts))
         }
         return "\n\n".join(texts)
     }

@@ -6,5 +6,5 @@
 import Foundation
 
 public protocol Randomizer {
-    func chooseOne(choices: [String]) -> String
+    func chooseOne(from choices: [String], forTag tag: RandomizerTags) -> String
 }

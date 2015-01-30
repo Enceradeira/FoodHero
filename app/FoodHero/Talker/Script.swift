@@ -7,29 +7,27 @@ import Foundation
 
 
 public class Script {
-    private var _utterances: [Utterance]
-    private let _randomizer: Randomizer
+    private var _utterances: [Utterance] = []
+    private let _context: TalkerContext = TalkerContext()
 
-    public init(_ randomizer:Randomizer) {
-        _utterances = []
-        _randomizer = randomizer
+    public init(_ context: TalkerContext) {
+        _context = context;
     }
 
     var utterances: [Utterance] {
         return _utterances
     }
 
-    public func say(text:String)->Script{
-        return say(oneOf:[text])
+    public func say(text: String) -> Script {
+        return say(oneOf: [text])
     }
 
     public func say(oneOf texts: [String]) -> Script {
         var lastUtterance = (utterances.last as? ImmediateUtterance);
         if (lastUtterance != nil) {
-            _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(Choices(texts,_randomizer)))
-        }
-        else{
-            _utterances.append(ImmediateUtterance(Choices(texts,_randomizer)))
+            _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(Choices(texts, _context)))
+        } else {
+            _utterances.append(ImmediateUtterance(Choices(texts, _context)))
         }
         return self
     }
@@ -38,5 +36,6 @@ public class Script {
         _utterances.append(DelayedUtterance())
         return self;
     }
+
 
 }
