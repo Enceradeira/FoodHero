@@ -30,22 +30,4 @@ class TalkerEngineRandomnessTests: TalkerEngineTests {
         randomizerWillChoose(forTag: RandomizerTags.TextParameters, index: 1)
         assert(dialog: ["Do you like Chinese food?"], forExecutedScript: script)
     }
-
-    func test_talk_ShouldCrash_WhenSubstitutionParametersCantBeResolved() {
-        let script = TestScript().say("Do you like {food}?")
-
-        XCTAssertEqual(false, true)
-    }
-
-    func test_talk_ShouldCrash_WhenTextContainsInvalidSyntax() {
-        let script = TestScript().say("Do you like {food}?")
-
-        XCTAssertEqual(false, true)
-    }
-
-    func test_talk_ShouldCrash_WhenParameterHasNoValuesConfigured() {
-        let script = TestScript().say("Do you like {food}?")
-
-        XCTAssertEqual(false, true)
-    }
 }

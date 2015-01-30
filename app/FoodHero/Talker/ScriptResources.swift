@@ -14,6 +14,7 @@ public class ScriptResources {
     }
 
     public func add(#parameter: String, withValues values: [String]) -> ScriptResources {
+        precondition(values.count > 0, "values must have at least one element")
         _parameters[parameter] = values
         return self
     }
@@ -26,8 +27,9 @@ public class ScriptResources {
 
         for match in matches {
             let matchedString = (text as NSString).substringWithRange(NSMakeRange(match.range.location + 1, match.range.length - 2))
-            let values = _parameters[matchedString]!
-            let resolvedString = _randomizer.chooseOne(from: values, forTag: RandomizerTags.TextParameters)
+            let values = _parameters[matchedString]
+            assert(values != nil, "ScriptResources don't contain values for parameter '\(matchedString)'")
+            let resolvedString = _randomizer.chooseOne(from: values!, forTag: RandomizerTags.TextParameters)
             let replaceRegex = NSRegularExpression(pattern: "\\{\(matchedString)\\}", options: .CaseInsensitive, error: nil)!
             result = replaceRegex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, countElements(result)), withTemplate: resolvedString)
         }

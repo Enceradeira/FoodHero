@@ -37,9 +37,9 @@
     NSArray *photos1 = [photo.image toArray];
     NSArray *photos2 = [photo.image toArray];
 
-    (photos1.count, is(greaterThan(@(0))));
-    (photos2.count, is(greaterThan(@(0))));
-    (photos1[0], is(equalTo(photos2)));
+    assertThatInteger(photos1.count, is(greaterThan(@(0))));
+    assertThatInteger(photos2.count, is(greaterThan(@(0))));
+    assertThat(photos1[0], is(equalTo(photos2[0])));
 }
 
 
@@ -62,7 +62,7 @@
     }];
 
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
-    (loadedImage, is(notNilValue()));
+    assertThat(loadedImage, is(notNilValue()));
 }
 
 
