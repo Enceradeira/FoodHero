@@ -3,8 +3,10 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "SpeechRecognitionServiceSpy.h"
 #import "SpeechInterpretation.h"
+
 
 
 @implementation SpeechRecognitionServiceSpy {
@@ -21,4 +23,14 @@
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation {
     _interpretation = interpretation;
 }
+
+
+- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state{
+    return [RACSignal empty];
+}
+
+- (AVAudioSessionRecordPermission)recordPermission {
+    return AVAudioSessionRecordPermissionGranted;
+}
+
 @end

@@ -11,7 +11,7 @@ class ImmediateUtterance: Utterance {
         self._texts = texts
     }
 
-    func execute(_ input: RACSignal) -> RACSignal {
+    func execute(input: RACSignal) -> RACSignal {
         return RACSignal.createSignal({
             l in
             l.sendNext(self._texts.getOne())

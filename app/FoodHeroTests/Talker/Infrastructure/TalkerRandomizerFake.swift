@@ -18,7 +18,7 @@ class TalkerRandomizerFake: Randomizer {
         return choices[_configuredChoices[tag] ?? 0]
     }
 
-    internal func willChoose(forTag tag: RandomizerTags, #index: Int) {
+    internal func willChoose(forTag tag: RandomizerTags, index: Int) {
         _configuredChoices[tag] = index
     }
 }

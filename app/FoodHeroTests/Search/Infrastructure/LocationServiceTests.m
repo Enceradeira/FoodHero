@@ -70,7 +70,7 @@
     }];
 
     assertThatUnsignedInt(nrRetrievedValues, is(equalToUnsignedInt(1)));
-    assertThatBool(hasCompleted, is(equalToBool(YES)));
+    assertThatBool(hasCompleted, is(@(YES)));
 }
 
 - (void)test_currentLocation_ShouldReturnNoLocationAndHaveError_WhenError {
@@ -94,8 +94,8 @@
     }];
 
     assertThatUnsignedInt(nrRetrievedValues, is(equalToUnsignedInt(0)));
-    assertThatBool(hasCompleted, is(equalToBool(NO)));
-    assertThatBool(hasError, is(equalToBool(YES)));
+    assertThatBool(hasCompleted, is(@(NO)));
+    assertThatBool(hasError, is(@(YES)));
 }
 
 - (void)test_currentLocation_ShouldStartAndStopLocationManager_WhenCompleted {

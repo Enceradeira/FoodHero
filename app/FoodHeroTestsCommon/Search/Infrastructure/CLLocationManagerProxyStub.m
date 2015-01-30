@@ -24,7 +24,7 @@
         location = [[CLLocation new] initWithCoordinate:norwich altitude:50 horizontalAccuracy:50 verticalAccuracy:50 course:0 speed:0 timestamp:[NSDate date]];
 
         _locations = [NSArray arrayWithObject:location];
-        _authorizationStatus = kCLAuthorizationStatusAuthorized;
+        _authorizationStatus = kCLAuthorizationStatusAuthorizedAlways;
     }
     return self;
 }
@@ -38,7 +38,7 @@
 }
 
 - (void)startUpdatingLocation {
-    if (_delegate != nil && _authorizationStatus == kCLAuthorizationStatusAuthorized && _locations != nil) {
+    if (_delegate != nil && _authorizationStatus == kCLAuthorizationStatusAuthorizedAlways && _locations != nil) {
         [_delegate locationManager:nil didUpdateLocations:_locations];
     }
 }

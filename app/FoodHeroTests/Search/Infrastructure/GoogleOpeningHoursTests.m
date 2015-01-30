@@ -89,10 +89,10 @@
 
     for (OpeningHour *openingHour in descriptions) {
         if ([openingHour.day isEqualToString:@"Monday"]) {
-            assertThatBool(openingHour.isToday, is(equalToBool(YES)));
+            assertThatBool(openingHour.isToday, is(@(YES)));
         }
         else {
-            assertThatBool(openingHour.isToday, is(equalToBool(NO)));
+            assertThatBool(openingHour.isToday, is(@(NO)));
         }
     }
 }

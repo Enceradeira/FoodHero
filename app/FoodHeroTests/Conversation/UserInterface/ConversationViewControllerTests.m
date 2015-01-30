@@ -82,7 +82,7 @@
 
     [_ctrl userMicButtonTouchUp:self];
 
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
+    assertThatBool(_ctrl.userMicButton.enabled, is(@(NO)));
 }
 
 -(void)test_Controller_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
@@ -91,7 +91,7 @@
     _ctrl = [ControllerFactory createConversationViewController];
     _ctrl.view.hidden = NO;
 
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(NO)));
+    assertThatBool(_ctrl.userMicButton.enabled, is(@(NO)));
 }
 
 -(void)test_Controller_ShouldEnableMicButton_WhenPermissionForMicrophone{
@@ -101,7 +101,7 @@
     _ctrl.view.hidden = NO;
 
 
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(YES)));
+    assertThatBool(_ctrl.userMicButton.enabled, is(@(YES)));
 }
 
 -(void)test_Controller_ShouldEnableMicButton_WhenUnknownPermissionForMicrophone{
@@ -111,6 +111,6 @@
     _ctrl.view.hidden = NO;
 
 
-    assertThatBool(_ctrl.userMicButton.enabled, is(equalToBool(YES)));
+    assertThatBool(_ctrl.userMicButton.enabled, is(@(YES)));
 }
 @end

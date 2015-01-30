@@ -6,5 +6,5 @@
 import Foundation
 
 protocol Utterance: class {
-    func execute(_ input: RACSignal) -> RACSignal
+    func execute(input: RACSignal) -> RACSignal
 }

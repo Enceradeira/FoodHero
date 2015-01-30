@@ -185,7 +185,7 @@
     }];
 
     assertThat(place, is(notNilValue()));
-    assertThatBool(isCompleted, is(equalToBool(YES)));
+    assertThatBool(isCompleted, is(@(YES)));
 }
 
 -(void)test_getPlacesByCuisine_ShouldReturnError_WhenSearchExceptionOccurred{
@@ -201,7 +201,7 @@
         isCompleted = YES;
     }];
 
-    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(equalToBool(YES)));
+    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(@(YES)));
     // assertThatBool(isCompleted, is(equalToBool(YES))); commented because it didn't work under 64bit, but integration tests were ok
 }
 
@@ -220,7 +220,7 @@
     Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [_searchService injectFindResults:@[restaurant1, restaurant2]];
 
-    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(equalToBool(NO)));
+    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(@(NO)));
 }
 
 - (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnYes_WhenRestaurantsHaveDifferentPriceLevels {
@@ -231,7 +231,7 @@
     [_searchService injectFindResultsWithRadiusAndPriceRange:@[[RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:0 restaurants:@[restaurant1, restaurant2]]]];
     [[_repository getPlacesByCuisine:@"Asian"] waitUntilCompleted:nil]; // loads into cache
 
-    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(equalToBool(NO)));
+    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(@(NO)));
 }
 
 - (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnNo_WhenRestaurantsHaveNotDifferentPriceLevels {
@@ -244,7 +244,7 @@
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:2 restaurants:@[restaurant2]]]];
     [[_repository getPlacesByCuisine:@"Asian"] waitUntilCompleted:nil]; // loads into cache
 
-    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(equalToBool(YES)));
+    assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(@(YES)));
 }
 
 @end

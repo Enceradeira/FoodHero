@@ -6,7 +6,7 @@
 import Foundation
 
 class DelayedUtterance: Utterance {
-    func execute(_ input: RACSignal) -> RACSignal {
+    func execute(input: RACSignal) -> RACSignal {
         return RACSignal.createSignal {
             listener in
             input.subscribeNext {

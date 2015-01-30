@@ -5,9 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ISpeechRecognitionService.h"
-
-@class SpeechInterpretation;
-
+#import "SpeechInterpretation.h"
 
 @interface SpeechRecognitionServiceSpy : NSObject <ISpeechRecognitionService>
 @property(readonly, nonatomic) NSString *lastInterpretedString;

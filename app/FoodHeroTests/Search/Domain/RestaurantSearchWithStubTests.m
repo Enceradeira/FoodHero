@@ -73,7 +73,7 @@
     [signal asynchronouslyWaitUntilCompleted:nil];
 
     assertThat(restaurant, is(notNilValue()));
-    assertThatBool(completed, is(equalToBool(YES)));
+    assertThatBool(completed, is(@(YES)));
 }
 
 - (void)test_findBest_ShouldNotReturnARestaurantThatTheUserDislikedBefore {
@@ -149,7 +149,7 @@
     }];
     [signal asynchronouslyWaitUntilCompleted:nil];
 
-    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(equalToBool(YES)));
+    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(@(YES)));
     // assertThatBool(isCompleted, is(equalToBool(YES))); commented because it didn't work under 64bit, but integration tests were ok
 
 }

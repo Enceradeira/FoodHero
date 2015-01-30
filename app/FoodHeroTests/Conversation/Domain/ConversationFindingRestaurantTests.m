@@ -58,7 +58,7 @@
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     // Problem no restaurant found again
-    [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorized];
+    [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self configureRestaurantSearchForLatitude:-56 longitude:10 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
@@ -101,7 +101,7 @@
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
-    [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorized];
+    [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self configureRestaurantSearchForLatitude:25 longitude:-12 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];

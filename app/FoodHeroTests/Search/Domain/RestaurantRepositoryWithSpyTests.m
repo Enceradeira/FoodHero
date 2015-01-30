@@ -68,7 +68,7 @@
 
     [self getPlacesByCuisine:@"Asian"];
 
-    assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(equalToBool(YES)));
+    assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(@(YES)));
 }
 
 - (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {

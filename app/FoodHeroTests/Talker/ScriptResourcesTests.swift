@@ -16,7 +16,7 @@ class ScriptResourcesTests: XCTestCase {
         _randomizer = TalkerRandomizerFake()
     }
 
-    func randomizerWillChoose(forTag tag: RandomizerTags, #index: Int) {
+    func randomizerWillChoose(forTag tag: RandomizerTags, index: Int) {
         _randomizer!.willChoose(forTag: tag, index: index)
     }
 

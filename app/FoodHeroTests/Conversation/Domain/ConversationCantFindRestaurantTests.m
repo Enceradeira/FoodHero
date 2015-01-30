@@ -27,7 +27,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
-    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorized];
+    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];

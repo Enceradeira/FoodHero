@@ -100,7 +100,7 @@ public class TalkerEngineTests: XCTestCase {
         XCTAssertEqual(nr, dialog.count, "The number of utterances in the exectued script is wrong")
     }
 
-    func randomizerWillChoose(forTag tag: RandomizerTags, #index: Int) {
+    func randomizerWillChoose(forTag tag: RandomizerTags, index: Int) {
         _randomizer!.willChoose(forTag: tag, index: index)
     }
 
