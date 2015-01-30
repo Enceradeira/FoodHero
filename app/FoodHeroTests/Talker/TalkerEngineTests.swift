@@ -35,7 +35,7 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     func responseIs(text: String) {
-        _input!.addObject(text)
+       _input!.addObject(text)
     }
 
     func executeScript(script: Script) -> RACSignal {
@@ -47,11 +47,11 @@ public class TalkerEngineTests: XCTestCase {
         return (dialog.toArray() as [String])
     }
 
-    func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil) -> Int {
-        return assert(utterance: utterance, exists: exists, inDialog: executeScript(script), atPosition: expectedPosition)
+    func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil) {
+        assert(utterance: utterance, exists: exists, inDialog: executeScript(script), atPosition: expectedPosition)
     }
 
-    func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) -> Int {
+    func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
         var positionCount: Int = 0
         var actualPosition: Int? = nil
 
@@ -89,15 +89,42 @@ public class TalkerEngineTests: XCTestCase {
         if (expectedPosition != nil) {
             XCTAssertEqual(actualPosition ?? (-1), expectedPosition!, "Utterance is at wrong position")
         }
-        return positionCount
     }
 
-    func assert(#dialog: [NSString], forExecutedScript script: Script) {
-        var nr = 0
-        for index in 0 ... dialog.count - 1 {
-            nr = assert(utterance: dialog[index], exists: true, inExecutedScript: script, atPosition: index)
+    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script) {
+        var utterances = [String]()
+
+        let dialog = executeScript(script)
+        dialog.subscribeNext {
+            (object: AnyObject?) in
+            utterances.append(object! as String)
         }
-        XCTAssertEqual(nr, dialog.count, "The number of utterances in the exectued script is wrong")
+        dialog.subscribeCompleted {
+            // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
+            dispatch_async(dispatch_get_main_queue()) {
+                self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded)
+            }
+
+        }
+
+        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.01)
+
+        var sometingWrong = utterances.count != expectedDialog.count
+        XCTAssertEqual(utterances.count, expectedDialog.count, "The number of utterances in the exectued script is wrong")
+        for index in 0 ... expectedDialog.count - 1 {
+            let actual: String = utterances[index]
+            let expected: String = expectedDialog[index]
+            sometingWrong |= actual != expected
+            XCTAssertEqual(actual, expected, "The utterance is wrong")
+        }
+
+        if (sometingWrong) {
+            NSLog("-------- DIALOG BEGIN ---------")
+            for utterance in utterances {
+                NSLog("Utternace: \(utterance)")
+            }
+            NSLog("-------- DIALOG END ---------")
+        }
     }
 
     func randomizerWillChoose(forTag tag: RandomizerTags, index: Int) {

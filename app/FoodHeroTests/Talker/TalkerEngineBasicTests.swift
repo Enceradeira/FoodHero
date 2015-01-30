@@ -66,4 +66,34 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
         assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"], forExecutedScript: script)
     }
+
+    func test_talk_shouldResponseToResponse_WhenFirstResponse() {
+        let script = TestScript()
+        .say("How are you?")
+        .waitResponse(andContinueWith: {
+            response, script in
+            switch response {
+            case "Good": script.say("I'm glad to hear")
+            default: script.say("What did you say?")
+            }
+        })
+
+        responseIs("Good")
+        assert(dialog: ["How are you?", "Good", "I'm glad to hear"], forExecutedScript: script)
+    }
+
+    func test_talk_shouldResponseToResponse_WhenAlternativeResponse() {
+        let script = TestScript()
+        .say("How are you?")
+        .waitResponse(andContinueWith: {
+            response, script in
+            switch response {
+            case "Good": script.say("I'm glad to hear")
+            default: script.say("What did you say?")
+            }
+        })
+
+        responseIs("*##!!")
+        assert(dialog: ["How are you?", "*##!!", "What did you say?"], forExecutedScript: script)
+    }
 }

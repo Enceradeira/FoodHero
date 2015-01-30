@@ -32,8 +32,9 @@ public class Script {
         return self
     }
 
-    public func waitResponse() -> Script {
-        _utterances.append(DelayedUtterance())
+    public func waitResponse(andContinueWith continuation: ((response:String, script:Script) -> ())? = {
+        r, s in }) -> Script {
+        _utterances.append(DelayedUtterance(continuation!,_context))
         return self;
     }
 

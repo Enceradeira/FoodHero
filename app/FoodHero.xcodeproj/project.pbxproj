@@ -169,6 +169,7 @@
 		235258C9EA859EDD5FE7AAB1 /* LocationServiceAuthorizationStatusRestrictedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B22E25C79786325A51A /* LocationServiceAuthorizationStatusRestrictedError.m */; };
 		235258DA344572677FD11A0F /* TagAndToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525603A1695FBB914F98A0 /* TagAndToken.m */; };
 		235258FECA31C5E5528677F5 /* AudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F3F2E42FEC4CC3BC50D /* AudioSession.m */; };
+		23525937ED94A873A01BDEBE /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525F11BFA34DCC393ADF49 /* Sequence.swift */; };
 		2352593CA12A5F94BF83536F /* USuggestionFeedbackForTooExpensive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352503CB37A03BFDC5A9F8F /* USuggestionFeedbackForTooExpensive.m */; };
 		23525942DB4D144A45B03188 /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A4D4CB0635BE2391A10 /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.m */; };
 		23525952AE8AD9925E9977CF /* AddTokenAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FF477756E484E35DF5F /* AddTokenAction.m */; };
@@ -739,6 +740,7 @@
 		23525EFD1BAC766B9F82F3B1 /* GenericToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericToken.m; sourceTree = "<group>"; };
 		23525F0AE252079B0F696725 /* DistanceRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceRange.h; sourceTree = "<group>"; };
 		23525F0D9052167CD36FC9FC /* IntegrationAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegrationAssembly.m; sourceTree = "<group>"; };
+		23525F11BFA34DCC393ADF49 /* Sequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		23525F14207656F4239F1777 /* SpeechRecognitionVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionVisitor.h; sourceTree = "<group>"; };
 		23525F1ADB1625EED07D1288 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		23525F29C70E0594BD53CFEE /* FHConfirmationIfInNewPreferredRangeMoreExpensive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHConfirmationIfInNewPreferredRangeMoreExpensive.m; sourceTree = "<group>"; };
@@ -1111,6 +1113,7 @@
 				2352546B823948621FA0ED96 /* ScriptResources.swift */,
 				235254DFC1E99DE93F89843B /* TalkerContext.swift */,
 				235257F761C3B4C8D44F9B3F /* RandomizerTags.swift */,
+				23525F11BFA34DCC393ADF49 /* Sequence.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2196,6 +2199,7 @@
 				235255095DCFF9A5A1E417A5 /* TalkerContext.swift in Sources */,
 				235258B0A537DBEE44DA38A9 /* GenericWrapper.swift in Sources */,
 				23525744960483341C1D6CFA /* RandomizerTags.swift in Sources */,
+				23525937ED94A873A01BDEBE /* Sequence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
