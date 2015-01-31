@@ -14,7 +14,8 @@ class ImmediateUtterance: Utterance {
     func execute(input: RACSignal) -> RACSignal {
         return RACSignal.createSignal({
             l in
-            l.sendNext(self._texts.getOne())
+            let text = self._texts.getOne()
+            l.sendNext(text)
             l.sendCompleted()
             return nil
         })

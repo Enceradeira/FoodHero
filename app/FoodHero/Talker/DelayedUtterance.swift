@@ -20,14 +20,25 @@ class DelayedUtterance: Utterance {
             listener in
             input.subscribeNext {
                 response in
+                let text = response! as String
                 listener.sendNext(response)
 
                 let subScript = Script(self._context)
                 self._continuation(response: response as String, script: subScript)
-                Sequence.execute(subScript, input, listener)
-
+                let subSignal = Sequence.execute(subScript, input)
+                subSignal.subscribeNext {
+                    object in
+                    let text = object! as String
+                    listener.sendNext(text)
+                }
+                subSignal.subscribeCompleted {
+                    listener.sendCompleted()
+                }
+            }
+            input.subscribeCompleted {
                 listener.sendCompleted()
             }
+            return nil
         }
 
     }

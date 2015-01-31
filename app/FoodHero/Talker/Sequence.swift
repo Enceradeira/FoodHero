@@ -6,18 +6,29 @@
 import Foundation
 
 class Sequence {
-    class func execute(script: Script, _ input: RACSignal, _ listener: RACSubscriber) {
-        produceNext(script.utterances, input, listener)
+    class func execute(script: Script, _ input: RACSignal) -> RACSignal {
+        return produceSequence(script.utterances, input)
+
+    }
+
+    private class func produceSequence(utterances: [Utterance], _ input: RACSignal) -> RACSignal {
+        return RACSignal.createSignal {
+            listener in
+            self.produceNext(utterances, input, listener)
+            return nil
+        }
     }
 
     private class func produceNext(utterances: [Utterance], _ input: RACSignal, _ listener: RACSubscriber) {
         if (utterances.isEmpty) {
-            listener.sendCompleted()
+           listener.sendCompleted()
         } else {
             let next = utterances.first!;
             let nextCompleted = next.execute(input)
             nextCompleted.subscribeNext {
-                listener.sendNext($0)
+                response in
+                let text = response! as String
+                listener.sendNext(text)
             }
             nextCompleted.subscribeCompleted({
                 let nextUtterances = utterances.filter {
@@ -29,5 +40,4 @@ class Sequence {
             })
         }
     }
-
 }

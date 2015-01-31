@@ -60,8 +60,6 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         .waitResponse()
         .say("I'm fine, thanks!")
 
-        assert(utterance: "I'm fine, thanks!", exists: false, inExecutedScript: script)
-
         responseIs("Good, and you?")
 
         assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"], forExecutedScript: script)
@@ -96,4 +94,26 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         responseIs("*##!!")
         assert(dialog: ["How are you?", "*##!!", "What did you say?"], forExecutedScript: script)
     }
+
+    func test_talk_shouldHandleNestedResponses() {
+        let script = TestScript()
+        .waitResponse(andContinueWith: {
+            _, script in
+            script
+            .say("What?")
+            .waitResponse(andContinueWith: {
+                _, script in
+                script
+                .say("Now I get it")
+                return
+            })
+            return
+        })
+        .say("Good bye then")
+
+        responseIs("*##!!", "I mean hello")
+
+        assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it\n\nGood bye then"], forExecutedScript: script)
+    }
+
 }

@@ -34,8 +34,8 @@ public class TalkerEngineTests: XCTestCase {
         return ScriptResources(_randomizer!)
     }
 
-    func responseIs(text: String) {
-       _input!.addObject(text)
+    func responseIs(texts: String...) {
+       _input!.addObjectsFromArray(texts)
     }
 
     func executeScript(script: Script) -> RACSignal {
@@ -75,7 +75,7 @@ public class TalkerEngineTests: XCTestCase {
             }
         }
 
-        let timeoutUSeconds: UInt32 = 10 /*10 ms*/ * 1000;
+        let timeoutUSeconds: UInt32 = 100 /*10 ms*/ * 1000;
         if (!exists) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 let waitBeforeTimeoutPreventedUSeconds = timeoutUSeconds * 8 / 10
@@ -97,21 +97,23 @@ public class TalkerEngineTests: XCTestCase {
         let dialog = executeScript(script)
         dialog.subscribeNext {
             (object: AnyObject?) in
-            utterances.append(object! as String)
+            let utterance = object! as String
+            NSLog("Utterance: \(utterance)")
+            utterances.append(utterance)
         }
         dialog.subscribeCompleted {
+            // print(RACBacktrace())
             // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
             dispatch_async(dispatch_get_main_queue()) {
                 self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded)
             }
-
         }
 
-        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.01)
-
+        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.1)
+       
         var sometingWrong = utterances.count != expectedDialog.count
         XCTAssertEqual(utterances.count, expectedDialog.count, "The number of utterances in the exectued script is wrong")
-        for index in 0 ... expectedDialog.count - 1 {
+        for index in 0 ... min(expectedDialog.count,utterances.count) - 1 {
             let actual: String = utterances[index]
             let expected: String = expectedDialog[index]
             sometingWrong |= actual != expected
@@ -121,7 +123,7 @@ public class TalkerEngineTests: XCTestCase {
         if (sometingWrong) {
             NSLog("-------- DIALOG BEGIN ---------")
             for utterance in utterances {
-                NSLog("Utternace: \(utterance)")
+                NSLog("Utterance: \(utterance)")
             }
             NSLog("-------- DIALOG END ---------")
         }

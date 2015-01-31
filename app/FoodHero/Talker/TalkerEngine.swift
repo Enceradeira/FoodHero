@@ -19,15 +19,7 @@ public class TalkerEngine: NSObject {
 
 
     public func execute() -> RACSignal {
-        let signal = RACSignal.createSignal {
-            listener in
-
-            let input = self._input.signal()
-
-            Sequence.execute(self._script, input, listener)
-
-            return nil
-        }
-        return signal
+        let input = self._input.signal()
+        return Sequence.execute(self._script, input)
     }
 }
