@@ -85,6 +85,7 @@
 		2352548255A26E4E34FCD107 /* FHBecauseUserIsNotAllowedToUseLocationServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352536ED4B9518AB50EF089 /* FHBecauseUserIsNotAllowedToUseLocationServices.m */; };
 		23525484E20003F76F9CF9F8 /* GoogleRestaurantSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250DA742E10FF0071F0E2 /* GoogleRestaurantSearchTests.m */; };
 		235254942B06ED74508069B4 /* StubAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251A6990E7DD0093B2A61 /* StubAssembly.m */; };
+		235254954A8FD64FAC7615AC /* TalkerInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235258F60593B6390121A6A7 /* TalkerInput.swift */; };
 		23525498940EDF90F9C6AEEA /* GenericToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EFD1BAC766B9F82F3B1 /* GenericToken.m */; };
 		23525499EE0EA8B597823130 /* TalkerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235252F58FC893E377AB110C /* TalkerEngineTests.swift */; };
 		2352549C3C703A2A07CDB5DE /* FHWarningIfNotInPreferredRangeTooExpensive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352539BA10D7CB2EE82E44F /* FHWarningIfNotInPreferredRangeTooExpensive.m */; };
@@ -579,6 +580,7 @@
 		235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewState+Protected.m"; sourceTree = "<group>"; };
 		235258F0B360233DE7BEB6E3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		235258F2C3B3885E4D2DC789 /* Personas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Personas.h; sourceTree = "<group>"; };
+		235258F60593B6390121A6A7 /* TalkerInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerInput.swift; sourceTree = "<group>"; };
 		235258F6566FBE3ADD0D1FE6 /* SpeechRecognitionServiceSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionServiceSpy.m; sourceTree = "<group>"; };
 		23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewStateNormal.m; sourceTree = "<group>"; };
 		2352591DF2E1DF863C69FE92 /* ConversationViewStateNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewStateNormal.h; sourceTree = "<group>"; };
@@ -1114,6 +1116,7 @@
 				235254DFC1E99DE93F89843B /* TalkerContext.swift */,
 				235257F761C3B4C8D44F9B3F /* RandomizerTags.swift */,
 				23525F11BFA34DCC393ADF49 /* Sequence.swift */,
+				235258F60593B6390121A6A7 /* TalkerInput.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2200,6 +2203,7 @@
 				235258B0A537DBEE44DA38A9 /* GenericWrapper.swift in Sources */,
 				23525744960483341C1D6CFA /* RandomizerTags.swift in Sources */,
 				23525937ED94A873A01BDEBE /* Sequence.swift in Sources */,
+				235254954A8FD64FAC7615AC /* TalkerInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

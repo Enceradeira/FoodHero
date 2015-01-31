@@ -10,16 +10,21 @@ import Foundation
 
 public class TalkerEngine: NSObject {
     private let _script: Script
-    private let _input: RACSequence
+    private let _input: RACSignal
 
-    public init(_ script: Script, _ input: RACSequence) {
+    public init(_ script: Script, _ input: RACSignal) {
         self._script = script
         self._input = input
     }
 
 
     public func execute() -> RACSignal {
-        let input = self._input.signal()
-        return Sequence.execute(self._script, input)
+        return RACSignal.createSignal {
+            output in
+
+            let talkerInput = TalkerInput(self._input)
+            Sequence.execute(self._script, talkerInput, output, { output.sendCompleted() })
+            return nil
+        }
     }
 }

@@ -6,37 +6,27 @@
 import Foundation
 
 class Sequence {
-    class func execute(script: Script, _ input: RACSignal) -> RACSignal {
-        return produceSequence(script.utterances, input)
+    class func execute(script: Script, _ input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+        return produceSequence(script.utterances, input, output, continuation)
 
     }
 
-    private class func produceSequence(utterances: [Utterance], _ input: RACSignal) -> RACSignal {
-        return RACSignal.createSignal {
-            listener in
-            self.produceNext(utterances, input, listener)
-            return nil
-        }
+    private class func produceSequence(utterances: [Utterance], _ input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+        self.produceNext(utterances, input, output, continuation)
     }
 
-    private class func produceNext(utterances: [Utterance], _ input: RACSignal, _ listener: RACSubscriber) {
+    private class func produceNext(utterances: [Utterance], _ input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
         if (utterances.isEmpty) {
-           listener.sendCompleted()
+            continuation()
         } else {
             let next = utterances.first!;
-            let nextCompleted = next.execute(input)
-            nextCompleted.subscribeNext {
-                response in
-                let text = response! as String
-                listener.sendNext(text)
-            }
-            nextCompleted.subscribeCompleted({
+            next.execute(input, output, {
                 let nextUtterances = utterances.filter {
                     let thisNext = next
                     let isUnequal = $0 !== thisNext
                     return isUnequal
                 }
-                self.produceNext(nextUtterances, input, listener)
+                self.produceNext(nextUtterances, input, output, continuation)
             })
         }
     }

@@ -47,9 +47,9 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldListenToReponse() {
         let script = TestScript()
         .say("How are you?")
-        .waitResponse()
-
-        responseIs("Good")
+        .waitResponse(byInvoking: {
+            self.responseIs("Good")
+        })
 
         assert(dialog: ["How are you?", "Good"], forExecutedScript: script)
     }
@@ -57,10 +57,10 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldWaitResponseAndThenContinue() {
         let script = TestScript()
         .say("How are you?")
-        .waitResponse()
+        .waitResponse(byInvoking: {
+            self.responseIs("Good, and you?")
+        })
         .say("I'm fine, thanks!")
-
-        responseIs("Good, and you?")
 
         assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"], forExecutedScript: script)
     }
@@ -68,52 +68,63 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldResponseToResponse_WhenFirstResponse() {
         let script = TestScript()
         .say("How are you?")
-        .waitResponse(andContinueWith: {
-            response, script in
-            switch response {
-            case "Good": script.say("I'm glad to hear")
-            default: script.say("What did you say?")
-            }
-        })
+        .waitResponse(byInvoking: {
+            self.responseIs("Good")
+        },
+                andContinuingWith: {
+                    response, script in
+                    switch response {
+                    case "Good": script.say("I'm glad to hear")
+                    default: script.say("What did you say?")
+                    }
+                })
 
-        responseIs("Good")
+
         assert(dialog: ["How are you?", "Good", "I'm glad to hear"], forExecutedScript: script)
     }
 
     func test_talk_shouldResponseToResponse_WhenAlternativeResponse() {
         let script = TestScript()
         .say("How are you?")
-        .waitResponse(andContinueWith: {
-            response, script in
-            switch response {
-            case "Good": script.say("I'm glad to hear")
-            default: script.say("What did you say?")
-            }
-        })
+        .waitResponse(byInvoking: {
+            self.responseIs("*##!!")
+        },
+                andContinuingWith: {
+                    response, script in
+                    switch response {
+                    case "Good": script.say("I'm glad to hear")
+                    default: script.say("What did you say?")
+                    }
+                })
 
-        responseIs("*##!!")
+
         assert(dialog: ["How are you?", "*##!!", "What did you say?"], forExecutedScript: script)
     }
 
     func test_talk_shouldHandleNestedResponses() {
         let script = TestScript()
-        .waitResponse(andContinueWith: {
-            _, script in
-            script
-            .say("What?")
-            .waitResponse(andContinueWith: {
-                _, script in
-                script
-                .say("Now I get it")
-                return
-            })
-            return
-        })
+        .waitResponse(byInvoking: {
+            self.responseIs("*##!!")
+        },
+                andContinuingWith: {
+                    _, script in
+                    script
+                    .say("What?")
+                    .waitResponse(byInvoking: {
+                        self.responseIs("I mean hello")
+                    },
+                            andContinuingWith: {
+                                _, script in
+                                script
+                                .say("Now I get it")
+                                return
+                            })
+                    return
+                })
         .say("Good bye then")
 
-        responseIs("*##!!", "I mean hello")
 
-        assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it\n\nGood bye then"], forExecutedScript: script)
+
+        assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it", "Good bye then"], forExecutedScript: script)
     }
-
 }

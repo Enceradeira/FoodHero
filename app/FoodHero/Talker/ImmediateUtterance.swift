@@ -11,14 +11,10 @@ class ImmediateUtterance: Utterance {
         self._texts = texts
     }
 
-    func execute(input: RACSignal) -> RACSignal {
-        return RACSignal.createSignal({
-            l in
-            let text = self._texts.getOne()
-            l.sendNext(text)
-            l.sendCompleted()
-            return nil
-        })
+    func execute(input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+        let text = self._texts.getOne()
+        output.sendNext(text)
+        continuation()
     }
 
     func concat(utterance: ImmediateUtterance) -> ImmediateUtterance {

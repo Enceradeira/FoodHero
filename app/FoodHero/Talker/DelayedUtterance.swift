@@ -8,38 +8,28 @@ import Foundation
 class DelayedUtterance: Utterance {
     private let _continuation: (response:String, script:Script) -> () = {
         r, s in }
+    private let _invocation: () -> () = {
+    }
     private let _context = TalkerContext()
 
-    init(_ continuation: (response:String, script:Script) -> (), _ context: TalkerContext) {
+    init(_ invocation: () -> (), _ continuation: (response:String, script:Script) -> (), _ context: TalkerContext) {
+        _invocation = invocation
         _continuation = continuation
         _context = context
     }
 
-    func execute(input: RACSignal) -> RACSignal {
-        return RACSignal.createSignal {
-            listener in
-            input.subscribeNext {
-                response in
-                let text = response! as String
-                listener.sendNext(response)
+    func execute(input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+        // consume future value from input
+        input.consumeOne {
+            utterance in
 
-                let subScript = Script(self._context)
-                self._continuation(response: response as String, script: subScript)
-                let subSignal = Sequence.execute(subScript, input)
-                subSignal.subscribeNext {
-                    object in
-                    let text = object! as String
-                    listener.sendNext(text)
-                }
-                subSignal.subscribeCompleted {
-                    listener.sendCompleted()
-                }
-            }
-            input.subscribeCompleted {
-                listener.sendCompleted()
-            }
-            return nil
+            output.sendNext(utterance)
+
+            let subScript = Script(self._context)
+            self._continuation(response: utterance, script: subScript)
+            Sequence.execute(subScript, input, output, continuation);
         }
-
+        // trigger input
+        _invocation()
     }
 }
