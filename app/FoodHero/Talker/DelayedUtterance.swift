@@ -18,7 +18,7 @@ class DelayedUtterance: Utterance {
         _context = context
     }
 
-    func execute(input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+    func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         // consume future value from input
         input.consumeOne {
             utterance in

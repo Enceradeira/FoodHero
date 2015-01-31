@@ -11,7 +11,7 @@ class ImmediateUtterance: Utterance {
         self._texts = texts
     }
 
-    func execute(input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+    func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         let text = self._texts.getOne()
         output.sendNext(text)
         continuation()

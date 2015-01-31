@@ -6,16 +6,16 @@
 import Foundation
 
 class Sequence {
-    class func execute(script: Script, _ input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+    class func execute(script: Script, _ input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         return produceSequence(script.utterances, input, output, continuation)
 
     }
 
-    private class func produceSequence(utterances: [Utterance], _ input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+    private class func produceSequence(utterances: [Utterance], _ input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         self.produceNext(utterances, input, output, continuation)
     }
 
-    private class func produceNext(utterances: [Utterance], _ input: TalkerInput, _ output: RACSubscriber, continuation: () -> ()) {
+    private class func produceNext(utterances: [Utterance], _ input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         if (utterances.isEmpty) {
             continuation()
         } else {

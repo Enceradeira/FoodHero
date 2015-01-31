@@ -201,6 +201,7 @@
 		23525AD68EF8E0A6306143C4 /* SpeechRecognitionVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D3A4709C3B4494F771E /* SpeechRecognitionVisitor.m */; };
 		23525AE21B03770AF024D9C2 /* LargeRestaurantReviewCommentViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259ECD4FA42D01FB54C0E /* LargeRestaurantReviewCommentViewControllerTests.m */; };
 		23525AE2F17B4C65084C45A9 /* ConversationRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352517FB891133220BFA410 /* ConversationRepository.m */; };
+		23525AE6621410527EB62779 /* TalkerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525CCE29F98E21E0018C9B /* TalkerOutput.swift */; };
 		23525AF01D98E9519901061E /* USuggestionFeedbackForNotLikingAtAll.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352550872974090EA77D163 /* USuggestionFeedbackForNotLikingAtAll.m */; };
 		23525B24EB983928B023DEEA /* SoundPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352591FCB1D86C07B24092C /* SoundPlayerTests.m */; };
 		23525B2D652DF9C6B60D2B8F /* NotebookPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254021CA7566E6F202FFD /* NotebookPageViewController.m */; };
@@ -692,6 +693,7 @@
 		23525CAA6B8BCA454B59363B /* AskUserCuisinePreferenceAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskUserCuisinePreferenceAction.h; sourceTree = "<group>"; };
 		23525CB64C77B39F92115854 /* CLLocationManagerProxySpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxySpy.h; sourceTree = "<group>"; };
 		23525CC9C6DD3B184532C9D1 /* ConversationBubbleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleTests.m; sourceTree = "<group>"; };
+		23525CCE29F98E21E0018C9B /* TalkerOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerOutput.swift; sourceTree = "<group>"; };
 		23525CE21EC6327144E208CE /* TagAndToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagAndToken.h; sourceTree = "<group>"; };
 		23525CF91EDE011A6972663C /* FHSuggestionAfterWarning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionAfterWarning.m; sourceTree = "<group>"; };
 		23525CFAD8FA7E53599CAC0F /* ConversationViewState+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConversationViewState+Protected.h"; sourceTree = "<group>"; };
@@ -1117,6 +1119,7 @@
 				235257F761C3B4C8D44F9B3F /* RandomizerTags.swift */,
 				23525F11BFA34DCC393ADF49 /* Sequence.swift */,
 				235258F60593B6390121A6A7 /* TalkerInput.swift */,
+				23525CCE29F98E21E0018C9B /* TalkerOutput.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2204,6 +2207,7 @@
 				23525744960483341C1D6CFA /* RandomizerTags.swift in Sources */,
 				23525937ED94A873A01BDEBE /* Sequence.swift in Sources */,
 				235254954A8FD64FAC7615AC /* TalkerInput.swift in Sources */,
+				23525AE6621410527EB62779 /* TalkerOutput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

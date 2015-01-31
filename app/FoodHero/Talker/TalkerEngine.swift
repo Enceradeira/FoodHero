@@ -20,10 +20,11 @@ public class TalkerEngine: NSObject {
 
     public func execute() -> RACSignal {
         return RACSignal.createSignal {
-            output in
+            subscriber in
 
             let talkerInput = TalkerInput(self._input)
-            Sequence.execute(self._script, talkerInput, output, { output.sendCompleted() })
+            let talkerOuput  = TalkerOutput(subscriber)
+            Sequence.execute(self._script, talkerInput, talkerOuput, { subscriber.sendCompleted() })
             return nil
         }
     }
