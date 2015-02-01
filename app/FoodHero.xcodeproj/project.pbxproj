@@ -116,6 +116,7 @@
 		235255EC9AE02B5A94466368 /* RadiusCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AED9FB005B543D590C5 /* RadiusCalculator.m */; };
 		235255F29200213234B06580 /* RestaurantSearchWithSpyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BE97D3437FB4736CEA9 /* RestaurantSearchWithSpyTests.m */; };
 		235255F672F835868D4FF3F0 /* AudioSessionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252B0DB009E78C9929858 /* AudioSessionStub.m */; };
+		2352562853E6BA0F44218C59 /* TalkerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525407F79FFB018D52A5FE /* TalkerMode.swift */; };
 		2352562BE11E081D6063FD00 /* ScriptResourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352599F52941A5BB81EEFB3 /* ScriptResourcesTests.swift */; };
 		2352564B7B1FF0CA90E9DC5D /* AskUserCuisinePreferenceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FD4CA49F086C54F9548 /* AskUserCuisinePreferenceAction.m */; };
 		2352564E92C1AE453737CFBB /* ConversationTokenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C5AE2B1384673941B96 /* ConversationTokenTableViewCell.m */; };
@@ -471,6 +472,7 @@
 		235253F864FB2EA189922D98 /* SearchProfil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchProfil.m; sourceTree = "<group>"; };
 		235253FB288ACE867B3B9077 /* FHConfirmationIfInNewPreferredRangeCloser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHConfirmationIfInNewPreferredRangeCloser.h; sourceTree = "<group>"; };
 		235254021CA7566E6F202FFD /* NotebookPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotebookPageViewController.m; sourceTree = "<group>"; };
+		23525407F79FFB018D52A5FE /* TalkerMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerMode.swift; sourceTree = "<group>"; };
 		2352540DBFAE841556E3287C /* FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.m; sourceTree = "<group>"; };
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525420FBD726AA07993E05 /* RestaurantReviewCommentViewBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantReviewCommentViewBinder.h; sourceTree = "<group>"; };
@@ -1120,6 +1122,7 @@
 				23525F11BFA34DCC393ADF49 /* Sequence.swift */,
 				235258F60593B6390121A6A7 /* TalkerInput.swift */,
 				23525CCE29F98E21E0018C9B /* TalkerOutput.swift */,
+				23525407F79FFB018D52A5FE /* TalkerMode.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2208,6 +2211,7 @@
 				23525937ED94A873A01BDEBE /* Sequence.swift in Sources */,
 				235254954A8FD64FAC7615AC /* TalkerInput.swift in Sources */,
 				23525AE6621410527EB62779 /* TalkerOutput.swift in Sources */,
+				2352562853E6BA0F44218C59 /* TalkerMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

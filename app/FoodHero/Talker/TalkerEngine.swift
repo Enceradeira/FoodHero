@@ -22,9 +22,12 @@ public class TalkerEngine: NSObject {
         return RACSignal.createSignal {
             subscriber in
 
-            let talkerInput = TalkerInput(self._input)
-            let talkerOuput  = TalkerOutput(subscriber)
-            Sequence.execute(self._script, talkerInput, talkerOuput, { subscriber.sendCompleted() })
+            let talkerMode = TalkerMode()
+            let talkerInput = TalkerInput(self._input, talkerMode)
+            let talkerOuput = TalkerOutput(subscriber, talkerMode)
+            Sequence.execute(self._script, talkerInput, talkerOuput, {
+                talkerMode.Mode = TalkerModes.Finishing
+                subscriber.sendCompleted() })
             return nil
         }
     }

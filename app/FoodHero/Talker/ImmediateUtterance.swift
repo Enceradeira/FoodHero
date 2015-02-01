@@ -13,14 +13,7 @@ class ImmediateUtterance: Utterance {
 
     func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         let text = self._texts.getOne()
-        output.sendNext(text)
+        output.sendNext(text, andNotifyMode: TalkerModes.Outputting)
         continuation()
     }
-
-    func concat(utterance: ImmediateUtterance) -> ImmediateUtterance {
-        var text1 = self._texts;
-        var text2 = utterance._texts;
-        return ImmediateUtterance(text1.concat(text2))
-    }
-
 }

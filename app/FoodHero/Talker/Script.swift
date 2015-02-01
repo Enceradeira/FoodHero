@@ -23,12 +23,7 @@ public class Script {
     }
 
     public func say(oneOf texts: [String]) -> Script {
-        var lastUtterance = (utterances.last as? ImmediateUtterance);
-        if (lastUtterance != nil) {
-            _utterances[_utterances.count - 1] = lastUtterance!.concat(ImmediateUtterance(Choices(texts, _context)))
-        } else {
-            _utterances.append(ImmediateUtterance(Choices(texts, _context)))
-        }
+        _utterances.append(ImmediateUtterance(Choices(texts, _context)))
         return self
     }
 

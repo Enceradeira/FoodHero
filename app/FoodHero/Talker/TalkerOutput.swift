@@ -5,15 +5,30 @@
 
 import Foundation
 
-class TalkerOutput {
+class TalkerOutput: TalkerModeChangedDelegate {
+    private let _talkerMode: TalkerMode
+    private let _output: RACSubscriber
+    private var _buffer = [String]()
 
-    let _output: RACSubscriber
-    init(_ output: RACSubscriber) {
+    init(_ output: RACSubscriber, _ talkerMode: TalkerMode) {
         _output = output
+        _talkerMode = talkerMode
+        _talkerMode.addModeChangedDelegate(self)
     }
 
-    func sendNext(text: String) {
-        _output.sendNext(text)
+    func modeDidChange(newMode: TalkerModes) {
+        if (_buffer.count > 0) {
+            let text = "\n\n".join(_buffer)
+            _buffer.removeAll()
+            _output.sendNext(text)
+        }
+    }
+
+    func sendNext(text: String, andNotifyMode reason: TalkerModes) {
+        // switches modes which controls the buffering of outputs
+        _talkerMode.Mode = reason
+
+        _buffer.append(text)
     }
 
     func sendCompleted() {

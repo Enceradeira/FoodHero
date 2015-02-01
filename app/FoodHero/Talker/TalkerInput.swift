@@ -6,8 +6,11 @@
 import Foundation
 
 class TalkerInput {
+    private let _talkerMode: TalkerMode
 
-    init(_ input: RACSignal) {
+    init(_ input: RACSignal, _ talkerMode: TalkerMode) {
+        _talkerMode = talkerMode
+
         input.subscribeNext {
             object in
             let text = object! as String
@@ -15,18 +18,21 @@ class TalkerInput {
         }
     }
 
-    private var _currConsumer: (String) -> () = {
+    private var _currCallback: (String) -> () = {
         utterance in }
 
 
     private func sendNext(utterance: String) {
-        _currConsumer(utterance)
-        _currConsumer = {
+        _currCallback(utterance)
+        _currCallback = {
             utterance in
         }
     }
 
-    func consumeOne(consumer: (String) -> ()) {
-        _currConsumer = consumer
+    func getNext(callback: (String) -> ()) {
+        // someone wants to consume Input therefore we toggle mode to Input
+        _talkerMode.Mode = TalkerModes.Inputting
+
+        _currCallback = callback
     }
 }

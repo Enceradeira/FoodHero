@@ -20,10 +20,10 @@ class DelayedUtterance: Utterance {
 
     func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         // consume future value from input
-        input.consumeOne {
+        input.getNext {
             utterance in
 
-            output.sendNext(utterance)
+            output.sendNext(utterance, andNotifyMode: TalkerModes.Inputting)
 
             let subScript = Script(self._context)
             self._continuation(response: utterance, script: subScript)

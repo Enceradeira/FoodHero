@@ -38,10 +38,34 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         XCTAssertEqual(hasCompleted, true)
     }
 
-    func test_talk_shouldUtterOnlyOnce_WhenMonolog() {
-        let script = TestScript().say("Hello").say("World")
+    func test_talk_shouldJoinConsecutiveUtterancesTogehter() {
+        let script = TestScript()
+        .say("Good Morning").say("John")
+        .waitResponse(byInvoking: {
+            self.responseIs("Hello")
+        })
+        .say("How are you?").say("Did you sleep well?")
+        .waitResponse(byInvoking: {
+            self.responseIs("I'm fine")
+        })
+        .say("OK").say("Good bye")
 
-        assert(dialog: ["Hello\n\nWorld"], forExecutedScript: script)
+        assert(dialog: [
+                "Good Morning\n\nJohn",
+                "Hello",
+                "How are you?\n\nDid you sleep well?",
+                "I'm fine",
+                "OK\n\nGood bye"], forExecutedScript: script)
+    }
+
+    func test_talk_shouldJoinConsecutiveUtterancesTogehter_WhenWaitingForResponse() {
+        let script = TestScript()
+        .say("Good Morning").say("How are you?")
+        .waitResponse(byInvoking: {
+            // no response during this test
+        })
+
+        assert(utterance:"Good Morning\n\nHow are you?", exists:true, inExecutedScript:script)
     }
 
     func test_talk_shouldListenToReponse() {
@@ -123,8 +147,6 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                 })
         .say("Good bye then")
 
-
-
-        assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it", "Good bye then"], forExecutedScript: script)
+        assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it\n\nGood bye then"], forExecutedScript: script)
     }
 }
