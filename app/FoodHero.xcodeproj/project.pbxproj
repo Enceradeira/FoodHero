@@ -80,6 +80,7 @@
 		235254583F9AFD3B0EC3C581 /* AskUserIfProblemWithAccessLocationServiceResolved.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255B4C6A79A82C35B76C3 /* AskUserIfProblemWithAccessLocationServiceResolved.m */; };
 		2352545FFA395D991C8BEC48 /* SoundPlayerFake.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B9482947F9693E5FA0B /* SoundPlayerFake.m */; };
 		235254651A222EFB85F088E6 /* TextRepositoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BF90CE9EF6425556343 /* TextRepositoryTests.m */; };
+		2352546F0BE25489A3A334AB /* TalkerEngineJoinsConsecutiveUtterancesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352588A95E905AA8DE10CC3 /* TalkerEngineJoinsConsecutiveUtterancesTests.swift */; };
 		23525471E41557698C5419DF /* RestaurantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251900DF93BB71B1E77CA /* RestaurantDetailViewController.m */; };
 		2352547DDBFD70DF2CAD7744 /* simulator_gps_coordinates.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 23525BFD9C17808C4AF9CBCC /* simulator_gps_coordinates.gpx */; };
 		2352548255A26E4E34FCD107 /* FHBecauseUserIsNotAllowedToUseLocationServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352536ED4B9518AB50EF089 /* FHBecauseUserIsNotAllowedToUseLocationServices.m */; };
@@ -261,6 +262,7 @@
 		23525F4595F5BAF0214136C2 /* ConversationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251B83ED57675395C3C84 /* ConversationTests.m */; };
 		23525F554BEC71178F7D2EDD /* SoundPlayerFake.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B9482947F9693E5FA0B /* SoundPlayerFake.m */; };
 		23525F5FC84C5F7D14600E21 /* RatingStarsImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A92BC11AC7FCED48E25 /* RatingStarsImage.m */; };
+		23525F6A26C1662584E75A60 /* TalkerEngineNestedConversationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235257FD2867070665582F54 /* TalkerEngineNestedConversationTests.swift */; };
 		23525F87D71657854824B89B /* NoSpeechInterpretationError.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259C5693453BC115EF146 /* NoSpeechInterpretationError.m */; };
 		23525F8C696F86A86393D677 /* DefaultRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FDDB7D1DE6BEC2C9594 /* DefaultRandomizer.m */; };
 		23525F98BD25BF15E8DEA7EA /* DefaultAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352568D2A237C26E4825DE9 /* DefaultAssembly.m */; };
@@ -558,6 +560,7 @@
 		235257F452F3D98BEB40C034 /* ConversationBubbleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleUser.m; sourceTree = "<group>"; };
 		235257F761C3B4C8D44F9B3F /* RandomizerTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomizerTags.swift; sourceTree = "<group>"; };
 		235257F96D81770B94CB0774 /* AccessibilityHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessibilityHelper.m; sourceTree = "<group>"; };
+		235257FD2867070665582F54 /* TalkerEngineNestedConversationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineNestedConversationTests.swift; sourceTree = "<group>"; };
 		2352580237AED4093A3BF06C /* Script.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		23525805D3B4F38868E93662 /* RestaurantRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepository.h; sourceTree = "<group>"; };
 		2352580BDB1614BBA8F5A7D0 /* UDidResolveProblemWithAccessLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDidResolveProblemWithAccessLocationService.m; sourceTree = "<group>"; };
@@ -573,6 +576,7 @@
 		2352587CB09C20D34E545CD6 /* MissingAudioRecordionPermissonError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingAudioRecordionPermissonError.h; sourceTree = "<group>"; };
 		235258844AFDC45A933EFDDC /* INotebookPageHostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INotebookPageHostViewController.h; sourceTree = "<group>"; };
 		235258892D3D9E931704531B /* GooglePhotoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePhotoTests.m; sourceTree = "<group>"; };
+		2352588A95E905AA8DE10CC3 /* TalkerEngineJoinsConsecutiveUtterancesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineJoinsConsecutiveUtterancesTests.swift; sourceTree = "<group>"; };
 		2352588D56941DE6F99F60F9 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
 		23525899A1997D5440D5159B /* GoogleURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleURL.h; sourceTree = "<group>"; };
 		235258ADF2C939973C179EBA /* RadiusCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusCalculatorTests.m; sourceTree = "<group>"; };
@@ -1042,6 +1046,8 @@
 				235251FC1FD8873B6FE93F00 /* TalkerRandomizerTests.swift */,
 				23525444C72F9DB64862CD81 /* Infrastructure */,
 				2352599F52941A5BB81EEFB3 /* ScriptResourcesTests.swift */,
+				2352588A95E905AA8DE10CC3 /* TalkerEngineJoinsConsecutiveUtterancesTests.swift */,
+				235257FD2867070665582F54 /* TalkerEngineNestedConversationTests.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2296,6 +2302,8 @@
 				23525B630C3AB3DC45BBA7EA /* TalkerRandomizerTests.swift in Sources */,
 				2352557C2061E8BAFF476FA2 /* TalkerRandomizerFake.swift in Sources */,
 				2352562BE11E081D6063FD00 /* ScriptResourcesTests.swift in Sources */,
+				2352546F0BE25489A3A334AB /* TalkerEngineJoinsConsecutiveUtterancesTests.swift in Sources */,
+				23525F6A26C1662584E75A60 /* TalkerEngineNestedConversationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
