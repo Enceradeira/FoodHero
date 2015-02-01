@@ -9,9 +9,10 @@
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "Personas.h"
+#import "ConversationWithTalkerTestsBase.h"
 #import "ExpectedStatement.h"
 
-@implementation ConversationTestsBase {
+@implementation ConversationWithTalkerTestsBase {
 
     NSMutableArray *_expectedStatements;
     RestaurantSearchServiceStub *_restaurantSearchStub;
@@ -29,7 +30,7 @@
 }
 
 - (void)resetConversation {
-    _conversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
+    _conversation = [[ConversationWithTalker alloc] init];
 }
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration {

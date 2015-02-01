@@ -22,13 +22,14 @@
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "FHWarningIfNotInPreferredRange.h"
 #import "FoodHero-Swift.h"
+#import "ConversationWithTalker.h"
 
 
-@interface Conversation ()
+@interface ConversationWithTalker ()
 @property(nonatomic) NSMutableArray *statements;
 @end
 
-@implementation Conversation {
+@implementation ConversationWithTalker {
 
 }
 
@@ -43,8 +44,6 @@
         RACSignal *input = nil;
         TalkerEngine *engine = [[TalkerEngine alloc] init];
         RACSignal *output = [engine execute];
-
-
 
         _statements = [NSMutableArray new];
 
@@ -85,6 +84,8 @@
 }
 
 - (void)addToken:(ConversationToken *)token {
+
+
     id <ConversationAction> action = [token createAction];
     id <IUAction> userAction;
     if ([action conformsToProtocol:@protocol(IUAction)]) {

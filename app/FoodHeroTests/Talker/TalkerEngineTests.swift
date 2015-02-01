@@ -39,7 +39,7 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     func executeScript(script: Script) -> RACSignal {
-        return TalkerEngine(script, _input!).execute()
+        return TalkerEngine(script, input:_input!).execute()
     }
 
     func executeDialogFor(script: Script) -> [String] {

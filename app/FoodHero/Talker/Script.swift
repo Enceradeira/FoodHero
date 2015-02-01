@@ -6,7 +6,7 @@
 import Foundation
 
 
-public class Script {
+public class Script: NSObject {
     private var _utterances: [Utterance] = []
     private let _context: TalkerContext = TalkerContext()
 

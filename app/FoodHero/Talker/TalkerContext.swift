@@ -5,11 +5,7 @@
 
 import Foundation
 
-public struct TalkerContext {
+public class TalkerContext: NSObject {
     public var randomizer: Randomizer = TalkerRandomizer()
     public var resources = ScriptResources(TalkerRandomizer())
-
-    public init(){
-
-    }
 }
