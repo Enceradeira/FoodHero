@@ -23,13 +23,13 @@ public class Script {
     }
 
     public func say(oneOf texts: [String]) -> Script {
-        _utterances.append(ImmediateUtterance(Choices(texts, _context)))
+        _utterances.append(OutputUtterance(Choices(texts, _context)))
         return self
     }
 
     public func waitResponse(byInvoking invocation: () -> (), andContinuingWith continuation: ((response:String, script:Script) -> ())? = {
         r, s in }) -> Script {
-        _utterances.append(DelayedUtterance(invocation, continuation!, _context))
+        _utterances.append(ResponseUtterance(invocation, continuation!, _context))
         return self;
     }
 

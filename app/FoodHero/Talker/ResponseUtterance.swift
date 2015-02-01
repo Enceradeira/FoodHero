@@ -5,7 +5,7 @@
 
 import Foundation
 
-class DelayedUtterance: Utterance {
+class ResponseUtterance: Utterance {
     private let _continuation: (response:String, script:Script) -> () = {
         r, s in }
     private let _invocation: () -> () = {

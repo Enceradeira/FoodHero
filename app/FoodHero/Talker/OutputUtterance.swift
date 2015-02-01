@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ImmediateUtterance: Utterance {
+class OutputUtterance: Utterance {
     private let _texts: Choices
     init(_ texts: Choices) {
         self._texts = texts
