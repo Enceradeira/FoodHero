@@ -7,6 +7,10 @@ module AppPaths
     @app_path ||= File.expand_path 'Applications/FoodHero.app', self.dst_root
   end
 
+  def self.build_path
+    @build_path ||= '~/Library/Developer/Xcode/DerivedData/FoodHero-goqmcyugajoinecnvixklnogussq/Build/Products/Debug-iphonesimulator/FoodHero.app'
+  end
+
   def self.dst_root
     dst_root ||= File.expand_path 'app/Build/Products/Current'
   end

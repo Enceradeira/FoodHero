@@ -11,7 +11,8 @@ caps = {
         #locationServicesAuthorized: false,
         #autoAcceptAlerts: false,
         #noReset: false,
-        app: AppPaths.app_path,
+        # app: AppPaths.app_path,
+        app: AppPaths.build_path # WORKAROUND: FoodHero.app (with swiftcode) is sometimes invalid when copied from above AppPaths.app_path
     },
     appium_lib: {
         sauce_username: nil, # don't run on Sauce
