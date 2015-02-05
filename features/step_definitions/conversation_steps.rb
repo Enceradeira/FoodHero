@@ -133,22 +133,22 @@ Then(/^FoodHero asks what I wished to eat$/) do
 end
 
 And(/^FoodHero asks what to do next$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextCommentAfterSuccess')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextCommentAfterSuccess')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero asks what to do next after failure$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextCommentAfterFailure')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextCommentAfterFailure')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says that nothing was found$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says good bye$/) do
-  bubble, _ = get_last_element_and_parameter('ConversationBubble-FH:GoodBye')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:GoodBye')
   expect(bubble).not_to be_nil
 end
 
@@ -328,10 +328,15 @@ Then(/^I touch the review summary$/) do
 end
 
 Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
+
+  directions = nil
+  wait_true({:timeout => 30, :interval=>0.3}) do
+    directions = find_elements(:xpath,"//UIAStaticText[contains(@name,'miles away') or contains(@name,'yards away')]")
+    directions.count > 0
+  end
+
   # directions
-  directions = find_elements(:xpath,"//UIAStaticText[contains(@name,'miles away') or contains(@name,'yards away')]")
   expect(directions.count).to be(1)
-  # wait_true { text 'Directions' }
   # restaurant name
   restaurant = last_suggestions.last
   restaurant_name = restaurant.split(', ').first
