@@ -6,7 +6,6 @@
 #import "ConversationToken+Protected.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
-#import "ISoundRepository.h"
 
 
 @implementation ConversationToken (Protected)

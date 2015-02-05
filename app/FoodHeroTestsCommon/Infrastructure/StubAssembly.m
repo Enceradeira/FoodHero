@@ -10,7 +10,6 @@
 #import "RandomizerStub.h"
 #import "AlwaysImmediateSchedulerFactory.h"
 #import "TextRepositoryStub.h"
-#import "SoundPlayerFake.h"
 #import "EnvironmentStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "AudioSessionStub.h"
@@ -44,10 +43,6 @@
     return [TyphoonDefinition withClass:[TextRepositoryStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
-}
-
-- (id)soundPlayer {
-    return [TyphoonDefinition withClass:[SoundPlayerFake class]];
 }
 
 - (id)environment {

@@ -35,17 +35,6 @@
 - (id)init {
     self = [super init];
     if (self != nil) {
-
-        TalkerContext *context = [[TalkerContext alloc]init];
-        Script *script = [[Script alloc] init:context];
-        [script say:@"Hello"];
-
-        RACSignal *input = nil;
-        TalkerEngine *engine = [[TalkerEngine alloc] init];
-        RACSignal *output = [engine execute];
-
-
-
         _statements = [NSMutableArray new];
 
         [self addToken:[FHGreeting create]];

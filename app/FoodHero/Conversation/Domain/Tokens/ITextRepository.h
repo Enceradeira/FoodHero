@@ -4,28 +4,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TextAndSound.h"
 
 @protocol ITextRepository <NSObject>
-- (TextAndSound *)getGreeting;
+- (NSString *)getGreeting;
 
-- (TextAndSound *)getFemaleCelebrity;
+- (NSString *)getFemaleCelebrity;
 
-- (TextAndSound *)getMaleCelebrity;
+- (NSString *)getMaleCelebrity;
 
-- (TextAndSound *)getPlace;
+- (NSString *)getPlace;
 
-- (TextAndSound *)getSuggestion;
+- (NSString *)getSuggestion;
 
-- (TextAndSound *)getCelebrity;
+- (NSString *)getCelebrity;
 
-- (TextAndSound *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
+- (NSString *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper;
 
-- (TextAndSound *)getGoodByeAfterSuccess;
+- (NSString *)getGoodByeAfterSuccess;
 
-- (TextAndSound *)getCommentChoice;
+- (NSString *)getCommentChoice;
 
-- (TextAndSound *)getWhatToDoNextComment;
+- (NSString *)getWhatToDoNextComment;
 
-- (TextAndSound *)getOpeningQuestion;
+- (NSString *)getOpeningQuestion;
 @end

@@ -35,46 +35,4 @@
     return [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
 }
 
-- (void)test_FHGreetingShouldPlaySound_WhenTired {
-    [_randomizer injectChoiceForOneText:@"I’m tired.  I need coffee before I can continue."];
-
-    Conversation *conversation = [self createConversation];
-    [conversation.statementIndexes subscribeNext:^(id next) {
-        if ([conversation getStatementCount] == 2) {
-            [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-        }
-    }];
-
-    // while waiting a sound should be played and two statements should have been produced
-    [self XCA_waitForTimeout:30];
-
-    Statement *greeting = [conversation getStatement:0];
-    Statement *openingQuestion = [conversation getStatement:1];
-
-    assertThat(greeting.token.semanticId, is(equalTo(@"FH:Greeting")));
-    assertThat(openingQuestion.token.semanticId, is(equalTo(@"FH:OpeningQuestion")));
-}
-
-- (void)test_FHGreetingShouldPlaySound_WhenListeningToMusic{
-    [_randomizer injectChoiceForOneText:@"Just a moment..."];
-
-    Conversation *conversation = [self createConversation];
-    [conversation.statementIndexes subscribeNext:^(id next) {
-        if ([conversation getStatementCount] == 3) {
-            [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-        }
-    }];
-
-    // while waiting a sound should be played and two statements should have been produced
-    [self XCA_waitForTimeout:30];
-
-    Statement *justAMoment = [conversation getStatement:0];
-    Statement *sorryIWasListening = [conversation getStatement:1];
-    Statement *openingQuestion = [conversation getStatement:2];
-
-    assertThat(justAMoment.token.semanticId, is(equalTo(@"FH:Greeting")));
-    assertThat(sorryIWasListening.token.semanticId, is(equalTo(@"FH:Greeting")));
-    assertThat(openingQuestion.token.semanticId, is(equalTo(@"FH:OpeningQuestion")));
-}
-
 @end

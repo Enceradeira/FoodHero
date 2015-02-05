@@ -8,5 +8,5 @@
 
 
 @interface TextRepositoryStub : NSObject <ITextRepository>
-- (void)injectGreeting:(TextAndSound *)greeting;
+- (void)injectGreeting:(NSString *)greeting;
 @end

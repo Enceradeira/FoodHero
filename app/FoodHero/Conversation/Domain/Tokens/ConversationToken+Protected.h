@@ -6,7 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "ITextRepository.h"
-#import "ISoundRepository.h"
 
 @interface ConversationToken (Protected)
 + (id <ITextRepository>)textRepository;

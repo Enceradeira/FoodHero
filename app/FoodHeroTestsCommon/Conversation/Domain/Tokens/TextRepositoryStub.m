@@ -5,63 +5,55 @@
 
 #import "TextRepositoryStub.h"
 
-TextAndSound *t(NSString *text) {
-    return [TextAndSound create:text];
-}
-
-TextAndSound *ts(NSString *text, Sound *sound) {
-    return [TextAndSound create:text sound:sound];
-}
-
 @implementation TextRepositoryStub {
 
-    TextAndSound *_greeting;
+    NSString *_greeting;
 }
-- (TextAndSound *)getGreeting {
-    return _greeting == nil ? t(@"Hello") : _greeting;
-}
-
-- (TextAndSound *)getFemaleCelebrity {
-    return t(@"Angelina Jolie");
+- (NSString *)getGreeting {
+    return _greeting == nil ? @"Hello" : _greeting;
 }
 
-- (TextAndSound *)getMaleCelebrity {
-    return t(@"Johnny Depp");
+- (NSString *)getFemaleCelebrity {
+    return @"Angelina Jolie";
 }
 
-- (TextAndSound *)getPlace {
-    return t(@"Norwich");
+- (NSString *)getMaleCelebrity {
+    return @"Johnny Depp";
 }
 
-- (TextAndSound *)getSuggestion {
-    return t(@"This is a no brainer.  You should try %@.");
+- (NSString *)getPlace {
+    return @"Norwich";
 }
 
-- (TextAndSound *)getCelebrity {
+- (NSString *)getSuggestion {
+    return @"This is a no brainer.  You should try %@.";
+}
+
+- (NSString *)getCelebrity {
     return [self getMaleCelebrity];
 }
 
-- (TextAndSound *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper {
-    return t(@"If you like it cheaper, the %@ could be your choice");
+- (NSString *)getSuggestionWithConfirmationIfInNewPreferredRangeCheaper {
+    return @"If you like it cheaper, the %@ could be your choice";
 }
 
-- (TextAndSound *)getGoodByeAfterSuccess {
-    return t(@"Behave yourself, now.");
+- (NSString *)getGoodByeAfterSuccess {
+    return @"Behave yourself, now.";
 }
 
-- (TextAndSound *)getCommentChoice {
-    return t(@"Yes!  I got you to do it!");
+- (NSString *)getCommentChoice {
+    return @"Yes!  I got you to do it!";
 }
 
-- (TextAndSound *)getWhatToDoNextComment {
-    return t(@"Anything else?");
+- (NSString *)getWhatToDoNextComment {
+    return @"Anything else?";
 }
 
-- (TextAndSound *)getOpeningQuestion {
-    return t(@"What kind of food would you like to eat?");
+- (NSString *)getOpeningQuestion {
+    return @"What kind of food would you like to eat?";
 }
 
-- (void)injectGreeting:(TextAndSound *)greeting {
+- (void)injectGreeting:(NSString *)greeting {
     _greeting = greeting;
 }
 @end

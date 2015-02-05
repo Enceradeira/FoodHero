@@ -28,13 +28,13 @@
     _repository = [[TextRepository alloc] initWithRandomizer:_randomizer];
 }
 
-- (void)assertCorrectTextsFor:(TextAndSound *(^)())textFactory context:(NSString const *)context {
+- (void)assertCorrectTextsFor:(NSString *(^)())textFactory context:(NSString const *)context {
     [_randomizer configureContext:context];
     do {
-        TextAndSound *text = textFactory();
+        NSString *text = textFactory();
         // NSLog(text.text);
         assertThat(text, is(notNilValue()));
-        assertThatInteger(text.text.length, is(greaterThan(@(0))));
+        assertThatInteger(text.length, is(greaterThan(@(0))));
         // check that all substitutions have take place
         assertThat(text, isNot(containsString(@"%")));
         assertThat(text, isNot(containsString(@"@")));
@@ -42,15 +42,15 @@
 }
 
 
-- (void)assertCorrectTextsWithPlaceholderFor:(TextAndSound *(^)())textFactory context:(NSString const *)context {
+- (void)assertCorrectTextsWithPlaceholderFor:(NSString *(^)())textFactory context:(NSString const *)context {
     [_randomizer configureContext:context];
     do {
-        TextAndSound *text = textFactory();
+        NSString *text = textFactory();
         //NSLog(text,"King's Head");
         assertThat(text, is(notNilValue()));
-        assertThatInteger(text.text.length, is(greaterThan(@(0))));
+        assertThatInteger(text.length, is(greaterThan(@(0))));
         // check that one placeholder for the restaurant is in the string
-        NSUInteger nrPlaceholders = [[text.text componentsSeparatedByString:@"%@"] count] - 1;
+        NSUInteger nrPlaceholders = [[text componentsSeparatedByString:@"%@"] count] - 1;
         assertThatInteger(nrPlaceholders, is(equalTo(@(1))));
     } while ([_randomizer hasMoreForContext]);
 }

@@ -280,11 +280,7 @@
     assertThat(lastSuggestionWarning.class, is(equalTo([FHWarningIfNotInPreferredRangeTooCheap class])));
 }
 
-- (void)test_FHGreeting_ShouldPlaySound_WhenTextIsAssociatedWithSound {
-    Sound *sound = [Sound new];
-    TextAndSound *textAndSound = [TextAndSound create:@"Hello" sound:sound];
-    [self.textRepositoryStub injectGreeting:textAndSound];
-
+- (void)test_resetConversation_ShouldGreetAndAskOpeningQuestion {
     [self resetConversation];
 
     assertThatUnsignedInt([self.conversation getStatementCount], is(equalTo(@(2))));

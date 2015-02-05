@@ -13,7 +13,7 @@
 
 }
 - (instancetype)init {
-    NSString *text = [[self textRepository] getGoodByeAfterSuccess].text;
+    NSString *text = [[self textRepository] getGoodByeAfterSuccess];
     self = [super initWithSemanticId:@"FH:GoodByeAfterSuccess" text:text];
     return self;
 }

@@ -16,8 +16,8 @@
 }
 
 - (instancetype)init {
-    NSString *commentChoice = [(self.textRepository) getCommentChoice].text;
-    NSString *whatToDoNextComment = [(self.textRepository) getWhatToDoNextComment].text;
+    NSString *commentChoice = [(self.textRepository) getCommentChoice];
+    NSString *whatToDoNextComment = [(self.textRepository) getWhatToDoNextComment];
 
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@",commentChoice,whatToDoNextComment];
     return self = [super initWithSemanticId:@"FH:WhatToDoNextCommentAfterSuccess" text:text];

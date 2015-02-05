@@ -35,8 +35,6 @@
 
 - (id)textRepository;
 
-- (id)soundPlayer;
-
 - (id)environment;
 
 - (id)audioSession;

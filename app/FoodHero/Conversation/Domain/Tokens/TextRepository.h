@@ -24,5 +24,5 @@ extern NSString *const ContextSuggestionWithConfirmationIfInNewPreferredRangeChe
 
 - (instancetype)initWithRandomizer:(id <Randomizer>)randomizer;
 
-- (TextAndSound *)getFood;
+- (NSString *)getFood;
 @end

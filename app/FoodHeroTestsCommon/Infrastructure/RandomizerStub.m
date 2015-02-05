@@ -38,10 +38,10 @@
     }
 }
 
-- (TextAndSound *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
+- (NSString *)chooseOneTextFor:(NSString const *)context texts:(NSArray *)texts {
     if (_choiseForOneText != nil) {
-        TextAndSound *choice = [[texts linq_where:^(TextAndSound *textAndSound) {
-            return [textAndSound.text isEqualToString:_choiseForOneText];
+        NSString *choice = [[texts linq_where:^(NSString *text) {
+            return [text isEqualToString:_choiseForOneText];
         }] linq_firstOrNil];
         return choice ? choice : texts[0];
     }

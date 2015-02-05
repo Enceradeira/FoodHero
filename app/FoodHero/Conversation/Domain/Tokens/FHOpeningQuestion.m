@@ -13,7 +13,7 @@
 }
 
 + (FHOpeningQuestion *)create {
-    NSString *text = [[self textRepository] getOpeningQuestion].text;
+    NSString *text = [[self textRepository] getOpeningQuestion];
     return [[FHOpeningQuestion alloc] initWithSemanticId:@"FH:OpeningQuestion" text:text];
 }
 

@@ -23,7 +23,7 @@
 }
 
 - (NSString *)getText {
-    return [self.textRepository getSuggestion].text;
+    return [self.textRepository getSuggestion];
 }
 
 - (id <ConversationAction>)createAction{

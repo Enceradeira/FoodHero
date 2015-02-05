@@ -10,7 +10,7 @@
 
 
 @interface FHGreeting : ConversationToken
-- (instancetype)initWithSemanticIdAndText:(NSString *const)semanticId text:(TextAndSound *)textAndSound;
+- (instancetype)initWithSemanticIdAndText:(NSString *const)semanticId text:(NSString *)text;
 
 + (instancetype)create;
 @end

@@ -16,7 +16,6 @@
 #import "DefaultRandomizer.h"
 #import "DefaultSchedulerFactory.h"
 #import "TextRepository.h"
-#import "SoundPlayer.h"
 #import "RestaurantDetailViewController.h"
 #import "Environment.h"
 #import "WitSpeechRecognitionService.h"
@@ -141,14 +140,9 @@
                           }];
 }
 
-- (id)soundPlayer {
-    return [TyphoonDefinition withClass:[SoundPlayer class]];
-}
-
 - (id)environment {
     return [TyphoonDefinition withClass:[Environment class]];
 }
-
 
 - (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
