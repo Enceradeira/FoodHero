@@ -58,7 +58,7 @@
 - (void)test_addUserCuisinePreference_ShouldAddUCuisinePreferenceToConversation {
     [_service addUserText:@"I whished to eat Korean food" forInputAction:[AskUserCuisinePreferenceAction new]];
 
-    ConversationBubble *bubble = [self waitStatementWithIndex:2];
+    ConversationBubble *bubble = [self waitStatementWithIndex:1];
 
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=Korean")));
@@ -67,10 +67,10 @@
 
 - (void)test_addUserSuggestionFeedback_ShouldAddUSuggestionFeedbackToConversation {
     [_service addUserText:@"I wished to eat Indian food" forInputAction:[AskUserCuisinePreferenceAction new]];
-    [self waitStatementWithIndex:3];
+    [self waitStatementWithIndex:2];
 
     [_service addUserText:@"It's too far away" forInputAction:[AskUserSuggestionFeedbackAction new]];
-    ConversationBubble *bubble = [self waitStatementWithIndex:4];
+    ConversationBubble *bubble = [self waitStatementWithIndex:3];
 
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:SuggestionFeedback=tooFarAway")));

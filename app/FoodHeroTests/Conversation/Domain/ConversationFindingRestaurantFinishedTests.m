@@ -28,39 +28,39 @@
     [super setUp];
     _restaurant = [[RestaurantBuilder alloc] build];
 
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
 }
 
 - (void)test_USuggestionFeedbackForLiking_ShouldAskUserWhatToDoNext {
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
 
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" userAction:[AskUserWhatToDoNextAction class]];
 }
 
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
 
-    [self.conversation addToken:[UGoodBye create:@"Bye, Bye"]];
+    [self.conversation addFHToken:[UGoodBye create:@"Bye, Bye"]];
     [self assertSecondLastStatementIs:@"U:GoodBye" userAction:nil];
     [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" userAction:[AskUserWhatToDoAfterGoodByeAction class]];
 
-    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant create:@"Search again, please"]];
+    [self.conversation addFHToken:[UWantsToSearchForAnotherRestaurant create:@"Search again, please"]];
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 
-    [self.conversation addToken:[UCuisinePreference create:@"norwegian food" text:@"norwegian food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"norwegian food" text:@"norwegian food"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
-    [self.conversation addToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
-    [self.conversation addToken:[UWantsToSearchForAnotherRestaurant create:@"Again please"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForLiking create:_restaurant text:@"I like it"]];
+    [self.conversation addFHToken:[UWantsToSearchForAnotherRestaurant create:@"Again please"]];
 
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" userAction:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" userAction:[AskUserCuisinePreferenceAction class]];
 
-    [self.conversation addToken:[UCuisinePreference create:@"norwegian food" text:@"norwegian food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"norwegian food" text:@"norwegian food"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 

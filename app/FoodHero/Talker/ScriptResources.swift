@@ -5,11 +5,11 @@
 
 import Foundation
 
-public class ScriptResources {
+public class ScriptResources: NSObject {
     var _parameters = [String: Array < String>]()
-    let _randomizer: Randomizer
+    let _randomizer: IRandomizer
 
-    public init(_ randomizer: Randomizer) {
+    public init(randomizer: IRandomizer) {
         _randomizer = randomizer
     }
 
@@ -29,7 +29,7 @@ public class ScriptResources {
             let matchedString = (text as NSString).substringWithRange(NSMakeRange(match.range.location + 1, match.range.length - 2))
             let values = _parameters[matchedString]
             assert(values != nil, "ScriptResources don't contain values for parameter '\(matchedString)'")
-            let resolvedString = _randomizer.chooseOne(from: values!, forTag: RandomizerTags.TextParameters)
+            let resolvedString = _randomizer.chooseOne(from: values!, forTag: RandomizerTagsTextParameters)
             let replaceRegex = NSRegularExpression(pattern: "\\{\(matchedString)\\}", options: .CaseInsensitive, error: nil)!
             result = replaceRegex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, countElements(result)), withTemplate: resolvedString)
         }

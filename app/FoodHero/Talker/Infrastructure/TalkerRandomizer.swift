@@ -5,12 +5,8 @@
 
 import Foundation
 
-public class TalkerRandomizer: Randomizer {
-
-    public init() {
-    }
-
-    public func chooseOne(from choices: [String], forTag tag: RandomizerTags) -> String {
+public class TalkerRandomizer: NSObject, IRandomizer {
+    public func chooseOne(from choices: [String], forTag tag: String) -> String {
         precondition(choices.count > 0, "choises is empty")
 
         let randomIndex = (arc4random() % UInt32(choices.count))

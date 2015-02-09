@@ -11,7 +11,7 @@
 
 
 @protocol ConversationSource <NSObject>
-- (void)addToken:(ConversationToken *)token;
+- (void)addFHToken:(ConversationToken *)token;
 
 - (NSArray *)negativeUserFeedback;
 

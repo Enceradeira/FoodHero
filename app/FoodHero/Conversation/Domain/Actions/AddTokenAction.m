@@ -24,7 +24,7 @@
 }
 
 - (void)execute:(id <ConversationSource>)conversationSource {
-    [conversationSource addToken:_token];
+    [conversationSource addFHToken:_token];
 }
 
 

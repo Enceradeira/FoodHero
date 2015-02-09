@@ -25,20 +25,20 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHSuggestion_WhenProblemIsResolvedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 }
@@ -48,13 +48,13 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     // user changes location and finds something
     [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
 }
@@ -63,12 +63,12 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
 
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 }
@@ -77,13 +77,13 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
 
-    [self.conversation addToken:[UWantsToAbort new]];
+    [self.conversation addFHToken:[UWantsToAbort new]];
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" userAction:AskUserWhatToDoNextAction.class];
 }
 

@@ -5,7 +5,12 @@
 
 import Foundation
 
+
+public let RandomizerTagsTexts = "Texts"
+public let RandomizerTagsTextParameters = "TextParameters"
+
+/*
 public enum RandomizerTags {
     case Texts
     case TextParameters
-}
+} */

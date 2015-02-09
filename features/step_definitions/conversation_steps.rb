@@ -121,9 +121,7 @@ Given(/^FoodHero is very slow in responding$/) do
 end
 
 Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting')
-  expect(bubble).not_to be_nil
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:OpeningQuestion')
+  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting;FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 

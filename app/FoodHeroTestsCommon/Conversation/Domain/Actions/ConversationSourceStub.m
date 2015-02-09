@@ -28,7 +28,7 @@
     return self;
 }
 
-- (void)addToken:(ConversationToken *)token {
+- (void)addFHToken:(ConversationToken *)token {
 
 }
 

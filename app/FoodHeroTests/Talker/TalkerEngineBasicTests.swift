@@ -14,6 +14,32 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         assert(dialog: ["Hello"], forExecutedScript: script)
     }
 
+    func test_talk_shouldYieldCustomData_WhenAssociatedWithUtterance() {
+        var utterance: TalkerUtterance? = nil
+        let script = TestScript().say("Hello", withCustomData: "Context-Greeting")
+
+        executeScript(script).subscribeNext {
+            object in
+            utterance = object as? TalkerUtterance
+        }
+
+        let customData = utterance!.customData
+        XCTAssertEqual(customData.count, 1)
+        XCTAssertEqual(customData[0] as String, "Context-Greeting")
+    }
+
+    func test_talk_shouldYieldEmptyArrayAsCustomData_WhenNoCustomDataIsAssociatedatedWithUtterance() {
+        var utterance: TalkerUtterance? = nil
+        let script = TestScript().say("Hello")
+
+        executeScript(script).subscribeNext {
+            object in
+            utterance = object as? TalkerUtterance
+        }
+
+        XCTAssertEqual(utterance!.customData.count, 0)
+    }
+
     func test_talk_shouldRepeat_WhenScriptExecutedTwice() {
         let script = TestScript().say("Hello")
 

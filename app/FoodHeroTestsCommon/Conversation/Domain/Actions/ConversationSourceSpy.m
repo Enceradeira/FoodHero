@@ -20,7 +20,7 @@
     return self;
 }
 
-- (void)addToken:(ConversationToken *)token {
+- (void)addFHToken:(ConversationToken *)token {
     [_tokens addObject:token];
 }
 

@@ -12,17 +12,10 @@ public class TalkerEngine: NSObject {
     private let _script: Script
     private let _input: RACSignal
 
-    public init(_ script: Script, input input: RACSignal) {
+    public init(script: Script, input input: RACSignal) {
         self._script = script
         self._input = input
     }
-
-    public override init() {
-        self._script = Script(TalkerContext())
-        self._input = RACSignal.empty()
-        super.init()
-    }
-
 
     public func execute() -> RACSignal {
         return RACSignal.createSignal {

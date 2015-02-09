@@ -26,7 +26,7 @@
 
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
@@ -36,14 +36,14 @@
         return [service injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
     }];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" userAction:nil];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
     CLLocation *location = [CLLocation new];
-    [self.conversation addToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:location text:nil]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:location text:nil]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" userAction:nil];
 }
@@ -55,7 +55,7 @@
         return [service injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
     }];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" userAction:nil];
 }

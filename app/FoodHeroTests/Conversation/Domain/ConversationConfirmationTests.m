@@ -26,13 +26,13 @@
 
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
     [super assertLastStatementIs:@"FH:Confirmation" userAction:nil];
 }

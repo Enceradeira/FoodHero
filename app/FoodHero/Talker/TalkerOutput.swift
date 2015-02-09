@@ -8,7 +8,7 @@ import Foundation
 class TalkerOutput: TalkerModeChangedDelegate {
     private let _talkerMode: TalkerMode
     private let _output: RACSubscriber
-    private var _buffer = [String]()
+    private var _buffer = [TalkerUtterance]()
 
     init(_ output: RACSubscriber, _ talkerMode: TalkerMode) {
         _output = output
@@ -18,17 +18,19 @@ class TalkerOutput: TalkerModeChangedDelegate {
 
     func modeDidChange(newMode: TalkerModes) {
         if (_buffer.count > 0) {
-            let text = "\n\n".join(_buffer)
+            // let text = "\n\n".join(_buffer)
+            let utterance = _buffer.reduce(TalkerUtterance(), { $0.concat($1) })
+
             _buffer.removeAll()
-            _output.sendNext(text)
+            _output.sendNext(utterance)
         }
     }
 
-    func sendNext(text: String, andNotifyMode reason: TalkerModes) {
+    func sendNext(utterance: TalkerUtterance, andNotifyMode reason: TalkerModes) {
         // switches modes which controls the buffering of outputs
         _talkerMode.Mode = reason
 
-        _buffer.append(text)
+        _buffer.append(utterance)
     }
 
     func sendCompleted() {

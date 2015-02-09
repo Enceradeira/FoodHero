@@ -10,7 +10,6 @@
 #import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
-#import "FHGreeting.h"
 #import "FHOpeningQuestion.h"
 #import "FHAction.h"
 #import "USuggestionNegativeFeedback.h"
@@ -22,6 +21,7 @@
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "FHWarningIfNotInPreferredRange.h"
 #import "FoodHero-Swift.h"
+#import "AskUserCuisinePreferenceAction.h"
 
 
 @interface Conversation ()
@@ -30,14 +30,40 @@
 
 @implementation Conversation {
 
+    RACSubject *_input;
 }
 
 - (id)init {
     self = [super init];
     if (self != nil) {
         _statements = [NSMutableArray new];
+        _input = [RACSubject new];
 
-        [self addToken:[FHGreeting create]];
+        id <IRandomizer> randomizer = [TalkerRandomizer new];
+        ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
+        TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
+        ConversationScript *script = [[ConversationScript alloc] initWithContext:context];
+
+        TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
+
+        RACSignal *output = [engine execute];
+        [output subscribeNext:^(TalkerUtterance *utterance) {
+            NSArray *semanticIds = [utterance customData];
+            NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
+            NSString *text = utterance.utterance;
+
+            ConversationToken *token = [[ConversationToken alloc] initWithSemanticId:semanticIdString text:text];
+
+            id <IUAction> uiAction = nil;
+            if ([semanticIdString rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
+                  uiAction = [AskUserCuisinePreferenceAction new];
+            }
+
+            [self addStatement:token inputAction:uiAction];
+        }];
+
+
+        // [self addFHToken:[FHGreeting create]];
     }
     return self;
 }
@@ -73,7 +99,11 @@
     return _statements[index];
 }
 
-- (void)addToken:(ConversationToken *)token {
+- (void)addFHToken:(ConversationToken *)token {
+    //[_input sendNext:token.text];
+
+
+
     id <ConversationAction> action = [token createAction];
     id <IUAction> userAction;
     if ([action conformsToProtocol:@protocol(IUAction)]) {

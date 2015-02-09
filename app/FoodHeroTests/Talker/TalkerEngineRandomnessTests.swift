@@ -14,7 +14,7 @@ class TalkerEngineRandomnessTests: TalkerEngineTests {
         let script = TestScript().say(oneOf: choices)
 
         for i in 0 ... choices.count - 1 {
-            randomizerWillChoose(forTag: RandomizerTags.Texts, index: i)
+            randomizerWillChoose(forTag: RandomizerTagsTexts, index: i)
             assert(dialog: [choices[i]], forExecutedScript: script)
         }
     }
@@ -24,10 +24,10 @@ class TalkerEngineRandomnessTests: TalkerEngineTests {
 
         let script = TestScript(resources).say("Do you like {food} food?")
 
-        randomizerWillChoose(forTag: RandomizerTags.TextParameters, index: 0)
+        randomizerWillChoose(forTag: RandomizerTagsTextParameters, index: 0)
         assert(dialog: ["Do you like Indian food?"], forExecutedScript: script)
 
-        randomizerWillChoose(forTag: RandomizerTags.TextParameters, index: 1)
+        randomizerWillChoose(forTag: RandomizerTagsTextParameters, index: 1)
         assert(dialog: ["Do you like Chinese food?"], forExecutedScript: script)
     }
 }

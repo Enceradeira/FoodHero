@@ -151,7 +151,7 @@ ConversationAppServiceTests {
 - (void)test_getThirdStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
     [self addRecognizedUserTextForCuisinePreference:@"I like British food" entities:@[@"British"]];
 
-    ConversationBubble *bubble = [self getBubble:2];
+    ConversationBubble *bubble = [self getBubble:1];
 
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=British")));

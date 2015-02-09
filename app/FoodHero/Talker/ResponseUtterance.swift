@@ -10,7 +10,7 @@ class ResponseUtterance: Utterance {
         r, s in }
     private let _invocation: () -> () = {
     }
-    private let _context = TalkerContext()
+    private let _context: TalkerContext
 
     init(_ invocation: () -> (), _ continuation: (response:String, script:Script) -> (), _ context: TalkerContext) {
         _invocation = invocation
@@ -23,9 +23,9 @@ class ResponseUtterance: Utterance {
         input.getNext {
             utterance in
 
-            output.sendNext(utterance, andNotifyMode: TalkerModes.Inputting)
+            output.sendNext(TalkerUtterance(utterance: utterance), andNotifyMode: TalkerModes.Inputting)
 
-            let subScript = Script(self._context)
+            let subScript = Script(context: self._context)
             self._continuation(response: utterance, script: subScript)
             Sequence.execute(subScript, input, output, continuation);
         }

@@ -49,7 +49,7 @@
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
             ConversationToken *userInput = [UCuisinePreference create:interpretation.entities[0] text:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
     }];
 }
@@ -59,23 +59,23 @@
         Restaurant *restaurant = [self getLastSuggestedRestaurant];
         if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooFarAway"]) {
             ConversationToken *userInput = [USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_locationService.lastKnownLocation text:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
         else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooExpensive"]) {
             ConversationToken *userInput = [USuggestionFeedbackForTooExpensive create:restaurant text:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
         else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooCheap"]) {
             ConversationToken *userInput = [USuggestionFeedbackForTooCheap create:restaurant text:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
         else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Dislike"]) {
             ConversationToken *userInput = [USuggestionFeedbackForNotLikingAtAll create:restaurant text:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
         else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Like"]) {
             ConversationToken *userInput = [USuggestionFeedbackForLiking create:restaurant text:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
     }];
 }
@@ -84,11 +84,11 @@
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"goodBye"]) {
             ConversationToken *userInput = [UGoodBye create:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
         else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
             ConversationToken *userInput = [UWantsToSearchForAnotherRestaurant create:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
     }];
 }
@@ -97,11 +97,11 @@
     [signal subscribeNext:^(SpeechInterpretation *interpretation) {
         if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
             ConversationToken *userInput = [UTryAgainNow create:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
         else if ([interpretation.intent isEqualToString:@"abort"]) {
             ConversationToken *userInput = [UWantsToAbort create:interpretation.text];
-            [_conversation addToken:userInput];
+            [_conversation addFHToken:userInput];
         }
     }];
 }
@@ -121,12 +121,12 @@
 
 - (void)addUserSolvedProblemWithAccessLocationService:(NSString *)string {
     ConversationToken *userInput = [UDidResolveProblemWithAccessLocationService create:string];
-    [self.conversation addToken:userInput];
+    [self.conversation addFHToken:userInput];
 }
 
 - (void)addAnswerAfterForWhatToAfterGoodBye:(NSString *)string {
     ConversationToken *userInput = [UWantsToSearchForAnotherRestaurant create:string];
-    [self.conversation addToken:userInput];
+    [self.conversation addFHToken:userInput];
 }
 
 

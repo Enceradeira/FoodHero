@@ -7,13 +7,15 @@ import Foundation
 
 class OutputUtterance: Utterance {
     private let _texts: Choices
-    init(_ texts: Choices) {
-        self._texts = texts
+    private let _customData: AnyObject?
+    init(_ texts: Choices, _ customData: AnyObject?) {
+        _texts = texts
+        _customData = customData;
     }
 
     func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         let text = self._texts.getOne()
-        output.sendNext(text, andNotifyMode: TalkerModes.Outputting)
+        output.sendNext(TalkerUtterance(utterance: text, customData: _customData), andNotifyMode: TalkerModes.Outputting)
         continuation()
     }
 }

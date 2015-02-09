@@ -55,16 +55,16 @@
             deliverOn:_schedulerFactory.mainThreadScheduler];
     [bestRestaurant subscribeError:^(NSError *error) {
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
-            [conversation addToken:[FHBecauseUserDeniedAccessToLocationServices create]];
+            [conversation addFHToken:[FHBecauseUserDeniedAccessToLocationServices create]];
         }
         else if (error.class == [LocationServiceAuthorizationStatusRestrictedError class]) {
-            [conversation addToken:[FHBecauseUserIsNotAllowedToUseLocationServices create]];
+            [conversation addFHToken:[FHBecauseUserIsNotAllowedToUseLocationServices create]];
         }
         else if (error.class == [NoRestaurantsFoundError class]) {
-            [conversation addToken:[FHNoRestaurantsFound create]];
+            [conversation addFHToken:[FHNoRestaurantsFound create]];
         }
         else if (error.class == [SearchError class]) {
-            [conversation addToken:[FHNoRestaurantsFound create]];
+            [conversation addFHToken:[FHNoRestaurantsFound create]];
         }
     }];
     [bestRestaurant subscribeNext:^(id next) {
@@ -80,17 +80,17 @@
             ConversationToken *lastSuggestionWarning = conversation.lastSuggestionWarning;
             PriceRange *priceRange = searchPreference.priceRange;
             if (priceRange.min > restaurant.priceLevel && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooCheap class]]) {
-                [conversation addToken:[FHWarningIfNotInPreferredRangeTooCheap create]];
-                [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
+                [conversation addFHToken:[FHWarningIfNotInPreferredRangeTooCheap create]];
+                [conversation addFHToken:[FHSuggestionAfterWarning create:restaurant]];
             }
             else if (priceRange.max < restaurant.priceLevel && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooExpensive class]]) {
-                [conversation addToken:[FHWarningIfNotInPreferredRangeTooExpensive create]];
-                [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
+                [conversation addFHToken:[FHWarningIfNotInPreferredRangeTooExpensive create]];
+                [conversation addFHToken:[FHSuggestionAfterWarning create:restaurant]];
             }
             else if (searchPreference.distanceRange.max < [restaurant.location distanceFromLocation:_locationService.lastKnownLocation]
                     && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooFarAway class]]) {
-                [conversation addToken:[FHWarningIfNotInPreferredRangeTooFarAway create]];
-                [conversation addToken:[FHSuggestionAfterWarning create:restaurant]];
+                [conversation addFHToken:[FHWarningIfNotInPreferredRangeTooFarAway create]];
+                [conversation addFHToken:[FHSuggestionAfterWarning create:restaurant]];
             }
             else {
                 NSMutableArray *tagAndSymbols = [NSMutableArray new];
@@ -103,20 +103,20 @@
                 }
 
                 ConversationToken *chosenToken = [_tokenRandomizer chooseOneToken:tagAndSymbols];
-                [conversation addToken:chosenToken];
+                [conversation addFHToken:chosenToken];
 
                 if (chosenToken == fhSuggestionAsFollowUp && [lastFeedback foodHeroConfirmationToken] != nil) {
                     [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^() {
-                        [conversation addToken:[lastFeedback foodHeroConfirmationToken]];
+                        [conversation addFHToken:[lastFeedback foodHeroConfirmationToken]];
                     }];
                 }
                 else if (chosenToken == fhSuggestionWithComment) {
-                    [conversation addToken:[FHConfirmation create]];
+                    [conversation addFHToken:[FHConfirmation create]];
                 }
             }
         }
         else {
-            [conversation addToken:[FHSuggestion create:restaurant]];
+            [conversation addFHToken:[FHSuggestion create:restaurant]];
         }
 
     }];

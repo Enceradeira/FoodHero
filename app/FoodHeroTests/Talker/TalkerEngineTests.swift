@@ -22,16 +22,14 @@ public class TalkerEngineTests: XCTestCase {
         _randomizer = TalkerRandomizerFake()
     }
 
-
     func TestScript(_ resources: ScriptResources? = nil) -> Script {
-        var context = TalkerContext()
-        context.randomizer = _randomizer!
-        context.resources = resources ?? ScriptResources(_randomizer!)
-        return Script(context)
+        let resolvedResources = resources ?? ScriptResources(randomizer: _randomizer!)
+        var context = TalkerContext(randomizer: _randomizer!, resources: resolvedResources)
+        return Script(context: context)
     }
 
     func TestScriptResources() -> ScriptResources {
-        return ScriptResources(_randomizer!)
+        return ScriptResources(randomizer: _randomizer!)
     }
 
     func responseIs(text: String) {
@@ -39,7 +37,7 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     func executeScript(script: Script) -> RACSignal {
-        return TalkerEngine(script, input:_input!).execute()
+        return TalkerEngine(script: script, input: _input!).execute()
     }
 
     func executeDialogFor(script: Script) -> [String] {
@@ -56,8 +54,8 @@ public class TalkerEngineTests: XCTestCase {
         var actualPosition: Int? = nil
 
         dialog.map {
-            (text: AnyObject?) in
-            return GenericWrapper(text: (text! as String), position: positionCount++)
+            (utterance: AnyObject?) in
+            return GenericWrapper(text: (utterance! as TalkerUtterance).utterance, position: positionCount++)
         }.filter {
             (object: AnyObject?) in
             let tuple = (object as GenericWrapper<(text:String, position:Int)>)
@@ -97,7 +95,7 @@ public class TalkerEngineTests: XCTestCase {
         let dialog = executeScript(script)
         dialog.subscribeNext({
             (object: AnyObject?) in
-            let utterance = object! as String
+            let utterance = (object! as TalkerUtterance).utterance
             NSLog("Utterance: \(utterance)")
             utterances.append(utterance)
         },
@@ -127,7 +125,7 @@ public class TalkerEngineTests: XCTestCase {
         }
     }
 
-    func randomizerWillChoose(forTag tag: RandomizerTags, index: Int) {
+    func randomizerWillChoose(forTag tag: String, index: Int) {
         _randomizer!.willChoose(forTag: tag, index: index)
     }
 

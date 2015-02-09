@@ -8,9 +8,9 @@ import Foundation
 
 public class Script: NSObject {
     private var _utterances: [Utterance] = []
-    private let _context: TalkerContext = TalkerContext()
+    private let _context: TalkerContext
 
-    public init(_ context: TalkerContext) {
+    public init(context: TalkerContext) {
         _context = context;
     }
 
@@ -18,12 +18,12 @@ public class Script: NSObject {
         return _utterances
     }
 
-    public func say(text: String) -> Script {
-        return say(oneOf: [text])
+    public func say(text: String, withCustomData customData: AnyObject? = nil) -> Script {
+        return say(oneOf: [text], withCustomData: customData)
     }
 
-    public func say(oneOf texts: [String]) -> Script {
-        _utterances.append(OutputUtterance(Choices(texts, _context)))
+    public func say(oneOf texts: [String], withCustomData customData: AnyObject? = nil) -> Script {
+        _utterances.append(OutputUtterance(Choices(texts, _context),customData))
         return self
     }
 

@@ -32,7 +32,7 @@ class Choices: NSObject {
 
     func getOne() -> String {
         let texts = collectConcatenation(self).map {
-            choices in self._context.resources.resolve(self._context.randomizer.chooseOne(from: choices._texts, forTag: RandomizerTags.Texts))
+            choices in self._context.resources.resolve(self._context.randomizer.chooseOne(from: choices._texts, forTag: RandomizerTagsTexts))
         }
         return "\n\n".join(texts)
     }

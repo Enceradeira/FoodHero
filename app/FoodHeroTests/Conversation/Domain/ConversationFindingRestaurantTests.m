@@ -22,13 +22,13 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" userAction:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
@@ -38,9 +38,9 @@
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
-    [self.conversation addToken:[UTryAgainNow new]];
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 
     // Problem with kCLAuthorizationStatusRestricted repeats
@@ -48,13 +48,13 @@
         [stub injectFindSomething];
     }];
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self.conversation addToken:[UTryAgainNow new]];   // tries again but not no authorization present
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];   // tries again but not no authorization present
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     // Problem with kCLAuthorizationStatusRestricted repeats
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     // Problem no restaurant found again
@@ -62,14 +62,14 @@
     [self configureRestaurantSearchForLatitude:-56 longitude:10 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 
     // Problems finally solved
     [self configureRestaurantSearchForLatitude:-10 longitude:0 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
@@ -77,47 +77,47 @@
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 
-    [self.conversation addToken:[UCuisinePreference create:@"Test" text:@"Test"]];
+    [self.conversation addFHToken:[UCuisinePreference create:@"Test" text:@"Test"]];
 
     [self configureRestaurantSearchForLatitude:12 longitude:44 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
 
     [self configureRestaurantSearchForLatitude:22 longitude:1 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self configureRestaurantSearchForLatitude:25 longitude:-12 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
     [self configureRestaurantSearchForLatitude:-42 longitude:0 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
 
-    [self.conversation addToken:[UTryAgainNow new]];
+    [self.conversation addFHToken:[UTryAgainNow new]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 
-    [self.conversation addToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
+    [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
 }
 
