@@ -13,8 +13,8 @@ class TalkerInput {
 
         input.subscribeNext {
             object in
-            let text = object! as String
-            self.sendNext(text)
+            let utterance = object! as TalkerUtterance
+            self.sendNext(utterance)
         }
     }
 
@@ -22,8 +22,8 @@ class TalkerInput {
         utterance in }
 
 
-    private func sendNext(utterance: String) {
-        _currCallback(utterance)
+    private func sendNext(utterance: TalkerUtterance) {
+        _currCallback(utterance.utterance)
         _currCallback = {
             utterance in
         }

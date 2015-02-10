@@ -12,11 +12,11 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
         let script = TestScript()
         .say("Good Morning").say("John")
         .waitResponse(byInvoking: {
-            self.responseIs("Hello")
+            self.inputIs("Hello")
         })
         .say("How are you?").say("Did you sleep well?")
         .waitResponse(byInvoking: {
-            self.responseIs("I'm fine")
+            self.inputIs("I'm fine")
         })
         .say("OK").say("Good bye")
 

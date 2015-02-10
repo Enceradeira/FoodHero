@@ -68,7 +68,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         let script = TestScript()
         .say("How are you?")
         .waitResponse(byInvoking: {
-            self.responseIs("Good")
+            self.inputIs("Good")
         })
 
         assert(dialog: ["How are you?", "Good"], forExecutedScript: script)
@@ -78,7 +78,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         let script = TestScript()
         .say("How are you?")
         .waitResponse(byInvoking: {
-            self.responseIs("Good, and you?")
+            self.inputIs("Good, and you?")
         })
         .say("I'm fine, thanks!")
 

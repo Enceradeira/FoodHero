@@ -12,7 +12,7 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         let script = TestScript()
         .say("How are you?")
         .waitResponse(byInvoking: {
-            self.responseIs("Good")
+            self.inputIs("Good")
         },
                 andContinuingWith: {
                     response, script in
@@ -30,7 +30,7 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         let script = TestScript()
         .say("How are you?")
         .waitResponse(byInvoking: {
-            self.responseIs("*##!!")
+            self.inputIs("*##!!")
         },
                 andContinuingWith: {
                     response, script in
@@ -47,14 +47,14 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
     func test_talk_shouldHandleNestedResponses() {
         let script = TestScript()
         .waitResponse(byInvoking: {
-            self.responseIs("*##!!")
+            self.inputIs("*##!!")
         },
                 andContinuingWith: {
                     _, script in
                     script
                     .say("What?")
                     .waitResponse(byInvoking: {
-                        self.responseIs("I mean hello")
+                        self.inputIs("I mean hello")
                     },
                             andContinuingWith: {
                                 _, script in

@@ -32,8 +32,8 @@ public class TalkerEngineTests: XCTestCase {
         return ScriptResources(randomizer: _randomizer!)
     }
 
-    func responseIs(text: String) {
-        _input!.sendNext(text)
+    func inputIs(text: String) {
+        _input!.sendNext(TalkerUtterance(utterance:text))
     }
 
     func executeScript(script: Script) -> RACSignal {
