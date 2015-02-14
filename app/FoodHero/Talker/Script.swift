@@ -23,13 +23,13 @@ public class Script: NSObject {
     }
 
     public func say(oneOf texts: [String], withCustomData customData: AnyObject? = nil) -> Script {
-        _utterances.append(OutputUtterance(Choices(texts, _context),customData))
+        _utterances.append(OutputUtterance(Choices(texts, _context), customData))
         return self
     }
 
-    public func waitResponse(byInvoking invocation: () -> (), andContinuingWith continuation: ((response:String, script:Script) -> ())? = {
+    public func waitResponse(andContinueWith continuation: ((response:String, script:Script) -> ())? = {
         r, s in }) -> Script {
-        _utterances.append(ResponseUtterance(invocation, continuation!, _context))
+        _utterances.append(ResponseUtterance(continuation!, _context))
         return self;
     }
 

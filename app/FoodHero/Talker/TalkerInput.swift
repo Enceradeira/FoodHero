@@ -23,16 +23,20 @@ class TalkerInput {
 
 
     private func sendNext(utterance: TalkerUtterance) {
-        _currCallback(utterance.utterance)
+        let callback = _currCallback
+        
+        // reset _currCallback before calling it because calling the callback might trigger a new _currCallback being installed!
         _currCallback = {
             utterance in
         }
+        
+        callback(utterance.utterance)
     }
 
     func getNext(callback: (String) -> ()) {
+        _currCallback = callback
+        
         // someone wants to consume Input therefore we toggle mode to Input
         _talkerMode.Mode = TalkerModes.Inputting
-
-        _currCallback = callback
     }
 }

@@ -11,29 +11,34 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
     func test_talk_shouldJoinConsecutiveUtterancesTogehter() {
         let script = TestScript()
         .say("Good Morning").say("John")
-        .waitResponse(byInvoking: {
-            self.inputIs("Hello")
-        })
+        .waitResponse()
         .say("How are you?").say("Did you sleep well?")
-        .waitResponse(byInvoking: {
-            self.inputIs("I'm fine")
-        })
+        .waitResponse()
         .say("OK").say("Good bye")
 
         assert(dialog: [
                 "Good Morning\n\nJohn",
                 "Hello",
                 "How are you?\n\nDid you sleep well?",
-                "I'm fine",
-                "OK\n\nGood bye"], forExecutedScript: script)
+                "Yes I did",
+                "OK\n\nGood bye"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    switch $0 {
+                    case "Good Morning\n\nJohn":
+                        return "Hello"
+                    case "How are you?\n\nDid you sleep well?":
+                        return "Yes I did"
+                    default:
+                        return nil;
+                    }
+                })
     }
 
     func test_talk_shouldJoinConsecutiveUtterancesTogehterBeforeWaitingForResponse() {
         let script = TestScript()
         .say("Good Morning").say("How are you?")
-        .waitResponse(byInvoking: {
-            // no response during this test
-        })
+        .waitResponse()
 
         assert(utterance: "Good Morning\n\nHow are you?", exists: true, inExecutedScript: script)
     }

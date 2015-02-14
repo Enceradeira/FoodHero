@@ -47,10 +47,7 @@ public class ConversationScript: Script {
                     "Do you like chickenbutts?  Or chicken feet?"],
                 withCustomData: "FH:OpeningQuestion")
 
-        waitResponse(byInvoking: {
-            "TODO"
-            return
-        })
+        waitResponse()
 
     }
 }

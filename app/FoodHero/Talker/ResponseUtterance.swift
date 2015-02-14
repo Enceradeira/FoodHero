@@ -8,12 +8,9 @@ import Foundation
 class ResponseUtterance: Utterance {
     private let _continuation: (response:String, script:Script) -> () = {
         r, s in }
-    private let _invocation: () -> () = {
-    }
     private let _context: TalkerContext
 
-    init(_ invocation: () -> (), _ continuation: (response:String, script:Script) -> (), _ context: TalkerContext) {
-        _invocation = invocation
+    init(_ continuation: (response:String, script:Script) -> (), _ context: TalkerContext) {
         _continuation = continuation
         _context = context
     }
@@ -29,7 +26,5 @@ class ResponseUtterance: Utterance {
             self._continuation(response: utterance, script: subScript)
             Sequence.execute(subScript, input, output, continuation);
         }
-        // trigger input
-        _invocation()
     }
 }

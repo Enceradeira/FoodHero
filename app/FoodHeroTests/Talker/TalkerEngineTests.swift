@@ -32,10 +32,6 @@ public class TalkerEngineTests: XCTestCase {
         return ScriptResources(randomizer: _randomizer!)
     }
 
-    func inputIs(text: String) {
-        _input!.sendNext(TalkerUtterance(utterance:text))
-    }
-
     func executeScript(script: Script) -> RACSignal {
         return TalkerEngine(script: script, input: _input!).execute()
     }
@@ -89,15 +85,40 @@ public class TalkerEngineTests: XCTestCase {
         }
     }
 
-    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script) {
+    func sendInput(input: String) {
+        // force context switch because that's closer to reality
+        dispatch_async(dispatch_get_main_queue()) {
+            self._input!.sendNext(TalkerUtterance(utterance: input))
+        }
+    }
+
+    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, whenInputIs generator: (String) -> (String?) = {
+        g in return nil
+    }) {
         var utterances = [String]()
 
         let dialog = executeScript(script)
+
+        // see if input is to be generated befor scipt is subscribed (evaluated)
+        let initialInput = generator("")
+        if initialInput != nil {
+            sendInput(initialInput!)
+        }
+
+        // subscribe to output and collect utterances until completed
         dialog.subscribeNext({
+            // collect utterances
             (object: AnyObject?) in
             let utterance = (object! as TalkerUtterance).utterance
             NSLog("Utterance: \(utterance)")
             utterances.append(utterance)
+            
+            // generate input from utterance
+            let response = generator(utterance)
+            if response != nil {
+                self.sendInput(response!)
+            }
+            
         },
                 completed: {
                     // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
@@ -105,8 +126,11 @@ public class TalkerEngineTests: XCTestCase {
                         self.XCA_notify(XCTAsyncTestCaseStatus.Succeeded)
                     }
                 })
-        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 1)
 
+        // wait for completion
+        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.02)
+
+        // check collected utterances
         var sometingWrong = utterances.count != expectedDialog.count
         XCTAssertEqual(utterances.count, expectedDialog.count, "The number of utterances in the exectued script is wrong")
         for index in 0 ... min(expectedDialog.count, utterances.count) - 1 {

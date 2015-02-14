@@ -67,21 +67,31 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldListenToReponse() {
         let script = TestScript()
         .say("How are you?")
-        .waitResponse(byInvoking: {
-            self.inputIs("Good")
-        })
+        .waitResponse()
 
-        assert(dialog: ["How are you?", "Good"], forExecutedScript: script)
+        assert(dialog: ["How are you?", "Good"],
+                forExecutedScript: script,
+                whenInputIs: { _ in return "Good" })
+    }
+
+    func test_talk_shouldNotWaitForReponse_WhenNoResponseYetGiven() {
+        let script = TestScript()
+        .say("How are you?")
+        .waitResponse()
+        .say("Brilliant!")
+
+        assert(utterance: "How are you?", exists: true, inExecutedScript: script, atPosition: 0)
     }
 
     func test_talk_shouldWaitResponseAndThenContinue() {
         let script = TestScript()
         .say("How are you?")
-        .waitResponse(byInvoking: {
-            self.inputIs("Good, and you?")
-        })
+        .waitResponse()
         .say("I'm fine, thanks!")
 
-        assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"], forExecutedScript: script)
+        assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"],
+                forExecutedScript: script,
+                whenInputIs: { _ in return "Good, and you?" }
+        )
     }
 }
