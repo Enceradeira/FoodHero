@@ -6,16 +6,20 @@
 import Foundation
 
 class OutputUtterance: Utterance {
-    private let _texts: Choices
-    private let _customData: AnyObject?
-    init(_ texts: Choices, _ customData: AnyObject?) {
-        _texts = texts
-        _customData = customData;
+    private let _definition: StringDefinition
+
+    init(definition: StringDefinition) {
+        _definition = definition
     }
 
     func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
-        let text = self._texts.getOne()
-        output.sendNext(TalkerUtterance(utterance: text, customData: _customData), andNotifyMode: TalkerModes.Outputting)
-        continuation()
+        _definition.text.subscribeNext {
+            obj in
+            let def = obj as StringDefinition.Result;
+            let text = def.choises.getOne()
+            let customData = def.customData
+            output.sendNext(TalkerUtterance(utterance: text, customData: customData), andNotifyMode: TalkerModes.Outputting)
+            continuation()
+        }
     }
 }

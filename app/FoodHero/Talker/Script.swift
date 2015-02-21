@@ -18,12 +18,11 @@ public class Script: NSObject {
         return _utterances
     }
 
-    public func say(text: String, withCustomData customData: AnyObject? = nil) -> Script {
-        return say(oneOf: [text], withCustomData: customData)
-    }
+    public func say(oneOf texts: (StringDefinition)->(StringDefinition)) -> Script {
+        let definition = StringDefinition(context:_context)
+        texts(definition)
 
-    public func say(oneOf texts: [String], withCustomData customData: AnyObject? = nil) -> Script {
-        _utterances.append(OutputUtterance(Choices(texts, _context), customData))
+        _utterances.append(OutputUtterance(definition:definition))
         return self
     }
 
@@ -32,6 +31,4 @@ public class Script: NSObject {
         _utterances.append(ResponseUtterance(continuation!, _context))
         return self;
     }
-
-
 }

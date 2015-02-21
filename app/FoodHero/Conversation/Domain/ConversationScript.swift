@@ -10,7 +10,8 @@ public class ConversationScript: Script {
     public override init(context context: TalkerContext) {
         super.init(context: context)
 
-        say(oneOf: ["Hi there.",
+        say(oneOf: {
+            $0.words(["Hi there.",
                     "Hello beautiful.",
                     "Have you put on your lipstick today?",
                     "‘Sup man?",
@@ -40,12 +41,13 @@ public class ConversationScript: Script {
                     "You have three wishes…. Sorry, wrong program.",
                     "Do you look more like {felmaleCelebrity} or {maleCelebrity}?",
                     "Greetings from {place}!",
-                    "You just interrupted the most beautiful dream, about ----  {food}."],
-                withCustomData: "FH:Greeting")
+                    "You just interrupted the most beautiful dream, about ----  {food}."], withCustomData: "FH:Greeting")
+        })
 
-        say(oneOf: ["What kind of food would you like to eat?",
-                    "Do you like chickenbutts?  Or chicken feet?"],
-                withCustomData: "FH:OpeningQuestion")
+        say(oneOf: {
+            $0.words(["What kind of food would you like to eat?",
+                    "Do you like chickenbutts?  Or chicken feet?"], withCustomData: ("FH:OpeningQuestion"))
+        })
 
         waitResponse()
 

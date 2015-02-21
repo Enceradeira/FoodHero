@@ -128,7 +128,7 @@ public class TalkerEngineTests: XCTestCase {
                 })
 
         // wait for completion
-        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 0.02)
+        XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 100)
 
         // check collected utterances
         var sometingWrong = utterances.count != expectedDialog.count

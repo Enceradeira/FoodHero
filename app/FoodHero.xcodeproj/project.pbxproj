@@ -157,6 +157,7 @@
 		235257FB39E5328B9AE000A9 /* TalkerEngineBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525FF079BDEA8159C866E2 /* TalkerEngineBasicTests.swift */; };
 		235258027C21EF43C7B98B3C /* RestaurantReviewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FACC259ED0EB0E1B16A /* RestaurantReviewBuilder.m */; };
 		23525819ABCE05B93DF48E51 /* ConversationViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259599DFD1F5796C13F5D /* ConversationViewState.m */; };
+		2352581C389716C44EA9CF5D /* StringDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525A7D66B814224736DB5A /* StringDefinition.swift */; };
 		235258227DC785C4B3E0D055 /* UWantsToSearchForAnotherRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352595D5502858A28B84E44 /* UWantsToSearchForAnotherRestaurant.m */; };
 		2352585E85069053B955DB26 /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FFD133B4B57A619342E /* HCIsExceptionOfType.m */; };
 		235258606D6D4288C1B4053D /* CLLocationManagerProxySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */; };
@@ -609,6 +610,7 @@
 		23525A6F9B6FCDA493D164A7 /* RestaurantRepositoryStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRepositoryStub.m; sourceTree = "<group>"; };
 		23525A73391F93A71EBD7E0E /* UCuisinePreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCuisinePreference.m; sourceTree = "<group>"; };
 		23525A7691E25A6B3D349034 /* NoRepetionForContextRandomizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoRepetionForContextRandomizer.h; sourceTree = "<group>"; };
+		23525A7D66B814224736DB5A /* StringDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringDefinition.swift; sourceTree = "<group>"; };
 		23525A86E53FA327636BEC58 /* RestaurantSearchServiceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceStub.h; sourceTree = "<group>"; };
 		23525A8E490E7857355BCDB1 /* AudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioSession.h; sourceTree = "<group>"; };
 		23525A907F9DF5C168D60FD2 /* RestaurantSearchServiceSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchServiceSpy.h; sourceTree = "<group>"; };
@@ -1111,6 +1113,7 @@
 				23525CCE29F98E21E0018C9B /* TalkerOutput.swift */,
 				23525407F79FFB018D52A5FE /* TalkerMode.swift */,
 				23525B154687A334CA31D228 /* TalkerUtterance.swift */,
+				23525A7D66B814224736DB5A /* StringDefinition.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2187,6 +2190,7 @@
 				23525C58D503C6BD5DB72202 /* ConversationScript.swift in Sources */,
 				235257A9474B5F2B50D8F5A2 /* ConversationResources.swift in Sources */,
 				23525A3A40C582A6CD310570 /* TalkerUtterance.swift in Sources */,
+				2352581C389716C44EA9CF5D /* StringDefinition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

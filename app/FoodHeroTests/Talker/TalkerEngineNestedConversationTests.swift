@@ -10,12 +10,12 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
 
     func test_talk_shouldResponseToResponse_WhenFirstResponse() {
         let script = TestScript()
-        .say("How are you?")
+        .say({$0.words("How are you?")})
         .waitResponse(andContinueWith: {
             response, script in
             switch response {
-            case "Good": script.say("I'm glad to hear")
-            default: script.say("What did you say?")
+            case "Good": script.say({$0.words("I'm glad to hear")})
+            default: script.say({$0.words("What did you say?")})
             }
         })
 
@@ -28,12 +28,12 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
 
     func test_talk_shouldResponseToResponse_WhenAlternativeResponse() {
         let script = TestScript()
-        .say("How are you?")
+        .say({$0.words("How are you?")})
         .waitResponse(andContinueWith: {
             response, script in
             switch response {
-            case "Good": script.say("I'm glad to hear")
-            default: script.say("What did you say?")
+            case "Good": script.say({$0.words("I'm glad to hear")})
+            default: script.say({$0.words("What did you say?")})
             }
         })
 
@@ -47,16 +47,16 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         .waitResponse(andContinueWith: {
             _, script in
             script
-            .say("What?")
+            .say({$0.words("What?")})
             .waitResponse(andContinueWith: {
                 _, script in
                 script
-                .say("Now I get it")
+                .say({$0.words("Now I get it")})
                 return
             })
             return
         })
-        .say("Good bye then")
+        .say({$0.words("Good bye then")})
 
         assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it\n\nGood bye then"],
                 forExecutedScript: script,

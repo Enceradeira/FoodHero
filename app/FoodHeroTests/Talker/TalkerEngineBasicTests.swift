@@ -9,14 +9,17 @@ import FoodHero
 public class TalkerEngineBasicTests: TalkerEngineTests {
 
     func test_talk_shouldUtterSomething() {
-        let script = TestScript().say("Hello")
+        let script = TestScript().say({ $0.words("Hello") })
 
         assert(dialog: ["Hello"], forExecutedScript: script)
     }
 
     func test_talk_shouldYieldCustomData_WhenAssociatedWithUtterance() {
         var utterance: TalkerUtterance? = nil
-        let script = TestScript().say("Hello", withCustomData: "Context-Greeting")
+        let script = TestScript()
+        .say({
+            $0.words("Hello", withCustomData: "Context-Greeting")
+        })
 
         executeScript(script).subscribeNext {
             object in
@@ -30,7 +33,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
     func test_talk_shouldYieldEmptyArrayAsCustomData_WhenNoCustomDataIsAssociatedatedWithUtterance() {
         var utterance: TalkerUtterance? = nil
-        let script = TestScript().say("Hello")
+        let script = TestScript().say({ $0.words("Hello") })
 
         executeScript(script).subscribeNext {
             object in
@@ -41,7 +44,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     }
 
     func test_talk_shouldRepeat_WhenScriptExecutedTwice() {
-        let script = TestScript().say("Hello")
+        let script = TestScript().say({ $0.words("Hello") })
 
         for index in 1 ... 2 {
             assert(dialog: ["Hello"], forExecutedScript: script)
@@ -57,7 +60,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     }
 
     func test_talk_shouldComplete_WhenEverythingHasBeenSaid() {
-        let dialog = executeScript(TestScript().say("Hello").say("World"));
+        let dialog = executeScript(TestScript().say({ $0.words("Hello") }).say({ $0.words("World") }));
 
         let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
 
@@ -66,7 +69,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
     func test_talk_shouldListenToReponse() {
         let script = TestScript()
-        .say("How are you?")
+        .say({ $0.words("How are you?") })
         .waitResponse()
 
         assert(dialog: ["How are you?", "Good"],
@@ -76,22 +79,50 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
     func test_talk_shouldNotWaitForReponse_WhenNoResponseYetGiven() {
         let script = TestScript()
-        .say("How are you?")
+        .say({ $0.words("How are you?") })
         .waitResponse()
-        .say("Brilliant!")
+        .say({ $0.words("Brilliant!") })
 
         assert(utterance: "How are you?", exists: true, inExecutedScript: script, atPosition: 0)
     }
 
     func test_talk_shouldWaitResponseAndThenContinue() {
         let script = TestScript()
-        .say("How are you?")
+        .say({ $0.words("How are you?") })
         .waitResponse()
-        .say("I'm fine, thanks!")
+        .say({ $0.words("I'm fine, thanks!") })
 
         assert(dialog: ["How are you?", "Good, and you?", "I'm fine, thanks!"],
                 forExecutedScript: script,
                 whenInputIs: { _ in return "Good, and you?" }
+        )
+    }
+
+    func test_talk_shouldWaitResponseAndThenContinueWithAsynchAction() {
+        let script = TestScript()
+        .say({ $0.words("How are you?") })
+        .waitResponse(andContinueWith: {
+            _, script in
+
+            script.say({
+                definition in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                    definition.words("Very good")
+                    return
+                }
+                return definition
+            })
+            return
+        })
+
+        assert(dialog: ["How are you?", "Good, and you?", "Very good"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    switch $0 {
+                    case "How are you?": return "Good, and you?"
+                    default: return nil
+                    }
+                }
         )
     }
 }

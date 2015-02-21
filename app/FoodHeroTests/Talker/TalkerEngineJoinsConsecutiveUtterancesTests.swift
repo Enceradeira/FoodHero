@@ -10,11 +10,11 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
 
     func test_talk_shouldJoinConsecutiveUtterancesTogehter() {
         let script = TestScript()
-        .say("Good Morning").say("John")
+        .say({ $0.words("Good Morning") }).say({ $0.words("John") })
         .waitResponse()
-        .say("How are you?").say("Did you sleep well?")
+        .say({ $0.words("How are you?") }).say({ $0.words("Did you sleep well?") })
         .waitResponse()
-        .say("OK").say("Good bye")
+        .say({ $0.words("OK") }).say({ $0.words("Good bye") })
 
         assert(dialog: [
                 "Good Morning\n\nJohn",
@@ -37,7 +37,7 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
 
     func test_talk_shouldJoinConsecutiveUtterancesTogehterBeforeWaitingForResponse() {
         let script = TestScript()
-        .say("Good Morning").say("How are you?")
+        .say({ $0.words("Good Morning") }).say({ $0.words("How are you?") })
         .waitResponse()
 
         assert(utterance: "Good Morning\n\nHow are you?", exists: true, inExecutedScript: script)
