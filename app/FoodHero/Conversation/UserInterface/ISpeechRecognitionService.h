@@ -7,9 +7,11 @@
 #import <ReactiveCocoa.h>
 
 @protocol ISpeechRecognitionService <NSObject>
-- (RACSignal *)interpretString:(NSString *)string state:(NSString*)state;
+- (void)interpretString:(NSString *)string state:(NSString*)state;
 
-- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state;
+- (void)recordAndInterpretUserVoice:(NSString *)state;
 
 - (enum AVAudioSessionRecordPermission)recordPermission;
+
+- (RACSignal *)output;
 @end

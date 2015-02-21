@@ -11,6 +11,6 @@
 
 @interface ConversationRepository : NSObject
 
-- (Conversation *)get;
+- (Conversation *)getForInput:(RACSignal *)input;
 
 @end

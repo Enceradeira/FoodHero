@@ -4,8 +4,6 @@
 //
 
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.h"
-#import "AskUserSuggestionFeedbackAction.h"
-
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive {
 
@@ -22,7 +20,4 @@
     return @"The '%@' is smarter than the last one";
 }
 
-- (id <ConversationAction>)createAction {
-    return [AskUserSuggestionFeedbackAction new];
-}
 @end

@@ -20,10 +20,10 @@ class ResponseUtterance: Utterance {
         input.getNext {
             utterance in
 
-            output.sendNext(TalkerUtterance(utterance: utterance), andNotifyMode: TalkerModes.Inputting)
+            output.sendNext(utterance, andNotifyMode: TalkerModes.Inputting)
 
             let subScript = Script(context: self._context)
-            self._continuation(response: utterance, script: subScript)
+            self._continuation(response: utterance.utterance, script: subScript)
             Sequence.execute(subScript, input, output, continuation);
         }
     }

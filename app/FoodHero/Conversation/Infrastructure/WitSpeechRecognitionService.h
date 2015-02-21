@@ -10,8 +10,6 @@
 
 @interface WitSpeechRecognitionService : NSObject <ISpeechRecognitionService>
 
-- (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory
-                             accessToken:(NSString *)accessToken
-                            audioSession:(id <IAudioSession>)audioSession;
+- (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession;
 
 @end

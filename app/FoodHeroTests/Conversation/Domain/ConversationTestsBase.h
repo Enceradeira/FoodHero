@@ -21,6 +21,8 @@
 
 - (void)resetConversation;
 
+- (void)sendInput:(ConversationToken *)token;
+
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status;
@@ -29,9 +31,8 @@
 
 - (void)assertExpectedStatementsAtIndex:(NSUInteger)index;
 
-- (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
+- (void)assertLastStatementIs:(NSString *)semanticId state:(NSString *)state;
 
-- (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
+- (void)assertSecondLastStatementIs:(NSString *)semanticId state:(NSString *)state;
 
-- (void)assertThirdLastStatementIs:(NSString *)semanticId userAction:(Class)userAction;
 @end

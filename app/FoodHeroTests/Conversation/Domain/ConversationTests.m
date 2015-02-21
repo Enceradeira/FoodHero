@@ -14,9 +14,6 @@
 #import "TyphoonComponentFactory.h"
 #import "TyphoonComponents.h"
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
-#import "AskUserToTryAgainAction.h"
-#import "AskUserCuisinePreferenceAction.h"
 #import "USuggestionNegativeFeedback.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionFeedbackForTooExpensive.h"
@@ -54,7 +51,7 @@
         [receivedIndexes addObject:next];
     }];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I Like British Food"]]; // adds the answer & food-heros response
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I Like British Food"]]; // adds the answer & food-heros response
 
     assertThat(receivedIndexes, contains(@0, @1, @2, nil));
 }
@@ -66,7 +63,7 @@
     assertThat(statement, is(notNilValue()));
     assertThat(statement.semanticId, is(equalTo(@"FH:Greeting;FH:OpeningQuestion")));
     assertThat(statement.persona, is(equalTo(Personas.foodHero)));
-    assertThat(statement.inputAction.class, is([AskUserCuisinePreferenceAction class]));
+    assertThat(statement.state, is(equalTo(@"askForFoodPreference")));
 }
 
 - (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForThirdStatement {
@@ -79,15 +76,15 @@
 }
 
 - (void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
-    [self.conversation addFHToken:[UCuisinePreference create:@"British or Indian Food" text:@"I like British or Indian Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British or Indian Food" text:@"I like British or Indian Food"]];
 
-    [self assertSecondLastStatementIs:@"U:CuisinePreference=British or Indian Food" userAction:nil];
+    [self assertSecondLastStatementIs:@"U:CuisinePreference=British or Indian Food" state:nil];
 }
 
 - (void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation {
     assertThatInteger([self.conversation getStatementCount], is(equalToInteger(1)));
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British or Indian Food" text:@"I like British or Indian Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British or Indian Food" text:@"I like British or Indian Food"]];
     assertThatInteger([self.conversation getStatementCount], is(equalToInteger(3)));
 }
 
@@ -97,9 +94,9 @@
         [stub injectFindResults:@[kingsHead]];
     }];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults {
@@ -107,9 +104,9 @@
         [stub injectFindNothing];
     }];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like Briish Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like Briish Food"]];
 
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:[AskUserToTryAgainAction class]];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
 }
 
 
@@ -121,14 +118,14 @@
         [stub injectFindResults:@[kingsHead, tajMahal]];
     }];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:kingsHead text:@"I don't like that restaurant"]];
     [self.conversation addFHToken:[USuggestionFeedbackForLiking create:tajMahal text:@"I like it"]];
     [self.conversation addFHToken:[UWantsToSearchForAnotherRestaurant new]];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
 
     // King's head should be suggested again since we started another search
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
@@ -140,18 +137,18 @@
 
     [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
 
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:kingsHead text:nil]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {
     USuggestionNegativeFeedback *feedback1 = [USuggestionFeedbackForTooExpensive create:[[RestaurantBuilder alloc] build] text:nil];
     USuggestionNegativeFeedback *feedback2 = [USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:[CLLocation new] text:nil];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:feedback1];
     [self.conversation addFHToken:feedback2];
 
@@ -162,7 +159,7 @@
 }
 
 - (void)test_negativeUserFeedback_ShouldBeEmpty_WhenUserHasOnlyGivenPositiveFeedback {
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForLiking create:[[RestaurantBuilder alloc] build] text:@"I like it"]];
 
     assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
@@ -175,7 +172,7 @@
 }
 
 - (void)test_suggestedRestaurants_ShouldNotBeEmpty_WhenFHHasSuggestedRestaurants {
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];  // 1. Restaurant suggested
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];  // 1. Restaurant suggested
 
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"]; // make FH choose a different type of suggestion
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
@@ -193,13 +190,13 @@
 }
 
 - (void)test_currentSearchPreferenceCuisine_ShouldReturnCuisine_WhenUserHasAlreadySpecifiedCuisine {
-    [self.conversation addFHToken:[UCuisinePreference create:@"Asian, Swiss" text:@"Asian, Swiss"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"Asian, Swiss" text:@"Asian, Swiss"]];
 
     assertThat(self.conversation.currentSearchPreference.cuisine, is(equalTo(@"Asian, Swiss")));
 }
 
 - (void)test_currentSearchPreferencePriceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
-    [self.conversation addFHToken:[UCuisinePreference create:@"Sandwich" text:@"I love Sandwich"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"Sandwich" text:@"I love Sandwich"]];
 
     PriceRange *fullPriceRange = [PriceRange priceRangeWithoutRestriction];
 
@@ -210,7 +207,7 @@
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:restaurant text:nil]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(priceLevel - 1))));
@@ -220,7 +217,7 @@
     NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:restaurant text:nil]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.max, is(equalTo(@(GOOGLE_PRICE_LEVEL_MIN))));
@@ -230,7 +227,7 @@
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(priceLevel + 1))));
@@ -240,14 +237,14 @@
     NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MAX;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
     assertThatUnsignedInt(self.conversation.currentSearchPreference.priceRange.min, is(equalTo(@(GOOGLE_PRICE_LEVEL_MAX))));
 }
 
 - (void)test_currentSearchPreferenceMaxDistance_ShouldHaveMaxValue_WhenUserHasNeverFoundRestaurantTooFarAway {
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
 
     assertThatDouble(self.conversation.currentSearchPreference.distanceRange.max, is(equalTo(@(DBL_MAX))));
 }
@@ -257,7 +254,7 @@
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:_london text:nil]];
 
     assertThatDouble(self.conversation.currentSearchPreference.distanceRange.max, is(lessThan(@(distance))));
@@ -271,7 +268,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     [FHWarningIfNotInPreferredRangeTooCheap create];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
     ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];

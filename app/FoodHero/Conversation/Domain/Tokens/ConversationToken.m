@@ -6,6 +6,7 @@
 #import "ConversationToken.h"
 #import "DesignByContractException.h"
 #import "Personas.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation ConversationToken {
@@ -44,6 +45,5 @@
 - (id <ConversationAction>)createAction {
     return nil;
 }
-
 
 @end

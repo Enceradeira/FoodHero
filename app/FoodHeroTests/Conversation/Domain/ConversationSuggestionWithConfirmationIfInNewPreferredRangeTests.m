@@ -4,7 +4,6 @@
 //
 
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
 #import "RandomizerStub.h"
@@ -26,7 +25,7 @@
 
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 }
 
 
@@ -34,20 +33,20 @@
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:[CLLocation new] text:nil]];
 
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
 
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 @end

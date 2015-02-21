@@ -4,8 +4,6 @@
 //
 
 #import "FHBecauseUserDeniedAccessToLocationServices.h"
-#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
-
 
 @implementation FHBecauseUserDeniedAccessToLocationServices {
 
@@ -13,10 +11,6 @@
 + (ConversationToken *)create {
     NSString *text = @"Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services.";
     return [[FHBecauseUserDeniedAccessToLocationServices alloc] initWithSemanticId:@"FH:BecauseUserDeniedAccessToLocationServices" text:text];
-}
-
-- (id <ConversationAction>)createAction {
-    return [AskUserIfProblemWithAccessLocationServiceResolved new];
 }
 
 @end

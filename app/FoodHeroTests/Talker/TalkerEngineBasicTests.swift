@@ -31,6 +31,26 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         XCTAssertEqual(customData[0] as String, "Context-Greeting")
     }
 
+
+    func test_talk_shouldYieldCustomData_WhenAssociatedWithInput() {
+        var utterance: TalkerUtterance? = nil
+        let script = TestScript().say({ $0.words("How are you?") }).waitResponse()
+
+        let expectation = expectationWithDescription("")
+        executeScript(script).subscribeNext {
+            object in
+            utterance = object as? TalkerUtterance
+            let customData = utterance?.customData
+            if (customData != nil && customData!.count == 1 && customData![0] as String == "Context-Response") {
+                expectation.fulfill()
+            }
+        }
+
+        sendInput("Good, and you?", "Context-Response");
+
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+    }
+
     func test_talk_shouldYieldEmptyArrayAsCustomData_WhenNoCustomDataIsAssociatedatedWithUtterance() {
         var utterance: TalkerUtterance? = nil
         let script = TestScript().say({ $0.words("Hello") })

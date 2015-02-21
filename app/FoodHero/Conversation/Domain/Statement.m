@@ -11,7 +11,7 @@
 #import "USuggestionNegativeFeedback.h"
 
 @implementation Statement {
-    id <IUAction> _inputAction;
+    NSString *_state;
     ConversationToken *_token;
 }
 - (NSString *)text {
@@ -26,21 +26,21 @@
     return _token.persona;
 }
 
-- (id)initWithToken:(ConversationToken *)token inputAction:(id <IUAction>)inputAction {
+- (id)initWithToken:(ConversationToken *)token state:(NSString *)state {
     self = [super init];
     if (self != nil) {
         _token = token;
-        _inputAction = inputAction;
+        _state = state;
     }
     return self;
 }
 
-+ (Statement *)create:(ConversationToken *)token inputAction:(id <IUAction>)inputAction {
-    return [[Statement alloc] initWithToken:token inputAction:inputAction];
++ (Statement *)create:(ConversationToken *)token state:(NSString *)inputAction {
+    return [[Statement alloc] initWithToken:token state:inputAction];
 }
 
-- (id <IUAction>)inputAction {
-    return _inputAction;
+- (NSString *)state {
+    return _state;
 }
 
 - (Restaurant *)suggestedRestaurant {

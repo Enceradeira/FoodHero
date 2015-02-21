@@ -5,17 +5,22 @@
 
 #import "UCuisinePreference.h"
 #import "SearchAction.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation UCuisinePreference {
 
 }
-- (id <ConversationAction>)createAction {
-    return [SearchAction new];
-}
 
 + (instancetype)create:(NSString *)parameter text:(NSString *)text {
     return [[UCuisinePreference alloc] initWithSemanticId:[NSString stringWithFormat:@"U:CuisinePreference=%@", parameter] text:text];
 }
+
++ (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
+    NSString *semanticId = [NSString stringWithFormat:@"U:CuisinePreference=%@", parameter];
+    ConversationContext *context = [[ConversationContext alloc] initWithSemanticId:semanticId state:nil];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:context];
+}
+
 
 @end

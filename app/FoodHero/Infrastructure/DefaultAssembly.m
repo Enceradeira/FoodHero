@@ -44,8 +44,7 @@
 - (id)speechRecognitionService {
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSchedulerFactory:accessToken:audioSession:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:[self schedulerFactory]];
+                              [definition useInitializer:@selector(initWithAccessToken:audioSession:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:@"DD2C4J3PUPYIB54FU4RTENECFZN7GXZ2"]; // Instance "FoodHero"
                                   // FoodHero-Test [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero"
                                   [method injectParameterWith:[self audioSession]];
@@ -148,7 +147,4 @@
     return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
 }
 
-- (id)conversation {
-    return [TyphoonDefinition withClass:[Conversation class]];
-}
 @end

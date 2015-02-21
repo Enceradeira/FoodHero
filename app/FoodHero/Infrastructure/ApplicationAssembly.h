@@ -21,8 +21,6 @@
 
 - (id)restaurantSearchService;
 
-- (id)conversation;
-
 - (id)locationService;
 
 - (id)locationManagerProxy;

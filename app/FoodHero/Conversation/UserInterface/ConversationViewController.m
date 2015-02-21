@@ -34,7 +34,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     CheatTextFieldController *_cheatTextFieldController;
     NSMutableArray *_bubbleCells;
     BOOL _isLoading;
-    id <IUAction> _currentInputAction;
+    NSString *_currentState;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -187,13 +187,13 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
-        id <IUAction> nextAction = foodHeroBubble.inputAction;
+        NSString *nextState = foodHeroBubble.state;
 
-        if (nextAction) {
-            NSLog(@"action %@ request", nextAction.class);
-            // sometimes FH produces more than one bubble in sequence but just one holds and inputAction which should not be overwritten
+        if (nextState) {
+            NSLog(@"action %@ request", nextState.class);
+            // sometimes FH produces more than one bubble in sequence but just one holds and state which should not be overwritten
             // this is the case e.g
-            _currentInputAction = nextAction;
+            _currentState = nextState;
         }
     }
 
@@ -201,8 +201,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)inputActionDidFinish {
-    NSLog(@"action %@ cleared", _currentInputAction.class);
-    _currentInputAction = nil;
+    NSLog(@"action %@ cleared", _currentState.class);
+    _currentState = nil;
     [_currentViewState update];
 }
 
@@ -217,7 +217,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         _cheatTextFieldController = [CheatTextFieldController createWithView:self.view applicationService:_appService];
     }
     else {
-        [_appService addUserText:_userTextField.text forInputAction:_currentInputAction];
+        [_appService addUserText:_userTextField.text forState:_currentState];
         [self inputActionDidFinish];
     }
     _userTextField.text = @"";
@@ -228,7 +228,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)userMicButtonTouchUp:(id)sender {
-    [_appService addUserVoiceForInputAction:_currentInputAction];
+    [_appService addUserVoiceForState:_currentState];
     [self inputActionDidFinish];
 }
 
@@ -271,6 +271,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (BOOL)isUserInputEnabled {
-    return _currentInputAction != nil;
+    return _currentState != nil;
 }
 @end

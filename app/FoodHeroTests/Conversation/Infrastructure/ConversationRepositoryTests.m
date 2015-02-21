@@ -33,10 +33,10 @@
 
 - (void)test_get_shouldAlwaysReturnSameConversation
 {
-    Conversation *conversation = [_repository get];
+    Conversation *conversation = [_repository getForInput:nil];
     assertThat(conversation, is(notNilValue()));
     
-    Conversation *conversation2 = [_repository get];
+    Conversation *conversation2 = [_repository getForInput:nil];
     assertThat(conversation, is(sameInstance(conversation2)));
 }
 

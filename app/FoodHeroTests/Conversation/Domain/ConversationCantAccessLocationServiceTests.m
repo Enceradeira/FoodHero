@@ -4,7 +4,6 @@
 //
 
 #import "UCuisinePreference.h"
-#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 #import "ConversationTestsBase.h"
 
 @interface ConversationCantAccessLocationServiceTests : ConversationTestsBase
@@ -16,25 +15,25 @@
 
 - (void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
-    [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
+    [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:@"afterCantAccessLocationService"];
 }
 
 - (void)test_FHBecauseUserIfNotAllowedToUseLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
-    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
+    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
-    [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" userAction:[AskUserIfProblemWithAccessLocationServiceResolved class]];
+    [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:@"afterCantAccessLocationService"];
 }
 
 

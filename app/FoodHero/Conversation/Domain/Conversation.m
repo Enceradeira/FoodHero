@@ -21,7 +21,6 @@
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "FHWarningIfNotInPreferredRange.h"
 #import "FoodHero-Swift.h"
-#import "AskUserCuisinePreferenceAction.h"
 
 
 @interface Conversation ()
@@ -30,14 +29,19 @@
 
 @implementation Conversation {
 
-    RACSubject *_input;
+    RACSignal *_input;
 }
 
-- (id)init {
+
+- (instancetype)init {
+    return [self initWithInput:[RACSubject new]];
+}
+
+- (instancetype)initWithInput:(RACSignal*) input {
     self = [super init];
     if (self != nil) {
         _statements = [NSMutableArray new];
-        _input = [RACSubject new];
+        _input = input;
 
         id <IRandomizer> randomizer = [TalkerRandomizer new];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
@@ -48,18 +52,29 @@
 
         RACSignal *output = [engine execute];
         [output subscribeNext:^(TalkerUtterance *utterance) {
-            NSArray *semanticIds = [utterance customData];
+            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationContext* context){
+                return [context semanticId];
+            }];
+            NSArray *states = [[[utterance customData] linq_select:^(ConversationContext *context) {
+                return [context state];
+            }] linq_where:^(NSString*state){
+                return (BOOL)(state != [NSNull null]);
+            }];
+
             NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
+            NSString *statesString = [states componentsJoinedByString:@";"];
             NSString *text = utterance.utterance;
 
             ConversationToken *token = [[ConversationToken alloc] initWithSemanticId:semanticIdString text:text];
 
+            [self addStatement:token state:statesString];
+            /*
             id <IUAction> uiAction = nil;
             if ([semanticIdString rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
-                  uiAction = [AskUserCuisinePreferenceAction new];
-            }
+                uiAction = [AskUserCuisinePreferenceAction new];
+            } */
 
-            [self addStatement:token inputAction:uiAction];
+
         }];
 
 
@@ -85,9 +100,9 @@
             }];
 }
 
-- (void)addStatement:(ConversationToken *)token inputAction:(id <IUAction>)inputAction {
+- (void)addStatement:(ConversationToken *)token state:(NSString*)state {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
-    Statement *statement = [Statement create:token inputAction:inputAction];
+    Statement *statement = [Statement create:token state:state];
     [statementProxy addObject:statement];
 }
 
@@ -100,22 +115,7 @@
 }
 
 - (void)addFHToken:(ConversationToken *)token {
-    //[_input sendNext:token.text];
-
-
-
-    id <ConversationAction> action = [token createAction];
-    id <IUAction> userAction;
-    if ([action conformsToProtocol:@protocol(IUAction)]) {
-        // User has to perform next action
-        userAction = (id <IUAction>) action;
-        [self addStatement:token inputAction:userAction];
-    }
-    else {
-        // FH has to perform next action
-        [self addStatement:token inputAction:nil];
-        [(id <FHAction>) action execute:self];
-    }
+    assert(false); // Remove
 }
 
 - (NSUInteger)getStatementCount {

@@ -16,6 +16,8 @@
 
 @interface Conversation : NSObject <ConversationSource>
 
+- (instancetype)initWithInput:(RACSignal *)input;
+
 - (Statement *)getStatement:(NSUInteger)index;
 
 - (NSUInteger)getStatementCount;

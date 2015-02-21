@@ -6,8 +6,6 @@
 #import "FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper.h"
 #import "TextRepository.h"
 #import "ConversationToken+Protected.h"
-#import "AskUserSuggestionFeedbackAction.h"
-
 
 @implementation FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper {
 
@@ -23,10 +21,5 @@
 - (NSString *)getText {
     return [self.textRepository getSuggestionWithConfirmationIfInNewPreferredRangeCheaper];
 }
-
-- (id <ConversationAction>)createAction {
-    return [AskUserSuggestionFeedbackAction new];
-}
-
 
 @end

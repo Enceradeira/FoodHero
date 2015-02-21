@@ -5,19 +5,27 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "SpeechRecognitionServiceSpy.h"
-#import "SpeechInterpretation.h"
-
 
 
 @implementation SpeechRecognitionServiceSpy {
 
     SpeechInterpretation *_interpretation;
+    RACSubject *_output;
 }
-- (RACSignal *)interpretString:(NSString *)string state:(NSString *)state {
+
+- (instancetype)init {
+    self = [super init];
+    if (self != nil) {
+        _output = [RACSubject new];
+    }
+    return self;
+}
+
+- (void)interpretString:(NSString *)string state:(NSString *)state {
     _lastInterpretedString = string;
     _lastState = state;
 
-    return [RACSignal return:_interpretation ? _interpretation : [SpeechInterpretation new]];
+    [_output sendNext:_interpretation ? _interpretation : [SpeechInterpretation new]];
 }
 
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation {
@@ -25,12 +33,16 @@
 }
 
 
-- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state{
-    return [RACSignal empty];
+- (void)recordAndInterpretUserVoice:(NSString *)state {
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
     return AVAudioSessionRecordPermissionGranted;
 }
+
+- (RACSignal *)output {
+    return _output;
+}
+
 
 @end

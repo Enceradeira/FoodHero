@@ -8,8 +8,6 @@
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "ConversationToken+Protected.h"
-#import "AskUserWhatToDoNextAction.h"
-
 
 @implementation FHWhatToDoNextCommentAfterFailure {
 
@@ -18,10 +16,5 @@
 - (instancetype)init {
     return self = [super initWithSemanticId:@"FH:WhatToDoNextCommentAfterFailure" text:@"I’m sorry it didn’t work out!\n\nIs there anything else?"];
 }
-
-- (id <ConversationAction>)createAction{
-    return [AskUserWhatToDoNextAction new];
-}
-
 
 @end

@@ -4,7 +4,6 @@
 //
 
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 
 @interface ConversationAskCuisinePreferenceTests : ConversationTestsBase
@@ -15,15 +14,15 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    [self.conversation addFHToken:[UCuisinePreference create:@"Test" text:@"Test"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"Test" text:@"Test"]];
 
-    [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" userAction:nil];
+    [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" state:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    [self.conversation addFHToken:[UCuisinePreference create:@"Test" text:@"Test"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"Test" text:@"Test"]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:[AskUserSuggestionFeedbackAction class]];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 @end

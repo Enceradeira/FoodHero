@@ -4,8 +4,6 @@
 //
 
 #import "FHNoRestaurantsFound.h"
-#import "AskUserToTryAgainAction.h"
-
 
 @implementation FHNoRestaurantsFound {
 
@@ -15,7 +13,4 @@
     return [[FHNoRestaurantsFound alloc] initWithSemanticId:@"FH:NoRestaurantsFound" text:text];
 }
 
-- (id <ConversationAction>)createAction{
-    return [AskUserToTryAgainAction new];
-}
 @end

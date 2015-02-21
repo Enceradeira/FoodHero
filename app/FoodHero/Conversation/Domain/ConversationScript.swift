@@ -41,15 +41,18 @@ public class ConversationScript: Script {
                     "You have three wishes…. Sorry, wrong program.",
                     "Do you look more like {felmaleCelebrity} or {maleCelebrity}?",
                     "Greetings from {place}!",
-                    "You just interrupted the most beautiful dream, about ----  {food}."], withCustomData: "FH:Greeting")
+                    "You just interrupted the most beautiful dream, about ----  {food}."], withCustomData: ConversationContext(semanticId: "FH:Greeting"))
         })
 
         say(oneOf: {
             $0.words(["What kind of food would you like to eat?",
-                    "Do you like chickenbutts?  Or chicken feet?"], withCustomData: ("FH:OpeningQuestion"))
+                    "Do you like chickenbutts?  Or chicken feet?"], withCustomData: ConversationContext(semanticId: "FH:OpeningQuestion", state: "askForFoodPreference"))
         })
 
-        waitResponse()
+        waitResponse(andContinueWith:{
+            response, script in
+
+        })
 
     }
 }

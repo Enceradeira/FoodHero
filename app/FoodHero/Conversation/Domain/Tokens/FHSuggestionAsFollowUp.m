@@ -4,8 +4,6 @@
 //
 
 #import "FHSuggestionAsFollowUp.h"
-#import "AskUserSuggestionFeedbackAction.h"
-
 
 @implementation FHSuggestionAsFollowUp {
 
@@ -20,10 +18,6 @@
 
 - (NSString *)getText {
     return @"What about '%@' then?";
-}
-
-- (id <ConversationAction>)createAction {
-    return [AskUserSuggestionFeedbackAction new];
 }
 
 @end

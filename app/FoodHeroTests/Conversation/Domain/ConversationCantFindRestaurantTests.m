@@ -4,15 +4,10 @@
 //
 
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
 #import "UDidResolveProblemWithAccessLocationService.h"
-#import "AskUserIfProblemWithAccessLocationServiceResolved.h"
 #import "UTryAgainNow.h"
-#import "AskUserToTryAgainAction.h"
 #import "ConversationTestsBase.h"
-#import "AskUserWhatToDoNextAction.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
-#import "AskUserCuisinePreferenceAction.h"
 #import "UWantsToAbort.h"
 
 
@@ -25,22 +20,22 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHSuggestion_WhenProblemIsResolvedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
 
-    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" userAction:AskUserIfProblemWithAccessLocationServiceResolved.class];
+    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 }
 
 - (void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow {
@@ -48,7 +43,7 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     // user changes location and finds something
     [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
@@ -56,35 +51,35 @@
     }];
     [self.conversation addFHToken:[UTryAgainNow new]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound {
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
     [self.conversation addFHToken:[UTryAgainNow new]];
 
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" userAction:AskUserToTryAgainAction.class];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
 }
 
 - (void)test_UWantsToAbort_ShouldAddWhatToDoNextAfterFailure {
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
 
     [self.conversation addFHToken:[UWantsToAbort new]];
-    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" userAction:AskUserWhatToDoNextAction.class];
+    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" state:@"askForWhatToDoNext"];
 }
 
 @end

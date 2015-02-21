@@ -4,10 +4,8 @@
 //
 
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
-#import "RandomizerStub.h"
 #import "USuggestionFeedbackForTooCheap.h"
 #import "RestaurantBuilder.h"
 
@@ -27,20 +25,20 @@
 
 - (void)test_USuggestionFeedback_ShouldAddUserStatement {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
 
-    [self assertSecondLastStatementIs:@"U:SuggestionFeedback=tooCheap" userAction:nil];
+    [self assertSecondLastStatementIs:@"U:SuggestionFeedback=tooCheap" state:nil];
 }
 
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenRandomizerWouldChooseFHSuggestionAsFollowUp {
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
 
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     // Because it's the first suggestion, FHSuggestionAsFollowUp is not a valid option
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 @end

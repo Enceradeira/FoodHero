@@ -6,7 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 
-
 @interface UCuisinePreference : ConversationToken
 + (instancetype)create:(NSString *)parameter text:(NSString *)text;
+
++ (TalkerUtterance *)createUtterance:(NSString *)parameter text:(NSString *)text;
 @end

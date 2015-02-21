@@ -16,37 +16,32 @@
 
 @implementation SpeechRecognitionServiceStub {
     AVAudioSessionRecordPermission _permission;
+    RACSubject *_output;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _permission =AVAudioSessionRecordPermissionGranted;
+        _permission = AVAudioSessionRecordPermissionGranted;
+        _output = [RACSubject new];
+
+        [[RACObserve(self, self.interpretation) filter:^(SpeechInterpretation *i) {
+            return (BOOL) (i != nil);
+        }] subscribeNext:^(SpeechInterpretation *i) {
+            [_output sendNext:i];
+        }];
     }
 
     return self;
 }
 
-
-- (RACSignal *)getInterpretationSignal {
-    RACSignal *values = RACObserve(self, self.interpretation);
-    return [[values filter:^(SpeechInterpretation *i) {
-        return (BOOL) (i != nil);
-    }] take:1];
+- (void)interpretString:(NSString *)string state:(id)customData {
 }
 
-- (RACSignal *)interpretString:(NSString *)string state:(id)customData {
-    return [self getInterpretationSignal];
-}
-
-- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state {
+- (void)recordAndInterpretUserVoice:(NSString *)state {
     if (_permission != AVAudioSessionRecordPermissionGranted) {
-        return [RACSignal createSignal:^(id <RACSubscriber> subscriber) {
-            [subscriber sendError:[MissingAudioRecordionPermissonError new]];
-            return (RACDisposable *) nil;
-        }];
+        [_output sendNext:[MissingAudioRecordionPermissonError new]];
     }
-    return [self getInterpretationSignal];
 }
 
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation {
@@ -55,6 +50,10 @@
 
 - (AVAudioSessionRecordPermission)recordPermission {
     return _permission;
+}
+
+- (RACSignal *)output {
+    return _output;
 }
 
 - (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission {

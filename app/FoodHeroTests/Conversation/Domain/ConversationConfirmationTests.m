@@ -26,7 +26,7 @@
 
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
@@ -34,7 +34,7 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
 
-    [super assertLastStatementIs:@"FH:Confirmation" userAction:nil];
+    [super assertLastStatementIs:@"FH:Confirmation" state:nil];
 }
 
 @end

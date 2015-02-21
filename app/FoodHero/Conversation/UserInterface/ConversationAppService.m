@@ -11,8 +11,9 @@
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
-#import "RecordAndInterpretUserVoiceVisitor.h"
-#import "InterpretStringVisitor.h"
+#import "SpeechInterpretation.h"
+#import "UCuisinePreference.h"
+
 
 static UIImage *LikeImage;
 static UIImage *EmptyImage;
@@ -47,7 +48,16 @@ static UIImage *EmptyImage;
         _locationService = locationService;
         _restaurantRepository = restaurantRepository;
         _speechRecognitionService = speechRecognitionService;
-        _conversation = conversationRepository.get;
+
+        RACSignal *input = [speechRecognitionService.output map:^(SpeechInterpretation *interpretation) {
+            if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
+                NSString *semanticId = [NSString stringWithFormat:@"U:CuisinePreference=%@", interpretation.entities[0]];
+                TalkerUtterance *utterance = [UCuisinePreference createUtterance:interpretation.entities[0] text:interpretation.text];
+                return utterance;
+            }
+            return [[TalkerUtterance alloc] initWithUtterance:@"????" customData:@[@"????"]];
+        }];
+        _conversation = [conversationRepository getForInput:input];
     }
     return self;
 }
@@ -69,7 +79,7 @@ static UIImage *EmptyImage;
         Statement *statement = [_conversation getStatement:index];
 
         if (statement.persona == Personas.foodHero) {
-            bubble = [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:bubbleWidth index:index inputAction:statement.inputAction doRenderSemanticID:_doRenderSemanticID];
+            bubble = [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:bubbleWidth index:index doRenderSemanticID:_doRenderSemanticID];
         }
         else {
             bubble = [[ConversationBubbleUser alloc] initWithStatement:statement width:bubbleWidth index:index doRenderSemanticID:_doRenderSemanticID];
@@ -109,20 +119,26 @@ static UIImage *EmptyImage;
 
 }
 
-- (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction {
+- (void)addUserText:(NSString *)string forState:(NSString *)state {
+    [_speechRecognitionService interpretString:string state:state];
+
+    /*
     InterpretStringVisitor *visitor = [InterpretStringVisitor create:_speechRecognitionService
                                                      locationService:_locationService
                                                         conversation:_conversation
                                                               string:string];
-    [inputAction accept:visitor];
+    [state accept:visitor];*/
 }
 
-- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction {
+- (void)addUserVoiceForState:(NSString *)state {
+    [_speechRecognitionService recordAndInterpretUserVoice:state];
+
+    /*
     RecordAndInterpretUserVoiceVisitor *visitor = [RecordAndInterpretUserVoiceVisitor create:_speechRecognitionService
                                                                              locationService:_locationService
                                                                                 conversation:_conversation];
-    [inputAction accept:visitor];
-    return visitor.signal;
+    [state accept:visitor];
+    return visitor.signal;*/
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {

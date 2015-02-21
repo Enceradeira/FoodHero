@@ -23,7 +23,7 @@
 
 @implementation WitSpeechRecognitionServiceIntegrationTests {
     WitSpeechRecognitionService *_service;
-    AudioSessionStub* _audioSessionStub;
+    AudioSessionStub *_audioSessionStub;
 }
 
 - (void)setUp {
@@ -38,7 +38,8 @@
     NSMutableArray *interpretations = [NSMutableArray new];
     NSString *text = @"I want to eat Indian food";
 
-    RACSignal *result = [_service interpretString:text state:@"Test"];
+    RACSignal *result = _service.output;
+    [_service interpretString:text state:@"Test"];
 
     // Assert
     [result subscribeNext:^(SpeechInterpretation *i) {
@@ -65,9 +66,10 @@
 - (void)test_interpretString_ShouldReturnError_WhenWitCantBeReached {
     id schedulers = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
     NSString *invalidToken = @"asdhf82q3z0483q148";
-    WitSpeechRecognitionService *service = [[WitSpeechRecognitionService alloc] initWithSchedulerFactory:schedulers accessToken:invalidToken audioSession:_audioSessionStub];
+    WitSpeechRecognitionService *service = [[WitSpeechRecognitionService alloc] initWithAccessToken:invalidToken audioSession:_audioSessionStub];
 
-    RACSignal *result = [service interpretString:@"Funny text" state:@"Test"];
+    RACSignal *result = service.output;
+    [service interpretString:@"Funny text" state:@"Test"];
 
     __block NSError *error = nil;
     [result subscribeError:^(NSError *e) {
@@ -86,10 +88,11 @@
     assertThatBool(completed, is(equalToBool(NO)));
 }
 
--(void)test_recordAndInterpretUserVoice_ShouldReturnError_WhenNoRecordPermission{
+- (void)test_recordAndInterpretUserVoice_ShouldReturnError_WhenNoRecordPermission {
     [_audioSessionStub injectRecordPermission:AVAudioSessionRecordPermissionDenied];
 
-    RACSignal *result = [_service recordAndInterpretUserVoice:@"Test"];
+    RACSignal *result = _service.output;
+    [_service recordAndInterpretUserVoice:@"Test"];
 
     __block NSError *error = nil;
     [result subscribeError:^(NSError *e) {

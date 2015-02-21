@@ -31,22 +31,22 @@
 
 
 - (void)test_suggestedRestaurant_ShouldReturnNil_WhenTokenIsNotFHSuggestion {
-    Statement *statement = [Statement create:[FHOpeningQuestion new] inputAction:nil];
+    Statement *statement = [Statement create:[FHOpeningQuestion new] state:nil];
     assertThat(statement.suggestedRestaurant, is(nilValue()));
 }
 
 - (void)test_suggestedRestaurant_ShouldReturnRestaurantFromToken_WhenTokenIsFHSuggestion {
-    Statement *statement = [Statement create:[FHSuggestion create:_restaurant] inputAction:nil];
+    Statement *statement = [Statement create:[FHSuggestion create:_restaurant] state:nil];
     assertThat(statement.suggestedRestaurant, is(equalTo(_restaurant)));
 }
 
 - (void)test_suggestedRestaurant_ShouldReturnRestaurantFromToken_WhenTokenIsFHSuggestionAfterWarning {
-    Statement *statement = [Statement create:[FHSuggestionAfterWarning create:_restaurant] inputAction:nil];
+    Statement *statement = [Statement create:[FHSuggestionAfterWarning create:_restaurant] state:nil];
     assertThat(statement.suggestedRestaurant, is(equalTo(_restaurant)));
 }
 
 - (void)test_suggestedRestaurant_ShouldReturnRestaurantFromToken_WhenTokenIsFHSuggestionFeedback {
-    Statement *statement = [Statement create:[USuggestionFeedbackForNotLikingAtAll create:_restaurant text:@"I don't like that restaurant"] inputAction:nil];
+    Statement *statement = [Statement create:[USuggestionFeedbackForNotLikingAtAll create:_restaurant text:@"I don't like that restaurant"] state:nil];
     assertThat(statement.suggestedRestaurant, is(equalTo(_restaurant)));
 }
 

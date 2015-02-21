@@ -18,7 +18,7 @@ class TalkerInput {
         }
     }
 
-    private var _currCallback: (String) -> () = {
+    private var _currCallback: (TalkerUtterance) -> () = {
         utterance in }
 
 
@@ -30,10 +30,10 @@ class TalkerInput {
             utterance in
         }
         
-        callback(utterance.utterance)
+        callback(utterance)
     }
 
-    func getNext(callback: (String) -> ()) {
+    func getNext(callback: (TalkerUtterance) -> ()) {
         _currCallback = callback
         
         // someone wants to consume Input therefore we toggle mode to Input

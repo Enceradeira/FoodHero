@@ -7,6 +7,7 @@
 //
 
 @import AVFoundation;
+
 #import <Foundation/Foundation.h>
 #import "ConversationBubble.h"
 #import "ConversationRepository.h"
@@ -31,9 +32,9 @@
 
 - (NSInteger)getStatementCount;
 
-- (void)addUserText:(NSString *)string forInputAction:(id <IUAction>)inputAction;
+- (void)addUserText:(NSString *)string forState:(NSString *)state;
 
-- (RACSignal *)addUserVoiceForInputAction:(id <IUAction>)inputAction;
+- (void)addUserVoiceForState:(NSString *)state;
 
 - (AVAudioSessionRecordPermission)recordPermission;
 @end

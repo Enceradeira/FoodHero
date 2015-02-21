@@ -7,10 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <XCAsyncTestCase/XCTestCase+AsyncTesting.h>
-#import <OCHamcrest.h>
 #import "TyphoonComponents.h"
-#import "Conversation.h"
 #import "TextRepository.h"
 #import "RandomizerStub.h"
 #import "IntegrationAssembly.h"
@@ -31,8 +28,9 @@
     _randomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] randomizer];
 }
 
+/*
 - (Conversation *)createConversation {
-    return [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
-}
+    return [[Conversation alloc] initWithInput:_input];
+} */
 
 @end

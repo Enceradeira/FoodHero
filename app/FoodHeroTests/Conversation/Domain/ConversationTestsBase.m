@@ -10,16 +10,19 @@
 #import "StubAssembly.h"
 #import "Personas.h"
 #import "ExpectedStatement.h"
+#import "FoodHero-Swift.h"
 
 @implementation ConversationTestsBase {
 
     NSMutableArray *_expectedStatements;
     RestaurantSearchServiceStub *_restaurantSearchStub;
+    RACSubject *_input;
 }
 - (void)setUp {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
+    _input = [RACSubject new];
     _restaurantSearchStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     [self resetConversation];
@@ -29,7 +32,11 @@
 }
 
 - (void)resetConversation {
-    _conversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
+    _conversation = [[Conversation alloc] initWithInput:_input];
+}
+
+- (void)sendInput:(TalkerUtterance *)utterance {
+    [_input sendNext:utterance];
 }
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration {
@@ -73,29 +80,22 @@
         assertThat(statement, is(notNilValue()));
         assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
-        assertThat(statement.inputAction.class, is(equalTo(expectedStatement.inputActionClass)));
+        assertThat(statement.state.class, is(equalTo(expectedStatement.inputActionClass)));
     }
 }
 
 
-- (void)assertLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
+- (void)assertLastStatementIs:(NSString *)semanticId state:(NSString*)state {
     NSMutableArray *list = [NSMutableArray new];
-    [self expectedStatementIs:semanticId userAction:userAction inList:list];
+    [self expectedStatementIs:semanticId userAction:state inList:list];
     NSUInteger index = self.conversation.getStatementCount - 1;
     [self assertExpectedStatementsAtIndex:index inList:list];
 }
 
-- (void)assertSecondLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
+- (void)assertSecondLastStatementIs:(NSString *)semanticId state:(NSString*)state {
     NSUInteger index = self.conversation.getStatementCount - 2;
     NSMutableArray *list = [NSMutableArray new];
-    [self expectedStatementIs:semanticId userAction:userAction inList:list];
-    [self assertExpectedStatementsAtIndex:index inList:list];
-}
-
-- (void)assertThirdLastStatementIs:(NSString *)semanticId userAction:(Class)userAction {
-    NSUInteger index = self.conversation.getStatementCount - 3;
-    NSMutableArray *list = [NSMutableArray new];
-    [self expectedStatementIs:semanticId userAction:userAction inList:list];
+    [self expectedStatementIs:semanticId userAction:state inList:list];
     [self assertExpectedStatementsAtIndex:index inList:list];
 }
 

@@ -15,8 +15,6 @@
 #import "ConversationBubbleUser.h"
 #import "IntegrationAssembly.h"
 #import "CLLocationManagerProxyStub.h"
-#import "AskUserCuisinePreferenceAction.h"
-#import "AskUserSuggestionFeedbackAction.h"
 
 @interface ConversationAppServiceIntegrationTests : XCTestCase
 
@@ -56,7 +54,7 @@
 }
 
 - (void)test_addUserCuisinePreference_ShouldAddUCuisinePreferenceToConversation {
-    [_service addUserText:@"I whished to eat Korean food" forInputAction:[AskUserCuisinePreferenceAction new]];
+    [_service addUserText:@"I whished to eat Korean food" forState:@"askForFoodPreference"];
 
     ConversationBubble *bubble = [self waitStatementWithIndex:1];
 
@@ -66,10 +64,10 @@
 }
 
 - (void)test_addUserSuggestionFeedback_ShouldAddUSuggestionFeedbackToConversation {
-    [_service addUserText:@"I wished to eat Indian food" forInputAction:[AskUserCuisinePreferenceAction new]];
+    [_service addUserText:@"I wished to eat Indian food" forState:@"askForFoodPreference"];
     [self waitStatementWithIndex:2];
 
-    [_service addUserText:@"It's too far away" forInputAction:[AskUserSuggestionFeedbackAction new]];
+    [_service addUserText:@"It's too far away" forState:@"askForSuggestionFeedback"];
     ConversationBubble *bubble = [self waitStatementWithIndex:3];
 
     assertThat(bubble, is(notNilValue()));

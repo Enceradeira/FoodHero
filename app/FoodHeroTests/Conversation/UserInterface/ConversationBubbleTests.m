@@ -31,7 +31,7 @@
 
 
 - (ConversationBubbleFoodHero *)createBubbleWithToken:(ConversationToken *)token {
-    Statement *statement = [Statement create:token inputAction:nil];
+    Statement *statement = [Statement create:token state:nil];
     return [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:100 index:0 doRenderSemanticID:NO];
 }
 

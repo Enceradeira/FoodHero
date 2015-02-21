@@ -23,7 +23,7 @@
 - (id)speechRecognitionService {
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSchedulerFactory:accessToken:audioSession:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithAccessToken:audioSession:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self schedulerFactory]];
                                   [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero-Test"
                                   [method injectParameterWith:[self audioSession]];

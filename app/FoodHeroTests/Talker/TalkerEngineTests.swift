@@ -85,10 +85,10 @@ public class TalkerEngineTests: XCTestCase {
         }
     }
 
-    func sendInput(input: String) {
+    func sendInput(utterance: String, _ customData: AnyObject? = nil) {
         // force context switch because that's closer to reality
         dispatch_async(dispatch_get_main_queue()) {
-            self._input!.sendNext(TalkerUtterance(utterance: input))
+            self._input!.sendNext(TalkerUtterance(utterance: utterance, customData: customData))
         }
     }
 
@@ -102,7 +102,7 @@ public class TalkerEngineTests: XCTestCase {
         // see if input is to be generated befor scipt is subscribed (evaluated)
         let initialInput = generator("")
         if initialInput != nil {
-            sendInput(initialInput!)
+            sendInput(initialInput!, nil)
         }
 
         // subscribe to output and collect utterances until completed
@@ -112,13 +112,13 @@ public class TalkerEngineTests: XCTestCase {
             let utterance = (object! as TalkerUtterance).utterance
             NSLog("Utterance: \(utterance)")
             utterances.append(utterance)
-            
+
             // generate input from utterance
             let response = generator(utterance)
             if response != nil {
-                self.sendInput(response!)
+                self.sendInput(response!, nil)
             }
-            
+
         },
                 completed: {
                     // trigger a context switch in order that we always get to the XCA_waitForStatus below before we call XCA_notify here
@@ -129,6 +129,7 @@ public class TalkerEngineTests: XCTestCase {
 
         // wait for completion
         XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: 100)
+
 
         // check collected utterances
         var sometingWrong = utterances.count != expectedDialog.count

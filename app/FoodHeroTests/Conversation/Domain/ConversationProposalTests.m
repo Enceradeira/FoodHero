@@ -4,10 +4,8 @@
 //
 
 #import "UCuisinePreference.h"
-#import "AskUserSuggestionFeedbackAction.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
-#import "RandomizerStub.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForNotLikingAtAll.h"
@@ -25,7 +23,7 @@
     [super setUp];
 
     // Move Conversation into ProposalState by going through FirstProposal)
-    [self.conversation addFHToken:[UCuisinePreference create:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
 }
 
@@ -36,21 +34,21 @@
     // 1. branch (FH:SuggestionAsFollowUp)
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"];
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:location text:nil]];
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:[[[RestaurantBuilder alloc] withPriceLevel:4] build] text:nil]];
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 
     // 1. branch (FH:Suggestion)
     [self.tokenRandomizerStub injectChoice:@"FH:Suggestion"];
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:location text:nil]];
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 
     // 2. branch (FH:SuggestionWithComment)
     [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:[[RestaurantBuilder alloc] build] currentUserLocation:location text:nil]];
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
-    [super assertLastStatementIs:@"FH:Confirmation" userAction:nil];
+    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:Confirmation" state:nil];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestionAsFollowUp {
@@ -58,7 +56,7 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestionWithComment {
@@ -66,7 +64,7 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestion {
@@ -74,7 +72,7 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooCheapAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooCheap {
@@ -87,8 +85,8 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];
 
-    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooCheap" userAction:nil];
-    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooCheap" state:nil];
+    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooCheap_WhenUserHasAlreadyBeenWarnedBefore {
@@ -103,7 +101,7 @@
     [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:restaurant text:@"It looks too cheap"]];  // User is going to be warned with FH:WarningIfNotInPreferredRangeTooCheap"
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:otherOption1 text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooExpensiveAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
@@ -115,8 +113,8 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:restaurant text:nil]];
 
-    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooExpensive" userAction:nil];
-    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooExpensive" state:nil];
+    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooExpensive_WhenUserHasAlreadyBeenWarnedBefore {
@@ -131,7 +129,7 @@
     [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:restaurant text:nil]];  // User is going to be warned with FH:WarningIfNotInPreferredRangeTooExpensive
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:otherOption1 text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooFarAwayAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
@@ -147,8 +145,8 @@
 
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:userLocation text:nil]];
 
-    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooFarAway" userAction:nil];
-    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertSecondLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooFarAway" state:nil];
+    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooFarAway_WhenUserHasAlreadyBeenWarnedBefore {
@@ -166,7 +164,7 @@
     [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:restaurant currentUserLocation:userLocation text:nil]];  // User is going to be warned with FH:WarningIfNotInPreferredRangeTooFarAway
     [self.conversation addFHToken:[USuggestionFeedbackForNotLikingAtAll create:otherOption1 text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" userAction:AskUserSuggestionFeedbackAction.class];
+    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 @end

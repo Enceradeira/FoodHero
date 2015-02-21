@@ -7,16 +7,15 @@
 //
 
 #import "ConversationRepository.h"
-#import "TyphoonComponents.h"
 
 @implementation ConversationRepository {
     Conversation *_onlyConversation;
 }
 
-- (Conversation *)get {
+- (Conversation *)getForInput:(RACSignal *)input {
     if (_onlyConversation == nil) {
 
-        _onlyConversation = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversation];
+        _onlyConversation = [[Conversation alloc] initWithInput:input];
     }
     return _onlyConversation;
 }

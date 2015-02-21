@@ -73,20 +73,18 @@
 
 @implementation WitSpeechRecognitionService {
 
-    id <ISchedulerFactory> _schedulerFactory;
     NSString *_accessToken;
     Wit *_configuredWit;
     id <IAudioSession> _audioSession;
+    RACSubject *_output;
 }
 
-- (instancetype)initWithSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory
-                             accessToken:(NSString *)accessToken
-                            audioSession:(id <IAudioSession>)audioSession {
+- (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
     self = [super init];
     if (self) {
-        _schedulerFactory = schedulerFactory;
         _accessToken = accessToken;
         _audioSession = audioSession;
+        _output = [RACSubject new];
     }
 
     return self;
@@ -106,34 +104,30 @@
     return _configuredWit;
 }
 
-- (RACSignal *)interpretString:(NSString *)string state:(NSString *)state {
-    RACSignal *signal = [[RACSignal startEagerlyWithScheduler:_schedulerFactory.asynchScheduler block:^(id <RACSubscriber> subscriber) {
-        [self setContext:state subscriber:subscriber];
+- (void)interpretString:(NSString *)string state:(NSString *)state {
+    [self setContext:state subscriber:_output];
 
-        [self.wit interpretString:string customData:state];
-    }] deliverOn:[_schedulerFactory mainThreadScheduler]];
-
-    return signal;
+    [self.wit interpretString:string customData:state];
 }
 
-- (RACSignal *)recordAndInterpretUserVoice:(NSString *)state {
-    RACSignal *signal = [RACSignal startEagerlyWithScheduler:_schedulerFactory.mainThreadScheduler block:^(id <RACSubscriber> subscriber) {
-        [_audioSession requestRecordPermission:^(BOOL granted) {
-            if (granted) {
-                [self setContext:state subscriber:subscriber];
-                [self.wit start];
-            }
-            else {
-               [subscriber sendError:[MissingAudioRecordionPermissonError new]];
-            }
-        }];
+- (void)recordAndInterpretUserVoice:(NSString *)state {
+    [_audioSession requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            [self setContext:state subscriber:_output];
+            [self.wit start];
+        }
+        else {
+            [_output sendNext:[MissingAudioRecordionPermissonError new]];
+        }
     }];
-
-    return signal;
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
     return [_audioSession recordPermission];
+}
+
+- (RACSignal *)output {
+    return _output;
 }
 
 
