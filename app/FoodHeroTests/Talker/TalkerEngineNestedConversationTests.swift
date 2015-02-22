@@ -13,7 +13,7 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         .say({$0.words("How are you?")})
         .waitResponse(andContinueWith: {
             response, script in
-            switch response {
+            switch response.utterance {
             case "Good": script.say({$0.words("I'm glad to hear")})
             default: script.say({$0.words("What did you say?")})
             }
@@ -31,7 +31,7 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         .say({$0.words("How are you?")})
         .waitResponse(andContinueWith: {
             response, script in
-            switch response {
+            switch response.utterance {
             case "Good": script.say({$0.words("I'm glad to hear")})
             default: script.say({$0.words("What did you say?")})
             }

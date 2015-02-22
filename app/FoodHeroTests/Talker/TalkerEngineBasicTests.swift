@@ -51,6 +51,24 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         waitForExpectationsWithTimeout(0.01, handler: nil)
     }
 
+    func test_talk_shouldSendCustomDataToContinueWith_WhenWaitingResponse() {
+        var utterance: TalkerUtterance? = nil
+
+        let expectation = expectationWithDescription("")
+        let script = TestScript().say({ $0.words("How are you?") }).waitResponse(andContinueWith: {
+            response,script in
+            if( response.customData[0] as String == "Context-Response")
+            {
+                expectation.fulfill()
+            }
+        })
+        sendInput("Good, and you?", "Context-Response");
+
+        executeScript(script).asynchronouslyWaitUntilCompleted(nil)
+
+        waitForExpectationsWithTimeout(0.01, handler: nil)
+    }
+
     func test_talk_shouldYieldEmptyArrayAsCustomData_WhenNoCustomDataIsAssociatedatedWithUtterance() {
         var utterance: TalkerUtterance? = nil
         let script = TestScript().say({ $0.words("Hello") })

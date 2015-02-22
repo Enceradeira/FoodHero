@@ -26,7 +26,7 @@ public class Script: NSObject {
         return self
     }
 
-    public func waitResponse(andContinueWith continuation: ((response:String, script:Script) -> ())? = {
+    public func waitResponse(andContinueWith continuation: ((response:TalkerUtterance, script:Script) -> ())? = {
         r, s in }) -> Script {
         _utterances.append(ResponseUtterance(continuation!, _context))
         return self;
