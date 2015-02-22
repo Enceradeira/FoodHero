@@ -7,36 +7,42 @@
 //
 
 #import "Conversation.h"
-#import "FHSuggestion.h"
-#import "USuggestionNegativeFeedback.h"
+#import "Personas.h"
 
 @implementation Statement {
     NSString *_state;
-    ConversationToken *_token;
+    NSString *_text;
+    NSString *_semanticId;
+    Restaurant *_suggestedRestaurant;
 }
 - (NSString *)text {
-    return _token.text;
+    return _text;
 }
 
 - (NSString *)semanticId {
-    return _token.semanticId;
+    return _semanticId;
 }
 
 - (Persona *)persona {
-    return _token.persona;
+    if ([_semanticId rangeOfString:@"FH:"].location == NSNotFound) {
+        return [Personas user];
+    }
+    return [Personas foodHero];
 }
 
-- (id)initWithToken:(ConversationToken *)token state:(NSString *)state {
+- (instancetype)initWithSemanticId:(NSString *)semanticId text:(NSString *)text state:(NSString *)state suggestedRestaurant:(Restaurant *)restaurant {
     self = [super init];
     if (self != nil) {
-        _token = token;
         _state = state;
+        _text = text;
+        _semanticId = semanticId;
+        _suggestedRestaurant = restaurant;
     }
     return self;
 }
 
-+ (Statement *)create:(ConversationToken *)token state:(NSString *)inputAction {
-    return [[Statement alloc] initWithToken:token state:inputAction];
++ (instancetype)createWithSemanticId:(NSString *)semanticId text:(NSString *)text state:(NSString *)state suggestedRestaurant:(Restaurant *)restaurant {
+    return [[Statement alloc] initWithSemanticId:semanticId text:text state:state suggestedRestaurant:restaurant];
 }
 
 - (NSString *)state {
@@ -44,13 +50,7 @@
 }
 
 - (Restaurant *)suggestedRestaurant {
-    if ([_token isKindOfClass:[FHSuggestionBase class]]) {
-        return ((FHSuggestion *) _token).restaurant;
-    }
-    else if ([_token isKindOfClass:[USuggestionFeedback class]]) {
-        return ((USuggestionFeedback *) _token).restaurant;
-    }
-    return nil;
+    return _suggestedRestaurant;
 }
 
 @end

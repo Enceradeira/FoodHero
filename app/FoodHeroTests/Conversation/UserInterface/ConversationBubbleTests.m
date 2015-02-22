@@ -30,21 +30,25 @@
 }
 
 
-- (ConversationBubbleFoodHero *)createBubbleWithToken:(ConversationToken *)token {
-    Statement *statement = [Statement create:token state:nil];
+- (ConversationBubbleFoodHero *)createBubbleWithStatement:(Statement *)statement {
     return [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:100 index:0 doRenderSemanticID:NO];
 }
 
 
 - (void)test_textAsHtml_ShouldReturnTextWithoutLink_WhenNotASuggestion {
-    ConversationBubble *bubble = [self createBubbleWithToken:[FHGreeting create]];
+
+    Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"Hello" state:nil suggestedRestaurant:nil];
+
+    ConversationBubble *bubble = [self createBubbleWithStatement:statement];
 
     assertThat(bubble.textAsHtml, is(equalTo(@"Hello")));
 }
 
 - (void)test_textAsHtml_ShouldReturnTextWithLink_WhenSuggestion {
     Restaurant *restaurant = [[[RestaurantBuilder new] withName:@"Raj Palace"] build];
-    ConversationBubble *bubble = [self createBubbleWithToken:[FHSuggestion create:restaurant]];
+    Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"This is a no brainer.  You should try %@." state:nil suggestedRestaurant:restaurant];
+
+    ConversationBubble *bubble = [self createBubbleWithStatement:statement];
 
     assertThat(bubble.textAsHtml, is(equalTo(@"This is a no brainer.  You should try <a href=''>Raj Palace</a>.")));
 }

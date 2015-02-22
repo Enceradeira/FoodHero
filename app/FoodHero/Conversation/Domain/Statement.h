@@ -23,9 +23,7 @@
 
 - (Persona *)persona;
 
-- (id)initWithToken:(ConversationToken *)token state:(NSString*)state;
-
-+ (Statement *)create:(ConversationToken *)token state:(NSString*)state;
++ (instancetype)createWithSemanticId:(NSString *)semanticId text:(NSString *)text state:(NSString *)state suggestedRestaurant:(Restaurant *)restaurant;
 
 - (NSString*)state;
 

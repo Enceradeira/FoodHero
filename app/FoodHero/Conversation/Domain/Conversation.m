@@ -65,9 +65,9 @@
             NSString *statesString = [states componentsJoinedByString:@";"];
             NSString *text = utterance.utterance;
 
-            ConversationToken *token = [[ConversationToken alloc] initWithSemanticId:semanticIdString text:text];
+            Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:statesString suggestedRestaurant:nil];
 
-            [self addStatement:token state:statesString];
+            [self addStatement:statement];
             /*
             id <IUAction> uiAction = nil;
             if ([semanticIdString rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
@@ -100,9 +100,8 @@
             }];
 }
 
-- (void)addStatement:(ConversationToken *)token state:(NSString*)state {
+- (void)addStatement:(Statement*) statement {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
-    Statement *statement = [Statement create:token state:state];
     [statementProxy addObject:statement];
 }
 
