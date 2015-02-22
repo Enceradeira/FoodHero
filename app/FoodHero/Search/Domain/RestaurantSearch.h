@@ -12,8 +12,10 @@
 #import "IRestaurantRepository.h"
 #import "ISchedulerFactory.h"
 
+@class SearchProfil;
+
 @interface RestaurantSearch : NSObject
 - (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory;
 
-- (RACSignal *)findBest:(id <ConversationSource>)conversation;
+- (RACSignal *)findBestWithSearchProfil:(SearchProfil *)profile excludedPlaces:(NSArray *)excludedPlaceIds;
 @end

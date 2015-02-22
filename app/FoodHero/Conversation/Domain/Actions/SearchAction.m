@@ -51,7 +51,11 @@
 - (void)execute:(id <ConversationSource>)conversation {
     USuggestionNegativeFeedback *lastFeedback = [conversation.negativeUserFeedback linq_lastOrNil];
 
-    RACSignal *bestRestaurant = [[_restaurantSearch findBest:conversation]
+    NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
+        return f.restaurant.placeId;
+    }];
+
+    RACSignal *bestRestaurant = [[_restaurantSearch findBestWithSearchProfil:conversation.currentSearchPreference excludedPlaces:excludedPlaceIds]
             deliverOn:_schedulerFactory.mainThreadScheduler];
     [bestRestaurant subscribeError:^(NSError *error) {
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
