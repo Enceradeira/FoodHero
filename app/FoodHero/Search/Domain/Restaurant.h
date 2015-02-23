@@ -43,4 +43,6 @@
               cuisineRelevance:(double)cuisineRelevance
                         rating:(RestaurantRating *)rating
                         photos:(NSArray *)photos;
+
+- (NSString *)readableId;
 @end

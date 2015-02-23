@@ -62,7 +62,7 @@
     Restaurant *place2 = [[RestaurantBuilder alloc] build];
     [_restaurantRepository injectRestaurants:@[place1, place2]];
 
-    RACSignal *signal = [_search findBestWithSearchProfil:self.conversation.currentSearchPreference excludedPlaces:@[]];
+    RACSignal *signal = [_search findBestWithSearchProfile:self.conversation.currentSearchPreference excludedPlaces:@[]];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];
@@ -139,7 +139,7 @@
     [_restaurantRepository injectRestaurants:@[[[[RestaurantBuilder alloc] withName:@"Other restaurant"] build]]];
     [_restaurantRepository injectException:[SearchException createWithReason:@"failure"]];
 
-    RACSignal *signal = [_search findBestWithSearchProfil:self.conversation.currentSearchPreference excludedPlaces:@[]];
+    RACSignal *signal = [_search findBestWithSearchProfile:self.conversation.currentSearchPreference excludedPlaces:@[]];
     [signal subscribeError:^(NSError *error) {
         receivedError = error;
     }];

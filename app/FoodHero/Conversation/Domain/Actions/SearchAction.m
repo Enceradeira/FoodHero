@@ -20,7 +20,7 @@
 #import "FHSuggestionAsFollowUp.h"
 #import "USuggestionNegativeFeedback.h"
 #import "FHConfirmation.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "FHSuggestionAfterWarning.h"
 #import "FHWarningIfNotInPreferredRangeTooExpensive.h"
@@ -55,7 +55,7 @@
         return f.restaurant.placeId;
     }];
 
-    RACSignal *bestRestaurant = [[_restaurantSearch findBestWithSearchProfil:conversation.currentSearchPreference excludedPlaces:excludedPlaceIds]
+    RACSignal *bestRestaurant = [[_restaurantSearch findBestWithSearchProfile:conversation.currentSearchPreference excludedPlaces:excludedPlaceIds]
             deliverOn:_schedulerFactory.mainThreadScheduler];
     [bestRestaurant subscribeError:^(NSError *error) {
         if (error.class == [LocationServiceAuthorizationStatusDeniedError class]) {
@@ -80,7 +80,7 @@
             ConversationToken *fhSuggestionAsFollowUp = [FHSuggestionAsFollowUp create:restaurant];
             ConversationToken *fhSuggestionWithComment = [lastFeedback getFoodHeroSuggestionWithCommentToken:restaurant];
 
-            SearchProfil *searchPreference = conversation.currentSearchPreference;
+            SearchProfile *searchPreference = conversation.currentSearchPreference;
             ConversationToken *lastSuggestionWarning = conversation.lastSuggestionWarning;
             PriceRange *priceRange = searchPreference.priceRange;
             if (priceRange.min > restaurant.priceLevel && ![lastSuggestionWarning isKindOfClass:[FHWarningIfNotInPreferredRangeTooCheap class]]) {

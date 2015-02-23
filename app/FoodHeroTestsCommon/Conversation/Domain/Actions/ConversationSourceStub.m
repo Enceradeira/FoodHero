@@ -5,7 +5,7 @@
 
 #import "ConversationSourceStub.h"
 #import "USuggestionNegativeFeedback.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "DistanceRange.h"
 
 
@@ -36,8 +36,8 @@
     return _negativeUserFeedback;
 }
 
-- (SearchProfil *)currentSearchPreference {
-    return [SearchProfil createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
+- (SearchProfile *)currentSearchPreference {
+    return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
 }
 
 - (ConversationToken *)lastSuggestionWarning {

@@ -23,9 +23,10 @@
 #import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
+#import "RestaurantSearch.h"
 
 
 @interface ConversationTests : ConversationTestsBase

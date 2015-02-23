@@ -82,4 +82,9 @@
                                      rating:rating
                                      photos:photos];
 }
+
+- (NSString*)readableId{
+    return [NSString stringWithFormat:@"%@, %@", _name, _vicinity];
+}
+
 @end

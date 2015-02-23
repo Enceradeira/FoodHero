@@ -30,7 +30,7 @@
         return f.restaurant.placeId;
     }];
 
-    RACSignal *signal = [self.search findBestWithSearchProfil:_conversation.currentSearchPreference excludedPlaces:excludedPlaceIds];
+    RACSignal *signal = [self.search findBestWithSearchProfile:_conversation.currentSearchPreference excludedPlaces:excludedPlaceIds];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];

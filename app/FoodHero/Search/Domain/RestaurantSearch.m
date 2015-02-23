@@ -8,7 +8,7 @@
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
 #import "USuggestionNegativeFeedback.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "SearchException.h"
 #import "SearchError.h"
 
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (RACSignal *)findBestWithSearchProfil:(SearchProfil *)profile excludedPlaces:(NSArray*)excludedPlaceIds {
+- (RACSignal *)findBestWithSearchProfile:(SearchProfile *)profile excludedPlaces:(NSArray*)excludedPlaceIds {
     RACSignal *placesSignal = [[[_repository getPlacesByCuisine:profile.cuisine]
             take:1]
             map:^(NSArray *places) {
@@ -61,7 +61,7 @@
             }];
 }
 
-- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfil *)preferences {
+- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences {
     return [[[_locationService.currentLocation
             deliverOn:_schedulerFactory.asynchScheduler]
             take:1]

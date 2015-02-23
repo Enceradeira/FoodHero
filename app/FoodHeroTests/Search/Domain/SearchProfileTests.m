@@ -11,7 +11,7 @@
 #import "RestaurantBuilder.h"
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 
 @interface SearchProfileTests : XCTestCase
 
@@ -19,7 +19,7 @@
 @end
 
 @implementation SearchProfileTests {
-    SearchProfil *_defaultPreference;
+    SearchProfile *_defaultPreference;
 }
 
 - (void)setUp {
@@ -35,16 +35,16 @@
     return [[[RestaurantBuilder alloc] withCuisineRelevance:cuisineRelevance] build];
 }
 
-- (SearchProfil *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax {
+- (SearchProfile *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax {
     return [self preferenceWithPriceMin:priceMin priceMax:priceMax distanceMax:DBL_MAX];
 }
 
-- (SearchProfil *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax distanceMax:(double)distanceMax {
+- (SearchProfile *)preferenceWithPriceMin:(NSUInteger)priceMin priceMax:(NSUInteger)priceMax distanceMax:(double)distanceMax {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     priceRange = [priceRange setMinHigherThan:priceMin - 1];
     priceRange = [priceRange setMaxLowerThan:priceMax + 1];
     DistanceRange *distance = [DistanceRange distanceRangeNearerThan:distanceMax / DISTANCE_DECREMENT_FACTOR];
-    SearchProfil *preferences = [SearchProfil createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance];
     return preferences;
 }
 
@@ -60,7 +60,7 @@
 }
 
 - (void)test_scorePlace_ShouldBeMaxScore_WhenDistanceLessThanMaxDistanceAndPriceLevelMatches {
-    SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:20000];
+    SearchProfile *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:20000];
     assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:0 restaurant:nil], is(equalTo(@(1))));
     assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:10000 restaurant:nil], is(equalTo(@(1))));
     assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] distance:20000 restaurant:nil], is(equalTo(@(1))));
@@ -73,7 +73,7 @@
 }
 
 - (void)test_scorePlace_ShouldDecrease_WhenPriceLevelDifferenceFromMinPriceIncreasesButDistanceStaysTheSame {
-    SearchProfil *preference = [self preferenceWithPriceMin:4 priceMax:4];
+    SearchProfile *preference = [self preferenceWithPriceMin:4 priceMax:4];
     double score1 = [preference scorePlace:[self placeWithPriceLevel:4] distance:0 restaurant:nil];
     double score2 = [preference scorePlace:[self placeWithPriceLevel:3] distance:0 restaurant:nil];
     double score3 = [preference scorePlace:[self placeWithPriceLevel:2] distance:0 restaurant:nil];
@@ -87,7 +87,7 @@
 }
 
 - (void)test_scorePlace_ShouldDecrease_WhenPriceLevelDifferenceFromMaxPriceIncreasesButDistanceStaysTheSame {
-    SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:0];
+    SearchProfile *preference = [self preferenceWithPriceMin:0 priceMax:0];
     double score1 = [preference scorePlace:[self placeWithPriceLevel:0] distance:0 restaurant:nil];
     double score2 = [preference scorePlace:[self placeWithPriceLevel:1] distance:0 restaurant:nil];
     double score3 = [preference scorePlace:[self placeWithPriceLevel:2] distance:0 restaurant:nil];
@@ -101,20 +101,20 @@
 }
 
 - (void)test_scorePlace_ShouldBeEqual_WhenDiffFromPriceLevelMaxAndPriceLevelMinIsTheSame {
-    SearchProfil *preference = [self preferenceWithPriceMin:2 priceMax:3];
+    SearchProfile *preference = [self preferenceWithPriceMin:2 priceMax:3];
     double score1 = [preference scorePlace:[self placeWithPriceLevel:1] distance:0 restaurant:nil];
     double score2 = [preference scorePlace:[self placeWithPriceLevel:4] distance:0 restaurant:nil];
     assertThatDouble(score1, is(equalTo(@(score2))));
 }
 
 - (void)test_scorePlace_ShouldIncrease_WhenPriceLevelDoesNotMatchButMaxDistanceIsDecreased {
-    SearchProfil *maxDistance6000Preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:6000];
+    SearchProfile *maxDistance6000Preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:6000];
     double scoreForMaxDistance6000 = [maxDistance6000Preference scorePlace:[self placeWithPriceLevel:1] distance:12000 restaurant:nil];
 
-    SearchProfil *maxDistance8000Preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:8000];
+    SearchProfile *maxDistance8000Preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:8000];
     double scoreForMaxDistance8000 = [maxDistance8000Preference scorePlace:[self placeWithPriceLevel:1] distance:12000 restaurant:nil];
 
-    SearchProfil *maxDistance12000Preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:12000];
+    SearchProfile *maxDistance12000Preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:12000];
     double scoreForMaxDistance12000 = [maxDistance12000Preference scorePlace:[self placeWithPriceLevel:1] distance:12000 restaurant:nil];
 
     assertThatDouble(scoreForMaxDistance6000, is(lessThan(@(scoreForMaxDistance8000))));
@@ -127,17 +127,17 @@
     for (double relativeDistanceOverMax = 0; relativeDistanceOverMax < 10; relativeDistanceOverMax++) {
         // distanceMax = 25000 / distance = i * 250000
         double distanceMax1 = 25000;
-        SearchProfil *preference1 = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax1];
+        SearchProfile *preference1 = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax1];
         double score1 = [preference1 scorePlace:place distance:distanceMax1 * relativeDistanceOverMax restaurant:nil];
 
         // distanceMax = 5000 / distance = i * 5000
         double distanceMax2 = 5000;
-        SearchProfil *preference2 = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax2];
+        SearchProfile *preference2 = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax2];
         double score2 = [preference2 scorePlace:place distance:distanceMax2 * relativeDistanceOverMax restaurant:nil];
 
         // distanceMax = 200 / distance = i * 200
         double distanceMax3 = 200;
-        SearchProfil *preference3 = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax3];
+        SearchProfile *preference3 = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax3];
         double score3 = [preference3 scorePlace:place distance:distanceMax3 * relativeDistanceOverMax restaurant:nil];
 
         assertThatDouble(score1, is(equalTo(@(score2))));
@@ -149,7 +149,7 @@
     double cuisineRelevance = 1;
     Place *place = [[[[RestaurantBuilder alloc] withPriceLevel:4] withCuisineRelevance:cuisineRelevance] build];
     double distanceMax = 1000;
-    SearchProfil *preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax];
+    SearchProfile *preference = [self preferenceWithPriceMin:4 priceMax:4 distanceMax:distanceMax];
 
     // we expect an interval between score changes that becomes greater as distance increases (inverse exponential)
     double lastScore = cuisineRelevance;
@@ -169,7 +169,7 @@
 }
 
 - (void)test_scorePlace_ShouldReturnSensibleScores_WhenPriceLevelDoesNotMatch {
-    SearchProfil *preference = [self preferenceWithPriceMin:4 priceMax:4];
+    SearchProfile *preference = [self preferenceWithPriceMin:4 priceMax:4];
 
     // no diff ok -> score 1
     assertThatDouble([preference scorePlace:[self placeWithPriceLevel:4] distance:500 restaurant:nil], is(equalTo(@(1))));
@@ -185,7 +185,7 @@
 
 - (void)test_scorePlace_ShouldRerunSensibleScores_WhenOverMaxDistance {
     for (double maxDistance = 500; maxDistance < 50000; maxDistance /= DISTANCE_DECREMENT_FACTOR) {
-        SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:maxDistance];
+        SearchProfile *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:maxDistance];
 
         // diff is less than 0 -> superb -> score 1.0
         assertThatDouble([preference scorePlace:[self placeWithPriceLevel:4] distance:maxDistance / 2 restaurant:nil], is(equalTo(@(1))));
@@ -199,7 +199,7 @@
 }
 
 - (void)test_scorePlace_ShouldReturnLowerScore_WhenPlaceIsLessRelevant {
-    SearchProfil *preference = [self preferenceWithPriceMin:4 priceMax:4];
+    SearchProfile *preference = [self preferenceWithPriceMin:4 priceMax:4];
 
     double score1 = [preference scorePlace:[self placeWithCuisineRelevance:0.5] distance:400 restaurant:nil];
     double score2 = [preference scorePlace:[self placeWithCuisineRelevance:0.8] distance:400 restaurant:nil];
@@ -209,7 +209,7 @@
 
 - (void)test_ScorePlace_ShouldBeLessOrEqual1_WhenRestaurantIsCloserThanMaxDistance {
     NSInteger maxDistance = 7115;
-    SearchProfil *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:maxDistance];
+    SearchProfile *preference = [self preferenceWithPriceMin:0 priceMax:4 distanceMax:maxDistance];
 
     double score = [preference scorePlace:[self placeWithCuisineRelevance:1] distance:7949 restaurant:nil];
     assertThatDouble(score, is(lessThanOrEqualTo(@1)));

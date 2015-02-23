@@ -17,10 +17,13 @@
 #import "UCuisinePreference.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "FHWarningIfNotInPreferredRange.h"
 #import "FoodHero-Swift.h"
+#import "ApplicationAssembly.h"
+#import "TyphoonComponents.h"
+#import "RestaurantSearch.h"
 
 
 @interface Conversation ()
@@ -44,18 +47,19 @@
         _input = input;
 
         id <IRandomizer> randomizer = [TalkerRandomizer new];
+        RestaurantSearch *search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
         TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
-        ConversationScript *script = [[ConversationScript alloc] initWithContext:context];
+        ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search];
 
         TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
 
         RACSignal *output = [engine execute];
         [output subscribeNext:^(TalkerUtterance *utterance) {
-            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationContext* context){
+            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters* context){
                 return [context semanticId];
             }];
-            NSArray *states = [[[utterance customData] linq_select:^(ConversationContext *context) {
+            NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *context) {
                 return [context state];
             }] linq_where:^(NSString*state){
                 return (BOOL)(state != [NSNull null]);
@@ -141,8 +145,8 @@
     return [self.tokensOfCurrentSearch linq_ofType:[USuggestionNegativeFeedback class]];
 }
 
-- (SearchProfil *)currentSearchPreference {
-    return [SearchProfil createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
+- (SearchProfile *)currentSearchPreference {
+    return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
 }
 
 - (ConversationToken *)lastSuggestionWarning {

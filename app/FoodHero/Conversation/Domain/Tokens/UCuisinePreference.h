@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
+#import "FoodHero-Swift.h"
 
 @interface UCuisinePreference : ConversationToken
 + (instancetype)create:(NSString *)parameter text:(NSString *)text;

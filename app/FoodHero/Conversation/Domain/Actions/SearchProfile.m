@@ -3,14 +3,14 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "DesignByContractException.h"
 
-@implementation SearchProfil {
+@implementation SearchProfile {
 
 }
 + (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance {
-    return [[SearchProfil alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance];
+    return [[SearchProfile alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance];
 }
 
 - (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance {

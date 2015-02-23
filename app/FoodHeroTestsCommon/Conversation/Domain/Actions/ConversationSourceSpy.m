@@ -4,7 +4,7 @@
 //
 
 #import "ConversationSourceSpy.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 
 
 @implementation ConversationSourceSpy {
@@ -28,7 +28,7 @@
     return nil;
 }
 
-- (SearchProfil *)currentSearchPreference {
+- (SearchProfile *)currentSearchPreference {
     return nil;
 }
 

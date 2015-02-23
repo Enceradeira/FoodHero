@@ -18,8 +18,9 @@
 
 + (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
     NSString *semanticId = [NSString stringWithFormat:@"U:CuisinePreference=%@", parameter];
-    ConversationContext *context = [[ConversationContext alloc] initWithSemanticId:semanticId state:nil];
-    return [[TalkerUtterance alloc] initWithUtterance:text customData:context];
+
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:semanticId parameter:parameter];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
 }
 
 

@@ -6,7 +6,7 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantRepository.h"
 #import "RadiusCalculator.h"
-#import "SearchProfil.h"
+#import "SearchProfile.h"
 #import "GoogleRestaurantSearch.h"
 #import "SearchException.h"
 #import "SearchError.h"

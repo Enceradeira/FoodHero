@@ -6,7 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "Persona.h"
 #import "ConversationAction.h"
-#import "FoodHero-Swift.h"
 
 
 @interface ConversationToken : NSObject

@@ -9,7 +9,7 @@
 #import "DistanceRange.h"
 #import "Restaurant.h"
 
-@interface SearchProfil : NSObject
+@interface SearchProfile : NSObject
 @property(nonatomic, readonly) NSString *cuisine;
 @property(nonatomic, readonly) PriceRange *priceRange;
 @property(nonatomic, readonly) DistanceRange *distanceRange;
