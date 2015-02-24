@@ -54,7 +54,7 @@
 
         TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
 
-        RACSignal *output = [engine execute];
+        RACSignal *output = [engine execute].naturalOutput;
         [output subscribeNext:^(TalkerUtterance *utterance) {
             NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters* context){
                 return [context semanticId];

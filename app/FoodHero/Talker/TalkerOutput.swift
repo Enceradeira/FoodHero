@@ -7,22 +7,24 @@ import Foundation
 
 class TalkerOutput: TalkerModeChangedDelegate {
     private let _talkerMode: TalkerMode
-    private let _output: RACSubscriber
-    private var _buffer = [TalkerUtterance]()
+    private let _naturalOutput: RACSubscriber
+    private let _rawOutput: RACSubscriber
+    private var _naturalBuffer = [TalkerUtterance]()
 
-    init(_ output: RACSubscriber, _ talkerMode: TalkerMode) {
-        _output = output
-        _talkerMode = talkerMode
+    init(rawOutput: RACSubscriber, naturalOutput: RACSubscriber, mode: TalkerMode) {
+        _naturalOutput = naturalOutput
+        _rawOutput = rawOutput
+        _talkerMode = mode
         _talkerMode.addModeChangedDelegate(self)
     }
 
     func modeDidChange(newMode: TalkerModes) {
-        if (_buffer.count > 0) {
+        if (_naturalBuffer.count > 0) {
             // let text = "\n\n".join(_buffer)
-            let utterance = _buffer.reduce(TalkerUtterance(), { $0.concat($1) })
+            let utterance = _naturalBuffer.reduce(TalkerUtterance(), { $0.concat($1) })
 
-            _buffer.removeAll()
-            _output.sendNext(utterance)
+            _naturalBuffer.removeAll()
+            _naturalOutput.sendNext(utterance)
         }
     }
 
@@ -30,10 +32,12 @@ class TalkerOutput: TalkerModeChangedDelegate {
         // switches modes which controls the buffering of outputs
         _talkerMode.Mode = reason
 
-        _buffer.append(utterance)
+        _rawOutput.sendNext(utterance)
+        _naturalBuffer.append(utterance)
     }
 
     func sendCompleted() {
-        _output.sendCompleted()
+        _naturalOutput.sendCompleted()
+        _rawOutput.sendCompleted()
     }
 }

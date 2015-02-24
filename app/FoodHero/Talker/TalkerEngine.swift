@@ -17,18 +17,18 @@ public class TalkerEngine: NSObject {
         self._input = input
     }
 
-    public func execute() -> RACSignal {
-        return RACSignal.createSignal {
-            subscriber in
+    public func execute() -> TalkerStreams {
+        let rawOutput = RACReplaySubject()
+        let naturalOutput = RACReplaySubject()
 
-            let talkerMode = TalkerMode()
-            let talkerInput = TalkerInput(self._input, talkerMode)
-            let talkerOuput = TalkerOutput(subscriber, talkerMode)
-            Sequence.execute(self._script, talkerInput, talkerOuput, {
-                talkerMode.Mode = TalkerModes.Finishing
-                subscriber.sendCompleted()
-            })
-            return nil
-        }
+        let talkerMode = TalkerMode()
+        let talkerInput = TalkerInput(self._input, talkerMode)
+        let talkerOuput = TalkerOutput(rawOutput: rawOutput, naturalOutput: naturalOutput, mode: talkerMode)
+        Sequence.execute(self._script, talkerInput, talkerOuput, {
+            talkerMode.Mode = TalkerModes.Finishing
+            talkerOuput.sendCompleted()
+        })
+
+        return TalkerStreams(rawOutput: rawOutput, naturalOutput: naturalOutput)
     }
 }

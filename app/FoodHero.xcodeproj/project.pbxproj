@@ -64,6 +64,7 @@
 		23525376A2F25F9B522550D4 /* AlwaysImmediateSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC8C07D9998AC2FE292 /* AlwaysImmediateSchedulerFactory.m */; };
 		235253888AACFD29818CA386 /* RatingStarsImageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259706EC64A29C0B15763 /* RatingStarsImageRepository.m */; };
 		235253AF3E682DEE15F23D36 /* SearchProfileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */; };
+		235253B8755A0D2E06A094D1 /* TalkerStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352584DE3C616DF4984B16A /* TalkerStreams.swift */; };
 		235253BEE28EA42CE27DF77E /* ConversationAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */; };
 		235253C21B86403382BFC010 /* GooglePhotoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258892D3D9E931704531B /* GooglePhotoTests.m */; };
 		235253C2DA79C478E7E26011 /* PriceRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E68DCB6A0AD821122E3 /* PriceRange.m */; };
@@ -543,6 +544,7 @@
 		23525826A1685B7C449E2553 /* NoAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoAction.h; sourceTree = "<group>"; };
 		2352584264E295E74EAAA051 /* RestaurantBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantBuilder.h; sourceTree = "<group>"; };
 		235258497FD1447A340288F3 /* DefaultRandomizerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultRandomizerTests.m; sourceTree = "<group>"; };
+		2352584DE3C616DF4984B16A /* TalkerStreams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerStreams.swift; sourceTree = "<group>"; };
 		23525862D089688CEE92FEB5 /* GoogleDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleDefinitions.h; sourceTree = "<group>"; };
 		23525871F5597AB825B20E50 /* RestaurantDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailTableViewController.m; sourceTree = "<group>"; };
 		23525871FB0563C6FA13D06F /* ConversationBubbleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleUser.h; sourceTree = "<group>"; };
@@ -1063,6 +1065,7 @@
 				23525407F79FFB018D52A5FE /* TalkerMode.swift */,
 				23525B154687A334CA31D228 /* TalkerUtterance.swift */,
 				23525A7D66B814224736DB5A /* StringDefinition.swift */,
+				2352584DE3C616DF4984B16A /* TalkerStreams.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2136,6 +2139,7 @@
 				235251C69CCB44967774AB6E /* FoodHeroParameters.swift in Sources */,
 				2352529C1A07CCD84D56A0B3 /* UserParameters.swift in Sources */,
 				23525A10E31DC5EC0D5F0AF5 /* ConversationParameters.swift in Sources */,
+				235253B8755A0D2E06A094D1 /* TalkerStreams.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

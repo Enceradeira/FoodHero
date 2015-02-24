@@ -8,7 +8,7 @@ import FoodHero
 
 public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
 
-    func test_talk_shouldJoinConsecutiveUtterancesTogehter() {
+    func test_talk_shouldJoinConsecutiveUtterancesTogehter_WhenNaturalOutput() {
         let script = TestScript()
         .say({ $0.words("Good Morning") }).say({ $0.words("John") })
         .waitResponse()
@@ -32,14 +32,25 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
                     default:
                         return nil;
                     }
-                })
+                },
+                withNaturalOutput: true)
     }
 
-    func test_talk_shouldJoinConsecutiveUtterancesTogehterBeforeWaitingForResponse() {
+    func test_talk_shouldJoinConsecutiveUtterancesTogehterBeforeWaitingForResponse_WhenNaturalOutput() {
         let script = TestScript()
         .say({ $0.words("Good Morning") }).say({ $0.words("How are you?") })
         .waitResponse()
 
         assert(utterance: "Good Morning\n\nHow are you?", exists: true, inExecutedScript: script)
     }
+
+    func test_talk_shouldNotJoinConsecutiveUtterancesTogehter_WhenRawOutput() {
+        let script = TestScript()
+        .say({ $0.words("Good Morning") }).say({ $0.words("How are you?") })
+        .waitResponse()
+
+        assert(utterance: "Good Morning", exists: true, inExecutedScript: script, atPosition:0, withNaturalOutput:false)
+        assert(utterance: "How are you?", exists: true, inExecutedScript: script, atPosition:1, withNaturalOutput:false)
+    }
+
 }

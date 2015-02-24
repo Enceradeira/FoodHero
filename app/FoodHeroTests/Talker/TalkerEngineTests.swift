@@ -32,8 +32,13 @@ public class TalkerEngineTests: XCTestCase {
         return ScriptResources(randomizer: _randomizer!)
     }
 
-    func executeScript(script: Script) -> RACSignal {
-        return TalkerEngine(script: script, input: _input!).execute()
+    func executeScript(script: Script, withNaturalOutput naturalOutput: Bool = true) -> RACSignal {
+        let stream = TalkerEngine(script: script, input: _input!).execute();
+        if (naturalOutput) {
+            return stream.naturalOutput
+        } else {
+            return stream.rawOutput
+        }
     }
 
     func executeDialogFor(script: Script) -> [String] {
@@ -41,8 +46,8 @@ public class TalkerEngineTests: XCTestCase {
         return (dialog.toArray() as [String])
     }
 
-    func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil) {
-        assert(utterance: utterance, exists: exists, inDialog: executeScript(script), atPosition: expectedPosition)
+    func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil, withNaturalOutput naturalOutput: Bool = true) {
+        assert(utterance: utterance, exists: exists, inDialog: executeScript(script, withNaturalOutput: naturalOutput), atPosition: expectedPosition)
     }
 
     func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
@@ -94,10 +99,10 @@ public class TalkerEngineTests: XCTestCase {
 
     func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, whenInputIs generator: (String) -> (String?) = {
         g in return nil
-    }) {
+    }, withNaturalOutput naturalOutput: Bool = true) {
         var utterances = [String]()
 
-        let dialog = executeScript(script)
+        let dialog = executeScript(script, withNaturalOutput: naturalOutput)
 
         // see if input is to be generated befor scipt is subscribed (evaluated)
         let initialInput = generator("")
