@@ -18,15 +18,15 @@ public class Script: NSObject {
         return _utterances
     }
 
-    public func say(oneOf texts: (StringDefinition)->(StringDefinition)) -> Script {
-        let definition = StringDefinition(context:_context)
+    public func say(oneOf texts: (StringDefinition) -> (StringDefinition)) -> Script {
+        let definition = StringDefinition(context: _context)
         texts(definition)
 
-        _utterances.append(OutputUtterance(definition:definition))
+        _utterances.append(OutputUtterance(definition: definition))
         return self
     }
 
-    public func waitResponse(andContinueWith continuation: ((response:TalkerUtterance, script:Script) -> ())? = {
+    public func waitResponse(andContinueWith continuation: ((TalkerUtterance, Script) -> ())? = {
         r, s in }) -> Script {
         _utterances.append(ResponseUtterance(continuation!, _context))
         return self;

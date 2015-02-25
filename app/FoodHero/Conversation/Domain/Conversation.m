@@ -10,8 +10,6 @@
 #import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
-#import "FHOpeningQuestion.h"
-#import "FHAction.h"
 #import "USuggestionNegativeFeedback.h"
 #import "FHSuggestion.h"
 #import "UCuisinePreference.h"
@@ -19,8 +17,6 @@
 #import "USuggestionFeedbackForTooCheap.h"
 #import "SearchProfile.h"
 #import "USuggestionFeedbackForTooFarAway.h"
-#import "FHWarningIfNotInPreferredRange.h"
-#import "FoodHero-Swift.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
@@ -33,6 +29,7 @@
 @implementation Conversation {
 
     RACSignal *_input;
+    NSMutableArray *_rawConversation;
 }
 
 
@@ -40,10 +37,11 @@
     return [self initWithInput:[RACSubject new]];
 }
 
-- (instancetype)initWithInput:(RACSignal*) input {
+- (instancetype)initWithInput:(RACSignal *)input {
     self = [super init];
     if (self != nil) {
         _statements = [NSMutableArray new];
+        _rawConversation = [NSMutableArray new];
         _input = input;
 
         id <IRandomizer> randomizer = [TalkerRandomizer new];
@@ -54,15 +52,16 @@
 
         TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
 
-        RACSignal *output = [engine execute].naturalOutput;
-        [output subscribeNext:^(TalkerUtterance *utterance) {
-            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters* context){
-                return [context semanticId];
+        TalkerStreams *streams = [engine execute];
+
+        [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
+            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *context) {
+                return [context semanticIdInclParameters];
             }];
             NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *context) {
                 return [context state];
-            }] linq_where:^(NSString*state){
-                return (BOOL)(state != [NSNull null]);
+            }] linq_where:^(NSString *state) {
+                return (BOOL) (state != [NSNull null]);
             }];
 
             NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
@@ -72,39 +71,33 @@
             Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:statesString suggestedRestaurant:nil];
 
             [self addStatement:statement];
-            /*
-            id <IUAction> uiAction = nil;
-            if ([semanticIdString rangeOfString:@"FH:OpeningQuestion"].location != NSNotFound) {
-                uiAction = [AskUserCuisinePreferenceAction new];
-            } */
-
-
         }];
 
+        [streams.rawOutput subscribeNext:^(TalkerUtterance *utterance) {
+            assert([utterance customData].count == 1);
 
-        // [self addFHToken:[FHGreeting create]];
+            ConversationParameters *parameters = [utterance customData][0];
+            [_rawConversation addObject:parameters];
+        }];
     }
     return self;
 }
 
 
-- (NSArray *)tokensOfCurrentSearch {
-    Statement *lastOpeningQuestion = [[_statements
-            linq_where:^(Statement *s) {
-                return (BOOL) [s.token isKindOfClass:[FHOpeningQuestion class]];
+- (NSArray *)parametersOfCurrentSearch {
+    Statement *lastOpeningQuestion = [[_rawConversation
+            linq_where:^(ConversationParameters *p) {
+                return (BOOL) [p hasSemanticId:@"FH:OpeningQuestion"];
             }]
             linq_lastOrNil];
 
-    NSUInteger currentSearchBeginCount = lastOpeningQuestion == nil ? 0 : [_statements indexOfObject:lastOpeningQuestion] + 1;
+    NSUInteger currentSearchBeginCount = lastOpeningQuestion == nil ? 0 : [_rawConversation indexOfObject:lastOpeningQuestion] + 1;
 
-    return [[_statements
-            linq_skip:currentSearchBeginCount]
-            linq_select:^(Statement *s) {
-                return s.token;
-            }];
+    return [_rawConversation linq_skip:currentSearchBeginCount];
+
 }
 
-- (void)addStatement:(Statement*) statement {
+- (void)addStatement:(Statement *)statement {
     NSMutableArray *statementProxy = [self mutableArrayValueForKey:@"statements"]; // In order that KVC-Events are fired
     [statementProxy addObject:statement];
 }
@@ -142,20 +135,37 @@
 }
 
 - (NSArray *)negativeUserFeedback {
-    return [self.tokensOfCurrentSearch linq_ofType:[USuggestionNegativeFeedback class]];
+    return [self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+        return (BOOL) (
+                [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=Dislike"] ||
+                        [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"] ||
+                        [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"] ||
+                        [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
+        );
+    }];
 }
 
 - (SearchProfile *)currentSearchPreference {
     return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
 }
 
-- (ConversationToken *)lastSuggestionWarning {
-    return [[self.tokensOfCurrentSearch linq_ofType:[FHWarningIfNotInPreferredRange class]] linq_lastOrNil];
+- (ConversationParameters *)lastSuggestionWarning {
+    return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+        return (BOOL) (
+                [p.semanticIdInclParameters isEqualToString:@"FH:WarningIfNotInPreferredRangeTooCheap"] ||
+                        [p.semanticIdInclParameters isEqualToString:@"FH:WarningIfNotInPreferredRangeTooExpensive"] ||
+                        [p.semanticIdInclParameters isEqualToString:@"FH:WarningIfNotInPreferredRangeTooFarAway"]
+        );
+    }] linq_lastOrNil];
 }
 
 
 - (DistanceRange *)maxDistance {
-    USuggestionFeedbackForTooFarAway *lastFeedback = [[self.tokensOfCurrentSearch linq_ofType:[USuggestionFeedbackForTooFarAway class]] linq_lastOrNil];
+    USuggerstionFeedbackParameters *lastFeedback = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+        return (BOOL) (
+                [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
+        );
+    }] linq_lastOrNil];
     if (lastFeedback == nil) {
         return [DistanceRange distanceRangeWithoutRestriction];
     }
@@ -167,26 +177,30 @@
 }
 
 - (NSString *)cuisine {
-    UCuisinePreference *preference = [[self.tokensOfCurrentSearch linq_ofType:[UCuisinePreference class]] linq_lastOrNil];
+    UserParameters *preference = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+        return (BOOL) (
+                [p hasSemanticId:@"U:CuisinePreference"]
+        );
+    }] linq_lastOrNil];
     if (preference == nil) {
         @throw [DesignByContractException createWithReason:@"cuisine preference is unknown"];
     }
-    return preference.text;
+    return preference.parameter;
 }
 
 - (PriceRange *)priceRange {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
-    for (ConversationToken *token in [self tokensOfCurrentSearch]) {
-        if ([token isKindOfClass:[USuggestionFeedbackForTooExpensive class]]) {
+    for (ConversationParameters *parameter in [self parametersOfCurrentSearch]) {
+        if ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"]) {
 
-            NSUInteger priceLevel = ((USuggestionFeedbackForTooExpensive *) token).restaurant.priceLevel;
+            NSUInteger priceLevel = ((USuggerstionFeedbackParameters *) parameter).restaurant.priceLevel;
             if (priceLevel == GOOGLE_PRICE_LEVEL_MIN) {
                 priceLevel = GOOGLE_PRICE_LEVEL_MIN + 1;
             }
             priceRange = [priceRange setMaxLowerThan:priceLevel];
         }
-        else if ([token isKindOfClass:[USuggestionFeedbackForTooCheap class]]) {
-            NSUInteger priceLevel = ((USuggestionFeedbackForTooCheap *) token).restaurant.priceLevel;
+        else if ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"]) {
+            NSUInteger priceLevel = ((USuggerstionFeedbackParameters *) parameter).restaurant.priceLevel;
             if (priceLevel == GOOGLE_PRICE_LEVEL_MAX) {
                 priceLevel = GOOGLE_PRICE_LEVEL_MAX - 1;
             }
@@ -198,7 +212,7 @@
 
 
 - (NSArray *)suggestedRestaurants {
-    return [[self.tokensOfCurrentSearch linq_ofType:[FHSuggestionBase class]] linq_select:^(FHSuggestionBase *s) {
+    return [[self.parametersOfCurrentSearch linq_ofType:[FoodHeroSuggestionParameters class]] linq_select:^(FoodHeroSuggestionParameters *s) {
         return s.restaurant;
     }];
 }

@@ -89,7 +89,7 @@ public class ConversationScript: Script {
                         "Go to %@, and prosper.",
                         "%@.\n\nWelcome to food paradise.",
                         "%@.\n\nDid you know there is a pool in the back?  Me neither."],
-                        withCustomData: FoodHeroParameters(semanticId: "FH:Suggestion", state: "askForSuggestionFeedback"))
+                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:Suggestion", state: "askForSuggestionFeedback", restaurant: restaurant))
             })
         }
     }
