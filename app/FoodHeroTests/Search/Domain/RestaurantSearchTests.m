@@ -5,9 +5,12 @@
 
 #import <ReactiveCocoa.h>
 #import <XCTest/XCTest.h>
-#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantSearchTests.h"
 #import "DesignByContractException.h"
+#import "RestaurantRepository.h"
+#import "CLLocationManagerProxyStub.h"
+#import "GoogleRestaurantSearch.h"
+#import "DistanceRange.h"
 
 
 @implementation RestaurantSearchTests {
@@ -25,12 +28,7 @@
 
 - (Restaurant *)findBest {
     __block Restaurant *restaurant;
-
-    NSArray *excludedPlaceIds = [_conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
-        return f.restaurant.placeId;
-    }];
-
-    RACSignal *signal = [self.search findBestWithSearchProfile:_conversation.currentSearchPreference excludedPlaces:excludedPlaceIds];
+    RACSignal *signal = [self.search findBest:_conversation];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];

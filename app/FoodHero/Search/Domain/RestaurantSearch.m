@@ -29,8 +29,13 @@
     return self;
 }
 
-- (RACSignal *)findBestWithSearchProfile:(SearchProfile *)profile excludedPlaces:(NSArray*)excludedPlaceIds {
-    RACSignal *placesSignal = [[[_repository getPlacesByCuisine:profile.cuisine]
+- (RACSignal *)findBest:(id <ConversationSource>)conversation {
+    SearchProfile *searchPreference = conversation.currentSearchPreference;
+    NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
+        return f.restaurant.placeId;
+    }];
+
+    RACSignal *placesSignal = [[[_repository getPlacesByCuisine:searchPreference.cuisine]
             take:1]
             map:^(NSArray *places) {
                 return [places linq_where:^(Place *p) {
@@ -57,9 +62,9 @@
 
     return [moreThan0PlacesSignal
             flattenMap:^(NSArray *places) {
-                return [self getBestPlace:places preferences:profile];
+                return [self getBestPlace:places preferences:searchPreference];
             }];
-}
+};
 
 - (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences {
     return [[[_locationService.currentLocation

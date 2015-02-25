@@ -62,7 +62,7 @@
     Restaurant *place2 = [[RestaurantBuilder alloc] build];
     [_restaurantRepository injectRestaurants:@[place1, place2]];
 
-    RACSignal *signal = [_search findBestWithSearchProfile:self.conversation.currentSearchPreference excludedPlaces:@[]];
+    RACSignal *signal = [_search findBest:self.conversation];
     [signal subscribeNext:^(Restaurant *r) {
         restaurant = r;
     }];
@@ -133,15 +133,15 @@
     assertThat(bestRestaurant, is(equalTo(nearerRestaurant)));
 }
 
-- (void)test_findBest_ShouldReturnError_WhenGetRestaurantFromPlaceReturnsSearchException {
+-(void)test_findBest_ShouldReturnError_WhenGetRestaurantFromPlaceReturnsSearchException{
     __block NSError *receivedError;
     __block BOOL isCompleted;
     [_restaurantRepository injectRestaurants:@[[[[RestaurantBuilder alloc] withName:@"Other restaurant"] build]]];
     [_restaurantRepository injectException:[SearchException createWithReason:@"failure"]];
 
-    RACSignal *signal = [_search findBestWithSearchProfile:self.conversation.currentSearchPreference excludedPlaces:@[]];
-    [signal subscribeError:^(NSError *error) {
-        receivedError = error;
+    RACSignal *signal = [_search findBest:self.conversation];
+    [signal subscribeError:^(NSError* error){
+        receivedError=error;
     }];
     [signal subscribeCompleted:^() {
         isCompleted = YES;

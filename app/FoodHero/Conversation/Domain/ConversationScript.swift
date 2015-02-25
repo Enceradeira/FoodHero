@@ -65,9 +65,7 @@ public class ConversationScript: Script {
     }
 
     func searchRestaurant(response: TalkerUtterance, script: Script) {
-        let parameters = response.customData[0] as UserParameters
-        let profile = SearchProfile.createWithCuisine(parameters.parameter, priceRange: nil, maxDistance: nil)
-        let bestRestaurant = _search.findBestWithSearchProfile(profile, excludedPlaces: [])
+        let bestRestaurant = _search.findBest(_conversation)
         bestRestaurant.subscribeNext {
             (obj) in
             let restaurant = obj! as Restaurant
