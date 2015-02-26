@@ -9,10 +9,12 @@ public class ConversationScript: Script {
 
     let _conversation: Conversation
     let _search: RestaurantSearch
+    let _locationService: LocationService
 
-    public init(context context: TalkerContext, conversation: Conversation, search: RestaurantSearch) {
+    public init(context context: TalkerContext, conversation: Conversation, search: RestaurantSearch, locationService: LocationService) {
         _conversation = conversation
         _search = search
+        _locationService = locationService
 
         super.init(context: context)
 
@@ -66,33 +68,87 @@ public class ConversationScript: Script {
                 withCustomData: FoodHeroParameters(semanticId: "FH:Greeting"))
     }
 
+    func suggestions(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+        return {
+            $0.words([
+                    "This is a no brainer.  You should try %@.",
+                    "Did you really need me to tell you that you should go to %@.",
+                    "Obviously, %@.",
+                    "%@, duh!",
+                    "Are you serious?\n\n%@.",
+                    "Seriously?\n\n%@.",
+                    "How dumb can you get?\n\n%@.",
+                    "Easy… . Go here %@.",
+                    "%@.\n\n(I have n (how many?) circuits.  I feel like a sledgehammer cracking a nut.)",
+                    "%@.\n\nAll the cool kids are going there.",
+                    "%@.\n\nI’m there every Wednesday at 5:15 AM.",
+                    "%@.\n\nWho farted?",
+                    "Go to %@.\n\nI’ll go with you.",
+                    "%@.\n\nIt’s {celebrity}’s favorite.",
+                    "Go to %@.\n\nCan I come too?",
+                    "Go to %@, and prosper.",
+                    "%@.\n\nWelcome to food paradise.",
+                    "%@.\n\nDid you know there is a pool in the back?  Me neither."],
+                    withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:Suggestion=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+        }
+    }
+
+    func suggestionsAfterWarning(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+        return {
+            $0.words([
+                    "But '%@' would be another option"],
+                    withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionAfterWarning=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+        }
+    }
+
+    func warningsIfNotInPreferredRangeTooCheap(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "It's cheaper than you wanted it to be"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooCheap"))
+    }
+
+    func warningsIfNotInPreferredRangeTooExpensive(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "That one might be too classy though"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive"))
+    }
+
+
+    func warningsIfNotInPreferredRangeTooFarAway(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "It's further away unfortunatly"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway"))
+    }
+
     func searchRestaurant(response: TalkerUtterance, script: Script) {
-        let bestRestaurant = _search.findBest(_conversation)
+        let negativesFeedback = self._conversation.negativeUserFeedback()!
+        let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as USuggestionFeedbackParameters?
+        let bestRestaurant = _search.findBest(self._conversation)
         bestRestaurant.subscribeNext {
             (obj) in
             let restaurant = obj! as Restaurant
-            script.say(oneOf: {
-                $0.words([
-                        "This is a no brainer.  You should try %@.",
-                        "Did you really need me to tell you that you should go to %@.",
-                        "Obviously, %@.",
-                        "%@, duh!",
-                        "Are you serious?\n\n%@.",
-                        "Seriously?\n\n%@.",
-                        "How dumb can you get?\n\n%@.",
-                        "Easy… . Go here %@.",
-                        "%@.\n\n(I have n (how many?) circuits.  I feel like a sledgehammer cracking a nut.)",
-                        "%@.\n\nAll the cool kids are going there.",
-                        "%@.\n\nI’m there every Wednesday at 5:15 AM.",
-                        "%@.\n\nWho farted?",
-                        "Go to %@.\n\nI’ll go with you.",
-                        "%@.\n\nIt’s {celebrity}’s favorite.",
-                        "Go to %@.\n\nCan I come too?",
-                        "Go to %@, and prosper.",
-                        "%@.\n\nWelcome to food paradise.",
-                        "%@.\n\nDid you know there is a pool in the back?  Me neither."],
-                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:Suggestion=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
-            })
+            let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
+            if lastFeedback != nil && (lastFeedback?.restaurant) != nil {
+                let searchPreference = self._conversation.currentSearchPreference()
+                let priceRange = searchPreference.priceRange
+                if priceRange.min > restaurant.priceLevel
+                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooCheap")) {
+                    script.say(oneOf: self.warningsIfNotInPreferredRangeTooCheap)
+                    script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
+                } else if priceRange.max < restaurant.priceLevel
+                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooExpensive")) {
+                    script.say(oneOf: self.warningsIfNotInPreferredRangeTooExpensive)
+                    script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
+                } else if searchPreference.distanceRange.max < restaurant.location.distanceFromLocation(self._locationService.lastKnownLocation())
+                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooFarAway")) {
+                    script.say(oneOf: self.warningsIfNotInPreferredRangeTooFarAway)
+                    script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
+                } else {
+                    assert(false) // TODO
+                }
+            } else {
+                script.say(oneOf: self.suggestions(with: restaurant))
+            }
         }
     }
 }

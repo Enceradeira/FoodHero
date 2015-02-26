@@ -6,9 +6,9 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "PriceRange.h"
+#import "SearchProfile.h"
 
-@class SearchProfile;
-
+@class ConversationParameters;
 
 @protocol ConversationSource <NSObject>
 - (void)addFHToken:(ConversationToken *)token;
@@ -17,5 +17,5 @@
 
 - (SearchProfile *)currentSearchPreference;
 
-- (ConversationToken *)lastSuggestionWarning;
+- (ConversationParameters *)lastSuggestionWarning;
 @end

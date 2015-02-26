@@ -46,9 +46,10 @@
 
         id <IRandomizer> randomizer = [TalkerRandomizer new];
         RestaurantSearch *search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
+        LocationService *locationService =  [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
         TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
-        ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search];
+        ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService];
 
         TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
 
@@ -161,7 +162,7 @@
 
 
 - (DistanceRange *)maxDistance {
-    USuggerstionFeedbackParameters *lastFeedback = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+    USuggestionFeedbackParameters *lastFeedback = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
         return (BOOL) (
                 [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
         );
@@ -193,14 +194,14 @@
     for (ConversationParameters *parameter in [self parametersOfCurrentSearch]) {
         if ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"]) {
 
-            NSUInteger priceLevel = ((USuggerstionFeedbackParameters *) parameter).restaurant.priceLevel;
+            NSUInteger priceLevel = ((USuggestionFeedbackParameters *) parameter).restaurant.priceLevel;
             if (priceLevel == GOOGLE_PRICE_LEVEL_MIN) {
                 priceLevel = GOOGLE_PRICE_LEVEL_MIN + 1;
             }
             priceRange = [priceRange setMaxLowerThan:priceLevel];
         }
         else if ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"]) {
-            NSUInteger priceLevel = ((USuggerstionFeedbackParameters *) parameter).restaurant.priceLevel;
+            NSUInteger priceLevel = ((USuggestionFeedbackParameters *) parameter).restaurant.priceLevel;
             if (priceLevel == GOOGLE_PRICE_LEVEL_MAX) {
                 priceLevel = GOOGLE_PRICE_LEVEL_MAX - 1;
             }
