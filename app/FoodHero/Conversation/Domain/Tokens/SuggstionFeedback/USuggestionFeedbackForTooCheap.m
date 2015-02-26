@@ -24,8 +24,8 @@
     return [FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive create:restaurant];
 }
 
-+ (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
-    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=tooCheap" parameter:parameter];
++ (TalkerUtterance*)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text  {
+    USuggestionFeedbackParameters *parameters = [[USuggestionFeedbackParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=tooCheap" restaurant:restaurant currentUserLocation:location];
     return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
 }
 

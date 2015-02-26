@@ -19,8 +19,8 @@
     return [AddTokenAction create:[FHWhatToDoNextCommentAfterSuccess new]];
 }
 
-+ (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
-    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=Like" parameter:parameter];
++ (TalkerUtterance*)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text  {
+    USuggestionFeedbackParameters *parameters = [[USuggestionFeedbackParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=Like" restaurant:restaurant currentUserLocation:location];
     return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
 }
 

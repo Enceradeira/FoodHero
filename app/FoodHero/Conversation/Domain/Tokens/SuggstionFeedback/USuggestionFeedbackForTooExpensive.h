@@ -11,5 +11,6 @@
 @interface USuggestionFeedbackForTooExpensive : USuggestionNegativeFeedback
 + (instancetype)create:(Restaurant *)restaurant text:(NSString *)text;
 
-+ (TalkerUtterance *)createUtterance:(NSString *)parameter text:(NSString *)text;
++ (TalkerUtterance *)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text;
+
 @end

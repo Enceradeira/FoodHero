@@ -19,6 +19,8 @@ public class ConversationScript: Script {
         say(oneOf: greetings)
         say(oneOf: openingQuestions)
         waitResponse(andContinueWith: searchRestaurant)
+        waitResponse(andContinueWith: searchRestaurant)
+        waitResponse(andContinueWith: searchRestaurant)
     }
 
     func openingQuestions(def: StringDefinition) -> StringDefinition {
@@ -89,7 +91,7 @@ public class ConversationScript: Script {
                         "Go to %@, and prosper.",
                         "%@.\n\nWelcome to food paradise.",
                         "%@.\n\nDid you know there is a pool in the back?  Me neither."],
-                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:Suggestion", state: "askForSuggestionFeedback", restaurant: restaurant))
+                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:Suggestion=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
             })
         }
     }
