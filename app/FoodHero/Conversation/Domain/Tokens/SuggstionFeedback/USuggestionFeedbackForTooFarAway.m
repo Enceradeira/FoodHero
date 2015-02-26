@@ -36,4 +36,9 @@
     return [FHSuggestionWithConfirmationIfInNewPreferredRangeCloser create:restaurant];
 }
 
++ (TalkerUtterance*)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text  {
+    USuggestionFeedbackParameters *parameters = [[USuggestionFeedbackParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=tooFarAway" restaurant:restaurant currentUserLocation:location];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
+}
+
 @end

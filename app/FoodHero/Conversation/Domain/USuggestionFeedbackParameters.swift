@@ -5,10 +5,10 @@
 
 import Foundation
 
-class USuggerstionFeedbackParameters: ConversationParameters {
+class USuggestionFeedbackParameters: ConversationParameters {
     private let _restaurant: Restaurant
     private let _currentUserLocation: CLLocation
-    public init(semanticId: String, state: String, restaurant: Restaurant, currentUserLocation location: CLLocation) {
+    public init(semanticId: String, restaurant: Restaurant, currentUserLocation location: CLLocation) {
         _restaurant = restaurant;
         _currentUserLocation = location
         super.init(semanticId: semanticId)

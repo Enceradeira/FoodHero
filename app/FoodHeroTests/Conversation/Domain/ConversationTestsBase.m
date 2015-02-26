@@ -80,7 +80,7 @@
         assertThat(statement, is(notNilValue()));
         assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
-        assertThat(statement.state.class, is(equalTo(expectedStatement.inputActionClass)));
+        assertThat(statement.state, is(equalTo(expectedStatement.state)));
     }
 }
 

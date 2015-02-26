@@ -23,4 +23,10 @@
     return [[UWantsToSearchForAnotherRestaurant alloc] initWithText:text];
 }
 
++ (TalkerUtterance *)createUtterance:(NSString *)text {
+
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:WantsToSearchForAnotherRestaurant" parameter:@""];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
+}
+
 @end

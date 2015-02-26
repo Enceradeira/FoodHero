@@ -72,7 +72,7 @@
 		235253E8DB1EBC8DE16C100F /* NoRepetionForContextRandomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E3D49CCC6E3813C7C99 /* NoRepetionForContextRandomizer.m */; };
 		235253F81ECE7399077645BE /* FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251B7201B7B1439C95C11 /* FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.m */; };
 		2352542193FC0DE33EFC442A /* TyphoonComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E50832CE14E59EF8B42 /* TyphoonComponents.m */; };
-		23525432A3C6177D7DD0A0D3 /* USuggerstionFeedbackParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525444740E447BE2449331 /* USuggerstionFeedbackParameters.swift */; };
+		23525432A3C6177D7DD0A0D3 /* USuggestionFeedbackParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525444740E447BE2449331 /* USuggestionFeedbackParameters.swift */; };
 		235254391E2649CA0700A114 /* ConversationFindingRestaurantFinishedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EB802A7CB6042FB4C86 /* ConversationFindingRestaurantFinishedTests.m */; };
 		2352544215B037983A160A12 /* KeywordEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253C71436B4EE5682A346 /* KeywordEncoder.m */; };
 		2352544FE14AE948C0BAAAC8 /* TalkerUtteranceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525680913FA35EDE292B23 /* TalkerUtteranceTests.swift */; };
@@ -460,7 +460,7 @@
 		23525416E26F47ED479CE7C1 /* ConversationBubbleFoodHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationBubbleFoodHero.h; sourceTree = "<group>"; };
 		23525420FBD726AA07993E05 /* RestaurantReviewCommentViewBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantReviewCommentViewBinder.h; sourceTree = "<group>"; };
 		23525422B8901729789A0019 /* FHBecauseUserDeniedAccessToLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHBecauseUserDeniedAccessToLocationServices.m; sourceTree = "<group>"; };
-		23525444740E447BE2449331 /* USuggerstionFeedbackParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USuggerstionFeedbackParameters.swift; sourceTree = "<group>"; };
+		23525444740E447BE2449331 /* USuggestionFeedbackParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USuggestionFeedbackParameters.swift; sourceTree = "<group>"; };
 		235254458752BCB30726C50B /* IRestaurantReviewCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRestaurantReviewCommentViewController.h; sourceTree = "<group>"; };
 		2352544F40B5FD5FBFF6DFF7 /* UWantsToSearchForAnotherRestaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWantsToSearchForAnotherRestaurant.h; sourceTree = "<group>"; };
 		2352546B823948621FA0ED96 /* ScriptResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptResources.swift; sourceTree = "<group>"; };
@@ -1279,7 +1279,7 @@
 				2352561F6F4787C3A43AC8C1 /* UserParameters.swift */,
 				2352598F1553AECC5A220259 /* ConversationParameters.swift */,
 				23525DEB898BFEC721F7023B /* FoodHeroSuggestionParameters.swift */,
-				23525444740E447BE2449331 /* USuggerstionFeedbackParameters.swift */,
+				23525444740E447BE2449331 /* USuggestionFeedbackParameters.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2148,7 +2148,7 @@
 				23525A10E31DC5EC0D5F0AF5 /* ConversationParameters.swift in Sources */,
 				23525A61587A8A59440EDC2F /* TalkerStreams.swift in Sources */,
 				23525856C97C7C4B8F33A317 /* FoodHeroSuggestionParameters.swift in Sources */,
-				23525432A3C6177D7DD0A0D3 /* USuggerstionFeedbackParameters.swift in Sources */,
+				23525432A3C6177D7DD0A0D3 /* USuggestionFeedbackParameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

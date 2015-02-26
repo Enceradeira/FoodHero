@@ -22,5 +22,9 @@
     return nil; // no FH:Confirmation is displayed when user just didn't like the restaurant
 }
 
++ (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=Dislike" parameter:parameter];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
+}
 
 @end

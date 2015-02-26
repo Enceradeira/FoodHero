@@ -5,9 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "USuggestionNegativeFeedback.h"
+#import "FoodHero-Swift.h"
 
 
 @interface USuggestionFeedbackForLiking : USuggestionFeedback
 + (instancetype)create:(Restaurant *)restaurant text:(NSString *)text;
 
++ (TalkerUtterance *)createUtterance:(NSString *)parameter text:(NSString *)text;
 @end

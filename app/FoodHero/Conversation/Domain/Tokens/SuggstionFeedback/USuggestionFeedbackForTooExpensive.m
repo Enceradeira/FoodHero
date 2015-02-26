@@ -24,4 +24,9 @@
     return [FHSuggestionWithConfirmationIfInNewPreferredRangeCheaper create:restaurant];
 }
 
++ (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=tooExpensive" parameter:parameter];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
+}
+
 @end

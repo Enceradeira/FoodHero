@@ -6,6 +6,7 @@
 #import "USuggestionFeedbackForLiking.h"
 #import "AddTokenAction.h"
 #import "FHWhatToDoNextCommentAfterSuccess.h"
+#import "FoodHero-Swift.h"
 
 @implementation USuggestionFeedbackForLiking {
 }
@@ -16,6 +17,11 @@
 
 - (id <ConversationAction>)createAction {
     return [AddTokenAction create:[FHWhatToDoNextCommentAfterSuccess new]];
+}
+
++ (TalkerUtterance*)createUtterance:(NSString *)parameter text:(NSString *)text {
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:SuggestionFeedback=Like" parameter:parameter];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
 }
 
 @end

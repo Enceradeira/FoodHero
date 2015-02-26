@@ -10,7 +10,7 @@
     self = [super init];
     if (self != nil) {
         _semanticId = semanticId;
-        _inputActionClass = inputAction;
+        _state = inputAction;
     }
     return self;
 }
