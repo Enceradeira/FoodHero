@@ -12,7 +12,7 @@ class TalkerRandomizerFake: IRandomizer {
     internal init() {
     }
 
-    internal func chooseOne(from choices: [String], forTag tag:String) -> String {
+    internal func chooseOne(from choices: [AnyObject], forTag tag:String) -> AnyObject {
         precondition(choices.count > 0, "choises is empty")
 
         return choices[_configuredChoices[tag] ?? 0]

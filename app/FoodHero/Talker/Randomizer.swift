@@ -7,5 +7,6 @@ import Foundation
 
 @objc
 public protocol IRandomizer {
-    func chooseOne(from choices: [String], forTag tag: String) -> String
+    func chooseOne(from choices: [AnyObject], forTag tag: String) -> AnyObject
 }
+

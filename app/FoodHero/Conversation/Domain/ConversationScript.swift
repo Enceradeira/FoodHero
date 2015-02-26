@@ -32,7 +32,6 @@ public class ConversationScript: Script {
 
     }
 
-
     func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
                           "Hello beautiful.",
@@ -144,7 +143,8 @@ public class ConversationScript: Script {
                     script.say(oneOf: self.warningsIfNotInPreferredRangeTooFarAway)
                     script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
                 } else {
-                    assert(false) // TODO
+                    // script.choose(from:)
+                    assert(false)
                 }
             } else {
                 script.say(oneOf: self.suggestions(with: restaurant))

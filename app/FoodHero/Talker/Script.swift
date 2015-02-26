@@ -31,4 +31,9 @@ public class Script: NSObject {
         _utterances.append(ResponseUtterance(continuation!, _context))
         return self;
     }
+
+    public func chooseOne(from branches: [((Script) -> (Script))], tagged tag: String) -> Script {
+        _utterances.append(Branch(tag: tag, branches: branches, context: _context))
+        return self
+    }
 }
