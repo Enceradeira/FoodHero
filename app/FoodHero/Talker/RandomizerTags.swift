@@ -8,6 +8,8 @@ import Foundation
 
 public let RandomizerTagsTexts = "Texts"
 public let RandomizerTagsTextParameters = "TextParameters"
+public let RandomizerTagsConfirmationIfInNewPreferredRange = "ConfirmationIfInNewPreferredRange"
+public let RandomizerTagsProposal = "Proposal"
 
 /*
 public enum RandomizerTags {

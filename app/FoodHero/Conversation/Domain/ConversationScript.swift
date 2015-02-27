@@ -166,6 +166,12 @@ public class ConversationScript: Script {
                 withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser"))
     }
 
+    func confirmations(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "What do you think?"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation"))
+    }
+
     func searchRestaurant(response: TalkerUtterance, script: Script) {
         let negativesFeedback = self._conversation.negativeUserFeedback()!
         let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as USuggestionFeedbackParameters?
@@ -197,23 +203,19 @@ public class ConversationScript: Script {
                             {
                                 $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
                                 if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
-                                    return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: "ConfirmationIfInNewPreferredRange")
+                                    return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
                                 } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
-                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: "ConfirmationIfInNewPreferredRange")
+                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
                                 } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
-                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: "ConfirmationIfInNewPreferredRange")
+                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
                                 }
                                 return $0
 
                             },
                             {
-                                return $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
-                            }], withTag: "SuggestionChoice")
-
-                    /* else if (chosenToken == fhSuggestionWithComment) {
-                   [conversation addFHToken:[FHConfirmation create]];
-               } */
-
+                                $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
+                                return $0.say(oneOf: self.confirmations)
+                            }], withTag: RandomizerTagsProposal)
                 }
             } else {
                 script.say(oneOf: self.suggestions(with: restaurant))
