@@ -92,6 +92,36 @@ public class ConversationScript: Script {
         }
     }
 
+    func suggestionsAsFollowUp(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+        return {
+            $0.words([
+                    "What about '%@' then?"],
+                    withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionAsFollowUp=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+        }
+    }
+
+    func suggestionsWithComment(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+        return {
+            FoodHeroSuggestionParameters(semanticId: "FH:Suggestion=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant)
+            if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
+                return $0.words([
+                        "The '%@' is smarter than the last one"],
+                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+            } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
+                return $0.words([
+                        "If you like it cheaper, the %@ could be your choice",
+                        "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."],
+                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+            } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
+                return $0.words([
+                        "The '%@' is closer"],
+                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+            } else {
+                return self.suggestions(with: restaurant)($0)
+            }
+        }
+    }
+
     func suggestionsAfterWarning(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
@@ -143,8 +173,26 @@ public class ConversationScript: Script {
                     script.say(oneOf: self.warningsIfNotInPreferredRangeTooFarAway)
                     script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
                 } else {
-                    // script.choose(from:)
-                    assert(false)
+                    script.chooseOne(from: [
+                            {
+                                return $0.say(oneOf: self.suggestions(with: restaurant))
+                            },
+                            {
+                                return $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
+
+                                /* [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^() {
+                        [conversation addFHToken:[lastFeedback foodHeroConfirmationToken]];
+                    }]; */
+
+                            },
+                            {
+                                return $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
+                            }], tagged: "SuggestionChoice")
+
+                     /* else if (chosenToken == fhSuggestionWithComment) {
+                    [conversation addFHToken:[FHConfirmation create]];
+                } */
+
                 }
             } else {
                 script.say(oneOf: self.suggestions(with: restaurant))

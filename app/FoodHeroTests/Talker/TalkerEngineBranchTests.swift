@@ -5,7 +5,7 @@
 
 import Foundation
 
-class TalkerEngineChooseTests: TalkerEngineTests {
+class TalkerEngineBranchTests: TalkerEngineTests {
 
     func test_talk_shouldChooseOneConversationBranch() {
         let script = TestScript().chooseOne(from: [
