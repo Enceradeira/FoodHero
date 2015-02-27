@@ -118,6 +118,7 @@
 		2352564E92C1AE453737CFBB /* ConversationTokenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C5AE2B1384673941B96 /* ConversationTokenTableViewCell.m */; };
 		2352565473BEEA7FAE5385C4 /* RestaurantDetailTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253AC3685FAB3459DE094 /* RestaurantDetailTableViewControllerTests.m */; };
 		23525654D5D80117DD3755E3 /* SpeechRecognitionServiceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258F6566FBE3ADD0D1FE6 /* SpeechRecognitionServiceSpy.m */; };
+		2352565B6363FC91B656133D /* Repetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525EAF16E4290AC6ECEBCC /* Repetition.swift */; };
 		2352566D39E0165AFFF12837 /* Utterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250C6A011141D03463883 /* Utterance.swift */; };
 		235256791478A94CCD3BE73E /* LargeRestaurantReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525130B25B176B9F80F98E /* LargeRestaurantReviewViewController.m */; };
 		2352568F08684D4936A6C5B8 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251996A185437DF584FB5 /* Personas.m */; };
@@ -221,6 +222,7 @@
 		23525BC0A2D0686DDEBA9345 /* RestaurantRepositorySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525268BF30AF7FE1E2D743 /* RestaurantRepositorySpy.m */; };
 		23525BE83E16D2E452E2A4FD /* FHConfirmationIfInNewPreferredRangeCloser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C94DC461CB1CB763DF1 /* FHConfirmationIfInNewPreferredRangeCloser.m */; };
 		23525C14CF25B9B01D89A1FB /* USuggestionFeedbackForTooCheap.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250E829C5E629A1126B83 /* USuggestionFeedbackForTooCheap.m */; };
+		23525C1A0F1E0C3AF31D303C /* TalkerEngineRepetitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525CA785564CC86471449F /* TalkerEngineRepetitionTests.swift */; };
 		23525C1C684332E042B49F5A /* FHSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255E32B27352179C071B2 /* FHSuggestion.m */; };
 		23525C256FE1319131FEDFC1 /* RestaurantRepositorySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525268BF30AF7FE1E2D743 /* RestaurantRepositorySpy.m */; };
 		23525C2E17A498E468F0DC27 /* FHWarningIfNotInPreferredRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525163366C5DBCB99CB0EF /* FHWarningIfNotInPreferredRange.m */; };
@@ -674,6 +676,7 @@
 		23525CA154B10964CC7B76D3 /* FHSuggestionBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionBase.h; sourceTree = "<group>"; };
 		23525CA4F354EFA35BCAD935 /* ConversationAppServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceTests.m; sourceTree = "<group>"; };
 		23525CA659667AEA4BFCBD3E /* ResponseUtterance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseUtterance.swift; sourceTree = "<group>"; };
+		23525CA785564CC86471449F /* TalkerEngineRepetitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineRepetitionTests.swift; sourceTree = "<group>"; };
 		23525CB64C77B39F92115854 /* CLLocationManagerProxySpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxySpy.h; sourceTree = "<group>"; };
 		23525CC9C6DD3B184532C9D1 /* ConversationBubbleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleTests.m; sourceTree = "<group>"; };
 		23525CCE29F98E21E0018C9B /* TalkerOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerOutput.swift; sourceTree = "<group>"; };
@@ -714,6 +717,7 @@
 		23525E6C68C1AE41DE392A71 /* ExpectedStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpectedStatement.h; sourceTree = "<group>"; };
 		23525EA06C9E2DF1D4767D0E /* CLLocationManagerProxyStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerProxyStub.h; sourceTree = "<group>"; };
 		23525EA4C49953675F1BC4EA /* FHWhatToDoNextCommentAfterFailure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHWhatToDoNextCommentAfterFailure.m; sourceTree = "<group>"; };
+		23525EAF16E4290AC6ECEBCC /* Repetition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repetition.swift; sourceTree = "<group>"; };
 		23525EB802A7CB6042FB4C86 /* ConversationFindingRestaurantFinishedTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationFindingRestaurantFinishedTests.m; sourceTree = "<group>"; };
 		23525EBA2A53469119CD3A7E /* FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive.h; sourceTree = "<group>"; };
 		23525EBB6EAD61BC13BC70BD /* FHGreeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHGreeting.h; sourceTree = "<group>"; };
@@ -1000,6 +1004,7 @@
 				235257FD2867070665582F54 /* TalkerEngineNestedConversationTests.swift */,
 				23525680913FA35EDE292B23 /* TalkerUtteranceTests.swift */,
 				2352523F95C301790A9BFCDD /* TalkerEngineBranchTests.swift */,
+				23525CA785564CC86471449F /* TalkerEngineRepetitionTests.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -1079,6 +1084,7 @@
 				2352584DE3C616DF4984B16A /* TalkerStreams.swift */,
 				235258A6F2540414531B6F6D /* Branch.swift */,
 				235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */,
+				23525EAF16E4290AC6ECEBCC /* Repetition.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2161,6 +2167,7 @@
 				23525FA2707E08D42387448C /* Branch.swift in Sources */,
 				235259C3B1E36DEDE9FF3252 /* OptionalUtterance.swift in Sources */,
 				2352590B21B3CB696ABE9013 /* TalkerRandomizerFake.swift in Sources */,
+				2352565B6363FC91B656133D /* Repetition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2245,6 +2252,7 @@
 				23525DFCCCB06C180D8C1B0E /* ExpectedStatement.m in Sources */,
 				2352544FE14AE948C0BAAAC8 /* TalkerUtteranceTests.swift in Sources */,
 				23525899D5B866E676145EBF /* TalkerEngineBranchTests.swift in Sources */,
+				23525C1A0F1E0C3AF31D303C /* TalkerEngineRepetitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

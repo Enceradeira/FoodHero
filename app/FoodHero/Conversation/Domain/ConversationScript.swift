@@ -19,10 +19,65 @@ public class ConversationScript: Script {
         super.init(context: context)
 
         say(oneOf: greetings)
-        say(oneOf: openingQuestions)
-        waitResponse(andContinueWith: searchRestaurant)
-        waitResponse(andContinueWith: searchRestaurant)
-        waitResponse(andContinueWith: searchRestaurant)
+        repeat({
+            $0.repeat({
+                $0.say(oneOf: self.openingQuestions)
+                $0.repeat({
+                    $0.waitResponse(andContinueWith: self.searchRestaurant)
+                }, until: self.userResponseIs("U:SuggestionFeedback=Like"))
+                $0.say(oneOf: self.commentChoices)
+                $0.say(oneOf: self.whatToDoNext)
+                $0.waitResponse()
+                return $0
+            }, until: self.userResponseIs("U:GoodBye"))
+            $0.say(oneOf: self.goodbyes)
+            $0.waitResponse()
+            return $0
+        }, until: { false })
+    }
+
+    func userResponseIs(semanticId: String) -> () -> Bool {
+        return {
+            let lastResponse = self._conversation.lastUserResponse()
+            return lastResponse != nil && lastResponse!.hasSemanticId(semanticId)
+        }
+    }
+
+    func goodbyes(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "See you!",
+                "God bless you.",
+                "Behave yourself, now.",
+                "Don’t get a girl in trouble."],
+                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess", state: "afterGoodByeAfterSuccess"))
+    }
+
+    func commentChoices(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "Love this place. See you there.",
+                "Yes!  I got you to do it!",
+                "Bring me your leftovers.",
+                "Yes!  You’ll be their third customer.",
+                "Yes!  You can write the eulogy for their previous customer.",
+                "Bring me a sandwich back and I’ll start building a vacation home.",
+                "Ask for Ben, he’s my cousin.",
+                "Yippideedee bananadorama bananadorama!",
+                "Yay!  I’ll do my happy dance.  Please give me some privacy [doing happy dance].",
+                "Fingers crossed—I hope you like it.",
+                "It sounds corny, but I really do like helping people.",
+                "Or you could just order a pizza and be done with it.",
+                "I hope it is worthy of you.",
+                "I’ll tell you what to order—some eggs and bacon with mayonnaise. That’s {celebrity}’s favorite.",
+                "I want sprinkles!",
+                "Bring your sweater.  Sometimes it can be chilly."],
+                withCustomData: FoodHeroParameters(semanticId: "FH:CommentChoice", state: nil))
+    }
+
+    func whatToDoNext(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "Anything else?",
+                "I’m bored! Anything else?"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess", state: "askForWhatToDoNext"))
     }
 
     func openingQuestions(def: StringDefinition) -> StringDefinition {

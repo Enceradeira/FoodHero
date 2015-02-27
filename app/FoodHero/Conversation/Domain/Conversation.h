@@ -13,6 +13,7 @@
 #import "ConversationSource.h"
 
 @class ConversationToken;
+@class ConversationParameters;
 
 @interface Conversation : NSObject <ConversationSource>
 
@@ -25,4 +26,6 @@
 - (RACSignal *)statementIndexes;
 
 - (NSArray *)suggestedRestaurants;
+
+- (ConversationParameters *)lastUserResponse;
 @end

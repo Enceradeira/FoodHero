@@ -10,13 +10,7 @@
 #import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
-#import "USuggestionNegativeFeedback.h"
-#import "FHSuggestion.h"
 #import "UCuisinePreference.h"
-#import "USuggestionFeedbackForTooExpensive.h"
-#import "USuggestionFeedbackForTooCheap.h"
-#import "SearchProfile.h"
-#import "USuggestionFeedbackForTooFarAway.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
@@ -46,7 +40,7 @@
 
         id <IRandomizer> randomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
         RestaurantSearch *search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-        LocationService *locationService =  [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+        LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
         TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
         ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService];
@@ -211,10 +205,15 @@
     return priceRange;
 }
 
-
 - (NSArray *)suggestedRestaurants {
     return [[self.parametersOfCurrentSearch linq_ofType:[FoodHeroSuggestionParameters class]] linq_select:^(FoodHeroSuggestionParameters *s) {
         return s.restaurant;
     }];
+}
+
+- (ConversationParameters *)lastUserResponse {
+    return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p){
+        return (BOOL)([p hasSemanticId:@"U:"]);
+    }] linq_lastOrNil];
 }
 @end

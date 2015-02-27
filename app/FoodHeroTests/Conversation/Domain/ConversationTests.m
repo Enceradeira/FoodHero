@@ -23,8 +23,6 @@
 #import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
 #import "USuggestionFeedbackForTooCheap.h"
-#import "SearchProfile.h"
-#import "FHWarningIfNotInPreferredRangeTooCheap.h"
 #import "UWantsToSearchForAnotherRestaurant.h"
 
 
@@ -156,8 +154,8 @@
 
     NSArray *feedback = [self.conversation negativeUserFeedback];
     assertThatUnsignedInt(feedback.count, is(equalToUnsignedInt(2)));
-    USuggestionFeedbackParameters* parameter1 = feedback[0];
-    USuggestionFeedbackParameters* parameter2 = feedback[1];
+    USuggestionFeedbackParameters *parameter1 = feedback[0];
+    USuggestionFeedbackParameters *parameter2 = feedback[1];
     assertThat(parameter1.restaurant, is(equalTo(restaurant1)));
     assertThat(parameter1.semanticIdInclParameters, is(equalTo(@"U:SuggestionFeedback=tooExpensive")));
     assertThat(parameter2.restaurant, is(equalTo(restaurant2)));
@@ -275,7 +273,6 @@
 
 - (void)test_lastSuggestionWarning_ShouldReturnLastSuggestionWarning {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
-    [FHWarningIfNotInPreferredRangeTooCheap create];
 
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self sendInput:[USuggestionFeedbackForTooCheap createUtterance:restaurant currentUserLocation:_norwich text:@"It looks too cheap"]];
@@ -293,6 +290,34 @@
     }];
 
     assertThatInteger(nrIndexes, is(equalTo(@(1))));
+}
+
+- (void)test_lastUserResponse_ShouldReturnLastUserUtterance {
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
+
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[USuggestionFeedbackForLiking createUtterance:restaurant currentUserLocation:_norwich text:@"Looks cool"]];
+
+    ConversationParameters *lastResponse = [self.conversation lastUserResponse];
+    assertThat(lastResponse, isNot(nilValue()));
+    assertThatBool([lastResponse hasSemanticId:@"U:SuggestionFeedback=Like"], isTrue());
+}
+
+- (void)test_lastUserResponse_ShouldIgnoreUtterancesFromPreviousSearch {
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
+
+    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[USuggestionFeedbackForNotLikingAtAll createUtterance:restaurant currentUserLocation:_norwich text:@"I don't like that restaurant"]];
+    [self sendInput:[USuggestionFeedbackForLiking createUtterance:restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UWantsToSearchForAnotherRestaurant createUtterance:@"Do it again"]];
+
+    ConversationParameters *lastResponse = [self.conversation lastUserResponse];
+    assertThat(lastResponse, is(nilValue()));
+}
+
+- (void)test_lastUserResponse_ShouldReturnNil_WhenUserHasSaidNothing {
+    ConversationParameters *lastResponse = [self.conversation lastUserResponse];
+    assertThat(lastResponse, is(nilValue()));
 }
 
 @end

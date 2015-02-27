@@ -12,8 +12,4 @@ public class UserParameters: ConversationParameters {
         self.parameter = parameter
         super.init(semanticId: semanticId)
     }
-
-    public func isSemanticId(semanticId: String) -> Bool {
-        return parameter.rangeOfString(semanticId) != nil
-    }
 }
