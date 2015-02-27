@@ -44,7 +44,7 @@
         _rawConversation = [NSMutableArray new];
         _input = input;
 
-        id <IRandomizer> randomizer = [TalkerRandomizer new];
+        id <IRandomizer> randomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
         RestaurantSearch *search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         LocationService *locationService =  [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];

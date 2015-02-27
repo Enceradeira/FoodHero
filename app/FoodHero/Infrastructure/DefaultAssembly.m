@@ -20,6 +20,7 @@
 #import "Environment.h"
 #import "WitSpeechRecognitionService.h"
 #import "AudioSession.h"
+#import "FoodHero-Swift.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -111,6 +112,10 @@
 
 - (id)randomizer {
     return [TyphoonDefinition withClass:[DefaultRandomizer class]];;
+}
+
+- (id)talkerRandomizer {
+    return [TyphoonDefinition withClass:[TalkerRandomizer class]];;
 }
 
 - (id)restaurantRepository {

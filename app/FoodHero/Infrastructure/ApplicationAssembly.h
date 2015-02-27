@@ -27,6 +27,8 @@
 
 - (id)randomizer;
 
+- (id)talkerRandomizer;
+
 - (id)restaurantRepository;
 
 - (id)schedulerFactory;

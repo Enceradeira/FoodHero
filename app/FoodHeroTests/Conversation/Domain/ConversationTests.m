@@ -280,9 +280,9 @@
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
     [self sendInput:[USuggestionFeedbackForTooCheap createUtterance:restaurant currentUserLocation:_norwich text:@"It looks too cheap"]];
 
-    ConversationToken *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
+    ConversationParameters *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
     assertThat(lastSuggestionWarning, is(notNilValue()));
-    assertThat(lastSuggestionWarning.class, is(equalTo([FHWarningIfNotInPreferredRangeTooCheap class])));
+    assertThatBool([lastSuggestionWarning hasSemanticId:@"FH:WarningIfNotInPreferredRangeTooCheap"], isTrue());
 }
 
 - (void)test_statementIndexes_ShouldYieldGreetingAndOpeningQuestion {

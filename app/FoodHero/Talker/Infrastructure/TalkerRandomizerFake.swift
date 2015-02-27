@@ -4,29 +4,29 @@
 //
 
 import Foundation
-import FoodHero
 
-class TalkerRandomizerFake: IRandomizer {
+public class TalkerRandomizerFake: NSObject, IRandomizer {
     private var _configuredChoices = [String: Int]()
 
-    internal init() {
+    public override init() {
+        super.init()
     }
 
-    internal func chooseOne(from choices: [AnyObject], forTag tag: String) -> AnyObject {
+    public func chooseOne(from choices: [AnyObject], forTag tag: String) -> AnyObject {
         precondition(choices.count > 0, "choises is empty")
 
         return choices[_configuredChoices[tag] ?? 0]
     }
 
-    internal func willChoose(forTag tag: String, index: Int) {
+    public func willChoose(forTag tag: String, index: Int) {
         _configuredChoices[tag] = index
     }
 
-    internal func willChoose(forTag tag: String, value: Bool) {
+    public func willChoose(forTag tag: String, value: Bool) {
         _configuredChoices[tag] = value ? 1 : 0
     }
 
-    internal func isTrue(forTag tag: String) -> Bool {
+    public func isTrue(forTag tag: String) -> Bool {
         return chooseOne(from: [false, true], forTag: tag) as Bool
     }
 }

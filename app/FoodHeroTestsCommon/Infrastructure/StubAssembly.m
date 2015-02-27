@@ -13,6 +13,8 @@
 #import "EnvironmentStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "AudioSessionStub.h"
+#import "FoodHeroTests-Swift.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation StubAssembly
@@ -31,6 +33,12 @@
 
 - (id)randomizer {
     return [TyphoonDefinition withClass:[RandomizerStub class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
+}
+
+- (id)talkerRandomizer {
+    return [TyphoonDefinition withClass:[TalkerRandomizerFake class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
 }

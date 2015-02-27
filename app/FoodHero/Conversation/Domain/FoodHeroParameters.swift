@@ -8,7 +8,7 @@ import Foundation
 public class FoodHeroParameters: ConversationParameters {
     public let state: String?
 
-    public override init(semanticId: String, state: String? = nil) {
+    public init(semanticId: String, state: String?) {
         super.init(semanticId:semanticId)
         self.state = state
     }

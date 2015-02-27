@@ -8,7 +8,7 @@ import Foundation
 public class ConversationParameters: NSObject {
     public let semanticIdInclParameters: String
 
-    public init(semanticId: String, state: String? = nil) {
+    public init(semanticId: String) {
         self.semanticIdInclParameters = semanticId
     }
 

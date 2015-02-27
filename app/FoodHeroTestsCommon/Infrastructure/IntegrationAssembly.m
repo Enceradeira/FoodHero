@@ -8,7 +8,7 @@
 #import "WitSpeechRecognitionService.h"
 #import "CLLocationManagerProxyStub.h"
 #import "AudioSessionStub.h"
-
+#import "FoodHero-Swift.h"
 
 @implementation IntegrationAssembly {
 
@@ -18,6 +18,13 @@
     return [TyphoonDefinition withClass:[RandomizerStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
+}
+
+- (id)talkerRandomizer {
+    return [TyphoonDefinition withClass:[TalkerRandomizer class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
+    return nil;
 }
 
 - (id)speechRecognitionService {

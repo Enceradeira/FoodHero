@@ -64,7 +64,7 @@ public class ConversationScript: Script {
                           "Do you look more like {femaleCelebrity} or {maleCelebrity}?",
                           "Greetings from {place}!",
                           "You just interrupted the most beautiful dream, about ----  {food}."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:Greeting"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:Greeting", state: nil))
     }
 
     func suggestions(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
@@ -133,43 +133,43 @@ public class ConversationScript: Script {
     func warningsIfNotInPreferredRangeTooCheap(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's cheaper than you wanted it to be"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooCheap"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooCheap", state: nil))
     }
 
     func warningsIfNotInPreferredRangeTooExpensive(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "That one might be too classy though"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive", state: nil))
     }
 
     func warningsIfNotInPreferredRangeTooFarAway(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's further away unfortunatly"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway", state: nil))
     }
 
     func confirmationsIfInNewPreferredRangeMoreExpensive(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It seems classier"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeMoreExpensive"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeMoreExpensive", state: nil))
     }
 
     func confirmationIfInNewPreferredRangeCheaper(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It seems a bit cheaper."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCheaper"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCheaper", state: nil))
     }
 
     func confirmationIfInNewPreferredRangeCloser(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's closer than the other one."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser", state: nil))
     }
 
     func confirmations(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "What do you think?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation", state: nil))
     }
 
     func processSearchResult(result: AnyObject, withScript script: Script) {
@@ -224,17 +224,17 @@ public class ConversationScript: Script {
         if error is LocationServiceAuthorizationStatusDeniedError {
             script.say(oneOf: {
                 $0.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
-                        , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices"))
+                        , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices", state: "afterCantAccessLocationService"))
             })
         } else if error is LocationServiceAuthorizationStatusRestrictedError {
             script.say(oneOf: {
                 $0.words(["I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am."]
-                        , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices"))
+                        , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices", state: "afterCantAccessLocationService"))
             })
         } else if error is NoRestaurantsFoundError || error is SearchError {
             script.say(oneOf: {
                 $0.words(["That’s weird. I can’t find any restaurants right now."]
-                        , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound"))
+                        , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound", state: "noRestaurantWasFound"))
             })
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
