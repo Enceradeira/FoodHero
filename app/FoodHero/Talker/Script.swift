@@ -18,11 +18,20 @@ public class Script: NSObject {
         return _utterances
     }
 
-    public func say(oneOf texts: (StringDefinition) -> (StringDefinition)) -> Script {
+    private func createOutputUtterance(texts: (StringDefinition) -> (StringDefinition)) -> OutputUtterance {
         let definition = StringDefinition(context: _context)
         texts(definition)
+        return OutputUtterance(definition: definition)
+    }
 
-        _utterances.append(OutputUtterance(definition: definition))
+
+    public func say(oneOf texts: (StringDefinition) -> (StringDefinition)) -> Script {
+        _utterances.append(createOutputUtterance(texts))
+        return self
+    }
+
+    public func saySometimes(oneOf texts: (StringDefinition) -> (StringDefinition), withTag tag: String) -> Script {
+        _utterances.append(OptionalUtterance(utterance: createOutputUtterance(texts), tag: tag, context: _context))
         return self
     }
 
@@ -32,7 +41,7 @@ public class Script: NSObject {
         return self;
     }
 
-    public func chooseOne(from branches: [((Script) -> (Script))], tagged tag: String) -> Script {
+    public func chooseOne(from branches: [((Script) -> (Script))], withTag tag: String) -> Script {
         _utterances.append(Branch(tag: tag, branches: branches, context: _context))
         return self
     }

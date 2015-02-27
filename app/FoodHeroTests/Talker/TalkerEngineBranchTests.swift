@@ -14,7 +14,7 @@ class TalkerEngineBranchTests: TalkerEngineTests {
                 }, {
                     return $0.say({ $0.words("Hi") })
                 }
-        ], tagged: "Greeting")
+        ], withTag: "Greeting")
 
         randomizerWillChoose(forTag: "Greeting", index: 0)
         assert(dialog: ["Hello"], forExecutedScript: script)
@@ -28,7 +28,7 @@ class TalkerEngineBranchTests: TalkerEngineTests {
                 {
                     return $0.say({ $0.words("Hello") })
                 }
-        ], tagged: "Greeting")
+        ], withTag: "Greeting")
         .say({ $0.words("John") })
 
         randomizerWillChoose(forTag: "Greeting", index: 0)
@@ -37,7 +37,7 @@ class TalkerEngineBranchTests: TalkerEngineTests {
 
     func test_talk_shouldSkipBranches_WhenNoBranchesSpecified() {
         let script = TestScript()
-        .chooseOne(from: [], tagged: "Greeting")
+        .chooseOne(from: [], withTag: "Greeting")
         .say({ $0.words("Bye") })
 
         assert(dialog: ["Bye"], forExecutedScript: script)

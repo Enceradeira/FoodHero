@@ -40,4 +40,18 @@ class TalkerRandomizerTests: XCTestCase {
         XCTAssertEqual(nrString1 + nrString2, nrTests)
     }
 
+    func test_isTrue_ShouldChooseTrueAndFalseRandomly() {
+        let nrTests = 10
+        var nrTrue = 0
+
+        for i in 1 ... nrTests {
+            if _randomizer!.isTrue(forTag:RandomizerTagsTexts)   {
+                nrTrue++
+            }
+        }
+
+        XCTAssertGreaterThan(nrTrue, 0)
+        XCTAssertLessThan(nrTrue, nrTests)
+    }
+
 }

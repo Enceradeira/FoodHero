@@ -12,4 +12,8 @@ public class TalkerRandomizer: NSObject, IRandomizer {
         let randomIndex = (arc4random() % UInt32(choices.count))
         return choices[Int(randomIndex)]
     }
+
+    public func isTrue(forTag tag: String) -> Bool {
+        return chooseOne(from: [false, true], forTag: tag) as Bool
+    }
 }

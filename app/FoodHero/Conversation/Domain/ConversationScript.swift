@@ -142,11 +142,28 @@ public class ConversationScript: Script {
                 withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive"))
     }
 
-
     func warningsIfNotInPreferredRangeTooFarAway(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's further away unfortunatly"],
                 withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway"))
+    }
+
+    func confirmationsIfInNewPreferredRangeMoreExpensive(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "It seems classier"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeMoreExpensive"))
+    }
+
+    func confirmationIfInNewPreferredRangeCheaper(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "It seems a bit cheaper."],
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCheaper"))
+    }
+
+    func confirmationIfInNewPreferredRangeCloser(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "It's closer than the other one."],
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser"))
     }
 
     func searchRestaurant(response: TalkerUtterance, script: Script) {
@@ -178,20 +195,24 @@ public class ConversationScript: Script {
                                 return $0.say(oneOf: self.suggestions(with: restaurant))
                             },
                             {
-                                return $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
-
-                                /* [_tokenRandomizer doOptionally:@"FH:Comment" byCalling:^() {
-                        [conversation addFHToken:[lastFeedback foodHeroConfirmationToken]];
-                    }]; */
+                                $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
+                                if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
+                                    return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: "ConfirmationIfInNewPreferredRange")
+                                } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
+                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: "ConfirmationIfInNewPreferredRange")
+                                } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
+                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: "ConfirmationIfInNewPreferredRange")
+                                }
+                                return $0
 
                             },
                             {
                                 return $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
-                            }], tagged: "SuggestionChoice")
+                            }], withTag: "SuggestionChoice")
 
-                     /* else if (chosenToken == fhSuggestionWithComment) {
-                    [conversation addFHToken:[FHConfirmation create]];
-                } */
+                    /* else if (chosenToken == fhSuggestionWithComment) {
+                   [conversation addFHToken:[FHConfirmation create]];
+               } */
 
                 }
             } else {

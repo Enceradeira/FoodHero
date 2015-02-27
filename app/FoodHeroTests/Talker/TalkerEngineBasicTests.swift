@@ -31,6 +31,21 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         XCTAssertEqual(customData[0] as String, "Context-Greeting")
     }
 
+    func test_talk_shouldUtterSomethingJustSometimes() {
+        let script = TestScript()
+        .saySometimes(oneOf: {
+            $0.words("very")
+        }, withTag: "SayVery")
+        .say {
+            $0.words("rich")
+        }
+
+        randomizerWillChoose(forTag: "SayVery", value: true)
+        assert(dialog: ["very\n\nrich"], forExecutedScript: script)
+
+        randomizerWillChoose(forTag: "SayVery", value: false)
+        assert(dialog: ["rich"], forExecutedScript: script)
+    }
 
     func test_talk_shouldYieldCustomData_WhenAssociatedWithInput() {
         var utterance: TalkerUtterance? = nil
@@ -56,9 +71,8 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
         let expectation = expectationWithDescription("")
         let script = TestScript().say({ $0.words("How are you?") }).waitResponse(andContinueWith: {
-            response,script in
-            if( response.customData[0] as String == "Context-Response")
-            {
+            response, script in
+            if (response.customData[0] as String == "Context-Response") {
                 expectation.fulfill()
             }
         })

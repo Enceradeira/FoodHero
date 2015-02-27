@@ -8,5 +8,7 @@ import Foundation
 @objc
 public protocol IRandomizer {
     func chooseOne(from choices: [AnyObject], forTag tag: String) -> AnyObject
+
+    func isTrue(forTag tag: String) -> Bool
 }
 

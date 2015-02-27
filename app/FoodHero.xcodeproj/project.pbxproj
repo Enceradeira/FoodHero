@@ -184,6 +184,7 @@
 		23525990B3D4903EF1E3D603 /* SearchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525080E9F5707B526FD461 /* SearchException.m */; };
 		235259AE6453AB23050E7A8C /* ConversationViewStateNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */; };
 		235259B0D6C763FCF25F830B /* IntegrationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F0D9052167CD36FC9FC /* IntegrationAssembly.m */; };
+		235259C3B1E36DEDE9FF3252 /* OptionalUtterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */; };
 		235259D203AE4BA0DE34808E /* FHOpeningQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352527F46A4FF90FC8AC407 /* FHOpeningQuestion.m */; };
 		235259FBBD89F12F72A85435 /* RestaurantReviewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FACC259ED0EB0E1B16A /* RestaurantReviewBuilder.m */; };
 		235259FF480EB6270DEC655A /* StubAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251A6990E7DD0093B2A61 /* StubAssembly.m */; };
@@ -355,6 +356,7 @@
 		235250D31D0B1742AEC73FBD /* FoodHeroFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHeroFonts.h; sourceTree = "<group>"; };
 		235250D351C14AACE5E7E036 /* UITextViewVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewVisualizer.h; sourceTree = "<group>"; };
 		235250DA742E10FF0071F0E2 /* GoogleRestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleRestaurantSearchTests.m; sourceTree = "<group>"; };
+		235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalUtterance.swift; sourceTree = "<group>"; };
 		235250E10A18AA180582A6A0 /* UGoodBye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UGoodBye.h; sourceTree = "<group>"; };
 		235250E829C5E629A1126B83 /* USuggestionFeedbackForTooCheap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USuggestionFeedbackForTooCheap.m; sourceTree = "<group>"; };
 		23525109D8660B9C49844251 /* SpeechInterpretation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechInterpretation.h; sourceTree = "<group>"; };
@@ -1077,6 +1079,7 @@
 				23525A7D66B814224736DB5A /* StringDefinition.swift */,
 				2352584DE3C616DF4984B16A /* TalkerStreams.swift */,
 				235258A6F2540414531B6F6D /* Branch.swift */,
+				235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2156,6 +2159,7 @@
 				23525856C97C7C4B8F33A317 /* FoodHeroSuggestionParameters.swift in Sources */,
 				23525432A3C6177D7DD0A0D3 /* USuggestionFeedbackParameters.swift in Sources */,
 				23525FA2707E08D42387448C /* Branch.swift in Sources */,
+				235259C3B1E36DEDE9FF3252 /* OptionalUtterance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

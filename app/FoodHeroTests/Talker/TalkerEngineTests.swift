@@ -159,4 +159,8 @@ public class TalkerEngineTests: XCTestCase {
         _randomizer!.willChoose(forTag: tag, index: index)
     }
 
+    func randomizerWillChoose(forTag tag: String, value: Bool) {
+        _randomizer!.willChoose(forTag: tag, value: value)
+    }
+
 }
