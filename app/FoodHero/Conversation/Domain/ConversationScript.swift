@@ -172,54 +172,85 @@ public class ConversationScript: Script {
                 withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation"))
     }
 
-    func searchRestaurant(response: TalkerUtterance, script: Script) {
+    func processSearchResult(result: AnyObject, withScript script: Script) {
+        let restaurant = result as Restaurant
         let negativesFeedback = self._conversation.negativeUserFeedback()!
         let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as USuggestionFeedbackParameters?
-        let bestRestaurant = _search.findBest(self._conversation)
-        bestRestaurant.subscribeNext {
-            (obj) in
-            let restaurant = obj! as Restaurant
-            let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
-            if lastFeedback != nil && (lastFeedback?.restaurant) != nil {
-                let searchPreference = self._conversation.currentSearchPreference()
-                let priceRange = searchPreference.priceRange
-                if priceRange.min > restaurant.priceLevel
-                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooCheap")) {
-                    script.say(oneOf: self.warningsIfNotInPreferredRangeTooCheap)
-                    script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
-                } else if priceRange.max < restaurant.priceLevel
-                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooExpensive")) {
-                    script.say(oneOf: self.warningsIfNotInPreferredRangeTooExpensive)
-                    script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
-                } else if searchPreference.distanceRange.max < restaurant.location.distanceFromLocation(self._locationService.lastKnownLocation())
-                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooFarAway")) {
-                    script.say(oneOf: self.warningsIfNotInPreferredRangeTooFarAway)
-                    script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
-                } else {
-                    script.chooseOne(from: [
-                            {
-                                return $0.say(oneOf: self.suggestions(with: restaurant))
-                            },
-                            {
-                                $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
-                                if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
-                                    return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
-                                } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
-                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
-                                } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
-                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
-                                }
-                                return $0
+        let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
 
-                            },
-                            {
-                                $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
-                                return $0.say(oneOf: self.confirmations)
-                            }], withTag: RandomizerTagsProposal)
-                }
+        if lastFeedback != nil && (lastFeedback?.restaurant) != nil {
+            let searchPreference = self._conversation.currentSearchPreference()
+            let priceRange = searchPreference.priceRange
+            if priceRange.min > restaurant.priceLevel
+                    && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooCheap")) {
+                script.say(oneOf: self.warningsIfNotInPreferredRangeTooCheap)
+                script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
+            } else if priceRange.max < restaurant.priceLevel
+                    && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooExpensive")) {
+                script.say(oneOf: self.warningsIfNotInPreferredRangeTooExpensive)
+                script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
+            } else if searchPreference.distanceRange.max < restaurant.location.distanceFromLocation(self._locationService.lastKnownLocation())
+                    && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooFarAway")) {
+                script.say(oneOf: self.warningsIfNotInPreferredRangeTooFarAway)
+                script.say(oneOf: self.suggestionsAfterWarning(with: restaurant))
             } else {
-                script.say(oneOf: self.suggestions(with: restaurant))
+                script.chooseOne(from: [
+                        {
+                            return $0.say(oneOf: self.suggestions(with: restaurant))
+                        },
+                        {
+                            $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
+                            if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
+                                return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
+                            } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
+                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
+                            } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
+                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
+                            }
+                            return $0
+
+                        },
+                        {
+                            $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
+                            return $0.say(oneOf: self.confirmations)
+                        }], withTag: RandomizerTagsProposal)
             }
+        } else {
+            script.say(oneOf: self.suggestions(with: restaurant))
+        }
+    }
+
+    func processSearchError(error: NSError, withScript script: Script) {
+        if error is LocationServiceAuthorizationStatusDeniedError {
+            script.say(oneOf: {
+                $0.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
+                        , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices"))
+            })
+        } else if error is LocationServiceAuthorizationStatusRestrictedError {
+            script.say(oneOf: {
+                $0.words(["I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am."]
+                        , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices"))
+            })
+        } else if error is NoRestaurantsFoundError || error is SearchError {
+            script.say(oneOf: {
+                $0.words(["That’s weird. I can’t find any restaurants right now."]
+                        , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound"))
+            })
+        } else {
+            assert(false, "no error-handler for class \(reflect(error).summary) found")
+        }
+    }
+
+    func searchRestaurant(response: TalkerUtterance, script: Script) {
+
+        let bestRestaurant = _search.findBest(self._conversation)
+
+        bestRestaurant.subscribeError {
+            (error: NSError!) in self.processSearchError(error!, withScript: script)
+        }
+
+        bestRestaurant.subscribeNext {
+            (obj) in self.processSearchResult(obj, withScript: script)
         }
     }
 }

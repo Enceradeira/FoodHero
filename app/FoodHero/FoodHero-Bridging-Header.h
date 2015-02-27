@@ -11,3 +11,7 @@
 #import "SearchProfile.h"
 #import "PriceRange.h"
 #import "DistanceRange.h"
+#import "LocationServiceAuthorizationStatusDeniedError.h"
+#import "LocationServiceAuthorizationStatusRestrictedError.h"
+#import "NoRestaurantsFoundError.h"
+#import "SearchError.h"
