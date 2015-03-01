@@ -6,11 +6,11 @@
 import Foundation
 
 class ResponseUtterance: Utterance {
-    private let _continuation: (response:TalkerUtterance, script:Script) -> () = {
-        r, s in }
+    private let _continuation: (response:TalkerUtterance, script:Script) -> (Script) = {
+        r, s in return s}
     private let _context: TalkerContext
 
-    init(_ continuation: (response:TalkerUtterance, script:Script) -> (), _ context: TalkerContext) {
+    init(_ continuation: (response:TalkerUtterance, script:Script) -> (Script), _ context: TalkerContext) {
         _continuation = continuation
         _context = context
     }
@@ -24,7 +24,9 @@ class ResponseUtterance: Utterance {
 
             let subScript = Script(context: self._context)
             self._continuation(response: utterance, script: subScript)
-            Sequence.execute(subScript, input, output, continuation);
+            subScript.scriptingFinished.subscribeCompleted {
+                Sequence.execute(subScript, input, output, continuation);
+            }
         }
     }
 }

@@ -17,12 +17,14 @@ public class Repetition: Utterance {
 
     func execute(_ input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
         let subScript = _scriptFactory(Script(context: self._context))
-        Sequence.execute(subScript, input, output, {
-            if !self._abortTrigger() {
-                self.execute(input, output, continuation)
-            } else {
-                continuation()
-            }
-        })
+        subScript.scriptingFinished.subscribeCompleted {
+            Sequence.execute(subScript, input, output, {
+                if !self._abortTrigger() {
+                    self.execute(input, output, continuation)
+                } else {
+                    continuation()
+                }
+            })
+        }
     }
 }

@@ -24,9 +24,14 @@ class Branch: Utterance {
             let index = _context.randomizer.chooseOne(from: surrogate, forTag: _tag) as Int
             let chosenScriptFactory = _branches[index]
             chosenScriptFactory(subScript)
+            subScript.scriptingFinished.subscribeCompleted {
+                Sequence.execute(subScript, input, output, continuation);
+            }
+        } else {
+            continuation()
         }
 
-        Sequence.execute(subScript, input, output, continuation);
+
     }
 
 }

@@ -24,10 +24,13 @@ public class TalkerEngine: NSObject {
         let talkerMode = TalkerMode()
         let talkerInput = TalkerInput(self._input, talkerMode)
         let talkerOuput = TalkerOutput(rawOutput: rawOutput, naturalOutput: naturalOutput, mode: talkerMode)
-        Sequence.execute(self._script, talkerInput, talkerOuput, {
-            talkerMode.Mode = TalkerModes.Finishing
-            talkerOuput.sendCompleted()
-        })
+
+        _script.scriptingFinished.subscribeCompleted {
+            Sequence.execute(self._script, talkerInput, talkerOuput, {
+                talkerMode.Mode = TalkerModes.Finishing
+                talkerOuput.sendCompleted()
+            })
+        }
 
         return TalkerStreams(rawOutput: rawOutput, naturalOutput: naturalOutput)
     }

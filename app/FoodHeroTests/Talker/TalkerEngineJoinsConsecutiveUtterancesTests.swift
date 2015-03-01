@@ -15,6 +15,7 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
         .say({ $0.words("How are you?") }).say({ $0.words("Did you sleep well?") })
         .waitResponse()
         .say({ $0.words("OK") }).say({ $0.words("Good bye") })
+        .finish()
 
         assert(dialog: [
                 "Good Morning\n\nJohn",
@@ -40,6 +41,7 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
         let script = TestScript()
         .say({ $0.words("Good Morning") }).say({ $0.words("How are you?") })
         .waitResponse()
+        .finish()
 
         assert(utterance: "Good Morning\n\nHow are you?", exists: true, inExecutedScript: script)
     }
@@ -48,6 +50,7 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
         let script = TestScript()
         .say({ $0.words("Good Morning") }).say({ $0.words("How are you?") })
         .waitResponse()
+        .finish()
 
         assert(utterance: "Good Morning", exists: true, inExecutedScript: script, atPosition:0, withNaturalOutput:false)
         assert(utterance: "How are you?", exists: true, inExecutedScript: script, atPosition:1, withNaturalOutput:false)

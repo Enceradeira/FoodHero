@@ -22,6 +22,12 @@ public class TalkerEngineTests: XCTestCase {
         _randomizer = TalkerRandomizerFake()
     }
 
+    func async(_ handler: () -> ()) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            handler()
+        }
+    }
+
     func TestScript(_ resources: ScriptResources? = nil) -> Script {
         let resolvedResources = resources ?? ScriptResources(randomizer: _randomizer!)
         var context = TalkerContext(randomizer: _randomizer!, resources: resolvedResources)

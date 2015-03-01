@@ -21,19 +21,19 @@ public class ConversationScript: Script {
         say(oneOf: greetings)
         repeat({
             $0.repeat({
-                $0.say(oneOf: self.openingQuestions)
+                $0.say(oneOf: self.openingQuestions).finish()
                 $0.repeat({
-                    $0.waitResponse(andContinueWith: self.searchRestaurant)
-                }, until: self.userResponseIs("U:SuggestionFeedback=Like"))
-                $0.say(oneOf: self.commentChoices)
-                $0.say(oneOf: self.whatToDoNext)
-                $0.waitResponse()
+                    return $0.waitResponse(andContinueWith: self.searchRestaurant).finish()
+                }, until: self.userResponseIs("U:SuggestionFeedback=Like")).finish()
+                $0.say(oneOf: self.commentChoices).finish()
+                $0.say(oneOf: self.whatToDoNext).finish()
+                $0.waitResponse().finish()
                 return $0
             }, until: self.userResponseIs("U:GoodBye"))
             $0.say(oneOf: self.goodbyes)
-            $0.waitResponse()
-            return $0
+            return $0.waitResponse().finish()
         }, until: { false })
+        .finish()
     }
 
     func userResponseIs(semanticId: String) -> () -> Bool {
@@ -227,7 +227,7 @@ public class ConversationScript: Script {
                 withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation", state: nil))
     }
 
-    func processSearchResult(result: AnyObject, withScript script: Script) {
+    func processSearchResult(result: AnyObject, withScript script: Script) -> (Script) {
         let restaurant = result as Restaurant
         let negativesFeedback = self._conversation.negativeUserFeedback()!
         let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as USuggestionFeedbackParameters?
@@ -251,31 +251,32 @@ public class ConversationScript: Script {
             } else {
                 script.chooseOne(from: [
                         {
-                            return $0.say(oneOf: self.suggestions(with: restaurant))
+                            return $0.say(oneOf: self.suggestions(with: restaurant)).finish()
                         },
                         {
                             $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
                             if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
-                                return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
+                                return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerTagsConfirmationIfInNewPreferredRange).finish()
                             } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
-                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
+                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerTagsConfirmationIfInNewPreferredRange).finish()
                             } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
-                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerTagsConfirmationIfInNewPreferredRange)
+                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerTagsConfirmationIfInNewPreferredRange).finish()
                             }
-                            return $0
+                            return $0.finish()
 
                         },
                         {
                             $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
-                            return $0.say(oneOf: self.confirmations)
+                            return $0.say(oneOf: self.confirmations).finish()
                         }], withTag: RandomizerTagsProposal)
             }
         } else {
             script.say(oneOf: self.suggestions(with: restaurant))
         }
+        return script.finish()
     }
 
-    func processSearchError(error: NSError, withScript script: Script) {
+    func processSearchError(error: NSError, withScript script: Script) -> (Script) {
         if error is LocationServiceAuthorizationStatusDeniedError {
             script.say(oneOf: {
                 $0.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
@@ -294,18 +295,24 @@ public class ConversationScript: Script {
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
         }
+        return script.finish()
     }
 
-    func searchRestaurant(response: TalkerUtterance, script: Script) {
+    func searchRestaurant(response: TalkerUtterance, script: Script) -> (Script) {
 
         let bestRestaurant = _search.findBest(self._conversation)
 
         bestRestaurant.subscribeError {
-            (error: NSError!) in self.processSearchError(error!, withScript: script)
+            (error: NSError!) in
+            self.processSearchError(error!, withScript: script)
+            return
         }
 
         bestRestaurant.subscribeNext {
-            (obj) in self.processSearchResult(obj, withScript: script)
+            (obj) in
+            self.processSearchResult(obj, withScript: script)
+            return
         }
+        return script
     }
 }
