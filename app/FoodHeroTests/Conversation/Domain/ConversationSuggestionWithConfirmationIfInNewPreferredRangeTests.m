@@ -6,7 +6,6 @@
 #import "UCuisinePreference.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
-#import "RandomizerStub.h"
 #import "USuggestionFeedbackForTooFarAway.h"
 #import "USuggestionFeedbackForTooExpensive.h"
 #import "USuggestionFeedbackForTooCheap.h"
@@ -18,35 +17,37 @@
 @implementation ConversationSuggestionWithConfirmationIfInNewPreferredRangeTests {
 
     Restaurant *_restaurant;
+    CLLocation *_london;
 }
 
 - (void)setUp {
     [super setUp];
 
+    _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     _restaurant = [[RestaurantBuilder alloc] build];
-    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"];
+    [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index :2];
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 }
 
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
-    [self.conversation addFHToken:[USuggestionFeedbackForTooExpensive create:expensiveRestaurant text:nil]];
+    [self sendInput:[USuggestionFeedbackForTooExpensive createUtterance:expensiveRestaurant currentUserLocation:_london text:@"Way to expensive"]];
 
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
-    [self.conversation addFHToken:[USuggestionFeedbackForTooFarAway create:_restaurant currentUserLocation:[CLLocation new] text:nil]];
+    [self sendInput:[USuggestionFeedbackForTooFarAway createUtterance:_restaurant currentUserLocation:[CLLocation new] text:@"too far"]];
 
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
-    [self.conversation addFHToken:[USuggestionFeedbackForTooCheap create:cheapRestaurant text:@"It looks too cheap"]];
+    [self sendInput:[USuggestionFeedbackForTooCheap createUtterance:cheapRestaurant currentUserLocation:_london text:@"It looks cheap"]];
 
-    [super assertSecondLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 @end
