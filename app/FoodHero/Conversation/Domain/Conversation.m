@@ -63,7 +63,7 @@
             NSString *statesString = [states componentsJoinedByString:@";"];
             NSString *text = utterance.utterance;
 
-            Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:statesString suggestedRestaurant:nil];
+            Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:(statesString.length > 0 ? statesString : nil) suggestedRestaurant:nil];
 
             [self addStatement:statement];
         }];
@@ -212,8 +212,8 @@
 }
 
 - (ConversationParameters *)lastUserResponse {
-    return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p){
-        return (BOOL)([p hasSemanticId:@"U:"]);
+    return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+        return (BOOL) ([p hasSemanticId:@"U:"]);
     }] linq_lastOrNil];
 }
 @end
