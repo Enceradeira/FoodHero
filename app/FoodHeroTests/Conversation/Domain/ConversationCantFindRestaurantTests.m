@@ -7,7 +7,6 @@
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "UTryAgainNow.h"
 #import "ConversationTestsBase.h"
-#import "UWantsToSearchForAnotherRestaurant.h"
 #import "UWantsToAbort.h"
 
 
@@ -23,7 +22,7 @@
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
-    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@""]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -33,7 +32,7 @@
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self.conversation addFHToken:[UDidResolveProblemWithAccessLocationService new]];
+    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@""]];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 }
@@ -49,7 +48,7 @@
     [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self.conversation addFHToken:[UTryAgainNow new]];
+    [self sendInput:[UTryAgainNow createUtterance:@""]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -63,7 +62,7 @@
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self.conversation addFHToken:[UTryAgainNow new]];
+    [self sendInput:[UTryAgainNow createUtterance:@""]];
 
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
 }
@@ -78,7 +77,7 @@
         [stub injectFindNothing];
     }];
 
-    [self.conversation addFHToken:[UWantsToAbort new]];
+    [self sendInput:[UWantsToAbort createUtterance:@""]];
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" state:@"askForWhatToDoNext"];
 }
 

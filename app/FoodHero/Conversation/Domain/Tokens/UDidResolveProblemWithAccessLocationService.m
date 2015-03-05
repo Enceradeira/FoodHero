@@ -5,6 +5,7 @@
 
 #import "UDidResolveProblemWithAccessLocationService.h"
 #import "SearchAction.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation UDidResolveProblemWithAccessLocationService {
@@ -20,6 +21,12 @@
 
 + (instancetype)create:(NSString *)text {
     return [[UDidResolveProblemWithAccessLocationService alloc] initWithText:text];
+}
+
++ (TalkerUtterance *)createUtterance:(NSString *)text {
+
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:DidResolveProblemWithAccessLocationService" parameter:@""];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
 }
 
 @end

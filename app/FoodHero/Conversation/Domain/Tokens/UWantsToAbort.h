@@ -5,8 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
+#import "FoodHero-Swift.h"
 
 
 @interface UWantsToAbort : ConversationToken
 + (instancetype)create:(NSString *)text;
+
++ (TalkerUtterance *)createUtterance:(NSString *)text;
 @end

@@ -5,8 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
+#import "FoodHero-Swift.h"
 
 
 @interface UTryAgainNow : ConversationToken
 + (instancetype)create:(NSString *)text;
+
++ (TalkerUtterance *)createUtterance:(NSString *)text;
 @end

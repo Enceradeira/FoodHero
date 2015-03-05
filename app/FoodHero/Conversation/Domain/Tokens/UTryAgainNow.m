@@ -20,4 +20,11 @@
 + (instancetype)create:(NSString *)text {
     return [[UTryAgainNow alloc] initWithText:text];
 }
+
++ (TalkerUtterance *)createUtterance:(NSString *)text {
+
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:TryAgainNow" parameter:@""];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
+}
+
 @end

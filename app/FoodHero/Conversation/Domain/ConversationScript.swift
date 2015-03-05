@@ -282,20 +282,37 @@ public class ConversationScript: Script {
                 $0.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
                         , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices", state: "afterCantAccessLocationService"))
             })
+            return script.finish()
         } else if error is LocationServiceAuthorizationStatusRestrictedError {
             script.say(oneOf: {
                 $0.words(["I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am."]
                         , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices", state: "afterCantAccessLocationService"))
             })
+            return script.finish()
         } else if error is NoRestaurantsFoundError || error is SearchError {
             script.say(oneOf: {
                 $0.words(["That’s weird. I can’t find any restaurants right now."]
                         , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound", state: "noRestaurantWasFound"))
             })
+            script.waitResponse(andContinueWith: {
+                let parameters = $0.customData[0] as UserParameters
+                if parameters.hasSemanticId("U:WantsToAbort") {
+                    $1.say(oneOf: {
+                        $0.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
+                                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: "askForWhatToDoNext"))
+                    })
+
+                } else if parameters.hasSemanticId("U:TryAgainNow") {
+                    self.searchRestaurant($0, script: $1)
+                } else {
+                    assert(false, "response \(parameters.semanticIdInclParameters) not handled")
+                }
+                return $1.finish()
+            })
+            return script.finish()
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
         }
-        return script.finish()
     }
 
     func searchRestaurant(response: TalkerUtterance, script: Script) -> (Script) {
