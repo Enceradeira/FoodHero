@@ -26,7 +26,7 @@ class TalkerRandomizerTests: XCTestCase {
         var nrString2 = 0;
 
         for i in 1 ... nrTests {
-            let choice = _randomizer!.chooseOne(from: choices, forTag: RandomizerTagsTexts) as String
+            let choice = _randomizer!.chooseOne(from: choices, forTag: RandomizerConstants.texts()) as String
             if (choice == string1) {
                 nrString1++
             }
@@ -45,7 +45,7 @@ class TalkerRandomizerTests: XCTestCase {
         var nrTrue = 0
 
         for i in 1 ... nrTests {
-            if _randomizer!.isTrue(forTag:RandomizerTagsTexts)   {
+            if _randomizer!.isTrue(forTag:RandomizerConstants.texts())   {
                 nrTrue++
             }
         }

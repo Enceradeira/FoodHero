@@ -10,6 +10,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "RandomizerStub.h"
 #import "TextRepositoryStub.h"
+#import "FoodHero-Swift.h"
 
 @interface ConversationTestsBase : XCTestCase
 
@@ -17,6 +18,7 @@
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) RandomizerStub *tokenRandomizerStub;
+@property(nonatomic, readonly) TalkerRandomizerFake *talkerRandomizerFake;
 @property(nonatomic, readonly) TextRepositoryStub *textRepositoryStub;
 
 - (void)resetConversation;

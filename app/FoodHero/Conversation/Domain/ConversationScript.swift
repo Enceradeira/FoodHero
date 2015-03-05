@@ -256,11 +256,11 @@ public class ConversationScript: Script {
                         {
                             $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
                             if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
-                                return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerTagsConfirmationIfInNewPreferredRange).finish()
+                                return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerConstants.confirmationIfInNewPreferredRange()).finish()
                             } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
-                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerTagsConfirmationIfInNewPreferredRange).finish()
+                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerConstants.confirmationIfInNewPreferredRange()).finish()
                             } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
-                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerTagsConfirmationIfInNewPreferredRange).finish()
+                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerConstants.confirmationIfInNewPreferredRange()).finish()
                             }
                             return $0.finish()
 
@@ -268,7 +268,7 @@ public class ConversationScript: Script {
                         {
                             $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
                             return $0.say(oneOf: self.confirmations).finish()
-                        }], withTag: RandomizerTagsProposal)
+                        }], withTag: RandomizerConstants.proposal())
             }
         } else {
             script.say(oneOf: self.suggestions(with: restaurant))

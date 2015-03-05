@@ -28,7 +28,7 @@ class ScriptResourcesTests: XCTestCase {
         let resources = scriptResources()
         resources.add(parameter: "name", withValues: ["Ann", "Peter", "Maria"])
 
-        randomizerWillChoose(forTag: RandomizerTagsTextParameters, index: 2)
+        randomizerWillChoose(forTag: RandomizerConstants.textParameters(), index: 2)
         let result = resources.resolve("Hi I'm {name}")
 
         XCTAssertEqual(result, "Hi I'm Maria")

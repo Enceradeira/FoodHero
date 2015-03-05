@@ -17,6 +17,7 @@
     NSMutableArray *_expectedStatements;
     RestaurantSearchServiceStub *_restaurantSearchStub;
     RACSubject *_input;
+    TalkerRandomizerFake *_talkerRandomizerFake;
 }
 - (void)setUp {
     [super setUp];
@@ -27,6 +28,7 @@
     _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     [self resetConversation];
     _tokenRandomizerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] randomizer];
+    _talkerRandomizerFake = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
     _textRepositoryStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
     _expectedStatements = [NSMutableArray new];
 }
@@ -78,21 +80,21 @@
         assertThatUnsignedInt(_conversation.getStatementCount, is(greaterThan(@(offsetIndex))));
         Statement *statement = [_conversation getStatement:offsetIndex];
         assertThat(statement, is(notNilValue()));
-        assertThat(statement.semanticId, is(equalTo(expectedStatement.semanticId)));
+        assertThat(statement.semanticId, containsString(expectedStatement.semanticId));
         assertThat(statement.persona, is(equalTo(expectedPersona)));
         assertThat(statement.state, is(equalTo(expectedStatement.state)));
     }
 }
 
 
-- (void)assertLastStatementIs:(NSString *)semanticId state:(NSString*)state {
+- (void)assertLastStatementIs:(NSString *)semanticId state:(NSString *)state {
     NSMutableArray *list = [NSMutableArray new];
     [self expectedStatementIs:semanticId userAction:state inList:list];
     NSUInteger index = self.conversation.getStatementCount - 1;
     [self assertExpectedStatementsAtIndex:index inList:list];
 }
 
-- (void)assertSecondLastStatementIs:(NSString *)semanticId state:(NSString*)state {
+- (void)assertSecondLastStatementIs:(NSString *)semanticId state:(NSString *)state {
     NSUInteger index = self.conversation.getStatementCount - 2;
     NSMutableArray *list = [NSMutableArray new];
     [self expectedStatementIs:semanticId userAction:state inList:list];

@@ -5,11 +5,23 @@
 
 import Foundation
 
+public class RandomizerConstants: NSObject {
+    public class func texts() -> String {
+        return "Texts"
+    }
 
-public let RandomizerTagsTexts = "Texts"
-public let RandomizerTagsTextParameters = "TextParameters"
-public let RandomizerTagsConfirmationIfInNewPreferredRange = "ConfirmationIfInNewPreferredRange"
-public let RandomizerTagsProposal = "Proposal"
+    public class func textParameters() -> String {
+        return "TextParameters"
+    }
+
+    public class func confirmationIfInNewPreferredRange() -> String {
+        return "ConfirmationIfInNewPreferredRange"
+    }
+
+    public class func proposal() -> String {
+        return "Proposal"
+    }
+}
 
 /*
 public enum RandomizerTags {
