@@ -5,8 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
+#import "FoodHero-Swift.h"
 
 
 @interface UGoodBye : ConversationToken
 + (ConversationToken *)create:(NSString *)text;
+
++ (TalkerUtterance *)createUtterance:(NSString *)text;
 @end

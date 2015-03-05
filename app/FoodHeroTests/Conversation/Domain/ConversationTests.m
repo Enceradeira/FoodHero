@@ -76,7 +76,7 @@
 - (void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
     [self sendInput:[UCuisinePreference createUtterance:@"British or Indian Food" text:@"I like British or Indian Food"]];
 
-    [self assertSecondLastStatementIs:@"U:CuisinePreference=British or Indian Food" state:@""];
+    [self assertSecondLastStatementIs:@"U:CuisinePreference=British or Indian Food" state:nil];
 }
 
 - (void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation {

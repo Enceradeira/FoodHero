@@ -22,9 +22,12 @@ public class ConversationScript: Script {
         repeat({
             $0.repeat({
                 $0.say(oneOf: self.openingQuestions).finish()
-                $0.repeat({
+                /*$0.repeat({
                     return $0.waitResponse(andContinueWith: self.searchRestaurant).finish()
-                }, until: self.userResponseIs("U:SuggestionFeedback=Like")).finish()
+                }, until: self.userResponseIs("U:SuggestionFeedback=Like")).finish()*/
+                self.waitResponseAndSearchRestaurantRepeatably($0).finish()
+
+
                 $0.say(oneOf: self.commentChoices).finish()
                 $0.say(oneOf: self.whatToDoNext).finish()
                 $0.waitResponse().finish()
@@ -34,6 +37,17 @@ public class ConversationScript: Script {
             return $0.waitResponse().finish()
         }, until: { false })
         .finish()
+    }
+
+    func waitResponseAndSearchRestaurantRepeatably(script: Script) -> (Script) {
+        return script.waitResponse(andContinueWith: {
+            let parameter = $0.customData[0] as ConversationParameters
+            if !parameter.hasSemanticId("U:SuggestionFeedback=Like") {
+                self.searchRestaurant($0, script: $1)
+                self.waitResponseAndSearchRestaurantRepeatably($1)
+            }
+            return $1.finish()
+        }).finish()
     }
 
     func userResponseIs(semanticId: String) -> () -> Bool {

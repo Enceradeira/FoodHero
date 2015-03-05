@@ -22,4 +22,10 @@
 + (instancetype)create:(NSString *)text {
     return [[UGoodBye alloc] initWithText:text];
 }
+
++ (TalkerUtterance *)createUtterance:(NSString *)text {
+    UserParameters *parameters = [[UserParameters alloc] initWithSemanticId:@"U:GoodBye" parameter:@""];
+    return [[TalkerUtterance alloc] initWithUtterance:text customData:parameters];
+}
+
 @end
