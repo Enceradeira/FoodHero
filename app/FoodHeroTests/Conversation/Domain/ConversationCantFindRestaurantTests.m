@@ -4,7 +4,6 @@
 //
 
 #import "UCuisinePreference.h"
-#import "UDidResolveProblemWithAccessLocationService.h"
 #import "UTryAgainNow.h"
 #import "ConversationTestsBase.h"
 #import "UWantsToAbort.h"
@@ -22,7 +21,7 @@
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@""]];
+    [self sendInput:[UTryAgainNow createUtterance:@""]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -32,7 +31,7 @@
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@""]];
+    [self sendInput:[UTryAgainNow createUtterance:@""]];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 }

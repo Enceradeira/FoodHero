@@ -7,12 +7,23 @@
 //
 
 #import <ReactiveCocoa.h>
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "ConversationAppService.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
 #import "SpeechInterpretation.h"
 #import "UCuisinePreference.h"
+#import "USuggestionFeedbackForLiking.h"
+#import "DesignByContractException.h"
+#import "UGoodBye.h"
+#import "UWantsToSearchForAnotherRestaurant.h"
+#import "UTryAgainNow.h"
+#import "UWantsToAbort.h"
+#import "USuggestionFeedbackForNotLikingAtAll.h"
+#import "USuggestionFeedbackForTooCheap.h"
+#import "USuggestionFeedbackForTooExpensive.h"
+#import "USuggestionFeedbackForTooFarAway.h"
 
 
 static UIImage *LikeImage;
@@ -51,16 +62,60 @@ static UIImage *EmptyImage;
 
         RACSignal *input = [speechRecognitionService.output map:^(SpeechInterpretation *interpretation) {
             if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
-                NSString *semanticId = [NSString stringWithFormat:@"U:CuisinePreference=%@", interpretation.entities[0]];
                 TalkerUtterance *utterance = [UCuisinePreference createUtterance:interpretation.entities[0] text:interpretation.text];
                 return utterance;
             }
-            return [[TalkerUtterance alloc] initWithUtterance:@"????" customData:@[@"????"]];
+            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Like"]) {
+                TalkerUtterance *utterance = [USuggestionFeedbackForLiking createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Dislike"]) {
+                TalkerUtterance *utterance = [USuggestionFeedbackForNotLikingAtAll createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooCheap"]) {
+                TalkerUtterance *utterance = [USuggestionFeedbackForTooCheap createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooExpensive"]) {
+                TalkerUtterance *utterance = [USuggestionFeedbackForTooExpensive createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooFarAway"]) {
+                TalkerUtterance *utterance = [USuggestionFeedbackForTooFarAway createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"goodBye"]) {
+                TalkerUtterance *utterance = [UGoodBye createUtterance:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
+                TalkerUtterance *utterance = [UWantsToSearchForAnotherRestaurant createUtterance:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
+                TalkerUtterance *utterance = [UTryAgainNow createUtterance:interpretation.text];
+                return utterance;
+            }
+            else if ([interpretation.intent isEqualToString:@"abort"]) {
+                TalkerUtterance *utterance = [UWantsToAbort createUtterance:interpretation.text];
+                return utterance;
+            }
+            assert(false);
         }];
         _conversation = [conversationRepository getForInput:input];
     }
     return self;
 }
+
+- (Restaurant *)getLastSuggestedRestaurant {
+    NSArray *restaurants = _conversation.suggestedRestaurants;
+    if (restaurants.count == 0) {
+        @throw [DesignByContractException createWithReason:@"no restaurants have ever been suggested to user"];
+    }
+    return [restaurants linq_lastOrNil];
+}
+
 
 + (UIImage *)emptyImage {
     return EmptyImage;

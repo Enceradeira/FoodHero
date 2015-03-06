@@ -79,7 +79,7 @@ ConversationAppServiceTests {
     ConversationBubble *newFhSuggestion = statementsReversed[0];
     assertThat(userFeedback.semanticId, is(equalTo([NSString stringWithFormat:@"U:SuggestionFeedback=%@", type])));
     assertThat(userFeedback.textSource, is(equalTo(text)));
-    assertThat(newFhSuggestion.semanticId, is(equalTo(fhAnswer)));
+    assertThat(newFhSuggestion.semanticId, containsString(fhAnswer));
 }
 
 - (void)injectInterpretation:(NSString *)text intent:(NSString *)intent entities:(NSArray *)entities {
@@ -205,9 +205,11 @@ ConversationAppServiceTests {
 - (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
+    
+    [self injectInterpretation:@"I fixed it! Hurray!" intent:@"tryAgainNow" entities:nil];
     [_service addUserText:@"I fixed it! Hurray!" forState:@"afterCantAccessLocationService"];
 
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:DidResolveProblemWithAccessLocationService"];
+    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:TryAgainNow"];
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.textSource, is(equalTo(@"I fixed it! Hurray!")));
 }
@@ -217,6 +219,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"setSuggestionFeedback_Like"];
     [self addRecognizedUserTextForAnswerToWhatToDoNext:@"Good bye mi love" intent:@"goodBye"];
 
+    [self injectInterpretation:@"search again!"intent:@"searchForAnotherRestaurant" entities:nil];
     [_service addUserText:@"search again!" forState:@"afterGoodByeAfterSuccess"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
@@ -275,8 +278,6 @@ ConversationAppServiceTests {
 - (void)test_addUserVoiceForInputAction_ShouldAddUCuisinePreference_WhenAskUserCuisinePreferenceAction {
     [self addRecognizedUserVoiceForCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];;
 
-    [_service addUserVoiceForState:@"askForFoodPreference"];
-
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:CuisinePreference=Indian"];
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.textSource, is(equalTo(@"I like Indian food")));
@@ -298,7 +299,7 @@ ConversationAppServiceTests {
 
     [_service addUserVoiceForState:@"afterCantAccessLocationService"];
 
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:DidResolveProblemWithAccessLocationService"];
+    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:TryAgainNow"];
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.textSource, is(equalTo(@"I fixed it! Hurray!")));
 }

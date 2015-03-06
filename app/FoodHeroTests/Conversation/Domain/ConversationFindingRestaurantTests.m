@@ -5,7 +5,6 @@
 
 #import "UCuisinePreference.h"
 #import "UTryAgainNow.h"
-#import "UDidResolveProblemWithAccessLocationService.h"
 #import "ConversationTestsBase.h"
 #import "USuggestionNegativeFeedback.h"
 #import "USuggestionFeedbackForTooCheap.h"
@@ -53,12 +52,11 @@
     }];
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self sendInput:[UTryAgainNow createUtterance:@"Again please"]];  // tries again but not no authorization present
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@"I fixed it"]];
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 
     // Problem with kCLAuthorizationStatusRestricted repeats
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@"I fixed it again"]];
+    [self sendInput:[UTryAgainNow createUtterance:@"I fixed it again"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:@"afterCantAccessLocationService"];
 
     // Problem no restaurant found again
@@ -66,7 +64,7 @@
     [self configureRestaurantSearchForLatitude:-56 longitude:10 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@"I fixed it again"]];
+    [self sendInput:[UTryAgainNow createUtterance:@"I fixed it again"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
 
     // Problems finally solved
@@ -102,14 +100,14 @@
     [self sendInput:[USuggestionFeedbackForTooCheap createUtterance:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:@"afterCantAccessLocationService"];
 
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@"I fixed it"]];
+    [self sendInput:[UTryAgainNow createUtterance:@"I fixed it"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:@"afterCantAccessLocationService"];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self configureRestaurantSearchForLatitude:25 longitude:-12 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UDidResolveProblemWithAccessLocationService createUtterance:@"I fixed it again"]];
+    [self sendInput:[UTryAgainNow createUtterance:@"I fixed it again"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
     [self configureRestaurantSearchForLatitude:-42 longitude:0 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];

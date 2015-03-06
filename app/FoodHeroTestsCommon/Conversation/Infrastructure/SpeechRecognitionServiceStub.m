@@ -9,14 +9,10 @@
 #import "SpeechInterpretation.h"
 #import "MissingAudioRecordionPermissonError.h"
 
-
-@interface SpeechRecognitionServiceStub ()
-@property(atomic, readwrite) SpeechInterpretation *interpretation;
-@end
-
 @implementation SpeechRecognitionServiceStub {
     AVAudioSessionRecordPermission _permission;
     RACSubject *_output;
+    NSMutableArray *_interpretations;
 }
 
 - (instancetype)init {
@@ -24,28 +20,41 @@
     if (self) {
         _permission = AVAudioSessionRecordPermissionGranted;
         _output = [RACSubject new];
+        _interpretations = [NSMutableArray new];
 
+        /*
         [[RACObserve(self, self.interpretation) filter:^(SpeechInterpretation *i) {
             return (BOOL) (i != nil);
         }] subscribeNext:^(SpeechInterpretation *i) {
             [_output sendNext:i];
-        }];
+        }];*/
     }
 
     return self;
 }
 
 - (void)interpretString:(NSString *)string state:(id)customData {
+    [self generateOutput];
 }
 
 - (void)recordAndInterpretUserVoice:(NSString *)state {
+    [self generateOutput];
+}
+
+- (void)generateOutput {
     if (_permission != AVAudioSessionRecordPermissionGranted) {
         [_output sendNext:[MissingAudioRecordionPermissonError new]];
+    }
+    else {
+        assert(_interpretations.count > 0);
+        SpeechInterpretation *i = _interpretations[0];
+        [_interpretations removeObjectAtIndex:0];
+        [_output sendNext:i];
     }
 }
 
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation {
-    self.interpretation = interpretation;
+    [_interpretations addObject:interpretation];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
