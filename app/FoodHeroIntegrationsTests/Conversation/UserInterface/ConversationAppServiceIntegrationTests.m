@@ -63,16 +63,4 @@
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
-- (void)test_addUserSuggestionFeedback_ShouldAddUSuggestionFeedbackToConversation {
-    [_service addUserText:@"I wished to eat Indian food" forState:@"askForFoodPreference"];
-    [self waitStatementWithIndex:2];
-
-    [_service addUserText:@"It's too far away" forState:@"askForSuggestionFeedback"];
-    ConversationBubble *bubble = [self waitStatementWithIndex:3];
-
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.semanticId, is(equalTo(@"U:SuggestionFeedback=tooFarAway")));
-    assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
-}
-
 @end

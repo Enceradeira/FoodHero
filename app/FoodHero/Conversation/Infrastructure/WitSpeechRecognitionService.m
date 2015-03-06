@@ -37,7 +37,6 @@
             return dic[@"value"];
         }];
         [_subscriber sendNext:interpretation];
-        [_subscriber sendCompleted];
     }
     else {
         [_subscriber sendError:[NoSpeechInterpretationError create:nil]];

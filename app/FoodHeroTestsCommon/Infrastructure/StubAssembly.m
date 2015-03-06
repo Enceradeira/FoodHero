@@ -13,7 +13,6 @@
 #import "EnvironmentStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "AudioSessionStub.h"
-#import "FoodHeroTests-Swift.h"
 #import "FoodHero-Swift.h"
 
 

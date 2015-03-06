@@ -44,9 +44,6 @@
     // Assert
     [result subscribeNext:^(SpeechInterpretation *i) {
         [interpretations addObject:i];
-    }];
-
-    [result subscribeCompleted:^() {
         [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
     }];
 
@@ -99,15 +96,9 @@
         error = e;
         [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
     }];
-    __block BOOL completed = NO;
-    [result subscribeCompleted:^() {
-        completed = YES;
-        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-    }];
 
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
     assertThat(error.class, is(equalTo(MissingAudioRecordionPermissonError.class)));
-    assertThatBool(completed, is(equalToBool(NO)));
 }
 
 @end
