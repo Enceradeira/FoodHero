@@ -7,8 +7,6 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
-#import "NoSpeechInterpretationError.h"
-#import "MissingAudioRecordionPermissonError.h"
 
 @interface WitDelegate : NSObject <WitDelegate>
 + (id <WitDelegate>)create:(id <RACSubscriber>)subscriber;
@@ -23,7 +21,7 @@
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
     if (error) {
-        [_subscriber sendError:[NoSpeechInterpretationError create:error]];
+        assert(false); // TODO error-handling
     }
     if (outcomes.count > 0) {
         NSDictionary *best = outcomes[0];
@@ -39,7 +37,7 @@
         [_subscriber sendNext:interpretation];
     }
     else {
-        [_subscriber sendError:[NoSpeechInterpretationError create:nil]];
+        assert(false); // TODO error-handling
     }
 }
 
@@ -116,7 +114,7 @@
             [self.wit start];
         }
         else {
-            [_output sendNext:[MissingAudioRecordionPermissonError new]];
+            assert(false); // TODO error-handling
         }
     }];
 }

@@ -13,9 +13,7 @@
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
 #import "IntegrationAssembly.h"
-#import "NoSpeechInterpretationError.h"
 #import "AudioSessionStub.h"
-#import "MissingAudioRecordionPermissonError.h"
 
 @interface WitSpeechRecognitionServiceIntegrationTests : XCTestCase
 
@@ -57,48 +55,6 @@
     NSArray *entities = interpretation.entities;
     assertThatInt(entities.count, is(equalTo(@1)));
     assertThat(entities[0], is(equalTo(@"Indian")));
-}
-
-
-- (void)test_interpretString_ShouldReturnError_WhenWitCantBeReached {
-    id schedulers = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
-    NSString *invalidToken = @"asdhf82q3z0483q148";
-    WitSpeechRecognitionService *service = [[WitSpeechRecognitionService alloc] initWithAccessToken:invalidToken audioSession:_audioSessionStub];
-
-    RACSignal *result = service.output;
-    [service interpretString:@"Funny text" state:@"Test"];
-
-    __block NSError *error = nil;
-    [result subscribeError:^(NSError *e) {
-        error = e;
-        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-    }];
-
-    __block BOOL completed = NO;
-    [result subscribeCompleted:^() {
-        completed = YES;
-        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-    }];
-
-    [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
-    assertThat(error.class, is(equalTo(NoSpeechInterpretationError.class)));
-    assertThatBool(completed, is(equalToBool(NO)));
-}
-
-- (void)test_recordAndInterpretUserVoice_ShouldReturnError_WhenNoRecordPermission {
-    [_audioSessionStub injectRecordPermission:AVAudioSessionRecordPermissionDenied];
-
-    RACSignal *result = _service.output;
-    [_service recordAndInterpretUserVoice:@"Test"];
-
-    __block NSError *error = nil;
-    [result subscribeError:^(NSError *e) {
-        error = e;
-        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-    }];
-
-    [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
-    assertThat(error.class, is(equalTo(MissingAudioRecordionPermissonError.class)));
 }
 
 @end

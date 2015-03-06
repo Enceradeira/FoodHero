@@ -60,49 +60,50 @@ static UIImage *EmptyImage;
         _restaurantRepository = restaurantRepository;
         _speechRecognitionService = speechRecognitionService;
 
-        RACSignal *input = [speechRecognitionService.output map:^(SpeechInterpretation *interpretation) {
-            if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
-                TalkerUtterance *utterance = [UCuisinePreference createUtterance:interpretation.entities[0] text:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Like"]) {
-                TalkerUtterance *utterance = [USuggestionFeedbackForLiking createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Dislike"]) {
-                TalkerUtterance *utterance = [USuggestionFeedbackForNotLikingAtAll createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooCheap"]) {
-                TalkerUtterance *utterance = [USuggestionFeedbackForTooCheap createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooExpensive"]) {
-                TalkerUtterance *utterance = [USuggestionFeedbackForTooExpensive createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooFarAway"]) {
-                TalkerUtterance *utterance = [USuggestionFeedbackForTooFarAway createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"goodBye"]) {
-                TalkerUtterance *utterance = [UGoodBye createUtterance:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
-                TalkerUtterance *utterance = [UWantsToSearchForAnotherRestaurant createUtterance:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
-                TalkerUtterance *utterance = [UTryAgainNow createUtterance:interpretation.text];
-                return utterance;
-            }
-            else if ([interpretation.intent isEqualToString:@"abort"]) {
-                TalkerUtterance *utterance = [UWantsToAbort createUtterance:interpretation.text];
-                return utterance;
-            }
-            assert(false);
-        }];
+        RACSignal *input = [speechRecognitionService.output
+                map:^(SpeechInterpretation *interpretation) {
+                    if ([interpretation.intent isEqualToString:@"setFoodPreference"] && interpretation.entities.count == 1) {
+                        TalkerUtterance *utterance = [UCuisinePreference createUtterance:interpretation.entities[0] text:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Like"]) {
+                        TalkerUtterance *utterance = [USuggestionFeedbackForLiking createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_Dislike"]) {
+                        TalkerUtterance *utterance = [USuggestionFeedbackForNotLikingAtAll createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooCheap"]) {
+                        TalkerUtterance *utterance = [USuggestionFeedbackForTooCheap createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooExpensive"]) {
+                        TalkerUtterance *utterance = [USuggestionFeedbackForTooExpensive createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"setSuggestionFeedback_tooFarAway"]) {
+                        TalkerUtterance *utterance = [USuggestionFeedbackForTooFarAway createUtterance:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"goodBye"]) {
+                        TalkerUtterance *utterance = [UGoodBye createUtterance:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"searchForAnotherRestaurant"]) {
+                        TalkerUtterance *utterance = [UWantsToSearchForAnotherRestaurant createUtterance:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"tryAgainNow"]) {
+                        TalkerUtterance *utterance = [UTryAgainNow createUtterance:interpretation.text];
+                        return utterance;
+                    }
+                    else if ([interpretation.intent isEqualToString:@"abort"]) {
+                        TalkerUtterance *utterance = [UWantsToAbort createUtterance:interpretation.text];
+                        return utterance;
+                    }
+                    assert(false);
+                }];
         _conversation = [conversationRepository getForInput:input];
     }
     return self;

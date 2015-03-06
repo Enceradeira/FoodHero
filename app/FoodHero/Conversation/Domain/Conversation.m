@@ -41,29 +41,34 @@
         id <IRandomizer> randomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
         RestaurantSearch *search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
         LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+        id <ISchedulerFactory> schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
         TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
-        ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService];
+        ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService schedulerFactory:schedulerFactory];
 
         TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
 
         TalkerStreams *streams = [engine execute];
 
         [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
-            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *context) {
-                return [context semanticIdInclParameters];
+            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
+                return [parameter semanticIdInclParameters];
             }];
-            NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *context) {
-                return [context state];
+            NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *parameter) {
+                return [parameter state];
             }] linq_where:^(NSString *state) {
                 return (BOOL) (state != [NSNull null]);
             }];
+
+            Restaurant* restaurant = [[[[utterance customData] linq_ofType:FoodHeroSuggestionParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
+                return [parameter restaurant];
+            }] linq_firstOrNil];
 
             NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
             NSString *statesString = [states componentsJoinedByString:@";"];
             NSString *text = utterance.utterance;
 
-            Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:(statesString.length > 0 ? statesString : nil) suggestedRestaurant:nil];
+            Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:(statesString.length > 0 ? statesString : nil) suggestedRestaurant:restaurant];
 
             [self addStatement:statement];
         }];

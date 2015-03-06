@@ -10,11 +10,17 @@ public class ConversationScript: Script {
     let _conversation: Conversation
     let _search: RestaurantSearch
     let _locationService: LocationService
+    let _schedulerFactory: ISchedulerFactory
 
-    public init(context context: TalkerContext, conversation: Conversation, search: RestaurantSearch, locationService: LocationService) {
+    public init(context context: TalkerContext,
+                conversation: Conversation,
+                search: RestaurantSearch,
+                locationService: LocationService,
+                schedulerFactory: ISchedulerFactory) {
         _conversation = conversation
         _search = search
         _locationService = locationService
+        _schedulerFactory = schedulerFactory
 
         super.init(context: context)
 
@@ -338,7 +344,7 @@ public class ConversationScript: Script {
 
     func searchAndWaitResponseAndSearchRepeatably(response: TalkerUtterance, futureScript: FutureScript) -> (FutureScript) {
 
-        let bestRestaurant = _search.findBest(self._conversation)
+        let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler())
 
         bestRestaurant.subscribeError {
             (error: NSError!) in

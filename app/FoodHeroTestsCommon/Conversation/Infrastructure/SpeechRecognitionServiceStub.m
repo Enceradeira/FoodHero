@@ -7,7 +7,6 @@
 
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
-#import "MissingAudioRecordionPermissonError.h"
 
 @implementation SpeechRecognitionServiceStub {
     AVAudioSessionRecordPermission _permission;
@@ -43,7 +42,8 @@
 
 - (void)generateOutput {
     if (_permission != AVAudioSessionRecordPermissionGranted) {
-        [_output sendNext:[MissingAudioRecordionPermissonError new]];
+        // [_output sendNext:[MissingAudioRecordionPermissonError new]];
+        assert(false); // TODO error-handling
     }
     else {
         assert(_interpretations.count > 0);
