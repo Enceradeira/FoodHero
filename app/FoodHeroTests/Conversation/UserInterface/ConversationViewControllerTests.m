@@ -71,19 +71,12 @@
 - (void)test_userMicButtonTouchUp_ShouldAddNewConversationBubble {
     NSUInteger bubbleCount = [_bubbleView visibleCells].count;
 
-    [_ctrl userMicButtonTouchUp:self];
     [self injectInterpretation:@"I want Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
-
+    [_ctrl userMicButtonTouchUp:self];
+    
     assertThatInt([_bubbleView visibleCells].count, is(greaterThan(@(bubbleCount))));
 }
 
--(void)test_userMicButtonTouchUp_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
-    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
-
-    [_ctrl userMicButtonTouchUp:self];
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(@(NO)));
-}
 
 -(void)test_Controller_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
     [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
