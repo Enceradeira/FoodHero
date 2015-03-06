@@ -32,8 +32,7 @@ public class ConversationScript: Script {
 
                         $0.say(oneOf: self.commentChoices)
                         $0.say(oneOf: self.whatToDoNext)
-                        $0.waitResponse()
-                        return $0
+                        return $0.waitResponse()
                     }
                 }, until: self.userResponseIs("U:GoodBye"))
                 $0.say(oneOf: self.goodbyes)
@@ -46,9 +45,9 @@ public class ConversationScript: Script {
         return script.waitResponse(andContinueWith: {
             let parameter = $0.customData[0] as ConversationParameters
             if !parameter.hasSemanticId("U:SuggestionFeedback=Like") {
-                self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
+                return self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
             }
-            return $1
+            return $1.defineEmpty()
         })
     }
 
@@ -319,18 +318,17 @@ public class ConversationScript: Script {
             script.waitResponse(andContinueWith: {
                 let parameters = $0.customData[0] as UserParameters
                 if parameters.hasSemanticId("U:WantsToAbort") {
-                    $1.define {
+                    return $1.define {
                         $0.say(oneOf: {
                             $0.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
                                     withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: "askForWhatToDoNext"))
                         })
                     }
                 } else if parameters.hasSemanticId("U:TryAgainNow") {
-                    self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
+                    return self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
                 } else {
                     assert(false, "response \(parameters.semanticIdInclParameters) not handled")
                 }
-                return $1
             })
             return script
         } else {

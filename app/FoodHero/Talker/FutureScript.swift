@@ -26,6 +26,13 @@ public class FutureScript: NSObject {
         return self
     }
 
+    public func defineEmpty() -> FutureScript {
+        define {
+            $0
+        }
+        return self
+    }
+
     public var script: RACSignal {
         get {
             return _scriptSignal;
