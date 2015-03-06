@@ -23,7 +23,7 @@ public class TalkerRandomizerFake: NSObject, IRandomizer {
     }
 
     public func willChoose(forTag tag: String, value: Bool) {
-        _configuredChoices[tag] = value ? 1 : 0
+        _configuredChoices[tag] = value ? 0 : 1
     }
 
     public func isTrue(forTag tag: String) -> Bool {
