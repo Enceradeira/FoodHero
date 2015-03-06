@@ -124,6 +124,7 @@
 		2352568F08684D4936A6C5B8 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251996A185437DF584FB5 /* Personas.m */; };
 		2352568FACD5C630704F3D39 /* FHGoodByeAfterSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255F864D57F257B56084E /* FHGoodByeAfterSuccess.m */; };
 		23525692CF1FC353EEB00641 /* ConversationIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AB91A6F0C982291B958 /* ConversationIntegrationTests.m */; };
+		235256B5C335D4F28BC83464 /* FutureScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525D0D3FC6CB77852F53A3 /* FutureScript.swift */; };
 		235256B9EDBB425F115F5A1D /* FHWhatToDoNextCommentAfterSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525712D29413868C162D44 /* FHWhatToDoNextCommentAfterSuccess.m */; };
 		235256D104437B6424FC20B6 /* LargeRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255C28F5BFA6BC8287CC0 /* LargeRestaurantReviewCommentViewController.m */; };
 		235256E1C4D918EFFB7991F9 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352580237AED4093A3BF06C /* Script.swift */; };
@@ -686,6 +687,7 @@
 		23525CFC28FB96D2E678A34A /* IEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEnvironment.h; sourceTree = "<group>"; };
 		23525CFF3F5FA1611ED8EBE8 /* OpeningHoursViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpeningHoursViewControllerTests.m; sourceTree = "<group>"; };
 		23525D061BA4618AC6480CE4 /* GoogleRestaurantSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleRestaurantSearch.m; sourceTree = "<group>"; };
+		23525D0D3FC6CB77852F53A3 /* FutureScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureScript.swift; sourceTree = "<group>"; };
 		23525D18AAB9A4164A13FCA6 /* RatingStarsImageRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingStarsImageRepository.h; sourceTree = "<group>"; };
 		23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerProxySpy.m; sourceTree = "<group>"; };
 		23525D3BC16B4FCB514983EA /* RandomizerStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomizerStub.h; sourceTree = "<group>"; };
@@ -1085,6 +1087,7 @@
 				235258A6F2540414531B6F6D /* Branch.swift */,
 				235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */,
 				23525EAF16E4290AC6ECEBCC /* Repetition.swift */,
+				23525D0D3FC6CB77852F53A3 /* FutureScript.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -2168,6 +2171,7 @@
 				235259C3B1E36DEDE9FF3252 /* OptionalUtterance.swift in Sources */,
 				2352590B21B3CB696ABE9013 /* TalkerRandomizerFake.swift in Sources */,
 				2352565B6363FC91B656133D /* Repetition.swift in Sources */,
+				235256B5C335D4F28BC83464 /* FutureScript.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

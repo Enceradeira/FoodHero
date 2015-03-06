@@ -6,19 +6,19 @@
 import Foundation
 
 public class Repetition: Utterance {
-    private let _scriptFactory: (Script) -> (Script)
+    private let _scriptFactory: (FutureScript) -> (FutureScript)
     private let _abortTrigger: (() -> Bool)
     private let _context: TalkerContext
-    public init(scriptFactory: (Script) -> (Script), abortTrigger: (() -> Bool), context: TalkerContext) {
+    public init(scriptFactory: (FutureScript) -> (FutureScript), abortTrigger: (() -> Bool), context: TalkerContext) {
         _scriptFactory = scriptFactory
         _abortTrigger = abortTrigger
         _context = context
     }
 
     func execute(_ input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
-        let subScript = _scriptFactory(Script(context: self._context))
-        subScript.scriptingFinished.subscribeCompleted {
-            Sequence.execute(subScript, input, output, {
+        let futureScript = _scriptFactory(FutureScript(context: self._context))
+        futureScript.script.subscribeNext {
+            Sequence.execute($0 as Script, input, output, {
                 if !self._abortTrigger() {
                     self.execute(input, output, continuation)
                 } else {

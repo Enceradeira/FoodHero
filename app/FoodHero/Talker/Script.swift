@@ -9,7 +9,6 @@ import Foundation
 public class Script: NSObject {
     private var _utterances: [Utterance] = []
     private let _context: TalkerContext
-    private let _scriptingFinishedSignal = RACReplaySubject()
 
     public init(context: TalkerContext) {
         _context = context;
@@ -36,30 +35,23 @@ public class Script: NSObject {
         return self
     }
 
-    public func waitResponse(andContinueWith continuation: ((TalkerUtterance, Script) -> (Script))? = {
-        r, s in s.finish()}) -> Script {
+    public func waitResponse(andContinueWith continuation: ((TalkerUtterance, FutureScript) -> (FutureScript))? = {
+        r, s in s.define {
+            $0
+        }
+    }) -> Script {
         _utterances.append(ResponseUtterance(continuation!, _context))
         return self;
     }
 
-    public func chooseOne(from branches: [((Script) -> (Script))], withTag tag: String) -> Script {
+    public func chooseOne(from branches: [((FutureScript) -> (FutureScript))], withTag tag: String) -> Script {
         _utterances.append(Branch(tag: tag, branches: branches, context: _context))
         return self
     }
 
-    public func repeat(script: (Script) -> (Script), until: (() -> Bool)) -> Script {
+    public func repeat(script: (FutureScript) -> (FutureScript), until: (() -> Bool)) -> Script {
         _utterances.append(Repetition(scriptFactory: script, abortTrigger: until, context: _context))
         return self
     }
-
-    public func finish() -> Script {
-        _scriptingFinishedSignal.sendCompleted()
-        return self
-    }
-
-    internal var scriptingFinished: RACSignal {
-        get {
-            return _scriptingFinishedSignal;
-        }
-    }
 }
+

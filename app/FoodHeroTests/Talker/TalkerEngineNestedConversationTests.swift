@@ -12,13 +12,15 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         let script = TestScript()
         .say({ $0.words("How are you?") })
         .waitResponse(andContinueWith: {
-            response, script in
-            switch response.utterance {
-            case "Good": return script.say({ $0.words("I'm glad to hear") }).finish()
-            default: return script.say({ $0.words("What did you say?") }).finish()
+            response, future in
+            return future.define {
+                switch response.utterance {
+                case "Good": return $0.say({ $0.words("I'm glad to hear") })
+                default: return $0.say({ $0.words("What did you say?") })
+                }
             }
         })
-        .finish()
+
 
         assert(dialog: ["How are you?", "Good", "I'm glad to hear"],
                 forExecutedScript: script,
@@ -31,13 +33,15 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         let script = TestScript()
         .say({ $0.words("How are you?") })
         .waitResponse(andContinueWith: {
-            response, script in
-            switch response.utterance {
-            case "Good": return script.say({ $0.words("I'm glad to hear") }).finish()
-            default: return script.say({ $0.words("What did you say?") }).finish()
+            response, future in
+            return future.define {
+                switch response.utterance {
+                case "Good": return $0.say({ $0.words("I'm glad to hear") })
+                default: return $0.say({ $0.words("What did you say?") })
+                }
             }
         })
-        .finish()
+
 
         assert(dialog: ["How are you?", "*##!!", "What did you say?"],
                 forExecutedScript: script,
@@ -47,16 +51,20 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
     func test_talk_shouldHandleNestedResponses() {
         let script = TestScript()
         .waitResponse(andContinueWith: {
-            _, script in
-            return script
-            .say({ $0.words("What?") })
-            .waitResponse(andContinueWith: {
-                _, script in
-                return script.say({ $0.words("Now I get it") }).finish()
-            }).finish()
+            _, future in
+            return future.define {
+                return $0
+                .say({ $0.words("What?") })
+                .waitResponse(andContinueWith: {
+                    _, continuedFuture in
+                    return continuedFuture.define {
+                        $0.say({ $0.words("Now I get it") })
+                    }
+                })
+            }
         })
         .say({ $0.words("Good bye then") })
-        .finish()
+
 
         assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it\n\nGood bye then"],
                 forExecutedScript: script,

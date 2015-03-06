@@ -20,34 +20,36 @@ public class ConversationScript: Script {
 
         say(oneOf: greetings)
         repeat({
-            $0.repeat({
-                $0.say(oneOf: self.openingQuestions).finish()
-                /*$0.repeat({
-                    return $0.waitResponse(andContinueWith: self.searchRestaurant).finish()
-                }, until: self.userResponseIs("U:SuggestionFeedback=Like")).finish()*/
-                self.waitResponseAndSearchRestaurantRepeatably($0).finish()
+            $0.define({
+                $0.repeat({
+                    $0.define {
+                        $0.say(oneOf: self.openingQuestions)
+                        /*$0.repeat({
+                        return $0.waitResponse(andContinueWith: self.searchRestaurant)
+                    }, until: self.userResponseIs("U:SuggestionFeedback=Like"))*/
+                        self.waitResponseAndSearchRepeatably($0)
 
 
-                $0.say(oneOf: self.commentChoices).finish()
-                $0.say(oneOf: self.whatToDoNext).finish()
-                $0.waitResponse().finish()
-                return $0
-            }, until: self.userResponseIs("U:GoodBye"))
-            $0.say(oneOf: self.goodbyes)
-            return $0.waitResponse().finish()
+                        $0.say(oneOf: self.commentChoices)
+                        $0.say(oneOf: self.whatToDoNext)
+                        $0.waitResponse()
+                        return $0
+                    }
+                }, until: self.userResponseIs("U:GoodBye"))
+                $0.say(oneOf: self.goodbyes)
+                return $0.waitResponse()
+            })
         }, until: { false })
-        .finish()
     }
 
-    func waitResponseAndSearchRestaurantRepeatably(script: Script) -> (Script) {
+    func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
         return script.waitResponse(andContinueWith: {
             let parameter = $0.customData[0] as ConversationParameters
             if !parameter.hasSemanticId("U:SuggestionFeedback=Like") {
-                self.searchRestaurant($0, script: $1)
-                self.waitResponseAndSearchRestaurantRepeatably($1)
+                self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
             }
-            return $1.finish()
-        }).finish()
+            return $1
+        })
     }
 
     func userResponseIs(semanticId: String) -> () -> Bool {
@@ -265,29 +267,35 @@ public class ConversationScript: Script {
             } else {
                 script.chooseOne(from: [
                         {
-                            return $0.say(oneOf: self.suggestions(with: restaurant)).finish()
+                            return $0.define {
+                                $0.say(oneOf: self.suggestions(with: restaurant))
+                            }
                         },
                         {
-                            $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
-                            if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
-                                return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerConstants.confirmationIfInNewPreferredRange()).finish()
-                            } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
-                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerConstants.confirmationIfInNewPreferredRange()).finish()
-                            } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
-                                return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerConstants.confirmationIfInNewPreferredRange()).finish()
+                            return $0.define {
+                                $0.say(oneOf: self.suggestionsAsFollowUp(with: restaurant))
+                                if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
+                                    return $0.saySometimes(oneOf: self.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
+                                } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
+                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
+                                } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
+                                    return $0.saySometimes(oneOf: self.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
+                                }
+                                return $0
                             }
-                            return $0.finish()
 
                         },
                         {
-                            $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
-                            return $0.say(oneOf: self.confirmations).finish()
+                            return $0.define {
+                                $0.say(oneOf: self.suggestionsWithComment(relatedTo: lastFeedback!, with: restaurant))
+                                return $0.say(oneOf: self.confirmations)
+                            }
                         }], withTag: RandomizerConstants.proposal())
             }
         } else {
             script.say(oneOf: self.suggestions(with: restaurant))
         }
-        return script.finish()
+        return script
     }
 
     func processSearchError(error: NSError, withScript script: Script) -> (Script) {
@@ -296,13 +304,13 @@ public class ConversationScript: Script {
                 $0.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
                         , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices", state: "afterCantAccessLocationService"))
             })
-            return script.finish()
+            return script
         } else if error is LocationServiceAuthorizationStatusRestrictedError {
             script.say(oneOf: {
                 $0.words(["I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am."]
                         , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices", state: "afterCantAccessLocationService"))
             })
-            return script.finish()
+            return script
         } else if error is NoRestaurantsFoundError || error is SearchError {
             script.say(oneOf: {
                 $0.words(["That’s weird. I can’t find any restaurants right now."]
@@ -311,39 +319,46 @@ public class ConversationScript: Script {
             script.waitResponse(andContinueWith: {
                 let parameters = $0.customData[0] as UserParameters
                 if parameters.hasSemanticId("U:WantsToAbort") {
-                    $1.say(oneOf: {
-                        $0.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
-                                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: "askForWhatToDoNext"))
-                    })
-
+                    $1.define {
+                        $0.say(oneOf: {
+                            $0.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
+                                    withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: "askForWhatToDoNext"))
+                        })
+                    }
                 } else if parameters.hasSemanticId("U:TryAgainNow") {
-                    self.searchRestaurant($0, script: $1)
+                    self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
                 } else {
                     assert(false, "response \(parameters.semanticIdInclParameters) not handled")
                 }
-                return $1.finish()
+                return $1
             })
-            return script.finish()
+            return script
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
         }
     }
 
-    func searchRestaurant(response: TalkerUtterance, script: Script) -> (Script) {
+    func searchAndWaitResponseAndSearchRepeatably(response: TalkerUtterance, futureScript: FutureScript) -> (FutureScript) {
 
         let bestRestaurant = _search.findBest(self._conversation)
 
         bestRestaurant.subscribeError {
             (error: NSError!) in
-            self.processSearchError(error!, withScript: script)
+            futureScript.define {
+                self.processSearchError(error!, withScript: $0)
+                return self.waitResponseAndSearchRepeatably($0)
+            }
             return
         }
 
         bestRestaurant.subscribeNext {
             (obj) in
-            self.processSearchResult(obj, withScript: script)
+            futureScript.define {
+                self.processSearchResult(obj, withScript: $0)
+                return self.waitResponseAndSearchRepeatably($0)
+            }
             return
         }
-        return script
+        return futureScript
     }
 }
