@@ -41,7 +41,7 @@
 
     [self sendInput:[UGoodBye createUtterance:@"Bye, Bye"]];
     [self assertSecondLastStatementIs:@"U:GoodBye" state:nil];
-    [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" state:@"afterGoodByeAfterSuccess"];
+    [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" state:@"askForWhatToDoNext"];
 
     [self sendInput:[UWantsToSearchForAnotherRestaurant createUtterance:@"Search again, please"]];
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" state:nil];

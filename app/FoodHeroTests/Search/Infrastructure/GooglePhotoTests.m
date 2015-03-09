@@ -25,7 +25,7 @@
 - (void)setUp {
     [super setUp];
 
-    _reference = @"CnRnAAAAoyLbXnnSIRe9MLseTdRy9tb6EazVXMAQzMU-0iDlPvv_2VERdur10kpth3cJa0CykixadCjrRQvuJj4Ta471cBDk83esj0w6W4jqaR2uSWrMB7X9BLsynPKY18osZLyqCaeanhtrdCZ3iajZFtxQrhIQJ7VNLaxertOOkTd-0vEgMRoU8bqsQ0oH04LX68gbism63CgA_ms";
+    _reference = @"CnRqAAAA7yJkN4BsFofBd1r9cWWh-39all7H5QOt8dwoXazGC1PYkCujElmsJfKWc76RdmibYyKWnuBkAkSoAg-tkbelZCbRoWkRWEbj7P0GpAr9ILYghOEu9DR42JR6W7Uj6xsMC_sud-o8DWuEHnvNqVyz7RIQXDzrKZKr8DMILbQq3GAPXBoUclhXPRW_cbU-Cnau0XjbXFeH06Q";
     _width = 774;
     _heigth = 665;
 

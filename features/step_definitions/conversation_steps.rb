@@ -8,7 +8,7 @@ def get_last_element_and_parameter(id)
     return nil
   end
   text = bubble.name
-  _, parameter = text.match(/^#{id}\w*=(.*)$/).to_a
+  _, parameter = text.match(/#{id}\w*=(.*)$/).to_a
   return bubble, parameter
 end
 
@@ -121,7 +121,7 @@ Given(/^FoodHero is very slow in responding$/) do
 end
 
 Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Greeting;FH:OpeningQuestion')
+  bubble, _ = wait_last_element_and_parameter('FH:Greeting;FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
 
@@ -131,40 +131,43 @@ Then(/^FoodHero asks what I wished to eat$/) do
 end
 
 And(/^FoodHero asks what to do next$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextCommentAfterSuccess')
+  bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterSuccess')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero asks what to do next after failure$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:WhatToDoNextCommentAfterFailure')
+  bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterFailure')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says that nothing was found$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:NoRestaurantsFound')
+  bubble, _ = wait_last_element_and_parameter('FH:NoRestaurantsFound')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says good bye$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:GoodBye')
+  bubble, _ = wait_last_element_and_parameter('FH:GoodBye')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion')
+  bubble, parameter = wait_last_element_and_parameter('FH:Suggestion')
   expect(parameter).not_to be_nil
   expect(bubble).not_to be_nil
   last_suggestions << parameter
 end
 
 Then(/^FoodHero asks to enable location\-services in settings$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:BecauseUserDeniedAccessToLocationServices')
+  bubble, _ = wait_last_element_and_parameter('FH:BecauseUserDeniedAccessToLocationServices')
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
   # wait until next suggestion appears
-  bubble, next_suggestion = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |p| !last_suggestions.include?(p) }
+
+  bubble, next_suggestion = wait_last_element_and_parameter('FH:Suggestion') {
+      |p| !last_suggestions.include?(p)
+  }
 
   expect(bubble).not_to be_nil
   expect(next_suggestion).not_to be_nil
@@ -173,25 +176,25 @@ Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_st
 end
 
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
-  link = find_element(:xpath, "//*[contains(@name,'ConversationBubble-FH:Suggestion')]//UIALink")
+  link = find_element(:xpath, "//*[contains(@name,'FH:Suggestion')]//UIALink")
   expect(link).not_to be_nil
   link.click
 end
 
 Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:CuisinePreference') { |p| p.eql? cuisines_as_string }
+  bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference') { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
   expect(parameter).to eq(cuisines_as_string)
 end
 
 Then(/^I see my answer "([^"]*)"$/) do |answer|
-  bubble, parameter = wait_last_element_and_parameter('ConversationBubble-U:SuggestionFeedback') { |p| p.eql? answer }
+  bubble, parameter = wait_last_element_and_parameter('U:SuggestionFeedback') { |p| p.eql? answer }
   expect(parameter).to eq(answer)
   expect(bubble).not_to be_nil
 end
 
 Then(/^I answer with I fixed the problem, please try again$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-U:DidResolveProblemWithAccessLocationService')
+  bubble, _ = wait_last_element_and_parameter('U:TryAgainNow')
   expect(bubble).not_to be_nil
 end
 
@@ -277,7 +280,7 @@ end
 
 And(/^I touch a conversation bubble$/) do
   # wait until next suggestion appears
-  # bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  # bubble, _ = wait_last_element_and_parameter('FH:Suggestion') { |_| true }
   bubble = find_element(:xpath, '//UIATableCell/UIAWebView/UIAStaticText')
   bubble.click
 end
@@ -292,12 +295,12 @@ Then(/^I can't see the feedback list$/) do
 end
 
 Then(/^I can see last suggestion$/) do
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  bubble, _ = wait_last_element_and_parameter('FH:Suggestion') { |_| true }
   expect(bubble.displayed?).to be_truthy
 end
 
 Then(/^FoodHero displays Semantic\-ID "([^"]*)" in last suggestion/) do |semanticId|
-  bubble, _ = wait_last_element_and_parameter('ConversationBubble-FH:Suggestion') { |_| true }
+  bubble, _ = wait_last_element_and_parameter('FH:Suggestion') { |_| true }
   expect(bubble.label).to include(semanticId)
 end
 

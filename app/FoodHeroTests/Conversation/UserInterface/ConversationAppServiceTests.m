@@ -220,7 +220,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForAnswerToWhatToDoNext:@"Good bye mi love" intent:@"goodBye"];
 
     [self injectInterpretation:@"search again!"intent:@"searchForAnotherRestaurant" entities:nil];
-    [_service addUserText:@"search again!" forState:@"afterGoodByeAfterSuccess"];
+    [_service addUserText:@"search again!" forState:@"askForWhatToDoNext"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
     assertThat(bubble, is(notNilValue()));
@@ -334,7 +334,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserVoiceForAnswerToWhatToDoNext:@"Good bye mi love" intent:@"goodBye"];
 
     [self injectInterpretation:@"search again!" intent:@"searchForAnotherRestaurant" entities:nil];
-    [_service addUserVoiceForState:@"afterGoodByeAfterSuccess"];
+    [_service addUserVoiceForState:@"askForWhatToDoNext"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
     assertThat(bubble, is(notNilValue()));

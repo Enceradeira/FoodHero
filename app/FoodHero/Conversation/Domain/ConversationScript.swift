@@ -25,26 +25,12 @@ public class ConversationScript: Script {
         super.init(context: context)
 
         say(oneOf: greetings)
-        repeat({
-            $0.define({
-                $0.repeat({
-                    $0.define {
-                        $0.say(oneOf: self.openingQuestions)
-                        /*$0.repeat({
-                        return $0.waitResponse(andContinueWith: self.searchRestaurant)
-                    }, until: self.userResponseIs("U:SuggestionFeedback=Like"))*/
-                        self.waitResponseAndSearchRepeatably($0)
+        sayOpeningQuestionWaitResponseAndSearchRepeatably(self)
+    }
 
-
-                        $0.say(oneOf: self.commentChoices)
-                        $0.say(oneOf: self.whatToDoNext)
-                        return $0.waitResponse()
-                    }
-                }, until: self.userResponseIs("U:GoodBye"))
-                $0.say(oneOf: self.goodbyes)
-                return $0.waitResponse()
-            })
-        }, until: { false })
+    func sayOpeningQuestionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
+        script.say(oneOf: self.openingQuestions)
+        return self.waitResponseAndSearchRepeatably(script)
     }
 
     func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
@@ -52,8 +38,37 @@ public class ConversationScript: Script {
             let parameter = $0.customData[0] as ConversationParameters
             if !parameter.hasSemanticId("U:SuggestionFeedback=Like") {
                 return self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
+            } else {
+                return $1.define {
+                    $0.say(oneOf: self.commentChoices)
+                    return self.askWhatToDoNext($0)
+                }
             }
-            return $1.defineEmpty()
+        })
+    }
+
+    func askWhatToDoNext(script: Script) -> (Script) {
+        script.say(oneOf: self.whatToDoNext)
+        return waitResponseForWhatToDoNext(script)
+    }
+
+    func waitResponseForWhatToDoNext(script: Script) -> (Script) {
+        return script.waitResponse(andContinueWith: {
+            let parameter = $0.customData[0] as ConversationParameters
+            if parameter.hasSemanticId("U:GoodBye") {
+                return $1.define {
+                    $0.say(oneOf: self.goodbyes)
+                    return $0.waitResponse(andContinueWith: {
+                        return $1.define {
+                            return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
+                        }
+                    })
+                }
+            } else {
+                return $1.define {
+                    return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
+                }
+            }
         })
     }
 
@@ -70,7 +85,7 @@ public class ConversationScript: Script {
                 "God bless you.",
                 "Behave yourself, now.",
                 "Don’t get a girl in trouble."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess", state: "afterGoodByeAfterSuccess"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess", state: "askForWhatToDoNext"))
     }
 
     func commentChoices(def: StringDefinition) -> StringDefinition {
@@ -329,6 +344,7 @@ public class ConversationScript: Script {
                             $0.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
                                     withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: "askForWhatToDoNext"))
                         })
+                        return self.waitResponseForWhatToDoNext($0)
                     }
                 } else if parameters.hasSemanticId("U:TryAgainNow") {
                     return self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
