@@ -84,7 +84,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         })
         sendInput("Good, and you?", "Context-Response");
 
-        executeScript(script).asynchronouslyWaitUntilCompleted(nil)
+        executeScript(script)
 
         waitForExpectationsWithTimeout(0.01, handler: nil)
     }
