@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Persona.h"
-#import "ConversationAction.h"
 #import "Restaurant.h"
 #import "ConversationToken.h"
 

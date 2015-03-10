@@ -6,7 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "ConversationToken.h"
 #import "Restaurant.h"
-#import "ConversationAction.h"
 #import "ConversationSource.h"
 
 

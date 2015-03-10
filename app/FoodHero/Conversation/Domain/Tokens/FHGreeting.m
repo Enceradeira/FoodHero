@@ -5,8 +5,6 @@
 #import "FHGreeting.h"
 #import "TextRepository.h"
 #import "ConversationToken+Protected.h"
-#import "NoAction.h"
-#import "AddTokenAction.h"
 #import "FHOpeningQuestion.h"
 
 NSString *const SemanticId = @"FH:Greeting";
@@ -26,11 +24,6 @@ NSString *const SemanticId = @"FH:Greeting";
         _text = text;
     }
     return self;
-}
-
-- (id <ConversationAction>)createAction {
-    AddTokenAction *addOpeningQuestionAction = [AddTokenAction create:[FHOpeningQuestion create]];
-    return addOpeningQuestionAction;
 }
 
 @end

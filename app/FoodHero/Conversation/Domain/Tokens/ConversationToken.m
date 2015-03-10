@@ -42,8 +42,4 @@
     return [[ConversationToken alloc] initWithPersona:_persona semantidId:semanticId text:text];
 }
 
-- (id <ConversationAction>)createAction {
-    return nil;
-}
-
 @end

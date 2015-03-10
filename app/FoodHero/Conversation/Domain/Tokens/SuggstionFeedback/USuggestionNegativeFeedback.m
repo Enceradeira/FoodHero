@@ -5,8 +5,6 @@
 
 #import "USuggestionNegativeFeedback.h"
 #import "DesignByContractException.h"
-#import "SearchAction.h"
-
 
 @implementation USuggestionNegativeFeedback {
 }
@@ -18,11 +16,6 @@
 - (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
     @throw [DesignByContractException createWithReason:@"method must be overriden in subclass"];
 }
-
-- (id <ConversationAction>)createAction {
-    return [SearchAction new];
-}
-
 
 
 @end

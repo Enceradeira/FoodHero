@@ -4,8 +4,6 @@
 //
 
 #import "UWantsToAbort.h"
-#import "SearchAction.h"
-#import "AddTokenAction.h"
 #import "FHWhatToDoNextCommentAfterFailure.h"
 
 
@@ -13,10 +11,6 @@
 }
 - (id)initWithText:(NSString *)text {
     return [super initWithSemanticId:@"U:WantsToAbort" text:text];
-}
-
-- (id <ConversationAction>)createAction {
-    return [AddTokenAction create:[FHWhatToDoNextCommentAfterFailure new]];
 }
 
 + (instancetype)create:(NSString *)text {

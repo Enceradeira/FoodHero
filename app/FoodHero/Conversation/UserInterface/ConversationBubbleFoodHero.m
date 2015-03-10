@@ -7,7 +7,6 @@
 //
 
 #import "ConversationBubbleFoodHero.h"
-#import "ConversationAction.h"
 #import "Statement.h"
 
 @implementation ConversationBubbleFoodHero

@@ -4,7 +4,6 @@
 //
 
 #import "USuggestionFeedbackForLiking.h"
-#import "AddTokenAction.h"
 #import "FHWhatToDoNextCommentAfterSuccess.h"
 #import "FoodHero-Swift.h"
 
@@ -13,10 +12,6 @@
 
 + (instancetype)create:(Restaurant *)restaurant text:(NSString *)text {
     return [[USuggestionFeedbackForLiking alloc] initWithRestaurant:restaurant text:text type:@"Like"];
-}
-
-- (id <ConversationAction>)createAction {
-    return [AddTokenAction create:[FHWhatToDoNextCommentAfterSuccess new]];
 }
 
 + (TalkerUtterance*)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text  {

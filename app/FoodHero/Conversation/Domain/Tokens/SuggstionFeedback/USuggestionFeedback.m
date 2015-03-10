@@ -18,7 +18,4 @@
     return self;
 }
 
-- (id <ConversationAction>)createAction {
-    @throw [DesignByContractException createWithReason:@"method must be overriden in base class"];
-}
 @end

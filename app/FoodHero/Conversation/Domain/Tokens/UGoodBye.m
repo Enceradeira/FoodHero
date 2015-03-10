@@ -5,18 +5,12 @@
 
 #import "UGoodBye.h"
 #import "FHGoodByeAfterSuccess.h"
-#import "AddTokenAction.h"
-
 
 @implementation UGoodBye {
 
 }
 - (id)initWithText:(NSString *)text {
     return [super initWithSemanticId:@"U:GoodBye" text:text];
-}
-
-- (id <ConversationAction>)createAction {
-    return [AddTokenAction create:[FHGoodByeAfterSuccess new]];
 }
 
 + (instancetype)create:(NSString *)text {

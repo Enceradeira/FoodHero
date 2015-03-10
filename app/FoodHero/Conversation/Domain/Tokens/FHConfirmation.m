@@ -4,18 +4,12 @@
 //
 
 #import "FHConfirmation.h"
-#import "NoAction.h"
-
 
 @implementation FHConfirmation {
 
 }
 + (FHConfirmation *)create {
     return [[FHConfirmation alloc] initWithSemanticId:@"FH:Confirmation" text:@"What do you think?"];
-}
-
-- (id <ConversationAction>)createAction{
-    return [NoAction new];
 }
 
 @end

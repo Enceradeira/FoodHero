@@ -4,17 +4,12 @@
 //
 
 #import "UTryAgainNow.h"
-#import "SearchAction.h"
 
 
 @implementation UTryAgainNow {
 }
 - (id)initWithText:(NSString *)text {
     return [super initWithSemanticId:@"U:TryAgainNow" text:text];
-}
-
-- (id <ConversationAction>)createAction {
-    return [SearchAction new];
 }
 
 + (instancetype)create:(NSString *)text {

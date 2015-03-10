@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import "Conversation.h"
-#import "ConversationAction.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "HCIsExceptionOfType.h"
