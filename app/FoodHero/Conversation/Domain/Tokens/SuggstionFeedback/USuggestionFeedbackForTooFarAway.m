@@ -4,8 +4,6 @@
 //
 
 #import "USuggestionFeedbackForTooFarAway.h"
-#import "FHConfirmationIfInNewPreferredRangeCloser.h"
-#import "FHSuggestionWithConfirmationIfInNewPreferredRangeCloser.h"
 #import "DesignByContractException.h"
 
 
@@ -26,14 +24,6 @@
         _currentUserLocation = location;
     }
     return self;
-}
-
-- (ConversationToken *)foodHeroConfirmationToken {
-    return [FHConfirmationIfInNewPreferredRangeCloser create];
-}
-
-- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
-    return [FHSuggestionWithConfirmationIfInNewPreferredRangeCloser create:restaurant];
 }
 
 + (TalkerUtterance*)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text  {

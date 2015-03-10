@@ -4,8 +4,6 @@
 //
 
 #import "USuggestionFeedbackForTooExpensive.h"
-#import "FHConfirmationIfInNewPreferredRangeCheaper.h"
-
 
 @implementation USuggestionFeedbackForTooExpensive {
 
@@ -13,14 +11,6 @@
 
 + (instancetype)create:(Restaurant *)restaurant text:(NSString *)text {
     return [[USuggestionFeedbackForTooExpensive alloc] initWithRestaurant:restaurant text:text type:@"tooExpensive"];
-}
-
-- (ConversationToken *)foodHeroConfirmationToken {
-    return [FHConfirmationIfInNewPreferredRangeCheaper create];
-}
-
-- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant {
-    return nil;
 }
 
 + (TalkerUtterance*)createUtterance:(Restaurant *)restaurant currentUserLocation:(CLLocation *)location text:(NSString *)text  {

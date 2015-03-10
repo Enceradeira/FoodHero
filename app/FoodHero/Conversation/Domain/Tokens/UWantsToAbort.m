@@ -4,8 +4,6 @@
 //
 
 #import "UWantsToAbort.h"
-#import "FHWhatToDoNextCommentAfterFailure.h"
-
 
 @implementation UWantsToAbort {
 }

@@ -10,7 +10,4 @@
 
 @interface USuggestionNegativeFeedback : USuggestionFeedback
 
-- (ConversationToken *)foodHeroConfirmationToken;
-
-- (ConversationToken *)getFoodHeroSuggestionWithCommentToken:(Restaurant *)restaurant;
 @end
