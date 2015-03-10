@@ -4,7 +4,6 @@
 //
 
 #import "UWantsToSearchForAnotherRestaurant.h"
-#import "FHOpeningQuestion.h"
 
 @implementation UWantsToSearchForAnotherRestaurant {
 

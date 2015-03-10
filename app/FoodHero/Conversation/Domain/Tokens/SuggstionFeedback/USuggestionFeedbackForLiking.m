@@ -4,7 +4,6 @@
 //
 
 #import "USuggestionFeedbackForLiking.h"
-#import "FHWhatToDoNextCommentAfterSuccess.h"
 #import "FoodHero-Swift.h"
 
 @implementation USuggestionFeedbackForLiking {

@@ -27,9 +27,7 @@
     _restaurantSearchStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
     _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     [self resetConversation];
-    _tokenRandomizerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] randomizer];
     _talkerRandomizerFake = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
-    _textRepositoryStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] textRepository];
     _expectedStatements = [NSMutableArray new];
 }
 

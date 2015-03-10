@@ -9,11 +9,9 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest.h>
 #import "ConversationBubble.h"
-#import "FHGreeting.h"
 #import "ConversationBubbleFoodHero.h"
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
-#import "FHSuggestion.h"
 #import "RestaurantBuilder.h"
 
 @interface ConversationBubbleTests : XCTestCase

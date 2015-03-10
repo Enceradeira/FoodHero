@@ -4,7 +4,6 @@
 //
 
 #import "UGoodBye.h"
-#import "FHGoodByeAfterSuccess.h"
 
 @implementation UGoodBye {
 

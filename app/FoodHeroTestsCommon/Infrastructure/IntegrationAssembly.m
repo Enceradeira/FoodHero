@@ -4,7 +4,6 @@
 //
 
 #import "IntegrationAssembly.h"
-#import "RandomizerStub.h"
 #import "WitSpeechRecognitionService.h"
 #import "CLLocationManagerProxyStub.h"
 #import "AudioSessionStub.h"
@@ -12,12 +11,6 @@
 
 @implementation IntegrationAssembly {
 
-}
-
-- (id)randomizer {
-    return [TyphoonDefinition withClass:[RandomizerStub class] configuration:^(TyphoonDefinition *definition) {
-        definition.scope = TyphoonScopeSingleton;
-    }];
 }
 
 - (id)talkerRandomizer {

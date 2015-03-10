@@ -13,9 +13,7 @@
 #import "GoogleRestaurantSearch.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerImpl.h"
-#import "DefaultRandomizer.h"
 #import "DefaultSchedulerFactory.h"
-#import "TextRepository.h"
 #import "RestaurantDetailViewController.h"
 #import "Environment.h"
 #import "WitSpeechRecognitionService.h"
@@ -110,10 +108,6 @@
                           }];
 }
 
-- (id)randomizer {
-    return [TyphoonDefinition withClass:[DefaultRandomizer class]];;
-}
-
 - (id)talkerRandomizer {
     return [TyphoonDefinition withClass:[TalkerRandomizer class]];;
 }
@@ -132,16 +126,6 @@
 
 - (id)schedulerFactory {
     return [TyphoonDefinition withClass:[DefaultSchedulerFactory class]];
-}
-
-- (id)textRepository {
-    return [TyphoonDefinition withClass:[TextRepository class]
-                          configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithRandomizer:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:[self randomizer]];
-
-                              }];
-                          }];
 }
 
 - (id)environment {

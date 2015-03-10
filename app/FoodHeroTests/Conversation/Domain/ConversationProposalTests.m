@@ -31,7 +31,6 @@
 
 - (void)test_USuggestionFeedback_ShouldRepeatFHSuggestionByUsingDifferentTypesOfSuggestionFeedbacks {
     CLLocation *location = [CLLocation new];
-    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
 
     // 1. branch (FH:SuggestionAsFollowUp)
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:1];

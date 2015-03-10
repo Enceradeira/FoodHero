@@ -25,15 +25,11 @@
 
 - (id)locationManagerProxy;
 
-- (id)randomizer;
-
 - (id)talkerRandomizer;
 
 - (id)restaurantRepository;
 
 - (id)schedulerFactory;
-
-- (id)textRepository;
 
 - (id)environment;
 

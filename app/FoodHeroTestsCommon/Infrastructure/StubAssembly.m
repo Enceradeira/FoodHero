@@ -7,9 +7,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "RestaurantSearch.h"
 #import "CLLocationManagerProxyStub.h"
-#import "RandomizerStub.h"
 #import "AlwaysImmediateSchedulerFactory.h"
-#import "TextRepositoryStub.h"
 #import "EnvironmentStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "AudioSessionStub.h"
@@ -30,12 +28,6 @@
     }];
 }
 
-- (id)randomizer {
-    return [TyphoonDefinition withClass:[RandomizerStub class] configuration:^(TyphoonDefinition *definition) {
-        definition.scope = TyphoonScopeSingleton;
-    }];
-}
-
 - (id)talkerRandomizer {
     return [TyphoonDefinition withClass:[TalkerRandomizerFake class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
@@ -44,12 +36,6 @@
 
 - (id)schedulerFactory {
     return [TyphoonDefinition withClass:[AlwaysImmediateSchedulerFactory class]];
-}
-
-- (id)textRepository {
-    return [TyphoonDefinition withClass:[TextRepositoryStub class] configuration:^(TyphoonDefinition *definition) {
-        definition.scope = TyphoonScopeSingleton;
-    }];
 }
 
 - (id)environment {

@@ -77,8 +77,6 @@
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHCanFindRestaurant_WhenAfterConsecutiveProposals {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
-    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
-
     [self sendInput:[UCuisinePreference createUtterance:@"Test" text:@"Test"]];
 
     [self configureRestaurantSearchForLatitude:12 longitude:44 configuration:^(RestaurantSearchServiceStub *stub) {

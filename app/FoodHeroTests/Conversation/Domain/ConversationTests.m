@@ -133,8 +133,6 @@
         [stub injectFindResults:@[kingsHead, lionHeart]];
     }];
 
-    [self.tokenRandomizerStub injectDontDo:@"FH:Comment"];
-
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];
 
     [self sendInput:[USuggestionFeedbackForTooExpensive createUtterance:kingsHead currentUserLocation:_london text:@""]];
@@ -181,10 +179,8 @@
 
     [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I like British Food"]];  // 1. Restaurant suggested
 
-    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionAsFollowUp"]; // make FH choose a different type of suggestion
     [self sendInput:[USuggestionFeedbackForNotLikingAtAll createUtterance:restaurant1 currentUserLocation:_london text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
 
-    [self.tokenRandomizerStub injectChoice:@"FH:SuggestionWithComment"]; // make FH choose a different type of suggestion
     [self sendInput:[USuggestionFeedbackForNotLikingAtAll createUtterance:restaurant2 currentUserLocation:_london text:@"I don't like that restaurant"]]; // 3. Restaurant suggested
     NSArray *restaurants = [self.conversation suggestedRestaurants];
     assertThatInteger(restaurants.count, is(equalToInteger(3)));

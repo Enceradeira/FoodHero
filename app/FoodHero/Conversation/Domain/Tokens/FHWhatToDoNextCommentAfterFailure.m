@@ -4,10 +4,8 @@
 //
 
 #import "FHWhatToDoNextCommentAfterFailure.h"
-#import "TextRepository.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
-#import "ConversationToken+Protected.h"
 
 @implementation FHWhatToDoNextCommentAfterFailure {
 
