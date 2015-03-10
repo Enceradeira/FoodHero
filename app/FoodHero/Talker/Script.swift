@@ -48,10 +48,5 @@ public class Script: NSObject {
         _utterances.append(Branch(tag: tag, branches: branches, context: _context))
         return self
     }
-
-    public func repeat(script: (FutureScript) -> (FutureScript), until: (() -> Bool)) -> Script {
-        _utterances.append(Repetition(scriptFactory: script, abortTrigger: until, context: _context))
-        return self
-    }
 }
 
