@@ -30,6 +30,7 @@
 		235251C6B2444ED5F703FAC2 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B67F131FB6E4DA33D8 /* ConversationViewController.m */; };
 		235251CE360230A01337A8AA /* ConversationSourceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253C05FA7822B59725CC5 /* ConversationSourceStub.m */; };
 		235251E05BE261DD1A8799D6 /* ConversationBubbleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 235257F452F3D98BEB40C034 /* ConversationBubbleUser.m */; };
+		235251E55863869A8BE176E9 /* UserUtterances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352579CCB7947ADF5584AB2 /* UserUtterances.swift */; };
 		235251EE92383E27DE80754D /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FFD133B4B57A619342E /* HCIsExceptionOfType.m */; };
 		235251FD42AA8234E70E3F99 /* RestaurantSearchServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235257DFA24F5EFD0E47D092 /* RestaurantSearchServiceStub.m */; };
 		2352520E2EB850F86E86E29F /* ConversationTokenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DE38CE16D4F043A8F60 /* ConversationTokenTests.m */; };
@@ -458,6 +459,7 @@
 		23525757B571C49CF14C897B /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		23525763AB8503ACECBD95F0 /* ConversationSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationSource.h; sourceTree = "<group>"; };
 		2352577C9B933310D30BBCAC /* RestaurantPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantPhotoViewController.m; sourceTree = "<group>"; };
+		2352579CCB7947ADF5584AB2 /* UserUtterances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserUtterances.swift; sourceTree = "<group>"; };
 		2352579E3E3C577A713404A3 /* RestaurantController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantController.h; sourceTree = "<group>"; };
 		235257C6322F9539B8F61B30 /* EnvironmentStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStub.h; sourceTree = "<group>"; };
 		235257DFA24F5EFD0E47D092 /* RestaurantSearchServiceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchServiceStub.m; sourceTree = "<group>"; };
@@ -1071,6 +1073,7 @@
 				23525675A05FD20087048D47 /* SearchProfile.h */,
 				23525BACB484642CDCD2B5ED /* SearchProfile.m */,
 				23525763AB8503ACECBD95F0 /* ConversationSource.h */,
+				2352579CCB7947ADF5584AB2 /* UserUtterances.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1902,6 +1905,7 @@
 				23525917ABFB4A506FF2F966 /* DistanceRange.m in Sources */,
 				235250DA0BB7996A62838193 /* PriceRange.m in Sources */,
 				2352548A82BB1D40F931F268 /* SearchProfile.m in Sources */,
+				235251E55863869A8BE176E9 /* UserUtterances.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
