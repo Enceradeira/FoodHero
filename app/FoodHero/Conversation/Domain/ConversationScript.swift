@@ -6,7 +6,6 @@
 import Foundation
 
 public class ConversationScript: Script {
-
     let _conversation: Conversation
     let _search: RestaurantSearch
     let _locationService: LocationService
@@ -34,10 +33,9 @@ public class ConversationScript: Script {
     }
 
     func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
-        return script.waitResponse(andContinueWith: {
-            let parameter = $0.customData[0] as ConversationParameters
-            if !parameter.hasSemanticId("U:SuggestionFeedback=Like") {
-                return self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
+        return script.waitUserResponse(andContinueWith: {
+            if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
+                return self.searchAndWaitResponseAndSearchRepeatably($1)
             } else {
                 return $1.define {
                     $0.say(oneOf: FHUtterances.commentChoices)
@@ -47,18 +45,41 @@ public class ConversationScript: Script {
         })
     }
 
+    func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript) -> (FutureScript) {
+
+        let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler())
+
+        bestRestaurant.subscribeError {
+            (error: NSError!) in
+            futureScript.define {
+                self.processSearchError(error!, withScript: $0)
+                return self.waitResponseAndSearchRepeatably($0)
+            }
+            return
+        }
+
+        bestRestaurant.subscribeNext {
+            (obj) in
+            futureScript.define {
+                self.processSearchResult(obj, withScript: $0)
+                return self.waitResponseAndSearchRepeatably($0)
+            }
+            return
+        }
+        return futureScript
+    }
+
     func askWhatToDoNext(script: Script) -> (Script) {
         script.say(oneOf: FHUtterances.whatToDoNext)
         return waitResponseForWhatToDoNext(script)
     }
 
     func waitResponseForWhatToDoNext(script: Script) -> (Script) {
-        return script.waitResponse(andContinueWith: {
-            let parameter = $0.customData[0] as ConversationParameters
-            if parameter.hasSemanticId("U:GoodBye") {
+        return script.waitUserResponse(andContinueWith: {
+            if $0.hasSemanticId("U:GoodBye") {
                 return $1.define {
                     $0.say(oneOf: FHUtterances.goodbyes)
-                    return $0.waitResponse(andContinueWith: {
+                    return $0.waitUserResponse(andContinueWith: {
                         return $1.define {
                             return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
                         }
@@ -143,46 +164,21 @@ public class ConversationScript: Script {
             return script
         } else if error is NoRestaurantsFoundError || error is SearchError {
             script.say(oneOf: FHUtterances.noRestaurantsFound)
-            script.waitResponse(andContinueWith: {
-                let parameters = $0.customData[0] as UserParameters
-                if parameters.hasSemanticId("U:WantsToAbort") {
+            script.waitUserResponse(andContinueWith: {
+                if $0.hasSemanticId("U:WantsToAbort") {
                     return $1.define {
                         $0.say(oneOf: FHUtterances.whatToDoNextAfterFailure)
                         return self.waitResponseForWhatToDoNext($0)
                     }
-                } else if parameters.hasSemanticId("U:TryAgainNow") {
-                    return self.searchAndWaitResponseAndSearchRepeatably($0, futureScript: $1)
+                } else if $0.hasSemanticId("U:TryAgainNow") {
+                    return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else {
-                    assert(false, "response \(parameters.semanticIdInclParameters) not handled")
+                    assert(false, "response \($0.semanticIdInclParameters) not handled")
                 }
             })
             return script
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
         }
-    }
-
-    func searchAndWaitResponseAndSearchRepeatably(response: TalkerUtterance, futureScript: FutureScript) -> (FutureScript) {
-
-        let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler())
-
-        bestRestaurant.subscribeError {
-            (error: NSError!) in
-            futureScript.define {
-                self.processSearchError(error!, withScript: $0)
-                return self.waitResponseAndSearchRepeatably($0)
-            }
-            return
-        }
-
-        bestRestaurant.subscribeNext {
-            (obj) in
-            futureScript.define {
-                self.processSearchResult(obj, withScript: $0)
-                return self.waitResponseAndSearchRepeatably($0)
-            }
-            return
-        }
-        return futureScript
     }
 }
