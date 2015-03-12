@@ -5,15 +5,15 @@
 
 import Foundation
 
-public class UserUtterances {
+public class UserUtterances: NSObject {
     private class func createUtterance(semanticId: String, text: String, parameter: String = "") -> TalkerUtterance {
         let parameter = UserParameters(semanticId: semanticId, parameter: parameter)
-        return TalkerUtterance(utterance: text, customData: [parameter])
+        return TalkerUtterance(utterance: text, customData: parameter)
     }
 
     private class func createUtterance(semanticId: String, text: String, restaurant: Restaurant, currentUserLocation: CLLocation) -> TalkerUtterance {
         let parameter = USuggestionFeedbackParameters(semanticId: semanticId, restaurant: restaurant, currentUserLocation: currentUserLocation)
-        return TalkerUtterance(utterance: text, customData: [parameter])
+        return TalkerUtterance(utterance: text, customData: parameter)
     }
 
     class func wantsToSearchForAnotherRestaurant(text: String) -> TalkerUtterance {

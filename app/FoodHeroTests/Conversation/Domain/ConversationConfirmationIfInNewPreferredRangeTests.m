@@ -27,7 +27,7 @@
     _restaurant = [[RestaurantBuilder alloc] build];
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:1];
 
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
@@ -37,14 +37,14 @@
         return [service injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
     }];
 
-    [self sendInput:[USuggestionFeedbackForTooExpensive createUtterance:expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
     CLLocation *location = [CLLocation new];
-    [self sendInput:[USuggestionFeedbackForTooFarAway createUtterance:_restaurant currentUserLocation:location text:@"too far"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:_restaurant currentUserLocation:location text:@"too far"]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:@"askForSuggestionFeedback"];
 }
@@ -56,7 +56,7 @@
         return [service injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
     }];
 
-    [self sendInput:[USuggestionFeedbackForTooCheap createUtterance:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
 
     [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" state:@"askForSuggestionFeedback"];
 }

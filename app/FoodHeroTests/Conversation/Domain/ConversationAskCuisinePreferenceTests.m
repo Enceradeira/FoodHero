@@ -14,13 +14,13 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    [self sendInput:[UCuisinePreference createUtterance:@"Test" text:@"Test"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" state:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    [self sendInput:[UCuisinePreference createUtterance:@"Test" text:@"Test"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }

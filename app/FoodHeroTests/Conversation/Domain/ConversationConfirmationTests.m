@@ -24,13 +24,13 @@
     _restaurant = [[RestaurantBuilder alloc] build];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:2];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
 
-    [self sendInput:[USuggestionFeedbackForTooExpensive createUtterance:expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
 
     [super assertLastStatementIs:@"FH:Confirmation" state:@"askForSuggestionFeedback"];
 }

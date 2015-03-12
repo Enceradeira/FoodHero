@@ -26,39 +26,39 @@
     _restaurant = [[RestaurantBuilder alloc] build];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
 
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
 }
 
 - (void)test_USuggestionFeedbackForLiking_ShouldAskUserWhatToDoNext {
-    [self sendInput:[USuggestionFeedbackForLiking createUtterance:_restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLiking:_restaurant currentUserLocation:_london text:@"I like it"]];
 
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" state:@"askForWhatToDoNext"];
 }
 
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
-    [self sendInput:[USuggestionFeedbackForLiking createUtterance:_restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLiking:_restaurant currentUserLocation:_london text:@"I like it"]];
 
-    [self sendInput:[UGoodBye createUtterance:@"Bye, Bye"]];
+    [self sendInput:[UserUtterances goodBye:@"Bye, Bye"]];
     [self assertSecondLastStatementIs:@"U:GoodBye" state:nil];
     [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" state:@"askForWhatToDoNext"];
 
-    [self sendInput:[UWantsToSearchForAnotherRestaurant createUtterance:@"Search again, please"]];
+    [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Search again, please"]];
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" state:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" state:@"askForFoodPreference"];
 
-    [self sendInput:[UCuisinePreference createUtterance:@"norwegian food" text:@"norwegian food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"norwegian food" text:@"norwegian food"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
-    [self sendInput:[USuggestionFeedbackForLiking createUtterance:_restaurant currentUserLocation:_london text:@"I like it"]];
-    [self sendInput:[UWantsToSearchForAnotherRestaurant createUtterance:@"Again please"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLiking:_restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Again please"]];
 
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" state:nil];
     [self assertLastStatementIs:@"FH:OpeningQuestion" state:@"askForFoodPreference"];
 
-    [self sendInput:[UCuisinePreference createUtterance:@"norwegian food" text:@"norwegian food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"norwegian food" text:@"norwegian food"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 

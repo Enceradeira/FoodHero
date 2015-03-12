@@ -18,20 +18,20 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHSuggestion_WhenProblemIsResolvedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
-    [self sendInput:[UTryAgainNow createUtterance:@""]];
+    [self sendInput:[UserUtterances tryAgainNow:@""]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self sendInput:[UTryAgainNow createUtterance:@""]];
+    [self sendInput:[UserUtterances tryAgainNow:@""]];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 }
@@ -41,13 +41,13 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     // user changes location and finds something
     [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self sendInput:[UTryAgainNow createUtterance:@""]];
+    [self sendInput:[UserUtterances tryAgainNow:@""]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -56,12 +56,12 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UTryAgainNow createUtterance:@""]];
+    [self sendInput:[UserUtterances tryAgainNow:@""]];
 
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
 }
@@ -70,13 +70,13 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
 
-    [self sendInput:[UWantsToAbort createUtterance:@""]];
+    [self sendInput:[UserUtterances wantsToAbort:@""]];
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" state:@"askForWhatToDoNext"];
 }
 

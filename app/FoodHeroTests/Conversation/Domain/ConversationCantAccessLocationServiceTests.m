@@ -15,21 +15,21 @@
 
 - (void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:@"afterCantAccessLocationService"];
 }
 
 - (void)test_FHBecauseUserIfNotAllowedToUseLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
-    [self sendInput:[UCuisinePreference createUtterance:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
 
