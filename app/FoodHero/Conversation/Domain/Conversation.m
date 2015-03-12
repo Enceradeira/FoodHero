@@ -110,10 +110,6 @@
     return _statements[index];
 }
 
-- (void)addFHToken:(ConversationToken *)token {
-    assert(false); // Remove
-}
-
 - (NSUInteger)getStatementCount {
     return _statements.count;
 }

@@ -4,14 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConversationToken.h"
 #import "PriceRange.h"
 #import "SearchProfile.h"
 
 @class ConversationParameters;
 
 @protocol ConversationSource <NSObject>
-- (void)addFHToken:(ConversationToken *)token;
 
 - (NSArray *)negativeUserFeedback;
 

@@ -12,7 +12,6 @@
 #import "RestaurantSearchService.h"
 #import "ConversationSource.h"
 
-@class ConversationToken;
 @class ConversationParameters;
 
 @interface Conversation : NSObject <ConversationSource>

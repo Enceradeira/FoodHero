@@ -27,10 +27,6 @@
     return self;
 }
 
-- (void)addFHToken:(ConversationToken *)token {
-
-}
-
 - (NSArray *)negativeUserFeedback {
     return _negativeUserFeedback;
 }
@@ -39,7 +35,7 @@
     return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
 }
 
-- (ConversationToken *)lastSuggestionWarning {
+- (ConversationParameters *)lastSuggestionWarning {
     return nil;
 }
 

@@ -20,10 +20,6 @@
     return self;
 }
 
-- (void)addFHToken:(ConversationToken *)token {
-    [_tokens addObject:token];
-}
-
 - (NSArray *)negativeUserFeedback {
     return nil;
 }
@@ -32,7 +28,7 @@
     return nil;
 }
 
-- (ConversationToken *)lastSuggestionWarning {
+- (ConversationParameters *)lastSuggestionWarning {
     return nil;
 }
 

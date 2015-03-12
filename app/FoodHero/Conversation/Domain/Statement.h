@@ -9,12 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Persona.h"
 #import "Restaurant.h"
-#import "ConversationToken.h"
-
 
 @interface Statement : NSObject
-
-@property(nonatomic, readonly) ConversationToken * token;
 
 - (NSString *)text;
 

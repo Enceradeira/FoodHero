@@ -6,7 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "RestaurantSearch.h"
 #import "Restaurant.h"
-#import "ConversationToken.h"
 #import "ConversationSourceStub.h"
 #import "FoodHero-Swift.h"
 
