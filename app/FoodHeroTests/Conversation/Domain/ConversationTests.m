@@ -13,17 +13,9 @@
 #import "DesignByContractException.h"
 #import "TyphoonComponentFactory.h"
 #import "TyphoonComponents.h"
-#import "UCuisinePreference.h"
-#import "USuggestionNegativeFeedback.h"
 #import "ConversationTestsBase.h"
-#import "USuggestionFeedbackForTooExpensive.h"
-#import "USuggestionFeedbackForTooFarAway.h"
-#import "USuggestionFeedbackForNotLikingAtAll.h"
-#import "USuggestionFeedbackForLiking.h"
 #import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
-#import "USuggestionFeedbackForTooCheap.h"
-#import "UWantsToSearchForAnotherRestaurant.h"
 
 
 @interface ConversationTests : ConversationTestsBase

@@ -3,10 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "UCuisinePreference.h"
-#import "UTryAgainNow.h"
 #import "ConversationTestsBase.h"
-#import "UWantsToAbort.h"
 
 
 @interface ConversationCantFindRestaurantTests : ConversationTestsBase

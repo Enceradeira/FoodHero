@@ -10,10 +10,10 @@
 #import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
-#import "UCuisinePreference.h"
 #import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
+#import "FoodHero-Swift.h"
 
 
 @interface Conversation ()

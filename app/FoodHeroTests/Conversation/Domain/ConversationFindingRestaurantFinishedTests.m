@@ -3,12 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "UCuisinePreference.h"
 #import "ConversationTestsBase.h"
-#import "USuggestionNegativeFeedback.h"
-#import "USuggestionFeedbackForLiking.h"
-#import "UGoodBye.h"
-#import "UWantsToSearchForAnotherRestaurant.h"
 #import "RestaurantBuilder.h"
 
 

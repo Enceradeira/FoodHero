@@ -3,10 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "UCuisinePreference.h"
 #import "ConversationTestsBase.h"
-#import "USuggestionNegativeFeedback.h"
-#import "USuggestionFeedbackForTooCheap.h"
 #import "RestaurantBuilder.h"
 
 @interface ConversationFirstProposalTests : ConversationTestsBase

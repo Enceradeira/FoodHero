@@ -4,7 +4,6 @@
 //
 
 #import "ConversationSourceStub.h"
-#import "USuggestionNegativeFeedback.h"
 #import "SearchProfile.h"
 #import "DistanceRange.h"
 
@@ -53,7 +52,7 @@
 }
 
 
-- (void)injectNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback {
+- (void)injectNegativeUserFeedback:(USuggestionFeedbackParameters *)feedback {
     [_negativeUserFeedback addObject:feedback];
 }
 

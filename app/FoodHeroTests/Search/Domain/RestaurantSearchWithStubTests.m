@@ -11,13 +11,13 @@
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "RestaurantSearch.h"
-#import "USuggestionFeedbackForNotLikingAtAll.h"
 #import "RestaurantSearchTests.h"
 #import "RestaurantBuilder.h"
 #import "RestaurantRepositoryStub.h"
 #import "CLLocationManagerProxyStub.h"
 #import "DistanceRange.h"
 #import "SearchError.h"
+#import "FoodHero-Swift.h"
 
 @interface RestaurantSearchWithStubTests : RestaurantSearchTests
 
@@ -27,6 +27,7 @@
     RestaurantSearch *_search;
     RestaurantRepositoryStub *_restaurantRepository;
     CLLocationManagerProxyStub *_locationManager;
+    CLLocation *_london;
 }
 
 
@@ -34,6 +35,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
+    _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
     _restaurantRepository = [RestaurantRepositoryStub new];
 
@@ -82,7 +84,8 @@
 
     Restaurant *firstRestaurant = [self findBest];
 
-    [self conversationHasNegativeUserFeedback:[USuggestionFeedbackForNotLikingAtAll create:firstRestaurant text:@"I don't like that restaurant"]];
+    USuggestionFeedbackParameters *p = [[UserUtterances suggestionFeedbackForNotLikingAtAll:firstRestaurant currentUserLocation:_london text:@"I don't like that restaurant"] customData][0];
+    [self conversationHasNegativeUserFeedback:p];
 
     assertThat([self findBest].placeId, isNot(equalTo(firstRestaurant.placeId)));
 }

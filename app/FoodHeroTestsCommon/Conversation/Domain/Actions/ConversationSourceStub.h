@@ -5,13 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationSource.h"
+#import "FoodHero-Swift.h"
 
-@class USuggestionNegativeFeedback;
 @class DistanceRange;
 
 
 @interface ConversationSourceStub : NSObject <ConversationSource>
-- (void)injectNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback;
+- (void)injectNegativeUserFeedback:(USuggestionFeedbackParameters *)feedback;
 
 - (void)injectCuisine:(NSString *)cuisine;
 

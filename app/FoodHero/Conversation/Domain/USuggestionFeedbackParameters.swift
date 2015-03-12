@@ -5,7 +5,7 @@
 
 import Foundation
 
-class USuggestionFeedbackParameters: ConversationParameters {
+public class USuggestionFeedbackParameters: ConversationParameters {
     private let _restaurant: Restaurant
     private let _currentUserLocation: CLLocation
     public init(semanticId: String, restaurant: Restaurant, currentUserLocation location: CLLocation) {

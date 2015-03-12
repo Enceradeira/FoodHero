@@ -45,7 +45,7 @@
 }
 
 
-- (void)conversationHasNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback {
+- (void)conversationHasNegativeUserFeedback:(USuggestionFeedbackParameters *)feedback {
     [_conversation injectNegativeUserFeedback:feedback];
 }
 

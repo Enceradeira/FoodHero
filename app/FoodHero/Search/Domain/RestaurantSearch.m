@@ -7,10 +7,9 @@
 #import "RestaurantSearch.h"
 #import "NoRestaurantsFoundError.h"
 #import "NSArray+LinqExtensions.h"
-#import "USuggestionNegativeFeedback.h"
-#import "SearchProfile.h"
 #import "SearchException.h"
 #import "SearchError.h"
+#import "FoodHero-Swift.h"
 
 @implementation RestaurantSearch {
 
@@ -31,7 +30,7 @@
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
     SearchProfile *searchPreference = conversation.currentSearchPreference;
-    NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionNegativeFeedback *f) {
+    NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
         return f.restaurant.placeId;
     }];
 

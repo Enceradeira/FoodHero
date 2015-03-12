@@ -7,8 +7,8 @@
 #import "RestaurantSearch.h"
 #import "Restaurant.h"
 #import "ConversationToken.h"
-#import "USuggestionNegativeFeedback.h"
 #import "ConversationSourceStub.h"
+#import "FoodHero-Swift.h"
 
 
 @interface RestaurantSearchTests : XCTestCase
@@ -22,5 +22,5 @@
 
 - (void)conversationHasPriceRange:(PriceRange *)range;
 
-- (void)conversationHasNegativeUserFeedback:(USuggestionNegativeFeedback *)feedback;
+- (void)conversationHasNegativeUserFeedback:(USuggestionFeedbackParameters *)feedback;
 @end
