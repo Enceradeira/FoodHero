@@ -33,7 +33,7 @@ public class ConversationScript: Script {
     }
 
     func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
-        return script.waitUserResponse(andContinueWith: {
+        return script.waitUserResponse {
             if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
             } else {
@@ -42,7 +42,7 @@ public class ConversationScript: Script {
                     return self.askWhatToDoNext($0)
                 }
             }
-        })
+        }
     }
 
     func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript) -> (FutureScript) {
@@ -75,22 +75,22 @@ public class ConversationScript: Script {
     }
 
     func waitResponseForWhatToDoNext(script: Script) -> (Script) {
-        return script.waitUserResponse(andContinueWith: {
+        return script.waitUserResponse {
             if $0.hasSemanticId("U:GoodBye") {
                 return $1.define {
                     $0.say(oneOf: FHUtterances.goodbyes)
-                    return $0.waitUserResponse(andContinueWith: {
+                    return $0.waitUserResponse {
                         return $1.define {
                             return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
                         }
-                    })
+                    }
                 }
             } else {
                 return $1.define {
                     return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
                 }
             }
-        })
+        }
     }
 
     func userResponseIs(semanticId: String) -> () -> Bool {
@@ -164,7 +164,7 @@ public class ConversationScript: Script {
             return script
         } else if error is NoRestaurantsFoundError || error is SearchError {
             script.say(oneOf: FHUtterances.noRestaurantsFound)
-            script.waitUserResponse(andContinueWith: {
+            script.waitUserResponse {
                 if $0.hasSemanticId("U:WantsToAbort") {
                     return $1.define {
                         $0.say(oneOf: FHUtterances.whatToDoNextAfterFailure)
@@ -175,7 +175,7 @@ public class ConversationScript: Script {
                 } else {
                     assert(false, "response \($0.semanticIdInclParameters) not handled")
                 }
-            })
+            }
             return script
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
