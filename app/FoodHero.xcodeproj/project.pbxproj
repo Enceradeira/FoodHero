@@ -192,6 +192,7 @@
 		23525CEB9AE28C4414E7F97D /* LocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */; };
 		23525D1538BB2CE77A620DCF /* EnvironmentStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A1521B0593A2EF13C55 /* EnvironmentStub.m */; };
 		23525D21FC4B9C65A34B8099 /* ConversationTestsBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525546FAB7D7372E6B7E91 /* ConversationTestsBase.m */; };
+		23525D5ACC5B725A34960749 /* FHUtterances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235255C57629B14FAAE6957F /* FHUtterances.swift */; };
 		23525D7980CC65DCD70ADD92 /* RestaurantSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525E1A4A34CD5ECA2896F8 /* RestaurantSearchTests.m */; };
 		23525D7A43B08031D2D592BB /* ConversationBubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525718C284A5A291BEC9D4 /* ConversationBubbleTableViewCell.m */; };
 		23525D92526B979719806CBE /* RestaurantRepositoryWithSpyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250670F0E7F51A6EEFFBD /* RestaurantRepositoryWithSpyTests.m */; };
@@ -399,6 +400,7 @@
 		23525595D96B37B5D9382C19 /* UILabelWithTouchReaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelWithTouchReaction.h; sourceTree = "<group>"; };
 		235255A4206F68F4CD94364F /* ConversationAppServiceSpyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceSpyTests.m; sourceTree = "<group>"; };
 		235255C28F5BFA6BC8287CC0 /* LargeRestaurantReviewCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeRestaurantReviewCommentViewController.m; sourceTree = "<group>"; };
+		235255C57629B14FAAE6957F /* FHUtterances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FHUtterances.swift; sourceTree = "<group>"; };
 		235255CCA0365DADC74637AE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = README.md; sourceTree = "<group>"; };
 		235255FA0DB7A02EF17BF6A5 /* FoodHeroColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodHeroColors.m; sourceTree = "<group>"; };
 		235255FDE516F11DD004FBD0 /* RestaurantReviewSummaryViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewSummaryViewControllerTests.m; sourceTree = "<group>"; };
@@ -977,6 +979,7 @@
 				23525BACB484642CDCD2B5ED /* SearchProfile.m */,
 				23525763AB8503ACECBD95F0 /* ConversationSource.h */,
 				2352579CCB7947ADF5584AB2 /* UserUtterances.swift */,
+				235255C57629B14FAAE6957F /* FHUtterances.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1795,6 +1798,7 @@
 				235250DA0BB7996A62838193 /* PriceRange.m in Sources */,
 				2352548A82BB1D40F931F268 /* SearchProfile.m in Sources */,
 				235251E55863869A8BE176E9 /* UserUtterances.swift in Sources */,
+				23525D5ACC5B725A34960749 /* FHUtterances.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
