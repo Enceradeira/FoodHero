@@ -7,6 +7,10 @@ import Foundation
 
 public class FHUtterances {
 
+    private class func foodHerroSuggestionParameters(semanticId: String, restaurant: Restaurant) -> FoodHeroSuggestionParameters {
+        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant)
+    }
+
     class func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
                           "Hello beautiful.",
@@ -70,7 +74,7 @@ public class FHUtterances {
                     "Go to %@, and prosper.",
                     "%@.\n\nWelcome to food paradise.",
                     "%@.\n\nDid you know there is a pool in the back?  Me neither."],
-                    withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:Suggestion=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+                    withCustomData: self.foodHerroSuggestionParameters("FH:Suggestion", restaurant: restaurant))
         }
     }
 
@@ -78,7 +82,7 @@ public class FHUtterances {
         return {
             $0.words([
                     "What about '%@' then?"],
-                    withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionAsFollowUp=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAsFollowUp", restaurant: restaurant))
         }
     }
 
@@ -86,26 +90,25 @@ public class FHUtterances {
         return {
             $0.words([
                     "But '%@' would be another option"],
-                    withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionAfterWarning=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAfterWarning", restaurant: restaurant))
         }
     }
 
     class func suggestionsWithComment(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
         return {
-            FoodHeroSuggestionParameters(semanticId: "FH:Suggestion=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant)
             if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
                 return $0.words([
                         "The '%@' is smarter than the last one"],
-                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive", restaurant: restaurant))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
                 return $0.words([
                         "If you like it cheaper, the %@ could be your choice",
                         "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."],
-                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper", restaurant: restaurant))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
                 return $0.words([
                         "The '%@' is closer"],
-                        withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser", restaurant: restaurant))
             } else {
                 return self.suggestions(with: restaurant)($0)
             }
