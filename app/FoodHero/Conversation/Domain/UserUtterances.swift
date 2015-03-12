@@ -48,11 +48,11 @@ public class UserUtterances: NSObject {
         return createUtterance("U:SuggestionFeedback=tooCheap", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 
-    class func suggestionFeedbackForNotLikingAtAll(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    class func suggestionFeedbackForDislike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=Dislike", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 
-    class func suggestionFeedbackForLiking(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    class func suggestionFeedbackForLike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=Like", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 }

@@ -109,8 +109,8 @@
     }];
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:kingsHead currentUserLocation:_norwich text:@"I don't like that restaurant"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:tajMahal currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:kingsHead currentUserLocation:_norwich text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:tajMahal currentUserLocation:_london text:@"I like it"]];
     [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Do it again"]];
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
 
@@ -154,7 +154,7 @@
 
 - (void)test_negativeUserFeedback_ShouldBeEmpty_WhenUserHasOnlyGivenPositiveFeedback {
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I like it"]];
 
     assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
 }
@@ -171,9 +171,9 @@
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];  // 1. Restaurant suggested
 
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:restaurant1 currentUserLocation:_london text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant1 currentUserLocation:_london text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
 
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:restaurant2 currentUserLocation:_london text:@"I don't like that restaurant"]]; // 3. Restaurant suggested
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant2 currentUserLocation:_london text:@"I don't like that restaurant"]]; // 3. Restaurant suggested
     NSArray *restaurants = [self.conversation suggestedRestaurants];
     assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
@@ -284,7 +284,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:restaurant currentUserLocation:_norwich text:@"Looks cool"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:restaurant currentUserLocation:_norwich text:@"Looks cool"]];
 
     ConversationParameters *lastResponse = [self.conversation lastUserResponse];
     assertThat(lastResponse, isNot(nilValue()));
@@ -295,8 +295,8 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:restaurant currentUserLocation:_norwich text:@"I don't like that restaurant"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant currentUserLocation:_norwich text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:restaurant currentUserLocation:_london text:@"I like it"]];
     [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Do it again"]];
 
     ConversationParameters *lastResponse = [self.conversation lastUserResponse];

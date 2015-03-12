@@ -190,7 +190,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         NSString *nextState = foodHeroBubble.state;
 
         if (nextState) {
-            NSLog(@"action %@ request", nextState.class);
+            NSLog(@"action %@ request", nextState);
             // sometimes FH produces more than one bubble in sequence but just one holds and state which should not be overwritten
             // this is the case e.g
             _currentState = nextState;

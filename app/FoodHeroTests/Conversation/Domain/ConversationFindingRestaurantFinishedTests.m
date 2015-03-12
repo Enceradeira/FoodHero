@@ -25,14 +25,14 @@
 
 }
 
-- (void)test_USuggestionFeedbackForLiking_ShouldAskUserWhatToDoNext {
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:_restaurant currentUserLocation:_london text:@"I like it"]];
+- (void)test_USuggestionFeedbackForLike_ShouldAskUserWhatToDoNext {
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:_restaurant currentUserLocation:_london text:@"I like it"]];
 
     [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" state:@"askForWhatToDoNext"];
 }
 
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:_restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:_restaurant currentUserLocation:_london text:@"I like it"]];
 
     [self sendInput:[UserUtterances goodBye:@"Bye, Bye"]];
     [self assertSecondLastStatementIs:@"U:GoodBye" state:nil];
@@ -47,7 +47,7 @@
 }
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
-    [self sendInput:[UserUtterances suggestionFeedbackForLiking:_restaurant currentUserLocation:_london text:@"I like it"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:_restaurant currentUserLocation:_london text:@"I like it"]];
     [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Again please"]];
 
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" state:nil];

@@ -71,7 +71,7 @@
 - (void)test_userMicButtonTouchUp_ShouldAddNewConversationBubble {
     NSUInteger bubbleCount = [_bubbleView visibleCells].count;
 
-    [self injectInterpretation:@"I want Indian food" intent:@"setFoodPreference" entities:@[@"Indian"]];
+    [self injectInterpretation:@"I want Indian food" intent:@"CuisinePreference" entities:@[@"Indian"]];
     [_ctrl userMicButtonTouchUp:self];
     
     assertThatInt([_bubbleView visibleCells].count, is(greaterThan(@(bubbleCount))));

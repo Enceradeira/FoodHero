@@ -84,7 +84,7 @@
 
     Restaurant *firstRestaurant = [self findBest];
 
-    USuggestionFeedbackParameters *p = [[UserUtterances suggestionFeedbackForNotLikingAtAll:firstRestaurant currentUserLocation:_london text:@"I don't like that restaurant"] customData][0];
+    USuggestionFeedbackParameters *p = [[UserUtterances suggestionFeedbackForDislike:firstRestaurant currentUserLocation:_london text:@"I don't like that restaurant"] customData][0];
     [self conversationHasNegativeUserFeedback:p];
 
     assertThat([self findBest].placeId, isNot(equalTo(firstRestaurant.placeId)));

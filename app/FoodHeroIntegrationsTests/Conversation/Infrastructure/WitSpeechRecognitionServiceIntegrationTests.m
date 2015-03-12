@@ -51,7 +51,7 @@
     SpeechInterpretation *interpretation = interpretations[0];
     assertThatDouble(interpretation.confidence, is(greaterThan(@0)));
     assertThat(interpretation.text, is(equalTo(text)));
-    assertThat(interpretation.intent, is(equalTo(@"setFoodPreference")));
+    assertThat(interpretation.intent, is(equalTo(@"CuisinePreference")));
     NSArray *entities = interpretation.entities;
     assertThatInt(entities.count, is(equalTo(@1)));
     assertThat(entities[0], is(equalTo(@"Indian")));

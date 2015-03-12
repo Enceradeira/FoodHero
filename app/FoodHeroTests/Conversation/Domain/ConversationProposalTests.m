@@ -45,26 +45,26 @@
     [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser=King's Head, Norwich;FH:Confirmation" state:@"askForSuggestionFeedback"];
    }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestionAsFollowUp {
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestionAsFollowUp {
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:1];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestionWithComment {
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestionWithComment {
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:2];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForNotLikingAtAllAndFHSuggestion {
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestion {
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:0];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] currentUserLocation:_london text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -92,7 +92,7 @@
     }];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant currentUserLocation:_london text:@"It looks too cheap"]]; // User is going to be warned with FH:WarningIfNotInPreferredRangeTooCheap"
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:otherOption1 currentUserLocation:_london text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 currentUserLocation:_london text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -119,7 +119,7 @@
     }];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant currentUserLocation:_london text:@""]]; // User is going to be warned with FH:WarningIfNotInPreferredRangeTooExpensive
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:otherOption1 currentUserLocation:_london text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 currentUserLocation:_london text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
@@ -153,7 +153,7 @@
     }];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant currentUserLocation:userLocation text:@""]];       // User is going to be warned with FH:WarningIfNotInPreferredRangeTooFarAway
-    [self sendInput:[UserUtterances suggestionFeedbackForNotLikingAtAll:otherOption1 currentUserLocation:_london text:@"I don't like that restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 currentUserLocation:_london text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:@"askForSuggestionFeedback"];
 }
