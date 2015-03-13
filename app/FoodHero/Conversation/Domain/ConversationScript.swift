@@ -32,9 +32,18 @@ public class ConversationScript: Script {
         return self.waitResponseAndSearchRepeatably(script)
     }
 
+    func confirmRestartSayOpeningQuestionAndSearchRepeatably(futureScript: FutureScript) -> FutureScript {
+        return futureScript.define {
+            $0.say(oneOf: FHUtterances.confirmationRestart)
+            return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
+        }
+    }
+
     func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
         return script.waitUserResponse {
-            if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
+            if $0.hasSemanticId("U:WantsToStartAgain") {
+                return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
+            } else if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
             } else {
                 return $1.define {
@@ -172,6 +181,8 @@ public class ConversationScript: Script {
                     }
                 } else if $0.hasSemanticId("U:TryAgainNow") {
                     return self.searchAndWaitResponseAndSearchRepeatably($1)
+                } else if $0.hasSemanticId("U:WantsToStartAgain") {
+                    return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else {
                     assert(false, "response \($0.semanticIdInclParameters) not handled")
                 }

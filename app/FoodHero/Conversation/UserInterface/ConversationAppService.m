@@ -93,6 +93,10 @@ static UIImage *EmptyImage;
                         TalkerUtterance *utterance = [UserUtterances wantsToAbort:interpretation.text];
                         return utterance;
                     }
+                    else if ([interpretation.intent isEqualToString:@"WantsToStartAgain"]) {
+                        TalkerUtterance *utterance = [UserUtterances wantsToStartAgain:interpretation.text];
+                        return utterance;
+                    }
                     assert(false);
                 }];
         _conversation = [conversationRepository getForInput:input];

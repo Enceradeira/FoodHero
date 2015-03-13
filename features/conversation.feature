@@ -34,13 +34,21 @@ Feature: User interacts with app through conversation
     Then FoodHero asks what I wished to eat
 
     When I wish to eat "Asian" food by typing it
-    And FoodHero suggests something else for "American" food
+    And FoodHero suggests something else for "Asian" food
     And I like the restaurant
     And FoodHero asks what to do next
     And I say good bye
     Then FoodHero says good bye
 
     When I want to search for another restaurant
+    Then FoodHero asks what I wished to eat
+
+  Scenario: I asks to search for the wrong cuisine and I want to start over again
+    Given FoodHero greets me and asks what I wished to eat
+    And  I wish to eat "British" food by typing it
+    And I allow access to the location-services
+    And FoodHero suggests something for "British" food
+    When I want FoodHero to start over again
     Then FoodHero asks what I wished to eat
 
   Scenario: I don't allow FoodHero to access location-API
@@ -75,3 +83,9 @@ Feature: User interacts with app through conversation
     When I say good bye
     Then FoodHero says good bye
 
+    Given FoodHero will not find any restaurants
+    And I want to search for another restaurant
+    And I wish to eat "British" food by typing it
+    And FoodHero says that nothing was found
+    When I want FoodHero to start over again
+    Then FoodHero asks what I wished to eat

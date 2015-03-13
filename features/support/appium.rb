@@ -1,5 +1,6 @@
 require 'appium_lib'
 require_relative '../../lib/app_paths'
+require_relative 'bubble_cache'
 
 # setup driver
 caps = {
@@ -25,7 +26,17 @@ driver = Appium::Driver.new(caps)
 class AppiumWorld
 end
 Appium.promote_appium_methods AppiumWorld
-World do
+
+# BubbleCache
+$cache = BubbleCache.new(driver)
+module BubbleCacheWorld
+  def bubbles
+    $cache.bubbles
+  end
+end
+
+# extend cucumber steps
+World(BubbleCacheWorld) do
   AppiumWorld.new
 end
 
@@ -33,6 +44,7 @@ end
 Before do
   driver.start_driver
   driver.no_wait
+  $cache.reset
 end
 After do
   driver.driver_quit

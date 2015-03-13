@@ -53,7 +53,6 @@
 		23525376A2F25F9B522550D4 /* AlwaysImmediateSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC8C07D9998AC2FE292 /* AlwaysImmediateSchedulerFactory.m */; };
 		235253888AACFD29818CA386 /* RatingStarsImageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259706EC64A29C0B15763 /* RatingStarsImageRepository.m */; };
 		235253AF3E682DEE15F23D36 /* SearchProfileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */; };
-		235253B8755A0D2E06A094D1 /* PBXBuildFile */ = {isa = PBXBuildFile; fileRef = 2352584DE3C616DF4984B16A /* TalkerStreams.swift */; };
 		235253BEE28EA42CE27DF77E /* ConversationAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C7813B32C2F7A0A5AFB /* ConversationAppService.m */; };
 		235253C21B86403382BFC010 /* GooglePhotoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258892D3D9E931704531B /* GooglePhotoTests.m */; };
 		235253CA216029C2B5787A88 /* AnonymousUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D71D76A1A6A580A850B /* AnonymousUser.m */; };
@@ -213,6 +212,7 @@
 		23525FAB31B1A67A1FC92BA5 /* ConversationCantFindRestaurantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352514C50D01F01A40760AD /* ConversationCantFindRestaurantTests.m */; };
 		23525FB0F8D9F6CC73DA9D82 /* ConversationRepositoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352596D6773526DDCA6F07A /* ConversationRepositoryTests.m */; };
 		23525FB6ED3D8E59C80072AF /* FoodHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B1DECA512BF32AD938F /* FoodHero.m */; };
+		23525FC02AF7C7EF88CFB25B /* ConversationStartAgainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235257D6B0EF382C91BA06DB /* ConversationStartAgainTests.swift */; };
 		23525FD2C238FDB1B96CC6C2 /* ControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */; };
 		23525FE859887103A2D77FA9 /* RestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B80261B3766FA8C59DD /* RestaurantSearch.m */; };
 		3D709FDF2C4B4D118D6EB3B1 /* libPods-FoodHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CDF585A9494C2ABFC31D2C /* libPods-FoodHero.a */; };
@@ -435,6 +435,7 @@
 		2352579CCB7947ADF5584AB2 /* UserUtterances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserUtterances.swift; sourceTree = "<group>"; };
 		2352579E3E3C577A713404A3 /* RestaurantController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantController.h; sourceTree = "<group>"; };
 		235257C6322F9539B8F61B30 /* EnvironmentStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStub.h; sourceTree = "<group>"; };
+		235257D6B0EF382C91BA06DB /* ConversationStartAgainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStartAgainTests.swift; sourceTree = "<group>"; };
 		235257DFA24F5EFD0E47D092 /* RestaurantSearchServiceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchServiceStub.m; sourceTree = "<group>"; };
 		235257F452F3D98BEB40C034 /* ConversationBubbleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleUser.m; sourceTree = "<group>"; };
 		235257F761C3B4C8D44F9B3F /* RandomizerTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomizerTags.swift; sourceTree = "<group>"; };
@@ -699,6 +700,7 @@
 				23525EB802A7CB6042FB4C86 /* ConversationFindingRestaurantFinishedTests.m */,
 				23525027E6296572F52630CB /* ExpectedStatement.m */,
 				23525E6C68C1AE41DE392A71 /* ExpectedStatement.h */,
+				235257D6B0EF382C91BA06DB /* ConversationStartAgainTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1881,6 +1883,7 @@
 				23525DFCCCB06C180D8C1B0E /* ExpectedStatement.m in Sources */,
 				2352544FE14AE948C0BAAAC8 /* TalkerUtteranceTests.swift in Sources */,
 				23525899D5B866E676145EBF /* TalkerEngineBranchTests.swift in Sources */,
+				23525FC02AF7C7EF88CFB25B /* ConversationStartAgainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2036,6 +2039,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
@@ -2057,6 +2061,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
@@ -2075,7 +2080,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
 				CLANG_ENABLE_MODULES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2105,7 +2110,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
 				CLANG_ENABLE_MODULES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2129,6 +2134,7 @@
 			baseConfigurationReference = 6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2154,6 +2160,7 @@
 			baseConfigurationReference = 010351527A08BC7FFE9CD449 /* Pods-FoodHeroIntegrationsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

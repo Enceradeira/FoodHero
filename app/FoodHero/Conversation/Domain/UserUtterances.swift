@@ -16,43 +16,47 @@ public class UserUtterances: NSObject {
         return TalkerUtterance(utterance: text, customData: parameter)
     }
 
-    class func wantsToSearchForAnotherRestaurant(text: String) -> TalkerUtterance {
+    public class func wantsToSearchForAnotherRestaurant(text: String) -> TalkerUtterance {
         return createUtterance("U:WantsToSearchForAnotherRestaurant", text: text);
     }
 
-    class func wantsToAbort(text: String) -> TalkerUtterance {
+    public class func wantsToAbort(text: String) -> TalkerUtterance {
         return createUtterance("U:WantsToAbort", text: text);
     }
 
-    class func tryAgainNow(text: String) -> TalkerUtterance {
+    public class func wantsToStartAgain(text:String) -> TalkerUtterance{
+        return createUtterance("U:WantsToStartAgain", text: text);
+    }
+
+    public class func tryAgainNow(text: String) -> TalkerUtterance {
         return createUtterance("U:TryAgainNow", text: text);
     }
 
-    class func goodBye(text: String) -> TalkerUtterance {
+    public class func goodBye(text: String) -> TalkerUtterance {
         return createUtterance("U:GoodBye", text: text);
     }
 
-    class func cuisinePreference(parameter: String, text: String) -> TalkerUtterance {
+    public class func cuisinePreference(parameter: String, text: String) -> TalkerUtterance {
         return createUtterance("U:CuisinePreference=\(parameter)", text: text, parameter: parameter);
     }
 
-    class func suggestionFeedbackForTooFarAway(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    public class func suggestionFeedbackForTooFarAway(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooFarAway", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 
-    class func suggestionFeedbackForTooExpensive(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooExpensive", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 
-    class func suggestionFeedbackForTooCheap(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    public class func suggestionFeedbackForTooCheap(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooCheap", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 
-    class func suggestionFeedbackForDislike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    public class func suggestionFeedbackForDislike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=Dislike", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 
-    class func suggestionFeedbackForLike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
+    public class func suggestionFeedbackForLike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=Like", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
     }
 }

@@ -157,6 +157,11 @@ public class FHUtterances {
                 withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation", state: nil))
     }
 
+    class func confirmationRestart(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "OK, let's start over again"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmsRestart", state: nil))
+    }
 
     class func goodbyes(def: StringDefinition) -> StringDefinition {
         return def.words([

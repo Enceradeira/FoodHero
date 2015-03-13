@@ -2,14 +2,30 @@ def last_suggestions
   @last_suggestions ||= []
 end
 
+def update_bubbles
+
+end
+
 def get_last_element_and_parameter(id)
-  bubble = (find_elements :xpath, "//*[contains(@name,'#{id}')]").last
-  if bubble.nil?
+  personas = id.match(/(FH:|U:)/).to_a
+  if personas.length == 0
+    return
+  end
+  persona = personas.first
+  bubbles_of_persona = bubbles.select{|n| n.name.include?(persona) }
+  puts "--------------- begin dump bubbles| persona:#{persona} id:#{id} |  ------------- "
+  bubbles_of_persona.each {|b|
+    puts b.name
+  }
+  puts '--------------- end dump bubbles ----------------------------------------------- '
+
+  last_bubble = bubbles_of_persona.last
+  if last_bubble.nil? || !last_bubble.name.include?(id)
     return nil
   end
-  text = bubble.name
-  _, parameter = text.match(/#{id}\w*=(.*)$/).to_a
-  return bubble, parameter
+  _, parameter = last_bubble.name.match(/#{id}\w*=(.*)$/).to_a
+  return last_bubble, parameter
+
 end
 
 def wait_last_element_and_parameter(id)
@@ -18,7 +34,8 @@ def wait_last_element_and_parameter(id)
   #puts json
 
   bubble, parameter = nil
-  wait_true({:timeout => 30, :interval=>0.3}) do
+  # :interval=>0.3 triggers find_elements sometimes not to return all elements
+  wait_true({:timeout => 30, :interval=>2}) do
     bubble, parameter = get_last_element_and_parameter(id)
     if block_given?
       block_test = parameter != nil && yield(parameter)
@@ -250,6 +267,11 @@ end
 When(/^I say that problem with location\-service has been fixed$/) do
     text_field.send_keys("It's fixed now")
     touch_send
+end
+
+When(/^I want FoodHero to start over again$/) do
+  text_field.send_keys('start again')
+  touch_send
 end
 
 When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
