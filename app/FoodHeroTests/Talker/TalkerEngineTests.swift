@@ -59,15 +59,18 @@ public class TalkerEngineTests: XCTestCase {
     func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
         var positionCount: Int = 0
         var actualPosition: Int? = nil
+        var error: NSError? = nil
 
-        dialog.map {
+        let signal = dialog.map {
             (utterance: AnyObject?) in
             return GenericWrapper(text: (utterance! as TalkerUtterance).utterance, position: positionCount++)
         }.filter {
             (object: AnyObject?) in
             let tuple = (object as GenericWrapper<(text:String, position:Int)>)
             return tuple.element.text == utterance
-        }.subscribeNext {
+        }
+
+        signal.subscribeNext {
             (object: AnyObject?) in
             let tuple = (object as GenericWrapper<(text:String, position:Int)>)
             if (actualPosition == nil) {
@@ -80,6 +83,11 @@ public class TalkerEngineTests: XCTestCase {
             }
         }
 
+        signal.subscribeError {
+            e in error = e
+        }
+
+
         let timeoutUSeconds: UInt32 = 100 /*10 ms*/ * 1000;
         if (!exists) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
@@ -91,19 +99,26 @@ public class TalkerEngineTests: XCTestCase {
         let timeoutSeconds = NSTimeInterval(Float(timeoutUSeconds) / 1000000)
         XCA_waitForStatus(XCTAsyncTestCaseStatus.Succeeded, timeout: timeoutSeconds)
 
+        XCTAssertNil(error, "there was an error thrown")
+
         if (expectedPosition != nil) {
             XCTAssertEqual(actualPosition ?? (-1), expectedPosition!, "Utterance is at wrong position")
         }
     }
 
-    func sendInput(utterance: String, _ customData: AnyObject? = nil) {
+    func sendInput(utterance: Any, _ customData: AnyObject? = nil) {
         // force context switch because that's closer to reality
         dispatch_async(dispatch_get_main_queue()) {
-            self._input!.sendNext(TalkerUtterance(utterance: utterance, customData: customData))
+            if utterance is String {
+                self._input!.sendNext(TalkerUtterance(utterance: utterance as String, customData: customData))
+            } else if utterance is NSError {
+                let error = utterance as NSError
+                self._input!.sendNext(error)
+            }
         }
     }
 
-    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, whenInputIs generator: (String) -> (String?) = {
+    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, whenInputIs generator: (String) -> (Any?) = {
         g in return nil
     }, withNaturalOutput naturalOutput: Bool = true) {
         var utterances = [String]()

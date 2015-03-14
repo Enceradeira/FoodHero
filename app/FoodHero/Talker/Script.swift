@@ -35,12 +35,15 @@ public class Script: NSObject {
         return self
     }
 
-    public func waitResponse(andContinueWith continuation: ((TalkerUtterance, FutureScript) -> (FutureScript))? = {
+    public func waitResponse(andContinueWith
+                             continuation: ((TalkerUtterance, FutureScript) -> (FutureScript))? = {
         r, s in s.define {
             $0
         }
-    }) -> Script {
-        _utterances.append(ResponseUtterance(continuation!, _context))
+    },
+                             catch: ((NSError, Script) -> Script)?
+    ) -> Script {
+        _utterances.append(ResponseUtterance(continuation!, catch, _context))
         return self;
     }
 

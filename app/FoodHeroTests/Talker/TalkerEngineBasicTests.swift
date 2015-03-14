@@ -53,7 +53,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         var utterance: TalkerUtterance? = nil
         let script = TestScript()
         .say({ $0.words("How are you?") })
-        .waitResponse()
+        .waitResponse(catch: nil)
 
 
         let expectation = expectationWithDescription("")
@@ -81,7 +81,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                 expectation.fulfill()
             }
             return script
-        })
+        }, catch: nil)
         sendInput("Good, and you?", "Context-Response");
 
         executeScript(script)
@@ -135,7 +135,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldListenToReponse() {
         let script = TestScript()
         .say({ $0.words("How are you?") })
-        .waitResponse()
+        .waitResponse(catch: nil)
 
         assert(dialog: ["How are you?", "Good"],
                 forExecutedScript: script,
@@ -145,7 +145,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldYieldPreviousUtterance_WhenNoResponseYetGiven() {
         let script = TestScript()
         .say({ $0.words("How are you?") })
-        .waitResponse()
+        .waitResponse(catch: nil)
         .say({ $0.words("Brilliant!") })
 
 
@@ -155,7 +155,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldWaitResponseAndThenContinue() {
         let script = TestScript()
         .say({ $0.words("How are you?") })
-        .waitResponse()
+        .waitResponse(catch: nil)
         .say({ $0.words("I'm fine, thanks!") })
 
 
@@ -181,7 +181,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     return definition
                 })
             }
-        })
+        }, catch: nil)
         .say({ $0.words("So, what did you do yesterday?") })
 
 
@@ -192,6 +192,81 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     case "How are you?": return "Good, and you?"
                     default: return nil
                     }
+                }
+        )
+    }
+
+    func test_talk_shouldHandleErrorsOnInputStream_WhenCatched() {
+        let script = TestScript()
+        .say({ $0.words("Hello") })
+        .waitResponse(catch: { e, s in s.say({ $0.words("Error \(e.domain)") }) })
+        .say({ $0.words("World") })
+
+        assert(dialog: ["Hello", "Error is not good\n\nWorld"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    switch $0 {
+                    case "Hello": return NSError(domain: "is not good", code: 0, userInfo: nil)
+                    default: return nil
+                    }
+                }
+        )
+    }
+
+    func test_talk_shouldIgnoreErorsOnInputStream_WhenNotCatched() {
+        let script = TestScript()
+        .say({ $0.words("Hello") })
+        .waitResponse(catch: nil)
+        .say({ $0.words("World") })
+
+        assert(dialog: ["Hello", "World"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    switch $0 {
+                    case "Hello": return NSError(domain: "Hello Error", code: 0, userInfo: nil)
+                    default: return nil
+                    }
+                }
+        )
+    }
+
+    func test_talk_shouldHandleEveryErrorOnInputStream_WhenSeveralErrors() {
+        let script = TestScript()
+        .say({ $0.words("1") })
+        .waitResponse(catch: { e, s in s.say({ $0.words("Catch 1: \(e.domain)") }) })
+        .say({ $0.words("2") })
+        .waitResponse(catch: nil)
+        .say({ $0.words("3") })
+        .waitResponse(catch: { e, s in s.say({ $0.words("Catch 2: \(e.domain)") }) })
+        .say({ $0.words("5") })
+
+        assert(dialog: ["1", "Catch 1: Error A\n\n2", "3", "Catch 2: Error C\n\n5"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    switch $0 {
+                    case "1": return NSError(domain: "Error A", code: 0, userInfo: nil)
+                    case "Catch 1: Error A\n\n2": return NSError(domain: "Error B", code: 0, userInfo: nil)
+                    case "3": return NSError(domain: "Error C", code: 0, userInfo: nil)
+                    default: return nil
+                    }
+                }
+        )
+    }
+
+    func test_talk_shouldNotCallResponseContinuation_WhenErrorOccurred() {
+        let script = TestScript()
+        .waitResponse(andContinueWith: {
+            return $1.define {
+                $0.say {
+                    $0.words("That shouldn't be said")
+                }
+            }
+        }, catch: { e, s in s.say({ $0.words("This should be said") }) })
+
+        assert(dialog: ["This should be said"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    i in return NSError(domain: "Hello Error", code: 0, userInfo: nil)
                 }
         )
     }

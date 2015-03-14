@@ -9,16 +9,28 @@ class ResponseUtterance: Utterance {
     private let _continuation: (response:TalkerUtterance, script:FutureScript) -> (FutureScript) = {
         r, s in return s
     }
+    private let _errorHandler: ((NSError, Script) -> Script)?
     private let _context: TalkerContext
 
-    init(_ continuation: (response:TalkerUtterance, script:FutureScript) -> (FutureScript), _ context: TalkerContext) {
+    init(_ continuation: (response:TalkerUtterance, script:FutureScript) -> (FutureScript), _ errorHandler: ((NSError, Script) -> Script)?, _ context: TalkerContext) {
         _continuation = continuation
         _context = context
+        _errorHandler = errorHandler
     }
 
     func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
-        // consume future value from input
-        input.getNext {
+        input.getNext({
+            error in
+            if let errorHandler = self._errorHandler? {
+                // build & execute error script & continue
+                let errorScript = Script(context: self._context)
+                errorHandler(error, errorScript)
+                Sequence.execute(errorScript, input, output, continuation);
+            } else {
+                // just continue
+                continuation()
+            }
+        }, {
             utterance in
 
             output.sendNext(utterance, andNotifyMode: TalkerModes.Inputting)
@@ -28,6 +40,6 @@ class ResponseUtterance: Utterance {
             futureScript.script.subscribeNext {
                 Sequence.execute($0 as Script, input, output, continuation);
             }
-        }
+        })
     }
 }

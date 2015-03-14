@@ -10,6 +10,6 @@ extension Script {
         return waitResponse(andContinueWith: {
             let parameter = $0.customData[0] as ConversationParameters
             return continuation(parameter, $1)
-        })
+        }, catch:{ e,s in s})
     }
 }

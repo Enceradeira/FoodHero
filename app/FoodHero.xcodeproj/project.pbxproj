@@ -766,13 +766,6 @@
 			path = UserInterface;
 			sourceTree = "<group>";
 		};
-		23525444C72F9DB64862CD81 /* Infrastructure */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Infrastructure;
-			sourceTree = "<group>";
-		};
 		2352545A884F245D04E22354 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,7 +797,6 @@
 				23525FF079BDEA8159C866E2 /* TalkerEngineBasicTests.swift */,
 				2352519BBE7B7354466726D8 /* TalkerEngineRandomnessTests.swift */,
 				235251FC1FD8873B6FE93F00 /* TalkerRandomizerTests.swift */,
-				23525444C72F9DB64862CD81 /* Infrastructure */,
 				2352599F52941A5BB81EEFB3 /* ScriptResourcesTests.swift */,
 				2352588A95E905AA8DE10CC3 /* TalkerEngineJoinsConsecutiveUtterancesTests.swift */,
 				235257FD2867070665582F54 /* TalkerEngineNestedConversationTests.swift */,
