@@ -28,7 +28,7 @@
 - (void)test_USuggestionFeedbackForLike_ShouldAskUserWhatToDoNext {
     [self sendInput:[UserUtterances suggestionFeedbackForLike:_restaurant currentUserLocation:_london text:@"I like it"]];
 
-    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" state:@"askForWhatToDoNext"];
+    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterSuccess" state:[FHStates askForWhatToDoNext]];
 }
 
 - (void)test_UGoodBye_ShouldTriggerFHGoodByeAfterSuccessAndThenLetTheUserToSearchForAnotherRestaurant {
@@ -36,14 +36,14 @@
 
     [self sendInput:[UserUtterances goodBye:@"Bye, Bye"]];
     [self assertSecondLastStatementIs:@"U:GoodBye" state:nil];
-    [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" state:@"askForWhatToDoNext"];
+    [self assertLastStatementIs:@"FH:GoodByeAfterSuccess" state:[FHStates askForWhatToDoNext]];
 
     [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Search again, please"]];
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" state:nil];
-    [self assertLastStatementIs:@"FH:OpeningQuestion" state:@"askForFoodPreference"];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
 
     [self sendInput:[UserUtterances cuisinePreference:@"norwegian food" text:@"norwegian food"]];
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_UWantsToSearchForAnotherRestaurant_ShouldTriggerFHAskCuisinePreferenceAndThenFHSuggestsAnotherRestaurant {
@@ -51,10 +51,10 @@
     [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Again please"]];
 
     [self assertSecondLastStatementIs:@"U:WantsToSearchForAnotherRestaurant" state:nil];
-    [self assertLastStatementIs:@"FH:OpeningQuestion" state:@"askForFoodPreference"];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
 
     [self sendInput:[UserUtterances cuisinePreference:@"norwegian food" text:@"norwegian food"]];
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 @end

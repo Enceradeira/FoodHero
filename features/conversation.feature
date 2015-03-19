@@ -75,16 +75,15 @@ Feature: User interacts with app through conversation
     When I say try again
     Then FoodHero suggests something for "Indian" food
 
-    Given FoodHero can't access a network
+    Given FoodHero will not find any restaurants
     When I don't like the restaurant
-    Then FoodHero says he's not connected to the internet
+    Then FoodHero says that nothing was found
     When I want FoodHero to abort search
     Then FoodHero asks what to do next after failure
     When I say good bye
     Then FoodHero says good bye
 
-    Given FoodHero will not find any restaurants
-    And I want to search for another restaurant
+    Given I want to search for another restaurant
     And I wish to eat "British" food by typing it
     And FoodHero says that nothing was found
     When I want FoodHero to start over again

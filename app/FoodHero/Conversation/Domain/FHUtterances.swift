@@ -8,7 +8,7 @@ import Foundation
 public class FHUtterances {
 
     private class func foodHerroSuggestionParameters(semanticId: String, restaurant: Restaurant) -> FoodHeroSuggestionParameters {
-        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: "askForSuggestionFeedback", restaurant: restaurant)
+        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant)
     }
 
     class func greetings(def: StringDefinition) -> StringDefinition {
@@ -49,7 +49,7 @@ public class FHUtterances {
     class func openingQuestions(def: StringDefinition) -> StringDefinition {
         return def.words(["What kind of food would you like to eat?",
                           "Do you like chickenbutts?  Or chicken feet?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion", state: "askForFoodPreference"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion", state: FHStates.askForFoodPreference()))
 
     }
 
@@ -169,7 +169,7 @@ public class FHUtterances {
                 "God bless you.",
                 "Behave yourself, now.",
                 "Don’t get a girl in trouble."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess", state: "askForWhatToDoNext"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess", state: FHStates.askForWhatToDoNext()))
     }
 
     class func commentChoices(def: StringDefinition) -> StringDefinition {
@@ -197,35 +197,34 @@ public class FHUtterances {
         return def.words([
                 "Anything else?",
                 "I’m bored! Anything else?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess", state: "askForWhatToDoNext"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess", state: FHStates.askForWhatToDoNext()))
     }
-
-    class func whatToDoNextAfterFailure(def: StringDefinition) -> StringDefinition {
+            class func whatToDoNextAfterFailure(def: StringDefinition) -> StringDefinition {
         return def.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: "askForWhatToDoNext"))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: FHStates.askForWhatToDoNext()))
     }
 
     class func cantAccessLocationServiceBecauseUserIsNotAllowedToUseLocationServices(def: StringDefinition) -> StringDefinition {
 
         return def.words(["I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices", state: "afterCantAccessLocationService"))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices", state: FHStates.afterCantAccessLocationService()))
 
     }
 
     class func cantAccessLocationServiceBecauseUserDeniedAccessToLocationServices(def: StringDefinition) -> StringDefinition {
         return def.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices", state: "afterCantAccessLocationService"))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices", state: FHStates.afterCantAccessLocationService()))
     }
 
     class func noRestaurantsFound(def: StringDefinition) -> StringDefinition {
         return def.words(["That’s weird. I can’t find any restaurants right now."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound", state: "noRestaurantWasFound"))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound", state: FHStates.noRestaurantWasFound()))
 
     }
 
     class func hasNetworkErrorAndAsksIfShouldTryAgain(def: StringDefinition) -> StringDefinition {
         return def.words(["Uppps... I'm struggling accessing the internet.\n\nHalf of my brain is in the internet and I feel a bit dizzy right now. Make sure you've got connection.\n\nShould I try again?"]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError", state: "networkError"))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError", state: FHStates.networkError()))
     }
 
     class func beforeRepeatingUtteranceAfterError(def: StringDefinition) -> StringDefinition {

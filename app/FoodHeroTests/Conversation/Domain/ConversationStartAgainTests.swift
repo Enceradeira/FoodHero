@@ -15,16 +15,16 @@ public class ConversationStartAgainTests: ConversationTestsBase {
         sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, currentUserLocation: _norwich, text: "British please"))
         sendInput(UserUtterances.wantsToStartAgain("Start again please"))
 
-        assertLastStatementIs("FH:ConfirmsRestart;FH:OpeningQuestion", state:"askForFoodPreference")
+        assertLastStatementIs("FH:ConfirmsRestart;FH:OpeningQuestion", state: FHStates.askForFoodPreference())
     }
 
-    func test_UStartAgain_ShouldResetConversation_WhenSearchErrorOccurred(){
-        configureRestaurantSearchForLatitude(48, longitude:-22){
+    func test_UStartAgain_ShouldResetConversation_WhenSearchErrorOccurred() {
+        configureRestaurantSearchForLatitude(48, longitude: -22) {
             $0.injectFindNothing()
         }
         sendInput(UserUtterances.cuisinePreference("British Food", text: "British please"))
         sendInput(UserUtterances.wantsToStartAgain("Start again please"))
 
-        assertLastStatementIs("FH:ConfirmsRestart;FH:OpeningQuestion", state:"askForFoodPreference")
+        assertLastStatementIs("FH:ConfirmsRestart;FH:OpeningQuestion", state: FHStates.askForFoodPreference())
     }
 }

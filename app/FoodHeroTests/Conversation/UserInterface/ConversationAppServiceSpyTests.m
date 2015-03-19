@@ -15,6 +15,7 @@
 #import "ConversationAppService.h"
 #import "StubAssembly.h"
 #import "SpeechRecognitionServiceSpy.h"
+#import "FoodHero-Swift.h"
 
 @interface ConversationAppServiceSpyTests : XCTestCase
 
@@ -49,32 +50,32 @@
 
 - (void)addRecognizedUserCuisinePreference:(NSString *)text entities:(NSArray *)entities {
     [self injectInterpretation:text intent:@"setFoodPreference" entities:entities];
-    [_service addUserText:text forState:@"askForFoodPreference"];
+    [_service addUserText:text forState:[FHStates askForFoodPreference]];
 }
 
 - (void)test_addUserText_ShouldUseAskForCuisinePreferenceState {
-    [_service addUserText:@"I love indian food" forState:@"askForFoodPreference"];
+    [_service addUserText:@"I love indian food" forState:[FHStates askForFoodPreference]];
 
-    assertThat(_speechRecognitionService.lastState, is(equalTo(@"askForFoodPreference")));
+    assertThat(_speechRecognitionService.lastState, is(equalTo([FHStates askForFoodPreference])));
 }
 
 - (void)test_addUserText_ShouldUseAskForSuggestionState {
     [self addRecognizedUserCuisinePreference:@"Indian food" entities:@[@"Indian"]];
-    [_service addUserText:@"I hate it" forState:@"askForSuggestionFeedback"];
+    [_service addUserText:@"I hate it" forState:[FHStates askForSuggestionFeedback]];
 
-    assertThat(_speechRecognitionService.lastState, is(equalTo(@"askForSuggestionFeedback")));
+    assertThat(_speechRecognitionService.lastState, is(equalTo([FHStates askForSuggestionFeedback])));
 }
 
 - (void)test_addUserTextShouldNoRestaurantWasFoundState {
-    [_service addUserText:@"Try again" forState:@"noRestaurantWasFound"];
+    [_service addUserText:@"Try again" forState:[FHStates noRestaurantWasFound]];
 
-    assertThat(_speechRecognitionService.lastState, is(equalTo(@"noRestaurantWasFound")));
+    assertThat(_speechRecognitionService.lastState, is(equalTo([FHStates noRestaurantWasFound])));
 }
 
 - (void)test_addUserText_ShouldUseAskForForWhatToDoNextState {
-    [_service addUserText:@"Bye" forState:@"askForWhatToDoNext"];
+    [_service addUserText:@"Bye" forState:[FHStates askForWhatToDoNext]];
 
-    assertThat(_speechRecognitionService.lastState, is(equalTo(@"askForWhatToDoNext")));
+    assertThat(_speechRecognitionService.lastState, is(equalTo([FHStates askForWhatToDoNext])));
 }
 
 @end

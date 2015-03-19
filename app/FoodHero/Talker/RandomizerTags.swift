@@ -22,9 +22,3 @@ public class RandomizerConstants: NSObject {
         return "Proposal"
     }
 }
-
-/*
-public enum RandomizerTags {
-    case Texts
-    case TextParameters
-} */

@@ -53,7 +53,7 @@
     assertThat(statement, is(notNilValue()));
     assertThat(statement.semanticId, is(equalTo(@"FH:Greeting;FH:OpeningQuestion")));
     assertThat(statement.persona, is(equalTo(Personas.foodHero)));
-    assertThat(statement.state, is(equalTo(@"askForFoodPreference")));
+    assertThat(statement.state, is(equalTo([FHStates askForFoodPreference])));
 }
 
 - (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForThirdStatement {
@@ -86,7 +86,7 @@
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults {
@@ -96,7 +96,7 @@
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like Briish Food"]];
 
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 }
 
 
@@ -115,7 +115,7 @@
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
 
     // King's head should be suggested again since we started another search
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
@@ -129,7 +129,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:kingsHead currentUserLocation:_london text:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {

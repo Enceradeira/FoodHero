@@ -34,14 +34,14 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
 
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" state:[FHStates  askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
     CLLocation *location = [CLLocation new];
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:_restaurant currentUserLocation:location text:@"too far"]];
 
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:[FHStates  askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
@@ -53,7 +53,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
 
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" state:@"askForSuggestionFeedback"];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" state:[FHStates  askForSuggestionFeedback]];
 }
 
 

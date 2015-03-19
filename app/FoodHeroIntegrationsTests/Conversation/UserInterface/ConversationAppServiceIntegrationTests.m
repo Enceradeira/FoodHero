@@ -15,6 +15,7 @@
 #import "ConversationBubbleUser.h"
 #import "IntegrationAssembly.h"
 #import "CLLocationManagerProxyStub.h"
+#import "FoodHero-Swift.h"
 
 @interface ConversationAppServiceIntegrationTests : XCTestCase
 
@@ -54,7 +55,7 @@
 }
 
 - (void)test_addUserCuisinePreference_ShouldAddUCuisinePreferenceToConversation {
-    [_service addUserText:@"I whished to eat Korean food" forState:@"askForFoodPreference"];
+    [_service addUserText:@"I whished to eat Korean food" forState: [FHStates askForFoodPreference]];
 
     ConversationBubble *bubble = [self waitStatementWithIndex:1];
 

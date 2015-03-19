@@ -168,6 +168,7 @@
 		23525A7B9425FD139132EB30 /* SpeechRecognitionServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DC70637894075BE6D3 /* SpeechRecognitionServiceStub.m */; };
 		23525A8C5D6D2056ADFD9AA9 /* CLLocationManagerProxySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */; };
 		23525A8D64FF944392F48A9D /* ConversationAppServiceIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258E8D101DF0493551064 /* ConversationAppServiceIntegrationTests.m */; };
+		23525A91F0E7FE8257B5E794 /* FHStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525373B4D9491197F53204 /* FHStates.swift */; };
 		23525A9397E6DF40988AE898 /* RestaurantReviewPageViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AC8355C100D6ED953B0 /* RestaurantReviewPageViewControllerTests.m */; };
 		23525AD674F92A7FCD80EFA0 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253F117606594F4E18A31 /* Place.m */; };
 		23525AE21B03770AF024D9C2 /* LargeRestaurantReviewCommentViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259ECD4FA42D01FB54C0E /* LargeRestaurantReviewCommentViewControllerTests.m */; };
@@ -369,6 +370,7 @@
 		2352533EE254FAB2F574F1F0 /* GooglePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlace.h; sourceTree = "<group>"; };
 		23525346FC989D1AB1AF0541 /* DesignByContractException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignByContractException.m; sourceTree = "<group>"; };
 		2352536C6BC6BEB6F761E374 /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
+		23525373B4D9491197F53204 /* FHStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FHStates.swift; sourceTree = "<group>"; };
 		235253887B7887287277D487 /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		235253AC3685FAB3459DE094 /* RestaurantDetailTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailTableViewControllerTests.m; sourceTree = "<group>"; };
 		235253B0BD5D7CC3091DD489 /* AlwaysImmediateSchedulerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlwaysImmediateSchedulerFactory.h; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				235255C57629B14FAAE6957F /* FHUtterances.swift */,
 				23525F0A0C674E21770D3E3C /* ScriptExtension.swift */,
 				23525B82B4D5C24B64BE6194 /* NetworkError.swift */,
+				23525373B4D9491197F53204 /* FHStates.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1804,6 +1807,7 @@
 				23525D5ACC5B725A34960749 /* FHUtterances.swift in Sources */,
 				235256E78FFF0D4E6F14F6F8 /* ScriptExtension.swift in Sources */,
 				235259C6504DCFFEDC859572 /* NetworkError.swift in Sources */,
+				23525A91F0E7FE8257B5E794 /* FHStates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

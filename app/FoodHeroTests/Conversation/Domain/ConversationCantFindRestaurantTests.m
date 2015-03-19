@@ -20,7 +20,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
@@ -30,7 +30,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
 
-    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:@"afterCantAccessLocationService"];
+    [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:[FHStates afterCantAccessLocationService]];
 }
 
 - (void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow {
@@ -46,7 +46,7 @@
     }];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:@"askForSuggestionFeedback"];
+    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound {
@@ -60,7 +60,7 @@
     }];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
 
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:@"noRestaurantWasFound"];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 }
 
 - (void)test_UWantsToAbort_ShouldAddWhatToDoNextAfterFailure {
@@ -74,7 +74,7 @@
     }];
 
     [self sendInput:[UserUtterances wantsToAbort:@""]];
-    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" state:@"askForWhatToDoNext"];
+    [self assertLastStatementIs:@"FH:WhatToDoNextCommentAfterFailure" state:[FHStates askForWhatToDoNext]];
 }
 
 @end
