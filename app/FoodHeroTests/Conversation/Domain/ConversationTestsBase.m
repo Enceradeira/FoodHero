@@ -35,7 +35,7 @@
     _conversation = [[Conversation alloc] initWithInput:_input];
 }
 
-- (void)sendInput:(TalkerUtterance *)utterance {
+- (void)sendInput:(id)utterance {
     [_input sendNext:utterance];
 }
 

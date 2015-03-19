@@ -7,23 +7,30 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
+#import "FoodHero-Swift.h"
 
 @interface WitDelegate : NSObject <WitDelegate>
-+ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber;
++ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error;
 
-- (id)init:(id <RACSubscriber>)subscriber;
+- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError;
 @end
 
 @implementation WitDelegate {
 
     id <RACSubscriber> _subscriber;
+    BOOL _simulateNetworkError;
 }
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
-    if (error) {
-        assert(false); // TODO error-handling
+    if (error != nil || _simulateNetworkError) {
+        if ([error.domain isEqualToString:@"NSURLErrorDomain"] || _simulateNetworkError) {
+            [_subscriber sendNext:[NetworkError new]];
+        }
+        else {
+            assert(false); // TODO error-handling
+        }
     }
-    if (outcomes.count > 0) {
+    else if (outcomes.count > 0) {
         NSDictionary *best = outcomes[0];
         interpretation.confidence = [best[@"confidence"] doubleValue];
         interpretation.text = best[@"_text"];
@@ -54,16 +61,17 @@
 }
 
 
-- (id)init:(id <RACSubscriber>)subscriber {
+- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError {
     self = [super init];
     if (self) {
         _subscriber = subscriber;
+        _simulateNetworkError = simulateNetworkError;
     }
     return self;
 }
 
-+ (instancetype)create:(id <RACSubscriber>)subscriber {
-    return [[WitDelegate alloc] init:subscriber];
++ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error {
+    return [[WitDelegate alloc] init:subscriber simulateNetworkError:error];
 }
 
 @end
@@ -74,6 +82,7 @@
     Wit *_configuredWit;
     id <IAudioSession> _audioSession;
     RACSubject *_output;
+    BOOL _simulateNetworkError;
 }
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
@@ -82,6 +91,7 @@
         _accessToken = accessToken;
         _audioSession = audioSession;
         _output = [RACSubject new];
+        _simulateNetworkError = NO;
     }
 
     return self;
@@ -89,7 +99,7 @@
 
 - (void)setContext:(NSString *)state subscriber:(id <RACSubscriber>)subscriber {
     [self.wit setContext:@{@"state" : state}];
-    self.wit.delegate = [WitDelegate create:subscriber];
+    self.wit.delegate = [WitDelegate create:subscriber simulateNetworkError:_simulateNetworkError];
 }
 
 - (Wit *)wit {
@@ -125,6 +135,10 @@
 
 - (RACSignal *)output {
     return _output;
+}
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+    _simulateNetworkError = simulationEnabled;
 }
 
 

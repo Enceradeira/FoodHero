@@ -222,4 +222,14 @@ public class FHUtterances {
                 , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound", state: "noRestaurantWasFound"))
 
     }
+
+    class func hasNetworkErrorAndAsksIfShouldTryAgain(def: StringDefinition) -> StringDefinition {
+        return def.words(["Uppps... I'm struggling accessing the internet.\n\nHalf of my brain is in the internet and I feel a bit dizzy right now. Make sure you've got connection.\n\nShould I try again?"]
+                , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError", state: "networkError"))
+    }
+
+    class func beforeRepeatingUtteranceAfterError(def: StringDefinition) -> StringDefinition {
+        return def.words(["It's working again. I'll repeat what I said:"]
+                , withCustomData: FoodHeroParameters(semanticId: "FH:BeforeRepeatingUtteranceAfterError", state: nil))
+    }
 }

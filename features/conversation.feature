@@ -77,7 +77,7 @@ Feature: User interacts with app through conversation
 
     Given FoodHero can't access a network
     When I don't like the restaurant
-    Then FoodHero says that nothing was found
+    Then FoodHero says he's not connected to the internet
     When I want FoodHero to abort search
     Then FoodHero asks what to do next after failure
     When I say good bye
@@ -89,3 +89,15 @@ Feature: User interacts with app through conversation
     And FoodHero says that nothing was found
     When I want FoodHero to start over again
     Then FoodHero asks what I wished to eat
+
+  Scenario: FoodHero is offline
+    Given FoodHero can't access a network
+    When FoodHero greets me and asks what I wished to eat
+    And I wish to eat "British" food by typing it
+    And I allow access to the location-services
+    Then FoodHero says he's not connected to the internet
+    When I say try again
+    Then FoodHero says he's not connected to the internet
+    When FoodHero can access a network
+    And I say try again
+    Then FoodHero asks again what I wished to eat

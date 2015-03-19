@@ -19,7 +19,7 @@
 
 - (void)resetConversation;
 
-- (void)sendInput:(TalkerUtterance *)token;
+- (void)sendInput:(id)token;
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
 

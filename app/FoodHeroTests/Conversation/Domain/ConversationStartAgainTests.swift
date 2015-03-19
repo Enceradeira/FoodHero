@@ -10,12 +10,6 @@ public class ConversationStartAgainTests: ConversationTestsBase {
     let _norwich = CLLocation(latitude: 52.631944, longitude: 1.2988)
     let _restaurant = RestaurantBuilder().build()
 
-    public override func setUp() {
-        super.setUp()
-
-
-    }
-
     func test_UStartAgain_ShouldResetConversation_WhenSearching() {
         sendInput(UserUtterances.cuisinePreference("British Food", text: "British please"))
         sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, currentUserLocation: _norwich, text: "British please"))

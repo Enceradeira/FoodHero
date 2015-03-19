@@ -14,4 +14,6 @@
 - (enum AVAudioSessionRecordPermission)recordPermission;
 
 - (RACSignal *)output;
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled;
 @end

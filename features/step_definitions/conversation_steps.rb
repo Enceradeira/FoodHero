@@ -132,6 +132,9 @@ Given(/^FoodHero can't access a network$/) do
   send_cheat('C:NE') # find network exception
 end
 
+Given(/^FoodHero can access a network$/) do
+  send_cheat('C:NO') # find network exception
+end
 
 Given(/^FoodHero is very slow in responding$/) do
   send_cheat('C:BS') # be slow
@@ -143,6 +146,14 @@ Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
 end
 
 Then(/^FoodHero asks what I wished to eat$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion')
+  expect(bubble).not_to be_nil
+end
+
+
+Then(/^FoodHero asks again what I wished to eat$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:BeforeRepeatingUtteranceAfterError')
+  expect(bubble).not_to be_nil
   bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion')
   expect(bubble).not_to be_nil
 end
@@ -159,6 +170,11 @@ end
 
 Then(/^FoodHero says that nothing was found$/) do
   bubble, _ = wait_last_element_and_parameter('FH:NoRestaurantsFound')
+  expect(bubble).not_to be_nil
+end
+
+Then(/^FoodHero says he's not connected to the internet$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:HasNetworkError')
   expect(bubble).not_to be_nil
 end
 
@@ -401,3 +417,4 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
+
