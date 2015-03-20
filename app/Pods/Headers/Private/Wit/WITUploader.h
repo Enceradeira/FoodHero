@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITUploader.h
+../../../../../../wit-ios-sdk/Wit/WITUploader.h

@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITVadSimple.h
+../../../../../../wit-ios-sdk/Wit/WITVadSimple.h

@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITRecorder.h
+../../../../../../wit-ios-sdk/Wit/WITRecorder.h

@@ -1,1 +1,1 @@
-../../../Wit/Wit/util.h
+../../../../../../wit-ios-sdk/Wit/util.h

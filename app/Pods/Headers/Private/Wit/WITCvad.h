@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITCvad.h
+../../../../../../wit-ios-sdk/Wit/WITCvad.h

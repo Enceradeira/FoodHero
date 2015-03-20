@@ -1,1 +1,1 @@
-../../../Wit/Wit/RecordingSessionStarter.h
+../../../../../../wit-ios-sdk/Wit/RecordingSessionStarter.h

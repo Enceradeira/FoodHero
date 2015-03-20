@@ -23,12 +23,14 @@ DEPENDENCIES:
   - SORelativeDateTransformer
   - Typhoon (= 2.1.0)
   - UIImageViewAligned (from `./../UIImageViewAligned`)
-  - Wit (~> 4.0.0)
+  - Wit (from `./../../wit-ios-sdk`)
   - XCAsyncTestCase
 
 EXTERNAL SOURCES:
   UIImageViewAligned:
     :path: ./../UIImageViewAligned
+  Wit:
+    :path: ./../../wit-ios-sdk
 
 SPEC CHECKSUMS:
   LinqToObjectiveC: db2ceec81d45192ffe971bbd8e73ef0de614723c
@@ -37,7 +39,7 @@ SPEC CHECKSUMS:
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
   Typhoon: bb5f4488bd323ef3f57c1046c402b449c600633a
   UIImageViewAligned: efc1b8b5750dea68b7ee67236f4c64f93e65b674
-  Wit: 0142bccd57796f389a777aac6970933a52492514
+  Wit: 0988021be2f602bada3698706d46f25625fb0d99
   XCAsyncTestCase: 4b6a2a136d3cff7fe0b6135eb82e98446445c0e2
 
 COCOAPODS: 0.36.0.beta.1

@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITMicButton.h
+../../../../../../wit-ios-sdk/Wit/WITMicButton.h

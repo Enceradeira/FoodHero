@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITCircleLayer.h
+../../../../../../wit-ios-sdk/Wit/WITCircleLayer.h

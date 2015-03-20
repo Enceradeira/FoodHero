@@ -1,1 +1,1 @@
-../../../Wit/Wit/kiss_fft.h
+../../../../../../wit-ios-sdk/Wit/kiss_fft.h

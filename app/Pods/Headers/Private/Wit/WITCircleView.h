@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITCircleView.h
+../../../../../../wit-ios-sdk/Wit/WITCircleView.h

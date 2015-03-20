@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITVadTracker.h
+../../../../../../wit-ios-sdk/Wit/WITVadTracker.h

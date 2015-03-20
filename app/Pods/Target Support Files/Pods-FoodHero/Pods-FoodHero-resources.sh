@@ -48,7 +48,7 @@ install_resource()
   esac
 }
           install_resource "SORelativeDateTransformer/SORelativeDateTransformer/SORelativeDateTransformer.bundle"
-                    install_resource "Wit/WitResources/Images/microphone.png"
+                    install_resource "../../../wit-ios-sdk/WitResources/Images/microphone.png"
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

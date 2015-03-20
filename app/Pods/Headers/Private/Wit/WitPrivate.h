@@ -1,1 +1,1 @@
-../../../Wit/Wit/WitPrivate.h
+../../../../../../wit-ios-sdk/Wit/WitPrivate.h

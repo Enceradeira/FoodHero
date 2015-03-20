@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITRecordingSession.h
+../../../../../../wit-ios-sdk/Wit/WITRecordingSession.h

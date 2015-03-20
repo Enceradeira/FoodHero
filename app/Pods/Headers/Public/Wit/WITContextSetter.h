@@ -1,1 +1,1 @@
-../../../Wit/Wit/WITContextSetter.h
+../../../../../../wit-ios-sdk/Wit/WITContextSetter.h

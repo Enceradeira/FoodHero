@@ -100,6 +100,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     // Mic View
     _micButton = [[WITMicButton alloc] initWithFrame:_micView.frame];
+    _micButton.accessibilityLabel = @"microphone";
     [_micButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_micView addSubview:self.micButton];
 
