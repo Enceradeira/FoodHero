@@ -4,13 +4,17 @@
 //
 
 @import AVFoundation;
+
 #import <Foundation/Foundation.h>
 #import "ISpeechRecognitionService.h"
+#import "ISpeechRecognitionStateSource.h"
 
 @class SpeechInterpretation;
 
 
 @interface SpeechRecognitionServiceStub : NSObject <ISpeechRecognitionService>
+@property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
+
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation;
 
 - (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission;

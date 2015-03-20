@@ -32,11 +32,7 @@
     return self;
 }
 
-- (void)interpretString:(NSString *)string state:(id)customData {
-    [self generateOutput];
-}
-
-- (void)recordAndInterpretUserVoice:(NSString *)state {
+- (void)interpretString:(NSString *)string {
     [self generateOutput];
 }
 

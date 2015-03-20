@@ -68,16 +68,7 @@
     assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting;FH:OpeningQuestion")));
 }
 
-- (void)test_userMicButtonTouchUp_ShouldAddNewConversationBubble {
-    NSUInteger bubbleCount = [_bubbleView visibleCells].count;
-
-    [self injectInterpretation:@"I want Indian food" intent:@"CuisinePreference" entities:@[@"Indian"]];
-    [_ctrl userMicButtonTouchUp:self];
-    
-    assertThatInt([_bubbleView visibleCells].count, is(greaterThan(@(bubbleCount))));
-}
-
-
+/*
 -(void)test_Controller_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
     [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
 
@@ -105,5 +96,5 @@
 
 
     assertThatBool(_ctrl.userMicButton.enabled, is(@(YES)));
-}
+} */
 @end

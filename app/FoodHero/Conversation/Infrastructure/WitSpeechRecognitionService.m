@@ -9,27 +9,41 @@
 #import "SpeechInterpretation.h"
 #import "FoodHero-Swift.h"
 
-@interface WitDelegate : NSObject <WitDelegate>
-+ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error state:(NSString *)state;
+@implementation WitSpeechRecognitionService {
 
-- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError state:(NSString *)state;
-@end
-
-@implementation WitDelegate {
-
-    id <RACSubscriber> _subscriber;
+    NSString *_accessToken;
+    Wit *_wit;
+    id <IAudioSession> _audioSession;
+    RACSubject *_output;
     BOOL _simulateNetworkError;
-    NSString *_state;
 }
+
+- (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
+    self = [super init];
+    if (self) {
+        _accessToken = accessToken;
+        _audioSession = audioSession;
+        _output = [RACSubject new];
+        _simulateNetworkError = NO;
+
+        _wit = [Wit sharedInstance];
+        _wit.accessToken = _accessToken;
+        _wit.detectSpeechStop = WITVadConfigDetectSpeechStop;
+        _wit.delegate = self;
+    }
+
+    return self;
+}
+
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
     if (error != nil || _simulateNetworkError) {
         if ([error.domain isEqualToString:@"NSURLErrorDomain"] || _simulateNetworkError) {
-            [_subscriber sendNext:[NetworkError new]];
+            [_output sendNext:[NetworkError new]];
         }
         else {
             NSLog([NSString stringWithFormat:@"WitDelegate detected unexptected error '%@'. It will handle it as UserIntentUnclearError", [error domain]]);
-            [_subscriber sendNext:[self userIntentUnclearError]];
+            [_output sendNext:[self userIntentUnclearError]];
         }
     }
     else if (outcomes.count > 0) {
@@ -44,19 +58,19 @@
             return dic[@"value"];
         }];
         if (interpretation.confidence < 0.1) {
-            [_subscriber sendNext:[self userIntentUnclearError]];
+            [_output sendNext:[self userIntentUnclearError]];
         }
         else {
-            [_subscriber sendNext:interpretation];
+            [_output sendNext:interpretation];
         }
     }
     else {
-        [_subscriber sendNext:[self userIntentUnclearError]];
+        [_output sendNext:[self userIntentUnclearError]];
     }
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
-    return [[UserIntentUnclearError alloc] initWithState:_state];
+    return [[UserIntentUnclearError alloc] initWithState:[self.stateSource getState]];
 }
 
 - (void)witActivityDetectorStarted {
@@ -64,6 +78,7 @@
 }
 
 - (void)witDidStartRecording {
+    [self witSetContext];
     NSLog(@"Recording startet");
 }
 
@@ -71,77 +86,14 @@
     NSLog(@"Recording stopped");
 }
 
-
-- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError state:(NSString *)state {
-    self = [super init];
-    if (self) {
-        _subscriber = subscriber;
-        _simulateNetworkError = simulateNetworkError;
-        _state = state;
-    }
-    return self;
+- (void)interpretString:(NSString *)string {
+    [self witSetContext];
+    [_wit interpretString:string customData:nil];
 }
 
-+ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error state:(NSString *)state {
-    return [[WitDelegate alloc] init:subscriber simulateNetworkError:error state:state];
-}
-
-@end
-
-@implementation WitSpeechRecognitionService {
-
-    NSString *_accessToken;
-    Wit *_configuredWit;
-    id <IAudioSession> _audioSession;
-    RACSubject *_output;
-    BOOL _simulateNetworkError;
-}
-
-- (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
-    self = [super init];
-    if (self) {
-        _accessToken = accessToken;
-        _audioSession = audioSession;
-        _output = [RACSubject new];
-        _simulateNetworkError = NO;
-    }
-
-    return self;
-}
-
-- (void)setContext:(NSString *)state subscriber:(id <RACSubscriber>)subscriber {
-    [self.wit setContext:@{@"state" : state}];
-    self.wit.delegate = [WitDelegate create:subscriber simulateNetworkError:_simulateNetworkError state:state];
-}
-
-- (Wit *)wit {
-    if (!_configuredWit) {
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
-        [[AVAudioSession sharedInstance] setActive:YES error:nil];
-
-        _configuredWit = [Wit sharedInstance];
-        _configuredWit.accessToken = _accessToken;
-        _configuredWit.detectSpeechStop = WITVadConfigDetectSpeechStop;
-    }
-    return _configuredWit;
-}
-
-- (void)interpretString:(NSString *)string state:(NSString *)state {
-    [self setContext:state subscriber:_output];
-
-    [self.wit interpretString:string customData:state];
-}
-
-- (void)recordAndInterpretUserVoice:(NSString *)state {
-    [_audioSession requestRecordPermission:^(BOOL granted) {
-        if (granted) {
-            [self setContext:state subscriber:_output];
-            [self.wit start];
-        }
-        else {
-            assert(false); // TODO error-handling
-        }
-    }];
+- (void)witSetContext {
+    NSString* state = [self.stateSource getState];
+    [_wit setContext:@{@"state" : state}];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {

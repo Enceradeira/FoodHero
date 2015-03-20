@@ -71,7 +71,8 @@ ConversationAppServiceTests {
 - (void)assertUserFeedbackForLastSuggestedRestaurant:(NSString *)text recognizedIntent:(NSString *)type fhAnswer:(NSString *)fhAnswer {
     [self injectInterpretation:text intent:[NSString stringWithFormat:@"SuggestionFeedback_%@", type] entities:nil];
 
-    [_service addUserText:text forState:[FHStates askForFoodPreference]];
+    [FHStates askForFoodPreference];
+    [_service addUserText:text];
 
     NSArray *statementsReversed = [[self statements] linq_reverse];
     ConversationBubble *userFeedback = statementsReversed[1];
@@ -91,33 +92,21 @@ ConversationAppServiceTests {
 
 - (void)addRecognizedUserTextForCuisinePreference:(NSString *)text entities:(NSArray *)entities {
     [self injectInterpretation:text intent:@"CuisinePreference" entities:entities];
-    [_service addUserText:text forState:[FHStates askForFoodPreference]];
-}
-
-
-- (void)addRecognizedUserVoiceForCuisinePreference:(NSString *)text entities:(NSArray *)entities {
-    [self injectInterpretation:text intent:@"CuisinePreference" entities:entities];
-    [_service addUserVoiceForState:[FHStates askForFoodPreference]];
+    [FHStates askForFoodPreference];
+    [_service addUserText:text];
 }
 
 - (void)addRecognizedUserTextForSuggestionFeedback:(NSString *)text intent:(NSString *)intent {
     [self injectInterpretation:text intent:intent entities:nil];
-    [_service addUserText:text forState:[FHStates askForSuggestionFeedback]];
+    [FHStates askForSuggestionFeedback];
+    [_service addUserText:text];
 }
 
-- (void)addRecognizedUserVoiceForSuggestionFeedback:(NSString *)text intent:(NSString *)intent {
-    [self injectInterpretation:text intent:intent entities:nil];
-    [_service addUserVoiceForState:[FHStates askForSuggestionFeedback]];
-}
 
 - (void)addRecognizedUserTextForAnswerToWhatToDoNext:(NSString *)text intent:(NSString *)intent {
     [self injectInterpretation:text intent:intent entities:nil];
-    [_service addUserText:text forState:[FHStates askForWhatToDoNext]];
-}
-
-- (void)addRecognizedUserVoiceForAnswerToWhatToDoNext:(NSString *)text intent:(NSString *)intent {
-    [self injectInterpretation:text intent:intent entities:nil];
-    [_service addUserVoiceForState:[FHStates askForWhatToDoNext]];
+    [FHStates askForWhatToDoNext];
+    [_service addUserText:text];
 }
 
 - (ConversationBubble *)getBubbleWithSemanticId:(NSString *)semanticId {
@@ -206,7 +195,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"I fixed it! Hurray!" intent:@"TryAgainNow" entities:nil];
-    [_service addUserText:@"I fixed it! Hurray!" forState:[FHStates afterCantAccessLocationService]];
+    [_service addUserText:@"I fixed it! Hurray!"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:TryAgainNow"];
     assertThat(bubble, is(notNilValue()));
@@ -219,7 +208,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForAnswerToWhatToDoNext:@"Good bye mi love" intent:@"GoodBye"];
 
     [self injectInterpretation:@"search again!" intent:@"WantsToSearchForAnotherRestaurant" entities:nil];
-    [_service addUserText:@"search again!" forState:[FHStates askForWhatToDoNext]];
+    [_service addUserText:@"search again!"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
     assertThat(bubble, is(notNilValue()));
@@ -231,7 +220,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"again please!!" intent:@"TryAgainNow" entities:nil];
-    [_service addUserText:@"again please!!" forState:[FHStates noRestaurantWasFound]];
+    [_service addUserText:@"again please!!"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:TryAgainNow"];
     assertThat(bubble, is(notNilValue()));
@@ -243,7 +232,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
 
     [self injectInterpretation:@"Forget it" intent:@"WantsToAbort" entities:nil];
-    [_service addUserText:@"Forget it" forState:[FHStates noRestaurantWasFound]];
+    [_service addUserText:@"Forget it"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToAbort"];
     assertThat(bubble, is(notNilValue()));
@@ -255,7 +244,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
 
     [self injectInterpretation:@"Search again" intent:@"WantsToSearchForAnotherRestaurant" entities:nil];
-    [_service addUserText:@"Search again" forState:[FHStates askForWhatToDoNext]];
+    [_service addUserText:@"Search again"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
     assertThat(bubble, is(notNilValue()));
@@ -267,7 +256,7 @@ ConversationAppServiceTests {
     [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
 
     [self injectInterpretation:@"No thanks!" intent:@"GoodBye" entities:nil];
-    [_service addUserText:@"No thanks!" forState:[FHStates askForWhatToDoNext]];
+    [_service addUserText:@"No thanks!"];
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:GoodBye"];
     assertThat(bubble, is(notNilValue()));
@@ -275,69 +264,11 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserVoiceForInputAction_ShouldAddUCuisinePreference_WhenAskUserCuisinePreferenceAction {
-    [self addRecognizedUserVoiceForCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];;
+    [self addRecognizedUserTextForCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];;
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:CuisinePreference=Indian"];
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.textSource, is(equalTo(@"I like Indian food")));
-}
-
-- (void)test_addUserVoiceForInputAction_ShouldAddUSuggestionFeedback_WhenAskUserSuggestionFeedbackAction {
-    [self addRecognizedUserVoiceForCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];;
-    [self addRecognizedUserVoiceForSuggestionFeedback:@"Way too far" intent:@"SuggestionFeedback_tooFarAway"];
-
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:SuggestionFeedback=tooFarAway"];
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.textSource, is(equalTo(@"Way too far")));
-}
-
-- (void)test_addUserVoiceForInputAction_ShouldAddUDidResolveProblemWithAccessLocationService_WhenAskUserIfProblemWithAccessLocationServiceResolved {
-    [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self addRecognizedUserVoiceForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
-    [self injectInterpretation:@"I fixed it! Hurray!" intent:@"TryAgainNow" entities:nil];
-
-    [_service addUserVoiceForState:[FHStates afterCantAccessLocationService]];
-
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:TryAgainNow"];
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.textSource, is(equalTo(@"I fixed it! Hurray!")));
-}
-
-- (void)test_addUserVoiceForInputAction_ShouldAddUWantsToSearchForAnotherRestaurant_WhenAskUserWhatToDoNextAction {
-    [self addRecognizedUserVoiceForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
-    [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
-
-    [self injectInterpretation:@"Search again" intent:@"WantsToSearchForAnotherRestaurant" entities:nil];
-    [_service addUserVoiceForState:[FHStates askForWhatToDoNext]];
-
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.textSource, is(equalTo(@"Search again")));
-}
-
-- (void)test_addUserVoiceForInputAction_ShouldAddUTryAgainNow_WhenAskUserToTryAgainAction {
-    [_searchServiceStub injectFindNothing];
-    [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
-
-    [self injectInterpretation:@"again please!!" intent:@"TryAgainNow" entities:nil];
-    [_service addUserVoiceForState:[FHStates noRestaurantWasFound]];
-
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:TryAgainNow"];
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.textSource, is(equalTo(@"again please!!")));
-}
-
-- (void)test_addUserVoiceForInputAction_ShouldAddUGoodBye_WhenAskUserWhatToDoAfterGoodByeAction {
-    [self addRecognizedUserVoiceForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
-    [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
-    [self addRecognizedUserVoiceForAnswerToWhatToDoNext:@"Good bye mi love" intent:@"GoodBye"];
-
-    [self injectInterpretation:@"search again!" intent:@"WantsToSearchForAnotherRestaurant" entities:nil];
-    [_service addUserVoiceForState:[FHStates askForWhatToDoNext]];
-
-    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:WantsToSearchForAnotherRestaurant"];
-    assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.textSource, is(equalTo(@"search again!")));
 }
 
 @end

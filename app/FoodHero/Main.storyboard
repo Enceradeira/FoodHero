@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Nxg-Xv-lPP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Nxg-Xv-lPP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -82,33 +82,23 @@
                                                     <action selector="userSendButtonTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="ugh-me-Nf4"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sD0-Nu-rxO">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
-                                                <accessibility key="accessibilityConfiguration" label="microphone"/>
-                                                <state key="normal" image="Mic-Enabled.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="disabled" image="Mic-Disabled.png"/>
-                                                <state key="selected" image="Mic-Disabled.png"/>
-                                                <state key="highlighted" image="Mic-Disabled.png"/>
-                                                <connections>
-                                                    <action selector="userMicButtonTouchUp:" destination="Xf7-7W-WAu" eventType="touchUpInside" id="bme-5j-kB9"/>
-                                                </connections>
-                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljP-x6-5iE" userLabel="MicContainer">
+                                                <rect key="frame" x="5" y="5" width="40" height="30"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="bjD-qx-FNu" secondAttribute="leading" constant="50" id="63H-72-AQV"/>
                                             <constraint firstAttribute="height" constant="40" id="9Q6-Zn-Gor"/>
                                             <constraint firstItem="Ebp-Wf-czR" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" constant="5" id="Cou-Nl-SKs"/>
-                                            <constraint firstItem="sD0-Nu-rxO" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" id="MQ9-w9-GL8"/>
+                                            <constraint firstItem="ljP-x6-5iE" firstAttribute="leading" secondItem="bjD-qx-FNu" secondAttribute="leading" constant="5" id="Q9h-hx-4Xa"/>
+                                            <constraint firstAttribute="bottom" secondItem="ljP-x6-5iE" secondAttribute="bottom" constant="5" id="QbC-dS-nZM"/>
                                             <constraint firstAttribute="trailing" secondItem="UnC-TR-8Th" secondAttribute="trailing" constant="50" id="SHr-pP-bvl"/>
                                             <constraint firstAttribute="trailing" secondItem="Ebp-Wf-czR" secondAttribute="trailing" constant="2" id="TqU-vY-rkN"/>
-                                            <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="sD0-Nu-rxO" secondAttribute="trailing" id="dgS-FU-rEk"/>
-                                            <constraint firstAttribute="bottom" secondItem="sD0-Nu-rxO" secondAttribute="bottom" id="g2o-4N-yYU"/>
+                                            <constraint firstItem="UnC-TR-8Th" firstAttribute="leading" secondItem="ljP-x6-5iE" secondAttribute="trailing" constant="5" id="UrC-ZJ-azd"/>
+                                            <constraint firstItem="ljP-x6-5iE" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" constant="5" id="Yoc-Ci-8Zf"/>
                                             <constraint firstAttribute="bottom" secondItem="UnC-TR-8Th" secondAttribute="bottom" constant="5" id="gYr-eZ-jKC"/>
                                             <constraint firstItem="Ebp-Wf-czR" firstAttribute="leading" secondItem="UnC-TR-8Th" secondAttribute="trailing" constant="2" id="oQj-Yb-BAO"/>
-                                            <constraint firstItem="sD0-Nu-rxO" firstAttribute="leading" secondItem="bjD-qx-FNu" secondAttribute="leading" id="p9K-hJ-Ifk"/>
                                             <constraint firstAttribute="bottom" secondItem="Ebp-Wf-czR" secondAttribute="bottom" constant="5" id="plu-G5-LFu"/>
                                             <constraint firstItem="UnC-TR-8Th" firstAttribute="top" secondItem="bjD-qx-FNu" secondAttribute="top" constant="5" id="zE4-sh-oU7"/>
                                         </constraints>
@@ -181,11 +171,11 @@
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
                         <outlet property="bubbleViewHeightConstraint" destination="a4k-5X-gbT" id="RqQ-a1-FjW"/>
+                        <outlet property="micView" destination="ljP-x6-5iE" id="pLP-Wh-LFZ"/>
                         <outlet property="userInputContainerView" destination="kW0-vZ-rWt" id="xGi-QU-jEX"/>
                         <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
                         <outlet property="userInputHeaderView" destination="bjD-qx-FNu" id="Bh7-z3-mqt"/>
                         <outlet property="userInputHeightConstraint" destination="4Wo-bP-1qy" id="jSb-Wd-xXh"/>
-                        <outlet property="userMicButton" destination="sD0-Nu-rxO" id="NuF-iI-UFk"/>
                         <outlet property="userSendButton" destination="Ebp-Wf-czR" id="JXL-Ms-bxA"/>
                         <outlet property="userTextField" destination="UnC-TR-8Th" id="fIM-kw-4jP"/>
                     </connections>
@@ -937,8 +927,6 @@ Norwich, Norfolk NR1 3DN</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Mic-Disabled.png" width="22" height="22"/>
-        <image name="Mic-Enabled.png" width="22" height="22"/>
         <image name="Notebook-small.png" width="25" height="121"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>

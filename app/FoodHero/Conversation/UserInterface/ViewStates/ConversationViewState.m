@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <Wit/WITMicButton.h>
 #import "ConversationViewState.h"
 #import "ConversationViewState+Protected.h"
 #import "FoodHeroColors.h"
@@ -32,7 +33,8 @@
                     && _controller.isUserInputEnabled;
 
     // list-button
-    self.controller.userMicButton.enabled =
+    WITMicButton *micButton = self.controller.micButton;
+    micButton.enabled =
             self.isUserInputListButtonEnabled
             && _controller.isUserInputEnabled
             && _controller.recordPermission  != AVAudioSessionRecordPermissionDenied;

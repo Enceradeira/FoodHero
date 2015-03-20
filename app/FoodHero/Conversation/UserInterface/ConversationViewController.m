@@ -9,6 +9,7 @@
 @import AVFoundation;
 
 #import <ReactiveCocoa.h>
+#import <Wit/WITMicButton.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationBubbleFoodHero.h"
@@ -39,6 +40,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)setConversationAppService:(ConversationAppService *)service {
     _appService = service;
+    _appService.stateSource = self;
 }
 
 - (UIImageView *)createBackgroundImage {
@@ -96,6 +98,16 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
 
+    // Mic View
+    _micButton = [[WITMicButton alloc] initWithFrame:_micView.frame];
+    [_micButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_micView addSubview:self.micButton];
+
+    NSDictionary *views = NSDictionaryOfVariableBindings(_micButton);
+    [_micView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0.0-[_micButton]-0.0-|" options:0 metrics:@{} views:views]];
+    [_micView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0.0-[_micButton]-0.0-|" options:0 metrics:@{} views:views]];
+
+
     _isLoading = NO;
 }
 
@@ -115,6 +127,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     else {
         [_currentViewState update];
     }
+}
+
+- (NSString *)getState {
+    return _currentState;
 }
 
 - (void)dealloc {
@@ -217,7 +233,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         _cheatTextFieldController = [CheatTextFieldController createWithView:self.view applicationService:_appService];
     }
     else {
-        [_appService addUserText:_userTextField.text forState:_currentState];
+        [_appService addUserText:_userTextField.text];
         [self inputActionDidFinish];
     }
     _userTextField.text = @"";
@@ -225,11 +241,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)hideKeyboard {
     [(self.userTextField) resignFirstResponder];
-}
-
-- (IBAction)userMicButtonTouchUp:(id)sender {
-    [_appService addUserVoiceForState:_currentState];
-    [self inputActionDidFinish];
 }
 
 - (void)keyboardWillShow:(id)notification {

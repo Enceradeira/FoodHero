@@ -182,29 +182,20 @@ static UIImage *EmptyImage;
     }
 }
 
-- (void)addUserText:(NSString *)string forState:(NSString *)state {
-    [_speechRecognitionService interpretString:string state:state];
-
-    /*
-    InterpretStringVisitor *visitor = [InterpretStringVisitor create:_speechRecognitionService
-                                                     locationService:_locationService
-                                                        conversation:_conversation
-                                                              string:string];
-    [state accept:visitor];*/
-}
-
-- (void)addUserVoiceForState:(NSString *)state {
-    [_speechRecognitionService recordAndInterpretUserVoice:state];
-
-    /*
-    RecordAndInterpretUserVoiceVisitor *visitor = [RecordAndInterpretUserVoiceVisitor create:_speechRecognitionService
-                                                                             locationService:_locationService
-                                                                                conversation:_conversation];
-    [state accept:visitor];
-    return visitor.signal;*/
+- (void)addUserText:(NSString *)string {
+    [_speechRecognitionService interpretString:string];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
     return [_speechRecognitionService recordPermission];
 }
+
+- (void)setStateSource:(id <ISpeechRecognitionStateSource>)source {
+    _speechRecognitionService.stateSource = source;
+}
+
+- (id <ISpeechRecognitionStateSource>)getStateSource {
+    return _speechRecognitionService.stateSource;
+}
+
 @end

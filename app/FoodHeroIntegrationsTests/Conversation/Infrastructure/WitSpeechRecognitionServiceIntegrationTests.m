@@ -15,13 +15,14 @@
 #import "IntegrationAssembly.h"
 #import "AudioSessionStub.h"
 
-@interface WitSpeechRecognitionServiceIntegrationTests : XCTestCase
+@interface WitSpeechRecognitionServiceIntegrationTests : XCTestCase <ISpeechRecognitionStateSource>
 
 @end
 
 @implementation WitSpeechRecognitionServiceIntegrationTests {
     WitSpeechRecognitionService *_service;
     AudioSessionStub *_audioSessionStub;
+    NSString *_state;
 }
 
 - (void)setUp {
@@ -29,6 +30,7 @@
 
     [TyphoonComponents configure:[IntegrationAssembly new]];
     _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] speechRecognitionService];
+    _service.stateSource = self;
     _audioSessionStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] audioSession];
 }
 
@@ -37,7 +39,8 @@
     NSString *text = @"I want to eat Indian food";
 
     RACSignal *result = _service.output;
-    [_service interpretString:text state:@"Test"];
+    _state = @"Test";
+    [_service interpretString:text];
 
     // Assert
     [result subscribeNext:^(SpeechInterpretation *i) {
@@ -56,5 +59,10 @@
     assertThatInt(entities.count, is(equalTo(@1)));
     assertThat(entities[0], is(equalTo(@"Indian")));
 }
+
+- (NSString *)getState {
+    return _state;
+}
+
 
 @end

@@ -17,6 +17,8 @@
 
 @interface ConversationAppService : NSObject
 
+@property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
+
 - (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
                           restaurantRepository:(RestaurantRepository *)restaurantRepository
                                locationService:(LocationService *)locationService
@@ -32,9 +34,7 @@
 
 - (NSInteger)getStatementCount;
 
-- (void)addUserText:(NSString *)string forState:(NSString *)state;
-
-- (void)addUserVoiceForState:(NSString *)state;
+- (void)addUserText:(NSString *)string;
 
 - (AVAudioSessionRecordPermission)recordPermission;
 @end

@@ -17,12 +17,13 @@
 #import "CLLocationManagerProxyStub.h"
 #import "FoodHero-Swift.h"
 
-@interface ConversationAppServiceIntegrationTests : XCTestCase
+@interface ConversationAppServiceIntegrationTests : XCTestCase <ISpeechRecognitionStateSource>
 
 @end
 
 @implementation ConversationAppServiceIntegrationTests {
     ConversationAppService *_service;
+    NSString *_currState;
 }
 
 - (void)setUp {
@@ -33,9 +34,13 @@
     id <ApplicationAssembly> factory = (id <ApplicationAssembly>) [TyphoonComponents factory];
     _service = [factory conversationAppService];
 
+    // Setup LocationManager
     id locationManagerProxy = [factory locationManagerProxy];
     CLLocation *london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     [locationManagerProxy injectLocations:@[london]];
+
+    // Setup SpeechRecognition
+    _service.stateSource = self;
 }
 
 - (ConversationBubble *)getStatementWithIndex:(NSUInteger)index {
@@ -45,7 +50,7 @@
 
 - (ConversationBubble *)waitStatementWithIndex:(NSUInteger)index {
     [_service.statementIndexes subscribeNext:^(id next) {
-        if ([_service getStatementCount]  > index) {
+        if ([_service getStatementCount] > index) {
             [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
         }
     }];
@@ -55,7 +60,8 @@
 }
 
 - (void)test_addUserCuisinePreference_ShouldAddUCuisinePreferenceToConversation {
-    [_service addUserText:@"I whished to eat Korean food" forState: [FHStates askForFoodPreference]];
+    _currState = [FHStates askForFoodPreference];
+    [_service addUserText:@"I whished to eat Korean food"];
 
     ConversationBubble *bubble = [self waitStatementWithIndex:1];
 
@@ -63,5 +69,10 @@
     assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=Korean")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
+
+- (NSString *)getState {
+    return _currState;
+}
+
 
 @end

@@ -5,11 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa.h>
+#import "ISpeechRecognitionStateSource.h"
 
 @protocol ISpeechRecognitionService <NSObject>
-- (void)interpretString:(NSString *)string state:(NSString*)state;
 
-- (void)recordAndInterpretUserVoice:(NSString *)state;
+@property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
+
+- (void)interpretString:(NSString *)string;
 
 - (enum AVAudioSessionRecordPermission)recordPermission;
 

@@ -27,6 +27,7 @@
                                   [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero-Test"
                                   [method injectParameterWith:[self audioSession]];
                               }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];
 }
 

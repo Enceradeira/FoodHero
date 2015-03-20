@@ -4,11 +4,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Wit.h>
 #import "ISpeechRecognitionService.h"
 #import "ISchedulerFactory.h"
 #import "IAudioSession.h"
+#import "ISpeechRecognitionStateSource.h"
 
-@interface WitSpeechRecognitionService : NSObject <ISpeechRecognitionService>
+@interface WitSpeechRecognitionService : NSObject <ISpeechRecognitionService, WitDelegate>
+
+@property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession;
 

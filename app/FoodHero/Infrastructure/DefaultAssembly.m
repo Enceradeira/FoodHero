@@ -19,6 +19,7 @@
 #import "WitSpeechRecognitionService.h"
 #import "AudioSession.h"
 #import "FoodHero-Swift.h"
+#import "TyphoonDefinition+InstanceBuilder.h"
 
 @implementation DefaultAssembly
 - (id)navigationViewController {
@@ -36,6 +37,7 @@
                     [method injectParameterWith:[self conversationAppService]];
 
                 }];
+                definition.scope = TyphoonScopeSingleton; // Because it holds state
             }
     ];
 }
@@ -48,6 +50,7 @@
                                   // FoodHero-Test [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero"
                                   [method injectParameterWith:[self audioSession]];
                               }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];
 }
 
