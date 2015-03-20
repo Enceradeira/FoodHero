@@ -23,6 +23,7 @@
     WitSpeechRecognitionService *_service;
     AudioSessionStub *_audioSessionStub;
     NSString *_state;
+    BOOL _isProcessingUserInput;
 }
 
 - (void)setUp {
@@ -41,6 +42,7 @@
     RACSignal *result = _service.output;
     _state = @"Test";
     [_service interpretString:text];
+    assertThatBool(_isProcessingUserInput, isTrue());
 
     // Assert
     [result subscribeNext:^(SpeechInterpretation *i) {
@@ -50,6 +52,7 @@
 
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
 
+    assertThatBool(_isProcessingUserInput, isFalse());
     assertThatInt(interpretations.count, is(equalTo(@1)));
     SpeechInterpretation *interpretation = interpretations[0];
     assertThatDouble(interpretation.confidence, is(greaterThan(@0)));
@@ -62,6 +65,14 @@
 
 - (NSString *)getState {
     return _state;
+}
+
+- (void)didStopProcessingUserInput {
+       _isProcessingUserInput = NO;
+}
+
+- (void)didStartProcessingUserInput {
+    _isProcessingUserInput = YES;
 }
 
 

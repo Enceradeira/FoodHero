@@ -36,6 +36,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     NSMutableArray *_bubbleCells;
     BOOL _isLoading;
     NSString *_currentState;
+    BOOL _isProcessingUserInput;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -86,7 +87,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         }
 
         [self configureUserInputFor:[self getStatementIndex:index]];
-        [_appService recordPermission];
     }];
 
     // Input View
@@ -101,6 +101,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     // Mic View
     _micButton = [[WITMicButton alloc] initWithFrame:_micView.frame];
     _micButton.accessibilityLabel = @"microphone";
+    _micButton.enabled = _appService.recordPermission != AVAudioSessionRecordPermissionDenied ;
     [_micButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_micView addSubview:self.micButton];
 
@@ -207,18 +208,13 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         NSString *nextState = foodHeroBubble.state;
 
         if (nextState) {
-            NSLog(@"action %@ request", nextState);
+            NSLog(@"state changed: %@", nextState);
             // sometimes FH produces more than one bubble in sequence but just one holds and state which should not be overwritten
             // this is the case e.g
             _currentState = nextState;
         }
     }
-
-    [_currentViewState update];
-}
-
-- (void)inputActionDidFinish {
-    NSLog(@"action %@ cleared", _currentState.class);
+    _isProcessingUserInput = NO; // when we get here a new bubble is rendered, therefore the UserInput is finished being processed
     [_currentViewState update];
 }
 
@@ -234,7 +230,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     }
     else {
         [_appService addUserText:_userTextField.text];
-        [self inputActionDidFinish];
     }
     _userTextField.text = @"";
 }
@@ -282,6 +277,15 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (BOOL)isUserInputEnabled {
-    return _currentState != nil;
+    return !_isProcessingUserInput;
 }
+
+- (void)didStopProcessingUserInput {
+}
+
+- (void)didStartProcessingUserInput {
+    _isProcessingUserInput = YES;
+    [_currentViewState update];
+}
+
 @end

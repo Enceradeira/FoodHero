@@ -7,4 +7,8 @@
 
 @protocol ISpeechRecognitionStateSource <NSObject>
 - (NSString *)getState;
+
+- (void)didStopProcessingUserInput;
+
+- (void)didStartProcessingUserInput;
 @end

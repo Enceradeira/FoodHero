@@ -74,5 +74,13 @@
     return _currState;
 }
 
+- (void)didStopProcessingUserInput {
+
+}
+
+- (void)didStartProcessingUserInput {
+
+}
+
 
 @end

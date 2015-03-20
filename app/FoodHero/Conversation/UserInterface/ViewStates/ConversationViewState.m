@@ -38,6 +38,7 @@
             self.isUserInputListButtonEnabled
             && _controller.isUserInputEnabled
             && _controller.recordPermission  != AVAudioSessionRecordPermissionDenied;
+
 }
 
 - (void)activate {

@@ -67,6 +67,7 @@
     else {
         [_output sendNext:[self userIntentUnclearError]];
     }
+    [self.stateSource didStopProcessingUserInput];
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
@@ -78,7 +79,7 @@
 }
 
 - (void)witDidStartRecording {
-    [self witSetContext];
+    [self startProcessingUserInput];
     NSLog(@"Recording startet");
 }
 
@@ -87,11 +88,12 @@
 }
 
 - (void)interpretString:(NSString *)string {
-    [self witSetContext];
+    [self startProcessingUserInput];
     [_wit interpretString:string customData:nil];
 }
 
-- (void)witSetContext {
+- (void)startProcessingUserInput {
+    [self.stateSource didStartProcessingUserInput];
     NSString* state = [self.stateSource getState];
     [_wit setContext:@{@"state" : state}];
 }
