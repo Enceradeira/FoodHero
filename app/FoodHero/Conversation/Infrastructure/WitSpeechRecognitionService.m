@@ -116,6 +116,9 @@
 
 - (Wit *)wit {
     if (!_configuredWit) {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+
         _configuredWit = [Wit sharedInstance];
         _configuredWit.accessToken = _accessToken;
         _configuredWit.detectSpeechStop = WITVadConfigDetectSpeechStop;

@@ -13,7 +13,7 @@ PODS:
     - Typhoon/no-arc (= 2.1.0)
   - Typhoon/no-arc (2.1.0)
   - UIImageViewAligned (0.0.1)
-  - Wit (3.0.0)
+  - Wit (4.0.0)
   - XCAsyncTestCase (1.0.0)
 
 DEPENDENCIES:
@@ -23,7 +23,7 @@ DEPENDENCIES:
   - SORelativeDateTransformer
   - Typhoon (= 2.1.0)
   - UIImageViewAligned (from `./../UIImageViewAligned`)
-  - Wit (~> 3.0.0)
+  - Wit (~> 4.0.0)
   - XCAsyncTestCase
 
 EXTERNAL SOURCES:
@@ -35,9 +35,9 @@ SPEC CHECKSUMS:
   OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
   SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
-  Typhoon: 5af23b4d01c3aee0f3ba72464a1d92e7f93b3552
+  Typhoon: bb5f4488bd323ef3f57c1046c402b449c600633a
   UIImageViewAligned: efc1b8b5750dea68b7ee67236f4c64f93e65b674
-  Wit: 17ff3762a47adb400d84d43e279070cb55504b90
+  Wit: 0142bccd57796f389a777aac6970933a52492514
   XCAsyncTestCase: 4b6a2a136d3cff7fe0b6135eb82e98446445c0e2
 
 COCOAPODS: 0.36.0.beta.1

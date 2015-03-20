@@ -1,5 +1,5 @@
 //
-//  Created by Willy Blandin on 12. 8. 16..
+//  Created by Willy Blandin on 12. 8. 16.
 //  Copyright (c) 2012년 Willy Blandin. All rights reserved.
 //
 
@@ -170,6 +170,8 @@
 - (void)initialize {
     state = [WITState sharedInstance];
     self.detectSpeechStop = WITVadConfigDetectSpeechStop;
+    self.vadTimeout = 7000;
+    self.vadSensitivity = 0;
     self.wcs = [[WITContextSetter alloc] init];
 }
 - (id)init {
@@ -215,7 +217,9 @@
 }
 
 -(void)recordingSessionRecorderGotChunk:(NSData *)chunk {
-
+    if ([self.delegate respondsToSelector:@selector(witDidGetAudio:)]) {
+        [self.delegate witDidGetAudio:chunk];
+    }
 }
 
 -(void)recordingSessionRecorderPowerChanged:(float)power {

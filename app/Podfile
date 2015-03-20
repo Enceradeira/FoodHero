@@ -9,7 +9,7 @@ target :FoodHero do
     pod "ReactiveCocoa"
     pod "UIImageViewAligned", :path => './../UIImageViewAligned'
     pod "SORelativeDateTransformer"
-    pod 'Wit', '~> 3.0.0'
+    pod 'Wit', '~> 4.0.0'
 end
 
 target :FoodHeroTests do

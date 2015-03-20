@@ -24,8 +24,9 @@ typedef struct RecorderState RecorderState;
 @interface WITRecorder ()
 @property (nonatomic, assign) RecorderState *state;
 @property (atomic) WITVad *vad;
-
+@property float bufferLength;
 @end
+
 
 @implementation WITRecorder {
     CADisplayLink* displayLink;
@@ -43,7 +44,7 @@ static void audioQueueInputCallback(void* data,
     void * const bytes = buffer->mAudioData;
     UInt32 size        = buffer->mAudioDataByteSize;
     int err;
-
+    
     if (WIT_DEBUG) {
         debug(@"Audio chunk %u/%u", (unsigned int)size, (unsigned int)buffer->mAudioDataBytesCapacity);
     }
@@ -76,10 +77,15 @@ static void MyPropertyListener(void *userData, AudioQueueRef queue, AudioQueuePr
  * The thread used as of today is the main thread.
  */
 - (BOOL) start {
-    int err;
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    NSString *category = [[AVAudioSession sharedInstance] category];
+    if (!([category isEqualToString:@"AVAudioSessionCategoryRecord"] ||
+          [category isEqualToString:@"AVAudioSessionCategoryPlayAndRecord"])) {
+        [NSException raise:@"Invalid AVAudioSession state" format:@"You should call setCategory and setActive, please see the documentation."];
+    }
+    
     self.state->recording = YES;
 
+    int err;
     for (int i = 0; i < kNumberRecordBuffers; i++) {
         err = AudioQueueEnqueueBuffer(self.state->queue, self.state->buffers[i], 0, NULL);
         if (err) {
@@ -115,7 +121,7 @@ static void MyPropertyListener(void *userData, AudioQueueRef queue, AudioQueuePr
     if (err) {
         NSLog(@"[Wit] ERROR: could not pause audio queue (%d)", err);
     }
-    [[AVAudioSession sharedInstance] setActive:NO error:nil];
+
     self.state->recording = NO;
 
     [displayLink setPaused:YES];
@@ -167,16 +173,9 @@ static void MyPropertyListener(void *userData, AudioQueueRef queue, AudioQueuePr
     [displayLink setPaused:YES];
     [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 
-    // create audio session
+    // audio session
     AVAudioSession* session = [AVAudioSession sharedInstance];
-    if ([Wit sharedInstance].avAudioSessionCategoryOption != 0) {
-        [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions: [Wit sharedInstance].avAudioSessionCategoryOption error:nil];
-    } else {
-        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    }
-    
-    [session setActive:YES error: nil];
-    if([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)])
+    if ([session respondsToSelector:@selector(requestRecordPermission:)])
     {
         [session requestRecordPermission:^(BOOL granted) {
             debug(@"Permission granted: %d", granted);
@@ -191,8 +190,8 @@ static void MyPropertyListener(void *userData, AudioQueueRef queue, AudioQueuePr
     fmt.mFormatID         = kAudioFormatLinearPCM;
     fmt.mFormatFlags      = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
     fmt.mChannelsPerFrame = 1;
-    fmt.mSampleRate       = 16000.0;
-    fmt.mBitsPerChannel	  = 16;
+    fmt.mSampleRate       = kWitAudioSampleRate;
+    fmt.mBitsPerChannel	  = kWitAudioBitDepth;
     fmt.mBytesPerPacket	  = fmt.mBytesPerFrame = (fmt.mBitsPerChannel / 8) * fmt.mChannelsPerFrame;
     fmt.mFramesPerPacket  = 1;
     AudioQueueNewInput(&fmt,
@@ -202,8 +201,9 @@ static void MyPropertyListener(void *userData, AudioQueueRef queue, AudioQueuePr
                        NULL,   // run loop mode
                        0,      // flags
                        &state->queue);
-
-    int bytes = (int)ceil(0.5 /* seconds */ * fmt.mSampleRate) * fmt.mBytesPerFrame;
+    
+    self.bufferLength = 0.05; /* seconds */
+    int bytes = (int)ceil(self.bufferLength * fmt.mSampleRate) * fmt.mBytesPerFrame;
     debug(@"AudioQueue buffer size: %d bytes", bytes);
 
     for (int i = 0; i < kNumberRecordBuffers; i++) {
