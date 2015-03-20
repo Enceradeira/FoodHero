@@ -183,6 +183,11 @@ Then(/^FoodHero says good bye$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero says he can't understand me$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:DidNotUnderstandAndAsksForRepetition')
+  expect(bubble).not_to be_nil
+end
+
 Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('FH:Suggestion')
   expect(parameter).not_to be_nil
@@ -287,6 +292,11 @@ end
 
 When(/^I want FoodHero to start over again$/) do
   text_field.send_keys('start again')
+  touch_send
+end
+
+When(/^I say nonsense$/) do
+  text_field.send_keys('¨')
   touch_send
 end
 
@@ -417,4 +427,3 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
-

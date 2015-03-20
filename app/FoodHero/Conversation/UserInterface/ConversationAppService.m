@@ -58,49 +58,50 @@ static UIImage *EmptyImage;
                     }
                     else {
                         SpeechInterpretation *interpretation = output;
-                        if ([interpretation.intent isEqualToString:@"CuisinePreference"] && interpretation.entities.count == 1) {
+                        if ([interpretation.intent isEqualToString:@"CuisinePreference"]) {
+                            NSString *cuisine = interpretation.entities.count == 1 ? interpretation.entities[0] : @"";
                             TalkerUtterance *utterance = [UserUtterances cuisinePreference:interpretation.entities[0] text:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_Like"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForLike:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_Dislike"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForDislike:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_tooCheap"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForTooCheap:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_tooExpensive"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForTooExpensive:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_tooFarAway"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForTooFarAway:[self getLastSuggestedRestaurant] currentUserLocation:[_locationService lastKnownLocation] text:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"GoodBye"]) {
                             TalkerUtterance *utterance = [UserUtterances goodBye:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"WantsToSearchForAnotherRestaurant"]) {
                             TalkerUtterance *utterance = [UserUtterances wantsToSearchForAnotherRestaurant:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"TryAgainNow"]) {
                             TalkerUtterance *utterance = [UserUtterances tryAgainNow:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"WantsToAbort"]) {
                             TalkerUtterance *utterance = [UserUtterances wantsToAbort:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"WantsToStartAgain"]) {
                             TalkerUtterance *utterance = [UserUtterances wantsToStartAgain:interpretation.text];
-                            return (id)utterance;
+                            return (id) utterance;
                         }
                         assert(false);
                     }

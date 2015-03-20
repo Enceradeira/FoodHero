@@ -100,3 +100,14 @@ Feature: User interacts with app through conversation
     When FoodHero can access a network
     And I say try again
     Then FoodHero asks again what I wished to eat
+
+  Scenario: FoodHero can't understand user
+    When I say nonsense
+    And I allow access to the location-services
+    Then FoodHero says he can't understand me
+
+    When I say nonsense
+    Then FoodHero says he can't understand me
+
+    When I wish to eat "Italian" food by typing it
+    And FoodHero suggests something else for "Italian" food

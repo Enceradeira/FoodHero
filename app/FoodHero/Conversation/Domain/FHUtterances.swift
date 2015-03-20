@@ -231,4 +231,9 @@ public class FHUtterances {
         return def.words(["It's working again. I'll repeat what I said:"]
                 , withCustomData: FoodHeroParameters(semanticId: "FH:BeforeRepeatingUtteranceAfterError", state: nil))
     }
+
+    class func didNotUnderstandAndAsksForRepetition(def: StringDefinition, state: String) -> StringDefinition {
+        return def.words(["I can't understand you. Please say or type it again!"]
+                , withCustomData: FoodHeroParameters(semanticId: "FH:DidNotUnderstandAndAsksForRepetition", state: state))
+    }
 }

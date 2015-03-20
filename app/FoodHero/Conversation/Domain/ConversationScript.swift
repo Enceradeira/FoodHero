@@ -59,6 +59,15 @@ public class ConversationScript: Script {
             }, catch: {
                 self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
             })
+        } else if error is UserIntentUnclearError {
+            errorScript.say(oneOf: {
+                let currentState = (error as UserIntentUnclearError).state
+                assert(countElements(currentState) > 0, "UserIntentUnclearError.state was nil or empty")
+                return FHUtterances.didNotUnderstandAndAsksForRepetition($0, state: currentState)
+            })
+            return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
+                self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
+            })
         } else {
             assert(false, "unexpected error of type \(reflect(error).summary)")
         }

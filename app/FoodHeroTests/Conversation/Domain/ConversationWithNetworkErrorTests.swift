@@ -6,7 +6,7 @@
 import Foundation
 import FoodHero
 
-class ConversationHasNoInternetConnectionTests: ConversationTestsBase {
+class ConversationWithNetworkErrorTests: ConversationTestsBase {
     let _restaurant = RestaurantBuilder().build()
     let _norwich = CLLocation(latitude: 52.631944, longitude: 1.2988)
 

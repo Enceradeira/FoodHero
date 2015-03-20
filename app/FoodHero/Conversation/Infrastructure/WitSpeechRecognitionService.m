@@ -3,22 +3,23 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <Wit.h>
+#import "WITRecordingSession.h"
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
 #import "FoodHero-Swift.h"
 
 @interface WitDelegate : NSObject <WitDelegate>
-+ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error;
++ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error state:(NSString *)state;
 
-- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError;
+- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError state:(NSString *)state;
 @end
 
 @implementation WitDelegate {
 
     id <RACSubscriber> _subscriber;
     BOOL _simulateNetworkError;
+    NSString *_state;
 }
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
@@ -27,7 +28,8 @@
             [_subscriber sendNext:[NetworkError new]];
         }
         else {
-            assert(false); // TODO error-handling
+            NSLog([NSString stringWithFormat:@"WitDelegate detected unexptected error '%@'. It will handle it as UserIntentUnclearError", [error domain]]);
+            [_subscriber sendNext:[self userIntentUnclearError]];
         }
     }
     else if (outcomes.count > 0) {
@@ -41,11 +43,20 @@
         }] linq_select:^(NSDictionary *dic) {
             return dic[@"value"];
         }];
-        [_subscriber sendNext:interpretation];
+        if (interpretation.confidence < 0.1) {
+            [_subscriber sendNext:[self userIntentUnclearError]];
+        }
+        else {
+            [_subscriber sendNext:interpretation];
+        }
     }
     else {
-        assert(false); // TODO error-handling
+        [_subscriber sendNext:[self userIntentUnclearError]];
     }
+}
+
+- (UserIntentUnclearError *)userIntentUnclearError {
+    return [[UserIntentUnclearError alloc] initWithState:_state];
 }
 
 - (void)witActivityDetectorStarted {
@@ -61,17 +72,18 @@
 }
 
 
-- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError {
+- (id)init:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)simulateNetworkError state:(NSString *)state {
     self = [super init];
     if (self) {
         _subscriber = subscriber;
         _simulateNetworkError = simulateNetworkError;
+        _state = state;
     }
     return self;
 }
 
-+ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error {
-    return [[WitDelegate alloc] init:subscriber simulateNetworkError:error];
++ (id <WitDelegate>)create:(id <RACSubscriber>)subscriber simulateNetworkError:(BOOL)error state:(NSString *)state {
+    return [[WitDelegate alloc] init:subscriber simulateNetworkError:error state:state];
 }
 
 @end
@@ -99,7 +111,7 @@
 
 - (void)setContext:(NSString *)state subscriber:(id <RACSubscriber>)subscriber {
     [self.wit setContext:@{@"state" : state}];
-    self.wit.delegate = [WitDelegate create:subscriber simulateNetworkError:_simulateNetworkError];
+    self.wit.delegate = [WitDelegate create:subscriber simulateNetworkError:_simulateNetworkError state:state];
 }
 
 - (Wit *)wit {
