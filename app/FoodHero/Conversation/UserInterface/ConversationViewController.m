@@ -219,7 +219,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)inputActionDidFinish {
     NSLog(@"action %@ cleared", _currentState.class);
-    _currentState = nil;
     [_currentViewState update];
 }
 
