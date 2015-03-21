@@ -23,21 +23,45 @@
 
     // text input
     UITextField *userTextField = self.controller.userTextField;
-    userTextField.enabled = self.isTextInputEnabled && _controller.isUserInputEnabled;
+    userTextField.enabled = self.isTextInputEnabled && _controller.isNotProcessingUserInput;
     userTextField.backgroundColor = userTextField.enabled ? nil : [FoodHeroColors lightestBackgroundGrey];
 
     // send-button
     NSString *text = userTextField.text;
     _controller.userSendButton.enabled =
             text.length > 0
-                    && _controller.isUserInputEnabled;
+                    && _controller.isNotProcessingUserInput;
 
     // list-button
     WITMicButton *micButton = self.controller.micButton;
     micButton.enabled =
             self.isUserInputListButtonEnabled
-                    && _controller.isUserInputEnabled
+                    && (_controller.isNotProcessingUserInput || !_controller.isNotRecordingUserInput)
                     && _controller.recordPermission != AVAudioSessionRecordPermissionDenied;
+
+    [self updateMicButtonColor:micButton.enabled];
+}
+
+- (void)updateMicButtonColor:(BOOL)inputAccepted {
+    UIColor *color;
+    NSNumber *lineWidth = _controller.isNotRecordingUserInput ? @(1.1) : @(2.8);
+    if (_controller.recordPermission == AVAudioSessionRecordPermissionDenied) {
+        color = [FoodHeroColors lightestDrawningGrey];
+    }
+    else if (inputAccepted) {
+        color = [FoodHeroColors actionColor];
+    }
+    else {
+        color = [FoodHeroColors lightestDrawningGrey];
+    }
+    WITMicButton *micButton = self.controller.micButton;
+    micButton.innerCircleView.strokeColor = color;
+    micButton.innerCircleView.lineWidth = lineWidth;
+
+    micButton.outerCircleView.strokeColor = color;
+    micButton.outerCircleView.lineWidth = lineWidth;
+
+    micButton.volumeLayer.backgroundColor = color.CGColor;
 }
 
 - (void)activate {

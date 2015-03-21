@@ -42,5 +42,7 @@
 
 - (NSInteger)optimalUserInputListHeight;
 
-- (BOOL)isUserInputEnabled;
+- (BOOL)isNotProcessingUserInput;
+
+- (BOOL)isNotRecordingUserInput;
 @end

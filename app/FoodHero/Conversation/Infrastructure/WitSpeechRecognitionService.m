@@ -80,20 +80,23 @@
 
 - (void)witDidStartRecording {
     [self startProcessingUserInput];
+    [self.stateSource didStartProcessingUserInput];
+    [self.stateSource didStartRecordingUserInput];
     NSLog(@"Recording startet");
 }
 
 - (void)witDidStopRecording {
+    [self.stateSource didStopRecordingUserInput];
     NSLog(@"Recording stopped");
 }
 
 - (void)interpretString:(NSString *)string {
     [self startProcessingUserInput];
+    [self.stateSource didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
 }
 
 - (void)startProcessingUserInput {
-    [self.stateSource didStartProcessingUserInput];
     NSString* state = [self.stateSource getState];
     [_wit setContext:@{@"state" : state}];
 }

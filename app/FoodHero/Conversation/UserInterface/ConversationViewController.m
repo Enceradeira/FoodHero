@@ -37,6 +37,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     BOOL _isLoading;
     NSString *_currentState;
     BOOL _isProcessingUserInput;
+    BOOL _isRecordingUserInput;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -106,34 +107,12 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_micView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0.0-[_micButton]-0.0-|" options:0 metrics:@{} views:views]];
     [_micView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0.0-[_micButton]-0.0-|" options:0 metrics:@{} views:views]];
 
-    [self updateMicButtonColorForAvailability:YES];
     [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
     _isLoading = NO;
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
     return [_appService recordPermission];
-}
-
-- (void)updateMicButtonColorForAvailability:(BOOL) available{
-    UIColor *color;
-    NSNumber *lineWidth = @(1.1);
-    if( self.recordPermission == AVAudioSessionRecordPermissionDenied){
-        color = [FoodHeroColors lightestBackgroundGrey];
-    }
-    else if(available){
-        color = [FoodHeroColors actionColor];
-    }
-    else{
-        color = [FoodHeroColors darkGrey];
-    }
-    _micButton.innerCircleView.strokeColor = color;
-    _micButton.innerCircleView.lineWidth = lineWidth;
-
-    _micButton.outerCircleView.strokeColor = color;
-    _micButton.outerCircleView.lineWidth = lineWidth;
-
-    _micButton.volumeLayer.backgroundColor = color.CGColor;
 }
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
@@ -295,18 +274,30 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     return NO;
 }
 
-- (BOOL)isUserInputEnabled {
+- (BOOL)isNotProcessingUserInput {
     return !_isProcessingUserInput;
 }
 
 - (void)didStopProcessingUserInput {
-    [self updateMicButtonColorForAvailability:YES];
+    [_currentViewState update];
+}
+
+- (void)didStopRecordingUserInput {
+    _isRecordingUserInput = NO;
+    [_currentViewState update];
 }
 
 - (void)didStartProcessingUserInput {
     _isProcessingUserInput = YES;
-    [self updateMicButtonColorForAvailability:NO];
     [_currentViewState update];
 }
 
+- (void)didStartRecordingUserInput {
+    _isRecordingUserInput = YES;
+    [_currentViewState update];
+}
+
+- (BOOL)isNotRecordingUserInput {
+    return !_isRecordingUserInput;
+}
 @end

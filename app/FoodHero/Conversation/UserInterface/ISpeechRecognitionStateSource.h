@@ -8,7 +8,15 @@
 @protocol ISpeechRecognitionStateSource <NSObject>
 - (NSString *)getState;
 
+// fired when voice or text processing finished
 - (void)didStopProcessingUserInput;
 
+// fired when voice or text processing started
 - (void)didStartProcessingUserInput;
+
+// fired when recording started
+- (void)didStopRecordingUserInput;
+
+// fired when recording stopped
+- (void)didStartRecordingUserInput;
 @end
