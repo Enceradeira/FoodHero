@@ -39,7 +39,7 @@
 }
 
 - (NSInteger)userInputHeaderHeight {
-    return 40;
+    return 60;
 }
 
 - (NSInteger)userInputListHeight {

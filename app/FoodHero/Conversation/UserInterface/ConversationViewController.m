@@ -117,6 +117,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)updateMicButtonColorForAvailability:(BOOL) available{
     UIColor *color;
+    NSNumber *lineWidth = @(1.1);
     if( self.recordPermission == AVAudioSessionRecordPermissionDenied){
         color = [FoodHeroColors lightestBackgroundGrey];
     }
@@ -127,7 +128,11 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         color = [FoodHeroColors darkGrey];
     }
     _micButton.innerCircleView.strokeColor = color;
+    _micButton.innerCircleView.lineWidth = lineWidth;
+
     _micButton.outerCircleView.strokeColor = color;
+    _micButton.outerCircleView.lineWidth = lineWidth;
+
     _micButton.volumeLayer.backgroundColor = color.CGColor;
 }
 
