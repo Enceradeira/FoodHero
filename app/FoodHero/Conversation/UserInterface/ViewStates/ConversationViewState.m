@@ -36,9 +36,8 @@
     WITMicButton *micButton = self.controller.micButton;
     micButton.enabled =
             self.isUserInputListButtonEnabled
-            && _controller.isUserInputEnabled
-            && _controller.recordPermission  != AVAudioSessionRecordPermissionDenied;
-
+                    && _controller.isUserInputEnabled
+                    && _controller.recordPermission != AVAudioSessionRecordPermissionDenied;
 }
 
 - (void)activate {

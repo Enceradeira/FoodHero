@@ -96,12 +96,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     _userInputHeaderView.layer.borderColor = [[FoodHeroColors darkerSepeartorGrey] CGColor];
     _userInputHeaderView.layer.borderWidth = 0.5;
 
-    [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
-
     // Mic View
     _micButton = [[WITMicButton alloc] initWithFrame:_micView.frame];
     _micButton.accessibilityLabel = @"microphone";
-    _micButton.enabled = _appService.recordPermission != AVAudioSessionRecordPermissionDenied ;
     [_micButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_micView addSubview:self.micButton];
 
@@ -109,12 +106,29 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [_micView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0.0-[_micButton]-0.0-|" options:0 metrics:@{} views:views]];
     [_micView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0.0-[_micButton]-0.0-|" options:0 metrics:@{} views:views]];
 
-
+    [self updateMicButtonColorForAvailability:YES];
+    [self setDefaultViewState:UIViewAnimationCurveLinear animationDuration:0];
     _isLoading = NO;
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
     return [_appService recordPermission];
+}
+
+- (void)updateMicButtonColorForAvailability:(BOOL) available{
+    UIColor *color;
+    if( self.recordPermission == AVAudioSessionRecordPermissionDenied){
+        color = [FoodHeroColors lightestBackgroundGrey];
+    }
+    else if(available){
+        color = [FoodHeroColors actionColor];
+    }
+    else{
+        color = [FoodHeroColors darkGrey];
+    }
+    _micButton.innerCircleView.strokeColor = color;
+    _micButton.outerCircleView.strokeColor = color;
+    _micButton.volumeLayer.backgroundColor = color.CGColor;
 }
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration {
@@ -281,10 +295,12 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)didStopProcessingUserInput {
+    [self updateMicButtonColorForAvailability:YES];
 }
 
 - (void)didStartProcessingUserInput {
     _isProcessingUserInput = YES;
+    [self updateMicButtonColorForAvailability:NO];
     [_currentViewState update];
 }
 
