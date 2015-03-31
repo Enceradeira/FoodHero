@@ -34,7 +34,7 @@ class ConversationWithNetworkErrorTests: ConversationTestsBase {
         sendInput(UserUtterances.tryAgainNow("Try again now"))
 
         let statementCount = conversation.getStatementCount()
-        sendInput(UserUtterances.suggestionFeedbackForDislike(_restaurant, currentUserLocation: _norwich, text: "Rubbish"))
+        sendInput(UserUtterances.suggestionFeedbackForDislike(_restaurant, text: "Rubbish"))
 
         XCTAssertGreaterThan(conversation.getStatementCount(), statementCount, "No new suggestion was added")
         assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())

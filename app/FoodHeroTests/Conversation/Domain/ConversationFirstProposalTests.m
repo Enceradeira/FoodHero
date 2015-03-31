@@ -24,7 +24,7 @@
 - (void)test_USuggestionFeedback_ShouldAddUserStatement {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_norwich text:@"It looks to cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks to cheap"]];
 
     [self assertSecondLastStatementIs:@"U:SuggestionFeedback=tooCheap" state:nil];
 }

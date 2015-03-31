@@ -30,28 +30,28 @@
     [self configureRestaurantSearchForLocation:_london configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindResults:@[_restaurant, _restaurantFarAway, _cheapRestaurant, _expensiveRestaurant]];
     }];
-    
+
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:1];
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
-    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:_expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:_expensiveRestaurant text:@"too posh"]];
 
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" state:[FHStates  askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
-    [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:_restaurant currentUserLocation:_london text:@"too far"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:_restaurant text:@"too far"]];
 
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:[FHStates  askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:_cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:_cheapRestaurant text:@"It looks too cheap"]];
 
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" state:[FHStates  askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" state:[FHStates askForSuggestionFeedback]];
 }
 
 

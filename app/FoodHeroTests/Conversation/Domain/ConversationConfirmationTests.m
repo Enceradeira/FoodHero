@@ -27,7 +27,7 @@
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     Restaurant *expensiveRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:4] build];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:expensiveRestaurant currentUserLocation:_london text:@"too posh"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:expensiveRestaurant text:@"too posh"]];
 
     [super assertLastStatementIs:@"FH:Confirmation" state:[FHStates  askForSuggestionFeedback]];
 }

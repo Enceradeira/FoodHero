@@ -7,22 +7,14 @@ import Foundation
 
 public class USuggestionFeedbackParameters: ConversationParameters {
     private let _restaurant: Restaurant
-    private let _currentUserLocation: CLLocation
-    public init(semanticId: String, restaurant: Restaurant, currentUserLocation location: CLLocation) {
+    public init(semanticId: String, restaurant: Restaurant) {
         _restaurant = restaurant;
-        _currentUserLocation = location
         super.init(semanticId: semanticId)
     }
 
     public var restaurant: Restaurant {
         get {
             return _restaurant;
-        }
-    }
-
-    public var currentUserLocation: CLLocation {
-        get {
-            return _currentUserLocation;
         }
     }
 }

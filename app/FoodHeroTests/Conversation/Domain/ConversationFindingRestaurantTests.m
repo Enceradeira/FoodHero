@@ -79,7 +79,7 @@
         [stub injectFindNothing];
     }];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
     [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
@@ -91,7 +91,7 @@
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:[FHStates afterCantAccessLocationService]];
 
     [self sendInput:[UserUtterances tryAgainNow:@"I fixed it"]];
@@ -110,10 +110,10 @@
     [self sendInput:[UserUtterances tryAgainNow:@"Again please!"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant currentUserLocation:_london text:@"It looks too cheap"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 

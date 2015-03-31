@@ -11,8 +11,8 @@ public class UserUtterances: NSObject {
         return TalkerUtterance(utterance: text, customData: parameter)
     }
 
-    private class func createUtterance(semanticId: String, text: String, restaurant: Restaurant, currentUserLocation: CLLocation) -> TalkerUtterance {
-        let parameter = USuggestionFeedbackParameters(semanticId: semanticId, restaurant: restaurant, currentUserLocation: currentUserLocation)
+    private class func createUtterance(semanticId: String, text: String, restaurant: Restaurant) -> TalkerUtterance {
+        let parameter = USuggestionFeedbackParameters(semanticId: semanticId, restaurant: restaurant)
         return TalkerUtterance(utterance: text, customData: parameter)
     }
 
@@ -40,23 +40,23 @@ public class UserUtterances: NSObject {
         return createUtterance("U:CuisinePreference=\(parameter)", text: text, parameter: parameter);
     }
 
-    public class func suggestionFeedbackForTooFarAway(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
-        return createUtterance("U:SuggestionFeedback=tooFarAway", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
+    public class func suggestionFeedbackForTooFarAway(restaurant: Restaurant, text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=tooFarAway", text: text, restaurant: restaurant)
     }
 
-    public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
-        return createUtterance("U:SuggestionFeedback=tooExpensive", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
+    public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant,  text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=tooExpensive", text: text, restaurant: restaurant)
     }
 
-    public class func suggestionFeedbackForTooCheap(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
-        return createUtterance("U:SuggestionFeedback=tooCheap", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
+    public class func suggestionFeedbackForTooCheap(restaurant: Restaurant, text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=tooCheap", text: text, restaurant: restaurant)
     }
 
-    public class func suggestionFeedbackForDislike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
-        return createUtterance("U:SuggestionFeedback=Dislike", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
+    public class func suggestionFeedbackForDislike(restaurant: Restaurant, text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=Dislike", text: text, restaurant: restaurant)
     }
 
-    public class func suggestionFeedbackForLike(restaurant: Restaurant, currentUserLocation: CLLocation, text: String) -> TalkerUtterance {
-        return createUtterance("U:SuggestionFeedback=Like", text: text, restaurant: restaurant, currentUserLocation: currentUserLocation)
+    public class func suggestionFeedbackForLike(restaurant: Restaurant, text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=Like", text: text, restaurant: restaurant)
     }
 }
