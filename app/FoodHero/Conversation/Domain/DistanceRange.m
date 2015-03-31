@@ -8,6 +8,7 @@
 
 
 const double DISTANCE_DECREMENT_FACTOR = 0.66666;
+const double MAX_NORMAL_DISTANCE = 1;
 
 @implementation DistanceRange {
 
@@ -19,6 +20,9 @@ const double DISTANCE_DECREMENT_FACTOR = 0.66666;
         if (max < 0) {
             @throw [DesignByContractException createWithReason:@"maxDistance can't be less than 0"];
         }
+        if (max > 1) {
+            @throw [DesignByContractException createWithReason:@"maxDistance can't be greater than 1"];
+        }
         _max = max;
     }
     return self;
@@ -29,7 +33,4 @@ const double DISTANCE_DECREMENT_FACTOR = 0.66666;
     return [[DistanceRange alloc] initWithMax:distance * DISTANCE_DECREMENT_FACTOR];
 }
 
-+ (instancetype)distanceRangeWithoutRestriction {
-    return [[DistanceRange alloc] initWithMax:DBL_MAX];
-}
 @end

@@ -24,7 +24,8 @@
     return nil;
 }
 
-- (SearchProfile *)currentSearchPreference {
+
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location{
     return nil;
 }
 

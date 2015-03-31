@@ -110,8 +110,8 @@
 
 - (void)test_findBest_ShouldReturnRestaurantThatIsNearer_WhenPriceLevelMatchesWorseButOtherRestaurantItsTooFarAway {
     CLLocation *usersLocation = [[CLLocation alloc] initWithLatitude:52.633691 longitude:1.297240];
-    CLLocation *closeLocation = [[CLLocation alloc] initWithLatitude:usersLocation.coordinate.latitude + 0.001 longitude:usersLocation.coordinate.longitude + 0.001];
-    CLLocation *farAwayLocation = [[CLLocation alloc] initWithLatitude:closeLocation.coordinate.latitude + 1 longitude:closeLocation.coordinate.longitude + 1];
+    CLLocation *closeLocation = [[CLLocation alloc] initWithLatitude:usersLocation.coordinate.latitude + 1 longitude:usersLocation.coordinate.longitude + 1];
+    CLLocation *farAwayLocation = [[CLLocation alloc] initWithLatitude:closeLocation.coordinate.latitude + 2 longitude:closeLocation.coordinate.longitude + 2];
     [_locationManager injectLocations:@[usersLocation]];
 
     Restaurant *priceLevel2Restaurant = [[[[RestaurantBuilder alloc] withPriceLevel:2] withLocation:farAwayLocation] build];
@@ -120,7 +120,7 @@
 
     // user wishes cheaper than 3
     [self.conversation injectPriceRange:[[PriceRange priceRangeWithoutRestriction] setMaxLowerThan:3]];
-    [self.conversation injectMaxDistance:[DistanceRange distanceRangeNearerThan:7500]];
+    [self.conversation injectMaxDistance:[DistanceRange distanceRangeNearerThan:1]];
 
     // best restaurant is priceLevel 3 because the priceLevel 2-Restaurant is too far away
     Restaurant *bestRestaurant = [self findBest];

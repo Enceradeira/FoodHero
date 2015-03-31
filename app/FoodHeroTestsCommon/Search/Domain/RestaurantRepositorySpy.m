@@ -4,8 +4,6 @@
 //
 
 #import "RestaurantRepositorySpy.h"
-#import "RACSignal.h"
-#import "Restaurant.h"
 
 
 @implementation RestaurantRepositorySpy {
@@ -18,6 +16,10 @@
 
 - (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
     return nil;
+}
+
+- (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {
+    return 0;
 }
 
 @end

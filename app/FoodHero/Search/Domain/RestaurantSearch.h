@@ -15,5 +15,7 @@
 @interface RestaurantSearch : NSObject
 - (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory;
 
+- (double)getMaxDistanceOfPlaces;
+
 - (RACSignal *)findBest:(id <ConversationSource>)conversation;
 @end

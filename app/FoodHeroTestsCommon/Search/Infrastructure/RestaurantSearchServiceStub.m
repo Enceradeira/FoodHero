@@ -110,7 +110,7 @@
             }
         }
     }
-    @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"Restaurant with placeId='%@' not found", place.placeId]];
+    @throw [SearchException createWithReason:[NSString stringWithFormat:@"Restaurant with placeId='%@' not found", place.placeId]];
 }
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled {

@@ -247,4 +247,40 @@
     assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(@(YES)));
 }
 
+-(void)test_getMaxDistanceOfPlaces_ShouldReturnDistanceToMostDistantPlace{
+    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
+    CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
+    CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
+
+
+    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withLocation:farawayLocation] build];
+    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withLocation:closerLocation] build];
+    [_searchService injectFindResults:@[restaurant1, restaurant2]];
+
+    [[_repository getPlacesByCuisine:@"Asian"] waitUntilCompleted:nil]; // loads into cache
+    double maxDistance = [_repository getMaxDistanceOfPlaces:userLocation];
+
+    CLLocationDistance expectedMaxDistance = [userLocation distanceFromLocation:farawayLocation];
+    assertThatDouble(maxDistance, is(equalToDouble(expectedMaxDistance)));
+}
+
+-(void)test_getMaxDistanceOfPlaces_ShouldReturn0_WhenNoPlacesInCache{
+    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
+
+    double maxDistance = [_repository getMaxDistanceOfPlaces:userLocation];
+
+    assertThatDouble(maxDistance, is(equalToDouble(0)));
+}
+
+-(void)test_getMaxDistanceOfPlaces_ShouldReturn0_WhenNoPlacesFound{
+    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
+
+    [_searchService injectFindResults:@[]];
+    [[_repository getPlacesByCuisine:@"Asian"] waitUntilCompleted:nil]; // loads 0 places into cache
+    double maxDistance = [_repository getMaxDistanceOfPlaces:userLocation];
+
+    assertThatDouble(maxDistance, is(equalToDouble(0)));
+}
+
+
 @end

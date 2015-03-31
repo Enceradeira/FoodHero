@@ -156,4 +156,17 @@
 - (void)simulateSlowResponse:(BOOL)enabled {
     _responseDelay = enabled ? 5 : 0;
 }
+
+- (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {
+    if(_placesCached == nil){
+        return 0;
+    }
+    NSArray *distances = [_placesCached linq_select:^(Place *p) {
+        CLLocation *placeLocation = p.location;
+        return @([currLocation distanceFromLocation:placeLocation]);
+    }];
+    NSNumber* result = [[distances linq_sort] linq_lastOrNil];
+
+    return result == nil ? 0:[result doubleValue];
+}
 @end

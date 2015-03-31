@@ -24,7 +24,7 @@
     return self;
 }
 
-- (double)scorePlace:(Place *)place distance:(double)distance restaurant:(Restaurant *)restaurant {
+- (double)scorePlace:(Place *)place normalizedDistance:(double)distance restaurant:(Restaurant *)restaurant {
     if (distance < 0) {
         @throw [DesignByContractException createWithReason:@"distance can't be less than 0"];
     }
@@ -40,14 +40,17 @@
     double scoreForDiffMaxPrice = [self getScoreForPriceLevelDifference:nrIncrementsAboveMaxPrice];
 
     // score for over max-distance
-    double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
     double scoreForDiffMaxDistance = 1;
-    if (nrIncrementsAboveMaxDistance != 0) {
-        // double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
-        // double adjustment = -0.70946913;
-        // scoreForDiffMaxDistance = scaleFactor / (1 + nrIncrementsAboveMaxDistance );
-        double n = 1.7094691;
-        scoreForDiffMaxDistance = n / (n+nrIncrementsAboveMaxDistance);
+    if (_distanceRange != nil) {
+        // user has set a distance range
+        double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
+        if (nrIncrementsAboveMaxDistance != 0) {
+            // double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
+            // double adjustment = -0.70946913;
+            // scoreForDiffMaxDistance = scaleFactor / (1 + nrIncrementsAboveMaxDistance );
+            double n = 1.7094691;
+            scoreForDiffMaxDistance = n / (n + nrIncrementsAboveMaxDistance);
+        }
     }
     // score for cuisineRelevance
     double scoreForCuisineRelevance = place.cuisineRelevance;

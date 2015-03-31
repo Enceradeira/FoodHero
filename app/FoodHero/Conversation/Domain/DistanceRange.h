@@ -7,6 +7,7 @@
 
 
 extern const double DISTANCE_DECREMENT_FACTOR;
+extern const double MAX_NORMAL_DISTANCE;
 
 @interface DistanceRange : NSObject
 
@@ -14,5 +15,4 @@ extern const double DISTANCE_DECREMENT_FACTOR;
 
 + (instancetype)distanceRangeNearerThan:(double)distance;
 
-+ (instancetype)distanceRangeWithoutRestriction;
 @end

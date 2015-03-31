@@ -23,6 +23,8 @@
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
 
+- (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
+
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status;
 
 - (void)expectedStatementIs:(NSString *)text userAction:(Class)action;

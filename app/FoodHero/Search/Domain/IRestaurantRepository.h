@@ -12,4 +12,6 @@
 - (RACSignal *)getPlacesByCuisine:(NSString *)cuisine;
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place;
+
+- (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation;
 @end

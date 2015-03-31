@@ -39,6 +39,17 @@
     }] linq_firstOrNil];
 }
 
+- (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {
+      NSArray *distances = [_restaurants linq_select:^(Place *p) {
+        CLLocation *placeLocation = p.location;
+        return @([currLocation distanceFromLocation:placeLocation]);
+    }];
+    NSNumber* result = [[distances linq_sort] linq_lastOrNil];
+
+    return result == nil ? 0:[result doubleValue];
+}
+
+
 - (void)simulateException {
     if (_exception != nil) {
         @throw _exception;

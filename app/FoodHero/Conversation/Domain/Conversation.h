@@ -24,6 +24,8 @@
 
 - (RACSignal *)statementIndexes;
 
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location;
+
 - (NSArray *)suggestedRestaurants;
 
 - (ConversationParameters *)lastUserResponse;

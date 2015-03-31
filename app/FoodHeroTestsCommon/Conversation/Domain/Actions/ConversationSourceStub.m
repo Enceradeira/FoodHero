@@ -4,8 +4,6 @@
 //
 
 #import "ConversationSourceStub.h"
-#import "SearchProfile.h"
-#import "DistanceRange.h"
 
 
 @implementation ConversationSourceStub {
@@ -21,7 +19,7 @@
     if (self) {
         _negativeUserFeedback = [NSMutableArray new];
         _range = [PriceRange priceRangeWithoutRestriction];
-        _maxDistance = [DistanceRange distanceRangeWithoutRestriction];
+        _maxDistance = nil;
     }
 
     return self;
@@ -31,7 +29,7 @@
     return _negativeUserFeedback;
 }
 
-- (SearchProfile *)currentSearchPreference {
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location {
     return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
 }
 

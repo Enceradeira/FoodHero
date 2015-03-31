@@ -18,5 +18,5 @@
 
 - (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance;
 
-- (double)scorePlace:(Place *)place distance:(double)distance restaurant:(Restaurant *)restaurant;
+- (double)scorePlace:(Place *)place normalizedDistance:(double)distance restaurant:(Restaurant *)restaurant;
 @end

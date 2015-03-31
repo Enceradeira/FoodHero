@@ -28,22 +28,30 @@
     return self;
 }
 
+- (double)getMaxDistanceOfPlaces {
+    return [_repository getMaxDistanceOfPlaces:_locationService.lastKnownLocation];
+}
+
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
-    SearchProfile *searchPreference = conversation.currentSearchPreference;
     NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
         return f.restaurant.placeId;
     }];
 
-    RACSignal *placesSignal = [[[_repository getPlacesByCuisine:searchPreference.cuisine]
-            take:1]
-            map:^(NSArray *places) {
-                return [places linq_where:^(Place *p) {
-                    return (BOOL) ![excludedPlaceIds linq_any:^(NSString *e) {
-                        return [p.placeId isEqualToString:e];
+    RACSignal *preferenceSignal = [[_locationService.currentLocation take:1] flattenMap:^(CLLocation *location) {
+        return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] currUserLocation:location]];
+    }];
+
+    RACSignal *placesSignal = [preferenceSignal flattenMap:^(SearchProfile *searchPreference) {
+        return [[[_repository getPlacesByCuisine:searchPreference.cuisine]
+                take:1]
+                map:^(NSArray *places) {
+                    return [places linq_where:^(Place *p) {
+                        return (BOOL) ![excludedPlaceIds linq_any:^(NSString *e) {
+                            return [p.placeId isEqualToString:e];
+                        }];
                     }];
                 }];
-            }];
-
+    }];
 
     RACSignal *moreThan0PlacesSignal = [placesSignal
             flattenMap:^(NSArray *places) {
@@ -61,7 +69,9 @@
 
     return [moreThan0PlacesSignal
             flattenMap:^(NSArray *places) {
-                return [self getBestPlace:places preferences:searchPreference];
+                CLLocation *location = _locationService.lastKnownLocation;
+                SearchProfile *profile = [conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] currUserLocation:location];
+                return [self getBestPlace:places preferences:profile];
             }];
 };
 
@@ -80,8 +90,10 @@
                 // determine distance and score
                 NSArray *placesAndScore = [sortedPlaces linq_select:^(Place *p) {
                     double distance = [location distanceFromLocation:p.location];
+                    double maxDistance = [_repository getMaxDistanceOfPlaces:location];
+                    double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
                     Restaurant *r = nil; //[_repository getRestaurantFromPlace:p];
-                    double score = [preferences scorePlace:p distance:distance restaurant:r];
+                    double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
                     if (score > maxScore) {
                         maxScore = score;
                     }

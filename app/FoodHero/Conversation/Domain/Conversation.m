@@ -24,6 +24,7 @@
 
     RACSignal *_input;
     NSMutableArray *_rawConversation;
+
 }
 
 
@@ -60,7 +61,7 @@
                 return (BOOL) (state != [NSNull null]);
             }];
 
-            Restaurant* restaurant = [[[[utterance customData] linq_ofType:FoodHeroSuggestionParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
+            Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroSuggestionParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
                 return [parameter restaurant];
             }] linq_firstOrNil];
 
@@ -141,8 +142,8 @@
     }];
 }
 
-- (SearchProfile *)currentSearchPreference {
-    return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:self.maxDistance];
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation*) location {
+    return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:[self maxDistance: maxDistancePlaces currLocation:location]];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -156,19 +157,20 @@
 }
 
 
-- (DistanceRange *)maxDistance {
+- (DistanceRange *)maxDistance:(double)maxDistancePlaces currLocation:(CLLocation*) location {
     USuggestionFeedbackParameters *lastFeedback = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
         return (BOOL) (
                 [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
         );
     }] linq_lastOrNil];
     if (lastFeedback == nil) {
-        return [DistanceRange distanceRangeWithoutRestriction];
+        return nil;
     }
     else {
         // set max distance to 1/3 nearer
-        CLLocationDistance distance = [lastFeedback.restaurant.location distanceFromLocation:lastFeedback.currentUserLocation];
-        return [DistanceRange distanceRangeNearerThan:distance];
+        CLLocationDistance distance = [lastFeedback.restaurant.location distanceFromLocation:location];
+        CLLocationDistance normalizedDistance = distance / maxDistancePlaces;
+        return [DistanceRange distanceRangeNearerThan:normalizedDistance];
     }
 }
 

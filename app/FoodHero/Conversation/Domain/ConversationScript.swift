@@ -159,7 +159,8 @@ public class ConversationScript: Script {
         let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
 
         if lastFeedback != nil && (lastFeedback?.restaurant) != nil {
-            let searchPreference = self._conversation.currentSearchPreference()
+            let maxDistance = _search.getMaxDistanceOfPlaces()
+            let searchPreference = self._conversation.currentSearchPreference(maxDistance, currUserLocation: _locationService.lastKnownLocation())
             let priceRange = searchPreference.priceRange
             if priceRange.min > restaurant.priceLevel
                     && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooCheap")) {
@@ -173,7 +174,7 @@ public class ConversationScript: Script {
                 let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant)
                 script.say(oneOf: lastUtterance)
                 return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
-            } else if searchPreference.distanceRange.max < restaurant.location.distanceFromLocation(self._locationService.lastKnownLocation())
+            } else if searchPreference.distanceRange != nil && searchPreference.distanceRange.max < (restaurant.location.distanceFromLocation(self._locationService.lastKnownLocation()) / maxDistance)
                     && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooFarAway")) {
                 script.say(oneOf: FHUtterances.warningsIfNotInPreferredRangeTooFarAway)
                 let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant)

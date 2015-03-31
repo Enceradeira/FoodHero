@@ -21,4 +21,6 @@
 - (void)simulateNetworkError:(BOOL)simulationEnabled;
 
 - (void)simulateSlowResponse:(BOOL)enabled;
+
+- (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation;
 @end

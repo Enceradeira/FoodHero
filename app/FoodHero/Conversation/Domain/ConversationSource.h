@@ -13,7 +13,7 @@
 
 - (NSArray *)negativeUserFeedback;
 
-- (SearchProfile *)currentSearchPreference;
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location;
 
 - (ConversationParameters *)lastSuggestionWarning;
 @end

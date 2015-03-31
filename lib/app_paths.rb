@@ -16,7 +16,7 @@ module AppPaths
   end
 
   def self.version
-    '8.1'
+    '8.2'
   end
 
 end

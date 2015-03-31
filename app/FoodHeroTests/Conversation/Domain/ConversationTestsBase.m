@@ -10,7 +10,6 @@
 #import "StubAssembly.h"
 #import "Personas.h"
 #import "ExpectedStatement.h"
-#import "FoodHero-Swift.h"
 
 @implementation ConversationTestsBase {
 
@@ -44,6 +43,10 @@
     [self.locationManagerStub injectLocations:@[[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
     // configure stub
     configuration(_restaurantSearchStub);
+}
+
+- (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(RestaurantSearchServiceStub *))configuration {
+    [self configureRestaurantSearchForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude configuration:configuration];
 }
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status {
