@@ -91,7 +91,7 @@
 - (void)test_findBest_ShouldReturnRestaurantThatIsFurtherAway_WhenPriceLevelMatchesBetterAndItsNotThatFarAway {
     CLLocation *usersLocation = [[CLLocation alloc] initWithLatitude:52.633691 longitude:1.297240];
     CLLocation *veryCloseLocation = [[CLLocation alloc] initWithLatitude:usersLocation.coordinate.latitude + 0.001 longitude:usersLocation.coordinate.longitude + 0.001];
-    CLLocation *closeLocation = [[CLLocation alloc] initWithLatitude:veryCloseLocation.coordinate.latitude + 0.001 longitude:veryCloseLocation.coordinate.longitude + 0.001];
+    CLLocation *closeLocation = [[CLLocation alloc] initWithLatitude:veryCloseLocation.coordinate.latitude + 0.0002 longitude:veryCloseLocation.coordinate.longitude + 0.0002];
     [_locationManager injectLocations:@[usersLocation]];
 
     Restaurant *priceLevel2Restaurant = [[[[RestaurantBuilder alloc] withPriceLevel:2] withLocation:closeLocation] build];

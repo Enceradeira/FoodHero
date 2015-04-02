@@ -142,8 +142,8 @@
     }];
 }
 
-- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation*) location {
-    return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:[self maxDistance: maxDistancePlaces currLocation:location]];
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location {
+    return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -157,7 +157,7 @@
 }
 
 
-- (DistanceRange *)maxDistance:(double)maxDistancePlaces currLocation:(CLLocation*) location {
+- (DistanceRange *)maxDistance:(double)maxDistancePlaces currLocation:(CLLocation *)location {
     USuggestionFeedbackParameters *lastFeedback = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
         return (BOOL) (
                 [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
@@ -169,7 +169,7 @@
     else {
         // set max distance to 1/3 nearer
         CLLocationDistance distance = [lastFeedback.restaurant.location distanceFromLocation:location];
-        CLLocationDistance normalizedDistance = distance / maxDistancePlaces;
+        CLLocationDistance normalizedDistance = maxDistancePlaces == 0 ? 0 : distance / maxDistancePlaces;
         return [DistanceRange distanceRangeNearerThan:normalizedDistance];
     }
 }

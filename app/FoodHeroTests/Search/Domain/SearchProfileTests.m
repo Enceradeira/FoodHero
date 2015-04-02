@@ -55,13 +55,6 @@
     assertThatDouble(score, is(equalTo(@(1))));
 }
 
-- (void)test_scorePlace_ShouldBeMaxScore_WhenDistanceLessThanMaxDistanceAndPriceLevelMatches {
-    SearchProfile *preference = [self preferenceWithPriceMin:0 priceMax:4];
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] normalizedDistance:0 restaurant:nil], is(equalTo(@(1))));
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] normalizedDistance:0.5 restaurant:nil], is(equalTo(@(1))));
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] normalizedDistance:1 restaurant:nil], is(equalTo(@(1))));
-}
-
 - (void)test_scorePlace_ShouldThrowException_WhenDistanceNegative {
     assertThat(^() {
         [_defaultPreference scorePlace:[self placeWithPriceLevel:3] normalizedDistance:-1 restaurant:nil];
@@ -114,6 +107,7 @@
     double lastDiffFromLastScore = 0;
     for (double distance = distanceMax; distance <= 50 * distanceMax; distance += distanceMax / 3) {
         double score = [preference scorePlace:place normalizedDistance:distance restaurant:nil];
+        NSLog([NSString stringWithFormat:@"Distance: %f Score: %f", distance, score]);
         if (score != lastScore) {
             double diffFromLastScore = lastScore - score;
             if (lastDiffFromLastScore != 0) {
@@ -130,15 +124,15 @@
     SearchProfile *preference = [self preferenceWithPriceMin:4 priceMax:4];
 
     // no diff ok -> score 1
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:4] normalizedDistance:0.8 restaurant:nil], is(equalTo(@(1))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:4] normalizedDistance:0 restaurant:nil], is(equalTo(@(1))));
     // diff 1 -> ok, can't be to bad -> score 0.8
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] normalizedDistance:0.8 restaurant:nil], is(equalTo(@(0.8))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:3] normalizedDistance:0 restaurant:nil], is(equalTo(@(0.8))));
     // diff 2 -> hmmm, if we change our mind a git, will be ok -> score 0.5
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:2] normalizedDistance:0.8 restaurant:nil], is(equalTo(@(0.5))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:2] normalizedDistance:0 restaurant:nil], is(equalTo(@(0.5))));
     // diff 3 -> that's not what we are looking for, I prefer something further away -> score 0.1
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:1] normalizedDistance:0.8 restaurant:nil], is(equalTo(@(0.1))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:1] normalizedDistance:0 restaurant:nil], is(equalTo(@(0.1))));
     // diff 4 -> no way, that's not suitable for our occasion -> score 0.05
-    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:0] normalizedDistance:0.8 restaurant:nil], is(equalTo(@(0.05))));
+    assertThatDouble([preference scorePlace:[self placeWithPriceLevel:0] normalizedDistance:0 restaurant:nil], is(equalTo(@(0.05))));
 }
 
 - (void)test_scorePlace_ShouldReturnLowerScore_WhenPlaceIsLessRelevant {
@@ -156,6 +150,51 @@
     double score = [preference scorePlace:[self placeWithCuisineRelevance:1] normalizedDistance:0.99 restaurant:nil];
     assertThatDouble(score, is(lessThanOrEqualTo(@1)));
 }
+
+- (void)test_ScorePlace_ShouldYieldCorrectResult_WhenDistanceRangeNil {
+    SearchProfile *preference = [self preferenceWithPriceMin:0 priceMax:4];
+
+    // worse score at max distance is SCORE_AT_MAX_DISTANCE_RANGE
+    double score = [preference scorePlace:[self placeWithCuisineRelevance:1] normalizedDistance:1 restaurant:nil];
+    assertThatDouble(score, is(lessThanOrEqualTo(@(SCORE_AT_MAX_DISTANCE_RANGE))));
+
+    // score at 0 distance is 1
+    score = [preference scorePlace:[self placeWithCuisineRelevance:1] normalizedDistance:0 restaurant:nil];
+    assertThatDouble(score, is(lessThanOrEqualTo(@(1))));
+}
+
+- (void)test_ScorePlace_ShouldYieldCorrectResult_WhenDistanceRangeSpecified {
+    PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
+    const double MAX_DISTANCE_RANGE = 0.25;
+    DistanceRange *range = [DistanceRange distanceRangeNearerThan:MAX_DISTANCE_RANGE / DISTANCE_DECREMENT_FACTOR];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range];
+
+    // score at max distance is greater than 0
+    double scoreAtMaxDistance = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:1 restaurant:nil];
+    assertThatDouble(scoreAtMaxDistance, is(greaterThan(@(0))));
+
+    // score over max distance range is less than SCORE_AT_MAX_DISTANCE_RANGE
+    double scoreAtOverMaxDistanceRange = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:MAX_DISTANCE_RANGE + 0.1 restaurant:nil];
+    assertThatDouble(scoreAtOverMaxDistanceRange, is(lessThan(@(SCORE_AT_MAX_DISTANCE_RANGE))));
+
+    // score at max distance range is SCORE_AT_MAX_DISTANCE_RANGE
+    double scoreAtMaxDistanceRange = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:MAX_DISTANCE_RANGE restaurant:nil];
+    assertThatDouble(scoreAtMaxDistanceRange, is(closeTo(SCORE_AT_MAX_DISTANCE_RANGE,0.001)));
+
+    // score at 0 distance is 1
+    double scoreAt0Distance = [preferences scorePlace:[self placeWithCuisineRelevance:1] normalizedDistance:0 restaurant:nil];
+    assertThatDouble(scoreAt0Distance, is(equalToDouble(1)));
+}
+
+-(void)test_ScorePlace_ShouldBe1_WhenDistanceAndMaxDistanceRange0{
+    PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
+    DistanceRange *range = [DistanceRange distanceRangeNearerThan:0];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range];
+
+    double score = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:0 restaurant:nil];
+    assertThatDouble(score, is(equalToDouble(1)));
+}
+
 
 
 @end

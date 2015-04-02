@@ -181,7 +181,7 @@ ConversationAppServiceTests {
             withName:@"Chippy"]
             withVicinity:@"Norwich"]
             withLocation:closerLocation]
-            withCuisineRelevance:0.5] build];
+            withCuisineRelevance:0.1] build];
 
     [_locationManager injectLatitude:45 longitude:0];
     [_searchServiceStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];

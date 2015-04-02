@@ -8,6 +8,7 @@
 
 extern const double DISTANCE_DECREMENT_FACTOR;
 extern const double MAX_NORMAL_DISTANCE;
+extern const double SCORE_AT_MAX_DISTANCE_RANGE;
 
 @interface DistanceRange : NSObject
 

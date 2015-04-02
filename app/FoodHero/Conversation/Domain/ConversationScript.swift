@@ -99,7 +99,7 @@ public class ConversationScript: Script {
 
     func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript, forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> (FutureScript) {
 
-        let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler())
+        let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler()).take(1)
 
         bestRestaurant.subscribeError {
             (error: NSError!) in

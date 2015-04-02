@@ -40,31 +40,39 @@
     double scoreForDiffMaxPrice = [self getScoreForPriceLevelDifference:nrIncrementsAboveMaxPrice];
 
     // score for over max-distance
-    double scoreForDiffMaxDistance = 1;
-    if (_distanceRange != nil) {
-        // user has set a distance range
-        double nrIncrementsAboveMaxDistance = [self getNrIncrementsAboveMaxDistance:distance maxDistance:_distanceRange.max];
-        if (nrIncrementsAboveMaxDistance != 0) {
-            // double scaleFactor = 1.35473452622; // makes score for double distance over maxDistance equal 0.5
-            // double adjustment = -0.70946913;
-            // scoreForDiffMaxDistance = scaleFactor / (1 + nrIncrementsAboveMaxDistance );
-            double n = 1.7094691;
-            scoreForDiffMaxDistance = n / (n + nrIncrementsAboveMaxDistance);
-        }
-    }
+    double scoreForDistance = [self getScoreForDistance:distance];
+
     // score for cuisineRelevance
     double scoreForCuisineRelevance = place.cuisineRelevance;
 
-    double score = scoreForDiffMaxDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice * scoreForCuisineRelevance;
+    double score = scoreForDistance * scoreForDiffMinPrice * scoreForDiffMaxPrice * scoreForCuisineRelevance;
+
     /*
     NSLog([NSString stringWithFormat:@"Score: %f Distance: %f Price:%u Name: %@, %@ (%@)", score, distance, place.priceLevel, restaurant.name, restaurant.vicinity, restaurant.placeId]);
     NSLog([NSString stringWithFormat:@"\t\t\tMaxDistance    : %f MinPrice    : %u MaxPrice:     %u", _distanceRange.max, _priceRange.min, _priceRange.max]);
-    NSLog([NSString stringWithFormat:@"\t\t\tDiffMaxDistance: %f DiffMinPrice: %f DiffMaxPrice: %f CuisineRelevance: %f", scoreForDiffMaxDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice, scoreForCuisineRelevance]);
+    NSLog([NSString stringWithFormat:@"\t\t\tScoreDistance: %f DiffMinPrice: %f DiffMaxPrice: %f CuisineRelevance: %f", scoreForDistance, scoreForDiffMinPrice, scoreForDiffMaxPrice, scoreForCuisineRelevance]);
     */
+
     if (score > 1) {
         @throw [DesignByContractException createWithReason:@"Score should not be greater than 1"];
     }
     return score;
+}
+
+- (double)getScoreForDistance:(double)distance {
+    double maxDistance = _distanceRange == nil ? 1 : _distanceRange.max;
+    if (maxDistance == 0 && distance == 0){
+        return 1;
+    }
+
+    /* Score-function:
+        y = -(x/(a-x))+ 1
+        a = -x/(y-1)-x
+    */
+
+    // a for x=maxDistance / y=SCORE_AT_MAX_DISTANCE_RANGE
+    double a = -maxDistance / (SCORE_AT_MAX_DISTANCE_RANGE - 1) - maxDistance;
+    return -distance/(a+distance)+1;
 }
 
 - (double)getScoreForPriceLevelDifference:(double)nrIncrements {
@@ -83,16 +91,6 @@
     else {
         return 0.05;
     }
-}
-
-- (double)getNrIncrementsAboveMaxDistance:(double)distance maxDistance:(double)maxDistance {
-    if (distance <= 0 || distance <= maxDistance) {
-        return 0;
-    }
-
-    // derived from: distanceDecremented(N) = distance * EVAL_DISTANCE_DECREMENT_FACTOR^n
-    double nrIncrements = log(maxDistance / distance) / log(DISTANCE_DECREMENT_FACTOR);
-    return nrIncrements;
 }
 
 - (double)getNrIncrementsAboveMaxPrice:(Place *)place priceRange:(PriceRange *)priceRange {

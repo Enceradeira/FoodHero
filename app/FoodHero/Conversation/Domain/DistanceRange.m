@@ -9,6 +9,7 @@
 
 const double DISTANCE_DECREMENT_FACTOR = 0.66666;
 const double MAX_NORMAL_DISTANCE = 1;
+const double SCORE_AT_MAX_DISTANCE_RANGE = 0.2;
 
 @implementation DistanceRange {
 
