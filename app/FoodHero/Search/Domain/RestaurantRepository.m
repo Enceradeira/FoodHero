@@ -7,7 +7,6 @@
 #import "RestaurantRepository.h"
 #import "RadiusCalculator.h"
 #import "SearchProfile.h"
-#import "GoogleRestaurantSearch.h"
 #import "SearchException.h"
 #import "SearchError.h"
 #import "GoogleDefinitions.h"
@@ -42,28 +41,30 @@
             deliverOn:[_schedulerFactory asynchScheduler]]
             take:1]
             tryMap:^(CLLocation *currentLocation, NSError **error) {
-                BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
-                BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
+                @synchronized (self) {
+                    BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
+                    BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
 
-                if (_isSimulatingNoRestaurantFound) {
-                    return @[];
-                }
+                    if (_isSimulatingNoRestaurantFound) {
+                        return @[];
+                    }
 
-                if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
-                    _locationAtMomentOfCaching = currentLocation;
-                    _cuisineAtMomentOfCaching = cuisine;
-                    @try {
-                        _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+                    if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
+                        _locationAtMomentOfCaching = currentLocation;
+                        _cuisineAtMomentOfCaching = cuisine;
+                        @try {
+                            _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+                        }
+                        @catch (SearchException *exc) {
+                            *error = [SearchError new];
+                            _placesCached = nil; // return nil; therefor error will be returned
+                        }
                     }
-                    @catch (SearchException *exc) {
-                        *error = [SearchError new];
-                        _placesCached = nil; // return nil; therefor error will be returned
-                    }
+                    // sleep a bit to test asynchronous behaviour of the app
+                    [NSThread sleepForTimeInterval:_responseDelay];
+                    // yields all places as first element in sequence
+                    return _placesCached;
                 }
-                // sleep a bit to test asynchronous behaviour of the app
-                [NSThread sleepForTimeInterval:_responseDelay];
-                // yields all places as first element in sequence
-                return _placesCached;
             }];
 }
 
@@ -126,22 +127,26 @@
 }
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place {
-    Restaurant *restaurant = _restaurantsCached[place.placeId];
-    if (restaurant == nil) {
-        restaurant = [_searchService getRestaurantForPlace:place currentLocation:_locationService.lastKnownLocation];
-        _restaurantsCached[place.placeId] = restaurant;
+    @synchronized (self) {
+        Restaurant *restaurant = _restaurantsCached[place.placeId];
+        if (restaurant == nil) {
+            restaurant = [_searchService getRestaurantForPlace:place currentLocation:_locationService.lastKnownLocation];
+            _restaurantsCached[place.placeId] = restaurant;
+        }
+        return restaurant;
     }
-    return restaurant;
 }
 
 - (BOOL)doRestaurantsHaveDifferentPriceLevels {
-    if (_placesCached == nil || _placesCached.count == 0) {
-        return NO;
+    @synchronized (self) {
+        if (_placesCached == nil || _placesCached.count == 0) {
+            return NO;
+        }
+        NSUInteger firstPriceLevel = ((Place *) _placesCached[0]).priceLevel;
+        return [_placesCached linq_any:^(Place *p) {
+            return (BOOL) (p.priceLevel != firstPriceLevel);
+        }];
     }
-    NSUInteger firstPriceLevel = ((Place *) _placesCached[0]).priceLevel;
-    return [_placesCached linq_any:^(Place *p) {
-        return (BOOL) (p.priceLevel != firstPriceLevel);
-    }];
 }
 
 - (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound {
@@ -158,15 +163,17 @@
 }
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {
-    if(_placesCached == nil){
-        return 0;
-    }
-    NSArray *distances = [_placesCached linq_select:^(Place *p) {
-        CLLocation *placeLocation = p.location;
-        return @([currLocation distanceFromLocation:placeLocation]);
-    }];
-    NSNumber* result = [[distances linq_sort] linq_lastOrNil];
+    @synchronized (self) {
+        if (_placesCached == nil) {
+            return 0;
+        }
+        NSArray *distances = [_placesCached linq_select:^(Place *p) {
+            CLLocation *placeLocation = p.location;
+            return @([currLocation distanceFromLocation:placeLocation]);
+        }];
+        NSNumber *result = [[distances linq_sort] linq_lastOrNil];
 
-    return result == nil ? 0:[result doubleValue];
+        return result == nil ? 0 : [result doubleValue];
+    }
 }
 @end
