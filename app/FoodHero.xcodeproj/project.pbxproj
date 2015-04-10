@@ -128,6 +128,7 @@
 		235257FB39E5328B9AE000A9 /* TalkerEngineBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525FF079BDEA8159C866E2 /* TalkerEngineBasicTests.swift */; };
 		235258027C21EF43C7B98B3C /* RestaurantReviewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FACC259ED0EB0E1B16A /* RestaurantReviewBuilder.m */; };
 		23525819ABCE05B93DF48E51 /* ConversationViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259599DFD1F5796C13F5D /* ConversationViewState.m */; };
+		2352581BE33F4EE755746059 /* Continuation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352509C0005FDB5ACC0DF68 /* Continuation.swift */; };
 		2352581C389716C44EA9CF5D /* StringDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525A7D66B814224736DB5A /* StringDefinition.swift */; };
 		23525856C97C7C4B8F33A317 /* FoodHeroSuggestionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525DEB898BFEC721F7023B /* FoodHeroSuggestionParameters.swift */; };
 		2352585E85069053B955DB26 /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FFD133B4B57A619342E /* HCIsExceptionOfType.m */; };
@@ -293,6 +294,7 @@
 		23525080E9F5707B526FD461 /* SearchException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchException.m; sourceTree = "<group>"; };
 		2352508139EAD803C28606BC /* TyphoonComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TyphoonComponents.h; sourceTree = "<group>"; };
 		2352508DE0E3946BDA8EAE96 /* FoodHeroColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHeroColors.h; sourceTree = "<group>"; };
+		2352509C0005FDB5ACC0DF68 /* Continuation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Continuation.swift; sourceTree = "<group>"; };
 		235250A45B37DCA998FF4B55 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		235250B0CF453E719D51919B /* LocationServiceAuthorizationStatusDeniedError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceAuthorizationStatusDeniedError.h; sourceTree = "<group>"; };
 		235250C6A011141D03463883 /* Utterance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utterance.swift; sourceTree = "<group>"; };
@@ -872,6 +874,7 @@
 				235258A6F2540414531B6F6D /* Branch.swift */,
 				235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */,
 				23525D0D3FC6CB77852F53A3 /* FutureScript.swift */,
+				2352509C0005FDB5ACC0DF68 /* Continuation.swift */,
 			);
 			path = Talker;
 			sourceTree = "<group>";
@@ -1800,6 +1803,7 @@
 				235259C6504DCFFEDC859572 /* NetworkError.swift in Sources */,
 				23525A91F0E7FE8257B5E794 /* FHStates.swift in Sources */,
 				2352588B46ED45D760431BE6 /* UserIntentUnclearError.swift in Sources */,
+				2352581BE33F4EE755746059 /* Continuation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

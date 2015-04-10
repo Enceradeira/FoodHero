@@ -60,6 +60,7 @@ public class TalkerEngineTests: XCTestCase {
         var positionCount: Int = 0
         var actualPosition: Int? = nil
         var error: NSError? = nil
+        var utterances : [String] = []
 
         let signal = dialog.map {
             (utterance: AnyObject?) in
@@ -73,6 +74,7 @@ public class TalkerEngineTests: XCTestCase {
         signal.subscribeNext {
             (object: AnyObject?) in
             let tuple = (object as! GenericWrapper<(text:String, position:Int)>)
+            utterances.append(tuple.element.text)
             if (actualPosition == nil) {
                 actualPosition = tuple.element.position
             }
@@ -83,7 +85,7 @@ public class TalkerEngineTests: XCTestCase {
             }
         }
 
-        signal.subscribeError {
+        signal.doError {
             e in error = e
         }
 

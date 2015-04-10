@@ -270,4 +270,23 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                 }
         )
     }
+
+    func test_talk_shouldSaySomethingAndContinueWithFutureScript() {
+        let script = TestScript()
+        .say(oneOf: { $0.words("Hi") })
+        .continueWith({
+            futureScript in
+            self.async {
+                futureScript.define {
+                    $0.say {
+                        $0.words("How are you?")
+                    }
+                }
+            }
+            return futureScript
+        });
+
+        assert(utterance: "Hi", exists: true, inExecutedScript: script, atPosition: 0)
+        assert(utterance: "How are you?", exists: true, inExecutedScript: script, atPosition: 1)
+    }
 }

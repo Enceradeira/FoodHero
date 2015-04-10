@@ -51,5 +51,10 @@ public class Script: NSObject {
         _utterances.append(Branch(tag: tag, branches: branches, context: _context))
         return self
     }
+
+    public func continueWith(_ continuation: ((FutureScript) -> (FutureScript)))->Script{
+        _utterances.append(Continuation(continuation: continuation,context:_context))
+        return self;
+    }
 }
 
