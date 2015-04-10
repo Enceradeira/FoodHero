@@ -27,9 +27,10 @@ class TalkerInput {
     }
 
     private func sendError(error: NSError) {
-        if let errorHandler = self._currErrorHandler? {
+        let errorHandler = self._currErrorHandler
+        if errorHandler != nil {
             _currErrorHandler = nil
-            errorHandler(error)
+            errorHandler!(error)
         }
     }
 
@@ -46,7 +47,7 @@ class TalkerInput {
         callback(utterance)
     }
 
-    func getNext(errorHandler: (NSError) -> (), callback: (TalkerUtterance) -> ()) {
+    func getNext(errorHandler: (NSError) -> (), _ callback: (TalkerUtterance) -> ()) {
         _currCallback = callback
         _currErrorHandler = errorHandler
 

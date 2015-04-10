@@ -12,10 +12,10 @@ class OutputUtterance: Utterance {
         _definition = definition
     }
 
-    func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
+    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
         _definition.text.subscribeNext {
             obj in
-            let def = obj as StringDefinition.Result;
+            let def = obj as! StringDefinition.Result;
             let text = def.choises.getOne()
             let customData = def.customData
             output.sendNext(TalkerUtterance(utterance: text, customData: customData), andNotifyMode: TalkerModes.Outputting)

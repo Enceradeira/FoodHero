@@ -22,7 +22,7 @@ class TalkerEngineRandomnessTests: TalkerEngineTests {
     func test_talk_ShouldSubstituteParametersOfTheUtteranceRandomly() {
         var resources = TestScriptResources().add(parameter: "food", withValues: ["Indian", "Chinese"])
 
-        let script = TestScript(resources).say({ $0.words("Do you like {food} food?") })
+        let script = TestScript(resources).say(oneOf: { $0.words("Do you like {food} food?") })
 
         randomizerWillChoose(forTag: RandomizerConstants.textParameters(), index: 0)
         assert(dialog: ["Do you like Indian food?"], forExecutedScript: script)

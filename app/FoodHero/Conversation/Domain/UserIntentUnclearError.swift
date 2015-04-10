@@ -13,7 +13,7 @@ public class UserIntentUnclearError: NSError {
     }
 
     public required init(coder: NSCoder) {
-        _state = coder.decodeObjectForKey("_state") as String
+        _state = coder.decodeObjectForKey("_state") as! String
         super.init(coder: coder)
     }
 

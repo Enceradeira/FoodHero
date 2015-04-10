@@ -51,7 +51,7 @@ public class TalkerUtteranceTests: XCTestCase {
 
         let customData = utterance.customData
         XCTAssertEqual(customData.count, 1)
-        XCTAssertEqual(customData[0] as String, "SomeData")
+        XCTAssertEqual(customData[0] as! String, "SomeData")
     }
 
     func test_concat_ShouldJoinCustomDataTogether_WhenOneCustomDataIsNOtNil() {
@@ -62,7 +62,7 @@ public class TalkerUtteranceTests: XCTestCase {
 
         let customData = utterance.customData
         XCTAssertEqual(customData.count, 2)
-        XCTAssertEqual(customData[0] as String, "SomeData")
-        XCTAssertEqual(customData[1] as String, "OtherData")
+        XCTAssertEqual(customData[0] as! String, "SomeData")
+        XCTAssertEqual(customData[1] as! String, "OtherData")
     }
 }

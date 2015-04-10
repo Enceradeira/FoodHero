@@ -6,7 +6,7 @@
 import Foundation
 
 class Choices: NSObject {
-    private let _texts: [String] = []
+    private let _texts: [String]
     private var _next: Choices?
     private let _context: TalkerContext
     init(_ choices: [String], _ context: TalkerContext) {
@@ -32,7 +32,7 @@ class Choices: NSObject {
 
     func getOne() -> String {
         let texts = collectConcatenation(self).map {
-            choices in self._context.resources.resolve(self._context.randomizer.chooseOne(from: choices._texts, forTag: RandomizerConstants.texts()) as String)
+            choices in self._context.resources.resolve(self._context.randomizer.chooseOne(from: choices._texts, forTag: RandomizerConstants.texts()) as! String)
         }
         return "\n\n".join(texts)
     }

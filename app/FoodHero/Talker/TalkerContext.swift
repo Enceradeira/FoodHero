@@ -6,8 +6,8 @@
 import Foundation
 
 public class TalkerContext: NSObject {
-    public let randomizer: IRandomizer = TalkerRandomizer()
-    public let resources = ScriptResources(randomizer:TalkerRandomizer())
+    public let randomizer: IRandomizer
+    public let resources: ScriptResources
 
     public init(randomizer: IRandomizer, resources: ScriptResources) {
         self.randomizer = randomizer

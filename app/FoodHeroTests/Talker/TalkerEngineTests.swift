@@ -49,7 +49,7 @@ public class TalkerEngineTests: XCTestCase {
 
     func executeDialogFor(script: Script) -> [String] {
         let dialog = executeScript(script)
-        return (dialog.toArray() as [String])
+        return (dialog.toArray() as! [String])
     }
 
     func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil, withNaturalOutput naturalOutput: Bool = true) {
@@ -63,16 +63,16 @@ public class TalkerEngineTests: XCTestCase {
 
         let signal = dialog.map {
             (utterance: AnyObject?) in
-            return GenericWrapper(text: (utterance! as TalkerUtterance).utterance, position: positionCount++)
+            return GenericWrapper(text: (utterance! as! TalkerUtterance).utterance, position: positionCount++)
         }.filter {
             (object: AnyObject?) in
-            let tuple = (object as GenericWrapper<(text:String, position:Int)>)
+            let tuple = (object as! GenericWrapper<(text:String, position:Int)>)
             return tuple.element.text == utterance
         }
 
         signal.subscribeNext {
             (object: AnyObject?) in
-            let tuple = (object as GenericWrapper<(text:String, position:Int)>)
+            let tuple = (object as! GenericWrapper<(text:String, position:Int)>)
             if (actualPosition == nil) {
                 actualPosition = tuple.element.position
             }
@@ -110,9 +110,9 @@ public class TalkerEngineTests: XCTestCase {
         // force context switch because that's closer to reality
         dispatch_async(dispatch_get_main_queue()) {
             if utterance is String {
-                self._input!.sendNext(TalkerUtterance(utterance: utterance as String, customData: customData))
+                self._input!.sendNext(TalkerUtterance(utterance: utterance as! String, customData: customData))
             } else if utterance is NSError {
-                let error = utterance as NSError
+                let error = utterance as! NSError
                 self._input!.sendNext(error)
             }
         }
@@ -135,7 +135,7 @@ public class TalkerEngineTests: XCTestCase {
         dialog.subscribeNext({
             // collect utterances
             (object: AnyObject?) in
-            let utterance = (object! as TalkerUtterance).utterance
+            let utterance = (object! as! TalkerUtterance).utterance
             NSLog("Utterance: \(utterance)")
             utterances.append(utterance)
 
@@ -162,8 +162,8 @@ public class TalkerEngineTests: XCTestCase {
         XCTAssertEqual(utterances.count, expectedDialog.count, "The number of utterances in the exectued script is wrong")
         for index in 0 ... min(expectedDialog.count, utterances.count) - 1 {
             let actual: String = utterances[index]
-            let expected: String = expectedDialog[index]
-            sometingWrong |= actual != expected
+            let expected: String = expectedDialog[index] as! String
+            sometingWrong = sometingWrong || actual != expected
             XCTAssertEqual(actual, expected, "The utterance is wrong")
         }
 

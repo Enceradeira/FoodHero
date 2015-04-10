@@ -21,7 +21,7 @@ class TalkerOutput: TalkerModeChangedDelegate {
     func modeDidChange(newMode: TalkerModes) {
         if (_naturalBuffer.count > 0) {
             // let text = "\n\n".join(_buffer)
-            let utterance = _naturalBuffer.reduce(TalkerUtterance(), { $0.concat($1) })
+            let utterance = _naturalBuffer.reduce(TalkerUtterance(), combine: { $0.concat($1) })
 
             _naturalBuffer.removeAll()
             _naturalOutput.sendNext(utterance)

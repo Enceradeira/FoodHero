@@ -16,17 +16,17 @@ class Branch: Utterance {
         _context = context
     }
 
-    func execute(input: TalkerInput, _ output: TalkerOutput, continuation: () -> ()) {
+    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
         let futureScript = FutureScript(context: self._context)
 
         if _branches.count > 0 {
             let surrogate = Array(0 ..< _branches.count) // surrogate because chooseOne doesn't accept [((Script) -> (Script))]
-            let index = _context.randomizer.chooseOne(from: surrogate, forTag: _tag) as Int
+            let index = _context.randomizer.chooseOne(from: surrogate, forTag: _tag) as! Int
             let chosenScriptFactory = _branches[index]
             chosenScriptFactory(futureScript)
 
             futureScript.script.subscribeNext {
-                Sequence.execute($0 as Script, input, output, continuation);
+                Sequence.execute($0 as! Script, input, output, continuation);
             }
         } else {
             continuation()

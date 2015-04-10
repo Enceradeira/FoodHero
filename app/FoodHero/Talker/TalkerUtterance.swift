@@ -7,7 +7,7 @@ import Foundation
 
 public class TalkerUtterance: NSObject {
     public let utterance: String;
-    public let customData: [AnyObject] = []
+    public let customData: [AnyObject]
 
     public convenience override init() {
         self.init(utterance: "", customData: nil)
@@ -25,10 +25,10 @@ public class TalkerUtterance: NSObject {
 
     public func concat(other: TalkerUtterance) -> TalkerUtterance {
         var utteranceArray: [String] = []
-        if countElements(utterance) > 0 {
+        if count(utterance) > 0 {
             utteranceArray.append(utterance)
         }
-        if countElements(other.utterance) > 0 {
+        if count(other.utterance) > 0 {
             utteranceArray.append(other.utterance)
         }
 

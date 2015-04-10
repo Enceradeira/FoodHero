@@ -14,6 +14,6 @@ public class TalkerRandomizer: NSObject, IRandomizer {
     }
 
     public func isTrue(forTag tag: String) -> Bool {
-        return chooseOne(from: [false, true], forTag: tag) as Bool
+        return chooseOne(from: [false, true], forTag: tag) as! Bool
     }
 }

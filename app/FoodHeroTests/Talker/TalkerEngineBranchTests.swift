@@ -13,13 +13,13 @@ class TalkerEngineBranchTests: TalkerEngineTests {
         .chooseOne(from: [
                 {
                     return $0.define {
-                        $0.say({
+                        $0.say(oneOf: {
                             $0.words("Hello")
                         })
                     }
                 }, {
                     return $0.define {
-                        $0.say({
+                        $0.say(oneOf: {
                             $0.words("Hi")
                         })
                     }
@@ -39,11 +39,11 @@ class TalkerEngineBranchTests: TalkerEngineTests {
         .chooseOne(from: [
                 {
                     return $0.define {
-                        $0.say({ $0.words("Hello") })
+                        $0.say(oneOf: { $0.words("Hello") })
                     }
                 }
         ], withTag: "Greeting")
-        .say({ $0.words("John") })
+        .say(oneOf: { $0.words("John") })
 
 
         randomizerWillChoose(forTag: "Greeting", index: 0)
@@ -53,7 +53,7 @@ class TalkerEngineBranchTests: TalkerEngineTests {
     func test_talk_shouldSkipBranches_WhenNoBranchesSpecified() {
         let script = TestScript()
         .chooseOne(from: [], withTag: "Greeting")
-        .say({ $0.words("Bye") })
+        .say(oneOf: { $0.words("Bye") })
 
 
         assert(dialog: ["Bye"], forExecutedScript: script)

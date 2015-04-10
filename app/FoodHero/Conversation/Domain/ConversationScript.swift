@@ -61,8 +61,8 @@ public class ConversationScript: Script {
             })
         } else if error is UserIntentUnclearError {
             errorScript.say(oneOf: {
-                let currentState = (error as UserIntentUnclearError).state
-                assert(countElements(currentState) > 0, "UserIntentUnclearError.state was nil or empty")
+                let currentState = (error as! UserIntentUnclearError).state
+                assert(count(currentState) > 0, "UserIntentUnclearError.state was nil or empty")
                 return FHUtterances.didNotUnderstandAndAsksForRepetition($0, state: currentState)
             })
             return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
@@ -153,9 +153,9 @@ public class ConversationScript: Script {
     }
 
     func processSearchResult(result: AnyObject, withScript script: Script) -> (Script) {
-        let restaurant = result as Restaurant
+        let restaurant = result as! Restaurant
         let negativesFeedback = self._conversation.negativeUserFeedback()!
-        let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as USuggestionFeedbackParameters?
+        let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as! USuggestionFeedbackParameters?
         let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
 
         if lastFeedback != nil && (lastFeedback?.restaurant) != nil {

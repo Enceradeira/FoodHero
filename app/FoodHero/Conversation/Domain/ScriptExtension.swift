@@ -8,7 +8,7 @@ import Foundation
 extension Script {
     public func waitUserResponse(andContinueWith continuation: ((ConversationParameters, FutureScript) -> (FutureScript)), catch: ((NSError, Script) -> Script)) -> Script {
         return waitResponse(andContinueWith: {
-            let parameter = $0.customData[0] as ConversationParameters
+            let parameter = $0.customData[0] as! ConversationParameters
             return continuation(parameter, $1)
         }, catch: catch)
     }

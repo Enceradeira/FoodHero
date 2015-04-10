@@ -23,15 +23,15 @@ public class ScriptResources: NSObject {
         var result = text
 
         let regex = NSRegularExpression(pattern: "\\{(\\w+)\\}", options: .CaseInsensitive, error: nil)!
-        let matches = regex.matchesInString(text, options: nil, range: NSMakeRange(0, countElements(text))) as [NSTextCheckingResult]
+        let matches = regex.matchesInString(text, options: nil, range: NSMakeRange(0, count(text))) as! [NSTextCheckingResult]
 
         for match in matches {
             let matchedString = (text as NSString).substringWithRange(NSMakeRange(match.range.location + 1, match.range.length - 2))
             let values = _parameters[matchedString]
             assert(values != nil, "ScriptResources don't contain values for parameter '\(matchedString)'")
-            let resolvedString = _randomizer.chooseOne(from: values!, forTag: RandomizerConstants.textParameters()) as String
+            let resolvedString = _randomizer.chooseOne(from: values!, forTag: RandomizerConstants.textParameters()) as! String
             let replaceRegex = NSRegularExpression(pattern: "\\{\(matchedString)\\}", options: .CaseInsensitive, error: nil)!
-            result = replaceRegex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, countElements(result)), withTemplate: resolvedString)
+            result = replaceRegex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, count(result)), withTemplate: resolvedString)
         }
         return result
     }
