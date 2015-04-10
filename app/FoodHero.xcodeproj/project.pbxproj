@@ -190,6 +190,7 @@
 		23525C2EBBCF652A2548C697 /* RestaurantReviewPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DDA1D7AE62C51BD487 /* RestaurantReviewPageViewController.m */; };
 		23525C58D503C6BD5DB72202 /* ConversationScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525F08E1BF168BC26AA4BD /* ConversationScript.swift */; };
 		23525C7B6BEFD0A983116253 /* SpeechRecognitionServiceStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DC70637894075BE6D3 /* SpeechRecognitionServiceStub.m */; };
+		23525C9AEB6140CF73581DBE /* GoogleRestaurantTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352524D6C029D9EC004B0F0 /* GoogleRestaurantTypes.swift */; };
 		23525CA0BE93BD13E6CF4CE9 /* SmallRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF8C6B1B3FE8FDB6662 /* SmallRestaurantReviewCommentViewController.m */; };
 		23525CCA5FDC27492D17F0C1 /* LocationServiceAuthorizationStatusDeniedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */; };
 		23525CEB9AE28C4414E7F97D /* LocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */; };
@@ -345,6 +346,7 @@
 		235252243CA79D13851B4AEE /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
 		2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
 		2352523F95C301790A9BFCDD /* TalkerEngineBranchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineBranchTests.swift; sourceTree = "<group>"; };
+		2352524D6C029D9EC004B0F0 /* GoogleRestaurantTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleRestaurantTypes.swift; sourceTree = "<group>"; };
 		2352524FE3F5DB99242CF2E9 /* StubAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubAssembly.h; sourceTree = "<group>"; };
 		2352525768BB6B16A85D8A88 /* RatingStarsImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingStarsImage.h; sourceTree = "<group>"; };
 		23525268BF30AF7FE1E2D743 /* RestaurantRepositorySpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRepositorySpy.m; sourceTree = "<group>"; };
@@ -789,6 +791,7 @@
 				23525698BA6C2C9853F1F34A /* GooglePhoto.h */,
 				235252CE3846FC327DC26E96 /* GoogleDefinitions.m */,
 				23525862D089688CEE92FEB5 /* GoogleDefinitions.h */,
+				2352524D6C029D9EC004B0F0 /* GoogleRestaurantTypes.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1804,6 +1807,7 @@
 				23525A91F0E7FE8257B5E794 /* FHStates.swift in Sources */,
 				2352588B46ED45D760431BE6 /* UserIntentUnclearError.swift in Sources */,
 				2352581BE33F4EE755746059 /* Continuation.swift in Sources */,
+				23525C9AEB6140CF73581DBE /* GoogleRestaurantTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
