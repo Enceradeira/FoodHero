@@ -9,9 +9,9 @@ PODS:
   - ReactiveCocoa/UI (2.3.1):
     - ReactiveCocoa/Core
   - SORelativeDateTransformer (1.1.10)
-  - Typhoon (2.1.0):
-    - Typhoon/no-arc (= 2.1.0)
-  - Typhoon/no-arc (2.1.0)
+  - Typhoon (3.0.2):
+    - Typhoon/no-arc (= 3.0.2)
+  - Typhoon/no-arc (3.0.2)
   - UIImageViewAligned (0.0.1)
   - Wit (4.0.0)
   - XCAsyncTestCase (1.0.0)
@@ -21,25 +21,25 @@ DEPENDENCIES:
   - OCHamcrest
   - ReactiveCocoa
   - SORelativeDateTransformer
-  - Typhoon (= 2.1.0)
+  - Typhoon
   - UIImageViewAligned (from `./../UIImageViewAligned`)
   - Wit (from `./../../wit-ios-sdk`)
   - XCAsyncTestCase
 
 EXTERNAL SOURCES:
   UIImageViewAligned:
-    :path: ./../UIImageViewAligned
+    :path: "./../UIImageViewAligned"
   Wit:
-    :path: ./../../wit-ios-sdk
+    :path: "./../../wit-ios-sdk"
 
 SPEC CHECKSUMS:
-  LinqToObjectiveC: db2ceec81d45192ffe971bbd8e73ef0de614723c
-  OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420
-  ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
-  SORelativeDateTransformer: de7936811c9988af8e129a097af48c828f933f5f
-  Typhoon: bb5f4488bd323ef3f57c1046c402b449c600633a
-  UIImageViewAligned: efc1b8b5750dea68b7ee67236f4c64f93e65b674
+  LinqToObjectiveC: 768f98c62d5b57cb6bdb7ab869e33d0a7a2da29c
+  OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
+  ReactiveCocoa: 334468a83b2c5f669f7cfb9a084415ee23219b4f
+  SORelativeDateTransformer: 307489386df4697780902bc16e99881d69a629b3
+  Typhoon: 41c79941e0235c0177457a8f272953d922f47d74
+  UIImageViewAligned: c188246ca50d21a5ac2a60ae754669525bb9f2f1
   Wit: 0988021be2f602bada3698706d46f25625fb0d99
-  XCAsyncTestCase: 4b6a2a136d3cff7fe0b6135eb82e98446445c0e2
+  XCAsyncTestCase: ff65c4665825960cfd90b18820342ec4671007bc
 
-COCOAPODS: 0.36.0.beta.1
+COCOAPODS: 0.36.3

@@ -1,10 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////
 //
-// Created by Aleksey Garbarev on 27.05.14.
-// Copyright (c) 2014 Jasper Blues. All rights reserved.
+//  TYPHOON FRAMEWORK
+//  Copyright 2013, Typhoon Framework Contributors
+//  All Rights Reserved.
 //
+//  NOTICE: The authors permit you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
 #import "TyphoonInjectionByConfig.h"
 #import "TyphoonInjection.h"
+#import "TyphoonUtils.h"
 
 
 @implementation TyphoonInjectionByConfig
@@ -27,6 +34,11 @@
     return copied;
 }
 
+- (BOOL)isEqualToCustom:(TyphoonInjectionByConfig *)injection
+{
+    return [self.configKey isEqualToString:injection.configKey];
+}
+
 - (void)valueToInjectWithContext:(TyphoonInjectionContext *)context completion:(TyphoonInjectionValueBlock)result
 {
     if (!self.configuredInjection) {
@@ -34,6 +46,11 @@
     }
 
     [self.configuredInjection valueToInjectWithContext:context completion:result];
+}
+
+- (NSUInteger)customHash
+{
+    return [self.configKey hash];
 }
 
 @end

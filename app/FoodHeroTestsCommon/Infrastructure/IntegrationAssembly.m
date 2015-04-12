@@ -3,14 +3,107 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
+#import "DefaultAssembly.h"
+#import "NavigationController.h"
+#import "ConversationViewController.h"
+#import "GoogleRestaurantSearch.h"
+#import "RestaurantSearch.h"
+#import "DefaultSchedulerFactory.h"
+#import "RestaurantDetailViewController.h"
+#import "Environment.h"
+#import "FoodHero-Swift.h"
 #import "IntegrationAssembly.h"
-#import "WitSpeechRecognitionService.h"
 #import "CLLocationManagerProxyStub.h"
 #import "AudioSessionStub.h"
-#import "FoodHero-Swift.h"
+#import "WitSpeechRecognitionService.h"
 
-@implementation IntegrationAssembly {
+@implementation IntegrationAssembly
+- (id)navigationViewController {
+    return [TyphoonDefinition withClass:[NavigationController class]];
+}
 
+- (id)restaurantDetailViewController {
+    return [TyphoonDefinition withClass:[RestaurantDetailViewController class]];
+}
+
+- (id)conversationViewController {
+    return [TyphoonDefinition
+            withClass:[ConversationViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self conversationAppService]];
+
+                }];
+                definition.scope = TyphoonScopeSingleton; // Because it holds state
+            }
+    ];
+}
+
+- (id)conversationAppService {
+    return [TyphoonDefinition
+            withClass:[ConversationAppService class]
+        configuration:^(TyphoonDefinition *definition) {
+            [definition useInitializer:@selector(initWithConversationRepository:restaurantRepository:locationService:speechRegocnitionService:) parameters:^(TyphoonMethod *method) {
+                [method injectParameterWith:[self conversationRepository]];
+                [method injectParameterWith:[self restaurantRepository]];
+                [method injectParameterWith:[self locationService]];
+                [method injectParameterWith:[self speechRecognitionService]];
+            }];
+            definition.scope = TyphoonScopeSingleton; // Because it holds state
+        }
+    ];
+}
+
+- (id)conversationRepository {
+    return [TyphoonDefinition withClass:[ConversationRepository class]];
+}
+
+- (id)restaurantSearch {
+    return [TyphoonDefinition withClass:[RestaurantSearch class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self restaurantRepository]];
+                                  [method injectParameterWith:[self locationService]];
+                                  [method injectParameterWith:[self schedulerFactory]];
+
+                              }];
+                          }];
+}
+
+- (id)locationService {
+    return [TyphoonDefinition withClass:[LocationService class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithLocationManager:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self locationManagerProxy]];
+                                  [method injectParameterWith:[self schedulerFactory]];
+
+                              }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
+                          }];
+}
+
+- (id)restaurantRepository {
+    return [TyphoonDefinition withClass:[RestaurantRepository class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithSearchService:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self restaurantSearchService]];
+                                  [method injectParameterWith:[self locationService]];
+                                  [method injectParameterWith:[self schedulerFactory]];
+                              }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
+                          }];
+}
+
+- (id)schedulerFactory {
+    return [TyphoonDefinition withClass:[DefaultSchedulerFactory class]];
+}
+
+- (id)environment {
+    return [TyphoonDefinition withClass:[Environment class]];
+}
+
+- (id)restaurantSearchService {
+    return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
 }
 
 - (id)talkerRandomizer {

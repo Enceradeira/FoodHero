@@ -1,7 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
 //
-// Created by Aleksey Garbarev on 06.06.14.
-// Copyright (c) 2014 typhoonframework.org. All rights reserved.
+//  TYPHOON FRAMEWORK
+//  Copyright 2013, Typhoon Framework Contributors
+//  All Rights Reserved.
 //
+//  NOTICE: The authors permit you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
 #import "TyphoonInitialStoryboardResolver.h"
 #import "TyphoonStartup.h"
@@ -42,7 +48,7 @@
 
 + (NSString *)initialStoryboardName
 {
-    return [[NSBundle mainBundle] infoDictionary][@"UIMainStoryboardFile"];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UIMainStoryboardFile"];
 }
 
 @end

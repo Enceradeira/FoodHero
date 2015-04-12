@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -16,6 +16,7 @@
 
 
 @class TyphoonCallStack;
+@class TyphoonDefinition;
 
 /**
 * Encapsulates the methods related to assembling an instance using the Objective-C runtime. This is an internal category - the methods will
@@ -33,7 +34,13 @@
 
 - (NSArray *)allDefinitionsForType:(id)classOrProtocol;
 
+- (NSArray *)allDefinitionsForType:(id)classOrProtocol includeSubclasses:(BOOL)includeSubclasses;
+
 - (TyphoonDefinition *)definitionForType:(id)classOrProtocol;
+
+- (TyphoonDefinition *)definitionForType:(id)classOrProtocol orNil:(BOOL)returnNilIfNotFound includeSubclasses:(BOOL)includeSubclasses;
+
+- (void)registerInstance:(id)instance asSingletonForDefinition:(TyphoonDefinition *)definition;
 
 - (void)injectAssemblyOnInstanceIfTyphoonAware:(id)instance;
 

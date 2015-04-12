@@ -1,10 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
 //
-//  TyphoonInjectionByReference.m
-//  A-Typhoon
+//  TYPHOON FRAMEWORK
+//  Copyright 2013, Typhoon Framework Contributors
+//  All Rights Reserved.
 //
-//  Created by Aleksey Garbarev on 11.03.14.
-//  Copyright (c) 2014 Jasper Blues. All rights reserved.
+//  NOTICE: The authors permit you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //
+////////////////////////////////////////////////////////////////////////////////
+
 
 #import "TyphoonInjectionByReference.h"
 #import "TyphoonComponentFactory+InstanceBuilder.h"
@@ -13,6 +17,7 @@
 #import "TyphoonStackElement.h"
 #import "NSInvocation+TCFUnwrapValues.h"
 #import "TyphoonDefinition+InstanceBuilder.h"
+#import "TyphoonUtils.h"
 
 @implementation TyphoonInjectionByReference
 
@@ -35,6 +40,11 @@
     return copied;
 }
 
+- (BOOL)isEqualToCustom:(TyphoonInjectionByReference *)injection
+{
+    return [self.reference isEqual:injection.reference] && [self.referenceArguments isEqual:injection.referenceArguments];
+}
+
 - (void)valueToInjectWithContext:(TyphoonInjectionContext *)context completion:(TyphoonInjectionValueBlock)result
 {
     if (context.raiseExceptionIfCircular) {
@@ -46,33 +56,11 @@
     }
 }
 
-#pragma mark - Utils
-
-- (TyphoonRuntimeArguments *)referenceArgumentsByApplyingRuntimeArgs:(TyphoonRuntimeArguments *)runtimeArgs
-{
-    TyphoonRuntimeArguments *result = _referenceArguments;
-
-    Class runtimeArgInjectionClass = [TyphoonInjectionByRuntimeArgument class];
-    BOOL hasRuntimeArgumentReferences = [_referenceArguments indexOfArgumentWithKind:runtimeArgInjectionClass] != NSNotFound;
-
-    if (_referenceArguments && runtimeArgs && hasRuntimeArgumentReferences) {
-        result = [_referenceArguments copy];
-        NSUInteger indexToReplace;
-        while ((indexToReplace = [result indexOfArgumentWithKind:runtimeArgInjectionClass]) != NSNotFound) {
-            TyphoonInjectionByRuntimeArgument *runtimeArgPlaceholder = [result argumentValueAtIndex:indexToReplace];
-            id runtimeValue = [runtimeArgs argumentValueAtIndex:runtimeArgPlaceholder.runtimeArgumentIndex];
-            [result replaceArgumentAtIndex:indexToReplace withArgument:runtimeValue];
-        }
-    }
-
-    return result;
-}
-
 #pragma mark - Protected
 
 - (void)resolveCircularDependencyWithContext:(TyphoonInjectionContext *)context block:(dispatch_block_t)block
 {
-    TyphoonRuntimeArguments *args = [self referenceArgumentsByApplyingRuntimeArgs:context.args];
+    TyphoonRuntimeArguments *args = [TyphoonRuntimeArguments argumentsFromRuntimeArguments:context.args appliedToReferenceArguments:_referenceArguments];
     [context.factory resolveCircularDependency:self.reference args:args resolvedBlock:^(BOOL isCircular) {
         block();
     }];
@@ -81,13 +69,18 @@
 //Raises circular dependencies exception if already initializing.
 - (id)resolveReferenceWithContext:(TyphoonInjectionContext *)context
 {
-    TyphoonRuntimeArguments *args = [self referenceArgumentsByApplyingRuntimeArgs:context.args];
+    TyphoonRuntimeArguments *args = [TyphoonRuntimeArguments argumentsFromRuntimeArguments:context.args appliedToReferenceArguments:_referenceArguments];
     
     id referenceInstance = [[[context.factory stack] peekForKey:self.reference args:args] instance];
     if (!referenceInstance) {
         referenceInstance = [context.factory componentForKey:self.reference args:args];
     }
     return referenceInstance;
+}
+
+- (NSUInteger)customHash
+{
+    return TyphoonHashByAppendingInteger([_reference hash], [_referenceArguments hash]);
 }
 
 @end

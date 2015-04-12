@@ -1,16 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
 //
-//  TyphoonInjectionDictionary.m
-//  A-Typhoon
+//  TYPHOON FRAMEWORK
+//  Copyright 2013, Typhoon Framework Contributors
+//  All Rights Reserved.
 //
-//  Created by Aleksey Garbarev on 14.03.14.
-//  Copyright (c) 2014 Jasper Blues. All rights reserved.
+//  NOTICE: The authors permit you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //
+////////////////////////////////////////////////////////////////////////////////
+
 
 #import "TyphoonInjectionByDictionary.h"
 #import "TyphoonInjections.h"
 #import "TyphoonIntrospectionUtils.h"
 #import "TyphoonTypeDescriptor.h"
 #import "NSArray+TyphoonManualEnumeration.h"
+#import "TyphoonUtils.h"
 
 @interface TyphoonInjectionByDictionary ()
 
@@ -119,6 +124,11 @@
     return copied;
 }
 
+- (BOOL)isEqualToCustom:(TyphoonInjectionByDictionary *)injection
+{
+    return [self.injections isEqualToDictionary:injection.injections] && self.requiredClass == injection.requiredClass;
+}
+
 - (void)valueToInjectWithContext:(TyphoonInjectionContext *)context completion:(TyphoonInjectionValueBlock)result
 {
     Class dictionaryClass = [self dictionaryClassForContext:context];
@@ -129,6 +139,11 @@
     [self buildDictionaryWithClass:dictionaryClass context:contextForValues completion:^(id<TyphoonDictionary> dictionary) {
         result(dictionary);
     }];
+}
+
+- (NSUInteger)customHash
+{
+    return TyphoonHashByAppendingInteger([self.injections hash], [_requiredClass hash]);
 }
 
 @end

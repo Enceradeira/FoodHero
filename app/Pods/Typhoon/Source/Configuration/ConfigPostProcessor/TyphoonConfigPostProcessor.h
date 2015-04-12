@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -11,14 +11,14 @@
 
 
 #import <Foundation/Foundation.h>
-#import "TyphoonComponentFactoryPostProcessor.h"
+#import "TyphoonDefinitionPostProcessor.h"
 
 @protocol TyphoonResource;
 
 /**
 * @ingroup Configuration
 */
-@interface TyphoonConfigPostProcessor : NSObject <TyphoonComponentFactoryPostProcessor>
+@interface TyphoonConfigPostProcessor : NSObject <TyphoonDefinitionPostProcessor>
 
 /**
 *  You can manage TyphoonConfigPostProcessor registry by mapping configuration classes for file extensions
@@ -29,7 +29,7 @@
 /** list of all supported path extensions (configuration types) */
 + (NSArray *)availableExtensions;
 
-+ (TyphoonConfigPostProcessor *)configurer;
++ (TyphoonConfigPostProcessor *)postProcessor;
 
 /** Append resource found in main bundle by name */
 - (void)useResourceWithName:(NSString *)name;
@@ -39,18 +39,6 @@
 
 /** Append TyphoonResource with specified extension (@see availableExtensions method) */
 - (void)useResource:(id<TyphoonResource>)resource withExtension:(NSString *)typeExtension;
-
-@end
-
-@interface TyphoonConfigPostProcessor (Deprecated)
-
-+ (TyphoonConfigPostProcessor *)configurerWithResource:(id <TyphoonResource>)resource DEPRECATED_MSG_ATTRIBUTE("check useResource... methods");
-
-+ (TyphoonConfigPostProcessor *)configurerWithResources:(id <TyphoonResource>)first, ...NS_REQUIRES_NIL_TERMINATION DEPRECATED_MSG_ATTRIBUTE("check useResource... methods");
-
-+ (TyphoonConfigPostProcessor *)configurerWithResourceList:(NSArray *)resources DEPRECATED_MSG_ATTRIBUTE("check useResource... methods");
-
-- (void)usePropertyStyleResource:(id<TyphoonResource>)resource DEPRECATED_MSG_ATTRIBUTE("check useResource... methods");
 
 @end
 

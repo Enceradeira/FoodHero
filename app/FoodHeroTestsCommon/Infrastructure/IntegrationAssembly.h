@@ -4,8 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DefaultAssembly.h"
 
-
-@interface IntegrationAssembly : DefaultAssembly
+@interface IntegrationAssembly : TyphoonAssembly<ApplicationAssembly>
 @end

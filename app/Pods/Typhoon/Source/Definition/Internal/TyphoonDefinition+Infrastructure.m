@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -20,21 +20,14 @@ TYPHOON_LINK_CATEGORY(TyphoonDefinition_Infrastructure)
 #import "TyphoonMethod.h"
 #import "TyphoonMethod+InstanceBuilder.h"
 #import "TyphoonReferenceDefinition.h"
+#import "TyphoonIntrospectionUtils.h"
+#import "TyphoonRuntimeArguments.h"
 
 @implementation TyphoonDefinition (Infrastructure)
 
+@dynamic initializer, initializerGenerated, currentRuntimeArguments, key;
 
-- (void)setCurrentRuntimeArguments:(TyphoonRuntimeArguments *)currentRuntimeArguments
-{
-    _currentRuntimeArguments = currentRuntimeArguments;
-}
-
-- (TyphoonRuntimeArguments *)currentRuntimeArguments
-{
-    return _currentRuntimeArguments;
-}
-
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Class Methods
 
 + (instancetype)withClass:(Class)clazz key:(NSString *)key
@@ -42,57 +35,82 @@ TYPHOON_LINK_CATEGORY(TyphoonDefinition_Infrastructure)
     return [[TyphoonDefinition alloc] initWithClass:clazz key:key];
 }
 
-
-+ (instancetype)configDefinitionWithResource:(id <TyphoonResource>)resource
-{
-    return [self configDefinitionWithResources:@[resource]];
-}
-
-+ (instancetype)configDefinitionWithResources:(NSArray *)resources
++ (instancetype)configDefinitionWithName:(NSString *)fileName
 {
     return [self withClass:[TyphoonConfigPostProcessor class] configuration:^(TyphoonDefinition *definition) {
-        [definition useInitializer:@selector(configurerWithResourceList:) parameters:^(TyphoonMethod *initializer) {
-            [initializer injectParameterWith:resources];
+        [definition injectMethod:@selector(useResourceWithName:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:fileName];
         }];
-        NSString *resourceDescription = @"";
-        if ([resources count] > 0) {
-            resourceDescription = [resources[0] description];
-        }
-        definition.key = [NSString stringWithFormat:@"%@-%@", NSStringFromClass(definition.class), resourceDescription];
+        definition.key = [NSString stringWithFormat:@"%@-%@", NSStringFromClass(definition.class), fileName];
     }];
 }
 
-/* ====================================================================================================================================== */
++ (instancetype)configDefinitionWithPath:(NSString *)filePath
+{
+    return [self withClass:[TyphoonConfigPostProcessor class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectMethod:@selector(useResourceAtPath:) parameters:^(TyphoonMethod *method) {
+            [method injectParameterWith:filePath];
+        }];
+        definition.key = [NSString stringWithFormat:@"%@-%@", NSStringFromClass(definition.class), [filePath lastPathComponent]];
+    }];
+}
+
+//-------------------------------------------------------------------------------------------
 #pragma mark - Initialization & Destruction
 
 - (id)initWithClass:(Class)clazz key:(NSString *)key
 {
-    return [self initWithClass:clazz key:key factoryComponent:nil];
-}
-
-- (id)init
-{
-    return [self initWithClass:nil key:nil factoryComponent:nil];
-}
-
-- (id)initWithClass:(Class)clazz key:(NSString *)key factoryComponent:(NSString *)factoryComponent
-{
     self = [super init];
     if (self) {
         _type = clazz;
-        _key = [key copy];
-        _scope = TyphoonScopeObjectGraph;
         _injectedProperties = [[NSMutableSet alloc] init];
         _injectedMethods = [[NSMutableSet alloc] init];
-        if (factoryComponent) {
-            _factory = [TyphoonReferenceDefinition definitionReferringToComponent:factoryComponent];
-        }
+        _key = [key copy];
+        _scope = TyphoonScopeObjectGraph;
+        self.autoInjectionVisibility = TyphoonAutoInjectVisibilityDefault;
         [self validateRequiredParametersAreSet];
     }
     return self;
 }
 
-/* ====================================================================================================================================== */
+- (id)init
+{
+    return [self initWithClass:nil key:nil];
+}
+
+- (BOOL)isCandidateForInjectedClass:(Class)clazz includeSubclasses:(BOOL)includeSubclasses
+{
+    BOOL result = NO;
+    if (self.autoInjectionVisibility & TyphoonAutoInjectVisibilityByClass) {
+        BOOL isSameClass = self.type == clazz;
+        BOOL isSubclass = includeSubclasses && [self.type isSubclassOfClass:clazz];
+        result = isSameClass || isSubclass;
+    }
+    return result;
+}
+
+- (BOOL)isCandidateForInjectedProtocol:(Protocol *)aProtocol
+{
+    BOOL result = NO;
+    if (self.autoInjectionVisibility & TyphoonAutoInjectVisibilityByProtocol) {
+        result = [self.type conformsToProtocol:aProtocol];
+    }
+    return result;
+
+}
+
+
+- (void)setProcessed:(BOOL)processed
+{
+    _processed = processed;
+}
+
+- (BOOL)processed
+{
+    return _processed;
+}
+
+//-------------------------------------------------------------------------------------------
 #pragma mark - Private Methods
 
 - (void)validateRequiredParametersAreSet

@@ -23,6 +23,7 @@ TyphoonStoryboard *_storyboard;
 + (void)configure:(id <ApplicationAssembly>)assembly {
     [self reset];
     _assembly = assembly;
+    [[TyphoonAssemblyActivator withAssembly:assembly] activate];
 }
 
 + (TyphoonComponentFactory *)factory {

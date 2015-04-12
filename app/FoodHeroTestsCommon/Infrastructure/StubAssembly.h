@@ -7,5 +7,6 @@
 #import "ApplicationAssembly.h"
 #import "DefaultAssembly.h"
 
-@interface StubAssembly : DefaultAssembly<ApplicationAssembly>
+@interface StubAssembly : TyphoonAssembly <ApplicationAssembly>
+
 @end

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -14,26 +14,15 @@
 TYPHOON_LINK_CATEGORY(TyphoonDefinition_InstanceBuilder)
 
 #import "TyphoonDefinition+InstanceBuilder.h"
+#import "TyphoonDefinition+Infrastructure.h"
 #import "TyphoonMethod+InstanceBuilder.h"
 
 #import "TyphoonInjectionByType.h"
-#import "TyphoonInjectionByObjectFromString.h"
-#import "TyphoonInjectionByObjectInstance.h"
-#import "TyphoonInjectionByReference.h"
 #import "TyphoonInjectionByRuntimeArgument.h"
-#import "TyphoonInjection.h"
+#import "TyphoonComponentFactory.h"
+#import "TyphoonRuntimeArguments.h"
 
 @implementation TyphoonDefinition (InstanceBuilder)
-
-
-
-/* ====================================================================================================================================== */
-#pragma mark - Initialization & Destruction
-
-- (void)setType:(Class)type
-{
-    _type = type;
-}
 
 #pragma mark - Base methods
 
@@ -53,6 +42,12 @@ TYPHOON_LINK_CATEGORY(TyphoonDefinition_InstanceBuilder)
                 [method replaceInjection:injection with:injectionToReplace];
             }];
         }
+        [self enumerateInjectionsOfKind:injectionClass onCollection:[_afterInjections injectedParameters] withBlock:block replaceBlock:^(id injection, id injectionToReplace) {
+            [_afterInjections replaceInjection:injection with:injectionToReplace];
+        }];
+        [self enumerateInjectionsOfKind:injectionClass onCollection:[_beforeInjections injectedParameters] withBlock:block replaceBlock:^(id injection, id injectionToReplace) {
+            [_beforeInjections replaceInjection:injection with:injectionToReplace];
+        }];
     }
 
     if (options & TyphoonInjectionsEnumerationOptionProperties) {
@@ -79,6 +74,16 @@ TYPHOON_LINK_CATEGORY(TyphoonDefinition_InstanceBuilder)
             }
         }
     }
+}
+
+- (TyphoonMethod *)beforeInjections
+{
+    return _beforeInjections;
+}
+
+- (TyphoonMethod *)afterInjections
+{
+    return _afterInjections;
 }
 
 - (NSSet *)injectedProperties
@@ -141,35 +146,40 @@ TYPHOON_LINK_CATEGORY(TyphoonDefinition_InstanceBuilder)
 
 #pragma mark - Shorthands
 
-- (NSSet *)propertiesInjectedByValue
-{
-    return [self injectedPropertiesWithKind:[TyphoonInjectionByObjectFromString class]];
-}
-
-- (NSSet *)propertiesInjectedByType
-{
-    return [self injectedPropertiesWithKind:[TyphoonInjectionByType class]];
-}
-
-- (NSSet *)propertiesInjectedByObjectInstance
-{
-    return [self injectedPropertiesWithKind:[TyphoonInjectionByObjectInstance class]];
-}
-
-- (NSSet *)propertiesInjectedByReference
-{
-    return [self injectedPropertiesWithKind:[TyphoonInjectionByReference class]];
-}
-
-- (NSSet *)propertiesInjectedByRuntimeArgument
-{
-    return [self injectedPropertiesWithKind:[TyphoonInjectionByRuntimeArgument class]];
-}
-
 - (void)addInjectedProperty:(id <TyphoonPropertyInjection>)property
 {
     [_injectedProperties addObject:property];
 }
+
+- (void)addInjectedPropertyIfNotExists:(id <TyphoonPropertyInjection>)property
+{
+    BOOL isExists = NO;
+    for (id<TyphoonPropertyInjection>p in _injectedProperties) {
+        if ([[p propertyName] isEqualToString:[property propertyName]]) {
+            isExists = YES;
+            break;
+        }
+    }
+    if (!isExists) {
+        [_injectedProperties addObject:property];
+    }
+}
+
+- (id)targetForInitializerWithFactory:(TyphoonComponentFactory *)factory args:(TyphoonRuntimeArguments *)args
+{
+    return _type;
+}
+
+- (BOOL)matchesAutoInjectionByProtocol:(Protocol *)aProtocol
+{
+    return NO;
+}
+
+- (BOOL)matchesAutoInjectionByClass:(Class)aClass
+{
+    return NO;
+}
+
 
 - (BOOL)hasRuntimeArgumentInjections
 {
@@ -181,18 +191,6 @@ TYPHOON_LINK_CATEGORY(TyphoonDefinition_InstanceBuilder)
     }];
     return hasInjections;
 
-}
-
-- (NSSet *)injectedPropertiesWithKind:(Class)clazz
-{
-    NSMutableSet *properties = [NSMutableSet new];
-
-    [self enumerateInjectionsOfKind:clazz options:TyphoonInjectionsEnumerationOptionProperties
-                         usingBlock:^(id <TyphoonInjection> injection, id <TyphoonInjection> *injectionToReplace, BOOL *stop) {
-        [properties addObject:injection];
-    }];
-
-    return properties;
 }
 
 @end

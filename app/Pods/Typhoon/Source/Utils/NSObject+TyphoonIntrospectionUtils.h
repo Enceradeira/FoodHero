@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -22,7 +22,5 @@
 * Returns a Class object or `TyphoonTypeDescriptor` in the case of a primitive type.
 */
 - (TyphoonTypeDescriptor *)typhoon_typeForPropertyWithName:(NSString *)propertyName;
-
-- (NSArray *)typhoon_parameterNamesForSelector:(SEL)selector;
 
 @end

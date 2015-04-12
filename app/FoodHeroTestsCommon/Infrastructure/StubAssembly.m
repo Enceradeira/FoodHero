@@ -12,9 +12,95 @@
 #import "SpeechRecognitionServiceStub.h"
 #import "AudioSessionStub.h"
 #import "FoodHero-Swift.h"
+#import "GoogleRestaurantSearch.h"
+#import "Environment.h"
+#import "DefaultSchedulerFactory.h"
+#import "RestaurantRepository.h"
+#import "CLLocationManagerImpl.h"
+#import "WitSpeechRecognitionService.h"
+#import "AudioSession.h"
+#import "ConversationAppService.h"
+#import "NavigationController.h"
+#import "RestaurantDetailViewController.h"
+#import "ConversationViewController.h"
 
 
 @implementation StubAssembly
+
+- (id)navigationViewController {
+    return [TyphoonDefinition withClass:[NavigationController class]];
+}
+
+- (id)restaurantDetailViewController {
+    return [TyphoonDefinition withClass:[RestaurantDetailViewController class]];
+}
+
+- (id)conversationViewController {
+    return [TyphoonDefinition
+            withClass:[ConversationViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setConversationAppService:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self conversationAppService]];
+
+                }];
+                definition.scope = TyphoonScopeSingleton; // Because it holds state
+            }
+    ];
+}
+
+- (id)conversationAppService {
+    return [TyphoonDefinition
+            withClass:[ConversationAppService class]
+        configuration:^(TyphoonDefinition *definition) {
+            [definition useInitializer:@selector(initWithConversationRepository:restaurantRepository:locationService:speechRegocnitionService:) parameters:^(TyphoonMethod *method) {
+                [method injectParameterWith:[self conversationRepository]];
+                [method injectParameterWith:[self restaurantRepository]];
+                [method injectParameterWith:[self locationService]];
+                [method injectParameterWith:[self speechRecognitionService]];
+            }];
+            definition.scope = TyphoonScopeSingleton; // Because it holds state
+        }
+    ];
+}
+
+- (id)conversationRepository {
+    return [TyphoonDefinition withClass:[ConversationRepository class]];
+}
+
+- (id)restaurantSearch {
+    return [TyphoonDefinition withClass:[RestaurantSearch class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self restaurantRepository]];
+                                  [method injectParameterWith:[self locationService]];
+                                  [method injectParameterWith:[self schedulerFactory]];
+
+                              }];
+                          }];
+}
+
+- (id)locationService {
+    return [TyphoonDefinition withClass:[LocationService class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithLocationManager:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self locationManagerProxy]];
+                                  [method injectParameterWith:[self schedulerFactory]];
+
+                              }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
+                          }];
+}
+
+- (id)restaurantRepository {
+    return [TyphoonDefinition withClass:[RestaurantRepository class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithSearchService:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self restaurantSearchService]];
+                                  [method injectParameterWith:[self locationService]];
+                                  [method injectParameterWith:[self schedulerFactory]];
+                              }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
+                          }];
+}
 
 - (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[RestaurantSearchServiceStub class] configuration:^(TyphoonDefinition *definition) {

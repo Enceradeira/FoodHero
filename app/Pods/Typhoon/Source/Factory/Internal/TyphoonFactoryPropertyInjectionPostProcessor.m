@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -21,10 +21,10 @@
 
 @implementation TyphoonFactoryPropertyInjectionPostProcessor
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Protocol Methods
 
-- (void)postProcessComponentFactory:(TyphoonComponentFactory *)factory
+- (void)postProcessDefinitionsInFactory:(TyphoonComponentFactory *)factory
 {
     for (TyphoonDefinition *definition in [factory registry]) {
 
@@ -37,7 +37,7 @@
     }
 }
 
-/* ====================================================================================================================================== */
+//-------------------------------------------------------------------------------------------
 #pragma mark - Instance Methods
 
 - (BOOL)shouldReplaceInjectionByType:(TyphoonInjectionByType *)propertyInjection
