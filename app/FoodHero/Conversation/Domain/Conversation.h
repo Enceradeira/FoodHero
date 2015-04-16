@@ -11,12 +11,13 @@
 #import "Statement.h"
 #import "RestaurantSearchService.h"
 #import "ConversationSource.h"
+#import "ApplicationAssembly.h"
 
 @class ConversationParameters;
 
 @interface Conversation : NSObject <ConversationSource>
 
-- (instancetype)initWithInput:(RACSignal *)input;
+- (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly;
 
 - (Statement *)getStatement:(NSUInteger)index;
 

@@ -41,10 +41,10 @@ ConversationAppServiceTests {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _searchServiceStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
-    _service = [(id <ApplicationAssembly>) [TyphoonComponents factory] conversationAppService];
-    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
-    _speechRecognitionService = [(id <ApplicationAssembly>) [TyphoonComponents factory] speechRecognitionService];
+    _searchServiceStub = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
+    _service = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] conversationAppService];
+    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
+    _speechRecognitionService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] speechRecognitionService];
 }
 
 - (ConversationBubble *)getBubble:(NSUInteger)index {

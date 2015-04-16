@@ -36,9 +36,9 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _searchService = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
-    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
-    _repository = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantRepository];
+    _searchService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
+    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
+    _repository = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantRepository];
 }
 
 - (RestaurantRepository *)repository {

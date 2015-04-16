@@ -27,22 +27,17 @@
 
 }
 
-
-- (instancetype)init {
-    return [self initWithInput:[RACSubject new]];
-}
-
-- (instancetype)initWithInput:(RACSignal *)input {
+- (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>) assembly {
     self = [super init];
     if (self != nil) {
         _statements = [NSMutableArray new];
         _rawConversation = [NSMutableArray new];
         _input = input;
 
-        id <IRandomizer> randomizer = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
-        RestaurantSearch *search = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearch];
-        LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
-        id <ISchedulerFactory> schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
+        id <IRandomizer> randomizer = [assembly talkerRandomizer];
+        RestaurantSearch *search = [assembly restaurantSearch];
+        LocationService *locationService = [assembly locationService];
+        id <ISchedulerFactory> schedulerFactory = [assembly schedulerFactory];
         ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
         TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
         ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService schedulerFactory:schedulerFactory];

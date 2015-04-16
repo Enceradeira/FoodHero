@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "Restaurant.h"
 #import "NotebookPageHostViewController.h"
+#import "ISchedulerFactory.h"
 
 
 @interface RestaurantReviewSummaryViewController : NotebookPageHostViewController
@@ -13,4 +14,5 @@
 @property(weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property(nonatomic) Restaurant *restaurant;
+- (void)setSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory;
 @end

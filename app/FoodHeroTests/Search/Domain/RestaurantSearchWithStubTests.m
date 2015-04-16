@@ -34,11 +34,11 @@
 
     [TyphoonComponents configure:[StubAssembly new]];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
-    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
+    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
     _restaurantRepository = [RestaurantRepositoryStub new];
 
-    id locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
-    id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
+    id locationService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationService];
+    id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] schedulerFactory];
     _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:locationService schedulerFactory:schedulerFactory];
 }
 

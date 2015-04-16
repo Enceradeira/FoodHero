@@ -35,7 +35,7 @@
 
     [TyphoonComponents configure:[StubAssembly assembly]];
     _ctrl = [ControllerFactory createConversationViewController];
-    _speechRegocnitionService = ((id <ApplicationAssembly>) [TyphoonComponents factory]).speechRecognitionService;
+    _speechRegocnitionService = ((id <ApplicationAssembly>) [TyphoonComponents getAssembly]).speechRecognitionService;
 
     _ctrl.view.hidden = NO;
     _bubbleView = _ctrl.bubbleView;

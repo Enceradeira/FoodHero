@@ -13,20 +13,23 @@
 #import "GoogleURL.h"
 #import "GoogleDefinitions.h"
 #import "GooglePhoto.h"
+#import "ApplicationAssembly.h"
 
 
 @implementation GoogleRestaurantSearch {
 
     BOOL _simulateNetworkError;
     NSOperationQueue *_queue;
+    id <IEnvironment> _environment;
 }
 
-- (id)init {
+- (id)initWithEnvironment:(id <IEnvironment>)environment {
     self = [super init];
     if (self) {
         _baseAddress = GOOGLE_BASE_ADDRESS;
         _timeout = 60;
         _queue = [[NSOperationQueue alloc] init];
+        _environment = environment;
     }
 
     return self;
@@ -125,14 +128,14 @@
     if (openingHours) {
         openingStatus = [openingHours[@"open_now"] boolValue] ? @"Open now" : @"Closed now";
         NSArray *openingPeriods = openingHours[@"periods"];
-        GoogleOpeningHours *hours = [GoogleOpeningHours createWithPeriods:openingPeriods];
+        GoogleOpeningHours *hours = [GoogleOpeningHours createWithPeriods:openingPeriods environment:_environment];
         openingHoursTodayDescription = [hours descriptionForDate:[NSDate date]];
         openingHoursDescription = [hours descriptionForWeek];
     }
     NSString *website = [details valueForKey:@"website"];
 
     NSArray *reviews = [[details valueForKey:@"reviews"] linq_select:^(NSDictionary *review) {
-        NSDate *date =[NSDate dateWithTimeIntervalSince1970:[review[@"time"] doubleValue]];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[review[@"time"] doubleValue]];
         return [RestaurantReview create:review[@"text"] rating:[review[@"rating"] doubleValue] author:review[@"author_name"] date:date];
     }];
     NSNumber *ratingNumber = [details valueForKey:@"rating"];

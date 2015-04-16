@@ -15,6 +15,7 @@
 #import "SearchException.h"
 #import "IPhoto.h"
 #import "GoogleDefinitions.h"
+#import "TyphoonComponents.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -48,7 +49,8 @@
     _parameter.coordinate = _norwich.coordinate;
     _parameter.radius = 10000;
 
-    _service = [GoogleRestaurantSearch new];
+    id<ApplicationAssembly> assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
+    _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[assembly environment]];
 }
 
 - (GooglePlace *)findPlaceById:(NSString *)idLibraryGrillNorwich result:(NSArray *)result {

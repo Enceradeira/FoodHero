@@ -34,10 +34,10 @@
     [TyphoonComponents configure:[StubAssembly new]];
 
     _searchService = [RestaurantSearchServiceSpy new];
-    _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
-    _locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
+    _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
+    _locationService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationService];
 
-    id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
+    id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] schedulerFactory];
     _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService locationService:_locationService schedulerFactory:schedulerFactory];
 }
 

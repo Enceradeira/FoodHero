@@ -7,15 +7,25 @@
 //
 
 #import "ConversationRepository.h"
+#import "ApplicationAssembly.h"
 
 @implementation ConversationRepository {
     Conversation *_onlyConversation;
+    id <ApplicationAssembly> _assembly;
+}
+
+- (instancetype)initWithAssembly:(id <ApplicationAssembly>)assembly {
+    self = [super init];
+    if (self != nil) {
+        _assembly = assembly;
+    }
+    return self;
 }
 
 - (Conversation *)getForInput:(RACSignal *)input {
     if (_onlyConversation == nil) {
 
-        _onlyConversation = [[Conversation alloc] initWithInput:input];
+        _onlyConversation = [[Conversation alloc] initWithInput:input assembly:_assembly];
     }
     return _onlyConversation;
 }

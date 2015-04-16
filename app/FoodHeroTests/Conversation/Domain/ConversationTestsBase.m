@@ -17,21 +17,23 @@
     RestaurantSearchServiceStub *_restaurantSearchStub;
     RACSubject *_input;
     TalkerRandomizerFake *_talkerRandomizerFake;
+    id <ApplicationAssembly> _assembly;
 }
 - (void)setUp {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
     _input = [RACSubject new];
-    _restaurantSearchStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] restaurantSearchService];
-    _locationManagerStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationManagerProxy];
+    _assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
+    _restaurantSearchStub = [_assembly restaurantSearchService];
+    _locationManagerStub = [_assembly locationManagerProxy];
     [self resetConversation];
-    _talkerRandomizerFake = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
+    _talkerRandomizerFake = [_assembly talkerRandomizer];
     _expectedStatements = [NSMutableArray new];
 }
 
 - (void)resetConversation {
-    _conversation = [[Conversation alloc] initWithInput:_input];
+    _conversation = [[Conversation alloc] initWithInput:_input assembly:_assembly];
 }
 
 - (void)sendInput:(id)utterance {

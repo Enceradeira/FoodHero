@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "RestaurantController.h"
 
+@class LocationService;
+
 
 @interface RestaurantDetailTableViewController : UITableViewController<RestaurantController>
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -18,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *directionsButton;
 @property (weak, nonatomic) IBOutlet UIButton *urlButton;
 @property (weak, nonatomic) IBOutlet UIButton *phoneButton;
+
+- (void)setLocationService:(LocationService *)locationService;
 
 - (void)openingHoursTouched:(id)sender;
 

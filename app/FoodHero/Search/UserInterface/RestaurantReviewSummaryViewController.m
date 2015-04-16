@@ -14,6 +14,7 @@
 @implementation RestaurantReviewSummaryViewController {
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
     __weak IBOutlet UIView *_containerView;
+    id <ISchedulerFactory> _schedulerFactory;
 }
 
 - (void)viewDidLoad {
@@ -26,6 +27,10 @@
     [self bind];
 }
 
+-(void)setSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory{
+    _schedulerFactory = schedulerFactory;
+}
+
 - (void)bind {
     RestaurantRating *rating = _restaurant.rating;
 
@@ -33,8 +38,7 @@
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", rating.rating];
 
     if (_restaurant.photos.count > 0) {
-        id <ISchedulerFactory> schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
-        RACScheduler *mainThreadScheduler = [schedulerFactory mainThreadScheduler];
+        RACScheduler *mainThreadScheduler = [_schedulerFactory mainThreadScheduler];
 
         id <IPhoto> photo = _restaurant.photos[0];
         [[photo.image deliverOn:mainThreadScheduler] subscribeNext:^(UIImage *image) {

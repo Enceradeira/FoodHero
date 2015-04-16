@@ -18,6 +18,11 @@
 @implementation RestaurantDetailTableViewController {
 
     Restaurant *_restaurant;
+    LocationService * _locationService;
+}
+
+-(void)setLocationService:(LocationService *)locationService{
+    _locationService = locationService;
 }
 
 - (void)viewDidLoad {
@@ -111,8 +116,7 @@
 }
 
 - (IBAction)directionsTouched:(UITapGestureRecognizer *)sender {
-    LocationService *locationService = [(id <ApplicationAssembly>) [TyphoonComponents factory] locationService];
-    CLLocationCoordinate2D coordinate = locationService.lastKnownLocation.coordinate;
+    CLLocationCoordinate2D coordinate = _locationService.lastKnownLocation.coordinate;
 
     NSArray *encodedComponents = [_restaurant.addressComponents linq_select:^(NSString *component) {
         return [KeywordEncoder encodeString:component];

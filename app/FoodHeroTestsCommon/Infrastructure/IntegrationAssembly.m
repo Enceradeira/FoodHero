@@ -17,6 +17,9 @@
 #import "CLLocationManagerProxyStub.h"
 #import "AudioSessionStub.h"
 #import "WitSpeechRecognitionService.h"
+#import "RestaurantDetailTableViewController.h"
+#import "RestaurantPhotoViewController.h"
+#import "RestaurantReviewSummaryViewController.h"
 
 @implementation IntegrationAssembly
 - (id)navigationViewController {
@@ -25,6 +28,39 @@
 
 - (id)restaurantDetailViewController {
     return [TyphoonDefinition withClass:[RestaurantDetailViewController class]];
+}
+
+- (id)restaurantDetailTableViewController {
+    return [TyphoonDefinition
+            withClass:[RestaurantDetailTableViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setLocationService:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self locationService]];
+
+                }];
+            }
+    ];
+}
+
+- (id)restaurantPhotoViewController {
+    return [TyphoonDefinition
+            withClass:[RestaurantPhotoViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setSchedulerFactory:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self schedulerFactory]];
+
+                }];
+            }
+    ];
+}
+
+- (id)restaurantReviewSummaryViewController {
+    return [TyphoonDefinition
+            withClass:[RestaurantReviewSummaryViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setSchedulerFactory:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self schedulerFactory]];
+
+                }];
+            }
+    ];
 }
 
 - (id)conversationViewController {
@@ -55,7 +91,15 @@
 }
 
 - (id)conversationRepository {
-    return [TyphoonDefinition withClass:[ConversationRepository class]];
+    return [TyphoonDefinition withClass:[ConversationRepository class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithAssembly:) parameters:^
+                              (TyphoonMethod *method) {
+                                  [method injectParameterWith:self];
+
+                              }];
+                              definition.scope = TyphoonScopeSingleton; // Because it holds state
+                          }];
 }
 
 - (id)restaurantSearch {
@@ -103,7 +147,13 @@
 }
 
 - (id)restaurantSearchService {
-    return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]];
+    return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithEnvironment:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self environment]];
+
+                              }];
+                          }];
 }
 
 - (id)talkerRandomizer {

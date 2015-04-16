@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IEnvironment.h"
 
 
 @interface GoogleOpeningHours : NSObject
-+ (GoogleOpeningHours *)createWithPeriods:(NSArray *)openingPeriods;
++ (instancetype)createWithPeriods:(NSArray *)openingPeriods environment:(id <IEnvironment>)environment;
 
-- (id)initWithPeriods:(NSArray *)array;
+- (id)initWithPeriods:(NSArray *)openingPeriods environment:(id <IEnvironment>)environment;
 
 - (NSString *)descriptionForDate:(NSDate *)date;
 

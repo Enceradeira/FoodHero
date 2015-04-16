@@ -20,6 +20,7 @@
 #import "ConversationSourceStub.h"
 #import "DefaultSchedulerFactory.h"
 #import "AlwaysImmediateSchedulerFactory.h"
+#import "TyphoonComponents.h"
 
 @interface RestaurantRepositoryIntegrationTests : XCTestCase
 
@@ -46,7 +47,8 @@
     _locationManager = [CLLocationManagerProxyStub new];
     _locationService = [[LocationService alloc] initWithLocationManager:_locationManager schedulerFactory:schedulerFactory];
 
-    _repository = [[RestaurantRepository alloc] initWithSearchService:[[GoogleRestaurantSearch alloc] init] locationService:_locationService schedulerFactory:schedulerFactory];
+    id <RestaurantSearchService> restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
+    _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch locationService:_locationService schedulerFactory:schedulerFactory];
 }
 
 - (void)test_getPlacesByCuisine_ShouldReturnCorrectlyInitializedPlaces {

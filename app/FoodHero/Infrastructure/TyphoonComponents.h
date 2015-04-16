@@ -9,11 +9,11 @@
 
 
 @interface TyphoonComponents : NSObject
++ (TyphoonAssembly *)getAssembly;
+
 + (void)reset;
 
-+ (void)configure:(id <ApplicationAssembly>)assembly;
-
-+ (TyphoonComponentFactory *)factory;
++ (void)configure:(TyphoonAssembly *)assembly;
 
 + (TyphoonStoryboard *)storyboard;
 @end

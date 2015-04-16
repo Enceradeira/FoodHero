@@ -7,20 +7,25 @@
 #import "DesignByContractException.h"
 
 
-id <ApplicationAssembly> _assembly;
+TyphoonAssembly *_assembly;
 TyphoonComponentFactory *_factory;
 TyphoonStoryboard *_storyboard;
 
 @implementation TyphoonComponents {
 
 }
++ (TyphoonAssembly *)getAssembly {
+    [self ensureAssembly];
+    return _assembly;
+}
+
 + (void)reset {
     _assembly = nil;
     _factory = nil;
     _storyboard = nil;
 }
 
-+ (void)configure:(id <ApplicationAssembly>)assembly {
++ (void)configure:(TyphoonAssembly *)assembly {
     [self reset];
     _assembly = assembly;
     [[TyphoonAssemblyActivator withAssembly:assembly] activate];
@@ -47,7 +52,7 @@ TyphoonStoryboard *_storyboard;
     return _storyboard;
 }
 
-+ (TyphoonComponentFactory *)createFactory:(id <ApplicationAssembly>)assembly {
++ (TyphoonComponentFactory *)createFactory:(TyphoonAssembly *)assembly {
     return [[TyphoonBlockComponentFactory alloc] initWithAssemblies:@[assembly]];
 }
 

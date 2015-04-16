@@ -7,11 +7,17 @@
 
 - (id)restaurantDetailViewController;
 
+- (id)restaurantDetailTableViewController;
+
+- (id)restaurantPhotoViewController;
+
+- (id)restaurantReviewSummaryViewController;
+
 - (id)navigationViewController;
 
 - (id)conversationViewController;
 
--(id)speechRecognitionService;
+- (id)speechRecognitionService;
 
 - (id)conversationAppService;
 

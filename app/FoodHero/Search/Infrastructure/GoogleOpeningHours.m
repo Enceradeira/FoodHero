@@ -15,15 +15,15 @@
     NSArray *_openingPeriods;
     id <IEnvironment> _environment;
 }
-+ (instancetype)createWithPeriods:(NSArray *)openingPeriods {
-    return [[GoogleOpeningHours alloc] initWithPeriods:openingPeriods];
++ (instancetype)createWithPeriods:(NSArray *)openingPeriods environment:(id <IEnvironment>)environment {
+    return [[GoogleOpeningHours alloc] initWithPeriods:openingPeriods environment:environment];
 }
 
-- (id)initWithPeriods:(NSArray *)openingPeriods {
+- (id)initWithPeriods:(NSArray *)openingPeriods environment:(id <IEnvironment>)environment {
     self = [super init];
     if (self) {
         _openingPeriods = openingPeriods;
-        _environment = [(id <ApplicationAssembly>) [TyphoonComponents factory] environment];
+        _environment = environment;
     }
     return self;
 }

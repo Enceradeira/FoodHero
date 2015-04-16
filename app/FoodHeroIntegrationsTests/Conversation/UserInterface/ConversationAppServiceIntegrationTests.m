@@ -31,7 +31,7 @@
 
     [TyphoonComponents configure:[IntegrationAssembly new]];
 
-    id <ApplicationAssembly> factory = (id <ApplicationAssembly>) [TyphoonComponents factory];
+    id <ApplicationAssembly> factory = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
     _service = [factory conversationAppService];
 
     // Setup LocationManager

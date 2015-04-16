@@ -27,7 +27,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _environment = [(id <ApplicationAssembly>) [TyphoonComponents factory] environment];
+    _environment = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] environment];
 
     _periods = @[
             // Sunday (day 0)
@@ -78,14 +78,14 @@
 }
 
 - (NSString *)descriptionForDate:(NSDate *)dayOfWeek {
-    return [[GoogleOpeningHours createWithPeriods:_periods] descriptionForDate:dayOfWeek];
+    return [[GoogleOpeningHours createWithPeriods:_periods environment:_environment] descriptionForDate:dayOfWeek];
 }
 
 - (void)test_descriptionForWeek_ShouldBeYesForToday_WhenEntryIsToday {
     NSDate *monday = [self getDayOfWeek:1];
     [_environment injectNow:monday];
 
-    NSArray *descriptions = [[GoogleOpeningHours createWithPeriods:_periods] descriptionForWeek];
+    NSArray *descriptions = [[GoogleOpeningHours createWithPeriods:_periods environment:_environment] descriptionForWeek];
 
     for (OpeningHour *openingHour in descriptions) {
         if ([openingHour.day isEqualToString:@"Monday"]) {
@@ -98,7 +98,7 @@
 }
 
 - (void)test_descriptionForWeek_ShouldReturnFormattedDescription {
-    NSArray *desc = [[GoogleOpeningHours createWithPeriods:_periods] descriptionForWeek];
+    NSArray *desc = [[GoogleOpeningHours createWithPeriods:_periods environment:_environment] descriptionForWeek];
     assertThatInt(desc.count, is(equalTo(@(7))));
 
     assertThat(((OpeningHour *) desc[0]).day, is(equalTo(@"Monday")));

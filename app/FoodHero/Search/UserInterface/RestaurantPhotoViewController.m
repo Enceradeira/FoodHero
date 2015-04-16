@@ -12,6 +12,7 @@
 
     __weak IBOutlet UIView *_containerView;
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
+    id <ISchedulerFactory> _schedulerFactory;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -21,9 +22,12 @@
     [self bind];
 }
 
+-(void)setSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory{
+    _schedulerFactory = schedulerFactory;
+}
+
 - (void)bind {
-    id <ISchedulerFactory> schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents factory] schedulerFactory];
-    RACScheduler *mainThreadScheduler = [schedulerFactory mainThreadScheduler];
+    RACScheduler *mainThreadScheduler = [_schedulerFactory mainThreadScheduler];
     [[_photo.image deliverOn:mainThreadScheduler] subscribeNext:^(UIImage *image) {
         self.imageView.image = image;
     }];

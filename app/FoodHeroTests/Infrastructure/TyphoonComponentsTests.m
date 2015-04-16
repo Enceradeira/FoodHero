@@ -26,7 +26,7 @@
 
 - (void)test_factory_ShouldThrowException_IfApplicationAssemblyNotConfigured {
     assertThat(^() {
-        [TyphoonComponents factory];
+        [TyphoonComponents getAssembly];
     }, throwsExceptionOfType([DesignByContractException class]));
 }
 
@@ -38,20 +38,12 @@
 
 - (void)test_factory_ShouldReturnFactory_IfApplicationAssemblyConfigured {
     [TyphoonComponents configure:[DefaultAssembly new]];
-    assertThat(TyphoonComponents.factory, is(notNilValue()));
+    assertThat(TyphoonComponents.getAssembly, is(notNilValue()));
 }
 
 - (void)test_factory_ShouldReturnStoryboard_IfApplicationAssemblyConfigured {
     [TyphoonComponents configure:[DefaultAssembly new]];
     assertThat(TyphoonComponents.storyboard, is(notNilValue()));
-}
-
-- (void)test_factory_ShouldBeSameInstanceAsFactoryOnStoryboard {
-    [TyphoonComponents configure:[DefaultAssembly new]];
-    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
-
-    TyphoonComponentFactory *factory = [TyphoonComponents factory];
-    assertThat(factory, is(equalTo(storyboard.factory)));
 }
 
 @end
