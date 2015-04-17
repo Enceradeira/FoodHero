@@ -27,8 +27,7 @@
     _restaurants = restaurants;
 }
 
-
-- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)cuisine {
     return @[_restaurants].rac_sequence.signal;
 }
 

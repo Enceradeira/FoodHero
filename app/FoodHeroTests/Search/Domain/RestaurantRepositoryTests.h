@@ -7,10 +7,11 @@
 #import <XCTest/XCTest.h>
 
 @class RestaurantRepository;
+@class CuisineAndOccasion;
 
 
 @interface RestaurantRepositoryTests : XCTestCase
-- (NSArray *)getPlacesByCuisine:(NSString *)cuisine;
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine;
 
 - (RestaurantRepository *)repository;
 @end

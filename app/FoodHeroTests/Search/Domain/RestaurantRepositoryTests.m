@@ -8,14 +8,15 @@
 #import "RACSignal.h"
 #import "RestaurantRepository.h"
 #import "DesignByContractException.h"
+#import "CuisineAndOccasion.h"
 
 
 @implementation RestaurantRepositoryTests {
 
 }
 
-- (NSArray *)getPlacesByCuisine:(NSString *)cuisine {
-    return [[self.repository getPlacesByCuisine:cuisine] toArray][0];
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine {
+    return [[self.repository getPlacesBy:cuisine] toArray][0];
 }
 
 -(RestaurantRepository *)repository{

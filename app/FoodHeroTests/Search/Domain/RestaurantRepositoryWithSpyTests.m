@@ -27,6 +27,7 @@
     CLLocationManagerProxyStub *_locationManagerStub;
     LocationService *_locationService;
     RestaurantRepository *_repository;
+    CuisineAndOccasion *_cuisineAndOccasion;
 }
 
 - (void)setUp {
@@ -39,24 +40,25 @@
 
     id schedulerFactory = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] schedulerFactory];
     _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService locationService:_locationService schedulerFactory:schedulerFactory];
+    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss"];
 }
 
 - (RestaurantRepository *)repository {
     return _repository;
 }
 
-- (NSArray *)getPlacesByCuisine:(NSString *)cuisine {
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine {
     __block NSMutableArray *places;
-    RACSignal *signal = [_repository getPlacesByCuisine:cuisine];
+    RACSignal *signal = [_repository getPlacesBy:cuisine];
     [signal subscribeNext:^(GooglePlace *r) {
         [places addObject:r];
     }];
     return places;
 }
 
-- (void)test_getPlacesByCuisine_ShouldSearchWithCuisine {
-    [self getPlacesByCuisine:@"Swiss"];
-    assertThat(_searchService.findPlacesParameter.cuisine, is(equalTo(@"Swiss")));
+- (void)test_getPlacesBy {
+    [self getPlacesBy:_cuisineAndOccasion];
+    assertThat(_searchService.findPlacesParameter.cuisineAndOccasion, is(equalTo(_cuisineAndOccasion)));
 }
 
 - (void)test_getPlacesByCuisine_shouldSearchWithCurrentLocation {
@@ -66,13 +68,13 @@
 
     [_locationManagerStub injectLatitude:location.latitude longitude:location.longitude];
 
-    [self getPlacesByCuisine:@"Asian"];
+    [self getPlacesBy:_cuisineAndOccasion];
 
     assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(@(YES)));
 }
 
 - (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {
-    [self getPlacesByCuisine:@"Swiss"]; // this queries the location which is a precondition for getRestaurantFromPlace
+    [self getPlacesBy:_cuisineAndOccasion]; // this queries the location which is a precondition for getRestaurantFromPlace
 
     Restaurant *place = [[RestaurantBuilder alloc] build];
     assertThat([_repository getRestaurantFromPlace:place], is(notNilValue()));

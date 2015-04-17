@@ -10,12 +10,13 @@
 #import "SearchException.h"
 #import "SearchError.h"
 #import "GoogleDefinitions.h"
+#import "CuisineAndOccasion.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
     LocationService *_locationService;
     CLLocation *_locationAtMomentOfCaching;
-    NSString *_cuisineAtMomentOfCaching;
+    CuisineAndOccasion *_paramsAtMomentOfCaching;
     NSArray *_placesCached;
     NSMutableDictionary *_restaurantsCached;
     BOOL _isSimulatingNoRestaurantFound;
@@ -35,14 +36,14 @@
     return self;
 }
 
-- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)parameter {
 
     return [[[[_locationService currentLocation]
             deliverOn:[_schedulerFactory asynchScheduler]]
             take:1]
             tryMap:^(CLLocation *currentLocation, NSError **error) {
                 @synchronized (self) {
-                    BOOL isCuisineStillTheSame = [cuisine isEqualToString:_cuisineAtMomentOfCaching];
+                    BOOL isCuisineStillTheSame = [parameter isEqual:_paramsAtMomentOfCaching];
                     BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
 
                     if (_isSimulatingNoRestaurantFound) {
@@ -51,9 +52,9 @@
 
                     if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
                         _locationAtMomentOfCaching = currentLocation;
-                        _cuisineAtMomentOfCaching = cuisine;
+                        _paramsAtMomentOfCaching = parameter;
                         @try {
-                            _placesCached = [self fetchPlaces:cuisine currentLocation:currentLocation];
+                            _placesCached = [self fetchPlaces:parameter currentLocation:currentLocation];
                         }
                         @catch (SearchException *exc) {
                             *error = [SearchError new];
@@ -68,14 +69,14 @@
             }];
 }
 
-- (NSArray *)fetchPlaces:(NSString *)cuisine currentLocation:(CLLocation *)currentLocation {
+- (NSArray *)fetchPlaces:(CuisineAndOccasion *)cuisineAndOccasion currentLocation:(CLLocation *)currentLocation {
     // Determine optimal Radius by fetching over all price-levels to ensure results specific for cuisine
     __block double optimalRadius = GOOGLE_MAX_SEARCH_RADIUS;
     NSArray *placesOfAllPriceLevels = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
         parameter.coordinate = currentLocation.coordinate;
         parameter.radius = radius;
-        parameter.cuisine = cuisine;
+        parameter.cuisineAndOccasion = cuisineAndOccasion;
         parameter.minPriceLevel = GOOGLE_PRICE_LEVEL_MIN;
         parameter.maxPriceLevel = GOOGLE_PRICE_LEVEL_MAX;
         optimalRadius = radius;
@@ -94,7 +95,7 @@
         RestaurantSearchParams *parameter = [RestaurantSearchParams new];
         parameter.coordinate = currentLocation.coordinate;
         parameter.radius = optimalRadius;
-        parameter.cuisine = cuisine;
+        parameter.cuisineAndOccasion = cuisineAndOccasion;
         parameter.minPriceLevel = priceLevel;
         parameter.maxPriceLevel = priceLevel;
 

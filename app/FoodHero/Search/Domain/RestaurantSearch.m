@@ -43,7 +43,7 @@
     }];
 
     RACSignal *placesSignal = [preferenceSignal flattenMap:^(SearchProfile *searchPreference) {
-        return [[[_repository getPlacesByCuisine:searchPreference.cuisine]
+        return [[[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion cuisine:searchPreference.cuisine]]
                 take:1]
                 map:^(NSArray *places) {
                     return @[[places linq_where:^(Place *p) {

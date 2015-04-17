@@ -7,9 +7,10 @@
 #import <ReactiveCocoa.h>
 #import "Restaurant.h"
 #import "Place.h"
+#import "CuisineAndOccasion.h"
 
 @protocol IRestaurantRepository <NSObject>
-- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine;
+- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)cuisine;
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place;
 

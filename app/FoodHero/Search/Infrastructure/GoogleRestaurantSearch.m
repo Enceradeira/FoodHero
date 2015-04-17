@@ -14,6 +14,8 @@
 #import "GoogleDefinitions.h"
 #import "GooglePhoto.h"
 #import "ApplicationAssembly.h"
+#import "CuisineAndOccasion.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation GoogleRestaurantSearch {
@@ -52,9 +54,9 @@
         @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"radius %f is greater that GOOGLE_MAX_SEARCH_RADIUS", radius]];
     }
 
-    NSArray *types = parameter.types;
+    NSArray *types = [OccasionToGoogleTypeMapper map:parameter.cuisineAndOccasion.occasion];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
-    NSString *keyword = [KeywordEncoder encodeString:parameter.cuisine];
+    NSString *keyword = [KeywordEncoder encodeString:parameter.cuisineAndOccasion.cuisine];
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@&opennow",
                                                        _baseAddress,
                                                        keyword,

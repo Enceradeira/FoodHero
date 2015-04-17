@@ -44,7 +44,7 @@
 
     [self findBest];
 
-    assertThat(_restaurantRepository.getPlacesByCuisineParameter, is(equalTo(@"Asian")));
+    assertThat(_restaurantRepository.getPlacesByCuisineParameter.cuisine, is(equalTo(@"Asian")));
 }
 
 @end

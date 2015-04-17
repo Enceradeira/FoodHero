@@ -5,12 +5,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "CuisineAndOccasion.h"
 
 @interface RestaurantSearchParams : NSObject
 @property(nonatomic) CLLocationCoordinate2D coordinate;
 @property(nonatomic) CLLocationDistance radius;
-@property(nonatomic) NSString *cuisine;
-@property(nonatomic) NSArray *types;
+@property(nonatomic) CuisineAndOccasion *cuisineAndOccasion;
 @property(nonatomic) NSUInteger minPriceLevel;
 @property(nonatomic) NSUInteger maxPriceLevel;
 @end

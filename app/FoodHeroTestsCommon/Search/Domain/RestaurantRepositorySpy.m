@@ -9,7 +9,7 @@
 @implementation RestaurantRepositorySpy {
 
 }
-- (RACSignal *)getPlacesByCuisine:(NSString *)cuisine {
+- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)cuisine {
     _getPlacesByCuisineParameter = cuisine;
     return [RACSignal empty];
 }

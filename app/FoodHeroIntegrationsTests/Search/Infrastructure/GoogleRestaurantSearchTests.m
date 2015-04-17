@@ -16,6 +16,7 @@
 #import "IPhoto.h"
 #import "GoogleDefinitions.h"
 #import "TyphoonComponents.h"
+#import "FoodHero-Swift.h"
 
 @interface GoogleRestaurantSearchTests : XCTestCase
 
@@ -48,6 +49,7 @@
     _parameter = [RestaurantSearchParams new];
     _parameter.coordinate = _norwich.coordinate;
     _parameter.radius = 10000;
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
 
     id<ApplicationAssembly> assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
     _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[assembly environment]];
@@ -60,7 +62,7 @@
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithMatchingCuisineFirst {
-    _parameter.cuisine = @"Steak house";
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Steak house"];
     NSArray *places = [_service findPlaces:_parameter];
 
     // cuisineRelevance should become smaller when iterating through the results
@@ -85,7 +87,7 @@
 
 - (void)test_findPlaces_ShouldReturnCuisineRelevanceGreaterThan0ForMostIrrelevantPlace_WhenSearchRadiusLessThanMaxSearchRadius {
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS / 2;
-    _parameter.cuisine = @"French";
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"French"];
     GooglePlace *mostIrrelevantPlace = [[_service findPlaces:_parameter] linq_lastOrNil];
 
     assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(greaterThan(@0)));
@@ -94,9 +96,8 @@
 - (void)test_search_manually{
     CLLocation* york = [[CLLocation alloc] initWithLatitude:53.963367 longitude:-1.122695];
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
-    _parameter.cuisine = @"cheese fondue";
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"cheese fondue"];
     _parameter.coordinate = _london.coordinate;
-    _parameter.types = @[@"restaurant"];
     NSArray* places  = [_service findPlaces:_parameter];
     for (NSUInteger i = 1; i < places.count && i<20; i++) {
         Restaurant *restaurant = [_service getRestaurantForPlace:places[i] currentLocation:york];
@@ -107,7 +108,7 @@
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
     NSInteger specifiedRadius = 200;
 
-    _parameter.cuisine = @"Indian";
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
     _parameter.radius = specifiedRadius;
     _parameter.coordinate = _norwich.coordinate;
 
@@ -120,7 +121,7 @@
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedPriceRange {
-    _parameter.cuisine = @"Indian";
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
     _parameter.radius = 5000;
     _parameter.coordinate = _london.coordinate;  // only london supports price range at the moment
     _parameter.minPriceLevel = 4;
