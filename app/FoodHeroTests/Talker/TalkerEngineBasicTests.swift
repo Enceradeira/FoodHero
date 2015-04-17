@@ -274,7 +274,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldSaySomethingAndContinueWithFutureScript() {
         let script = TestScript()
         .say(oneOf: { $0.words("Hi") })
-        .continueWith({
+        .continueWith(continuation: {
             futureScript in
             self.async {
                 futureScript.define {

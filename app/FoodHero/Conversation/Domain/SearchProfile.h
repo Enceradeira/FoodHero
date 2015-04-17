@@ -13,10 +13,11 @@
 @property(nonatomic, readonly) NSString *cuisine;
 @property(nonatomic, readonly) PriceRange *priceRange;
 @property(nonatomic, readonly) DistanceRange *distanceRange;
+@property(nonatomic, readonly) NSString *occasion;
 
-+ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance;
++ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance occasion:(NSString*)occasion ;
 
-- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance;
+- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)distance occasion:(NSString*)occasion ;
 
 - (double)scorePlace:(Place *)place normalizedDistance:(double)distance restaurant:(Restaurant *)restaurant;
 @end

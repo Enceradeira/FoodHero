@@ -16,7 +16,7 @@ public class FHUtterances {
                           "Hello beautiful.",
                           "Have you put on your lipstick today?",
                           "‘Sup man?",
-                          "I’m tired.  I need coffee before I can continue.",
+                          // "I’m tired.  I need coffee before I can continue.",
                           "Konnichiwa!",
                           "Guten Tag!",
                           "Bonjour!",
@@ -26,23 +26,24 @@ public class FHUtterances {
                           "Hey peep!",
                           "Salutations, your majesty.  I bow.",
                           "Hello from around the world.",
-                          "Pardon me, I was asleep.",
+                          // "Pardon me, I was asleep.",
                           "Hello.  Are you in the bathroom?  I hear noises… .",
                           "Oh, it’s you!",
                           "How’s it hangin’?",
                           "Morning good.  Are you how?",
                           "Bonjour, comment ça va?  Wait, sorry…pardon my French.  I’m taking language lessons.",
-                          "How many people have you kissed today?",
-                          "Miaow, miaow, miiiiiiaow…Sorry, I was talking to my cat.",
-                          "I’ll be your huckleberry.",
-                          "Hey lumberjack!  How many trees have you cut down today?",
-                          "What’s the meaning of Stonehenge?",
-                          "It’s a hold up!  Give me all your money!",
+                          //"How many people have you kissed today?",
+                          //"Miaow, miaow, miiiiiiaow…Sorry, I was talking to my cat.",
+                          //"I’ll be your huckleberry.",
+                          //"Hey lumberjack!  How many trees have you cut down today?",
+                          //"What’s the meaning of Stonehenge?",
+                          //"It’s a hold up!  Give me all your money!",
                           "Greetings from…Where am I?...Aaaah, I have no body!....Existential crisis!",
-                          "You have three wishes…. Sorry, wrong program.",
-                          "Do you look more like {femaleCelebrity} or {maleCelebrity}?",
+                          //"You have three wishes…. Sorry, wrong program.",
+                          //"Do you look more like {femaleCelebrity} or {maleCelebrity}?",
                           "Greetings from {place}!",
-                          "You just interrupted the most beautiful dream, about ----  {food}."],
+                          //"You just interrupted the most beautiful dream, about ----  {food}."
+        ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:Greeting", state: nil))
     }
 
@@ -199,7 +200,8 @@ public class FHUtterances {
                 "I’m bored! Anything else?"],
                 withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess", state: FHStates.askForWhatToDoNext()))
     }
-            class func whatToDoNextAfterFailure(def: StringDefinition) -> StringDefinition {
+
+    class func whatToDoNextAfterFailure(def: StringDefinition) -> StringDefinition {
         return def.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
                 withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: FHStates.askForWhatToDoNext()))
     }

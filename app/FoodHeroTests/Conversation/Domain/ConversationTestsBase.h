@@ -9,6 +9,7 @@
 #import "CLLocationManagerProxyStub.h"
 #import "RestaurantSearchServiceStub.h"
 #import "FoodHero-Swift.h"
+#import "EnvironmentStub.h"
 
 @interface ConversationTestsBase : XCTestCase
 
@@ -16,6 +17,7 @@
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) TalkerRandomizerFake *talkerRandomizerFake;
+@property(nonatomic, readonly) EnvironmentStub *environmentStub;
 
 - (void)resetConversation;
 

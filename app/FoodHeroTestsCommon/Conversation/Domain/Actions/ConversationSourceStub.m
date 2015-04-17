@@ -30,7 +30,7 @@
 }
 
 - (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location {
-    return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance];
+    return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance occasion:[Occasions lunch]];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {

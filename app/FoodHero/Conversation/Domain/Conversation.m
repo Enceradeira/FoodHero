@@ -138,7 +138,10 @@
 }
 
 - (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location {
-    return [SearchProfile createWithCuisine:self.cuisine priceRange:self.priceRange maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]];
+    return [SearchProfile createWithCuisine:self.cuisine
+                                 priceRange:self.priceRange
+                                maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]
+                                   occasion:[Occasions getCurrent]];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -176,7 +179,7 @@
         );
     }] linq_lastOrNil];
     if (preference == nil) {
-        @throw [DesignByContractException createWithReason:@"cuisine preference is unknown"];
+        return @"";
     }
     return preference.parameter;
 }

@@ -11,10 +11,7 @@
 #import "Conversation.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
-#import "TyphoonComponentFactory.h"
-#import "TyphoonComponents.h"
 #import "ConversationTestsBase.h"
-#import "HCIsExceptionOfType.h"
 #import "RestaurantBuilder.h"
 
 
@@ -182,10 +179,18 @@
     assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
 
-- (void)test_currentSearchPreferenceCuisine_ShouldThrowException_WhenUserHasNotSpecifiedCuisineYet {
-    assertThat(^() {
-        [[self conversation] currentSearchPreference:0 currUserLocation:_london];
-    }, throwsExceptionOfType([DesignByContractException class]));
+- (void)test_currentSearchPreferenceCuisine_ShouldInitializeWithDefaults_WhenUserHasNotSpecifiedCuisineYet {
+    SearchProfile *profile = [[self conversation] currentSearchPreference:0 currUserLocation:_london];
+
+    assertThat(profile.cuisine, is(equalTo(@"")));
+}
+
+- (void)test_currentSearchPreferenceCuisine_ShouldReturnCurrentOccasion_WhenUserHasNotSpecifiedOccasionYet {
+    [self.environmentStub injectNow:[NSCalendar dateFromYear:2015 month:3 day:25 hour:13 minute:15 second:14]];
+
+    SearchProfile *profile = [[self conversation] currentSearchPreference:0 currUserLocation:_london];
+
+    assertThat(profile.occasion, is(equalTo([Occasions lunch])));
 }
 
 - (void)test_currentSearchPreferenceCuisine_ShouldReturnCuisine_WhenUserHasAlreadySpecifiedCuisine {

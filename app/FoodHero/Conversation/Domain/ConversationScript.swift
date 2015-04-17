@@ -24,7 +24,7 @@ public class ConversationScript: Script {
         super.init(context: context)
 
         say(oneOf: FHUtterances.greetings)
-        sayOpeningQuestionWaitResponseAndSearchRepeatably(self)
+        continueWith(continuation:searchAndWaitResponseAndSearchRepeatably)
     }
 
     func sayOpeningQuestionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
@@ -87,7 +87,7 @@ public class ConversationScript: Script {
             if $0.hasSemanticId("U:WantsToStartAgain") {
                 return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
             } else if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
-                return self.searchAndWaitResponseAndSearchRepeatably($1, forQuestion: lastQuestion)
+                return self.searchAndWaitResponseAndSearchRepeatably($1)
             } else {
                 return $1.define {
                     $0.say(oneOf: FHUtterances.commentChoices)
@@ -97,7 +97,7 @@ public class ConversationScript: Script {
         }
     }
 
-    func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript, forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> (FutureScript) {
+    func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript) -> (FutureScript) {
 
         let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler()).take(1)
 
@@ -237,7 +237,7 @@ public class ConversationScript: Script {
                         return self.waitResponseForWhatToDoNext($0, forQuestion: whatToDoNextAfterFailure)
                     }
                 } else if $0.hasSemanticId("U:TryAgainNow") {
-                    return self.searchAndWaitResponseAndSearchRepeatably($1, forQuestion: lastQuestion)
+                    return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else if $0.hasSemanticId("U:WantsToStartAgain") {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else {

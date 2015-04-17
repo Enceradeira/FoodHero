@@ -28,8 +28,14 @@
     _restaurantSearchStub = [_assembly restaurantSearchService];
     _locationManagerStub = [_assembly locationManagerProxy];
     [self resetConversation];
+<<<<<<< Updated upstream
     _talkerRandomizerFake = [_assembly talkerRandomizer];
-    _environmentStub = [_assembly environment];
+=======
+    _talkerRandomizerFake = [(id <ApplicationAssembly>) [TyphoonComponents factory] talkerRandomizer];
+    _environmentStub = [(id <ApplicationAssembly>) [TyphoonComponents factory] environment];
+    EnvironmentStub *other = [(id<ApplicationAssembly>)[TyphoonComponents getAssembly] environment];
+    
+>>>>>>> Stashed changes
     _expectedStatements = [NSMutableArray new];
 }
 

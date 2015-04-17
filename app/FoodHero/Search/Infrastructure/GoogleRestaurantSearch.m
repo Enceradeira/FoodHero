@@ -55,7 +55,7 @@
     NSArray *types = parameter.types;
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
     NSString *keyword = [KeywordEncoder encodeString:parameter.cuisine];
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@",
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@&opennow",
                                                        _baseAddress,
                                                        keyword,
                                                        coordinate.latitude,

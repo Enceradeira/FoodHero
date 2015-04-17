@@ -12,6 +12,7 @@
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 #import "SearchProfile.h"
+#import "FoodHero-Swift.h"
 
 @interface SearchProfileTests : XCTestCase
 
@@ -40,7 +41,7 @@
     priceRange = [priceRange setMinHigherThan:priceMin - 1];
     priceRange = [priceRange setMaxLowerThan:priceMax + 1];
     DistanceRange *distance = [DistanceRange distanceRangeNearerThan:MAX_NORMAL_DISTANCE / DISTANCE_DECREMENT_FACTOR];
-    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance occasion:[Occasions breakfast]];
     return preferences;
 }
 
@@ -167,7 +168,7 @@
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     const double MAX_DISTANCE_RANGE = 0.25;
     DistanceRange *range = [DistanceRange distanceRangeNearerThan:MAX_DISTANCE_RANGE / DISTANCE_DECREMENT_FACTOR];
-    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range occasion:[Occasions breakfast]];
 
     // score at max distance is greater than 0
     double scoreAtMaxDistance = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:1 restaurant:nil];
@@ -179,22 +180,21 @@
 
     // score at max distance range is SCORE_AT_MAX_DISTANCE_RANGE
     double scoreAtMaxDistanceRange = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:MAX_DISTANCE_RANGE restaurant:nil];
-    assertThatDouble(scoreAtMaxDistanceRange, is(closeTo(SCORE_AT_MAX_DISTANCE_RANGE,0.001)));
+    assertThatDouble(scoreAtMaxDistanceRange, is(closeTo(SCORE_AT_MAX_DISTANCE_RANGE, 0.001)));
 
     // score at 0 distance is 1
     double scoreAt0Distance = [preferences scorePlace:[self placeWithCuisineRelevance:1] normalizedDistance:0 restaurant:nil];
     assertThatDouble(scoreAt0Distance, is(equalToDouble(1)));
 }
 
--(void)test_ScorePlace_ShouldBe1_WhenDistanceAndMaxDistanceRange0{
+- (void)test_ScorePlace_ShouldBe1_WhenDistanceAndMaxDistanceRange0 {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     DistanceRange *range = [DistanceRange distanceRangeNearerThan:0];
-    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range occasion:[Occasions breakfast]];
 
     double score = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:0 restaurant:nil];
     assertThatDouble(score, is(equalToDouble(1)));
 }
-
 
 
 @end

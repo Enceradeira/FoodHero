@@ -10,6 +10,11 @@
 
     NSDate *_now;
 }
+
+-(instancetype)init{
+    return [super init];
+}
+
 - (NSDate *)now {
     return _now ? _now : [NSDate date];
 }

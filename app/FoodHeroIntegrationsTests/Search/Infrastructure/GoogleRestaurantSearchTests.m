@@ -96,6 +96,19 @@
     assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(greaterThan(@0)));
 }
 
+- (void)test_search_manually{
+    CLLocation* york = [[CLLocation alloc] initWithLatitude:53.963367 longitude:-1.122695];
+    _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
+    _parameter.cuisine = @"cheese fondue";
+    _parameter.coordinate = _london.coordinate;
+    _parameter.types = @[@"restaurant"];
+    NSArray* places  = [_service findPlaces:_parameter];
+    for (NSUInteger i = 1; i < places.count && i<20; i++) {
+        Restaurant *restaurant = [_service getRestaurantForPlace:places[i] currentLocation:york];
+        NSLog([NSString stringWithFormat:@"Name: %@ Vicinity: %@",restaurant.name, restaurant.vicinity]);
+    }
+}
+
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
     NSInteger specifiedRadius = 200;
 

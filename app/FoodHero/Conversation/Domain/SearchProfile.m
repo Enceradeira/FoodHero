@@ -9,17 +9,18 @@
 @implementation SearchProfile {
 
 }
-+ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance {
-    return [[SearchProfile alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance];
++ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance occasion:(NSString *)occasion {
+    return [[SearchProfile alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance occasion:occasion];
 }
 
-- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance {
+- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance occasion:(NSString *)occasion {
     self = [super init];
     if (self != nil) {
 
         _cuisine = cuisine;
         _priceRange = priceRange;
         _distanceRange = maxDistance;
+        _occasion = occasion;
     }
     return self;
 }
@@ -61,7 +62,7 @@
 
 - (double)getScoreForDistance:(double)distance {
     double maxDistance = _distanceRange == nil ? 1 : _distanceRange.max;
-    if (maxDistance == 0 && distance == 0){
+    if (maxDistance == 0 && distance == 0) {
         return 1;
     }
 
@@ -72,7 +73,7 @@
 
     // a for x=maxDistance / y=SCORE_AT_MAX_DISTANCE_RANGE
     double a = -maxDistance / (SCORE_AT_MAX_DISTANCE_RANGE - 1) - maxDistance;
-    return -distance/(a+distance)+1;
+    return -distance / (a + distance) + 1;
 }
 
 - (double)getScoreForPriceLevelDifference:(double)nrIncrements {
