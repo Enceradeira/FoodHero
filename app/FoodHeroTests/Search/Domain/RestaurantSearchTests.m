@@ -11,6 +11,8 @@
 #import "CLLocationManagerProxyStub.h"
 #import "GoogleRestaurantSearch.h"
 #import "DistanceRange.h"
+#import "ConversationSourceStub.h"
+#import "RestaurantSearchResult.h"
 
 
 @implementation RestaurantSearchTests {
@@ -26,14 +28,14 @@
     @throw  [DesignByContractException createWithReason:@"method must be overriden by subclass"];
 }
 
-- (Restaurant *)findBest {
-    __block Restaurant *restaurant;
+- (RestaurantSearchResult *)findBest {
+    __block RestaurantSearchResult *result;
     RACSignal *signal = [self.search findBest:_conversation];
-    [signal subscribeNext:^(Restaurant *r) {
-        restaurant = r;
+    [signal subscribeNext:^(RestaurantSearchResult *r) {
+        result = r;
     }];
     [signal asynchronouslyWaitUntilCompleted:nil];
-    return restaurant;
+    return result;
 }
 
 - (void)conversationHasCuisine:(NSString *)cuisine {

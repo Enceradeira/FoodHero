@@ -48,9 +48,9 @@
     Statement *statement = [self.conversation getStatement:0];
 
     assertThat(statement, is(notNilValue()));
-    assertThat(statement.semanticId, is(equalTo(@"FH:Greeting;FH:OpeningQuestion")));
+    assertThat(statement.semanticId, containsString(@"FH:Greeting"));
     assertThat(statement.persona, is(equalTo(Personas.foodHero)));
-    assertThat(statement.state, is(equalTo([FHStates askForFoodPreference])));
+    assertThat(statement.state, is(equalTo([FHStates askForSuggestionFeedback])));
 }
 
 - (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForThirdStatement {
@@ -160,17 +160,11 @@
     assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
 }
 
-- (void)test_negativeUserFeedback_ShouldBeEmpty_WhenFHHasNoRestaurantSuggestedYet {
-    NSArray *restaurants = [self.conversation suggestedRestaurants];
-    assertThat(restaurants, is(notNilValue()));
-    assertThatInteger(restaurants.count, is(equalToInteger(0)));
-}
-
 - (void)test_suggestedRestaurants_ShouldNotBeEmpty_WhenFHHasSuggestedRestaurants {
     Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];  // 1. Restaurant suggested
+    // 1. Restaurant suggested at beginning
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant1 text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
 

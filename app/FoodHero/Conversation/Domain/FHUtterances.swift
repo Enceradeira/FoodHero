@@ -7,8 +7,8 @@ import Foundation
 
 public class FHUtterances {
 
-    private class func foodHerroSuggestionParameters(semanticId: String, restaurant: Restaurant) -> FoodHeroSuggestionParameters {
-        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant)
+    private class func foodHerroSuggestionParameters(semanticId: String, state: String?, restaurant: Restaurant) -> FoodHeroSuggestionParameters {
+        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: state, restaurant: restaurant)
     }
 
     class func greetings(def: StringDefinition) -> StringDefinition {
@@ -75,7 +75,21 @@ public class FHUtterances {
                     "Go to %@, and prosper.",
                     "%@.\n\nWelcome to food paradise.",
                     "%@.\n\nDid you know there is a pool in the back?  Me neither."],
-                    withCustomData: self.foodHerroSuggestionParameters("FH:Suggestion", restaurant: restaurant))
+                    withCustomData: self.foodHerroSuggestionParameters("FH:Suggestion", state: nil, restaurant: restaurant))
+        }
+    }
+
+    class func firstQuestion(with occasion: String) -> (StringDefinition -> StringDefinition) {
+        return {
+            $0.words(["It’s a good spot for \(occasion). Do you like it? What do you want to eat?"],
+                    withCustomData: FoodHeroParameters(semanticId: "FH:FirstQuestion=\(occasion)", state: FHStates.askForSuggestionFeedback()));
+        }
+    }
+
+    class func followUpQuestion() -> (StringDefinition -> StringDefinition) {
+        return {
+            $0.words(["Do you like it?"],
+                    withCustomData: FoodHeroParameters(semanticId: "FH:FollowUpQuestion", state: FHStates.askForSuggestionFeedback()));
         }
     }
 
@@ -83,35 +97,36 @@ public class FHUtterances {
         return {
             $0.words([
                     "What about '%@' then?"],
-                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAsFollowUp", restaurant: restaurant))
+                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAsFollowUp", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
         }
     }
 
     class func suggestionsAfterWarning(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
-                    "But '%@' would be another option"],
-                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAfterWarning", restaurant: restaurant))
+                    "But '%@' would be another option. Do you fancy it?"],
+                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAfterWarning", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
         }
     }
 
-    class func suggestionsWithComment(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+    class func confirmationIfInNewPreferedRange(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
         return {
             if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
                 return $0.words([
-                        "The '%@' is smarter than the last one"],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive", restaurant: restaurant))
+                        "The '%@' is smarter than the last one. Do you like it?"],
+                        withCustomData: self.foodHerroSuggestionParameters("FH:ConfirmationIfInNewPreferredRangeMoreExpensive", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
                 return $0.words([
-                        "If you like it cheaper, the %@ could be your choice",
+                        "If you like it cheaper, the %@ could be your choice. Do you like it?",
                         "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper", restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:ConfirmationIfInNewPreferredRangeCheaper", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
                 return $0.words([
-                        "The '%@' is closer"],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser", restaurant: restaurant))
+                        "The '%@' is closer. Do you like it?"],
+                        withCustomData: self.foodHerroSuggestionParameters("FH:ConfirmationIfInNewPreferredRangeCloser", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
             } else {
-                return self.suggestions(with: restaurant)($0)
+                self.suggestions(with: restaurant)($0)
+                return self.followUpQuestion()($0)
             }
         }
     }
@@ -150,12 +165,6 @@ public class FHUtterances {
         return def.words([
                 "It's closer than the other one."],
                 withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser", state: nil))
-    }
-
-    class func confirmations(def: StringDefinition) -> StringDefinition {
-        return def.words([
-                "What do you think?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:Confirmation", state: nil))
     }
 
     class func confirmationRestart(def: StringDefinition) -> StringDefinition {

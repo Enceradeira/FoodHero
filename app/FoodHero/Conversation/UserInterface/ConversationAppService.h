@@ -26,6 +26,8 @@
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 
+- (void)startConversation;
+
 + (UIImage *)emptyImage;
 
 - (RACSignal *)statementIndexes;

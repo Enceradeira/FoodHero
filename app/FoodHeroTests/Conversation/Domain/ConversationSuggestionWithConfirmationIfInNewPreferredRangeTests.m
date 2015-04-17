@@ -5,6 +5,7 @@
 
 #import "ConversationTestsBase.h"
 #import "RestaurantBuilder.h"
+#import "RestaurantSearchServiceStub.h"
 
 @interface ConversationSuggestionWithConfirmationIfInNewPreferredRangeTests : ConversationTestsBase
 @end
@@ -39,19 +40,19 @@
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:_expensiveRestaurant text:@"Way to expensive"]];
 
-    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCheaper" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCheaper" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:_restaurant text:@"too far"]];
 
-    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:_cheapRestaurant text:@"It looks cheap"]];
 
-    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeMoreExpensive" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeMoreExpensive" state:[FHStates askForSuggestionFeedback]];
 }
 
 @end

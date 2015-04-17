@@ -10,7 +10,6 @@
 #import <NSArray+LinqExtensions.h>
 #import "Conversation.h"
 #import "DesignByContractException.h"
-#import "ApplicationAssembly.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
 #import "FoodHero-Swift.h"
@@ -24,70 +23,80 @@
 
     RACSignal *_input;
     NSMutableArray *_rawConversation;
-
+    id <ApplicationAssembly> _assembly;
+    bool _isStarted;
 }
 
-- (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>) assembly {
+- (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly {
     self = [super init];
     if (self != nil) {
         _statements = [NSMutableArray new];
         _rawConversation = [NSMutableArray new];
         _input = input;
-
-        id <IRandomizer> randomizer = [assembly talkerRandomizer];
-        RestaurantSearch *search = [assembly restaurantSearch];
-        LocationService *locationService = [assembly locationService];
-        id <ISchedulerFactory> schedulerFactory = [assembly schedulerFactory];
-        ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
-        TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
-        ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService schedulerFactory:schedulerFactory];
-
-        TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
-
-        TalkerStreams *streams = [engine execute];
-
-        [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
-            NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
-                return [parameter semanticIdInclParameters];
-            }];
-            NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *parameter) {
-                return [parameter state];
-            }] linq_where:^(NSString *state) {
-                return (BOOL) (state != [NSNull null]);
-            }];
-
-            Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroSuggestionParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
-                return [parameter restaurant];
-            }] linq_firstOrNil];
-
-            NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
-            NSString *statesString = [states componentsJoinedByString:@";"];
-            NSString *text = utterance.utterance;
-
-            Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:(statesString.length > 0 ? statesString : nil) suggestedRestaurant:restaurant];
-
-            [self addStatement:statement];
-        }];
-
-        [streams.rawOutput subscribeNext:^(TalkerUtterance *utterance) {
-            assert([utterance customData].count == 1);
-
-            ConversationParameters *parameters = [utterance customData][0];
-            [_rawConversation addObject:parameters];
-        }];
+        _assembly = assembly;
+        _isStarted = NO;
     }
     return self;
 }
 
+- (void)start {
+    assert(!_isStarted);
+
+    id <IRandomizer> randomizer = [_assembly talkerRandomizer];
+    RestaurantSearch *search = [_assembly restaurantSearch];
+    LocationService *locationService = [_assembly locationService];
+    id <ISchedulerFactory> schedulerFactory = [_assembly schedulerFactory];
+    ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
+    TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
+    ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService schedulerFactory:schedulerFactory];
+
+    TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
+
+    TalkerStreams *streams = [engine execute];
+
+    [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
+        NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
+            return [parameter semanticIdInclParameters];
+        }];
+        NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *parameter) {
+            return [parameter state];
+        }] linq_where:^(NSString *state) {
+            return (BOOL) (state != [NSNull null]);
+        }];
+
+        Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroSuggestionParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
+            return [parameter restaurant];
+        }] linq_firstOrNil];
+
+        NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
+        NSString *statesString = [states componentsJoinedByString:@";"];
+        NSString *text = utterance.utterance;
+
+        Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:(statesString.length > 0 ? statesString : nil) suggestedRestaurant:restaurant];
+
+        [self addStatement:statement];
+    }];
+
+    [streams.rawOutput subscribeNext:^(TalkerUtterance *utterance) {
+        assert([utterance customData].count == 1);
+
+        ConversationParameters *parameters = [utterance customData][0];
+        [_rawConversation addObject:parameters];
+    }];
+
+    _isStarted = YES;
+}
 
 - (NSArray *)parametersOfCurrentSearch {
-    Statement *lastOpeningQuestion = [[_rawConversation
-            linq_where:^(ConversationParameters *p) {
-                return (BOOL) [p hasSemanticId:@"FH:OpeningQuestion"];
+    Statement *lastWhatToDoNext = [[[_rawConversation linq_ofType:[FoodHeroParameters class]]
+            linq_where:^(FoodHeroParameters *p) {
+                return (BOOL) [p.state isEqualToString:[FHStates askForWhatToDoNext]];
             }]
             linq_lastOrNil];
 
-    NSUInteger currentSearchBeginCount = lastOpeningQuestion == nil ? 0 : [_rawConversation indexOfObject:lastOpeningQuestion] + 1;
+    // -> "askWhatToDoNext" is followed by user-answer and then next search starts
+    NSUInteger indexOfNextSearchBegin = [_rawConversation indexOfObject:lastWhatToDoNext] + 2;
+    NSUInteger currentSearchBeginCount = (lastWhatToDoNext == nil || indexOfNextSearchBegin >= _rawConversation.count) ? 0 : indexOfNextSearchBegin;
 
     return [_rawConversation linq_skip:currentSearchBeginCount];
 
@@ -184,7 +193,7 @@
     return preference.parameter;
 }
 
-- (PriceRange *)priceRange {
+- (PriceRange*)priceRange {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     for (ConversationParameters *parameter in [self parametersOfCurrentSearch]) {
         if ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"]) {
@@ -206,7 +215,7 @@
     return priceRange;
 }
 
-- (NSArray *)suggestedRestaurants {
+- (NSArray*)suggestedRestaurants {
     return [[self.parametersOfCurrentSearch linq_ofType:[FoodHeroSuggestionParameters class]] linq_select:^(FoodHeroSuggestionParameters *s) {
         return s.restaurant;
     }];

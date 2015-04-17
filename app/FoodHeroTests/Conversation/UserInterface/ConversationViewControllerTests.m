@@ -62,39 +62,10 @@
     assertThat(_bubbleView, is(notNilValue()));
 }
 
-- (void)test_Controller_ShouldGreatUserOnFirstRow {
+- (void)test_Controller_ShouldGreetUserOnFirstRow {
     ConversationBubbleTableViewCell *firstRow = [self assertRow:0];
 
-    assertThat(firstRow.bubble.semanticId, is(equalTo(@"FH:Greeting;FH:OpeningQuestion")));
+    assertThat(firstRow.bubble.semanticId, containsString(@"FH:Greeting"));
 }
 
-/*
--(void)test_Controller_ShouldDisableMicButton_WhenNoPermissionForMicrophone{
-    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionDenied];
-
-    _ctrl = [ControllerFactory createConversationViewController];
-    _ctrl.view.hidden = NO;
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(@(NO)));
-}
-
--(void)test_Controller_ShouldEnableMicButton_WhenPermissionForMicrophone{
-    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionGranted];
-
-    _ctrl = [ControllerFactory createConversationViewController];
-    _ctrl.view.hidden = NO;
-
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(@(YES)));
-}
-
--(void)test_Controller_ShouldEnableMicButton_WhenUnknownPermissionForMicrophone{
-    [_speechRegocnitionService injectRecordPermission:AVAudioSessionRecordPermissionUndetermined];
-
-    _ctrl = [ControllerFactory createConversationViewController];
-    _ctrl.view.hidden = NO;
-
-
-    assertThatBool(_ctrl.userMicButton.enabled, is(@(YES)));
-} */
 @end

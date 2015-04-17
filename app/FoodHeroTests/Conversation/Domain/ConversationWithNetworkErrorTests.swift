@@ -24,12 +24,11 @@ class ConversationWithNetworkErrorTests: ConversationTestsBase {
         sendInput(NetworkError())
         sendInput(UserUtterances.tryAgainNow("Try again now"))
 
-        assertLastStatementIs("FH:BeforeRepeatingUtteranceAfterError", state: FHStates.askForFoodPreference())
-        assertLastStatementIs("FH:OpeningQuestion", state: FHStates.askForFoodPreference())
+        assertLastStatementIs("FH:BeforeRepeatingUtteranceAfterError", state: FHStates.askForSuggestionFeedback())
+        assertLastStatementIs("FH:FirstQuestion", state: FHStates.askForSuggestionFeedback())
     }
 
     func test_USuggestionFeedbackDislike_ShouldTriggerFHSuggestion_WhenNetworkErrorFixed() {
-        sendInput(UserUtterances.cuisinePreference("French", text: "I like french food"))
         sendInput(NetworkError())
         sendInput(UserUtterances.tryAgainNow("Try again now"))
 
@@ -37,6 +36,6 @@ class ConversationWithNetworkErrorTests: ConversationTestsBase {
         sendInput(UserUtterances.suggestionFeedbackForDislike(_restaurant, text: "Rubbish"))
 
         XCTAssertGreaterThan(conversation.getStatementCount(), statementCount, "No new suggestion was added")
-        assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())
+        assertLastStatementIs("FH:FollowUpQuestion", state: FHStates.askForSuggestionFeedback())
     }
 }

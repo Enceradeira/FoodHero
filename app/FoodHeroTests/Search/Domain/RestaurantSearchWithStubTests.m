@@ -1,4 +1,4 @@
-//
+#import "RestaurantSearchResult.h"//
 //  RestaurantSearchWithSpyTests.m
 //  FoodHero
 //
@@ -80,12 +80,12 @@
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
     [_restaurantRepository injectRestaurants:@[restaurant1, restaurant2]];
 
-    Restaurant *firstRestaurant = [self findBest];
+    Restaurant *firstRestaurant = [self findBest].restaurant;
 
     USuggestionFeedbackParameters *p = [[UserUtterances suggestionFeedbackForDislike:firstRestaurant text:@"I don't like that restaurant"] customData][0];
     [self conversationHasNegativeUserFeedback:p];
 
-    assertThat([self findBest].placeId, isNot(equalTo(firstRestaurant.placeId)));
+    assertThat([self findBest].restaurant.placeId, isNot(equalTo(firstRestaurant.placeId)));
 }
 
 - (void)test_findBest_ShouldReturnRestaurantThatIsFurtherAway_WhenPriceLevelMatchesBetterAndItsNotThatFarAway {
@@ -102,7 +102,7 @@
     [self.conversation injectPriceRange:[[PriceRange priceRangeWithoutRestriction] setMaxLowerThan:3]];
 
     // best restaurant is priceLevel 2 because its the price-level matches and it's not that far away
-    Restaurant *bestRestaurant = [self findBest];
+    Restaurant *bestRestaurant = [self findBest].restaurant;
     assertThat(bestRestaurant, is(equalTo(priceLevel2Restaurant)));
 }
 
@@ -121,7 +121,7 @@
     [self.conversation injectMaxDistance:[DistanceRange distanceRangeNearerThan:1]];
 
     // best restaurant is priceLevel 3 because the priceLevel 2-Restaurant is too far away
-    Restaurant *bestRestaurant = [self findBest];
+    Restaurant *bestRestaurant = [self findBest].restaurant;
     assertThat(bestRestaurant, is(equalTo(priceLevel3Restaurant)));
 }
 
@@ -130,7 +130,7 @@
     Restaurant *otherRestaurant = [[[RestaurantBuilder alloc] withName:@"Other restaurant"] build];
     [_restaurantRepository injectRestaurants:@[nearerRestaurant, otherRestaurant]];
 
-    Restaurant *bestRestaurant = [self findBest];
+    Restaurant *bestRestaurant = [self findBest].restaurant;
     assertThat(bestRestaurant, is(equalTo(nearerRestaurant)));
 }
 
@@ -152,6 +152,14 @@
     assertThatBool([receivedError isKindOfClass:[SearchError class]], is(@(YES)));
     // assertThatBool(isCompleted, is(equalToBool(YES))); commented because it didn't work under 64bit, but integration tests were ok
 
+}
+
+-(void)test_findBest_ShouldReturnSearchPreference{
+    [_restaurantRepository injectRestaurants:@[[[RestaurantBuilder alloc] build]]];
+
+    RestaurantSearchResult *searchResult = [self findBest];
+
+    assertThat(searchResult.searchParams, is(notNilValue()));
 }
 
 @end

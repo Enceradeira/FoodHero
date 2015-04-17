@@ -74,11 +74,6 @@
         GooglePlace *nextPlace = places[i];
         assertThatDouble(prevPlace.cuisineRelevance, is(greaterThan(@(nextPlace.cuisineRelevance))));
     }
-
-    // grill should be more relevant because we search for Steak house
-    GooglePlace *libraryGrill = [self findPlaceById:_placeIdLibraryGrillNorwich result:places];
-    GooglePlace *maidsHead = [self findPlaceById:_placeIdMaidsHeadNorwich result:places];
-    assertThatDouble(libraryGrill.cuisineRelevance, is(greaterThan(@(maidsHead.cuisineRelevance))));
 }
 
 - (void)test_findPlaces_ShouldReturnCuisineRelevance0ForMostIrrelevantPlace_WhenSearchRadiusEqualMaxSearchRadius {

@@ -103,12 +103,20 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances wantsToStartAgain:interpretation.text];
                             return (id) utterance;
                         }
+                        else if ([interpretation.intent isEqualToString:@"DislikesKindOfFood"]) {
+                            TalkerUtterance *utterance = [UserUtterances dislikesKindOfFood:interpretation.text];
+                            return (id) utterance;
+                        }
                         assert(false);
                     }
                 }];
         _conversation = [conversationRepository getForInput:input];
     }
     return self;
+}
+
+- (void)startConversation {
+    [_conversation start];
 }
 
 - (Restaurant *)getLastSuggestedRestaurant {

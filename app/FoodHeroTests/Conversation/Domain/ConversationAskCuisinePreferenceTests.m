@@ -13,6 +13,7 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
+    [self sendInput:[UserUtterances dislikesKindOfFood:@"Indian"]];
     [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" state:nil];

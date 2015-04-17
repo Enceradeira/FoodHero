@@ -19,6 +19,8 @@
 
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly;
 
+- (void)start;
+
 - (Statement *)getStatement:(NSUInteger)index;
 
 - (NSUInteger)getStatementCount;

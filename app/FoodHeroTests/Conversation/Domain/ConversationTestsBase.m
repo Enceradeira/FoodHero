@@ -35,6 +35,7 @@
 
 - (void)resetConversation {
     _conversation = [[Conversation alloc] initWithInput:_input assembly:_assembly];
+    [_conversation start];
 }
 
 - (void)sendInput:(id)utterance {

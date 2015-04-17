@@ -59,14 +59,16 @@
     return [self getStatementWithIndex:index];
 }
 
-- (void)test_addUserCuisinePreference_ShouldAddUCuisinePreferenceToConversation {
-    _currState = [FHStates askForFoodPreference];
-    [_service addUserText:@"I whished to eat Korean food"];
+- (void)test_addUserSuggestionFeedbackDislike_ShouldAddUCSuggestionFeedbackDislikeToConversation {
+    _currState = [FHStates askForSuggestionFeedback];
+    [_service startConversation];
+    [self waitStatementWithIndex:1];
 
-    ConversationBubble *bubble = [self waitStatementWithIndex:1];
+    [_service addUserText:@"I don't like it"];
+    ConversationBubble *bubble = [self waitStatementWithIndex:2];
 
     assertThat(bubble, is(notNilValue()));
-    assertThat(bubble.semanticId, is(equalTo(@"U:CuisinePreference=Korean")));
+    assertThat(bubble.semanticId, is(equalTo(@"U:SuggestionFeedback=Dislike")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 

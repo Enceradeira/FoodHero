@@ -7,6 +7,7 @@
 #import "Conversation.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
+#import "RestaurantSearchResult.h"
 #import "ApplicationAssembly.h"
 #import "SearchProfile.h"
 #import "PriceRange.h"

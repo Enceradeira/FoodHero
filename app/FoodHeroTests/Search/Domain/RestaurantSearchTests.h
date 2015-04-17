@@ -9,13 +9,15 @@
 #import "ConversationSourceStub.h"
 #import "FoodHero-Swift.h"
 
+@class RestaurantSearchResult;
+
 
 @interface RestaurantSearchTests : XCTestCase
 @property(nonatomic, readonly) ConversationSourceStub *conversation;
 
 - (RestaurantSearch *)search;
 
-- (Restaurant *)findBest;
+- (RestaurantSearchResult *)findBest;
 
 - (void)conversationHasCuisine:(NSString *)cuisine;
 

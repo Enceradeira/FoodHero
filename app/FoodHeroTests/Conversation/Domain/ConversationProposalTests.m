@@ -5,6 +5,7 @@
 
 #import "ConversationTestsBase.h"
 #import "RestaurantBuilder.h"
+#import "RestaurantSearchServiceStub.h"
 
 @interface ConversationProposalTests : ConversationTestsBase
 @end
@@ -17,10 +18,6 @@
 - (void)setUp {
     [super setUp];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
-
-    // Move Conversation into ProposalState by going through FirstProposal)
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
-
 }
 
 - (void)test_USuggestionFeedback_ShouldRepeatFHSuggestionByUsingDifferentTypesOfSuggestionFeedbacks {
@@ -51,8 +48,7 @@
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:2];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant4 text:@""]];
-    [super assertLastStatementIs:@"FH:SuggestionWithConfirmationIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
-    [super assertLastStatementIs:@"FH:Confirmation" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestionAsFollowUp {
@@ -68,7 +64,8 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertSecondLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:nil];
+    [super assertLastStatementIs:@"FH:FollowUpQuestion" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestion {

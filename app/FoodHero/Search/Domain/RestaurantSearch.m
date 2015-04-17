@@ -10,6 +10,7 @@
 #import "SearchException.h"
 #import "SearchError.h"
 #import "FoodHero-Swift.h"
+#import "RestaurantSearchResult.h"
 
 @implementation RestaurantSearch {
 
@@ -45,19 +46,19 @@
         return [[[_repository getPlacesByCuisine:searchPreference.cuisine]
                 take:1]
                 map:^(NSArray *places) {
-                    return [places linq_where:^(Place *p) {
+                    return @[[places linq_where:^(Place *p) {
                         return (BOOL) ![excludedPlaceIds linq_any:^(NSString *e) {
                             return [p.placeId isEqualToString:e];
                         }];
-                    }];
+                    }], searchPreference];
                 }];
     }];
 
     RACSignal *moreThan0PlacesSignal = [placesSignal
-            flattenMap:^(NSArray *places) {
+            flattenMap:^(NSArray *placesAndSearchPreference) {
                 return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-                    if (places.count > 0) {
-                        [subscriber sendNext:places];
+                    if (((NSArray *) placesAndSearchPreference[0]).count > 0) {
+                        [subscriber sendNext:placesAndSearchPreference];
                         [subscriber sendCompleted];
                     }
                     else {
@@ -67,12 +68,13 @@
                 }];
             }];
 
-    return [moreThan0PlacesSignal
-            flattenMap:^(NSArray *places) {
-                CLLocation *location = _locationService.lastKnownLocation;
-                SearchProfile *profile = [conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] currUserLocation:location];
-                return [self getBestPlace:places preferences:profile];
-            }];
+    return [[moreThan0PlacesSignal
+            flattenMap:^(NSArray *placesAndSearchPreference) {
+                return [self getBestPlace:placesAndSearchPreference[0] preferences:placesAndSearchPreference[1]];
+            }] map:^(NSArray *restaurantAndSearchPreference) {
+        return [[RestaurantSearchResult alloc] initWithRestaurant:restaurantAndSearchPreference[0]
+                                                     searchParams:restaurantAndSearchPreference[1]];
+    }];
 };
 
 - (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences {
@@ -118,11 +120,11 @@
                 @try {
                     Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
                     // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
-                    return restaurant;
+                    return @[restaurant, preferences];
                 }
                 @catch (SearchException *e) {
                     *error = [SearchError new];
-                    return (Restaurant *) nil;
+                    return (NSArray *) nil;
                 }
 
             }];

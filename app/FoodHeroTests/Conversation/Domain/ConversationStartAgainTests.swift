@@ -10,8 +10,7 @@ public class ConversationStartAgainTests: ConversationTestsBase {
     let _restaurant = RestaurantBuilder().build()
 
     func test_UStartAgain_ShouldResetConversation_WhenSearching() {
-        sendInput(UserUtterances.cuisinePreference("British Food", text: "British please"))
-        sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, text: "British please"))
+        sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, text: "Too cheap"))
         sendInput(UserUtterances.wantsToStartAgain("Start again please"))
 
         assertLastStatementIs("FH:ConfirmsRestart;FH:OpeningQuestion", state: FHStates.askForFoodPreference())

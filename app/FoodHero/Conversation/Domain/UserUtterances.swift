@@ -16,6 +16,10 @@ public class UserUtterances: NSObject {
         return TalkerUtterance(utterance: text, customData: parameter)
     }
 
+    public class func dislikesKindOfFood(text: String) -> TalkerUtterance{
+        return createUtterance("U:DislikesKindOfFood", text: text);
+    }
+
     public class func wantsToSearchForAnotherRestaurant(text: String) -> TalkerUtterance {
         return createUtterance("U:WantsToSearchForAnotherRestaurant", text: text);
     }

@@ -72,7 +72,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     [gestureRecognizer setDelegate:self];
     [_bubbleView addGestureRecognizer:gestureRecognizer];
 
-
+    [_appService startConversation];
     [[_appService statementIndexes] subscribeNext:^(id next) {
         NSUInteger index;
         NSNumber *wrappedIndex = next;
