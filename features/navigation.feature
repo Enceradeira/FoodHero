@@ -1,12 +1,9 @@
 Feature: Navigation in app
 
   Scenario: I start Food Hero and explore app
-    Given FoodHero has started
-    Then I see the conversation view
+    Given FoodHero has started and can access location-services
+    Then FoodHero greets me and suggests something
 
-    When I wish to eat "British" food by typing it
-    And I allow access to the location-services
-    Then FoodHero suggests something for "British" food
     When I go to the restaurants-details for the last suggested restaurant
     Then I see the restaurant-details for the last suggested restaurant
     When I tough today's opening hours

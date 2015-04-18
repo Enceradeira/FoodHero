@@ -6,20 +6,20 @@ def update_bubbles
 
 end
 
-def get_last_element_and_parameter(id)
+def get_last_element_and_parameter(id, reverse_position)
   personas = id.match(/(FH:|U:)/).to_a
   if personas.length == 0
     return
   end
   persona = personas.first
   bubbles_of_persona = bubbles.select{|n| n.name.include?(persona) }
-  puts "--------------- begin dump bubbles| persona:#{persona} id:#{id} |  ------------- "
+  puts "--------------- begin dump bubbles| persona:#{persona} id:#{id} reverse_position:#{reverse_position}|  ------------- "
   bubbles_of_persona.each {|b|
     puts b.name
   }
   puts '--------------- end dump bubbles ----------------------------------------------- '
 
-  last_bubble = bubbles_of_persona.last
+  last_bubble = bubbles_of_persona.reverse.drop(reverse_position).first
   if last_bubble.nil? || !last_bubble.name.include?(id)
     return nil
   end
@@ -28,7 +28,7 @@ def get_last_element_and_parameter(id)
 
 end
 
-def wait_last_element_and_parameter(id)
+def wait_last_element_and_parameter(id, reverse_position)
   #json = source # this seems to make things more stable ?????
   #puts '---------------- before wait -------------------------------------'
   #puts json
@@ -36,7 +36,7 @@ def wait_last_element_and_parameter(id)
   bubble, parameter = nil
   # :interval=>0.3 triggers find_elements sometimes not to return all elements
   wait_true({:timeout => 30, :interval=>2}) do
-    bubble, parameter = get_last_element_and_parameter(id)
+    bubble, parameter = get_last_element_and_parameter(id, reverse_position)
     if block_given?
       block_test = parameter != nil && yield(parameter)
     else
@@ -65,7 +65,7 @@ def touch_send
 end
 
 def feedback_entry(entry_name)
-  get_last_element_and_parameter("FeedbackEntry=#{entry_name}").select{ |s| s !=nil }
+  get_last_element_and_parameter("FeedbackEntry=#{entry_name}", 0).select{ |s| s !=nil }
 end
 
 def click_feedback_entry_and_send(entry_name)
@@ -116,6 +116,13 @@ def expect_restaurant_detail_view
   expect(text 'Directions').to be_truthy
 end
 
+def expect_fh_suggestion
+  bubble, parameter = wait_last_element_and_parameter('FH:Suggestion', 0)
+  expect(parameter).not_to be_nil
+  expect(bubble).not_to be_nil
+  last_suggestions << parameter
+end
+
 Given(/^FoodHero will not find any restaurants$/) do
   send_cheat('C:FN') # find nothing
 end
@@ -140,70 +147,67 @@ Given(/^FoodHero is very slow in responding$/) do
   send_cheat('C:BS') # be slow
 end
 
-Then(/^FoodHero(?: still)? greets me and asks what I wished to eat$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:Greeting;FH:OpeningQuestion')
+Then(/^FoodHero(?: still)? greets me and suggests something$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:Greeting', 1)
   expect(bubble).not_to be_nil
+  expect_fh_suggestion
 end
 
 Then(/^FoodHero asks what I wished to eat$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion')
+  bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion', 0)
   expect(bubble).not_to be_nil
 end
 
 
-Then(/^FoodHero asks again what I wished to eat$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:BeforeRepeatingUtteranceAfterError')
+Then(/^FoodHero asks again what I think about suggestion$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:BeforeRepeatingUtteranceAfterError', 0)
   expect(bubble).not_to be_nil
-  bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion')
+  bubble, _ = wait_last_element_and_parameter('FH:FirstQuestion', 0)
   expect(bubble).not_to be_nil
 end
 
 And(/^FoodHero asks what to do next$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterSuccess')
+  bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterSuccess', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero asks what to do next after failure$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterFailure')
+  bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterFailure', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says that nothing was found$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:NoRestaurantsFound')
+  bubble, _ = wait_last_element_and_parameter('FH:NoRestaurantsFound', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says he's not connected to the internet$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:HasNetworkError')
+  bubble, _ = wait_last_element_and_parameter('FH:HasNetworkError', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says good bye$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:GoodBye')
+  bubble, _ = wait_last_element_and_parameter('FH:GoodBye', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero says he can't understand me$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:DidNotUnderstandAndAsksForRepetition')
+  bubble, _ = wait_last_element_and_parameter('FH:DidNotUnderstandAndAsksForRepetition', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = wait_last_element_and_parameter('FH:Suggestion')
-  expect(parameter).not_to be_nil
-  expect(bubble).not_to be_nil
-  last_suggestions << parameter
+  expect_fh_suggestion
 end
 
 Then(/^FoodHero asks to enable location\-services in settings$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:BecauseUserDeniedAccessToLocationServices')
+  bubble, _ = wait_last_element_and_parameter('FH:BecauseUserDeniedAccessToLocationServices', 0)
   expect(bubble).not_to be_nil
 end
 
 Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
   # wait until next suggestion appears
-
-  bubble, next_suggestion = wait_last_element_and_parameter('FH:Suggestion') {
+  bubble, next_suggestion = wait_last_element_and_parameter('FH:Suggestion', 0) {
       |p| !last_suggestions.include?(p)
   }
 
@@ -220,19 +224,19 @@ When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
 end
 
 Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference') { |p| p.eql? cuisines_as_string }
+  bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
   expect(parameter).to eq(cuisines_as_string)
 end
 
 Then(/^I see my answer "([^"]*)"$/) do |answer|
-  bubble, parameter = wait_last_element_and_parameter('U:SuggestionFeedback') { |p| p.eql? answer }
+  bubble, parameter = wait_last_element_and_parameter('U:SuggestionFeedback', 0) { |p| p.eql? answer }
   expect(parameter).to eq(answer)
   expect(bubble).not_to be_nil
 end
 
 Then(/^I answer with I fixed the problem, please try again$/) do
-  bubble, _ = wait_last_element_and_parameter('U:TryAgainNow')
+  bubble, _ = wait_last_element_and_parameter('U:TryAgainNow', 0)
   expect(bubble).not_to be_nil
 end
 
@@ -343,12 +347,12 @@ Then(/^I can't see the feedback list$/) do
 end
 
 Then(/^I can see last suggestion$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:Suggestion') { |_| true }
+  bubble, _ = wait_last_element_and_parameter('FH:Suggestion', 0) { |_| true }
   expect(bubble.displayed?).to be_truthy
 end
 
 Then(/^FoodHero displays Semantic\-ID "([^"]*)" in last suggestion/) do |semanticId|
-  bubble, _ = wait_last_element_and_parameter('FH:Suggestion') { |_| true }
+  bubble, _ = wait_last_element_and_parameter('FH:Suggestion', 0) { |_| true }
   expect(bubble.label).to include(semanticId)
 end
 

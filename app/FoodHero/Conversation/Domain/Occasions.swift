@@ -28,9 +28,9 @@ public class Occasions: NSObject {
         return "drinks"
     }
 
-    public class func getCurrent() -> String {
-        let now = getNowFromComponents()
-        switch getDayOfWeek() {
+    public class func getCurrent(env: IEnvironment) -> String {
+        let now = getNowFromComponents(env)
+        switch getDayOfWeek(env) {
         case 1, 7:
             return getOccasionForWeekend(now)
         default:
@@ -86,8 +86,7 @@ public class Occasions: NSObject {
         return drinks()
     }
 
-    private class func getNowFromComponents() -> NSDate {
-        let env = (TyphoonComponents.getAssembly() as! ApplicationAssembly).environment() as! IEnvironment
+    private class func getNowFromComponents(env: IEnvironment) -> NSDate {
         let calendar = getCalendar()
         let nowComponents = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: env.now())
         return calendar.dateFromComponents(nowComponents)!
@@ -105,8 +104,7 @@ public class Occasions: NSObject {
         return date
     }
 
-    private class func getDayOfWeek() -> Int {
-        let env = (TyphoonComponents.getAssembly() as! ApplicationAssembly).environment() as! IEnvironment
+    private class func getDayOfWeek(env: IEnvironment) -> Int {
         let calendar = getCalendar()
         let components = calendar.components(.CalendarUnitWeekday, fromDate: env.now())
         return components.weekday

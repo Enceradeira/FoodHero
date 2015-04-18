@@ -1,14 +1,8 @@
 Feature: User interacts with app through conversation
 
-  Background:
-    Given FoodHero has started
-
   Scenario: I log in for the first time and go through all suggestion feedback
-    When FoodHero greets me and asks what I wished to eat
-    And I wish to eat "British" food by typing it
-    Then FoodHero asks for access to the location-services
-    When I allow access to the location-services
-    Then FoodHero suggests something for "British" food
+    When FoodHero has started and can access location-services
+    Then FoodHero greets me and suggests something
 
     When I don't like the restaurant
     Then I see my answer "Dislike"
@@ -44,19 +38,14 @@ Feature: User interacts with app through conversation
     Then FoodHero asks what I wished to eat
 
   Scenario: I asks to search for the wrong cuisine and I want to start over again
-    Given FoodHero greets me and asks what I wished to eat
-    And  I wish to eat "British" food by typing it
-    And I allow access to the location-services
-    And FoodHero suggests something for "British" food
+    When FoodHero has started and can access location-services
+    Then FoodHero greets me and suggests something
     When I want FoodHero to start over again
     Then FoodHero asks what I wished to eat
 
   Scenario: I don't allow FoodHero to access location-API
-    When FoodHero greets me and asks what I wished to eat
-    And I wish to eat "British" food by typing it
-    Then FoodHero asks for access to the location-services
-
-    When I don't allow access to the location-services
+    When FoodHero asks for access to the location-services
+    And I don't allow access to the location-services
     Then FoodHero asks to enable location-services in settings
 
     When I say that problem with location-service has been fixed
@@ -64,10 +53,12 @@ Feature: User interacts with app through conversation
     And FoodHero asks to enable location-services in settings
 
   Scenario: FoodHero can't find any restaurants
-    Given FoodHero will not find any restaurants
-    And I wish to eat "Indian" food by typing it
-    And I allow access to the location-services
+    Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
+    And FoodHero will not find any restaurants
+    And I don't like the restaurant
     Then FoodHero says that nothing was found
+
     When I say try again
     Then FoodHero says that nothing was found
 
@@ -90,24 +81,26 @@ Feature: User interacts with app through conversation
     Then FoodHero asks what I wished to eat
 
   Scenario: FoodHero is offline
-    Given FoodHero can't access a network
-    When FoodHero greets me and asks what I wished to eat
-    And I wish to eat "British" food by typing it
-    And I allow access to the location-services
+    Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
+    And FoodHero can't access a network
+    And I find the restaurant looks too cheap
+
     Then FoodHero says he's not connected to the internet
     When I say try again
     Then FoodHero says he's not connected to the internet
     When FoodHero can access a network
     And I say try again
-    Then FoodHero asks again what I wished to eat
+    Then FoodHero asks again what I think about suggestion
 
   Scenario: FoodHero can't understand user
-    When I say nonsense
-    And I allow access to the location-services
-    Then FoodHero says he can't understand me
-
+    Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
     When I say nonsense
     Then FoodHero says he can't understand me
 
-    When I wish to eat "Italian" food by typing it
-    And FoodHero suggests something else for "Italian" food
+    When I say nonsense
+    Then FoodHero says he can't understand me
+
+    When I find the restaurant too far away
+    Then FoodHero suggests something else for "Italian" food

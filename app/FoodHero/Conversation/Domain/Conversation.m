@@ -13,6 +13,7 @@
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
 #import "FoodHero-Swift.h"
+#import "IEnvironment.h"
 
 
 @interface Conversation ()
@@ -25,6 +26,7 @@
     NSMutableArray *_rawConversation;
     id <ApplicationAssembly> _assembly;
     bool _isStarted;
+    id <IEnvironment> _environment;
 }
 
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly {
@@ -42,6 +44,7 @@
 - (void)start {
     assert(!_isStarted);
 
+    _environment = [_assembly environment];
     id <IRandomizer> randomizer = [_assembly talkerRandomizer];
     RestaurantSearch *search = [_assembly restaurantSearch];
     LocationService *locationService = [_assembly locationService];
@@ -150,7 +153,7 @@
     return [SearchProfile createWithCuisine:self.cuisine
                                  priceRange:self.priceRange
                                 maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]
-                                   occasion:[Occasions getCurrent]];
+                                   occasion:[Occasions getCurrent:_environment]];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -193,7 +196,7 @@
     return preference.parameter;
 }
 
-- (PriceRange*)priceRange {
+- (PriceRange *)priceRange {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     for (ConversationParameters *parameter in [self parametersOfCurrentSearch]) {
         if ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"]) {
@@ -215,7 +218,7 @@
     return priceRange;
 }
 
-- (NSArray*)suggestedRestaurants {
+- (NSArray *)suggestedRestaurants {
     return [[self.parametersOfCurrentSearch linq_ofType:[FoodHeroSuggestionParameters class]] linq_select:^(FoodHeroSuggestionParameters *s) {
         return s.restaurant;
     }];

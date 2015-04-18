@@ -18,7 +18,7 @@ class OccasionsTests: XCTestCase {
     func assertOccassionAt(# year: Int, month: Int, day: Int, hour: Int, minute: Int, expected: String) {
         let time = NSCalendar.dateFrom(year: year, month: month, day: day, hour: hour, minute: minute, second: 15)
         env!.injectNow(time)
-        let occasion = Occasions.getCurrent()
+        let occasion = Occasions.getCurrent(env!)
         XCTAssertEqual(occasion, expected)
     }
 
