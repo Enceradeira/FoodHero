@@ -13,18 +13,18 @@ Feature: User interacts with app through conversation
     Then I can't touch the microphone button
     And I can't enter text
     And I can't touch send
-    When FoodHero suggests something else for "African" food
+    When FoodHero suggests something else
     Then I can touch the microphone button
     And I can enter text
 
   Scenario: A long conversation
     When FoodHero greets me and suggests something
     And I don't like the restaurant
-    And FoodHero suggests something for "British" food
+    And FoodHero suggests something else
     And I find the restaurant too far away
-    And FoodHero suggests something for "British" food
+    And FoodHero suggests something else
     And I find the restaurant looks too cheap
-    And FoodHero suggests something for "British" food
+    And FoodHero suggests something else
     When I touch input list button
     Then I can see last suggestion
 
@@ -32,7 +32,7 @@ Feature: User interacts with app through conversation
     When FoodHero greets me and suggests something
     And I configure FoodHero to show Semantic-Ids
     And I don't like the restaurant
-    And FoodHero suggests something else for "British" food
+    And FoodHero suggests something else
     Then FoodHero displays Semantic-ID "FH:" in last suggestion
 
 

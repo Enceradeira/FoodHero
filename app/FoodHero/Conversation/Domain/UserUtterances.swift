@@ -16,8 +16,12 @@ public class UserUtterances: NSObject {
         return TalkerUtterance(utterance: text, customData: parameter)
     }
 
-    public class func dislikesKindOfFood(text: String) -> TalkerUtterance{
+    public class func dislikesKindOfFood(text: String) -> TalkerUtterance {
         return createUtterance("U:DislikesKindOfFood", text: text);
+    }
+
+    public class func dislikesOccasion(text: String) -> TalkerUtterance {
+        return createUtterance("U:DislikesOccasion", text: text);
     }
 
     public class func wantsToSearchForAnotherRestaurant(text: String) -> TalkerUtterance {
@@ -28,7 +32,7 @@ public class UserUtterances: NSObject {
         return createUtterance("U:WantsToAbort", text: text);
     }
 
-    public class func wantsToStartAgain(text:String) -> TalkerUtterance{
+    public class func wantsToStartAgain(text: String) -> TalkerUtterance {
         return createUtterance("U:WantsToStartAgain", text: text);
     }
 
@@ -44,11 +48,15 @@ public class UserUtterances: NSObject {
         return createUtterance("U:CuisinePreference=\(parameter)", text: text, parameter: parameter);
     }
 
+    public class func occasionPreference(parameter: String, text: String) -> TalkerUtterance {
+        return createUtterance("U:OccasionPreference=\(parameter)", text: text, parameter: parameter);
+    }
+
     public class func suggestionFeedbackForTooFarAway(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooFarAway", text: text, restaurant: restaurant)
     }
 
-    public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant,  text: String) -> TalkerUtterance {
+    public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooExpensive", text: text, restaurant: restaurant)
     }
 

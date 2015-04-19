@@ -6,19 +6,19 @@ Feature: User interacts with app through conversation
 
     When I don't like the restaurant
     Then I see my answer "Dislike"
-    And FoodHero suggests something else for "British" food
+    And FoodHero suggests something else
 
     When I find the restaurant too far away
     Then I see my answer "tooFarAway"
-    And FoodHero suggests something else for "British" food
+    And FoodHero suggests something else
 
     When I find the restaurant looks too cheap
     Then I see my answer "tooCheap"
-    And FoodHero suggests something else for "British" food
+    And FoodHero suggests something else
 
     When I find the restaurant looks too expensive
     Then I see my answer "tooExpensive"
-    And FoodHero suggests something else for "British" food
+    And FoodHero suggests something else
 
     When I like the restaurant
     Then I see my answer "Like"
@@ -28,7 +28,7 @@ Feature: User interacts with app through conversation
     Then FoodHero asks what I wished to eat
 
     When I wish to eat "Asian" food by typing it
-    And FoodHero suggests something else for "Asian" food
+    And FoodHero suggests something else
     And I like the restaurant
     And FoodHero asks what to do next
     And I say good bye
@@ -36,6 +36,18 @@ Feature: User interacts with app through conversation
 
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
+
+ Scenario: I search a restaurant for another occasion
+   When FoodHero has started and can access location-services
+   Then FoodHero greets me and suggests something
+   And FoodHero mentions the occasion
+
+   When I dislike the occasion
+   Then FoodHero asks me for the occasion
+
+   When I want to have some drinks
+   Then FoodHero suggests something else
+
 
   Scenario: I asks to search for the wrong cuisine and I want to start over again
     When FoodHero has started and can access location-services
@@ -64,7 +76,7 @@ Feature: User interacts with app through conversation
 
     Given FoodHero will find restaurants
     When I say try again
-    Then FoodHero suggests something for "Indian" food
+    Then FoodHero suggests something else
 
     Given FoodHero will not find any restaurants
     When I don't like the restaurant
@@ -103,4 +115,4 @@ Feature: User interacts with app through conversation
     Then FoodHero says he can't understand me
 
     When I find the restaurant too far away
-    Then FoodHero suggests something else for "Italian" food
+    Then FoodHero suggests something else

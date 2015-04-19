@@ -29,4 +29,8 @@ public class FHStates: NSObject {
     public class func askForSuggestionFeedback() -> String {
         return "askForSuggestionFeedback"
     }
+
+    public class func askForOccasion() -> String {
+        return "askForOccasion"
+    }
 }

@@ -153,7 +153,15 @@
     return [SearchProfile createWithCuisine:self.cuisine
                                  priceRange:self.priceRange
                                 maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]
-                                   occasion:[Occasions getCurrent:_environment]];
+                                   occasion:[self currentOccasion]];
+}
+
+- (NSString *)currentOccasion {
+    UserParameters* preference = [[[self.parametersOfCurrentSearch linq_ofType:[UserParameters class]] linq_where:^(UserParameters *p) {
+        return (BOOL) [p hasSemanticId:@"U:OccasionPreference"];
+    }] linq_lastOrNil];
+
+    return preference != nil ? preference.parameter :[Occasions getCurrent:_environment];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {

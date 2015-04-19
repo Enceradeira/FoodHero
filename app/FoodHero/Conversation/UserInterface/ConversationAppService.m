@@ -59,8 +59,18 @@ static UIImage *EmptyImage;
                     else {
                         SpeechInterpretation *interpretation = output;
                         if ([interpretation.intent isEqualToString:@"CuisinePreference"]) {
-                            NSString *cuisine = interpretation.entities.count == 1 ? interpretation.entities[0] : @"";
                             TalkerUtterance *utterance = [UserUtterances cuisinePreference:interpretation.entities[0] text:interpretation.text];
+                            return (id) utterance;
+                        }
+                        else if ([interpretation.intent isEqualToString:@"DislikesOccasion"]) {
+                            TalkerUtterance *utterance = [UserUtterances dislikesOccasion:interpretation.text];
+                            return (id) utterance;
+                        }
+                        else if ([interpretation.intent containsString:@"OccasionPreference"]) {
+                            NSArray *parts = [interpretation.intent componentsSeparatedByString:@"_"];
+                            assert(parts.count == 2);
+                            NSString *occasion = parts[1];
+                            TalkerUtterance *utterance = [UserUtterances occasionPreference:[occasion lowercaseString] text:interpretation.text];
                             return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_Like"]) {

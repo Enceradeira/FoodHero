@@ -54,6 +54,13 @@ public class FHUtterances {
 
     }
 
+    class func askForOccasion(currentOccasion: String) -> (StringDefinition -> StringDefinition) {
+        return {
+            $0.words(["So no \(currentOccasion). What are you after?"],
+                    withCustomData: FoodHeroParameters(semanticId: "FH:AskForOccasion=\(currentOccasion)", state: FHStates.askForOccasion()))
+        }
+    }
+
     class func suggestions(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([

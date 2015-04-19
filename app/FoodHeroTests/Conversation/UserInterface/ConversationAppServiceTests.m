@@ -92,13 +92,11 @@ ConversationAppServiceTests {
 
 - (void)addRecognizedUserTextForCuisinePreference:(NSString *)text entities:(NSArray *)entities {
     [self injectInterpretation:text intent:@"CuisinePreference" entities:entities];
-    [FHStates askForFoodPreference];
     [_service addUserText:text];
 }
 
 - (void)addRecognizedUserTextForSuggestionFeedback:(NSString *)text intent:(NSString *)intent {
     [self injectInterpretation:text intent:intent entities:nil];
-    [FHStates askForSuggestionFeedback];
     [_service addUserText:text];
 }
 
@@ -114,6 +112,16 @@ ConversationAppServiceTests {
         return (BOOL) ([b.semanticId isEqualToString:semanticId]);
     }] linq_firstOrNil];
     return bubble;
+}
+
+- (void)assertIntentMapping:(NSString *)intent mappedTo:(NSString *)semanticId {
+    [_service startConversation];
+
+    [self injectInterpretation:@"I want to have breakfast" intent:intent entities:nil];
+    [_service addUserText:@"I want to have breakfast"];
+
+    ConversationBubble *bubble = [self getBubbleWithSemanticId:semanticId];
+    assertThat(bubble, is(notNilValue()));
 }
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
@@ -271,6 +279,26 @@ ConversationAppServiceTests {
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:CuisinePreference=Indian"];
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.textSource, is(equalTo(@"I like Indian food")));
+}
+
+- (void)test_addUserOccasionPreferenceBreakfast_ShouldAddOccasionPreference {
+    [self assertIntentMapping:@"OccasionPreference_Breakfast" mappedTo:@"U:OccasionPreference=breakfast"];
+}
+
+- (void)test_addUserOccasionPreferenceLunch_ShouldAddOccasionPreference {
+    [self assertIntentMapping:@"OccasionPreference_Lunch" mappedTo:@"U:OccasionPreference=lunch"];
+}
+
+- (void)test_addUserOccasionPreferenceSnack_ShouldAddOccasionPreference {
+    [self assertIntentMapping:@"OccasionPreference_Snack" mappedTo:@"U:OccasionPreference=snack"];
+}
+
+- (void)test_addUserOccasionPreferenceDinner_ShouldAddOccasionPreference {
+    [self assertIntentMapping:@"OccasionPreference_Dinner" mappedTo:@"U:OccasionPreference=dinner"];
+}
+
+- (void)test_addUserOccasionPreferenceDrinks_ShouldAddOccasionPreference {
+    [self assertIntentMapping:@"OccasionPreference_Drinks" mappedTo:@"U:OccasionPreference=drinks"];
 }
 
 @end

@@ -13,19 +13,25 @@ def get_last_element_and_parameter(id, reverse_position)
   end
   persona = personas.first
   bubbles_of_persona = bubbles.select{|n| n.name.include?(persona) }
-  puts "--------------- begin dump bubbles| persona:#{persona} id:#{id} reverse_position:#{reverse_position}|  ------------- "
+
+  reverse_positions = reverse_position.is_a?(Array) ? reverse_position : [reverse_position]
+
+  puts "--------------- begin dump bubbles| persona:#{persona} id:#{id} reverse_positions:#{reverse_positions.join(',')}|  ------------- "
   bubbles_of_persona.each {|b|
     puts b.name
   }
   puts '--------------- end dump bubbles ----------------------------------------------- '
 
-  last_bubble = bubbles_of_persona.reverse.drop(reverse_position).first
-  if last_bubble.nil? || !last_bubble.name.include?(id)
-    return nil
+  result = reverse_positions.map do |pos|
+    last_bubble = bubbles_of_persona.reverse.drop(pos).first
+    if last_bubble.nil? || !last_bubble.name.include?(id)
+      return nil
+    end
+    _, parameter = last_bubble.name.match(/#{id}\w*=(.*)$/).to_a
+    return last_bubble, parameter
   end
-  _, parameter = last_bubble.name.match(/#{id}\w*=(.*)$/).to_a
-  return last_bubble, parameter
 
+  result.select{|r| !r.nil? }.first
 end
 
 def wait_last_element_and_parameter(id, reverse_position)
@@ -153,11 +159,22 @@ Then(/^FoodHero(?: still)? greets me and suggests something$/) do
   expect_fh_suggestion
 end
 
+And(/^FoodHero mentions the occasion$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:FirstQuestion', 0)
+  expect(bubble).not_to be_nil
+  expect_fh_suggestion
+end
+
 Then(/^FoodHero asks what I wished to eat$/) do
   bubble, _ = wait_last_element_and_parameter('FH:OpeningQuestion', 0)
   expect(bubble).not_to be_nil
 end
 
+
+Then(/^FoodHero asks me for the occasion$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:AskForOccasion', 0)
+  expect(bubble).not_to be_nil
+end
 
 Then(/^FoodHero asks again what I think about suggestion$/) do
   bubble, _ = wait_last_element_and_parameter('FH:BeforeRepeatingUtteranceAfterError', 0)
@@ -196,7 +213,7 @@ Then(/^FoodHero says he can't understand me$/) do
   expect(bubble).not_to be_nil
 end
 
-Then(/^FoodHero(?: still)? suggests something for "([^"]*)" food$/) do |cuisines_as_string|
+Then(/^FoodHero(?: still)? suggests something$/) do
   expect_fh_suggestion
 end
 
@@ -205,9 +222,9 @@ Then(/^FoodHero asks to enable location\-services in settings$/) do
   expect(bubble).not_to be_nil
 end
 
-Then(/^FoodHero suggests something else for "([^"]*)" food$/) do |cuisines_as_string|
+Then(/^FoodHero suggests something else$/) do
   # wait until next suggestion appears
-  bubble, next_suggestion = wait_last_element_and_parameter('FH:Suggestion', 0) {
+  bubble, next_suggestion = wait_last_element_and_parameter('FH:Suggestion', [0,1]) {
       |p| !last_suggestions.include?(p)
   }
 
@@ -241,6 +258,16 @@ Then(/^I answer with I fixed the problem, please try again$/) do
 end
 
 When(/^I touch send without entering anything$/) do
+  touch_send
+end
+
+When(/^I dislike the occasion$/) do
+  text_field.send_keys('I dont want to have breakfast')
+  touch_send
+end
+
+When(/^I want to have some drinks$/) do
+  text_field.send_keys('I want to have drinks')
   touch_send
 end
 
@@ -431,3 +458,4 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
+
