@@ -25,10 +25,12 @@ def get_last_element_and_parameter(id, reverse_position)
   result = reverse_positions.map do |pos|
     last_bubble = bubbles_of_persona.reverse.drop(pos).first
     if last_bubble.nil? || !last_bubble.name.include?(id)
-      return nil
+        map_result = nil
+    else
+      _, parameter = last_bubble.name.match(/#{id}\w*=(.*)$/).to_a
+      map_result = last_bubble, parameter
     end
-    _, parameter = last_bubble.name.match(/#{id}\w*=(.*)$/).to_a
-    return last_bubble, parameter
+    map_result
   end
 
   result.select{|r| !r.nil? }.first
@@ -123,7 +125,7 @@ def expect_restaurant_detail_view
 end
 
 def expect_fh_suggestion
-  bubble, parameter = wait_last_element_and_parameter('FH:Suggestion', 0)
+  bubble, parameter = wait_last_element_and_parameter('FH:Suggestion', [0,1])
   expect(parameter).not_to be_nil
   expect(bubble).not_to be_nil
   last_suggestions << parameter
@@ -272,7 +274,7 @@ When(/^I want to have some drinks$/) do
 end
 
 When(/^I don't like the restaurant$/) do
-  text_field.send_keys('I dont like that restaurant')
+  text_field.send_keys('I dont like it')
   touch_send
 end
 
@@ -331,8 +333,8 @@ When(/^I say nonsense$/) do
   touch_send
 end
 
-When(/^I wish to eat "([^"]*)" food by typing it$/) do |cuisines_as_string|
-  text_field.send_keys "I want to eat #{cuisines_as_string} food"
+When(/^I wish to eat "British" food by typing it$/) do
+  text_field.send_keys 'I want to eat British food'
 
   touch_send
 end
@@ -374,12 +376,12 @@ Then(/^I can't see the feedback list$/) do
 end
 
 Then(/^I can see last suggestion$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:Suggestion', 0) { |_| true }
+  bubble, _ = wait_last_element_and_parameter('FH:Suggestion', [0,1]) { |_| true }
   expect(bubble.displayed?).to be_truthy
 end
 
 Then(/^FoodHero displays Semantic\-ID "([^"]*)" in last suggestion/) do |semanticId|
-  bubble, _ = wait_last_element_and_parameter('FH:Suggestion', 0) { |_| true }
+  bubble, _ = wait_last_element_and_parameter('FH:Suggestion', [0,1]) { |_| true }
   expect(bubble.label).to include(semanticId)
 end
 

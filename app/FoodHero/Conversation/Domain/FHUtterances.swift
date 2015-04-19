@@ -121,16 +121,16 @@ public class FHUtterances {
             if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
                 return $0.words([
                         "The '%@' is smarter than the last one. Do you like it?"],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:ConfirmationIfInNewPreferredRangeMoreExpensive", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeMoreExpensive", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
                 return $0.words([
                         "If you like it cheaper, the %@ could be your choice. Do you like it?",
                         "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:ConfirmationIfInNewPreferredRangeCheaper", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCheaper", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
                 return $0.words([
                         "The '%@' is closer. Do you like it?"],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:ConfirmationIfInNewPreferredRangeCloser", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCloser", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
             } else {
                 self.suggestions(with: restaurant)($0)
                 return self.followUpQuestion()($0)

@@ -29,7 +29,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:expensiveRestaurant text:@"too posh"]];
 
-    [super assertLastStatementIs:@"FH:Confirmation" state:[FHStates  askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:Suggestion" state:[FHStates  askForSuggestionFeedback]];
 }
 
 @end

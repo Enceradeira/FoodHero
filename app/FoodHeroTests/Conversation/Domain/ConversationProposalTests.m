@@ -48,7 +48,7 @@
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:2];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant4 text:@""]];
-    [super assertLastStatementIs:@"FH:ConfirmationIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestionAsFollowUp {

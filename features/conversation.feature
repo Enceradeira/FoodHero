@@ -27,7 +27,7 @@ Feature: User interacts with app through conversation
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
 
-    When I wish to eat "Asian" food by typing it
+    When I wish to eat "British" food by typing it
     And FoodHero suggests something else
     And I like the restaurant
     And FoodHero asks what to do next
