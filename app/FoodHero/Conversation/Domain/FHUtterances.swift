@@ -251,7 +251,7 @@ public class FHUtterances {
     }
 
     class func didNotUnderstandAndAsksForRepetition(def: StringDefinition, state: String) -> StringDefinition {
-        return def.words(["I can't understand you. Please say or type it again!"]
+        return def.words(["I can't understand you. Use 'Help' on the top."]
                 , withCustomData: FoodHeroParameters(semanticId: "FH:DidNotUnderstandAndAsksForRepetition", state: state))
     }
 }
