@@ -103,6 +103,7 @@
 		2352565473BEEA7FAE5385C4 /* RestaurantDetailTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253AC3685FAB3459DE094 /* RestaurantDetailTableViewControllerTests.m */; };
 		2352566D39E0165AFFF12837 /* Utterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250C6A011141D03463883 /* Utterance.swift */; };
 		235256791478A94CCD3BE73E /* LargeRestaurantReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525130B25B176B9F80F98E /* LargeRestaurantReviewViewController.m */; };
+		235256812611C5BE143C310C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352593BBE2FCB36E1FA4373 /* HelpViewController.swift */; };
 		2352568F08684D4936A6C5B8 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251996A185437DF584FB5 /* Personas.m */; };
 		235256B5C335D4F28BC83464 /* FutureScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525D0D3FC6CB77852F53A3 /* FutureScript.swift */; };
 		235256D104437B6424FC20B6 /* LargeRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255C28F5BFA6BC8287CC0 /* LargeRestaurantReviewCommentViewController.m */; };
@@ -491,6 +492,7 @@
 		235258F60593B6390121A6A7 /* TalkerInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerInput.swift; sourceTree = "<group>"; };
 		23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewStateNormal.m; sourceTree = "<group>"; };
 		2352591DF2E1DF863C69FE92 /* ConversationViewStateNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewStateNormal.h; sourceTree = "<group>"; };
+		2352593BBE2FCB36E1FA4373 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		2352595115E493054E879BA9 /* ApplicationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAssembly.h; sourceTree = "<group>"; };
 		235259599DFD1F5796C13F5D /* ConversationViewState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewState.m; sourceTree = "<group>"; };
 		235259630445F1B8004CBFA5 /* CuisineAndOccasion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuisineAndOccasion.m; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 				235254D44AC4CC9D0D1F1855 /* SpeechInterpretation.m */,
 				23525109D8660B9C49844251 /* SpeechInterpretation.h */,
 				23525883B16BF826240AF6F5 /* ISpeechRecognitionStateSource.h */,
+				2352593BBE2FCB36E1FA4373 /* HelpViewController.swift */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1850,6 +1853,7 @@
 				23525279D190AEB9130696EA /* RestaurantSearchResult.m in Sources */,
 				23525B5B2ADE61B5376A4315 /* CuisineAndOccasion.m in Sources */,
 				2352531B92F7F8026E91D6CD /* OccasionToGoogleTypeMapper.swift in Sources */,
+				235256812611C5BE143C310C /* HelpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

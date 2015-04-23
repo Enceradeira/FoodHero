@@ -21,8 +21,8 @@ Feature: Navigation in app
     When I go back
     Then I see the conversation view
 
-    When I go to the map view
-    Then I see the map view
+    When I go to the help view
+    Then I see the help view
 
     When I go back
     Then I see the conversation view

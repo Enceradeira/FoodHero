@@ -11,7 +11,7 @@ def expect_conversation_view
   expect(button 'Send').not_to be_nil
 end
 
-def expect_map_view
+def expect_help_view
   expect(text 'Map is under construction').to be_truthy
 end
 
@@ -25,8 +25,8 @@ Given(/^FoodHero has started and can access location\-services$/) do
   expect_conversation_view
 end
 
-When(/^I go to the map view$/) do
-  button('Map').click
+When(/^I go to the help view$/) do
+  button('Help').click
 end
 
 When(/^I go back$/) do
@@ -41,8 +41,8 @@ Then(/^I see the conversation view$/) do
   expect_conversation_view
 end
 
-Then(/^I see the map view$/) do
-  expect_map_view
+Then(/^I see the help view$/) do
+  expect_help_view
 end
 
 Then(/^I see the login view$/) do
