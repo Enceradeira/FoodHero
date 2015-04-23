@@ -272,7 +272,7 @@ ConversationAppServiceTests {
 - (void)test_addUserVoiceForInputAction_ShouldAddUCuisinePreference_WhenAskUserCuisinePreferenceAction {
     [_service startConversation];
 
-    [self injectInterpretation:@"I dislike American food" intent:@"DislikesKindOfFood" entities:nil];
+    [self injectInterpretation:@"I dislike American food" intent:@"SuggestionFeedback_DislikesKindOfFood" entities:nil];
     [_service addUserText:@"I dislike American food"];
     [self addRecognizedUserTextForCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];;
 

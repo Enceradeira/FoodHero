@@ -113,7 +113,7 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances wantsToStartAgain:interpretation.text];
                             return (id) utterance;
                         }
-                        else if ([interpretation.intent isEqualToString:@"DislikesKindOfFood"]) {
+                        else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_DislikesKindOfFood"]) {
                             TalkerUtterance *utterance = [UserUtterances dislikesKindOfFood:interpretation.text];
                             return (id) utterance;
                         }

@@ -37,7 +37,7 @@ Feature: User interacts with app through conversation
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
 
- Scenario: I search a restaurant for another occasion
+ Scenario: I search a restaurant for another occasion and another kind of food
    When FoodHero has started and can access location-services
    Then FoodHero greets me and suggests something
    And FoodHero mentions the occasion
@@ -47,6 +47,14 @@ Feature: User interacts with app through conversation
 
    When I want to have some drinks
    Then FoodHero suggests something else
+
+   When I dislike the kind of food
+   Then I see my answer DislikesKindOfFood
+   And FoodHero asks what I wished to eat
+
+   When I wish to eat "British" food by typing it
+   Then I see my answer with "British" food
+   And FoodHero suggests something else
 
 
   Scenario: I asks to search for the wrong cuisine and I want to start over again

@@ -242,7 +242,7 @@ When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   link.click
 end
 
-Then(/^I answer with "([^"]*)" food$/) do |cuisines_as_string|
+Then(/^I see my answer with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
   expect(parameter).to eq(cuisines_as_string)
@@ -251,6 +251,11 @@ end
 Then(/^I see my answer "([^"]*)"$/) do |answer|
   bubble, parameter = wait_last_element_and_parameter('U:SuggestionFeedback', 0) { |p| p.eql? answer }
   expect(parameter).to eq(answer)
+  expect(bubble).not_to be_nil
+end
+
+Then(/^I see my answer DislikesKindOfFood$/) do
+  bubble, _ = wait_last_element_and_parameter('U:DislikesKindOfFood', 0)
   expect(bubble).not_to be_nil
 end
 
@@ -265,6 +270,12 @@ end
 
 When(/^I dislike the occasion$/) do
   text_field.send_keys('I dont want to have breakfast')
+  touch_send
+end
+
+
+When(/^I dislike the kind of food$/) do
+  text_field.send_keys('I dont like this kind of food')
   touch_send
 end
 
