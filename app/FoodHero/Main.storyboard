@@ -552,7 +552,7 @@ Norwich, Norfolk NR1 3DN</string>
         <!--Help View Controller-->
         <scene sceneID="fxC-fX-uGw">
             <objects>
-                <viewController id="f14-hB-uXh" userLabel="Help View Controller" customClass="HelpViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpController" id="f14-hB-uXh" userLabel="Help View Controller" customClass="HelpViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nGi-aa-YMO"/>
                         <viewControllerLayoutGuide type="bottom" id="ooR-XY-DDy"/>

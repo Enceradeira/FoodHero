@@ -69,6 +69,9 @@
                                                        GOOGLE_API_KEY,
                                                        _onlyOpenNow ? @"&opennow" : @""];
 
+
+    NSLog([NSString stringWithFormat:@"Google-Search: %@",placeString]);
+
     __block NSDictionary *json;
     NSError *error;
     RACSignal *fetchSignal = [self fetchJSON:placeString];

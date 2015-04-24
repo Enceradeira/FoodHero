@@ -264,15 +264,27 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     if ([segue.identifier isEqualToString:@"helpView"]) {
         HelpViewController *controller = (HelpViewController *) segue.destinationViewController;
-        [controller setFhUtterance:_currentFhBubble.text expectedUserUtterances:self.expectedUserUtterances delegate:self];
+        [self initalizeHelpController:controller];
     }
 }
 
 
 - (void)userDidTouchLinkInConversationBubbleWith:(Restaurant *)restaurant {
-    RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
-    [controller setRestaurant:restaurant];
-    [self.navigationController pushViewController:controller animated:YES];
+    if( restaurant != nil) {
+        RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+        [controller setRestaurant:restaurant];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    else{
+        // Help link
+        HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
+        [self initalizeHelpController:controller];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
+-(void)initalizeHelpController:(HelpViewController *)controller {
+    [controller setFhUtterance:_currentFhBubble.text expectedUserUtterances:self.expectedUserUtterances delegate:self];
 }
 
 - (NSInteger)optimalUserInputListHeight {

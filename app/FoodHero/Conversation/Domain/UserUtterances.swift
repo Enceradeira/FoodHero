@@ -47,7 +47,7 @@ public class UserUtterances: NSObject {
 
     public class func cuisinePreference(parameter: String, text: String) -> TalkerUtterance {
         return createUtterance("U:CuisinePreference=\(parameter)", text: text,
-                modelAnswer: "I'd like to eat Sausage rolls", parameter: parameter);
+                modelAnswer: "I'd rather have Sausage rolls", parameter: parameter);
     }
 
     public class func occasionPreference(parameter: String, text: String) -> TalkerUtterance {
