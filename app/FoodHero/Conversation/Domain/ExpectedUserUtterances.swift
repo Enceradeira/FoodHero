@@ -26,9 +26,9 @@ public class ExpectedUserUtterances: NSObject {
         }
     }
 
-    private class func modelAnswersFrom(utterances: [TalkerUtterance]) -> ExpectedUserUtterances {
+    private class func modelAnswersFrom(utterances: [TalkerUtterance?]) -> ExpectedUserUtterances {
         let modelAnswers = utterances.map {
-            self.modelAnswerFrom($0)
+            $0 == nil ? "" : self.modelAnswerFrom($0!)
         }
         return ExpectedUserUtterances(utterances: modelAnswers)
     }
@@ -53,14 +53,16 @@ public class ExpectedUserUtterances: NSObject {
         return modelAnswersFrom(
         [
                 UserUtterances.suggestionFeedbackForLike(dummyRestaurant, text: ""),
-                UserUtterances.dislikesOccasion("", occasion: occasion),
-                UserUtterances.occasionPreference("", text: ""),
-                UserUtterances.cuisinePreference("", text: ""),
-                UserUtterances.dislikesKindOfFood(""),
                 UserUtterances.suggestionFeedbackForDislike(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooFarAway(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooExpensive(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooCheap(dummyRestaurant, text: ""),
+                nil,    // creates a visible seperator on the UI
+                UserUtterances.occasionPreference("", text: ""),
+                UserUtterances.cuisinePreference("", text: ""),
+                UserUtterances.dislikesKindOfFood(""),
+                UserUtterances.dislikesOccasion("", occasion: occasion),
+                nil,
                 UserUtterances.wantsToStartAgain("")
         ])
     }

@@ -16,11 +16,6 @@ class UserUtterancesController: UITableViewController {
         _delegate = delegate;
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -37,4 +32,17 @@ class UserUtterancesController: UITableViewController {
 
         return cell
     }
+
+    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let utterance = _expectedUserUtterances.utterances[indexPath.row]
+        var height : CGFloat
+        height = 30
+        if utterance == "" {
+            return height / 3
+        } else {
+            return height
+        }
+    }
+
+
 }

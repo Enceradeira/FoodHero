@@ -35,10 +35,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     CheatTextFieldController *_cheatTextFieldController;
     NSMutableArray *_bubbleCells;
     BOOL _isLoading;
-    NSString *_currentState;
     BOOL _isProcessingUserInput;
     BOOL _isRecordingUserInput;
-    ExpectedUserUtterances *_expectedUserUtterances;
+    ConversationBubbleFoodHero *_currentFhBubble;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -131,11 +130,11 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (NSString *)getState {
-    return _currentState;
+    return _currentFhBubble.state;
 }
 
 - (ExpectedUserUtterances *)expectedUserUtterances {
-    return _expectedUserUtterances;
+    return _currentFhBubble.expectedUserUtterances;
 }
 
 - (void)dealloc {
@@ -205,17 +204,15 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     _userTextField.text = nil;
-    _expectedUserUtterances = bubble.expectedUserUtterances;
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
-        NSString *nextState = foodHeroBubble.state;
 
-        if (nextState) {
-            NSLog(@"state changed: %@", nextState);
+        if (foodHeroBubble.state) {
+            NSLog(@"state changed: %@", foodHeroBubble.state);
             // sometimes FH produces more than one bubble in sequence but just one holds and state which should not be overwritten
             // this is the case e.g
-            _currentState = nextState;
+            _currentFhBubble = foodHeroBubble;
         }
     }
     _isProcessingUserInput = NO; // when we get here a new bubble is rendered, therefore the UserInput is finished being processed
@@ -264,7 +261,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     if ([segue.identifier isEqualToString:@"helpView"]) {
         HelpViewController *controller = (HelpViewController *) segue.destinationViewController;
-        [controller setExpectedUserUtterances:_expectedUserUtterances delegate:self];
+        [controller setFhUtterance:_currentFhBubble.text expectedUserUtterances:self.expectedUserUtterances delegate:self];
     }
 }
 
@@ -313,7 +310,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (BOOL)isWaitingForUserInput {
-    return _expectedUserUtterances != nil;
+    return _currentFhBubble != nil;
 }
 
 - (void)userDidSelectUtterance:(NSString *)utterance {

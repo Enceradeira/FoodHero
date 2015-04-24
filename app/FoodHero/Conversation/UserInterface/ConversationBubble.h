@@ -46,4 +46,6 @@
 - (Restaurant *)suggestedRestaurant;
 
 - (NSObject *)textAsHtml;
+
+- (NSString *)text;
 @end

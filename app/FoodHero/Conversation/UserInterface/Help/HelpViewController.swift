@@ -7,18 +7,28 @@ import Foundation
 
 class HelpViewController: UIViewController {
 
-    var _expectedUserUtterances : ExpectedUserUtterances!
-    var _delegate : IHelpViewControllerDelegate!
+    var _fhUtterance: String!
+    var _expectedUserUtterances: ExpectedUserUtterances!
+    var _delegate: IHelpViewControllerDelegate!
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        automaticallyAdjustsScrollViewInsets = false;
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         let controller = segue.destinationViewController as! UserUtterancesController
-        controller.setExpectedUserUtterances(_expectedUserUtterances, delegate:_delegate!)
+        controller.setExpectedUserUtterances(_expectedUserUtterances, delegate: _delegate!)
     }
 
-    public func setExpectedUserUtterances(
+    func setFhUtterance(
+            fhUtterance: String,
             expectedUserUtterances: ExpectedUserUtterances,
             delegate: IHelpViewControllerDelegate) {
-        _expectedUserUtterances = expectedUserUtterances;
+        _expectedUserUtterances = expectedUserUtterances
+        _fhUtterance = fhUtterance
         _delegate = delegate;
     }
 }

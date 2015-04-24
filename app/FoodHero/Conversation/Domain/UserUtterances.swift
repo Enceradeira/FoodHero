@@ -67,7 +67,7 @@ public class UserUtterances: NSObject {
 
     public class func suggestionFeedbackForTooCheap(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooCheap", text: text,
-                modelAnswer: "It looks to cheap", restaurant: restaurant)
+                modelAnswer: "It looks too cheap", restaurant: restaurant)
     }
 
     public class func suggestionFeedbackForDislike(restaurant: Restaurant, text: String) -> TalkerUtterance {

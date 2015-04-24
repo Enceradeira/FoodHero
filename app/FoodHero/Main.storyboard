@@ -559,57 +559,39 @@ Norwich, Norfolk NR1 3DN</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2H-ZI-hPm">
-                                <rect key="frame" x="26" y="64" width="268" height="494"/>
+                                <rect key="frame" x="28" y="64" width="272" height="484"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food Hero says:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-tX-Qw5">
-                                        <rect key="frame" x="2" y="10" width="113" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can say or type something like:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ca-kq-ccU">
-                                        <rect key="frame" x="2" y="143" width="243" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tih-h0-3fM">
-                                        <rect key="frame" x="7" y="176" width="261" height="318"/>
+                                        <rect key="frame" x="0.0" y="63" width="272" height="421"/>
                                         <connections>
-                                            <segue destination="Tkx-OU-aso" kind="embed" id="hQy-j0-j9q"/>
+                                            <segue destination="Tkx-OU-aso" kind="embed" id="VNB-pv-Dlf"/>
                                         </connections>
                                     </containerView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What about Taj Mahal, Norwich?" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0cV-N1-Tng">
-                                        <rect key="frame" x="7" y="43" width="255" height="90"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="LRx-Ij-deN"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <color key="textColor" red="0.23921570180000001" green="0.23921570180000001" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can say or type something like:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ca-kq-ccU">
+                                        <rect key="frame" x="0.0" y="25" width="272" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="E0k-tX-Qw5" firstAttribute="leading" secondItem="8ca-kq-ccU" secondAttribute="leading" id="8fP-7q-EkU"/>
-                                    <constraint firstItem="0cV-N1-Tng" firstAttribute="top" secondItem="E0k-tX-Qw5" secondAttribute="bottom" constant="15" id="LWn-QS-obY"/>
-                                    <constraint firstItem="0cV-N1-Tng" firstAttribute="leading" secondItem="E0k-tX-Qw5" secondAttribute="leading" constant="5" id="N0v-n7-VDg"/>
-                                    <constraint firstAttribute="trailing" secondItem="Tih-h0-3fM" secondAttribute="trailing" id="SM5-vS-TCq"/>
-                                    <constraint firstAttribute="bottom" secondItem="Tih-h0-3fM" secondAttribute="bottom" id="Wez-Rn-Pb9"/>
-                                    <constraint firstItem="E0k-tX-Qw5" firstAttribute="top" secondItem="Z2H-ZI-hPm" secondAttribute="top" constant="10" id="Wpl-A8-H1n"/>
-                                    <constraint firstItem="E0k-tX-Qw5" firstAttribute="leading" secondItem="Z2H-ZI-hPm" secondAttribute="leading" constant="2" id="aSv-Wq-pyq"/>
-                                    <constraint firstItem="Tih-h0-3fM" firstAttribute="top" secondItem="8ca-kq-ccU" secondAttribute="bottom" constant="15" id="leW-Vy-zBC"/>
-                                    <constraint firstItem="Tih-h0-3fM" firstAttribute="leading" secondItem="E0k-tX-Qw5" secondAttribute="leading" constant="5" id="rg7-1I-D6O"/>
-                                    <constraint firstItem="8ca-kq-ccU" firstAttribute="top" secondItem="0cV-N1-Tng" secondAttribute="bottom" constant="10" id="yJx-Uy-QIc"/>
+                                    <constraint firstItem="8ca-kq-ccU" firstAttribute="leading" secondItem="Z2H-ZI-hPm" secondAttribute="leading" id="ADu-zZ-7k3"/>
+                                    <constraint firstItem="8ca-kq-ccU" firstAttribute="leading" secondItem="Tih-h0-3fM" secondAttribute="leading" id="IjR-R2-sV8"/>
+                                    <constraint firstAttribute="trailing" secondItem="8ca-kq-ccU" secondAttribute="trailing" id="e3p-R4-SRd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tih-h0-3fM" secondAttribute="trailing" id="fZI-Ko-aR9"/>
+                                    <constraint firstItem="Tih-h0-3fM" firstAttribute="top" secondItem="8ca-kq-ccU" secondAttribute="bottom" constant="20" id="jVJ-hJ-El7"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tih-h0-3fM" secondAttribute="bottom" id="onH-fb-EDQ"/>
+                                    <constraint firstItem="8ca-kq-ccU" firstAttribute="top" secondItem="Z2H-ZI-hPm" secondAttribute="top" constant="25" id="vqf-ii-oeY"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Z2H-ZI-hPm" firstAttribute="leading" secondItem="HXB-N5-54d" secondAttribute="leadingMargin" constant="10" id="QwE-nb-ITn"/>
-                            <constraint firstItem="Z2H-ZI-hPm" firstAttribute="top" secondItem="nGi-aa-YMO" secondAttribute="bottom" id="fYU-Ao-Uqk"/>
-                            <constraint firstItem="ooR-XY-DDy" firstAttribute="top" secondItem="Z2H-ZI-hPm" secondAttribute="bottom" constant="10" id="nYR-N8-Ipe"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Z2H-ZI-hPm" secondAttribute="trailing" constant="10" id="zHa-iK-hID"/>
+                            <constraint firstItem="ooR-XY-DDy" firstAttribute="top" secondItem="Z2H-ZI-hPm" secondAttribute="bottom" constant="20" id="Lfe-pd-o1h"/>
+                            <constraint firstAttribute="trailing" secondItem="Z2H-ZI-hPm" secondAttribute="trailing" constant="20" id="Pr3-Bg-asb"/>
+                            <constraint firstItem="Z2H-ZI-hPm" firstAttribute="leading" secondItem="HXB-N5-54d" secondAttribute="leading" constant="28" id="lJY-up-0Nn"/>
+                            <constraint firstItem="Z2H-ZI-hPm" firstAttribute="top" secondItem="nGi-aa-YMO" secondAttribute="bottom" id="rFs-jg-JXt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nQw-3r-qpc"/>
@@ -976,8 +958,8 @@ Norwich, Norfolk NR1 3DN</string>
         <scene sceneID="lAC-BH-cc3">
             <objects>
                 <tableViewController id="Tkx-OU-aso" customClass="UserUtterancesController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="I5w-md-C8L">
-                        <rect key="frame" x="0.0" y="0.0" width="261" height="318"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="34" sectionHeaderHeight="22" sectionFooterHeight="22" id="I5w-md-C8L">
+                        <rect key="frame" x="0.0" y="0.0" width="272" height="421"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -987,8 +969,8 @@ Norwich, Norfolk NR1 3DN</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'd like to eat Sausage rools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAJ-Wj-gF2">
-                                            <rect key="frame" x="8" y="8" width="245" height="28"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                            <rect key="frame" x="0.0" y="8" width="264" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -996,8 +978,8 @@ Norwich, Norfolk NR1 3DN</string>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="ZAJ-Wj-gF2" secondAttribute="trailing" id="0CU-xc-QCT"/>
                                         <constraint firstItem="ZAJ-Wj-gF2" firstAttribute="top" secondItem="ujn-a9-yTf" secondAttribute="topMargin" id="BlX-os-S1l"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="ZAJ-Wj-gF2" secondAttribute="bottom" id="Ih1-Zu-3O8"/>
-                                        <constraint firstItem="ZAJ-Wj-gF2" firstAttribute="leading" secondItem="ujn-a9-yTf" secondAttribute="leadingMargin" id="ivl-i4-tO8"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ZAJ-Wj-gF2" secondAttribute="bottom" constant="-6" id="Ih1-Zu-3O8"/>
+                                        <constraint firstItem="ZAJ-Wj-gF2" firstAttribute="leading" secondItem="ujn-a9-yTf" secondAttribute="leadingMargin" constant="-8" id="ivl-i4-tO8"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
