@@ -13,8 +13,6 @@
 #import "GoogleURL.h"
 #import "GoogleDefinitions.h"
 #import "GooglePhoto.h"
-#import "ApplicationAssembly.h"
-#import "CuisineAndOccasion.h"
 #import "FoodHero-Swift.h"
 
 
@@ -23,15 +21,17 @@
     BOOL _simulateNetworkError;
     NSOperationQueue *_queue;
     id <IEnvironment> _environment;
+    BOOL _onlyOpenNow;
 }
 
-- (id)initWithEnvironment:(id <IEnvironment>)environment {
+- (id)initWithEnvironment:(id <IEnvironment>)environment onlyOpenNow:(BOOL)onlyOpenNow {
     self = [super init];
     if (self) {
         _baseAddress = GOOGLE_BASE_ADDRESS;
         _timeout = 60;
         _queue = [[NSOperationQueue alloc] init];
         _environment = environment;
+        _onlyOpenNow = onlyOpenNow;
     }
 
     return self;
@@ -57,7 +57,7 @@
     NSArray *types = [OccasionToGoogleTypeMapper map:parameter.cuisineAndOccasion.occasion];
     NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
     NSString *keyword = [KeywordEncoder encodeString:parameter.cuisineAndOccasion.cuisine];
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@&opennow",
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@%@",
                                                        _baseAddress,
                                                        keyword,
                                                        coordinate.latitude,
@@ -66,7 +66,8 @@
                                                        (unsigned int) parameter.minPriceLevel,
                                                        (unsigned int) parameter.maxPriceLevel,
                                                        typesAsString,
-                                                       GOOGLE_API_KEY];
+                                                       GOOGLE_API_KEY,
+                                                       _onlyOpenNow ? @"&opennow" : @""];
 
     __block NSDictionary *json;
     NSError *error;

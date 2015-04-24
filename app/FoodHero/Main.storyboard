@@ -160,7 +160,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="f14-hB-uXh" kind="push" identifier="mapView" id="UFj-i6-g0O"/>
+                                    <segue destination="f14-hB-uXh" kind="push" identifier="helpView" id="UFj-i6-g0O"/>
                                 </connections>
                             </button>
                             <connections>
@@ -171,6 +171,7 @@
                     <connections>
                         <outlet property="bubbleView" destination="ObO-54-Z7x" id="3tp-Xf-JwW"/>
                         <outlet property="bubbleViewHeightConstraint" destination="a4k-5X-gbT" id="RqQ-a1-FjW"/>
+                        <outlet property="helpButton" destination="CJl-fr-lVt" id="5lS-DA-1v3"/>
                         <outlet property="micView" destination="ljP-x6-5iE" id="pLP-Wh-LFZ"/>
                         <outlet property="userInputContainerView" destination="kW0-vZ-rWt" id="xGi-QU-jEX"/>
                         <outlet property="userInputHeaderHeightConstraint" destination="9Q6-Zn-Gor" id="GSt-Gq-vWc"/>
@@ -975,18 +976,18 @@ Norwich, Norfolk NR1 3DN</string>
         <scene sceneID="lAC-BH-cc3">
             <objects>
                 <tableViewController id="Tkx-OU-aso" customClass="UserUtterancesController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="I5w-md-C8L">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="I5w-md-C8L">
                         <rect key="frame" x="0.0" y="0.0" width="261" height="318"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="R1a-Ed-HAt">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="utterance" id="R1a-Ed-HAt" customClass="UserUtteranceTableViewCell" customModule="FoodHero" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R1a-Ed-HAt" id="ujn-a9-yTf">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'd like to eat Sausage rools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAJ-Wj-gF2">
-                                            <rect key="frame" x="8" y="8" width="245" height="27"/>
+                                            <rect key="frame" x="8" y="8" width="245" height="28"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                             <nil key="highlightedColor"/>
@@ -999,6 +1000,10 @@ Norwich, Norfolk NR1 3DN</string>
                                         <constraint firstItem="ZAJ-Wj-gF2" firstAttribute="leading" secondItem="ujn-a9-yTf" secondAttribute="leadingMargin" id="ivl-i4-tO8"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textLabel" destination="ZAJ-Wj-gF2" id="4dG-fR-a5I"/>
+                                    <outlet property="utteranceLabel" destination="ZAJ-Wj-gF2" id="Smz-nA-3JJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

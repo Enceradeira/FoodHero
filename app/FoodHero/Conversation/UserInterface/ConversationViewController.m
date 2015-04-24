@@ -38,6 +38,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     NSString *_currentState;
     BOOL _isProcessingUserInput;
     BOOL _isRecordingUserInput;
+    ExpectedUserUtterances *_expectedUserUtterances;
 }
 
 - (void)setConversationAppService:(ConversationAppService *)service {
@@ -200,6 +201,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (void)configureUserInputFor:(ConversationBubble *)bubble {
     _userTextField.text = nil;
+    _expectedUserUtterances = bubble.expectedUserUtterances;
 
     if ([bubble isKindOfClass:[ConversationBubbleFoodHero class]]) {
         ConversationBubbleFoodHero *foodHeroBubble = (ConversationBubbleFoodHero *) bubble;
@@ -255,6 +257,11 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self setViewState:[ConversationViewStateNormal create:self animationCurve:UIViewAnimationCurveLinear aimationDuration:0]];
     [super prepareForSegue:segue sender:sender];
+
+    if ([segue.identifier isEqualToString:@"helpView"]) {
+        HelpViewController *controller = (HelpViewController *) segue.destinationViewController;
+        [controller setExpectedUserUtterances:_expectedUserUtterances delegate:self];
+    }
 }
 
 
@@ -299,5 +306,31 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 - (BOOL)isNotRecordingUserInput {
     return !_isRecordingUserInput;
+}
+
+- (BOOL)isWaitingForUserInput {
+    return _expectedUserUtterances != nil;
+}
+
+- (void)userDidSelectUtterance:(NSString *)utterance {
+    [self.navigationController popViewControllerAnimated:true];
+    self.userTextField.text = utterance;
+    [_currentViewState update];
+
+    [self flash:self.userSendButton];
+}
+
+- (void)flash:(UIView *)view {
+    CGFloat oldAlpha = view.alpha;
+    CGFloat minAlpha = 0.2;
+    enum UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut;
+    [UIView animateWithDuration:.3 delay:0.3 options:options animations:^{
+                [UIView setAnimationRepeatCount:4];
+                view.alpha = minAlpha;
+
+            }
+                     completion:^(BOOL finished) {
+                         view.alpha = oldAlpha;
+                     }];
 }
 @end

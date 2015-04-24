@@ -40,6 +40,10 @@
                     && _controller.recordPermission != AVAudioSessionRecordPermissionDenied;
 
     [self updateMicButtonColor:micButton.enabled];
+
+    // help-button
+    UIButton *helpButton = self.controller.helpButton;
+    helpButton.enabled = _controller.isWaitingForUserInput;
 }
 
 - (void)updateMicButtonColor:(BOOL)inputAccepted {

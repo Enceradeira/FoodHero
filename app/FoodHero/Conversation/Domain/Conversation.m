@@ -71,11 +71,18 @@
             return [parameter restaurant];
         }] linq_firstOrNil];
 
+        ExpectedUserUtterances *expectedUserUtterances = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
+            return [parameter expectedUserUtterances];
+        }] linq_firstOrNil];
+
         NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
         NSString *statesString = [states componentsJoinedByString:@";"];
         NSString *text = utterance.utterance;
 
-        Statement *statement = [Statement createWithSemanticId:semanticIdString text:text state:(statesString.length > 0 ? statesString : nil) suggestedRestaurant:restaurant];
+        Statement *statement = [Statement createWithSemanticId:semanticIdString
+                                                          text:text state:(statesString.length > 0 ? statesString : nil)
+                                           suggestedRestaurant:restaurant
+                                        expectedUserUtterances:expectedUserUtterances];
 
         [self addStatement:statement];
     }];
@@ -157,11 +164,11 @@
 }
 
 - (NSString *)currentOccasion {
-    UserParameters* preference = [[[self.parametersOfCurrentSearch linq_ofType:[UserParameters class]] linq_where:^(UserParameters *p) {
+    UserParameters *preference = [[[self.parametersOfCurrentSearch linq_ofType:[UserParameters class]] linq_where:^(UserParameters *p) {
         return (BOOL) [p hasSemanticId:@"U:OccasionPreference"];
     }] linq_lastOrNil];
 
-    return preference != nil ? preference.parameter :[Occasions getCurrent:_environment];
+    return preference != nil ? preference.parameter : [Occasions getCurrent:_environment];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {

@@ -182,9 +182,9 @@
 - (id)restaurantSearchService {
     return [TyphoonDefinition withClass:[GoogleRestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithEnvironment:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithEnvironment:onlyOpenNow:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self environment]];
-
+                                  [method injectParameterWith:@(YES)];
                               }];
                           }];
 }

@@ -85,6 +85,10 @@
     return _statement.semanticId;
 }
 
+-(ExpectedUserUtterances*)expectedUserUtterances {
+    return _statement.expectedUserUtterances;
+}
+
 - (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index doRenderSemanticID:(BOOL)doRenderSemanticID {
     self = [super init];
     if (self == nil)

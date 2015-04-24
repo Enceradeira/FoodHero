@@ -5,5 +5,7 @@
 
 import Foundation
 
-class HelpViewController: UIViewController {
+@objc
+protocol IHelpViewControllerDelegate {
+    func userDidSelectUtterance(utterance: String)
 }

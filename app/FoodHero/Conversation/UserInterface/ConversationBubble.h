@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Statement.h"
+#import "FoodHero-Swift.h"
 
 @interface ConversationBubble : NSObject
 
@@ -17,12 +18,16 @@
 @property(nonatomic, readonly) NSUInteger index;
 @property(nonatomic, readonly) CGRect textRect;
 @property(nonatomic, readonly) UIFont *font;
+@property(nonatomic, readwrite) ExpectedUserUtterances *expectedUserUtterances;
 
 - (NSString *)semanticId;
 
 - (NSString *)textSource;
 
-- (id)initWithStatement:(Statement *)statement width:(CGFloat)viewWidth index:(NSUInteger)index doRenderSemanticID:(BOOL)ID;
+- (id)initWithStatement:(Statement *)statement
+                  width:(CGFloat)viewWidth
+                  index:(NSUInteger)index
+     doRenderSemanticID:(BOOL)ID;
 
 - (CGFloat)textPaddingLeft;
 

@@ -12,5 +12,5 @@
 @property(nonatomic) NSString *baseAddress;
 @property(nonatomic) NSTimeInterval timeout;
 
-- (id)initWithEnvironment:(id <IEnvironment>)environment;
+- (id)initWithEnvironment:(id <IEnvironment>)environment onlyOpenNow:(BOOL)onlyOpenNow;
 @end

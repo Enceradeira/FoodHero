@@ -31,6 +31,7 @@
     CLLocation *_london;
     NSString *_placeIdVeeraswamyLondon;
     NSString *_placeIdEveningRiverCruiseYork;
+    id <ApplicationAssembly> _assembly;
 }
 
 - (void)setUp {
@@ -51,8 +52,8 @@
     _parameter.radius = 10000;
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
 
-    id<ApplicationAssembly> assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
-    _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[assembly environment]];
+    _assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
+    _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[_assembly environment] onlyOpenNow:false /*otherwise tests become unstable*/ ];
 }
 
 - (GooglePlace *)findPlaceById:(NSString *)idLibraryGrillNorwich result:(NSArray *)result {
@@ -85,6 +86,16 @@
     assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(equalTo(@0)));
 }
 
+- (void)test_findPlaces_ShouldReturnSomething_WhenOnlyPlacesOpenNowAreSearched {
+    _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@""];
+    _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[_assembly environment] onlyOpenNow:true];
+
+    NSArray *result = [_service findPlaces:_parameter];
+
+    assertThatDouble(result.count, is(greaterThan(@(0))));
+}
+
 - (void)test_findPlaces_ShouldReturnCuisineRelevanceGreaterThan0ForMostIrrelevantPlace_WhenSearchRadiusLessThanMaxSearchRadius {
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS / 2;
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"French"];
@@ -93,15 +104,17 @@
     assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(greaterThan(@0)));
 }
 
-- (void)test_search_manually{
-    CLLocation* york = [[CLLocation alloc] initWithLatitude:53.963367 longitude:-1.122695];
+- (void)test_search_manually {
+    return; // ignored
+
+    CLLocation *york = [[CLLocation alloc] initWithLatitude:53.963367 longitude:-1.122695];
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"cheese fondue"];
     _parameter.coordinate = _london.coordinate;
-    NSArray* places  = [_service findPlaces:_parameter];
-    for (NSUInteger i = 1; i < places.count && i<20; i++) {
+    NSArray *places = [_service findPlaces:_parameter];
+    for (NSUInteger i = 1; i < places.count && i < 20; i++) {
         Restaurant *restaurant = [_service getRestaurantForPlace:places[i] currentLocation:york];
-        NSLog([NSString stringWithFormat:@"Name: %@ Vicinity: %@",restaurant.name, restaurant.vicinity]);
+        NSLog([NSString stringWithFormat:@"Name: %@ Vicinity: %@", restaurant.name, restaurant.vicinity]);
     }
 }
 

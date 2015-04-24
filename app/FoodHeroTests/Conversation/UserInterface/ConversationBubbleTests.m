@@ -35,7 +35,7 @@
 
 - (void)test_textAsHtml_ShouldReturnTextWithoutLink_WhenNotASuggestion {
 
-    Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"Hello" state:nil suggestedRestaurant:nil];
+    Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"Hello" state:nil suggestedRestaurant:nil expectedUserUtterances:nil];
 
     ConversationBubble *bubble = [self createBubbleWithStatement:statement];
 
@@ -44,7 +44,7 @@
 
 - (void)test_textAsHtml_ShouldReturnTextWithLink_WhenSuggestion {
     Restaurant *restaurant = [[[RestaurantBuilder new] withName:@"Raj Palace"] build];
-    Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"This is a no brainer.  You should try %@." state:nil suggestedRestaurant:restaurant];
+    Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"This is a no brainer.  You should try %@." state:nil suggestedRestaurant:restaurant expectedUserUtterances:nil];
 
     ConversationBubble *bubble = [self createBubbleWithStatement:statement];
 

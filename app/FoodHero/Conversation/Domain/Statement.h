@@ -10,6 +10,8 @@
 #import "Persona.h"
 #import "Restaurant.h"
 
+@class ExpectedUserUtterances;
+
 @interface Statement : NSObject
 
 - (NSString *)text;
@@ -18,10 +20,16 @@
 
 - (Persona *)persona;
 
-+ (instancetype)createWithSemanticId:(NSString *)semanticId text:(NSString *)text state:(NSString *)state suggestedRestaurant:(Restaurant *)restaurant;
++ (instancetype)createWithSemanticId:(NSString *)semanticId
+                                text:(NSString *)text
+                               state:(NSString *)state
+                 suggestedRestaurant:(Restaurant *)restaurant
+              expectedUserUtterances:(ExpectedUserUtterances*)expectedUserUtterances;
 
-- (NSString*)state;
+- (NSString *)state;
 
 - (Restaurant *)suggestedRestaurant;
+
+- (ExpectedUserUtterances *)expectedUserUtterances;
 
 @end

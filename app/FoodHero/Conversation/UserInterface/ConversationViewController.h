@@ -12,8 +12,9 @@
 #import "ConversationBubbleTableViewCellDelegate.h"
 #import "ConversationViewState.h"
 #import "ISpeechRecognitionStateSource.h"
+#import "FoodHero-Swift.h"
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ConversationBubbleTableViewCellDelegate,ISpeechRecognitionStateSource>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ConversationBubbleTableViewCellDelegate,ISpeechRecognitionStateSource, IHelpViewControllerDelegate>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userTextField;
@@ -25,6 +26,7 @@
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *userInputHeightConstraint;
 @property(weak, nonatomic) IBOutlet UIView *micView;
 @property(strong, nonatomic) WITMicButton *micButton;
+@property (weak, nonatomic) IBOutlet UIButton *helpButton;
 
 - (void)setViewState:(ConversationViewState *)viewState;
 
@@ -45,4 +47,6 @@
 - (BOOL)isNotProcessingUserInput;
 
 - (BOOL)isNotRecordingUserInput;
+
+- (BOOL)isWaitingForUserInput;
 @end
