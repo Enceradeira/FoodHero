@@ -124,6 +124,14 @@ def microphone_button
   find_element(:name, 'microphone')
 end
 
+def touch_help_entry(method,text)
+  help_button.click
+  # puts source
+  element = find_element(method, text)
+  element.click
+  touch_send
+end
+
 def expect_restaurant_detail_view
   expect(text 'Directions').to be_truthy
 end
@@ -279,81 +287,67 @@ When(/^I touch send without entering anything$/) do
 end
 
 When(/^I dislike the occasion$/) do
-  text_field.send_keys('I dont want to have breakfast')
-  touch_send
+  text = 't want to have'
+  # search by xpath because occasion is dynamic
+  touch_help_entry  :xpath, "//UIAStaticText[contains(@name,'#{text}')]"
 end
 
 
 When(/^I dislike the kind of food$/) do
-  text_field.send_keys('I dont like this kind of food')
-  touch_send
+  touch_help_entry :name, "I don't like this kind of food"
 end
 
 When(/^I want to have some drinks$/) do
-  text_field.send_keys('I want to have drinks')
-  touch_send
+  touch_help_entry :name, 'I want to have Lunch'
 end
 
 When(/^I don't like the restaurant$/) do
+  touch_help_entry :name, "I don't like it"
+end
+
+When(/^I don't like the restaurant by typing it$/) do
   text_field.send_keys('I dont like it')
   touch_send
 end
 
 When(/^I find the restaurant too far away$/) do
-  text_field.send_keys  ('Its too far away')
-  touch_send
+  touch_help_entry :name, "It's too far away"
 end
 
 When(/^I find the restaurant too far away using help$/) do
-  help_button.click
-  element = find_element(:name, "It's too far away")
-  element.click
-  touch_send
+  touch_help_entry(:name, "It's too far away")
 end
 
 When(/^I find the restaurant looks too cheap$/) do
-  text_field.send_keys('It looks too cheap')
-  touch_send
+  touch_help_entry :name, 'It looks too cheap'
 end
 
 When(/^I find the restaurant looks too expensive$/) do
-  text_field.send_keys('It looks too expensive')
-  touch_send
+  touch_help_entry :name, "It's too expensive"
 end
 
 When(/^I like the restaurant$/) do
-  text_field.send_keys('I like it')
-  touch_send
-end
-
-When(/^I choose something from the input list$/) do
-  touch_text_field
-  feedback_entry('I like it')[0].click
+  touch_help_entry :name, 'I like it'
 end
 
 When(/^I say try again$/) do
-  text_field.send_keys('Please, try again')
-  touch_send
+  touch_help_entry :name, 'Try again'
 end
 
 When(/^I want FoodHero to abort search$/) do
-  text_field.send_keys('Just forget about it!')
-  touch_send
+  touch_help_entry :name, 'Forget about it'
 end
 
 When(/^I want to search for another restaurant$/) do
-  text_field.send_keys('Search again, please!')
-  touch_send
+  touch_help_entry :name, 'Search for another restaurant'
 end
 
 When(/^I say that problem with location\-service has been fixed$/) do
-    text_field.send_keys("It's fixed now")
-    touch_send
+    touch_help_entry :name, 'Try again'
 end
 
 When(/^I want FoodHero to start over again$/) do
-  text_field.send_keys('start again')
-  touch_send
+  touch_help_entry :name, 'Start again'
 end
 
 When(/^I say nonsense$/) do
@@ -361,16 +355,12 @@ When(/^I say nonsense$/) do
   touch_send
 end
 
-When(/^I wish to eat "British" food by typing it$/) do
-  text_field.send_keys 'I want to eat British food'
-
-  touch_send
+When(/^I wish to eat "Sushi"/) do
+  touch_help_entry :name, "I'd rather have Sushi"
 end
 
 When(/^I say good bye$/) do
-  text_field.send_keys 'No thanks! Good bye'
-
-  touch_send
+  touch_help_entry :name, 'Good Bye'
 end
 
 When(/^I touch input list button$/) do
@@ -492,3 +482,5 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
+
+

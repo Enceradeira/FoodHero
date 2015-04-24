@@ -39,4 +39,7 @@ Feature: User interacts with app through conversation
     And FoodHero suggests something else
     Then FoodHero displays Semantic-ID "FH:" in last suggestion
 
-
+  Scenario: User can type his answers
+    Given FoodHero greets me and suggests something
+    When I don't like the restaurant by typing it
+    Then I see my answer "Dislike"

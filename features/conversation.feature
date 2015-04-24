@@ -27,7 +27,7 @@ Feature: User interacts with app through conversation
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
 
-    When I wish to eat "British" food by typing it
+    When I wish to eat "Sushi"
     And FoodHero suggests something else
     And I like the restaurant
     And FoodHero asks what to do next
@@ -52,8 +52,8 @@ Feature: User interacts with app through conversation
    Then I see my answer DislikesKindOfFood
    And FoodHero asks what I wished to eat
 
-   When I wish to eat "British" food by typing it
-   Then I see my answer with "British" food
+   When I wish to eat "Sushi"
+   Then I see my answer with "Sushi" food
    And FoodHero suggests something else
 
 
@@ -95,7 +95,7 @@ Feature: User interacts with app through conversation
     Then FoodHero says good bye
 
     Given I want to search for another restaurant
-    And I wish to eat "British" food by typing it
+    And I wish to eat "Sushi"
     And FoodHero says that nothing was found
     When I want FoodHero to start over again
     Then FoodHero asks what I wished to eat
@@ -122,5 +122,7 @@ Feature: User interacts with app through conversation
     When I say nonsense
     Then FoodHero says he can't understand me
 
-    When I find the restaurant too far away using help
+    When I find the restaurant too far away
     Then FoodHero suggests something else
+
+
