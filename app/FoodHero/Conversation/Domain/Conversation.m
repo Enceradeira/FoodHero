@@ -71,9 +71,14 @@
             return [parameter restaurant];
         }] linq_firstOrNil];
 
-        ExpectedUserUtterances *expectedUserUtterances = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
-            return [parameter expectedUserUtterances];
-        }] linq_firstOrNil];
+        ExpectedUserUtterances *expectedUserUtterances = [[[[[utterance customData]
+                linq_ofType:FoodHeroParameters.class]
+                linq_select:^(FoodHeroSuggestionParameters *parameter) {
+                    return [parameter expectedUserUtterances];
+                }]
+                linq_where:^(ExpectedUserUtterances *expectedUtterances) {
+                    return (BOOL) (expectedUtterances != [NSNull null]);
+                }] linq_firstOrNil];
 
         NSString *semanticIdString = [semanticIds componentsJoinedByString:@";"];
         NSString *statesString = [states componentsJoinedByString:@";"];

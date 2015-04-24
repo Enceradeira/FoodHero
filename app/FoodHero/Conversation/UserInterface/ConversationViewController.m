@@ -215,6 +215,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
             _currentFhBubble = foodHeroBubble;
         }
     }
+    else{
+        _currentFhBubble = nil;
+    }
     _isProcessingUserInput = NO; // when we get here a new bubble is rendered, therefore the UserInput is finished being processed
     [_currentViewState update];
 }

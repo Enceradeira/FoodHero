@@ -52,7 +52,8 @@ public class FHUtterances {
 
     class func openingQuestions(def: StringDefinition) -> StringDefinition {
         return def.words(["What kind of food would you like to eat?",
-                          "Do you like chickenbutts?  Or chicken feet?"],
+                          //                  "Do you like chickenbutts?  Or chicken feet?"
+        ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion",
                         state: FHStates.askForFoodPreference(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForFoodPreference()))
 
