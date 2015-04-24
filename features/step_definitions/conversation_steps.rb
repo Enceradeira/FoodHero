@@ -294,6 +294,15 @@ When(/^I find the restaurant too far away$/) do
   touch_send
 end
 
+
+
+When(/^I find the restaurant too far away using help$/) do
+  button('Help').click
+  element = find_element(:name, "It's too far away")
+  element.click
+  touch_send
+end
+
 When(/^I find the restaurant looks too cheap$/) do
   text_field.send_keys('It looks too cheap')
   touch_send
@@ -471,4 +480,3 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
-

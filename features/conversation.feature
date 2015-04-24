@@ -122,5 +122,5 @@ Feature: User interacts with app through conversation
     When I say nonsense
     Then FoodHero says he can't understand me
 
-    When I find the restaurant too far away
+    When I find the restaurant too far away using help
     Then FoodHero suggests something else

@@ -12,7 +12,7 @@ def expect_conversation_view
 end
 
 def expect_help_view
-  expect(text 'Map is under construction').to be_truthy
+  expect(text 'You can say or type something like').to be_truthy
 end
 
 def expect_login_view
