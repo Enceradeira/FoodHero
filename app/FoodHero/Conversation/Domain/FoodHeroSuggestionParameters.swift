@@ -7,9 +7,9 @@ import Foundation
 
 class FoodHeroSuggestionParameters: FoodHeroParameters {
     private let _restaurant: Restaurant
-    public init(semanticId: String, state: String?, restaurant: Restaurant) {
+    public init(semanticId: String, state: String?, restaurant: Restaurant, expectedUserUtterances: ExpectedUserUtterances?) {
         _restaurant = restaurant;
-        super.init(semanticId: semanticId, state: state)
+        super.init(semanticId: semanticId, state: state, expectedUserUtterances: expectedUserUtterances)
     }
 
     public var restaurant: Restaurant {

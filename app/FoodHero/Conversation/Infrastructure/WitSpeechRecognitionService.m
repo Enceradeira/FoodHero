@@ -71,7 +71,7 @@
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
-    return [[UserIntentUnclearError alloc] initWithState:[self.stateSource getState]];
+    return [[UserIntentUnclearError alloc] initWithState:[self.stateSource getState] expectedUserUtterances:[self.stateSource expectedUserUtterances]];
 }
 
 - (void)witActivityDetectorStarted {

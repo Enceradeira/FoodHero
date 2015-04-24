@@ -6,7 +6,7 @@
 import Foundation
 
 class UserUtterancesController: UITableViewController {
-    var _expectedUserUtterances = ExpectedUserUtterances()
+    var _expectedUserUtterances: ExpectedUserUtterances!
     var _delegate: IHelpViewControllerDelegate!
 
     func setExpectedUserUtterances(

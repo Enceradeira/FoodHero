@@ -134,6 +134,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     return _currentState;
 }
 
+- (ExpectedUserUtterances *)expectedUserUtterances {
+    return _expectedUserUtterances;
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

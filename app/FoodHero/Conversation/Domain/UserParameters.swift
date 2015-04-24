@@ -7,9 +7,11 @@ import Foundation
 
 public class UserParameters: ConversationParameters {
     public let parameter: String
+    public let modelAnswer: String
 
-    public init(semanticId: String, parameter: String) {
+    public init(semanticId: String, parameter: String, modelAnswer: String) {
         self.parameter = parameter
+        self.modelAnswer = modelAnswer
         super.init(semanticId: semanticId)
     }
 }

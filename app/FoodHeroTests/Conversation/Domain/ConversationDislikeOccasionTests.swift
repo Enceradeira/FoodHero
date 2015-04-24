@@ -12,7 +12,7 @@ class ConversationDislikeOccasionTests: ConversationTestsBase {
         let now = NSCalendar.dateFrom(year: 2015, month: 3, day: 25, hour: 10, minute: 56, second: 0)
         environmentStub.injectNow(now)
 
-        sendInput(UserUtterances.dislikesOccasion("I don't want to have breakfast"))
+        sendInput(UserUtterances.dislikesOccasion("I don't want to have breakfast", occasion: "breakfast"))
         assertLastStatementIs("FH:AskForOccasion=snack", state: FHStates.askForOccasion())
 
         sendInput(UserUtterances.occasionPreference("lunch", text: "I want to have lunch"))

@@ -7,7 +7,7 @@ import Foundation
 
 class HelpViewController: UIViewController {
 
-    var _expectedUserUtterances = ExpectedUserUtterances()
+    var _expectedUserUtterances : ExpectedUserUtterances!
     var _delegate : IHelpViewControllerDelegate!
 
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {

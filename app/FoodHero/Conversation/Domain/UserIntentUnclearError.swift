@@ -7,19 +7,28 @@ import Foundation
 
 public class UserIntentUnclearError: NSError {
     let _state: String;
-    public init(state: String) {
+    let _expectedUserUtterances: ExpectedUserUtterances
+    public init(state: String, expectedUserUtterances: ExpectedUserUtterances) {
         _state = state
+        _expectedUserUtterances = expectedUserUtterances;
         super.init(domain: "uk.co.jennius", code: 1, userInfo: nil)
     }
 
     public required init(coder: NSCoder) {
         _state = coder.decodeObjectForKey("_state") as! String
+        _expectedUserUtterances = coder.decodeObjectForKey("_expectedUserUtterances") as! ExpectedUserUtterances
         super.init(coder: coder)
     }
 
     public var state: String {
         get {
             return _state;
+        }
+    }
+
+    public var expectedUserUtterances: ExpectedUserUtterances {
+        get {
+            return _expectedUserUtterances;
         }
     }
 }

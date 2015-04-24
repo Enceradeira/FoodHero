@@ -6,11 +6,94 @@
 import Foundation
 
 public class ExpectedUserUtterances: NSObject {
+    let _utterances: [String]
+
+    public init(utterances: [String]) {
+        _utterances = utterances;
+    }
 
     var utterances: [String] {
         get {
-            return  ["I don't like this kind of food", "It’s too faraway", "I would like to eat Sausage rolls"]
+            return _utterances
         }
+    }
+
+    private class func modelAnswerFrom(utterance: TalkerUtterance) -> String {
+        if let userParameter = (utterance.customData[0] as? UserParameters) {
+            return userParameter.modelAnswer
+        } else {
+            return (utterance.customData[0] as! USuggestionFeedbackParameters).modelAnswer
+        }
+    }
+
+    private class func modelAnswersFrom(utterances: [TalkerUtterance]) -> ExpectedUserUtterances {
+        let modelAnswers = utterances.map {
+            self.modelAnswerFrom($0)
+        }
+        return ExpectedUserUtterances(utterances: modelAnswers)
+    }
+
+    public class func whenAskedForFoodPreference() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.occasionPreference("", text: ""),
+                UserUtterances.cuisinePreference("", text: "")
+        ])
+    }
+
+    public class func whenAskedForOccasion() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.occasionPreference("", text: "")
+        ])
+    }
+
+    public class func whenAskedForSuggestionFeedback(occasion: String) -> ExpectedUserUtterances {
+        let dummyRestaurant = Restaurant()
+        return modelAnswersFrom(
+        [
+                UserUtterances.suggestionFeedbackForLike(dummyRestaurant, text: ""),
+                UserUtterances.dislikesOccasion("", occasion: occasion),
+                UserUtterances.occasionPreference("", text: ""),
+                UserUtterances.cuisinePreference("", text: ""),
+                UserUtterances.dislikesKindOfFood(""),
+                UserUtterances.suggestionFeedbackForDislike(dummyRestaurant, text: ""),
+                UserUtterances.suggestionFeedbackForTooFarAway(dummyRestaurant, text: ""),
+                UserUtterances.suggestionFeedbackForTooExpensive(dummyRestaurant, text: ""),
+                UserUtterances.suggestionFeedbackForTooCheap(dummyRestaurant, text: ""),
+                UserUtterances.wantsToStartAgain("")
+        ])
+    }
+
+    public class func whenAskedForWhatToDoNext() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.goodBye(""),
+                UserUtterances.wantsToSearchForAnotherRestaurant("")
+        ])
+    }
+
+    public class func whenAfterCantAccessLocationService() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.tryAgainNow("")
+        ])
+    }
+
+    public class func whenNoRestaurantWasFound() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.tryAgainNow(""),
+                UserUtterances.wantsToAbort(""),
+                UserUtterances.wantsToStartAgain("")
+        ])
+    }
+
+    public class func whenNetworkError() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.tryAgainNow("")
+        ])
     }
 
 }

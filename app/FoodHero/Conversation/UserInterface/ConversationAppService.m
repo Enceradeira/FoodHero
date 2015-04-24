@@ -13,7 +13,6 @@
 #import "ConversationBubbleUser.h"
 #import "Personas.h"
 #import "DesignByContractException.h"
-#import "FoodHero-Swift.h"
 #import "SpeechInterpretation.h"
 
 
@@ -63,7 +62,7 @@ static UIImage *EmptyImage;
                             return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"DislikesOccasion"]) {
-                            TalkerUtterance *utterance = [UserUtterances dislikesOccasion:interpretation.text];
+                            TalkerUtterance *utterance = [UserUtterances dislikesOccasion:interpretation.text occasion:_conversation.currentOccasion];
                             return (id) utterance;
                         }
                         else if ([interpretation.intent containsString:@"OccasionPreference"]) {

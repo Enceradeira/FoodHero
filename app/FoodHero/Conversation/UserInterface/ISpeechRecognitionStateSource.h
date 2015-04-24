@@ -4,9 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FoodHero-Swift.h"
 
 @protocol ISpeechRecognitionStateSource <NSObject>
 - (NSString *)getState;
+
+- (ExpectedUserUtterances *)expectedUserUtterances;
 
 // fired when voice or text processing finished
 - (void)didStopProcessingUserInput;

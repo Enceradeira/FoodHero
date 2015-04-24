@@ -7,8 +7,10 @@ import Foundation
 
 public class FHUtterances {
 
-    private class func foodHerroSuggestionParameters(semanticId: String, state: String?, restaurant: Restaurant) -> FoodHeroSuggestionParameters {
-        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: state, restaurant: restaurant)
+    private class func foodHeroSuggestionParameters(semanticId: String, state: String?, restaurant: Restaurant,
+                                                    expectedUserUtterances: ExpectedUserUtterances?) -> FoodHeroSuggestionParameters {
+        return FoodHeroSuggestionParameters(semanticId: "\(semanticId)=\(restaurant.readableId())", state: state,
+                restaurant: restaurant, expectedUserUtterances: expectedUserUtterances)
     }
 
     class func greetings(def: StringDefinition) -> StringDefinition {
@@ -44,24 +46,27 @@ public class FHUtterances {
                           "Greetings from {place}!",
                           //"You just interrupted the most beautiful dream, about ----  {food}."
         ],
-                withCustomData: FoodHeroParameters(semanticId: "FH:Greeting", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:Greeting",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func openingQuestions(def: StringDefinition) -> StringDefinition {
         return def.words(["What kind of food would you like to eat?",
                           "Do you like chickenbutts?  Or chicken feet?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion", state: FHStates.askForFoodPreference()))
+                withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion",
+                        state: FHStates.askForFoodPreference(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForFoodPreference()))
 
     }
 
     class func askForOccasion(currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words(["So no \(currentOccasion). What are you after?"],
-                    withCustomData: FoodHeroParameters(semanticId: "FH:AskForOccasion=\(currentOccasion)", state: FHStates.askForOccasion()))
+                    withCustomData: FoodHeroParameters(semanticId: "FH:AskForOccasion=\(currentOccasion)",
+                            state: FHStates.askForOccasion(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForOccasion()))
         }
     }
 
-    class func suggestions(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+    class func suggestions(with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
                     "This is a no brainer.  You should try %@.",
@@ -82,58 +87,66 @@ public class FHUtterances {
                     "Go to %@, and prosper.",
                     "%@.\n\nWelcome to food paradise.",
                     "%@.\n\nDid you know there is a pool in the back?  Me neither."],
-                    withCustomData: self.foodHerroSuggestionParameters("FH:Suggestion", state: nil, restaurant: restaurant))
+                    withCustomData: self.foodHeroSuggestionParameters("FH:Suggestion",
+                            state: nil, restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
     }
 
     class func firstQuestion(with occasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words(["It’s a good spot for \(occasion). Do you like it? What do you want to eat?"],
-                    withCustomData: FoodHeroParameters(semanticId: "FH:FirstQuestion=\(occasion)", state: FHStates.askForSuggestionFeedback()));
+                    withCustomData: FoodHeroParameters(semanticId: "FH:FirstQuestion=\(occasion)",
+                            state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(occasion)));
         }
     }
 
-    class func followUpQuestion() -> (StringDefinition -> StringDefinition) {
+    class func followUpQuestion(currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words(["Do you like it?"],
-                    withCustomData: FoodHeroParameters(semanticId: "FH:FollowUpQuestion", state: FHStates.askForSuggestionFeedback()));
+                    withCustomData: FoodHeroParameters(semanticId: "FH:FollowUpQuestion",
+                            state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)));
         }
     }
 
-    class func suggestionsAsFollowUp(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+    class func suggestionsAsFollowUp(with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
                     "What about '%@' then?"],
-                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAsFollowUp", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                    withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionAsFollowUp",
+                            state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
     }
 
-    class func suggestionsAfterWarning(with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+    class func suggestionsAfterWarning(with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
                     "But '%@' would be another option. Do you fancy it?"],
-                    withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionAfterWarning", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                    withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionAfterWarning",
+                            state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
     }
 
-    class func confirmationIfInNewPreferedRange(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant) -> (StringDefinition -> StringDefinition) {
+    class func confirmationIfInNewPreferedRange(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
                 return $0.words([
                         "The '%@' is smarter than the last one. Do you like it?"],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeMoreExpensive", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                        withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeMoreExpensive",
+                                state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
                 return $0.words([
                         "If you like it cheaper, the %@ could be your choice. Do you like it?",
                         "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCheaper", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                        withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCheaper",
+                                state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
                 return $0.words([
                         "The '%@' is closer. Do you like it?"],
-                        withCustomData: self.foodHerroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCloser", state: FHStates.askForSuggestionFeedback(), restaurant: restaurant))
+                        withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCloser",
+                                state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
             } else {
-                self.suggestions(with: restaurant)($0)
-                return self.followUpQuestion()($0)
+                self.suggestions(with: restaurant, currentOccasion: currentOccasion)($0)
+                return self.followUpQuestion(currentOccasion)($0)
             }
         }
     }
@@ -141,43 +154,50 @@ public class FHUtterances {
     class func warningsIfNotInPreferredRangeTooCheap(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's cheaper than you wanted it to be"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooCheap", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooCheap",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func warningsIfNotInPreferredRangeTooExpensive(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "That one might be too classy though"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func warningsIfNotInPreferredRangeTooFarAway(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's further away unfortunatly"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func confirmationsIfInNewPreferredRangeMoreExpensive(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It seems classier"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeMoreExpensive", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeMoreExpensive",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func confirmationIfInNewPreferredRangeCheaper(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It seems a bit cheaper."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCheaper", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCheaper",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func confirmationIfInNewPreferredRangeCloser(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "It's closer than the other one."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmationIfInNewPreferredRangeCloser",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func confirmationRestart(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "OK, let's start over again"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmsRestart", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:ConfirmsRestart",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func goodbyes(def: StringDefinition) -> StringDefinition {
@@ -186,7 +206,8 @@ public class FHUtterances {
                 "God bless you.",
                 "Behave yourself, now.",
                 "Don’t get a girl in trouble."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess", state: FHStates.askForWhatToDoNext()))
+                withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess",
+                        state: FHStates.askForWhatToDoNext(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForWhatToDoNext()))
     }
 
     class func commentChoices(def: StringDefinition) -> StringDefinition {
@@ -207,51 +228,60 @@ public class FHUtterances {
                 "I’ll tell you what to order—some eggs and bacon with mayonnaise. That’s {celebrity}’s favorite.",
                 "I want sprinkles!",
                 "Bring your sweater.  Sometimes it can be chilly."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:CommentChoice", state: nil))
+                withCustomData: FoodHeroParameters(semanticId: "FH:CommentChoice",
+                        state: nil, expectedUserUtterances: nil))
     }
 
     class func whatToDoNext(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "Anything else?",
                 "I’m bored! Anything else?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess", state: FHStates.askForWhatToDoNext()))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess",
+                        state: FHStates.askForWhatToDoNext(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForWhatToDoNext()))
     }
 
     class func whatToDoNextAfterFailure(def: StringDefinition) -> StringDefinition {
         return def.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure", state: FHStates.askForWhatToDoNext()))
+                withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure",
+                        state: FHStates.askForWhatToDoNext(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForWhatToDoNext()))
     }
 
     class func cantAccessLocationServiceBecauseUserIsNotAllowedToUseLocationServices(def: StringDefinition) -> StringDefinition {
 
         return def.words(["I’m terribly sorry but there is a problem. I can’t access Location Services. I need access to Location Services in order that I know where I am."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices", state: FHStates.afterCantAccessLocationService()))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserIsNotAllowedToUseLocationServices",
+                state: FHStates.afterCantAccessLocationService(), expectedUserUtterances: ExpectedUserUtterances.whenAfterCantAccessLocationService()))
 
     }
 
     class func cantAccessLocationServiceBecauseUserDeniedAccessToLocationServices(def: StringDefinition) -> StringDefinition {
         return def.words(["Ooops... I can't find out my current location.\n\nI need to know where I am.\n\nPlease turn Location Services on at Settings > Privacy > Location Services."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices", state: FHStates.afterCantAccessLocationService()))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:BecauseUserDeniedAccessToLocationServices",
+                state: FHStates.afterCantAccessLocationService(), expectedUserUtterances: ExpectedUserUtterances.whenAfterCantAccessLocationService()))
     }
 
     class func noRestaurantsFound(def: StringDefinition) -> StringDefinition {
         return def.words(["That’s weird. I can’t find any restaurants right now."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound", state: FHStates.noRestaurantWasFound()))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound",
+                state: FHStates.noRestaurantWasFound(), expectedUserUtterances: ExpectedUserUtterances.whenNoRestaurantWasFound()))
 
     }
 
     class func hasNetworkErrorAndAsksIfShouldTryAgain(def: StringDefinition) -> StringDefinition {
         return def.words(["Uppps... I'm struggling accessing the internet.\n\nHalf of my brain is in the internet and I feel a bit dizzy right now. Make sure you've got connection.\n\nShould I try again?"]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError", state: FHStates.networkError()))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError",
+                state: FHStates.networkError(), expectedUserUtterances: ExpectedUserUtterances.whenNetworkError()))
     }
 
     class func beforeRepeatingUtteranceAfterError(def: StringDefinition) -> StringDefinition {
         return def.words(["It's working again. I'll repeat what I said:"]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:BeforeRepeatingUtteranceAfterError", state: nil))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:BeforeRepeatingUtteranceAfterError",
+                state: nil, expectedUserUtterances: nil))
     }
 
-    class func didNotUnderstandAndAsksForRepetition(def: StringDefinition, state: String) -> StringDefinition {
+    class func didNotUnderstandAndAsksForRepetition(def: StringDefinition, state: String, expectedUserUtterances: ExpectedUserUtterances) -> StringDefinition {
         return def.words(["I can't understand you. Use 'Help' on the top."]
-                , withCustomData: FoodHeroParameters(semanticId: "FH:DidNotUnderstandAndAsksForRepetition", state: state))
+                , withCustomData: FoodHeroParameters(semanticId: "FH:DidNotUnderstandAndAsksForRepetition",
+                state: state, expectedUserUtterances: expectedUserUtterances))
     }
 }

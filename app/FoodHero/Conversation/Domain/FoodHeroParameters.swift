@@ -9,9 +9,9 @@ public class FoodHeroParameters: ConversationParameters {
     public let state: String?
     public let expectedUserUtterances: ExpectedUserUtterances?
 
-    public init(semanticId: String, state: String?) {
+    public init(semanticId: String, state: String?, expectedUserUtterances: ExpectedUserUtterances?) {
         self.state = state
-        self.expectedUserUtterances = ExpectedUserUtterances()
+        self.expectedUserUtterances = expectedUserUtterances
         super.init(semanticId:semanticId)
     }
 }
