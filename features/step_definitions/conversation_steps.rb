@@ -68,6 +68,10 @@ def send_button
   find_element(:name, 'send cuisine')
 end
 
+def help_button
+  button('Help')
+end
+
 def touch_send
   send_button.click
 end
@@ -300,10 +304,8 @@ When(/^I find the restaurant too far away$/) do
   touch_send
 end
 
-
-
 When(/^I find the restaurant too far away using help$/) do
-  button('Help').click
+  help_button.click
   element = find_element(:name, "It's too far away")
   element.click
   touch_send
@@ -426,6 +428,10 @@ And(/^I (can|can't) touch send$/) do |option|
   expect(send_button.enabled?).to condition
 end
 
+And(/^I (can|can't) touch help/) do |option|
+  condition = option == "can't" ? be_falsey: be_truthy
+  expect(help_button.enabled?).to condition
+end
 
 When(/^I touch the text field$/) do
   touch_text_field

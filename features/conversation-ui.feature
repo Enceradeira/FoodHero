@@ -4,6 +4,8 @@ Feature: User interacts with app through conversation
     Given FoodHero has started and can access location-services
 
   Scenario: I can't say anything until FoodHero answers
+    Then I can't touch help
+
     When FoodHero greets me and suggests something
     And I touch send without entering anything
     Then FoodHero still greets me and suggests something
@@ -13,9 +15,11 @@ Feature: User interacts with app through conversation
     Then I can't touch the microphone button
     And I can't enter text
     And I can't touch send
+    And I can't touch help
     When FoodHero suggests something else
     Then I can touch the microphone button
     And I can enter text
+    And I can touch help
 
   Scenario: A long conversation
     When FoodHero greets me and suggests something

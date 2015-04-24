@@ -43,7 +43,7 @@
 
     // help-button
     UIButton *helpButton = self.controller.helpButton;
-    helpButton.enabled = _controller.isWaitingForUserInput;
+    helpButton.enabled = _controller.isWaitingForUserInput && _controller.isNotProcessingUserInput;
 }
 
 - (void)updateMicButtonColor:(BOOL)inputAccepted {
