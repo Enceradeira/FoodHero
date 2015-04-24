@@ -12,7 +12,10 @@ def expect_conversation_view
 end
 
 def expect_help_view
-  expect(text 'You can say or type something like').to be_truthy
+  wait_true({:timeout => 30, :interval=>2}) do
+    text 'You can say or type something like'
+  end
+  # expect(text 'You can say or type something like').to be_truthy
 end
 
 def expect_login_view

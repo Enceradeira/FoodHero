@@ -33,4 +33,11 @@ Feature: Navigation in app
     When I go back
     Then I see the conversation view
 
+  Scenario: Opening help through link
+    Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
+    And I say nonsense
+    And FoodHero says he can't understand me
 
+    When I go to the help view through the link
+    Then I see the help view

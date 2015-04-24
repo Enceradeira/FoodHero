@@ -242,6 +242,12 @@ When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   link.click
 end
 
+When(/^I go to the help view through the link$/) do
+  link = find_element(:xpath, "//*[contains(@name,'FH:DidNotUnderstandAndAsksForRepetition')]//UIALink")
+  expect(link).not_to be_nil
+  link.click
+end
+
 Then(/^I see my answer with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
