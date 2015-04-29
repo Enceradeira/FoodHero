@@ -35,7 +35,7 @@
     // list-button
     WITMicButton *micButton = self.controller.micButton;
     micButton.enabled =
-            self.isUserInputListButtonEnabled
+            self.isUserInputListButtonEnabled && _controller.isWaitingForUserInput
                     && (_controller.isNotProcessingUserInput || !_controller.isNotRecordingUserInput)
                     && _controller.recordPermission != AVAudioSessionRecordPermissionDenied;
 
