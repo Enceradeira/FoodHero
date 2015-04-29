@@ -103,15 +103,17 @@
 }
 
 - (NSArray *)parametersOfCurrentSearch {
-    Statement *lastWhatToDoNext = [[[_rawConversation linq_ofType:[FoodHeroParameters class]]
-            linq_where:^(FoodHeroParameters *p) {
-                return (BOOL) [p.state isEqualToString:[FHStates askForWhatToDoNext]];
+    Statement *lastUserUtterance = [[[_rawConversation linq_ofType:[UserParameters class]]
+            linq_where:^(UserParameters *p) {
+                return (BOOL) ([p hasSemanticId:@"U:WantsToStartAgain"] ||
+                        [p hasSemanticId:@"U:GoodBye"] ||
+                        [p hasSemanticId:@"U:WantsToSearchForAnotherRestaurant"]) ;
             }]
             linq_lastOrNil];
 
-    // -> "askWhatToDoNext" is followed by user-answer and then next search starts
-    NSUInteger indexOfNextSearchBegin = [_rawConversation indexOfObject:lastWhatToDoNext] + 2;
-    NSUInteger currentSearchBeginCount = (lastWhatToDoNext == nil || indexOfNextSearchBegin >= _rawConversation.count) ? 0 : indexOfNextSearchBegin;
+    // -> "lastUserUtterance" is followed by things that belong to next search
+    NSUInteger indexOfNextSearchBegin = [_rawConversation indexOfObject:lastUserUtterance] + 1;
+    NSUInteger currentSearchBeginCount = (lastUserUtterance == nil || indexOfNextSearchBegin >= _rawConversation.count) ? 0 : indexOfNextSearchBegin;
 
     return [_rawConversation linq_skip:currentSearchBeginCount];
 
@@ -151,7 +153,7 @@
 }
 
 - (NSArray *)negativeUserFeedback {
-    return [self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+    return [_rawConversation linq_where:^(ConversationParameters *p) {
         return (BOOL) (
                 [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=Dislike"] ||
                         [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"] ||

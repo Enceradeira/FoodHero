@@ -96,25 +96,6 @@
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 }
 
-
-- (void)test_UCuisinePreference_ShouldResetConversation {
-    Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Great Yarmouth"].build;
-    Restaurant *tajMahal = [[[RestaurantBuilder alloc] withName:@"Taj Mahal"] withVicinity:@"Great Yarmouth"].build;
-
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindResults:@[kingsHead, tajMahal]];
-    }];
-
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForDislike:kingsHead text:@"I don't like that restaurant"]];
-    [self sendInput:[UserUtterances suggestionFeedbackForLike:tajMahal text:@"I like it"]];
-    [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Do it again"]];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
-
-    // King's head should be suggested again since we started another search
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
-}
-
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
     Restaurant *kingsHead = [[RestaurantBuilder alloc] withPriceLevel:4].build;
     Restaurant *lionHeart = [[[RestaurantBuilder alloc] withName:@"Lion Heart"] withVicinity:@"Great Yarmouth"].build;

@@ -126,6 +126,7 @@ end
 
 def touch_help_entry(method,text)
   help_button.click
+  step 'I see the help view'
   # puts source
   element = find_element(method, text)
   element.click

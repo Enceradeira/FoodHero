@@ -34,8 +34,8 @@
 }
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
-    NSArray *excludedPlaceIds = [conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
-        return f.restaurant.placeId;
+    NSArray *excludedRestaurants = [conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
+        return f.restaurant;
     }];
 
     RACSignal *preferenceSignal = [[_locationService.currentLocation take:1] flattenMap:^(CLLocation *location) {
@@ -47,8 +47,8 @@
                 take:1]
                 map:^(NSArray *places) {
                     return @[[places linq_where:^(Place *p) {
-                        return (BOOL) ![excludedPlaceIds linq_any:^(NSString *e) {
-                            return [p.placeId isEqualToString:e];
+                        return (BOOL) ![excludedRestaurants linq_any:^(Restaurant *r) {
+                            return [p.placeId isEqualToString:r.placeId];
                         }];
                     }], searchPreference];
                 }];
@@ -70,14 +70,16 @@
 
     return [[moreThan0PlacesSignal
             flattenMap:^(NSArray *placesAndSearchPreference) {
-                return [self getBestPlace:placesAndSearchPreference[0] preferences:placesAndSearchPreference[1]];
+                return [self getBestPlace:placesAndSearchPreference[0]
+                              preferences:placesAndSearchPreference[1]
+                      excludedRestaurants:excludedRestaurants];
             }] map:^(NSArray *restaurantAndSearchPreference) {
         return [[RestaurantSearchResult alloc] initWithRestaurant:restaurantAndSearchPreference[0]
                                                      searchParams:restaurantAndSearchPreference[1]];
     }];
 };
 
-- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences {
+- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences excludedRestaurants:(NSArray *)excludedRestaurants {
     return [[[_locationService.currentLocation
             deliverOn:_schedulerFactory.asynchScheduler]
             take:1]
@@ -114,6 +116,25 @@
                 }] linq_select:^(NSArray *placeScoreAndDistance) {
                     return placeScoreAndDistance[0];
                 }];
+
+                // choose nearest that doesn't have same name as previously disliked restaurant
+                for (Place *bestPlace in bestPlacesOrderedByDistance) {
+                    @try {
+                        Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+                        // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
+
+                        BOOL dislikedWithSameName = [excludedRestaurants linq_any:^(Restaurant *r) {
+                            return [r.name isEqualToString:restaurant.name];
+                        }];
+                        if(!dislikedWithSameName) {
+                            return @[restaurant, preferences];
+                        }
+                    }
+                    @catch (SearchException *e) {
+                        *error = [SearchError new];
+                        return (NSArray *) nil;
+                    }
+                }
 
                 // choose nearest
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
