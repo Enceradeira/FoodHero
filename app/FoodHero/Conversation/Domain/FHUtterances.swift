@@ -269,7 +269,7 @@ public class FHUtterances {
     }
 
     class func hasNetworkErrorAndAsksIfShouldTryAgain(def: StringDefinition) -> StringDefinition {
-        return def.words(["Uppps... I'm struggling accessing the internet.\n\nHalf of my brain is in the internet and I feel a bit dizzy right now. Make sure you've got connection.\n\nShould I try again?"]
+        return def.words(["Uppps... I'm struggling accessing the internet.\n\n Make sure you've got connection.\n\nShould I try again?"]
                 , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError",
                 state: FHStates.networkError(), expectedUserUtterances: ExpectedUserUtterances.whenNetworkError()))
     }
