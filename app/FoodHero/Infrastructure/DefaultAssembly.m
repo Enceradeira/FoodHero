@@ -82,7 +82,7 @@
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithAccessToken:audioSession:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:@"DD2C4J3PUPYIB54FU4RTENECFZN7GXZ2"]; // Instance "FoodHero"
+                                  [method injectParameterWith:@"E2DAN6OIJ62CURVSFO6VRPU7E4DBIAZG"]; // Instance "FoodHero-Prod"
                                   // FoodHero-Test [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero"
                                   [method injectParameterWith:[self audioSession]];
                               }];
