@@ -22,7 +22,7 @@
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
     [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates  askForSuggestionFeedback]];
+    [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates  askForSuggestionFeedback]];
 }
 
 @end

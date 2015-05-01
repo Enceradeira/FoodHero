@@ -20,7 +20,7 @@
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
@@ -46,7 +46,7 @@
     }];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound {

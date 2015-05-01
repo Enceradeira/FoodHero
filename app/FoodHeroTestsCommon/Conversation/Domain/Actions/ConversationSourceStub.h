@@ -18,4 +18,8 @@
 - (void)injectPriceRange:(PriceRange *)range;
 
 - (void)injectMaxDistance:(DistanceRange *)maxDistance;
+
+- (void)injectSuggestion:(Restaurant *)restaurant;
+
+- (void)startNewSearch;
 @end

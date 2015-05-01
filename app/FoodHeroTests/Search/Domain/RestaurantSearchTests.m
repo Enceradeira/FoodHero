@@ -7,11 +7,6 @@
 #import <XCTest/XCTest.h>
 #import "RestaurantSearchTests.h"
 #import "DesignByContractException.h"
-#import "RestaurantRepository.h"
-#import "CLLocationManagerProxyStub.h"
-#import "GoogleRestaurantSearch.h"
-#import "DistanceRange.h"
-#import "ConversationSourceStub.h"
 #import "RestaurantSearchResult.h"
 
 
@@ -51,4 +46,12 @@
     [_conversation injectNegativeUserFeedback:feedback];
 }
 
-@end
+- (void)conversationHasSuggestedRestaurant:(Restaurant *)restaurant {
+    [_conversation injectSuggestion:restaurant];
+}
+
+- (void)conversationStartsNewSearch {
+    [_conversation startNewSearch];
+}
+
+ @end

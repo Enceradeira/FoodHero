@@ -16,4 +16,6 @@
 - (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location;
 
 - (ConversationParameters *)lastSuggestionWarning;
+
+- (NSArray *)suggestedRestaurants;
 @end

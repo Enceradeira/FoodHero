@@ -26,8 +26,9 @@
     Restaurant *restaurant3 = [[[RestaurantBuilder alloc] withLocation:_london] build];
     Restaurant *restaurant4 = [[[RestaurantBuilder alloc] withLocation:_london] build];
     Restaurant *restaurant5 = [[[RestaurantBuilder alloc] withLocation:_london] build];
+    Restaurant *restaurant6 = [[[RestaurantBuilder alloc] withLocation:_london] build];
     [self configureRestaurantSearchForLocation:_london configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindResults:@[restaurant1, restaurant2, restaurant3, restaurant4, restaurant5]];
+        [stub injectFindResults:@[restaurant1, restaurant2, restaurant3, restaurant4, restaurant5, restaurant6]];
     }];
 
     // 1. branch (FH:SuggestionAsFollowUp)
@@ -56,7 +57,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestion_WhenUSuggestionFeedbackForDislikeAndFHSuggestionWithComment {
@@ -64,7 +65,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertSecondLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:nil];
+    [super assertSecondLastStatementIs:@"FH:Suggestion" state:nil];
     [super assertLastStatementIs:@"FH:FollowUpQuestion" state:[FHStates askForSuggestionFeedback]];
 }
 
@@ -73,7 +74,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooCheapAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooCheap {

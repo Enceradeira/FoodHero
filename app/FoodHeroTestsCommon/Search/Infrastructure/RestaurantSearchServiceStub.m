@@ -79,8 +79,18 @@
     }
     else {
         if (_ownSearchResults == nil) {
-            _ownSearchResults = @[[[[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] build]];
+            _ownSearchResults = @[
+                    [[[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Thai Inn"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Drunken Monk"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Vegi Castle"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Sausages & Cows"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Walumpo"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Chinese Take Away"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Posh Food"] withVicinity:@"Norwich"] build],
+                    [[[[RestaurantBuilder alloc] withName:@"Dal Fury"] withVicinity:@"Norwich"] build]
+            ];
         }
         return [_ownSearchResults linq_where:^(Restaurant *r) {
             return (BOOL) (r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel);

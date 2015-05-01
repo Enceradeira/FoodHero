@@ -99,15 +99,16 @@
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
     Restaurant *kingsHead = [[RestaurantBuilder alloc] withPriceLevel:4].build;
     Restaurant *lionHeart = [[[RestaurantBuilder alloc] withName:@"Lion Heart"] withVicinity:@"Great Yarmouth"].build;
+    Restaurant *kingsbed = [[[RestaurantBuilder alloc] withName:@"Kings Bed"] withVicinity:@"Great Yarmouth"].build;
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindResults:@[kingsHead, lionHeart]];
+        [stub injectFindResults:@[kingsHead, lionHeart, kingsbed]];
     }];
 
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:kingsHead text:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
+    [self assertLastStatementIs:@"FH:Suggestion=Kings Bed, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {

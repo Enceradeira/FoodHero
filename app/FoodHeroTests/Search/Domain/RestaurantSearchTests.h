@@ -24,4 +24,8 @@
 - (void)conversationHasPriceRange:(PriceRange *)range;
 
 - (void)conversationHasNegativeUserFeedback:(USuggestionFeedbackParameters *)feedback;
+
+- (void)conversationHasSuggestedRestaurant:(Restaurant *)restaurant;
+
+- (void)conversationStartsNewSearch;
 @end

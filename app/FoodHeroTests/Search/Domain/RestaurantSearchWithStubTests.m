@@ -102,6 +102,31 @@
     assertThat([self findBest].restaurant.placeId, is(equalTo(restaurant3.placeId)));
 }
 
+-(void)test_findBest_ShouldNotReturnARestaurantThatWasSuggestedInCurrentSearch{
+    Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
+    Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
+    [_restaurantRepository injectRestaurants:@[restaurant1, restaurant2]];
+
+    Restaurant *firstRestaurant = [self findBest].restaurant;
+    [self conversationHasSuggestedRestaurant:firstRestaurant];
+
+    Restaurant *secondRestaurant = [self findBest].restaurant;
+    assertThat(firstRestaurant.placeId, isNot(equalTo(secondRestaurant.placeId)));
+}
+
+-(void)test_findBest_ShouldReturnARestaurantThatWasSuggestedInPreviousSearch{
+    Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
+    Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
+    [_restaurantRepository injectRestaurants:@[restaurant1, restaurant2]];
+
+    Restaurant *firstRestaurant = [self findBest].restaurant;
+    [self conversationHasSuggestedRestaurant:firstRestaurant];
+    [self conversationStartsNewSearch];
+
+    Restaurant *secondRestaurant = [self findBest].restaurant;
+    assertThat(firstRestaurant.placeId, is(equalTo(secondRestaurant.placeId)));
+}
+
 - (void)test_findBest_ShouldReturnRestaurantThatIsFurtherAway_WhenPriceLevelMatchesBetterAndItsNotThatFarAway {
     CLLocation *usersLocation = [[CLLocation alloc] initWithLatitude:52.633691 longitude:1.297240];
     CLLocation *veryCloseLocation = [[CLLocation alloc] initWithLatitude:usersLocation.coordinate.latitude + 0.001 longitude:usersLocation.coordinate.longitude + 0.001];

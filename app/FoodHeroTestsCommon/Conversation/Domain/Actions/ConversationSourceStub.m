@@ -9,6 +9,7 @@
 @implementation ConversationSourceStub {
 
     NSMutableArray *_negativeUserFeedback;
+    NSMutableArray *_suggestedRestaurants;
     NSString *_cuisine;
     PriceRange *_range;
     DistanceRange *_maxDistance;
@@ -18,6 +19,7 @@
     self = [super init];
     if (self) {
         _negativeUserFeedback = [NSMutableArray new];
+        _suggestedRestaurants = [NSMutableArray new];
         _range = [PriceRange priceRangeWithoutRestriction];
         _maxDistance = nil;
     }
@@ -36,6 +38,11 @@
 - (ConversationParameters *)lastSuggestionWarning {
     return nil;
 }
+
+- (NSArray *)suggestedRestaurants {
+    return _suggestedRestaurants;
+}
+
 
 - (NSString *)cuisine {
     return _cuisine;
@@ -60,5 +67,13 @@
 
 - (void)injectMaxDistance:(DistanceRange *)maxDistance {
     _maxDistance = maxDistance;
+}
+
+- (void)injectSuggestion:(Restaurant *)restaurant {
+    [_suggestedRestaurants addObject:restaurant];
+}
+
+- (void)startNewSearch {
+    [_suggestedRestaurants removeAllObjects];
 }
 @end

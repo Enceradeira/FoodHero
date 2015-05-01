@@ -34,7 +34,7 @@
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
 
     // Because it's the first suggestion, FHSuggestionAsFollowUp is not a valid option
-    [super assertLastStatementIs:@"FH:Suggestion=King's Head, Norwich" state:[FHStates  askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:Suggestion" state:[FHStates  askForSuggestionFeedback]];
 }
 
 @end

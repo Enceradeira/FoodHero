@@ -34,9 +34,9 @@
 }
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
-    NSArray *excludedRestaurants = [conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
+    NSArray *excludedRestaurants = [[conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
         return f.restaurant;
-    }];
+    }] linq_concat:conversation.suggestedRestaurants];
 
     RACSignal *preferenceSignal = [[_locationService.currentLocation take:1] flattenMap:^(CLLocation *location) {
         return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] currUserLocation:location]];
