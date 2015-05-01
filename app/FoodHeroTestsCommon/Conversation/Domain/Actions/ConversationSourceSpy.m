@@ -33,4 +33,9 @@
     return nil;
 }
 
+- (NSArray *)suggestedRestaurantsInCurrentSearch {
+    return nil;
+}
+
+
 @end

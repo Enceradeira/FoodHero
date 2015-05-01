@@ -39,7 +39,7 @@
     return nil;
 }
 
-- (NSArray *)suggestedRestaurants {
+- (NSArray *)suggestedRestaurantsInCurrentSearch {
     return _suggestedRestaurants;
 }
 

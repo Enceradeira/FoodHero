@@ -177,7 +177,7 @@ public class ConversationScript: Script {
         let negativesFeedback = self._conversation.negativeUserFeedback()!
         let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as! USuggestionFeedbackParameters?
         let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
-        let isFirstSuggestion = (self._conversation.suggestedRestaurants() as! [Restaurant]).isEmpty
+        let isFirstSuggestion = (self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]).isEmpty
         let currentOccasion = _conversation.currentOccasion()!
 
         if isFirstSuggestion {

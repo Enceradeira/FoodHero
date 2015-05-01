@@ -31,7 +31,7 @@
 
 - (NSString *)currentOccasion;
 
-- (NSArray *)suggestedRestaurants;
+- (NSArray *)suggestedRestaurantsInCurrentSearch;
 
 - (ConversationParameters *)lastUserResponse;
 @end

@@ -151,7 +151,7 @@
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant1 text:@"I don't like that restaurant"]]; // 2. Restaurant suggested
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant2 text:@"I don't like that restaurant"]]; // 3. Restaurant suggested
-    NSArray *restaurants = [self.conversation suggestedRestaurants];
+    NSArray *restaurants = [self.conversation suggestedRestaurantsInCurrentSearch];
     assertThatInteger(restaurants.count, is(equalToInteger(3)));
 }
 

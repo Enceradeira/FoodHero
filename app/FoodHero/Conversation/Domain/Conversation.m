@@ -240,7 +240,7 @@
     return priceRange;
 }
 
-- (NSArray *)suggestedRestaurants {
+- (NSArray *)suggestedRestaurantsInCurrentSearch {
     return [[self.parametersOfCurrentSearch linq_ofType:[FoodHeroSuggestionParameters class]] linq_select:^(FoodHeroSuggestionParameters *s) {
         return s.restaurant;
     }];

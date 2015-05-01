@@ -129,7 +129,7 @@ static UIImage *EmptyImage;
 }
 
 - (Restaurant *)getLastSuggestedRestaurant {
-    NSArray *restaurants = _conversation.suggestedRestaurants;
+    NSArray *restaurants = _conversation.suggestedRestaurantsInCurrentSearch;
     if (restaurants.count == 0) {
         @throw [DesignByContractException createWithReason:@"no restaurants have ever been suggested to user"];
     }

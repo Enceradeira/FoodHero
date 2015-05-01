@@ -17,5 +17,5 @@
 
 - (ConversationParameters *)lastSuggestionWarning;
 
-- (NSArray *)suggestedRestaurants;
+- (NSArray *)suggestedRestaurantsInCurrentSearch;
 @end
