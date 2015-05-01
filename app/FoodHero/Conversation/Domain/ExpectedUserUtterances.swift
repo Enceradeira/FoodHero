@@ -62,7 +62,8 @@ public class ExpectedUserUtterances: NSObject {
                 UserUtterances.dislikesKindOfFood(""),
                 UserUtterances.dislikesOccasion("", occasion: occasion),
                 nil,
-                UserUtterances.wantsToStartAgain("")
+                UserUtterances.wantsToStartAgain(""),
+                UserUtterances.wantsToAbort("")
         ])
     }
 

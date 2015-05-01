@@ -103,8 +103,11 @@ public class ConversationScript: Script {
                 return $1.define {
                     return self.askForOccasionWaitResponseAndSearchRepeatably($0)
                 }
+            } else if $0.hasSemanticId("U:WantsToAbort") {
+                return self.askWhatToDoNextAfterFailure($1)
             } else if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
+
             } else {
                 return $1.define {
                     $0.say(oneOf: FHUtterances.commentChoices)
@@ -140,6 +143,14 @@ public class ConversationScript: Script {
         let question = FHUtterances.whatToDoNext
         script.say(oneOf: question)
         return waitResponseForWhatToDoNext(script, forQuestion: question)
+    }
+
+    func askWhatToDoNextAfterFailure(script: FutureScript) -> (FutureScript){
+        return script.define {
+            let whatToDoNextAfterFailure = FHUtterances.whatToDoNextAfterFailure
+            $0.say(oneOf: whatToDoNextAfterFailure)
+            return self.waitResponseForWhatToDoNext($0, forQuestion: whatToDoNextAfterFailure)
+        }
     }
 
     func waitResponseForWhatToDoNext(script: Script, forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> (Script) {
@@ -220,7 +231,7 @@ public class ConversationScript: Script {
                             },
                             {
                                 return $0.define {
-                                    $0.say(oneOf: FHUtterances.suggestionsAsFollowUp(with: restaurant,currentOccasion: currentOccasion))
+                                    $0.say(oneOf: FHUtterances.suggestionsAsFollowUp(with: restaurant, currentOccasion: currentOccasion))
                                     if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
                                         return $0.saySometimes(oneOf: FHUtterances.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
                                     } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
@@ -264,11 +275,7 @@ public class ConversationScript: Script {
             script.say(oneOf: lastQuestion)
             self.waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
                 if $0.hasSemanticId("U:WantsToAbort") {
-                    return $1.define {
-                        let whatToDoNextAfterFailure = FHUtterances.whatToDoNextAfterFailure
-                        $0.say(oneOf: whatToDoNextAfterFailure)
-                        return self.waitResponseForWhatToDoNext($0, forQuestion: whatToDoNextAfterFailure)
-                    }
+                    return self.askWhatToDoNextAfterFailure($1)
                 } else if $0.hasSemanticId("U:TryAgainNow") {
                     return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else if $0.hasSemanticId("U:WantsToStartAgain") {

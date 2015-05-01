@@ -37,6 +37,16 @@ Feature: User interacts with app through conversation
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
 
+ Scenario: I become feed up with Food Hero
+   When FoodHero has started and can access location-services
+   Then FoodHero greets me and suggests something
+
+   When I don't like the restaurant
+   And FoodHero suggests something else
+
+   When I want FoodHero to abort search
+   Then FoodHero asks what to do next after failure
+
  Scenario: I search a restaurant for another occasion and another kind of food
    When FoodHero has started and can access location-services
    Then FoodHero greets me and suggests something

@@ -24,6 +24,7 @@
 		2352515F7F76F1CDF30A18EE /* UILabelVisualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DED82F367B25E3D305 /* UILabelVisualizer.m */; };
 		2352516345414DAFBC4D1664 /* GooglePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352522408BF6073928CCC48 /* GooglePlace.m */; };
 		235251684A4E36427359D8C0 /* TalkerEngineRandomnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352519BBE7B7354466726D8 /* TalkerEngineRandomnessTests.swift */; };
+		2352519AA7F771F1331D1C87 /* ConversationUserWantsToAbortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235259391EEE9AD989B3CE8F /* ConversationUserWantsToAbortTests.swift */; };
 		235251ADCB60EA2C03A63E78 /* CheatTextFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253BB86938B89044C8671 /* CheatTextFieldController.m */; };
 		235251B2CDEF647A986C8B52 /* IHelpViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235254D714E2C78B6955447F /* IHelpViewControllerDelegate.swift */; };
 		235251C69CCB44967774AB6E /* FoodHeroParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525EF7B9D13F9660F28685 /* FoodHeroParameters.swift */; };
@@ -498,6 +499,7 @@
 		235258F60593B6390121A6A7 /* TalkerInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerInput.swift; sourceTree = "<group>"; };
 		23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewStateNormal.m; sourceTree = "<group>"; };
 		2352591DF2E1DF863C69FE92 /* ConversationViewStateNormal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewStateNormal.h; sourceTree = "<group>"; };
+		235259391EEE9AD989B3CE8F /* ConversationUserWantsToAbortTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationUserWantsToAbortTests.swift; sourceTree = "<group>"; };
 		2352595115E493054E879BA9 /* ApplicationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAssembly.h; sourceTree = "<group>"; };
 		235259599DFD1F5796C13F5D /* ConversationViewState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewState.m; sourceTree = "<group>"; };
 		235259630445F1B8004CBFA5 /* CuisineAndOccasion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuisineAndOccasion.m; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 				235254D38AEEE5800BFE0A01 /* OccassionsTests.swift */,
 				23525392369CC6F3B950A149 /* ConversationDislikesKindOfFoodTests.swift */,
 				23525BE6FF92114018318C4B /* ConversationDislikeOccasionTests.swift */,
+				235259391EEE9AD989B3CE8F /* ConversationUserWantsToAbortTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1963,6 +1966,7 @@
 				235254CBA88D80B48A70CD75 /* CuisineAndOccasionTests.m in Sources */,
 				2352505F344154F972F78411 /* OccasionToGoogleTypeMapperTests.swift in Sources */,
 				23525C9F6400130371368996 /* ConversationDislikeOccasionTests.swift in Sources */,
+				2352519AA7F771F1331D1C87 /* ConversationUserWantsToAbortTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
