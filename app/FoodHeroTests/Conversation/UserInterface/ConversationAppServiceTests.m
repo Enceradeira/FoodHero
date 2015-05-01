@@ -133,6 +133,12 @@ ConversationAppServiceTests {
     assertThat(bubble1, is(sameInstance(bubble2)));
 }
 
+- (void)test_conversationStart_ShouldSetStateOnSpeechRecognitionService {
+    [_service startConversation];
+
+    assertThat(_speechRecognitionService.state,is(equalTo(@"askForSuggestionFeedback")));
+}
+
 - (void)test_getFirstStatement_ShouldReturnDifferentInstanceOfBubble_WhenWidthChanges {
     [_service startConversation];
 

@@ -12,12 +12,7 @@
 @class SpeechInterpretation;
 
 
-@interface SpeechRecognitionServiceStub : NSObject <ISpeechRecognitionService>
-@property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
-
+@interface SpeechRecognitionServiceSpy : NSObject <ISpeechRecognitionService>
 @property(readonly, nonatomic) NSString *state;
 
-- (void)injectInterpretation:(SpeechInterpretation *)interpretation;
-
-- (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission;
 @end

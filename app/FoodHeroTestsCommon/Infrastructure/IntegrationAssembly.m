@@ -20,6 +20,7 @@
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantPhotoViewController.h"
 #import "RestaurantReviewSummaryViewController.h"
+#import "RestaurantRepository.h"
 
 @implementation IntegrationAssembly
 - (id)navigationViewController {

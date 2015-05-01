@@ -26,7 +26,7 @@ static UIImage *EmptyImage;
     NSArray *_cuisines;
     NSArray *_feedbacks;
     LocationService *_locationService;
-    RestaurantRepository *_restaurantRepository;
+    id <IRestaurantRepository> _restaurantRepository;
     BOOL _doRenderSemanticID;
     id <ISpeechRecognitionService> _speechRecognitionService;
 }
@@ -39,7 +39,7 @@ static UIImage *EmptyImage;
 }
 
 - (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
-                          restaurantRepository:(RestaurantRepository *)restaurantRepository
+                          restaurantRepository:(id <IRestaurantRepository>)restaurantRepository
                                locationService:(LocationService *)locationService
                       speechRegocnitionService:(id <ISpeechRecognitionService>)speechRecognitionService {
     self = [super init];
@@ -120,6 +120,16 @@ static UIImage *EmptyImage;
                     }
                 }];
         _conversation = [conversationRepository getForInput:input];
+
+        // forward states to speech recognition
+        [[_conversation.statementIndexes map:^(id index) {
+            return [_conversation getStatement:[index unsignedIntegerValue]];
+        }] subscribeNext:^(Statement *s) {
+            if (s.state != nil && s.state.length > 0) {
+                [_speechRecognitionService setState:s.state];
+            }
+        }
+        ];
     }
     return self;
 }

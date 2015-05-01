@@ -129,10 +129,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     }
 }
 
-- (NSString *)getState {
-    return _currentFhBubble.state;
-}
-
 - (ExpectedUserUtterances *)expectedUserUtterances {
     return _currentFhBubble.expectedUserUtterances;
 }

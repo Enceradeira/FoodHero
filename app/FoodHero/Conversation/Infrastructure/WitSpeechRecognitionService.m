@@ -16,6 +16,7 @@
     id <IAudioSession> _audioSession;
     RACSubject *_output;
     BOOL _simulateNetworkError;
+    NSString *_currState;
 }
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
@@ -71,7 +72,7 @@
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
-    return [[UserIntentUnclearError alloc] initWithState:[self.stateSource getState] expectedUserUtterances:[self.stateSource expectedUserUtterances]];
+    return [[UserIntentUnclearError alloc] initWithState:_currState expectedUserUtterances:[self.stateSource expectedUserUtterances]];
 }
 
 - (void)witActivityDetectorStarted {
@@ -79,7 +80,6 @@
 }
 
 - (void)witDidStartRecording {
-    [self startProcessingUserInput];
     [self.stateSource didStartProcessingUserInput];
     [self.stateSource didStartRecordingUserInput];
     NSLog(@"WitSpeechRecognitionService.witDidStartRecording: Recording startet");
@@ -91,16 +91,8 @@
 }
 
 - (void)interpretString:(NSString *)string {
-    [self startProcessingUserInput];
     [self.stateSource didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
-}
-
-- (void)startProcessingUserInput {
-    NSString* state = [self.stateSource getState];
-    NSLog(@"WitSpeechRecognitionService.startProcessingUserInput: state it %@",state);
-    assert(state != nil && state.length > 0);
-    [_wit setContext:@{@"state" : state}];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
@@ -113,6 +105,12 @@
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled {
     _simulateNetworkError = simulationEnabled;
+}
+
+- (void)setState:(NSString *)state {
+    NSLog(@"WitSpeechRecognitionService.setState: state is %@",state);
+    _currState = state;
+    [_wit setContext:@{@"state" : state}];
 }
 
 

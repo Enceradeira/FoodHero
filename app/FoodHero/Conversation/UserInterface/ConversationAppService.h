@@ -13,14 +13,14 @@
 #import "ConversationRepository.h"
 #import "LocationService.h"
 #import "ISpeechRecognitionService.h"
-#import "RestaurantRepository.h"
+#import "IRestaurantRepository.h"
 
 @interface ConversationAppService : NSObject
 
 @property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
 
 - (instancetype)initWithConversationRepository:(ConversationRepository *)conversationRepository
-                          restaurantRepository:(RestaurantRepository *)restaurantRepository
+                          restaurantRepository:(id<IRestaurantRepository>)restaurantRepository
                                locationService:(LocationService *)locationService
                       speechRegocnitionService:(id <ISpeechRecognitionService>)speechRecognitionService;
 

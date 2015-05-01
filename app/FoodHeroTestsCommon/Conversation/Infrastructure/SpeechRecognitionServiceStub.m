@@ -61,6 +61,15 @@
     return _output;
 }
 
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+
+}
+
+- (void)setState:(NSString *)state {
+    _state = state;
+}
+
+
 - (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission {
     _permission = permission;
 }

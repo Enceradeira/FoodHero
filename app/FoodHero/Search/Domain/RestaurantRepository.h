@@ -13,14 +13,4 @@
 
 @interface RestaurantRepository : NSObject<IRestaurantRepository>
 - (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory;
-
-- (BOOL)doRestaurantsHaveDifferentPriceLevels;
-
-- (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound;
-
-- (void)simulateNetworkError:(BOOL)simulationEnabled;
-
-- (void)simulateSlowResponse:(BOOL)enabled;
-
-- (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation;
 @end

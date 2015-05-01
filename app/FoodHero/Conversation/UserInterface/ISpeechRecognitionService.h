@@ -18,4 +18,6 @@
 - (RACSignal *)output;
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled;
+
+- (void)setState:(NSString *)state;
 @end

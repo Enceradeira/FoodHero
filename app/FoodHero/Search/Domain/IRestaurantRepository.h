@@ -15,4 +15,13 @@
 - (Restaurant *)getRestaurantFromPlace:(Place *)place;
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation;
+
+- (BOOL)doRestaurantsHaveDifferentPriceLevels;
+
+- (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound;
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled;
+
+- (void)simulateSlowResponse:(BOOL)enabled;
+
 @end
