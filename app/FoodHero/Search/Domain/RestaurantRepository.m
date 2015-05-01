@@ -37,9 +37,6 @@
 }
 
 - (RACSignal *)getPlacesBy:(CuisineAndOccasion *)parameter {
-
-    NSLog([NSString stringWithFormat:@"getPlacesBy: occasion=%@ cuisine=%@ ", parameter.occasion, parameter.cuisine]);
-
     return [[[[_locationService currentLocation]
             deliverOn:[_schedulerFactory asynchScheduler]]
             take:1]

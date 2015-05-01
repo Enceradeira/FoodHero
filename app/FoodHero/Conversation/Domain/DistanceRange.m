@@ -34,4 +34,8 @@ const double SCORE_AT_MAX_DISTANCE_RANGE = 0.2;
     return [[DistanceRange alloc] initWithMax:distance * DISTANCE_DECREMENT_FACTOR];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%f", _max];
+}
+
 @end

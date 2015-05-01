@@ -82,12 +82,12 @@
     [self startProcessingUserInput];
     [self.stateSource didStartProcessingUserInput];
     [self.stateSource didStartRecordingUserInput];
-    NSLog(@"Recording startet");
+    NSLog(@"WitSpeechRecognitionService.witDidStartRecording: Recording startet");
 }
 
 - (void)witDidStopRecording {
     [self.stateSource didStopRecordingUserInput];
-    NSLog(@"Recording stopped");
+    NSLog(@"WitSpeechRecognitionService.witDidStopRecording: Recording stopped");
 }
 
 - (void)interpretString:(NSString *)string {
@@ -98,6 +98,8 @@
 
 - (void)startProcessingUserInput {
     NSString* state = [self.stateSource getState];
+    NSLog(@"WitSpeechRecognitionService.startProcessingUserInput: state it %@",state);
+    assert(state != nil && state.length > 0);
     [_wit setContext:@{@"state" : state}];
 }
 

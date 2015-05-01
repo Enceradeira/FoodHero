@@ -73,4 +73,9 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
     return self.min == ((PriceRange *) other).min && self.max == ((PriceRange *) other).max;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"[%u-%u]", _min, _max];
+}
+
+
 @end

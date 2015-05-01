@@ -43,6 +43,16 @@
     }];
 
     RACSignal *placesSignal = [preferenceSignal flattenMap:^(SearchProfile *searchPreference) {
+
+        NSString *occasion = searchPreference.occasion;
+        NSString *cuisine = searchPreference.cuisine;
+        NSString *distance = searchPreference.distanceRange.description;
+        NSString *price = searchPreference.priceRange.description;
+        NSLog([NSString stringWithFormat:@"RestaurantSearch.findBest: occasion=%@ cuisine=%@ distance=%@ price=%@", occasion, cuisine, distance, price]);
+        
+        
+        
+        
         return [[[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion cuisine:searchPreference.cuisine]]
                 take:1]
                 map:^(NSArray *places) {
