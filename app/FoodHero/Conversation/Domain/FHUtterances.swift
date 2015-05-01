@@ -95,7 +95,7 @@ public class FHUtterances {
 
     class func firstQuestion(with occasion: String) -> (StringDefinition -> StringDefinition) {
         return {
-            $0.words(["It’s a good spot for \(occasion). Do you like it? What do you want to eat?"],
+            $0.words(["It’s a good spot for \(occasion). Do you like it? Or what else would you want?"],
                     withCustomData: FoodHeroParameters(semanticId: "FH:FirstQuestion=\(occasion)",
                             state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(occasion)));
         }

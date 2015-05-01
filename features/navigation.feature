@@ -27,11 +27,11 @@ Feature: Navigation in app
     When I go back
     Then I see the conversation view
 
-    When I go to the login view
-    Then I see the login view
+    #When I go to the login view
+    #Then I see the login view
 
-    When I go back
-    Then I see the conversation view
+    #When I go back
+    #Then I see the conversation view
 
   Scenario: Opening help through link
     Given FoodHero has started and can access location-services
