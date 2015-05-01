@@ -90,7 +90,7 @@ public class TalkerEngineTests: XCTestCase {
         }
 
 
-        let timeoutUSeconds: UInt32 = 100 /*10 ms*/ * 1000;
+        let timeoutUSeconds: UInt32 = 200 /*10 ms*/ * 1000;
         if (!exists) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 let waitBeforeTimeoutPreventedUSeconds = timeoutUSeconds * 8 / 10
