@@ -111,6 +111,7 @@
     NSLog(@"WitSpeechRecognitionService.setState: state is %@",state);
     _currState = state;
     [_wit setContext:@{@"state" : state}];
+    // [_wit setThreadId:@"rummby"];
 }
 
 

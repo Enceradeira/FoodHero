@@ -1,6 +1,6 @@
 {
   "name": "Wit",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "summary": "Wit.AI Official SDK",
   "description": "                     Official Wit SDK, https://wit.ai/docs/ios-tutorial/\n",
   "homepage": "https://github.com/wit-ai/wit-ios-sdk",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/wit-ai/wit-ios-sdk.git",
-    "tag": "4.0.0"
+    "tag": "4.1.0"
   },
   "platforms": {
     "ios": "6.0"
