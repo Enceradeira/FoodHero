@@ -378,7 +378,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <constraint firstAttribute="height" constant="35" id="75S-gq-FVM"/>
                                                         <constraint firstAttribute="width" constant="35" id="bAI-GX-U7L"/>
                                                     </constraints>
-                                                    <state key="normal" image="directions-icon.png">
+                                                    <state key="normal" image="map-icon.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -594,6 +594,7 @@ Norwich, Norfolk NR1 3DN</string>
                     <navigationItem key="navigationItem" id="84n-2S-wW8"/>
                     <connections>
                         <outlet property="directions" destination="FFy-1g-SEz" id="PV6-m9-5Ol"/>
+                        <outlet property="directionsButton" destination="fyO-iw-pFv" id="qhT-tS-DQK"/>
                         <outlet property="directionsView" destination="V6F-ma-T1I" id="rDK-WR-j6U"/>
                         <outlet property="mapView" destination="5HR-OT-2rB" id="Kiv-Tz-sTn"/>
                     </connections>
@@ -1084,6 +1085,7 @@ Norwich, Norfolk NR1 3DN</string>
     <resources>
         <image name="Notebook-small.png" width="25" height="121"/>
         <image name="directions-icon.png" width="22" height="22"/>
+        <image name="map-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>
         <image name="rating-stars-4.0.png" width="110" height="19"/>
         <image name="world-icon.png" width="22" height="22"/>

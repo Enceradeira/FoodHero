@@ -31,7 +31,7 @@
 
     [_urlButton imageView].highlightedImage = [UIImage imageNamed:@"world-icon-transparent@2x.png"];
     [_phoneButton imageView].highlightedImage = [UIImage imageNamed:@"phone-receiver-icon-transparent@2x.png"];
-    [_directionsButton imageView].highlightedImage = [UIImage imageNamed:@"directions-icon-transparent@2x.png"];
+    [_directionsButton imageView].highlightedImage = [UIImage imageNamed:@"map-icon-transparent@2x.png"];
 
     [self addTapGesture:self.openingHours handledBy:@selector(openingHoursTouched:)];
     [self addTapGesture:self.phoneNumber handledBy:@selector(phoneNumberTouched:)];

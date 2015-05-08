@@ -9,6 +9,7 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
     var _restaurant: Restaurant!
     var _locationService: LocationService!
 
+    @IBOutlet weak var directionsButton: UIButton!
     @IBOutlet weak var directions: UILabel!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var directionsView: UIView!
@@ -61,6 +62,9 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         var tapGesture = UITapGestureRecognizer(target: self, action: "userDidTapDirections")
         directions.addGestureRecognizer(tapGesture)
         directions.userInteractionEnabled = true
+
+        // directions button
+        directionsButton.imageView!.highlightedImage = UIImage(named:"directions-icon-transparent@2x.png");
     }
 
     @IBAction func directionsTouched(sender: AnyObject) {
@@ -68,15 +72,18 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
     }
 
     func userDidTapDirections() {
-        let coordinate = _locationService.lastKnownLocation().coordinate
+        let myCoordinate = _locationService.lastKnownLocation().coordinate
+        let restaurantCoordinate = _restaurant.location.coordinate
 
+        /*
         let encodedComponents = _restaurant.addressComponents.map {
             (component: AnyObject!) in
             return KeywordEncoder.encodeString(component as! String) as String
         }
-
         let restaurantAddressEncoded = ",".join(encodedComponents)
-        let url = "https://www.google.com/maps/dir/\(coordinate.latitude),\(coordinate.longitude)/\(restaurantAddressEncoded)"
+         */
+        // let url = "https://www.google.com/maps/dir/\(coordinate.latitude),\(coordinate.longitude)/\(restaurantAddressEncoded)"
+        let url = "https://www.google.com/maps/dir/\(myCoordinate.latitude),\(myCoordinate.longitude)/\(restaurantCoordinate.latitude),\(restaurantCoordinate.longitude)"
         let webUrl = NSURL(string:url)!
         UIApplication.sharedApplication().openURL(webUrl)
     }
