@@ -10,6 +10,7 @@
 #import "LocationService.h"
 #import "KeywordEncoder.h"
 #import "OpeningHoursViewController.h"
+#import "FoodHero-Swift.h"
 
 
 @interface RestaurantDetailTableViewController () <UIPopoverPresentationControllerDelegate>
@@ -116,6 +117,8 @@
 }
 
 - (IBAction)directionsTouched:(UITapGestureRecognizer *)sender {
+
+    /*
     CLLocationCoordinate2D coordinate = _locationService.lastKnownLocation.coordinate;
 
     NSArray *encodedComponents = [_restaurant.addressComponents linq_select:^(NSString *component) {
@@ -126,5 +129,12 @@
     NSString *url = [NSString stringWithFormat:@"https://www.google.com/maps/dir/%f,%f/%@", coordinate.latitude, coordinate.longitude, restaurantAddressEncoded];
     NSURL *webUrl = [NSURL URLWithString:url];
     [[UIApplication sharedApplication] openURL:webUrl];
+    */
+
+    RestaurantMapViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantMapView"];
+    [controller setRestaurant:_restaurant];
+    [self.navigationController pushViewController:controller animated:YES];
 }
+
+
 @end

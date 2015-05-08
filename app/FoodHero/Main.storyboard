@@ -366,7 +366,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="YfC-9B-j7g">
+                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="40" id="YfC-9B-j7g">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="YfC-9B-j7g" id="l0b-S4-8Xr">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -406,6 +406,9 @@ Norwich, Norfolk NR1 3DN</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="pHo-nb-mpi" kind="push" id="1ok-87-QMb"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="hzf-Se-7zH">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -523,6 +526,25 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1125.5" y="2233"/>
         </scene>
+        <!--Restaurant Map View Controller-->
+        <scene sceneID="zg6-qw-cwy">
+            <objects>
+                <viewController storyboardIdentifier="RestaurantMapView" id="pHo-nb-mpi" customClass="RestaurantMapViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U7t-9S-abE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mbp-eV-CCI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F3D-2p-6V5">
+                        <rect key="frame" x="0.0" y="0.0" width="277" height="270"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="84n-2S-wW8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lHA-1O-eXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1538.5" y="2218"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="HRM-u1-pSN">
             <objects>
@@ -573,7 +595,7 @@ Norwich, Norfolk NR1 3DN</string>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can say or type something like:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ca-kq-ccU">
                                         <rect key="frame" x="0.0" y="25" width="272" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -738,7 +760,7 @@ Norwich, Norfolk NR1 3DN</string>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago by Maria Füdlistaller" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUc-rT-PAF">
                                 <rect key="frame" x="20" y="108" width="280" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -795,7 +817,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <rect key="frame" x="88" y="-1" width="232" height="22"/>
                                             <accessibility key="accessibilityConfiguration" label="opening hour of that day"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8M1-Es-vu9">
@@ -805,7 +827,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <constraint firstAttribute="width" constant="70" id="lBP-8f-PHx"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -922,7 +944,7 @@ Norwich, Norfolk NR1 3DN</string>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago by Maria Füdlistaller" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WsA-sF-7DG">
                                 <rect key="frame" x="122" y="518" width="178" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTT-XD-Pkc">

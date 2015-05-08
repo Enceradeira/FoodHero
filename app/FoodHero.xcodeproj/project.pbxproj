@@ -92,6 +92,7 @@
 		2352554FC04F7D8C57004E4E /* GooglePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251EE3C85EE6BB669B3A9 /* GooglePhoto.m */; };
 		235255580D0D40B6B62EAC37 /* RestaurantRepositoryIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352513BEC4237E518103D00 /* RestaurantRepositoryIntegrationTests.m */; };
 		2352556764EFB810E429595A /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235251944C284D3502FF29C3 /* HelpViewController.swift */; };
+		2352558AA261C702BAFBF28B /* RestaurantMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352572696F469CBEDB02008 /* RestaurantMapViewController.swift */; };
 		2352558E99B8B8C47800F507 /* CLLocationManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */; };
 		235255AEFF2DE2DAC8C6C01E /* ConversationBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252243CA79D13851B4AEE /* ConversationBubble.m */; };
 		235255BD6DCDB8D6367C5B5B /* NSCalendarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525861B6D08CC91A86443E /* NSCalendarExtension.swift */; };
@@ -456,6 +457,7 @@
 		235256DDA1D7AE62C51BD487 /* RestaurantReviewPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewPageViewController.m; sourceTree = "<group>"; };
 		235256DED82F367B25E3D305 /* UILabelVisualizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelVisualizer.m; sourceTree = "<group>"; };
 		23525718C284A5A291BEC9D4 /* ConversationBubbleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleTableViewCell.m; sourceTree = "<group>"; };
+		2352572696F469CBEDB02008 /* RestaurantMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantMapViewController.swift; sourceTree = "<group>"; };
 		23525729BB851260410BB8BC /* RestaurantRatingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRatingTests.m; sourceTree = "<group>"; };
 		2352573592C6B671E097B4FA /* PriceRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceRange.h; sourceTree = "<group>"; };
 		2352573782B74E2013DD4CB2 /* ConversationBubbleFoodHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubbleFoodHero.m; sourceTree = "<group>"; };
@@ -1088,6 +1090,7 @@
 				2352500E77FD978526911096 /* UILabelVisualizer.h */,
 				235256B1548FAF97A5846EF4 /* UITextViewVisualizer.m */,
 				235250D351C14AACE5E7E036 /* UITextViewVisualizer.h */,
+				2352572696F469CBEDB02008 /* RestaurantMapViewController.swift */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1881,6 +1884,7 @@
 				23525C3C911C94E69D80A3D7 /* UserUtteranceTableViewCell.swift in Sources */,
 				2352556764EFB810E429595A /* HelpViewController.swift in Sources */,
 				235251B2CDEF647A986C8B52 /* IHelpViewControllerDelegate.swift in Sources */,
+				2352558AA261C702BAFBF28B /* RestaurantMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
