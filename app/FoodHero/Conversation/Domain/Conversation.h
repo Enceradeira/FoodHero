@@ -17,6 +17,8 @@
 
 @interface Conversation : NSObject <ConversationSource>
 
+@property(nonatomic, readonly) NSString *id;
+
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly;
 
 - (void)start;

@@ -120,6 +120,7 @@ static UIImage *EmptyImage;
                     }
                 }];
         _conversation = [conversationRepository getForInput:input];
+        [_speechRecognitionService setThreadId:_conversation.id];
 
         // forward states to speech recognition
         [[_conversation.statementIndexes map:^(id index) {

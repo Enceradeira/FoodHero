@@ -20,4 +20,6 @@
 - (void)simulateNetworkError:(BOOL)simulationEnabled;
 
 - (void)setState:(NSString *)state;
+
+- (void)setThreadId:(NSString *)id;
 @end

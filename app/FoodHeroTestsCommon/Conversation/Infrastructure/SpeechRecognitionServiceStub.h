@@ -16,6 +16,7 @@
 @property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
 
 @property(readonly, nonatomic) NSString *state;
+@property(readonly, nonatomic) NSString *threadId;
 
 - (void)injectInterpretation:(SpeechInterpretation *)interpretation;
 

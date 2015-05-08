@@ -69,6 +69,10 @@
     _state = state;
 }
 
+- (void)setThreadId:(NSString *)id {
+    _threadId = id;
+}
+
 
 - (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission {
     _permission = permission;

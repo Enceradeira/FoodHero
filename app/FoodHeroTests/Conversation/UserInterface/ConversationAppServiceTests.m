@@ -20,7 +20,6 @@
 #import "CLLocationManagerProxyStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
-#import "FoodHero-Swift.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -35,6 +34,7 @@ ConversationAppServiceTests {
     RestaurantSearchServiceStub *_searchServiceStub;
     CLLocationManagerProxyStub *_locationManager;
     SpeechRecognitionServiceStub *_speechRecognitionService;
+    ConversationRepository *_conversationRepository;
 }
 
 - (void)setUp {
@@ -42,6 +42,7 @@ ConversationAppServiceTests {
 
     [TyphoonComponents configure:[StubAssembly new]];
     _searchServiceStub = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
+    _conversationRepository = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] conversationRepository];
     _service = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] conversationAppService];
     _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
     _speechRecognitionService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] speechRecognitionService];
@@ -136,7 +137,15 @@ ConversationAppServiceTests {
 - (void)test_conversationStart_ShouldSetStateOnSpeechRecognitionService {
     [_service startConversation];
 
-    assertThat(_speechRecognitionService.state,is(equalTo(@"askForSuggestionFeedback")));
+    assertThat(_speechRecognitionService.state, is(equalTo(@"askForSuggestionFeedback")));
+}
+
+- (void)test_conversationStart_ShouldSetThreadIdOnSpeechRecognitionService {
+    Conversation* onlyConversation = [_conversationRepository getForInput:nil];
+
+    [_service startConversation];
+
+    assertThat(_speechRecognitionService.threadId, is(equalTo(onlyConversation.id)));
 }
 
 - (void)test_getFirstStatement_ShouldReturnDifferentInstanceOfBubble_WhenWidthChanges {

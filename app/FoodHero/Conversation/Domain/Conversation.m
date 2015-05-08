@@ -37,6 +37,7 @@
         _input = input;
         _assembly = assembly;
         _isStarted = NO;
+        _id = [[NSUUID UUID] UUIDString];
     }
     return self;
 }
@@ -107,7 +108,7 @@
             linq_where:^(UserParameters *p) {
                 return (BOOL) ([p hasSemanticId:@"U:WantsToStartAgain"] ||
                         [p hasSemanticId:@"U:GoodBye"] ||
-                        [p hasSemanticId:@"U:WantsToSearchForAnotherRestaurant"]) ;
+                        [p hasSemanticId:@"U:WantsToSearchForAnotherRestaurant"]);
             }]
             linq_lastOrNil];
 

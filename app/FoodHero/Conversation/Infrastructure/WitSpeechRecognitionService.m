@@ -7,7 +7,6 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
-#import "FoodHero-Swift.h"
 
 @implementation WitSpeechRecognitionService {
 
@@ -108,11 +107,13 @@
 }
 
 - (void)setState:(NSString *)state {
-    NSLog(@"WitSpeechRecognitionService.setState: state is %@",state);
+    NSLog(@"WitSpeechRecognitionService.setState: state is %@", state);
     _currState = state;
     [_wit setContext:@{@"state" : state}];
-    // [_wit setThreadId:@"rummby"];
 }
 
+- (void)setThreadId:(NSString *)id {
+    [_wit setThreadId:id];
+}
 
 @end
