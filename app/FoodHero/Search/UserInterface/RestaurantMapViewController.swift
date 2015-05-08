@@ -9,6 +9,8 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
     var _restaurant: Restaurant!
     var _locationService: LocationService!
 
+    @IBOutlet weak var mapView: UIView!
+    @IBOutlet weak var directionsView: UIView!
     func setRestaurant(restaurant: Restaurant) {
         _restaurant = restaurant;
     }
@@ -19,8 +21,6 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //automaticallyAdjustsScrollViewInsets = false;
 
         let myLocation = _locationService.lastKnownLocation()
         let myCoordinate = myLocation.coordinate
@@ -35,22 +35,26 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         let camera = GMSCameraPosition.cameraWithLatitude(midpoint.latitude, longitude: midpoint.longitude, zoom: zoom);
 
         // Map
-        var mapView: GMSMapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera);
-        mapView.myLocationEnabled = true
-        mapView.settings.myLocationButton = true;
-        mapView.settings.compassButton = true;
-        mapView.delegate = self
+        var subView: GMSMapView = GMSMapView.mapWithFrame(mapView.frame, camera: camera);
+        subView.myLocationEnabled = true
+        subView.settings.myLocationButton = true;
+        subView.settings.compassButton = true;
+        subView.delegate = self
 
         // Marker
         let marker = GMSMarker()
         marker.position = restaurantCoordinate
         marker.snippet = _restaurant.name // or title
         marker.icon = GMSMarker.markerImageWithColor(FoodHeroColors.actionColor())
-        marker.map = mapView
-        mapView.selectedMarker = marker
+        marker.map = subView
+        subView.selectedMarker = marker
 
-        self.view = mapView
-
+        // Add Map View
+        subView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        mapView.addSubview(subView)
+        let subViews  = ["subView": subView]
+        mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
+        mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
     }
 
 

@@ -16,6 +16,7 @@
                     </navigationBar>
                     <connections>
                         <segue destination="Xf7-7W-WAu" kind="relationship" relationship="rootViewController" id="Cdd-kV-dbe"/>
+                        <segue destination="pHo-nb-mpi" kind="push" id="R6w-a1-22P"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROR-5s-y28" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -406,9 +407,6 @@ Norwich, Norfolk NR1 3DN</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="pHo-nb-mpi" kind="push" id="1ok-87-QMb"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="hzf-Se-7zH">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -535,15 +533,72 @@ Norwich, Norfolk NR1 3DN</string>
                         <viewControllerLayoutGuide type="bottom" id="Mbp-eV-CCI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="F3D-2p-6V5">
-                        <rect key="frame" x="0.0" y="0.0" width="277" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-OT-2rB" userLabel="Map View">
+                                <rect key="frame" x="0.0" y="119" width="320" height="449"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V6F-ma-T1I" userLabel="Directions View">
+                                <rect key="frame" x="22" y="64" width="298" height="55"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyO-iw-pFv" customClass="UIButtonWithTouchReaction">
+                                        <rect key="frame" x="0.0" y="10" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="2ee-nh-bII"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="C8a-wW-eUx"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="Mdr-MX-W3l"/>
+                                            <constraint firstAttribute="height" constant="35" id="Skq-0j-2rf"/>
+                                        </constraints>
+                                        <state key="normal" image="directions-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="wOM-mC-xBe"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFy-1g-SEz" customClass="UILabelWithTouchReaction">
+                                        <rect key="frame" x="48" y="10" width="240" height="35"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="5LG-0B-1o8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="fyO-iw-pFv" secondAttribute="bottom" constant="10" id="5S2-QN-hNu"/>
+                                    <constraint firstItem="FFy-1g-SEz" firstAttribute="leading" secondItem="fyO-iw-pFv" secondAttribute="trailing" constant="13" id="TEy-Zy-ke0"/>
+                                    <constraint firstItem="fyO-iw-pFv" firstAttribute="top" secondItem="V6F-ma-T1I" secondAttribute="top" constant="10" id="Tq3-4x-lmR"/>
+                                    <constraint firstItem="fyO-iw-pFv" firstAttribute="leading" secondItem="V6F-ma-T1I" secondAttribute="leading" id="bkd-nE-64V"/>
+                                    <constraint firstAttribute="trailing" secondItem="FFy-1g-SEz" secondAttribute="trailing" constant="10" id="z5X-Yp-4en"/>
+                                    <constraint firstItem="FFy-1g-SEz" firstAttribute="top" secondItem="fyO-iw-pFv" secondAttribute="top" id="zJq-sE-5lF"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5HR-OT-2rB" firstAttribute="top" secondItem="V6F-ma-T1I" secondAttribute="bottom" id="BZT-Y3-6uM"/>
+                            <constraint firstItem="V6F-ma-T1I" firstAttribute="top" secondItem="U7t-9S-abE" secondAttribute="bottom" id="SOi-g7-2nd"/>
+                            <constraint firstAttribute="trailing" secondItem="V6F-ma-T1I" secondAttribute="trailing" id="Sc6-Ss-MM0"/>
+                            <constraint firstItem="V6F-ma-T1I" firstAttribute="leading" secondItem="F3D-2p-6V5" secondAttribute="leading" constant="22" id="aHd-b4-Us0"/>
+                            <constraint firstItem="Mbp-eV-CCI" firstAttribute="top" secondItem="5HR-OT-2rB" secondAttribute="bottom" id="eed-9F-lIu"/>
+                            <constraint firstItem="5HR-OT-2rB" firstAttribute="leading" secondItem="F3D-2p-6V5" secondAttribute="leading" id="fnA-OU-8qr"/>
+                            <constraint firstAttribute="trailing" secondItem="5HR-OT-2rB" secondAttribute="trailing" id="qaf-fG-FxW"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="84n-2S-wW8"/>
+                    <connections>
+                        <outlet property="directionsView" destination="V6F-ma-T1I" id="rDK-WR-j6U"/>
+                        <outlet property="mapView" destination="5HR-OT-2rB" id="WoU-MT-qXR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHA-1O-eXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1538.5" y="2218"/>
+            <point key="canvasLocation" x="147" y="224"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="HRM-u1-pSN">
