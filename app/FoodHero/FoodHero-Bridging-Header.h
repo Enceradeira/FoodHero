@@ -4,6 +4,7 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACBacktrace.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "Conversation.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
@@ -17,3 +18,4 @@
 #import "NoRestaurantsFoundError.h"
 #import "SearchError.h"
 #import "IEnvironment.h"
+#import "FoodHeroColors.h"

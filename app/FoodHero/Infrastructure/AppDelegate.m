@@ -8,6 +8,7 @@
 
 #import <Typhoon.h>
 #import <Wit/Wit.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "AppDelegate.h"
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
@@ -15,6 +16,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
+
     [TyphoonComponents configure:[DefaultAssembly assembly]];
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
 
