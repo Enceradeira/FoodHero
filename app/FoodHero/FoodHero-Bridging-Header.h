@@ -19,3 +19,4 @@
 #import "SearchError.h"
 #import "IEnvironment.h"
 #import "FoodHeroColors.h"
+#import "KeywordEncoder.h"

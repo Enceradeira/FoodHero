@@ -554,6 +554,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="directionsTouched:" destination="pHo-nb-mpi" eventType="touchUpInside" id="5pf-U8-mMQ"/>
                                             <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="wOM-mC-xBe"/>
                                         </connections>
                                     </button>
@@ -592,8 +593,9 @@ Norwich, Norfolk NR1 3DN</string>
                     </view>
                     <navigationItem key="navigationItem" id="84n-2S-wW8"/>
                     <connections>
+                        <outlet property="directions" destination="FFy-1g-SEz" id="PV6-m9-5Ol"/>
                         <outlet property="directionsView" destination="V6F-ma-T1I" id="rDK-WR-j6U"/>
-                        <outlet property="mapView" destination="5HR-OT-2rB" id="WoU-MT-qXR"/>
+                        <outlet property="mapView" destination="5HR-OT-2rB" id="Kiv-Tz-sTn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHA-1O-eXR" userLabel="First Responder" sceneMemberID="firstResponder"/>

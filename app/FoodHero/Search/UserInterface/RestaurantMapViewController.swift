@@ -9,6 +9,7 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
     var _restaurant: Restaurant!
     var _locationService: LocationService!
 
+    @IBOutlet weak var directions: UILabel!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var directionsView: UIView!
     func setRestaurant(restaurant: Restaurant) {
@@ -52,10 +53,32 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         // Add Map View
         subView.setTranslatesAutoresizingMaskIntoConstraints(false)
         mapView.addSubview(subView)
-        let subViews  = ["subView": subView]
+        let subViews = ["subView": subView]
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
+
+        //  directions
+        var tapGesture = UITapGestureRecognizer(target: self, action: "userDidTapDirections")
+        directions.addGestureRecognizer(tapGesture)
+        directions.userInteractionEnabled = true
     }
 
+    @IBAction func directionsTouched(sender: AnyObject) {
+        userDidTapDirections()
+    }
+
+    func userDidTapDirections() {
+        let coordinate = _locationService.lastKnownLocation().coordinate
+
+        let encodedComponents = _restaurant.addressComponents.map {
+            (component: AnyObject!) in
+            return KeywordEncoder.encodeString(component as! String) as String
+        }
+
+        let restaurantAddressEncoded = ",".join(encodedComponents)
+        let url = "https://www.google.com/maps/dir/\(coordinate.latitude),\(coordinate.longitude)/\(restaurantAddressEncoded)"
+        let webUrl = NSURL(string:url)!
+        UIApplication.sharedApplication().openURL(webUrl)
+    }
 
 }
