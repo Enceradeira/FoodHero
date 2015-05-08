@@ -67,6 +67,17 @@
     ];
 }
 
+-(id)restaurantMapViewController{
+    return [TyphoonDefinition
+            withClass:[RestaurantMapViewController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setLocationService:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self locationService]];
+
+                }];
+            }
+    ];
+}
+
 - (id)conversationViewController {
     return [TyphoonDefinition
             withClass:[ConversationViewController class] configuration:^(TyphoonDefinition *definition) {

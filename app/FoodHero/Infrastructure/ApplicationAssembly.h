@@ -13,6 +13,8 @@
 
 - (id)restaurantReviewSummaryViewController;
 
+- (id)restaurantMapViewController;
+
 - (id)navigationViewController;
 
 - (id)conversationViewController;
