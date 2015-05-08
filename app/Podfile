@@ -11,6 +11,7 @@ target :FoodHero do
     pod "SORelativeDateTransformer"
     # pod 'Wit', '~> 4.0.0'
     pod 'Wit',  :path => './../../wit-ios-sdk'
+    pod 'Google-Maps-iOS-SDK'
 end
 
 target :FoodHeroTests do

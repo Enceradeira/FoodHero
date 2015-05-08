@@ -51,10 +51,12 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "Google-Maps-iOS-SDK/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
   install_resource "SORelativeDateTransformer/SORelativeDateTransformer/SORelativeDateTransformer.bundle"
   install_resource "../../../wit-ios-sdk/WitResources/Images/microphone.png"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "Google-Maps-iOS-SDK/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
   install_resource "SORelativeDateTransformer/SORelativeDateTransformer/SORelativeDateTransformer.bundle"
   install_resource "../../../wit-ios-sdk/WitResources/Images/microphone.png"
 fi
