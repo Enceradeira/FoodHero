@@ -384,8 +384,8 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="Uwi-rJ-4Ea"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13" customClass="UILabelWithTouchReaction">
-                                                    <rect key="frame" x="42" y="3" width="77" height="35"/>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13" customClass="UILabelWithTouchReaction">
+                                                    <rect key="frame" x="42" y="3" width="35" height="35"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="hqY-j2-JUP"/>
