@@ -58,12 +58,12 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
 
-        //  directions
+        //  map
         var tapGesture = UITapGestureRecognizer(target: self, action: "userDidTapDirections")
         directions.addGestureRecognizer(tapGesture)
         directions.userInteractionEnabled = true
 
-        // directions button
+        // map button
         directionsButton.imageView!.highlightedImage = UIImage(named:"directions-icon-transparent@2x.png");
     }
 

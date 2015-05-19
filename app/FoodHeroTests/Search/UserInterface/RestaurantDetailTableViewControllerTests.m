@@ -77,14 +77,14 @@
     _restaurant = [[[RestaurantBuilder alloc] withDistance:2000] build];
     [_ctrl setRestaurant:_restaurant];
 
-    assertThat(_ctrl.directions.text, is(equalTo(@"1.2 miles away")));
+    assertThat(_ctrl.map.text, is(equalTo(@"1.2 miles away")));
 }
 
 - (void)test_direction_ShouldBeDistanceInMiles_WhenLessThanHalfAMileAway {
     _restaurant = [[[RestaurantBuilder alloc] withDistance:300] build];
     [_ctrl setRestaurant:_restaurant];
 
-    assertThat(_ctrl.directions.text, is(equalTo(@"328 yards away")));
+    assertThat(_ctrl.map.text, is(equalTo(@"328 yards away")));
 }
 
 -(void)test_phoneButton_ShouldBeHidden_WhenNoPhoneNumberAvailable{

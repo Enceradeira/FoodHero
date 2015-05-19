@@ -382,7 +382,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="Uwi-rJ-4Ea"/>
+                                                        <action selector="mapTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="Uwi-rJ-4Ea"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef5-Er-q13" customClass="UILabelWithTouchReaction">
@@ -509,8 +509,8 @@ Norwich, Norfolk NR1 3DN</string>
                     </tableView>
                     <connections>
                         <outlet property="address" destination="Ro5-yl-N6Q" id="Dz8-c9-veS"/>
-                        <outlet property="directions" destination="Ef5-Er-q13" id="6yi-sa-XYP"/>
-                        <outlet property="directionsButton" destination="19A-3M-klq" id="hbN-NV-e1e"/>
+                        <outlet property="map" destination="Ef5-Er-q13" id="6yi-sa-XYP"/>
+                        <outlet property="mapButton" destination="19A-3M-klq" id="hbN-NV-e1e"/>
                         <outlet property="name" destination="8Om-yh-Ima" id="5KY-g5-Al2"/>
                         <outlet property="openingHours" destination="sL3-sc-bC0" id="OKl-iq-Xlh"/>
                         <outlet property="openingStatus" destination="sDf-Kb-5Yc" id="KjJ-bb-Q6o"/>
@@ -555,7 +555,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         </state>
                                         <connections>
                                             <action selector="directionsTouched:" destination="pHo-nb-mpi" eventType="touchUpInside" id="5pf-U8-mMQ"/>
-                                            <action selector="directionsTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="wOM-mC-xBe"/>
+                                            <action selector="mapTouched:" destination="ihR-Mp-2f8" eventType="touchUpInside" id="wOM-mC-xBe"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFy-1g-SEz" customClass="UILabelWithTouchReaction">

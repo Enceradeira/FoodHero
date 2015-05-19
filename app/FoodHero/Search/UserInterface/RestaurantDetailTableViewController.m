@@ -31,12 +31,12 @@
 
     [_urlButton imageView].highlightedImage = [UIImage imageNamed:@"world-icon-transparent@2x.png"];
     [_phoneButton imageView].highlightedImage = [UIImage imageNamed:@"phone-receiver-icon-transparent@2x.png"];
-    [_directionsButton imageView].highlightedImage = [UIImage imageNamed:@"map-icon-transparent@2x.png"];
+    [_mapButton imageView].highlightedImage = [UIImage imageNamed:@"map-icon-transparent@2x.png"];
 
     [self addTapGesture:self.openingHours handledBy:@selector(openingHoursTouched:)];
     [self addTapGesture:self.phoneNumber handledBy:@selector(phoneNumberTouched:)];
     [self addTapGesture:self.url handledBy:@selector(urlTouched:)];
-    [self addTapGesture:self.directions handledBy:@selector(directionsTouched:)];
+    [self addTapGesture:self.map handledBy:@selector(mapTouched:)];
 
     [self bind];
 }
@@ -96,11 +96,11 @@
     double meters = _restaurant.distance;
     double miles = meters / 1000 * 0.621;
     if( miles >= 0.2){
-        self.directions.text = [NSString stringWithFormat:@"%.1f miles away",miles];
+        self.map.text = [NSString stringWithFormat:@"%.1f miles away",miles];
     }
     else{
         double yards = meters * 1.093613;
-        self.directions.text = [NSString stringWithFormat:@"%.0f yards away",yards];
+        self.map.text = [NSString stringWithFormat:@"%.0f yards away",yards];
     }
 
 }
@@ -116,7 +116,7 @@
     [[UIApplication sharedApplication] openURL:webUrl];
 }
 
-- (IBAction)directionsTouched:(UITapGestureRecognizer *)sender {
+- (IBAction)mapTouched:(UITapGestureRecognizer *)sender {
 
     /*
     CLLocationCoordinate2D coordinate = _locationService.lastKnownLocation.coordinate;

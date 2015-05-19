@@ -16,8 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *openingHours;
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
 @property (weak, nonatomic) IBOutlet UILabel *url;
-@property (weak, nonatomic) IBOutlet UILabel *directions;
-@property (weak, nonatomic) IBOutlet UIButton *directionsButton;
+@property (weak, nonatomic) IBOutlet UILabel *map;
+@property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *urlButton;
 @property (weak, nonatomic) IBOutlet UIButton *phoneButton;
 
@@ -27,5 +27,5 @@
 
 - (IBAction)phoneNumberTouched:(id)sender;
 - (IBAction)urlTouched:(id)sender;
-- (IBAction)directionsTouched:(id)sender;
+- (IBAction)mapTouched:(UITapGestureRecognizer *)sender;
 @end
