@@ -18,7 +18,11 @@ Feature: Navigation in app
     When I go back to the restaurants-details
     Then I see the review summary
 
-    When I go back
+    When I touch map
+    Then I see the map
+
+    When I go back to the restaurants-details
+    And I go back
     Then I see the conversation view
 
     When I go to the help view

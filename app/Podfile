@@ -17,11 +17,13 @@ end
 target :FoodHeroTests do
     pod 'OCHamcrest'
     pod 'XCAsyncTestCase'
+    pod 'Google-Maps-iOS-SDK'  # otherwise we get a problem with FoodHero-Bridging-Header.h
 end
 
 target :FoodHeroIntegrationsTests do
     pod 'OCHamcrest'
     pod 'XCAsyncTestCase'
+    pod 'Google-Maps-iOS-SDK'  # otherwise we get a problem with FoodHero-Bridging-Header.h
 end
 
 

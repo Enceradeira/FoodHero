@@ -373,6 +373,15 @@ When(/^I tough today's opening hours$/) do
   label.click
 end
 
+When(/^I touch map$/) do
+  map_elements[0].click
+end
+
+Then(/^I see the map$/) do
+  puts source
+  find_elements(:xpath,"//UIAButton[@name='Google Maps']")
+end
+
 Then(/^I can see the feedback list$/) do
   entry = feedback_entry('I like it')[0]
   expect(entry.displayed?).to be_truthy
@@ -432,16 +441,20 @@ Then(/^I touch the review summary$/) do
   review_summary.click
 end
 
+def map_elements
+  find_elements(:xpath, "//UIAStaticText[contains(@name,'miles away') or contains(@name,'yards away')]")
+end
+
 Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
 
-  directions = nil
+  map = nil
   wait_true({:timeout => 30, :interval=>0.3}) do
-    directions = find_elements(:xpath,"//UIAStaticText[contains(@name,'miles away') or contains(@name,'yards away')]")
-    directions.count > 0
+    map = map_elements
+    map.count > 0
   end
 
   # directions
-  expect(directions.count).to be(1)
+  expect(map.count).to be(1)
   # restaurant name
   restaurant = last_suggestions.last
   restaurant_name = restaurant.split(', ').first
