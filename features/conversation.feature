@@ -74,13 +74,6 @@ Feature: User interacts with app through conversation
    Then I see my answer with "Sushi" food
    And FoodHero suggests something else
 
-
-  Scenario: I asks to search for the wrong cuisine and I want to start over again
-    When FoodHero has started and can access location-services
-    Then FoodHero greets me and suggests something
-    When I want FoodHero to start over again
-    Then FoodHero asks what I wished to eat
-
   Scenario: I don't allow FoodHero to access location-API
     When FoodHero asks for access to the location-services
     And I don't allow access to the location-services

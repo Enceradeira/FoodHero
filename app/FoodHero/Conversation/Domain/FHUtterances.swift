@@ -262,7 +262,7 @@ public class FHUtterances {
     }
 
     class func noRestaurantsFound(def: StringDefinition) -> StringDefinition {
-        return def.words(["That’s weird. I can’t find any restaurants right now."]
+        return def.words(["That’s weird. I can’t find any restaurants right now.\n\nShould I start again?"]
                 , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound",
                 state: FHStates.noRestaurantWasFound(), expectedUserUtterances: ExpectedUserUtterances.whenNoRestaurantWasFound()))
 
