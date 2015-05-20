@@ -22,4 +22,11 @@ class OutputUtterance: Utterance {
             continuation()
         }
     }
+
+    var hasOutput : Bool {
+        get{
+            // produces output
+            return true;
+        }
+    }
 }

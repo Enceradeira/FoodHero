@@ -289,4 +289,35 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         assert(utterance: "Hi", exists: true, inExecutedScript: script, atPosition: 0)
         assert(utterance: "How are you?", exists: true, inExecutedScript: script, atPosition: 1)
     }
+
+    func test_talk_ShouldStreamInputImmediatly_WhenResponseIsEmpty() {
+        let script = TestScript()
+        .say(oneOf: { $0.words("Hello") })
+        .waitResponse(andContinueWith: {
+            return $1.defineEmpty() // No output produced
+        }, catch: nil)
+        .waitResponse(catch: nil)
+
+        sendInput("World")
+
+        assert(utterance: "World", exists: true, inExecutedScript: script, atPosition: 1)
+    }
+
+    func test_talk_ShouldStreamInputImmediatly_WhenResponseDoesntProduceOutput() {
+        let script = TestScript()
+        .say(oneOf: { $0.words("Hello") })
+        .waitResponse(andContinueWith: {
+            return $1.define{
+                // Waiting for another response without producing output
+                $0.waitResponse(andContinueWith: {
+                    return $1.defineEmpty() // No output produced
+                }, catch: nil)
+            }
+        }, catch: nil)
+        .waitResponse(catch: nil)
+
+        sendInput("World")
+
+        assert(utterance: "World", exists: true, inExecutedScript: script, atPosition: 1)
+    }
 }

@@ -35,9 +35,23 @@ class ResponseUtterance: Utterance {
 
             let futureScript = FutureScript(context: self._context)
             self._continuation(response: utterance, script: futureScript)
+            if futureScript.hasNoOutput {
+                // no output, therefore input is flushed immediatly. This would normally be triggered by
+                // a futureScript that produces output which is not the case here.
+                output.flush()
+            }
+
+            // execute the futureScript
             futureScript.script.subscribeNext {
                 Sequence.execute($0 as! Script, input, output, continuation);
             }
         })
+    }
+
+    var hasOutput : Bool {
+        get{
+            // Only reads input
+            return false;
+        }
     }
 }

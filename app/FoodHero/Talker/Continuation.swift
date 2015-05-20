@@ -21,4 +21,11 @@ class Continuation: Utterance {
         }
         output.flush()
     }
+
+    var hasOutput: Bool {
+        get {
+            // Produces output
+            return true;
+        }
+    }
 }

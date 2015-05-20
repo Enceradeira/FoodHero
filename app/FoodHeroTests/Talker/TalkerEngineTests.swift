@@ -63,8 +63,10 @@ public class TalkerEngineTests: XCTestCase {
         var utterances : [String] = []
 
         let signal = dialog.map {
-            (utterance: AnyObject?) in
-            return GenericWrapper(text: (utterance! as! TalkerUtterance).utterance, position: positionCount++)
+            (object: AnyObject?) in
+            let utterance = (object! as! TalkerUtterance).utterance
+            NSLog("Utterance: \(utterance)")
+            return GenericWrapper(text: utterance, position: positionCount++)
         }.filter {
             (object: AnyObject?) in
             let tuple = (object as! GenericWrapper<(text:String, position:Int)>)

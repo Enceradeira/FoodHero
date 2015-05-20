@@ -24,4 +24,10 @@ class OptionalUtterance: Utterance {
             continuation()
         }
     }
+
+    var hasOutput : Bool {
+        get{
+            return _utterance.hasOutput;
+        }
+    }
 }

@@ -31,8 +31,12 @@ class Branch: Utterance {
         } else {
             continuation()
         }
-
-
     }
 
+    var hasOutput : Bool {
+        get{
+            // Produces output
+            return true;
+        }
+    }
 }
