@@ -22,20 +22,28 @@ Feature: User interacts with app through conversation
 
     When I like the restaurant
     Then I see my answer "Like"
-    And FoodHero asks what to do next
+    And FoodHero asks if there's anything else
 
     When I want to search for another restaurant
     Then FoodHero asks what I wished to eat
 
     When I wish to eat "Sushi"
-    And FoodHero suggests something else
+    Then FoodHero suggests something else
+
+ Scenario: I end conversation and continue later
+    When FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
     And I like the restaurant
-    And FoodHero asks what to do next
-    And I say good bye
+    Then FoodHero asks if there's anything else
+
+    When I say there's nothing else
     Then FoodHero says good bye
 
-    When I want to search for another restaurant
-    Then FoodHero asks what I wished to eat
+    When I say good bye
+    Then FoodHero says still good bye
+
+    When I greet FoodHero
+    Then FoodHero greets me and suggests something
 
  Scenario: I become feed up with Food Hero
    When FoodHero has started and can access location-services
@@ -45,7 +53,7 @@ Feature: User interacts with app through conversation
    And FoodHero suggests something else
 
    When I want FoodHero to abort search
-   Then FoodHero asks what to do next after failure
+   Then FoodHero asks if there's anything else after failure
 
  Scenario: I search a restaurant for another occasion and another kind of food
    When FoodHero has started and can access location-services
@@ -100,13 +108,12 @@ Feature: User interacts with app through conversation
     When I don't like the restaurant
     Then FoodHero says that nothing was found
     When I want FoodHero to abort search
-    Then FoodHero asks what to do next after failure
-    When I say good bye
+    Then FoodHero asks if there's anything else after failure
+    When I say there's nothing else
     Then FoodHero says good bye
 
-    Given I want to search for another restaurant
-    And I wish to eat "Sushi"
-    And FoodHero says that nothing was found
+    Given I greet FoodHero
+    Then FoodHero says that nothing was found
     When I want FoodHero to start over again
     Then FoodHero asks what I wished to eat
 

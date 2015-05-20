@@ -14,8 +14,6 @@
 #import "ConversationBubbleTableViewCell.h"
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationViewStateNormal.h"
-#import "TyphoonComponents.h"
-#import "FoodHeroColors.h"
 #import "CheatTextFieldController.h"
 #import "RestaurantDetailViewController.h"
 #import "ConversationViewStateTextInput.h"
@@ -211,7 +209,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
             _currentFhBubble = foodHeroBubble;
         }
     }
-    else{
+    else if (![bubble.semanticId isEqualToString:@"U:GoodBye"]) {
         _currentFhBubble = nil;
     }
     _isProcessingUserInput = NO; // when we get here a new bubble is rendered, therefore the UserInput is finished being processed
@@ -266,12 +264,12 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
 
 - (void)userDidTouchLinkInConversationBubbleWith:(Restaurant *)restaurant {
-    if( restaurant != nil) {
+    if (restaurant != nil) {
         RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
         [controller setRestaurant:restaurant];
         [self.navigationController pushViewController:controller animated:YES];
     }
-    else{
+    else {
         // Help link
         HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
         [self initalizeHelpController:controller];
@@ -279,7 +277,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     }
 }
 
--(void)initalizeHelpController:(HelpViewController *)controller {
+- (void)initalizeHelpController:(HelpViewController *)controller {
     [controller setFhUtterance:_currentFhBubble.text expectedUserUtterances:self.expectedUserUtterances delegate:self];
 }
 

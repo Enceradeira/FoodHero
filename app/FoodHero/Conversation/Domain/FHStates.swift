@@ -33,4 +33,8 @@ public class FHStates: NSObject {
     public class func askForOccasion() -> String {
         return "askForOccasion"
     }
+
+    public class func conversationEnded() -> String {
+        return "conversationEnded"
+    }
 }

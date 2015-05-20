@@ -198,12 +198,12 @@ Then(/^FoodHero asks again what I think about suggestion$/) do
   expect(bubble).not_to be_nil
 end
 
-And(/^FoodHero asks what to do next$/) do
+And(/^FoodHero asks if there's anything else$/) do
   bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterSuccess', 0)
   expect(bubble).not_to be_nil
 end
 
-Then(/^FoodHero asks what to do next after failure$/) do
+Then(/^FoodHero asks if there's anything else after failure$/) do
   bubble, _ = wait_last_element_and_parameter('FH:WhatToDoNextCommentAfterFailure', 0)
   expect(bubble).not_to be_nil
 end
@@ -218,7 +218,7 @@ Then(/^FoodHero says he's not connected to the internet$/) do
   expect(bubble).not_to be_nil
 end
 
-Then(/^FoodHero says good bye$/) do
+Then(/^FoodHero says (still )?good bye$/) do |_|
   bubble, _ = wait_last_element_and_parameter('FH:GoodBye', 0)
   expect(bubble).not_to be_nil
 end
@@ -351,6 +351,10 @@ When(/^I want FoodHero to start over again$/) do
   touch_help_entry :name, 'Start again'
 end
 
+When(/^I greet FoodHero$/) do
+  touch_help_entry :name, 'Hello!'
+end
+
 When(/^I say nonsense$/) do
   text_field.send_keys('¨')
   touch_send
@@ -361,7 +365,11 @@ When(/^I wish to eat "Sushi"/) do
 end
 
 When(/^I say good bye$/) do
-  touch_help_entry :name, 'Good Bye'
+  touch_help_entry :name, 'Goodbye'
+end
+
+When(/^I say there's nothing else$/) do
+  touch_help_entry :name, 'No'
 end
 
 When(/^I touch input list button$/) do
@@ -378,7 +386,6 @@ When(/^I touch map$/) do
 end
 
 Then(/^I see the map$/) do
-  puts source
   find_elements(:xpath,"//UIAButton[@name='Google Maps']")
 end
 
@@ -496,5 +503,3 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
-
-

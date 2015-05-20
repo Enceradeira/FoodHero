@@ -219,6 +219,7 @@
 		23525D92526B979719806CBE /* RestaurantRepositoryWithSpyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235250670F0E7F51A6EEFFBD /* RestaurantRepositoryWithSpyTests.m */; };
 		23525DD36BC5801E655E48E8 /* ConversationViewController+ViewDimensionCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525129D661BF310556513F /* ConversationViewController+ViewDimensionCalculator.m */; };
 		23525DFCCCB06C180D8C1B0E /* ExpectedStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525027E6296572F52630CB /* ExpectedStatement.m */; };
+		23525DFDF8C992D576392A59 /* ConversationEndedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352500FB35D15763DB344DB /* ConversationEndedTests.swift */; };
 		23525E06C77F4BC7196EAA27 /* RestaurantSearchParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B5145A92DD20B961AF0 /* RestaurantSearchParams.m */; };
 		23525E547C007CD968008518 /* Statement.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B606EA734C3976F26B1 /* Statement.m */; };
 		23525E726D615BE8EB0F4568 /* RestaurantRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259F0564EACC22328D78F /* RestaurantRepository.m */; };
@@ -305,6 +306,7 @@
 		0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		135B99A3EEB77C125525C257 /* Pods-FoodHero.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.release.xcconfig"; sourceTree = "<group>"; };
 		2352500E77FD978526911096 /* UILabelVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelVisualizer.h; sourceTree = "<group>"; };
+		2352500FB35D15763DB344DB /* ConversationEndedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationEndedTests.swift; sourceTree = "<group>"; };
 		23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceTests.m; sourceTree = "<group>"; };
 		2352501E6C030CE2F173E16F /* RestaurantReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantReview.h; sourceTree = "<group>"; };
 		23525020FC84A3708E149B4F /* UILabelWithTouchReaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelWithTouchReaction.m; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				23525392369CC6F3B950A149 /* ConversationDislikesKindOfFoodTests.swift */,
 				23525BE6FF92114018318C4B /* ConversationDislikeOccasionTests.swift */,
 				235259391EEE9AD989B3CE8F /* ConversationUserWantsToAbortTests.swift */,
+				2352500FB35D15763DB344DB /* ConversationEndedTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1979,6 +1982,7 @@
 				2352505F344154F972F78411 /* OccasionToGoogleTypeMapperTests.swift in Sources */,
 				23525C9F6400130371368996 /* ConversationDislikeOccasionTests.swift in Sources */,
 				2352519AA7F771F1331D1C87 /* ConversationUserWantsToAbortTests.swift in Sources */,
+				23525DFDF8C992D576392A59 /* ConversationEndedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

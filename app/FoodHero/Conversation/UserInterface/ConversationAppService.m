@@ -116,6 +116,14 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances dislikesKindOfFood:interpretation.text];
                             return (id) utterance;
                         }
+                        else if ([interpretation.intent isEqualToString:@"WantsToStopConversation"]) {
+                            TalkerUtterance *utterance = [UserUtterances wantsToStopConversation:interpretation.text];
+                            return (id) utterance;
+                        }
+                        else if ([interpretation.intent isEqualToString:@"Hello"]) {
+                            TalkerUtterance *utterance = [UserUtterances hello:interpretation.text];
+                            return (id) utterance;
+                        }
                         assert(false);
                     }
                 }];

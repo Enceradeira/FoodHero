@@ -70,7 +70,7 @@ public class ExpectedUserUtterances: NSObject {
     public class func whenAskedForWhatToDoNext() -> ExpectedUserUtterances {
         return modelAnswersFrom(
         [
-                UserUtterances.goodBye(""),
+                UserUtterances.wantsToStopConversation(""),
                 UserUtterances.wantsToSearchForAnotherRestaurant("")
         ])
     }
@@ -95,6 +95,14 @@ public class ExpectedUserUtterances: NSObject {
         return modelAnswersFrom(
         [
                 UserUtterances.tryAgainNow("")
+        ])
+    }
+
+    public class func whenConversationEnded() -> ExpectedUserUtterances {
+        return modelAnswersFrom(
+        [
+                UserUtterances.goodBye(""),
+                UserUtterances.hello("")
         ])
     }
 

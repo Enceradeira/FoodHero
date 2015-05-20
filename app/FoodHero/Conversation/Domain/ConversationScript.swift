@@ -23,8 +23,12 @@ public class ConversationScript: Script {
 
         super.init(context: context)
 
-        say(oneOf: FHUtterances.greetings)
-        continueWith(continuation: searchAndWaitResponseAndSearchRepeatably)
+        sayGreetingAndAndSearchRepeatably(self)
+    }
+
+    func sayGreetingAndAndSearchRepeatably(script: Script) -> Script {
+        script.say(oneOf: FHUtterances.greetings)
+        return script.continueWith(continuation: searchAndWaitResponseAndSearchRepeatably)
     }
 
     func sayOpeningQuestionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
@@ -62,7 +66,6 @@ public class ConversationScript: Script {
                     $0.say(oneOf: lastQuestion)
                     return self.waitUserResponseAndHandleErrors($0, forQuestion: lastQuestion, andContinueWith: continuation)
                 }
-                return futureScript
             }, catch: {
                 self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
             })
@@ -109,6 +112,7 @@ public class ConversationScript: Script {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
 
             } else {
+                // "U:SuggestionFeedback=Like"
                 return $1.define {
                     $0.say(oneOf: FHUtterances.commentChoices)
                     return self.askWhatToDoNext($0)
@@ -145,7 +149,7 @@ public class ConversationScript: Script {
         return waitResponseForWhatToDoNext(script, forQuestion: question)
     }
 
-    func askWhatToDoNextAfterFailure(script: FutureScript) -> (FutureScript){
+    func askWhatToDoNextAfterFailure(script: FutureScript) -> (FutureScript) {
         return script.define {
             let whatToDoNextAfterFailure = FHUtterances.whatToDoNextAfterFailure
             $0.say(oneOf: whatToDoNextAfterFailure)
@@ -153,8 +157,47 @@ public class ConversationScript: Script {
         }
     }
 
+    func sayGoodbyeAndWaitResponse(script: Script) -> (Script) {
+        let question = FHUtterances.goodbyes
+        script.say(oneOf: question)
+        return waitUserHelloAndHandleErrors(script, forQuestion: question)
+    }
+
+    public func waitUserHelloAndHandleErrors(
+            script: Script,
+            forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> Script {
+        return waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
+            if $0.hasSemanticId("U:Hello") {
+                return $1.define {
+                    return self.sayGreetingAndAndSearchRepeatably($0)
+                }
+            } else {
+                return $1.define {
+                    return self.waitUserHelloAndHandleErrors($0, forQuestion: lastQuestion)
+                }
+            }
+        }
+    }
+
     func waitResponseForWhatToDoNext(script: Script, forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> (Script) {
         return waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
+            if $0.hasSemanticId("U:WantsToStopConversation") {
+                return $1.define {
+                    return self.sayGoodbyeAndWaitResponse($0)
+                }
+                /*
+                return $1.define {
+                    let question = FHUtterances.goodbyes
+                    $0.say(oneOf: question)
+                } */
+
+            } else {
+                return $1.define {
+                    return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
+                }
+            }
+/*
+
             if $0.hasSemanticId("U:GoodBye") {
                 return $1.define {
                     let question = FHUtterances.goodbyes
@@ -169,7 +212,7 @@ public class ConversationScript: Script {
                 return $1.define {
                     return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
                 }
-            }
+            }*/
         }
     }
 

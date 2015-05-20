@@ -208,7 +208,7 @@ public class FHUtterances {
                 "Behave yourself, now.",
                 "Don’t get a girl in trouble."],
                 withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess",
-                        state: FHStates.askForWhatToDoNext(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForWhatToDoNext()))
+                        state: FHStates.conversationEnded(), expectedUserUtterances: ExpectedUserUtterances.whenConversationEnded()))
     }
 
     class func commentChoices(def: StringDefinition) -> StringDefinition {

@@ -42,7 +42,7 @@ public class UserUtterances: NSObject {
     }
 
     public class func goodBye(text: String) -> TalkerUtterance {
-        return createUtterance("U:GoodBye", text: text, modelAnswer: "Good Bye");
+        return createUtterance("U:GoodBye", text: text, modelAnswer: "Goodbye");
     }
 
     public class func cuisinePreference(parameter: String, text: String) -> TalkerUtterance {
@@ -78,6 +78,14 @@ public class UserUtterances: NSObject {
     public class func suggestionFeedbackForLike(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=Like", text: text,
                 modelAnswer: "I like it", restaurant: restaurant)
+    }
+
+    public class func wantsToStopConversation(text: String) -> TalkerUtterance {
+        return createUtterance("U:WantsToStopConversation", text: text, modelAnswer: "No");
+    }
+
+    public class func hello(text: String) -> TalkerUtterance {
+        return createUtterance("U:Hello", text: text, modelAnswer: "Hello!");
     }
 
 }
