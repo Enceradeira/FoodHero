@@ -57,10 +57,11 @@ public class ExpectedUserUtterances: NSObject {
                 UserUtterances.suggestionFeedbackForTooFarAway(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooExpensive(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooCheap(dummyRestaurant, text: ""),
-                nil,    // creates a visible seperator on the UI
+                nil, // creates a visible seperator on the UI
                 UserUtterances.cuisinePreference("", text: ""),
                 UserUtterances.dislikesKindOfFood(""),
                 UserUtterances.dislikesOccasion("", occasion: occasion),
+                UserUtterances.occasionPreference("", text: ""),
                 nil,
                 UserUtterances.wantsToAbort("")
         ])
