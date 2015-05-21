@@ -17,7 +17,7 @@ public class OccasionToGoogleTypeMapper: NSObject {
             return ["cafe"]
         case Occasions.dinner():
             return ["restaurant", "meal_takeaway", "meal_delivery"]
-        case Occasions.drinks():
+        case Occasions.drink():
             return ["bar", "night_club"]
         default:
             assert(false, "occasion '\(occasion)' not found")

@@ -43,7 +43,7 @@ class OccasionToGoogleTypeMapperTests: XCTestCase {
 
     func test_map_shouldMapCorrectly_WhenDrinks() {
 
-        var types = OccasionToGoogleTypeMapper.map(Occasions.drinks())
+        var types = OccasionToGoogleTypeMapper.map(Occasions.drink())
 
         XCTAssertEqual(count(types), 2)
         XCTAssertEqual(types[0], "bar")

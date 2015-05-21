@@ -298,7 +298,7 @@
     [self.environmentStub injectNow:[NSCalendar dateFromYear:2015 month:3 day:25 hour:23 minute:15 second:14]];
 
     NSString *occasion = [self.conversation currentOccasion];
-    assertThat(occasion, is(equalTo(@"drinks")));
+    assertThat(occasion, is(equalTo(@"drink")));
 }
 
 -(void)test_currentOccasion_ShouldReturnCorrectOccasion_WhenUserHasCommentedOccasion{

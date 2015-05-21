@@ -66,10 +66,9 @@ static UIImage *EmptyImage;
                             return (id) utterance;
                         }
                         else if ([interpretation.intent containsString:@"OccasionPreference"]) {
-                            NSArray *parts = [interpretation.intent componentsSeparatedByString:@"_"];
-                            assert(parts.count == 2);
-                            NSString *occasion = parts[1];
-                            TalkerUtterance *utterance = [UserUtterances occasionPreference:[occasion lowercaseString] text:interpretation.text];
+                            assert(interpretation.entities.count == 1);
+                            NSString *entity = interpretation.entities[0];
+                            TalkerUtterance *utterance = [UserUtterances occasionPreference:entity text:interpretation.text];
                             return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_Like"]) {
@@ -187,7 +186,6 @@ static UIImage *EmptyImage;
 - (RACSignal *)statementIndexes {
     return _conversation.statementIndexes;
 }
-
 
 - (void)processCheat:(NSString *)command {
     if ([command isEqualToString:@"C:FS"]) {

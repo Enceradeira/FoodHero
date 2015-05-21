@@ -24,8 +24,8 @@ public class Occasions: NSObject {
         return "dinner"
     }
 
-    public class func drinks() -> String {
-        return "drinks"
+    public class func drink() -> String {
+        return "drink"
     }
 
     public class func getCurrent(env: IEnvironment) -> String {
@@ -44,7 +44,7 @@ public class Occasions: NSObject {
 
     private class func getOccasionForWeekdays(now: NSDate) -> String {
         if now.compare(compontens(hour: 4, minute: 59)) == .OrderedAscending {
-            return drinks()
+            return drink()
         }
         if now.compare(compontens(hour: 9, minute: 59)) == .OrderedAscending {
             return breakfast()
@@ -61,12 +61,12 @@ public class Occasions: NSObject {
         if now.compare(compontens(hour: 21, minute: 59)) == .OrderedAscending {
             return dinner()
         }
-        return drinks()
+        return drink()
     }
 
     private class func getOccasionForWeekend(now: NSDate) -> String {
         if now.compare(compontens(hour: 4, minute: 59)) == .OrderedAscending {
-            return drinks()
+            return drink()
         }
         if now.compare(compontens(hour: 10, minute: 59)) == .OrderedAscending {
             return breakfast()
@@ -83,7 +83,7 @@ public class Occasions: NSObject {
         if now.compare(compontens(hour: 21, minute: 59)) == .OrderedAscending {
             return dinner()
         }
-        return drinks()
+        return drink()
     }
 
     private class func getNowFromComponents(env: IEnvironment) -> NSDate {

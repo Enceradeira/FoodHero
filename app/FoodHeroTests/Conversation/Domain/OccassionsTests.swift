@@ -34,8 +34,8 @@ class OccasionsTests: XCTestCase {
         for day in 23 ... 27 {
             // 23 - 27/3/2015 are weekdays
             // assuming people start searching 15 min before begin of occasion
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 0, minute: 0, expected: Occasions.drinks())
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 4, minute: 44, expected: Occasions.drinks())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 0, minute: 0, expected: Occasions.drink())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 4, minute: 44, expected: Occasions.drink())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 4, minute: 45, expected: Occasions.breakfast())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 9, minute: 44, expected: Occasions.breakfast())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 9, minute: 45, expected: Occasions.snack())
@@ -46,8 +46,8 @@ class OccasionsTests: XCTestCase {
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 17, minute: 14, expected: Occasions.snack())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 17, minute: 15, expected: Occasions.dinner())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 21, minute: 44, expected: Occasions.dinner())
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 21, minute: 45, expected: Occasions.drinks())
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 23, minute: 59, expected: Occasions.drinks())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 21, minute: 45, expected: Occasions.drink())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 23, minute: 59, expected: Occasions.drink())
         }
 
     }
@@ -64,8 +64,8 @@ class OccasionsTests: XCTestCase {
         for day in 28 ... 29 {
             // 28 - 29/3/2015 are weekend days
             // assuming people start searching 15 min before begin of occasion
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 0, minute: 0, expected: Occasions.drinks())
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 4, minute: 44, expected: Occasions.drinks())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 0, minute: 0, expected: Occasions.drink())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 4, minute: 44, expected: Occasions.drink())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 4, minute: 45, expected: Occasions.breakfast())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 10, minute: 44, expected: Occasions.breakfast())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 10, minute: 45, expected: Occasions.snack())
@@ -76,8 +76,8 @@ class OccasionsTests: XCTestCase {
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 17, minute: 14, expected: Occasions.snack())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 17, minute: 15, expected: Occasions.dinner())
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 21, minute: 44, expected: Occasions.dinner())
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 21, minute: 45, expected: Occasions.drinks())
-            assertOccassionAt(year: 2015, month: 3, day: day, hour: 23, minute: 59, expected: Occasions.drinks())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 21, minute: 45, expected: Occasions.drink())
+            assertOccassionAt(year: 2015, month: 3, day: day, hour: 23, minute: 59, expected: Occasions.drink())
         }
     }
 }
