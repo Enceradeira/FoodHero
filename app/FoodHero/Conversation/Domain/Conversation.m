@@ -13,7 +13,6 @@
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
 #import "FoodHero-Swift.h"
-#import "IEnvironment.h"
 
 
 @interface Conversation ()
@@ -104,17 +103,20 @@
 }
 
 - (NSArray *)parametersOfCurrentSearch {
-    Statement *lastUserUtterance = [[[_rawConversation linq_ofType:[UserParameters class]]
-            linq_where:^(UserParameters *p) {
-                return (BOOL) ([p hasSemanticId:@"U:WantsToStartAgain"] ||
-                        [p hasSemanticId:@"U:GoodBye"] ||
-                        [p hasSemanticId:@"U:WantsToSearchForAnotherRestaurant"]);
+    Statement *lastUserUtterance = [[[_rawConversation linq_ofType:[FoodHeroParameters class]]
+            linq_where:^(FoodHeroParameters *p) {
+                return (BOOL) ([p hasSemanticId:@"FH:ConfirmsRestart"] ||
+                        [p hasSemanticId:@"FH:Greeting"] ||
+                        [p hasSemanticId:@"FH:OpeningQuestion"]);
             }]
             linq_lastOrNil];
 
     // -> "lastUserUtterance" is followed by things that belong to next search
-    NSUInteger indexOfNextSearchBegin = [_rawConversation indexOfObject:lastUserUtterance] + 1;
-    NSUInteger currentSearchBeginCount = (lastUserUtterance == nil || indexOfNextSearchBegin >= _rawConversation.count) ? 0 : indexOfNextSearchBegin;
+    NSUInteger currentSearchBeginCount = 0;
+    if (lastUserUtterance != nil) {
+        NSUInteger indexOfNextSearchBegin = [_rawConversation indexOfObject:lastUserUtterance];
+        currentSearchBeginCount = indexOfNextSearchBegin + 1;
+    }
 
     return [_rawConversation linq_skip:currentSearchBeginCount];
 

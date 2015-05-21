@@ -33,20 +33,14 @@
 }
 
 - (void)test_UDidResolveProblemWithAccessLocationServiceOrUsersTriesAgain_ShouldBeHandledRepeatably {
-    // Problem no restaurant found repeats
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindNothing];
-    }];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
-    [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];
-    [self sendInput:[UserUtterances tryAgainNow:@"Again please!"]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 
-    // Problem with kCLAuthorizationStatusRestricted repeats
+    // Problem with kCLAuthorizationStatusRestricted
     [self configureRestaurantSearchForLatitude:12 longitude:1 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusRestricted];
+
+    [self resetConversation];
     [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];  // tries again but not no authorization present
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:[FHStates afterCantAccessLocationService]];
 
@@ -55,19 +49,9 @@
     [self sendInput:[UserUtterances tryAgainNow:@"I fixed it again"]];
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:[FHStates afterCantAccessLocationService]];
 
-    // Problem no restaurant found again
+    // All Problems fixed
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
-    [self configureRestaurantSearchForLatitude:-56 longitude:10 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindNothing];
-    }];
     [self sendInput:[UserUtterances tryAgainNow:@"I fixed it again"]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
-
-    // Problems finally solved
-    [self configureRestaurantSearchForLatitude:-10 longitude:0 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindSomething];
-    }];
-    [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
@@ -82,12 +66,12 @@
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
     [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];
-    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
 
     [self configureRestaurantSearchForLatitude:22 longitude:1 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self sendInput:[UserUtterances tryAgainNow:@"Again please!"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"India" text:@"Indian"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
@@ -108,7 +92,8 @@
     }];
 
     [self sendInput:[UserUtterances tryAgainNow:@"Again please!"]];
-    [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
+    [self sendInput:[UserUtterances cuisinePreference:@"India" text:@"Indian"]];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];

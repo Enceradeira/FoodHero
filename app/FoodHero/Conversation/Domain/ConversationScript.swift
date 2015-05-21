@@ -185,34 +185,11 @@ public class ConversationScript: Script {
                 return $1.define {
                     return self.sayGoodbyeAndWaitResponse($0)
                 }
-                /*
-                return $1.define {
-                    let question = FHUtterances.goodbyes
-                    $0.say(oneOf: question)
-                } */
-
             } else {
                 return $1.define {
                     return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
                 }
             }
-/*
-
-            if $0.hasSemanticId("U:GoodBye") {
-                return $1.define {
-                    let question = FHUtterances.goodbyes
-                    $0.say(oneOf: question)
-                    return self.waitUserResponseAndHandleErrors($0, forQuestion: question) {
-                        return $1.define {
-                            return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
-                        }
-                    }
-                }
-            } else {
-                return $1.define {
-                    return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
-                }
-            }*/
         }
     }
 
@@ -320,7 +297,7 @@ public class ConversationScript: Script {
                 if $0.hasSemanticId("U:WantsToAbort") {
                     return self.askWhatToDoNextAfterFailure($1)
                 } else if $0.hasSemanticId("U:TryAgainNow") {
-                    return self.searchAndWaitResponseAndSearchRepeatably($1)
+                    return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else if $0.hasSemanticId("U:WantsToStartAgain") {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else {

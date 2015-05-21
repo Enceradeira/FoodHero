@@ -33,34 +33,17 @@
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:[FHStates afterCantAccessLocationService]];
 }
 
-- (void)test_UTryAgainNow_ShouldAddFHSuggestion_WhenRestaurantsFoundNow {
-    // user searches and finds nothing
+- (void)test_UTrayAgainNow_ShouldAddFHOpeningQuestion_WhenNoRestaurantsFound {
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
+
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
-
-    // user changes location and finds something
-    [self configureRestaurantSearchForLatitude:12.00 longitude:-75.56 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindSomething];
-    }];
-    [self sendInput:[UserUtterances tryAgainNow:@""]];
-
-    [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
-}
-
-- (void)test_UTrayAgainNow_ShouldAddNoRestaurantFound_WhenStillNoRestaurantsFound {
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindNothing];
-    }];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
-
-    [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
-        [stub injectFindNothing];
-    }];
-    [self sendInput:[UserUtterances tryAgainNow:@""]];
-
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
+
+    [self sendInput:[UserUtterances tryAgainNow:@""]];
+    [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
+
 }
 
 - (void)test_UWantsToAbort_ShouldAddWhatToDoNextAfterFailure {

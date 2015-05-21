@@ -99,10 +99,15 @@ Feature: User interacts with app through conversation
     Then FoodHero says that nothing was found
 
     When I say try again
+    Then FoodHero asks what I wished to eat
+
+    When I wish to eat "Sushi"
     Then FoodHero says that nothing was found
 
     Given FoodHero will find restaurants
     When I say try again
+    And FoodHero asks what I wished to eat
+    And I wish to eat "Sushi"
     Then FoodHero suggests something else
 
     Given FoodHero will not find any restaurants

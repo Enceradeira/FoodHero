@@ -241,6 +241,18 @@
     assertThat(distanceRange, is(nilValue()));
 }
 
+-(void)test_currentSearchPreferenceCuisineShouldBeNil_WhenSearchHasBeenRestarted{
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances tryAgainNow:@"Try again"]];
+
+    NSString* cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+
+    assertThat(cuisine, is(equalTo(@"")));
+}
+
 - (void)test_lastSuggestionWarning_ShouldReturnNil_WhenNoSuggestionWarningExists {
     assertThat([self.conversation lastSuggestionWarning], is(nilValue()));
 }
