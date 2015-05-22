@@ -102,14 +102,14 @@ Feature: User interacts with app through conversation
     And I don't like the restaurant
     Then FoodHero says that nothing was found
 
-    When I say try again
+    When I want FoodHero to start over again
     Then FoodHero asks what I wished to eat
 
     When I wish to eat "Sushi"
     Then FoodHero says that nothing was found
 
     Given FoodHero will find restaurants
-    When I say try again
+    When I want FoodHero to start over again
     And FoodHero asks what I wished to eat
     And I wish to eat "Sushi"
     Then FoodHero suggests something else
@@ -123,9 +123,10 @@ Feature: User interacts with app through conversation
     Then FoodHero says good bye
 
     Given I greet FoodHero
-    Then FoodHero says that nothing was found
-    When I want FoodHero to start over again
-    Then FoodHero asks what I wished to eat
+    And FoodHero says that nothing was found
+    And FoodHero will find restaurants
+    When I wish to eat "Sushi"
+    Then FoodHero suggests something else
 
   Scenario: FoodHero is offline
     Given FoodHero has started and can access location-services

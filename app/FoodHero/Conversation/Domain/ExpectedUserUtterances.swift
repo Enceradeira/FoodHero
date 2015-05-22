@@ -86,9 +86,9 @@ public class ExpectedUserUtterances: NSObject {
     public class func whenNoRestaurantWasFound() -> ExpectedUserUtterances {
         return modelAnswersFrom(
         [
-                UserUtterances.tryAgainNow(""),
-                UserUtterances.wantsToAbort(""),
-                UserUtterances.wantsToStartAgain("")
+                UserUtterances.cuisinePreference("", text: ""),
+                UserUtterances.wantsToStartAgain(""),
+                UserUtterances.wantsToAbort("")
         ])
     }
 

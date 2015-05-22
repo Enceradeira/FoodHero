@@ -46,6 +46,21 @@
 
 }
 
+- (void)test_UTrayAgainNow_ShouldAddFHSuggestion_WhenUsersGivesCuisinePreference {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindNothing];
+    }];
+
+    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
+
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+        [stub injectFindSomething];
+    }];
+    [self sendInput:[UserUtterances cuisinePreference:@"Swiss Food" text:@"I love fondue"]];
+    [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
+}
+
 - (void)test_UWantsToAbort_ShouldAddWhatToDoNextAfterFailure {
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];

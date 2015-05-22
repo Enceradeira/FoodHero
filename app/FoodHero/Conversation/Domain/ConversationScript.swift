@@ -137,7 +137,7 @@ public class ConversationScript: Script {
             }
             currentFutureScript.define {
                 $0.say(oneOf: FHUtterances.isVeryBusyAtTheMoment)
-                return $0.continueWith{
+                return $0.continueWith {
                     currentFutureScript = $0
                     return $0
                 }
@@ -321,10 +321,13 @@ public class ConversationScript: Script {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else if $0.hasSemanticId("U:WantsToStartAgain") {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
+                } else if $0.hasSemanticId("U:CuisinePreference") {
+                    return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else {
                     assert(false, "response \($0.semanticIdInclParameters) not handled")
                 }
             }
+
             return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")

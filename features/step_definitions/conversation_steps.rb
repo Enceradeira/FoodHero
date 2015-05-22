@@ -357,7 +357,7 @@ When(/^I say that problem with location\-service has been fixed$/) do
 end
 
 When(/^I want FoodHero to start over again$/) do
-  touch_help_entry :name, 'Start again'
+  touch_help_entry :name, "Let's start again"
 end
 
 When(/^I greet FoodHero$/) do
@@ -370,7 +370,7 @@ When(/^I say nonsense$/) do
 end
 
 When(/^I wish to eat "Sushi"/) do
-  touch_help_entry :name, "I'd rather have Sushi"
+  touch_help_entry :name, 'Search for Sushi'
 end
 
 When(/^I say good bye$/) do

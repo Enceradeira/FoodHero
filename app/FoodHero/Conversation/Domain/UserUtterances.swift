@@ -34,7 +34,7 @@ public class UserUtterances: NSObject {
     }
 
     public class func wantsToStartAgain(text: String) -> TalkerUtterance {
-        return createUtterance("U:WantsToStartAgain", text: text, modelAnswer: "Start again");
+        return createUtterance("U:WantsToStartAgain", text: text, modelAnswer: "Let's start again");
     }
 
     public class func tryAgainNow(text: String) -> TalkerUtterance {
@@ -47,7 +47,7 @@ public class UserUtterances: NSObject {
 
     public class func cuisinePreference(parameter: String, text: String) -> TalkerUtterance {
         return createUtterance("U:CuisinePreference=\(parameter)", text: text,
-                modelAnswer: "I'd rather have Sushi", parameter: parameter);
+                modelAnswer: "Search for Sushi", parameter: parameter);
     }
 
     public class func occasionPreference(parameter: String, text: String) -> TalkerUtterance {
