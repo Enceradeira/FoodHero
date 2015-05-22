@@ -285,4 +285,11 @@ public class FHUtterances {
                 , withCustomData: FoodHeroParameters(semanticId: "FH:DidNotUnderstandAndAsksForRepetition",
                 state: state, expectedUserUtterances: expectedUserUtterances))
     }
+
+    class func isVeryBusyAtTheMoment(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "Things are a bit busy today. Bear with!"],
+                withCustomData: FoodHeroParameters(semanticId: "FH:IsVeryBusyAtTheMoment",
+                        state: nil, expectedUserUtterances: nil))
+    }
 }

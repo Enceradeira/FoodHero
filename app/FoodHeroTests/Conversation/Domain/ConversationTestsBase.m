@@ -6,7 +6,6 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest.h>
 #import "ConversationTestsBase.h"
-#import "TyphoonComponents.h"
 #import "StubAssembly.h"
 #import "Personas.h"
 #import "ExpectedStatement.h"
@@ -26,6 +25,7 @@
     _input = [RACSubject new];
     _assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
     _restaurantSearchStub = [_assembly restaurantSearchService];
+    _restaurantRepository = [_assembly restaurantRepository];
     _locationManagerStub = [_assembly locationManagerProxy];
     [self resetConversation];
     _talkerRandomizerFake = [_assembly talkerRandomizer];
@@ -104,6 +104,10 @@
     NSMutableArray *list = [NSMutableArray new];
     [self expectedStatementIs:semanticId userAction:state inList:list];
     [self assertExpectedStatementsAtIndex:index inList:list];
+}
+
+- (void)asynch:(void (^)())handler {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), handler);
 }
 
 @end

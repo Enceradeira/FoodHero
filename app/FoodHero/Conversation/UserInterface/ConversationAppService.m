@@ -216,6 +216,7 @@ static UIImage *EmptyImage;
     }
     else if ([command isEqualToString:@"C:BS"]) {
         // be slow
+        ConversationScript.searchTimeout = 0.5;
         [_restaurantRepository simulateSlowResponse:YES];
     }
 }

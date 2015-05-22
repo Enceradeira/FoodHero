@@ -26,6 +26,9 @@ public class ConversationScript: Script {
         sayGreetingAndAndSearchRepeatably(self)
     }
 
+    // The time before FoodHero informs user that he's busy/delayed
+    public static var searchTimeout: Double = 15
+
     func sayGreetingAndAndSearchRepeatably(script: Script) -> Script {
         script.say(oneOf: FHUtterances.greetings)
         return script.continueWith(continuation: searchAndWaitResponseAndSearchRepeatably)
@@ -122,12 +125,29 @@ public class ConversationScript: Script {
     }
 
     func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript) -> (FutureScript) {
+        var currentFutureScript = futureScript
+        var searchHasEnded = false
 
         let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler()).take(1)
 
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(ConversationScript.searchTimeout * Double(NSEC_PER_SEC)))
+        dispatch_after(delay, dispatch_get_main_queue()) {
+            if searchHasEnded {
+                return;
+            }
+            currentFutureScript.define {
+                $0.say(oneOf: FHUtterances.isVeryBusyAtTheMoment)
+                return $0.continueWith{
+                    currentFutureScript = $0
+                    return $0
+                }
+            }
+        }
+
         bestRestaurant.subscribeError {
             (error: NSError!) in
-            futureScript.define {
+            searchHasEnded = true
+            currentFutureScript.define {
                 return self.processSearchError(error!, withScript: $0)
             }
             return
@@ -135,7 +155,8 @@ public class ConversationScript: Script {
 
         bestRestaurant.subscribeNext {
             (obj) in
-            futureScript.define {
+            searchHasEnded = true
+            currentFutureScript.define {
                 return self.processSearchResult(obj, withScript: $0)
             }
             return

@@ -152,4 +152,10 @@ Feature: User interacts with app through conversation
     When I find the restaurant too far away
     Then FoodHero suggests something else
 
+  Scenario: Internet is very slow
+    Given FoodHero has started and can access location-services
+    And FoodHero is very slow in responding
+    When I don't like the restaurant
+    Then FoodHero says that he's busy right now
+    And FoodHero suggests something else
 

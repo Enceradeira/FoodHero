@@ -228,6 +228,11 @@ Then(/^FoodHero says he can't understand me$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero says that he's busy right now$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:IsVeryBusyAtTheMoment', 0)
+  expect(bubble).not_to be_nil
+end
+
 Then(/^FoodHero(?: still)? suggests something$/) do
   expect_fh_suggestion
 end
@@ -507,3 +512,4 @@ When(/^I navigate to next review page$/) do
   execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
 end
 =end
+

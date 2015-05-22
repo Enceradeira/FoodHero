@@ -10,6 +10,7 @@
 #import "RestaurantSearchServiceStub.h"
 #import "FoodHero-Swift.h"
 #import "EnvironmentStub.h"
+#import "RestaurantRepository.h"
 
 @interface ConversationTestsBase : XCTestCase
 
@@ -18,6 +19,7 @@
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) TalkerRandomizerFake *talkerRandomizerFake;
 @property(nonatomic, readonly) EnvironmentStub *environmentStub;
+@property(nonatomic, readonly) RestaurantRepository *restaurantRepository;
 
 - (void)resetConversation;
 
@@ -37,4 +39,5 @@
 
 - (void)assertSecondLastStatementIs:(NSString *)semanticId state:(NSString *)state;
 
+- (void)asynch:(void (^)())handler;
 @end
