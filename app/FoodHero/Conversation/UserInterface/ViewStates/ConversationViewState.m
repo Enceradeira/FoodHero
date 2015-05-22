@@ -9,7 +9,9 @@
 #import "FoodHeroColors.h"
 #import "ConversationViewController.h"
 
-@implementation ConversationViewState
+@implementation ConversationViewState {
+    BOOL oldb;
+}
 
 - (instancetype)initWithController:(ConversationViewController *)controller {
     self = [super init];
@@ -23,7 +25,7 @@
 
     // text input
     UITextField *userTextField = self.controller.userTextField;
-    userTextField.enabled = self.isTextInputEnabled && _controller.isNotProcessingUserInput;
+    userTextField.enabled = self.isTextInputEnabled && _controller.isNotProcessingUserInput && _controller.isWaitingForUserInput;
     userTextField.backgroundColor = userTextField.enabled ? nil : [FoodHeroColors lightestBackgroundGrey];
 
     // send-button
