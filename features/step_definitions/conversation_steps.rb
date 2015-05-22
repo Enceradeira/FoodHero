@@ -327,6 +327,10 @@ When(/^I find the restaurant looks too expensive$/) do
   touch_help_entry :name, "It's too expensive"
 end
 
+When(/^I want the closest restaurant now$/) do
+  touch_help_entry :name, 'Give me the closest'
+end
+
 When(/^I like the restaurant$/) do
   touch_help_entry :name, 'I like it'
 end

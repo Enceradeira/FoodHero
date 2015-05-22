@@ -60,6 +60,11 @@ public class UserUtterances: NSObject {
                 modelAnswer: "It's too far away", restaurant: restaurant)
     }
 
+    public class func suggestionFeedbackForTheClosestNow(restaurant: Restaurant, text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=theClosestNow", text: text,
+                modelAnswer: "Give me the closest", restaurant: restaurant)
+    }
+
     public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooExpensive", text: text,
                 modelAnswer: "It's too expensive", restaurant: restaurant)

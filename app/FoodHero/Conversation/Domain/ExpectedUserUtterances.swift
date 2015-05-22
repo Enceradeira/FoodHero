@@ -55,6 +55,7 @@ public class ExpectedUserUtterances: NSObject {
                 UserUtterances.suggestionFeedbackForLike(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForDislike(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooFarAway(dummyRestaurant, text: ""),
+                UserUtterances.suggestionFeedbackForTheClosestNow(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooExpensive(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooCheap(dummyRestaurant, text: ""),
                 nil, // creates a visible seperator on the UI

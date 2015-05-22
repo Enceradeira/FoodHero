@@ -193,7 +193,14 @@
 
 
 - (DistanceRange *)maxDistance:(double)maxDistancePlaces currLocation:(CLLocation *)location {
-    USuggestionFeedbackParameters *lastFeedback = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+    NSArray *parameters = self.parametersOfCurrentSearch;
+    if ([parameters linq_any:^(ConversationParameters *p) {
+        return (BOOL) ([p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=theClosestNow"]);
+    }]) {
+        return [DistanceRange distanceRangeNearerThan:0];
+    }
+
+    USuggestionFeedbackParameters *lastFeedback = [[parameters linq_where:^(ConversationParameters *p) {
         return (BOOL) (
                 [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
         );

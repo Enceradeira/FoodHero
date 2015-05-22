@@ -20,6 +20,10 @@ Feature: User interacts with app through conversation
     Then I see my answer "tooExpensive"
     And FoodHero suggests something else
 
+    When I want the closest restaurant now
+    Then I see my answer "theClosestNow"
+    And FoodHero suggests something else
+
     When I like the restaurant
     Then I see my answer "Like"
     And FoodHero asks if there's anything else

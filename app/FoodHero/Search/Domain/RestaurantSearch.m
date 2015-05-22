@@ -106,7 +106,7 @@
                     double distance = [location distanceFromLocation:p.location];
                     double maxDistance = [_repository getMaxDistanceOfPlaces:location];
                     double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
-                    Restaurant *r = nil; //[_repository getRestaurantFromPlace:p];
+                    Restaurant *r = nil;//[_repository getRestaurantFromPlace:p];
                     double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
                     if (score > maxScore) {
                         maxScore = score;

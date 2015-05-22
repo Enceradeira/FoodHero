@@ -91,6 +91,10 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForTooFarAway:[self getLastSuggestedRestaurant] text:interpretation.text];
                             return (id) utterance;
                         }
+                        else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_theClosestNow"]) {
+                            TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForTheClosestNow:[self getLastSuggestedRestaurant] text:interpretation.text];
+                            return (id) utterance;
+                        }
                         else if ([interpretation.intent isEqualToString:@"GoodBye"]) {
                             TalkerUtterance *utterance = [UserUtterances goodBye:interpretation.text];
                             return (id) utterance;

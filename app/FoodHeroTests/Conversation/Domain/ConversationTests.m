@@ -241,6 +241,17 @@
     assertThat(distanceRange, is(nilValue()));
 }
 
+- (void)test_currentSearchPreferenceDistanceRangeShouldBeMinimal_WhenUserWantsClosestRestaurant{
+    CLLocationDistance distance = [_norwich distanceFromLocation:_london];
+
+    Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
+
+    [self sendInput:[UserUtterances suggestionFeedbackForTheClosestNow:restaurant text:@"Show me the closest"]];
+    DistanceRange *range = [self.conversation currentSearchPreference:distance currUserLocation:_london].distanceRange;
+    assertThat(range, is(notNilValue()));
+    assertThatDouble(range.max, is(equalTo(@0)));
+}
+
 -(void)test_currentSearchPreferenceCuisineShouldBeNil_WhenSearchHasBeenRestarted{
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
