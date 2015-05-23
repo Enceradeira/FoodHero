@@ -78,4 +78,9 @@
     _permission = permission;
 }
 
+- (UserIntentUnclearError *)userIntentUnclearError {
+    return [[UserIntentUnclearError alloc] initWithState:_state expectedUserUtterances:[self.stateSource expectedUserUtterances]];
+}
+
+
 @end

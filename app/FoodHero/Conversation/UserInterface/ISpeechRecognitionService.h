@@ -22,4 +22,7 @@
 - (void)setState:(NSString *)state;
 
 - (void)setThreadId:(NSString *)id;
+
+- (UserIntentUnclearError *)userIntentUnclearError;
+
 @end

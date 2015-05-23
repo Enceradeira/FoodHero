@@ -157,6 +157,16 @@ ConversationAppServiceTests {
     assertThat(bubble1, isNot(sameInstance(bubble2)));
 }
 
+-(void)test_addOccasionPreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned{
+    [_service startConversation];
+
+    [self injectInterpretation:@"I want to have" intent:@"OccasionPreference" entities:nil];
+    [_service addUserText:@"I want to have"];
+
+    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"FH:DidNotUnderstandAndAsksForRepetition"];
+    assertThat(bubble, is(notNilValue()));
+}
+
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooExpensive {
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Maharaja" withPriceLeel:4 withRelevance:1];
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];

@@ -155,6 +155,7 @@ Feature: User interacts with app through conversation
 
   Scenario: Internet is very slow
     Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
     And FoodHero is very slow in responding
     When I don't like the restaurant
     Then FoodHero says that he's busy right now

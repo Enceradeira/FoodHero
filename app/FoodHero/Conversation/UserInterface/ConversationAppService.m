@@ -29,6 +29,7 @@ static UIImage *EmptyImage;
     id <IRestaurantRepository> _restaurantRepository;
     BOOL _doRenderSemanticID;
     id <ISpeechRecognitionService> _speechRecognitionService;
+    NSString *_currState;
 }
 
 
@@ -66,7 +67,9 @@ static UIImage *EmptyImage;
                             return (id) utterance;
                         }
                         else if ([interpretation.intent containsString:@"OccasionPreference"]) {
-                            assert(interpretation.entities.count == 1);
+                            if( interpretation.entities.count == 0){
+                                return (id)[_speechRecognitionService userIntentUnclearError];
+                            }
                             NSString *entity = interpretation.entities[0];
                             TalkerUtterance *utterance = [UserUtterances occasionPreference:entity text:interpretation.text];
                             return (id) utterance;
@@ -139,6 +142,7 @@ static UIImage *EmptyImage;
         }] subscribeNext:^(Statement *s) {
             if (s.state != nil && s.state.length > 0) {
                 [_speechRecognitionService setState:s.state];
+                _currState = s.state;
             }
         }
         ];
