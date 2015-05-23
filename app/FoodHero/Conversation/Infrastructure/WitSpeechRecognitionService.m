@@ -57,6 +57,17 @@
         }] linq_select:^(NSDictionary *dic) {
             return dic[@"value"];
         }];
+
+
+        // Workaround to fix problem that several intents can't have same expression
+        if([_currState isEqualToString:@"askForSuggestionFeedback"]
+                && ([interpretation.text isEqualToString:@"no"] || [interpretation.text isEqualToString:@"No"])){
+
+            NSLog([NSString stringWithFormat:@"WIT Workaround applied: %@ -> SuggestionFeedback_Dislike ",interpretation.intent]);
+            interpretation.intent = @"SuggestionFeedback_Dislike";
+            interpretation.confidence = 1;
+        }
+
         if (interpretation.confidence < 0.1) {
             [_output sendNext:[self userIntentUnclearError]];
         }
