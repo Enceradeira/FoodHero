@@ -41,13 +41,6 @@ public class ExpectedUserUtterances: NSObject {
         ])
     }
 
-    public class func whenAskedForOccasion() -> ExpectedUserUtterances {
-        return modelAnswersFrom(
-        [
-                UserUtterances.occasionPreference("", text: "")
-        ])
-    }
-
     public class func whenAskedForSuggestionFeedback(occasion: String) -> ExpectedUserUtterances {
         let dummyRestaurant = Restaurant()
         return modelAnswersFrom(

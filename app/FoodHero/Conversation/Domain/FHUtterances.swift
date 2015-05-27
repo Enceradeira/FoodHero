@@ -63,7 +63,7 @@ public class FHUtterances {
         return {
             $0.words(["So no \(currentOccasion). What are you after?"],
                     withCustomData: FoodHeroParameters(semanticId: "FH:AskForOccasion=\(currentOccasion)",
-                            state: FHStates.askForOccasion(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForOccasion()))
+                            state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
     }
 

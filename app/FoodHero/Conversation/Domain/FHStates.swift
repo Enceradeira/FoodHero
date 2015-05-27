@@ -30,10 +30,6 @@ public class FHStates: NSObject {
         return "askForSuggestionFeedback"
     }
 
-    public class func askForOccasion() -> String {
-        return "askForOccasion"
-    }
-
     public class func conversationEnded() -> String {
         return "conversationEnded"
     }
