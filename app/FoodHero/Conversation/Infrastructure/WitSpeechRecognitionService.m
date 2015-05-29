@@ -68,7 +68,7 @@
             interpretation.confidence = 1;
         }
 
-        if (interpretation.confidence < 0.1) {
+        if (interpretation.confidence < 0.1 || [interpretation.intent isEqualToString:@"UNKNOWN"]) {
             [_output sendNext:[self userIntentUnclearError]];
         }
         else {
