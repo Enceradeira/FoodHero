@@ -25,4 +25,10 @@
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates  askForSuggestionFeedback]];
 }
 
+-(void)test_UCuisinePreference_ShouldNotBeFollowedByFHFollowUpQuestion{
+    [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
+
+    [self assertLastStatementIs:@"FH:FollowUpQuestion" state:[FHStates  askForSuggestionFeedback]];
+}
+
 @end

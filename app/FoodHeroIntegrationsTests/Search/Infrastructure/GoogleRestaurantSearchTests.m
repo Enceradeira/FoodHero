@@ -181,7 +181,7 @@
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
-    assertThat(restaurant.address, is(equalTo(@"99 Regent Street\nLondon W1B 4EZ")));
+    assertThat(restaurant.address, is(equalTo(@"Victory House\n99 Regent Street, London W1B 4EZ")));
     assertThatUnsignedInt([restaurant.addressComponents count], is(greaterThan(@0U)));
     for (NSString *component in restaurant.addressComponents) {
         assertThatUnsignedInt(component.length, is(greaterThan(@0U)));

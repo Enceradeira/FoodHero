@@ -18,6 +18,6 @@ class ConversationDislikeOccasionTests: ConversationTestsBase {
         sendInput(UserUtterances.occasionPreference("lunch", text: "I want to have lunch"))
         assertSecondLastStatementIs("U:OccasionPreference=lunch", state: nil)
         assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())
-        assertLastStatementIs("FH:FollowUpQuestion", state: FHStates.askForSuggestionFeedback())
+        assertLastStatementIs("FH:FirstQuestion", state: FHStates.askForSuggestionFeedback())
     }
 }

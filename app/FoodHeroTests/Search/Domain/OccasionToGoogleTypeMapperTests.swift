@@ -50,4 +50,16 @@ class OccasionToGoogleTypeMapperTests: XCTestCase {
         XCTAssertEqual(types[1], "night_club")
     }
 
+    func test_map_shouldMapCorrectly_WhenEmpty() {
+        var types = OccasionToGoogleTypeMapper.map("")
+
+        XCTAssertTrue(contains(types, "bakery"))
+        XCTAssertTrue(contains(types, "cafe"))
+        XCTAssertTrue(contains(types, "restaurant"))
+        XCTAssertTrue(contains(types, "meal_takeaway"))
+        XCTAssertTrue(contains(types, "meal_delivery"))
+        XCTAssertTrue(contains(types, "bar"))
+        XCTAssertTrue(contains(types, "bakery"))
+        XCTAssertTrue(contains(types, "night_club"))
+    }
 }

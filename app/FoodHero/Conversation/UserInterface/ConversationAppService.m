@@ -59,16 +59,26 @@ static UIImage *EmptyImage;
                     else {
                         SpeechInterpretation *interpretation = output;
                         if ([interpretation.intent isEqualToString:@"CuisinePreference"]) {
+                            if (interpretation.entities.count == 0) {
+                                return (id) [_speechRecognitionService userIntentUnclearError];
+                            }
                             TalkerUtterance *utterance = [UserUtterances cuisinePreference:interpretation.entities[0] text:interpretation.text];
                             return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"DislikesOccasion"]) {
-                            TalkerUtterance *utterance = [UserUtterances dislikesOccasion:interpretation.text occasion:_conversation.currentOccasion];
-                            return (id) utterance;
+                            NSString *occasion = _conversation.currentOccasion;
+                            if (occasion.length > 0) {
+                                TalkerUtterance *utterance = [UserUtterances dislikesOccasion:interpretation.text occasion:occasion];
+                                return (id) utterance;
+                            }
+                            else {
+                                TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForDislike:[self getLastSuggestedRestaurant] text:interpretation.text];
+                                return (id) utterance;
+                            }
                         }
                         else if ([interpretation.intent containsString:@"OccasionPreference"]) {
-                            if( interpretation.entities.count == 0){
-                                return (id)[_speechRecognitionService userIntentUnclearError];
+                            if (interpretation.entities.count == 0) {
+                                return (id) [_speechRecognitionService userIntentUnclearError];
                             }
                             NSString *entity = interpretation.entities[0];
                             TalkerUtterance *utterance = [UserUtterances occasionPreference:entity text:interpretation.text];

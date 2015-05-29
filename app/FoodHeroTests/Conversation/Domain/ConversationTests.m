@@ -264,6 +264,24 @@
     assertThat(cuisine, is(equalTo(@"")));
 }
 
+-(void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferred{
+    [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
+    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
+
+    NSString* cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+
+    assertThat(cuisine, is(equalTo(@"")));
+}
+
+-(void)test_currentSearchPreference_ShouldResetOccasionPreference_WhenNewCuisinePreferred{
+    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
+
+    NSString* occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
+
+    assertThat(occasion, is(equalTo(@"")));
+}
+
 - (void)test_lastSuggestionWarning_ShouldReturnNil_WhenNoSuggestionWarningExists {
     assertThat([self.conversation lastSuggestionWarning], is(nilValue()));
 }

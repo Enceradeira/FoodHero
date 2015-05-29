@@ -103,19 +103,20 @@
 }
 
 - (NSArray *)parametersOfCurrentSearch {
-    Statement *lastUserUtterance = [[[_rawConversation linq_ofType:[FoodHeroParameters class]]
-            linq_where:^(FoodHeroParameters *p) {
-                return (BOOL) ([p hasSemanticId:@"FH:ConfirmsRestart"] ||
-                        [p hasSemanticId:@"FH:Greeting"] ||
-                        [p hasSemanticId:@"FH:OpeningQuestion"]);
-            }]
+    Statement *lastUserUtterance = [[_rawConversation linq_where:^(ConversationParameters *p) {
+        return (BOOL) ([p hasSemanticId:@"FH:ConfirmsRestart"] ||
+                [p hasSemanticId:@"FH:Greeting"] ||
+                [p hasSemanticId:@"FH:OpeningQuestion"] ||
+                [p hasSemanticId:@"U:OccasionPreference"] ||
+                [p hasSemanticId:@"U:CuisinePreference"]
+        );
+    }]
             linq_lastOrNil];
 
     // -> "lastUserUtterance" is followed by things that belong to next search
     NSUInteger currentSearchBeginCount = 0;
     if (lastUserUtterance != nil) {
-        NSUInteger indexOfNextSearchBegin = [_rawConversation indexOfObject:lastUserUtterance];
-        currentSearchBeginCount = indexOfNextSearchBegin + 1;
+        currentSearchBeginCount = [_rawConversation indexOfObject:lastUserUtterance];
     }
 
     return [_rawConversation linq_skip:currentSearchBeginCount];
@@ -174,11 +175,39 @@
 }
 
 - (NSString *)currentOccasion {
-    UserParameters *preference = [[[self.parametersOfCurrentSearch linq_ofType:[UserParameters class]] linq_where:^(UserParameters *p) {
+    NSArray *parameters = self.parametersOfCurrentSearch;
+    UserParameters *preference = [[[parameters linq_ofType:[UserParameters class]] linq_where:^(UserParameters *p) {
         return (BOOL) [p hasSemanticId:@"U:OccasionPreference"];
     }] linq_lastOrNil];
 
-    return preference != nil ? preference.parameter : [Occasions getCurrent:_environment];
+    if (preference != nil) {
+        return preference.parameter;
+    }
+    else {
+        BOOL hasUserUtteredAnyPreferences = [parameters linq_any:^(ConversationParameters *p) {
+            return (BOOL) ([p hasSemanticId:@"U:OccasionPreference"] || [p hasSemanticId:@"U:CuisinePreference"]);
+        }];
+
+        if( hasUserUtteredAnyPreferences ){
+            return @"";
+        }
+        else {
+            // Default make FH suggest something reasonable without user feedback
+            return [Occasions getCurrent:_environment];
+        }
+    }
+}
+
+- (NSString *)cuisine {
+    UserParameters *preference = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
+        return (BOOL) (
+                [p hasSemanticId:@"U:CuisinePreference"]
+        );
+    }] linq_lastOrNil];
+    if (preference == nil) {
+        return @"";
+    }
+    return preference.parameter;
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -214,18 +243,6 @@
         CLLocationDistance normalizedDistance = maxDistancePlaces == 0 ? 0 : distance / maxDistancePlaces;
         return [DistanceRange distanceRangeNearerThan:normalizedDistance];
     }
-}
-
-- (NSString *)cuisine {
-    UserParameters *preference = [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
-        return (BOOL) (
-                [p hasSemanticId:@"U:CuisinePreference"]
-        );
-    }] linq_lastOrNil];
-    if (preference == nil) {
-        return @"";
-    }
-    return preference.parameter;
 }
 
 - (PriceRange *)priceRange {

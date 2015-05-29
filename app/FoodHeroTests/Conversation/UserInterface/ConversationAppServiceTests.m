@@ -167,6 +167,16 @@ ConversationAppServiceTests {
     assertThat(bubble, is(notNilValue()));
 }
 
+-(void)test_addCuisinePreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned{
+    [_service startConversation];
+
+    [self injectInterpretation:@"I want to have" intent:@"CuisinePreference" entities:nil];
+    [_service addUserText:@"I want to have"];
+
+    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"FH:DidNotUnderstandAndAsksForRepetition"];
+    assertThat(bubble, is(notNilValue()));
+}
+
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooExpensive {
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Maharaja" withPriceLeel:4 withRelevance:1];
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];
@@ -325,5 +335,19 @@ ConversationAppServiceTests {
 - (void)test_addUserOccasionPreferenceDrinks_ShouldAddOccasionPreference {
     [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"drink"]  mappedTo:@"U:OccasionPreference=drink"];
 }
+
+- (void)test_addUserDislikesOccasion_ShouldAddSuggestionFeedbackDislike_WhenOccasionPreferenceUnknown {
+    [_service startConversation];
+
+    [self injectInterpretation:@"I want to have Indian" intent:@"CuisinePreference" entities:@[@"Indian"]];
+    [_service addUserText:@"I want to have Indian"]; // this removes Occasion Preference
+
+    [self injectInterpretation:@"I dont't want to have dinner" intent:@"DislikesOccasion" entities:nil];
+    [_service addUserText:@"I dont't want to have dinner"];  // since no Occasion is set this doesn't make sense, therefore we take it as a SuggestionFeedback=Dislike
+
+    ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:SuggestionFeedback=Dislike"];
+    assertThat(bubble, is(notNilValue()));
+}
+
 
 @end

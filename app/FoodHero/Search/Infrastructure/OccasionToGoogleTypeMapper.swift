@@ -6,19 +6,27 @@
 import Foundation
 
 public class OccasionToGoogleTypeMapper: NSObject {
+    static let cafe = ["cafe"]
+    static let breakfast =  ["bakery"] + cafe
+    static let eating = ["restaurant", "meal_takeaway", "meal_delivery"]
+    static let drinking =  ["bar", "night_club"]
 
     public class func map(occasion: String) -> [String] {
+
+
         switch (occasion) {
         case Occasions.breakfast():
-            return ["bakery", "cafe"]
+            return breakfast
         case Occasions.lunch():
-            return ["restaurant", "meal_takeaway", "meal_delivery"]
+            return eating
         case Occasions.snack():
-            return ["cafe"]
+            return cafe
         case Occasions.dinner():
-            return ["restaurant", "meal_takeaway", "meal_delivery"]
+            return eating
         case Occasions.drink():
-            return ["bar", "night_club"]
+            return drinking
+        case "":
+            return breakfast + eating + drinking
         default:
             assert(false, "occasion '\(occasion)' not found")
         }
