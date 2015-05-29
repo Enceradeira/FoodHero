@@ -339,14 +339,14 @@
     [self.environmentStub injectNow:[NSCalendar dateFromYear:2015 month:3 day:25 hour:23 minute:15 second:14]];
 
     NSString *occasion = [self.conversation currentOccasion];
-    assertThat(occasion, is(equalTo(@"drink")));
+    assertThat(occasion, is(equalTo([Occasions drink])));
 }
 
 -(void)test_currentOccasion_ShouldReturnCorrectOccasion_WhenUserHasCommentedOccasion{
     [self sendInput:[UserUtterances occasionPreference:@"dinner" text:@"I want dinner"]];
 
     NSString *occasion = [self.conversation currentOccasion];
-    assertThat(occasion, is(equalTo(@"dinner")));
+    assertThat(occasion, is(equalTo([Occasions dinner])));
 }
 
 -(void)test_id_ShouldReturnUniqueIdentifierForConversation{

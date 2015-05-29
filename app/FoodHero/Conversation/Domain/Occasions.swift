@@ -17,7 +17,7 @@ public class Occasions: NSObject {
     }
 
     public class func snack() -> String {
-        return "snack"
+        return "snacks"
     }
 
     public class func dinner() -> String {
@@ -25,7 +25,7 @@ public class Occasions: NSObject {
     }
 
     public class func drink() -> String {
-        return "drink"
+        return "drinks"
     }
 
     public class func getCurrent(env: IEnvironment) -> String {
