@@ -80,4 +80,15 @@ class OccasionsTests: XCTestCase {
             assertOccassionAt(year: 2015, month: 3, day: day, hour: 23, minute: 59, expected: Occasions.drink())
         }
     }
+
+    func test_guessFromCuisine_ShouldProcessUpperAndLowerCase(){
+        XCTAssertEqual(Occasions.guessFromCuisine("beer"), Occasions.drink())
+        XCTAssertEqual(Occasions.guessFromCuisine("Beer"), Occasions.drink())
+        XCTAssertEqual(Occasions.guessFromCuisine("BEER"), Occasions.drink())
+    }
+
+    func test_guessFromCuisine_ShouldIgnoreWhiteSpace(){
+        XCTAssertEqual(Occasions.guessFromCuisine("hamburger"), Occasions.dinner())
+        XCTAssertEqual(Occasions.guessFromCuisine("ham burger"), Occasions.dinner())
+    }
 }

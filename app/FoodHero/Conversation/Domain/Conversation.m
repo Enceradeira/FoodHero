@@ -184,12 +184,12 @@
         return preference.parameter;
     }
     else {
-        BOOL hasUserUtteredAnyPreferences = [parameters linq_any:^(ConversationParameters *p) {
-            return (BOOL) ([p hasSemanticId:@"U:OccasionPreference"] || [p hasSemanticId:@"U:CuisinePreference"]);
+        BOOL hasUserUtteredCuisinePreference = [parameters linq_any:^(ConversationParameters *p) {
+            return (BOOL) [p hasSemanticId:@"U:CuisinePreference"];
         }];
 
-        if( hasUserUtteredAnyPreferences ){
-            return @"";
+        if (hasUserUtteredCuisinePreference) {
+            return [Occasions guessFromCuisine:self.cuisine];
         }
         else {
             // Default make FH suggest something reasonable without user feedback

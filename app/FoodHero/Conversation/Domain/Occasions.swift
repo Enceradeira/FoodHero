@@ -109,4 +109,23 @@ public class Occasions: NSObject {
         let components = calendar.components(.CalendarUnitWeekday, fromDate: env.now())
         return components.weekday
     }
+
+    public class func guessFromCuisine(cuisine: String) -> String {
+        let normalizedCuisine = cuisine.lowercaseString.stringByReplacingOccurrencesOfString(" ",withString:"")
+        switch normalizedCuisine {
+        case "":
+            return ""
+        case "beer", "beers", "wine", "wines", "ale", "ales":
+            return drink()
+        case "tea", "cafe", "coffee", "cake", "cakes", "starbucks":
+            return snack()
+        case "bread", "breakfast", "fry-up", "fry up":
+            return breakfast()
+        case "pizza", "burger", "bbq", "hamburger", "kebab", "fastfood", "macdonalds", "burgerking":
+            return dinner()
+        default:
+            NSLog("Occasions.guessFromCuisine: no occasion guessed from \(cuisine)")
+            return ""
+        }
+    }
 }

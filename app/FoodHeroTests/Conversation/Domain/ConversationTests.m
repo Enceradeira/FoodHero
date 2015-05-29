@@ -282,6 +282,15 @@
     assertThat(occasion, is(equalTo(@"")));
 }
 
+-(void)test_currentSearchPreference_ShouldGuessOccasionPreference_WhenNewCuisinePreferred{
+    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"Cake" text:@"I wanna cake"]];
+
+    NSString* occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
+
+    assertThat(occasion, is(equalTo([Occasions snack])));
+}
+
 - (void)test_lastSuggestionWarning_ShouldReturnNil_WhenNoSuggestionWarningExists {
     assertThat([self.conversation lastSuggestionWarning], is(nilValue()));
 }
