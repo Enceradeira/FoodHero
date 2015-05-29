@@ -80,6 +80,8 @@ public class ExpectedUserUtterances: NSObject {
         return modelAnswersFrom(
         [
                 UserUtterances.cuisinePreference("", text: ""),
+                UserUtterances.occasionPreference("", text:""),
+                nil, // creates a visible seperator on the UI
                 UserUtterances.wantsToStartAgain(""),
                 UserUtterances.wantsToAbort("")
         ])

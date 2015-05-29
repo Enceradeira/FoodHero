@@ -108,6 +108,9 @@ Feature: User interacts with app through conversation
     When I wish to eat "Sushi"
     Then FoodHero says that nothing was found
 
+    When I want to have some drinks
+    Then FoodHero says that nothing was found
+
     Given FoodHero will find restaurants
     When I want FoodHero to start over again
     And FoodHero asks what I wished to eat

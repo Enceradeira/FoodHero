@@ -321,7 +321,7 @@ public class ConversationScript: Script {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else if $0.hasSemanticId("U:WantsToStartAgain") {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
-                } else if $0.hasSemanticId("U:CuisinePreference") {
+                } else if $0.hasSemanticId("U:CuisinePreference") || $0.hasSemanticId("U:OccasionPreference") {
                     return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else {
                     assert(false, "response \($0.semanticIdInclParameters) not handled")
