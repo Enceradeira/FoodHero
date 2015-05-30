@@ -111,21 +111,43 @@ public class Occasions: NSObject {
     }
 
     public class func guessFromCuisine(cuisine: String) -> String {
-        let normalizedCuisine = cuisine.lowercaseString.stringByReplacingOccurrencesOfString(" ",withString:"")
+        let normalizedCuisine = removeCharacterAtTheEndOfAString("s", string: cuisine.lowercaseString
+        .stringByReplacingOccurrencesOfString(" ", withString: "")
+        .stringByReplacingOccurrencesOfString("'", withString: ""))
+
+        /* NOTE when adding new mappings:
+            - Remove Space and Apostroph
+            - Remove trailing s (even it's not plural)
+        */
+
         switch normalizedCuisine {
         case "":
             return ""
-        case "beer", "beers", "wine", "wines", "ale", "ales":
+        case "beer", "wine", "ale":
             return drink()
-        case "tea", "cafe", "coffee", "cake", "cakes", "starbucks":
+        case "tea", "cafe", "coffee", "cake", "starbuck":
             return snack()
         case "bread", "breakfast", "fry-up", "fry up":
             return breakfast()
-        case "pizza", "burger", "bbq", "hamburger", "kebab", "fastfood", "macdonalds", "burgerking":
+        case "pizza", "burger", "bbq", "hamburger", "kebab", "fastfood", "macdonald", "burgerking", "wedding", "weddingreception", "reception":
             return dinner()
         default:
-            NSLog("Occasions.guessFromCuisine: no occasion guessed from \(cuisine)")
+            NSLog("Occasions.guessFromCuisine: no occasion guessed for \(cuisine)")
             return ""
+        }
+    }
+
+    private class func removeCharacterAtTheEndOfAString(character: Character, string: String) -> String {
+        let len = count(string)
+        if len < 1 {
+            return string
+        }
+
+        let idx = advance(string.endIndex,-1)
+        if string[idx] == character {
+            return string.substringToIndex(idx)
+        } else {
+            return string
         }
     }
 }

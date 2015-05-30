@@ -7,7 +7,7 @@ import Foundation
 import FoodHero
 
 class OccasionsTests: XCTestCase {
-    var env: EnvironmentStub?
+    var env: EnvironmentStub!
 
     override func setUp() -> () {
         let assembly = StubAssembly()
@@ -87,8 +87,22 @@ class OccasionsTests: XCTestCase {
         XCTAssertEqual(Occasions.guessFromCuisine("BEER"), Occasions.drink())
     }
 
+    func test_guessFromCuisine_ShouldProcessPluralAndSingular(){
+        XCTAssertEqual(Occasions.guessFromCuisine("beer"), Occasions.drink())
+        XCTAssertEqual(Occasions.guessFromCuisine("beers"), Occasions.drink())
+    }
+
+    func test_guessFromCuisine_ShouldIngoreApostroph(){
+        XCTAssertEqual(Occasions.guessFromCuisine("Mac Donalds"), Occasions.dinner())
+        XCTAssertEqual(Occasions.guessFromCuisine("Mac Donald's"), Occasions.dinner())
+    }
+
     func test_guessFromCuisine_ShouldIgnoreWhiteSpace(){
         XCTAssertEqual(Occasions.guessFromCuisine("hamburger"), Occasions.dinner())
         XCTAssertEqual(Occasions.guessFromCuisine("ham burger"), Occasions.dinner())
+    }
+
+    func test_guessFromCuisine_ShouldReturnEmtpy_WhenCuisineEmpty(){
+        XCTAssertEqual(Occasions.guessFromCuisine(""), "")
     }
 }
