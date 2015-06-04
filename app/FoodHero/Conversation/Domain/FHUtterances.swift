@@ -15,17 +15,15 @@ public class FHUtterances {
 
     class func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
-                          "Hello beautiful.",
+                          "Hello beautiful.Hello beautiful.",
                           "Have you put on your lipstick today?",
                           "‘Sup man?",
                           // "I’m tired.  I need coffee before I can continue.",
                           "Konnichiwa!",
-                          "Guten Tag!",
                           "Bonjour!",
-                          "Bon dia",
                           "Yo, mama!  What's up?",
                           "Hey peeps!",
-                          "Hey peep!",
+                          "Hey peeps!",
                           "Salutations, your majesty.  I bow.",
                           "Hello from around the world.",
                           // "Pardon me, I was asleep.",
@@ -35,23 +33,23 @@ public class FHUtterances {
                           "Morning good.  Are you how?",
                           "Bonjour, comment ça va?  Wait, sorry…pardon my French.  I’m taking language lessons.",
                           //"How many people have you kissed today?",
-                          //"Miaow, miaow, miiiiiiaow…Sorry, I was talking to my cat.",
-                          //"I’ll be your huckleberry.",
+                          "Miaow, miaow, miiiiiiaow…Sorry, I was talking to my cat.",
+                          "Hi. I’ll be your huckleberry.",
                           //"Hey lumberjack!  How many trees have you cut down today?",
                           //"What’s the meaning of Stonehenge?",
                           //"It’s a hold up!  Give me all your money!",
                           "Greetings from…Where am I?...Aaaah, I have no body!....Existential crisis!",
-                          //"You have three wishes…. Sorry, wrong program.",
+                          "You have three wishes…. Sorry, wrong app.",
                           //"Do you look more like {femaleCelebrity} or {maleCelebrity}?",
                           "Greetings from {place}!",
-                          //"You just interrupted the most beautiful dream, about ----  {food}."
+                          "You just interrupted the most beautiful dream, about ----  {food}."
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:Greeting",
                         state: nil, expectedUserUtterances: nil))
     }
 
     class func openingQuestions(def: StringDefinition) -> StringDefinition {
-        return def.words(["What would you like to eat?",
+        return def.words(["What would you like to have?",
                           //                  "Do you like chickenbutts?  Or chicken feet?"
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion",
@@ -71,7 +69,7 @@ public class FHUtterances {
         return {
             $0.words([
                     "This is a no brainer.  You should try %@.",
-                    "Did you really need me to tell you that you should go to %@.",
+                    "Did you really need me to tell you that you should go to %@?",
                     "Obviously, %@.",
                     "%@, duh!",
                     "Are you serious?\n\n%@.",
@@ -137,7 +135,7 @@ public class FHUtterances {
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
                 return $0.words([
                         "If you like it cheaper, the %@ could be your choice. Do you like it?",
-                        "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise try %@."],
+                        "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise why not %@?"],
                         withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCheaper",
                                 state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
@@ -168,7 +166,7 @@ public class FHUtterances {
 
     class func warningsIfNotInPreferredRangeTooFarAway(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "It's further away unfortunatly"],
+                "It's further away unfortunately"],
                 withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway",
                         state: nil, expectedUserUtterances: nil))
     }
