@@ -94,59 +94,42 @@
             deliverOn:_schedulerFactory.asynchScheduler]
             take:1]
             tryMap:^(CLLocation *location, NSError **error) {
-                __block double maxScore = 0;
-
                 NSArray *sortedPlaces = [places linq_sort:^(Place *p) {
                     return @([location distanceFromLocation:p.location]);
                 }];
 
+                // find best and try to remove restaurant with same name as disliked places
+                NSMutableArray *candidates = [NSMutableArray arrayWithArray:sortedPlaces];
+                while(candidates.count > 0) {
 
-                // determine distance and score
-                NSArray *placesAndScore = [sortedPlaces linq_select:^(Place *p) {
-                    double distance = [location distanceFromLocation:p.location];
-                    double maxDistance = [_repository getMaxDistanceOfPlaces:location];
-                    double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
-                    Restaurant *r = nil;//[_repository getRestaurantFromPlace:p];
-                    double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
-                    if (score > maxScore) {
-                        maxScore = score;
-                    }
+                    NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:location candidates:candidates];
 
-                    return @[p, @(score), @(distance)];
-                }];
+                    // choose nearest that doesn't have same name as previously disliked restaurant
+                    for (Place *bestPlace in bestPlacesOrderedByDistance) {
+                        @try {
+                            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+                            // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
 
-                // select all with max-score
-                NSArray *bestPlaces = [placesAndScore linq_where:^(NSArray *placeScoreAndDistance) {
-                    return (BOOL) ([@(maxScore) compare:(placeScoreAndDistance[1])] == NSOrderedSame);
-                }];
-
-                // order all mit max-score by distance
-                NSArray *bestPlacesOrderedByDistance = [[bestPlaces linq_sort:^(NSArray *placeScoreAndDistance) {
-                    return placeScoreAndDistance[2];
-                }] linq_select:^(NSArray *placeScoreAndDistance) {
-                    return placeScoreAndDistance[0];
-                }];
-
-                // choose nearest that doesn't have same name as previously disliked restaurant
-                for (Place *bestPlace in bestPlacesOrderedByDistance) {
-                    @try {
-                        Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
-                        // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
-
-                        BOOL dislikedWithSameName = [excludedRestaurants linq_any:^(Restaurant *r) {
-                            return [r.name isEqualToString:restaurant.name];
-                        }];
-                        if(!dislikedWithSameName) {
-                            return @[restaurant, preferences];
+                            BOOL dislikedWithSameName = [excludedRestaurants linq_any:^(Restaurant *r) {
+                                return [r.name isEqualToString:restaurant.name];
+                            }];
+                            if (!dislikedWithSameName) {
+                                return @[restaurant, preferences];
+                            }
+                            else {
+                                [candidates removeObject:bestPlace];
+                                break;
+                            }
                         }
-                    }
-                    @catch (SearchException *e) {
-                        *error = [SearchError new];
-                        return (NSArray *) nil;
+                        @catch (SearchException *e) {
+                            *error = [SearchError new];
+                            return (NSArray *) nil;
+                        }
                     }
                 }
 
-                // choose nearest
+                // no restaurant was found above; we now score again and return even restaurant has same name as disliked place
+                NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:location candidates:sortedPlaces];
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
                 @try {
                     Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
@@ -159,5 +142,35 @@
                 }
 
             }];
+}
+
+- (NSArray *)scorePlaces:(SearchProfile *)preferences location:(CLLocation *)location candidates:(NSArray *)candidates {
+    __block double maxScore = 0;
+    // determine distance and score
+    NSArray *placesAndScore = [candidates linq_select:^(Place *p) {
+                        double distance = [location distanceFromLocation:p.location];
+                        double maxDistance = [_repository getMaxDistanceOfPlaces:location];
+                        double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
+                        Restaurant *r = nil;//[_repository getRestaurantFromPlace:p];
+                        double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
+                        if (score > maxScore) {
+                            maxScore = score;
+                        }
+
+                        return @[p, @(score), @(distance)];
+                    }];
+
+    // select all with max-score
+    NSArray *bestPlaces = [placesAndScore linq_where:^(NSArray *placeScoreAndDistance) {
+                        return (BOOL) ([@(maxScore) compare:(placeScoreAndDistance[1])] == NSOrderedSame);
+                    }];
+
+    // order all mit max-score by distance
+    NSArray *bestPlacesOrderedByDistance = [[bestPlaces linq_sort:^(NSArray *placeScoreAndDistance) {
+                        return placeScoreAndDistance[2];
+                    }] linq_select:^(NSArray *placeScoreAndDistance) {
+                        return placeScoreAndDistance[0];
+                    }];
+    return bestPlacesOrderedByDistance;
 }
 @end

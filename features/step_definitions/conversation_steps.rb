@@ -479,6 +479,9 @@ Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
   if restaurant_name == 'Saint Michaels Alley'
     restaurant_name = "Saint Michael's Alley"
   end
+  if restaurant_name == 'BJs Restaurant & Brewhouse'
+    restaurant_name = "BJ's Restaurant & Brewhouse"
+  end
 
   expect(text restaurant_name).to be_truthy
 end
