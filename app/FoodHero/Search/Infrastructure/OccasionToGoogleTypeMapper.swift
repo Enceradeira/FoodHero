@@ -29,6 +29,7 @@ public class OccasionToGoogleTypeMapper: NSObject {
             return breakfast + eating + drinking
         default:
             assert(false, "occasion '\(occasion)' not found")
+            return []
         }
     }
 }

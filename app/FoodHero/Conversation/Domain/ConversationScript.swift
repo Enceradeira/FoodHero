@@ -85,6 +85,7 @@ public class ConversationScript: Script {
             })
         } else {
             assert(false, "unexpected error of type \(reflect(error).summary)")
+            return errorScript
         }
     }
 
@@ -325,12 +326,14 @@ public class ConversationScript: Script {
                     return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else {
                     assert(false, "response \($0.semanticIdInclParameters) not handled")
+                    return $1
                 }
             }
 
             return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
+            return script
         }
 
     }
