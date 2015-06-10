@@ -4,7 +4,6 @@
 //
 
 #import "RestaurantReviewCommentViewBinder.h"
-#import "SORelativeDateTransformer.h"
 #import "FoodHeroColors.h"
 #import "RatingStarsImageRepository.h"
 
@@ -13,7 +12,11 @@
 }
 
 + (NSString *)convertToRelativeDate:(NSDate *)date {
-    return [[SORelativeDateTransformer registeredTransformer] transformedValue:date];
+    NSDateComponentsFormatter *formatter = [[NSDateComponentsFormatter alloc] init];
+    formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleFull;
+    formatter.allowedUnits = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    formatter.maximumUnitCount = 1;
+    return  [formatter stringFromDate:date toDate:[NSDate date]];
 }
 
 + (void)writeReview:(RestaurantReview *)review toView:(id <IRestaurantReviewCommentViewController>)controller {
@@ -30,7 +33,7 @@
     ratingLabel.text = [NSString stringWithFormat:@"%.1f", review.rating];
     ratingLabel.textColor = [FoodHeroColors darkGrey];
 
-    signatureLabel.text = [NSString stringWithFormat:@"%@ by %@", [self convertToRelativeDate:review.date], review.author];
+    signatureLabel.text = [NSString stringWithFormat:@"%@ ago by %@", [self convertToRelativeDate:review.date], review.author];
     signatureLabel.textColor = [FoodHeroColors darkGrey];
 }
 

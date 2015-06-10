@@ -28,9 +28,9 @@
     [TyphoonComponents configure:[StubAssembly assembly]];
     _ctrl = [ControllerFactory createSmallRestaurantReviewCommentViewController];
     [_ctrl embedNotebookWith:NotebookPageModeSmall];
-    _ctrl.view.hidden = NO;
 
     [_ctrl setReview:[[[[[[RestaurantReviewBuilder alloc] withText:@"Nice location"] withRating:2.5] withAuthor:@"John Wayne"] date:[NSDate date]] build]];
+    _ctrl.view.hidden = NO;
 }
 
 - (void)test_summaryLabel_ShouldContainSummary {
@@ -48,7 +48,7 @@
 }
 
 - (void)test_signatureLabelLabel_ShouldContainSignature {
-    assertThat(_ctrl.signatureLabel.text, is(equalTo(@"now by John Wayne")));
+    assertThat(_ctrl.signatureLabel.text, is(equalTo(@"0 seconds ago by John Wayne")));
 }
 
 - (void)test_embedNotebookWith_ShouldNotCrash {

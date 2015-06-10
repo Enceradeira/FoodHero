@@ -9,7 +9,6 @@ PODS:
   - ReactiveCocoa/no-arc (2.3.1)
   - ReactiveCocoa/UI (2.3.1):
     - ReactiveCocoa/Core
-  - SORelativeDateTransformer (1.1.10)
   - Typhoon (3.0.2):
     - Typhoon/no-arc (= 3.0.2)
   - Typhoon/no-arc (3.0.2)
@@ -22,7 +21,6 @@ DEPENDENCIES:
   - LinqToObjectiveC
   - OCHamcrest
   - ReactiveCocoa
-  - SORelativeDateTransformer
   - Typhoon
   - UIImageViewAligned (from `./../UIImageViewAligned`)
   - Wit (from `./../../wit-ios-sdk`)
@@ -39,7 +37,6 @@ SPEC CHECKSUMS:
   LinqToObjectiveC: 768f98c62d5b57cb6bdb7ab869e33d0a7a2da29c
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   ReactiveCocoa: 334468a83b2c5f669f7cfb9a084415ee23219b4f
-  SORelativeDateTransformer: 307489386df4697780902bc16e99881d69a629b3
   Typhoon: 41c79941e0235c0177457a8f272953d922f47d74
   UIImageViewAligned: c188246ca50d21a5ac2a60ae754669525bb9f2f1
   Wit: c00af597e168d45b00109993bb378ce86456c346

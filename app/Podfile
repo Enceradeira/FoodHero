@@ -8,7 +8,6 @@ target :FoodHero do
     pod "LinqToObjectiveC"
     pod "ReactiveCocoa"
     pod "UIImageViewAligned", :path => './../UIImageViewAligned'
-    pod "SORelativeDateTransformer"
     # pod 'Wit', '~> 4.0.0'
     pod 'Wit',  :path => './../../wit-ios-sdk'
     pod 'Google-Maps-iOS-SDK'

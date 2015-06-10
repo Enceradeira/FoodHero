@@ -42,12 +42,6 @@
 #define COCOAPODS_VERSION_MINOR_ReactiveCocoa_no_arc 3
 #define COCOAPODS_VERSION_PATCH_ReactiveCocoa_no_arc 1
 
-// SORelativeDateTransformer
-#define COCOAPODS_POD_AVAILABLE_SORelativeDateTransformer
-#define COCOAPODS_VERSION_MAJOR_SORelativeDateTransformer 1
-#define COCOAPODS_VERSION_MINOR_SORelativeDateTransformer 1
-#define COCOAPODS_VERSION_PATCH_SORelativeDateTransformer 10
-
 // Typhoon
 #define COCOAPODS_POD_AVAILABLE_Typhoon
 #define COCOAPODS_VERSION_MAJOR_Typhoon 3
