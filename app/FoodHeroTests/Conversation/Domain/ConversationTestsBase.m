@@ -57,11 +57,11 @@
     [_locationManagerStub injectAuthorizationStatus:status];
 }
 
-- (void)expectedStatementIs:(NSString *)text userAction:(Class)action {
+- (void)expectedStatementIs:(NSString *)text userAction:(NSString*)action {
     [self expectedStatementIs:text userAction:action inList:_expectedStatements];
 }
 
-- (void)expectedStatementIs:(NSString *)text userAction:(Class)action inList:(NSMutableArray *)list {
+- (void)expectedStatementIs:(NSString *)text userAction:(NSString*)action inList:(NSMutableArray *)list {
     ExpectedStatement *statement = [[ExpectedStatement alloc] initWithText:text inputAction:action];
     [list addObject:statement];
 }

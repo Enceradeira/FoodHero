@@ -203,8 +203,8 @@
         NSArray *photos = [[photo image] toArray]; // force loading by enumerating image-Signal
         assertThatUnsignedInt(photos.count, is(equalTo(@1)));
     }
-    assertThatBool(((id <IPhoto>) restaurant.photos[0]).isEagerlyLoaded, is(equalToBool(YES)));
-    assertThatBool(((id <IPhoto>) restaurant.photos[1]).isEagerlyLoaded, is(equalToBool(NO)));
+    assertThatBool(((id <IPhoto>) restaurant.photos[0]).isEagerlyLoaded, is(equalTo(@YES)));
+    assertThatBool(((id <IPhoto>) restaurant.photos[1]).isEagerlyLoaded, is(equalTo(@NO)));
 
     RestaurantRating *rating = restaurant.rating;
     assertThat(rating, is(notNilValue()));

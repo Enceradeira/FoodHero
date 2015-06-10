@@ -64,11 +64,11 @@
     }
 
     // if everything works find we should find restaurants of all price-levels in London
-    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 0;}],is(equalToBool(YES)));
-    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 1;}],is(equalToBool(YES)));
-    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 2;}],is(equalToBool(YES)));
-    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 3;}],is(equalToBool(YES)));
-    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 4;}],is(equalToBool(YES)));
+    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 0;}],is(equalTo(@YES)));
+    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 1;}],is(equalTo(@YES)));
+    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 2;}],is(equalTo(@YES)));
+    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 3;}],is(equalTo(@YES)));
+    assertThatBool([places linq_any:^BOOL(Place *p){ return p.priceLevel == 4;}],is(equalTo(@YES)));
 
     // cuisineRelevance should be unique over all restaurants
     NSMutableArray *seenRelevances = [NSMutableArray new];
@@ -77,7 +77,7 @@
         bool isUnique = ![seenRelevances linq_any:^(NSNumber *otherRelevance){
             return (BOOL) [relevance isEqualToNumber: otherRelevance];
         }];
-        assertThatBool(isUnique, is(equalToBool(YES)));
+        assertThatBool(isUnique, is(equalTo(@YES)));
         [seenRelevances addObject:relevance];
     }
 

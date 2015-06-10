@@ -8,7 +8,7 @@
 
 @interface ExpectedStatement : NSObject
 @property(nonatomic, readonly) NSString *semanticId;
-@property(nonatomic, readonly) Class state;
+@property(nonatomic, readonly) NSString* state;
 
-- (instancetype)initWithText:(NSString *)text inputAction:(Class)inputAction;
+- (instancetype)initWithText:(NSString *)text inputAction:(NSString*)inputAction;
 @end

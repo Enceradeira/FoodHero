@@ -6,7 +6,7 @@
 #import "ExpectedStatement.h"
 
 @implementation ExpectedStatement
-- (instancetype)initWithText:(NSString *)semanticId inputAction:(Class)inputAction {
+- (instancetype)initWithText:(NSString *)semanticId inputAction:(NSString*)inputAction {
     self = [super init];
     if (self != nil) {
         _semanticId = semanticId;
