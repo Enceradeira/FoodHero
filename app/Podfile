@@ -11,6 +11,7 @@ target :FoodHero do
     # pod 'Wit', '~> 4.0.0'
     pod 'Wit',  :path => './../../wit-ios-sdk'
     pod 'Google-Maps-iOS-SDK'
+    pod 'GoogleAnalytics'
 end
 
 target :FoodHeroTests do

@@ -12,6 +12,10 @@ You can get the attribution text by making a call to
 [GMSServices openSourceLicenseInfo].
 
 
+## GoogleAnalytics
+
+Copyright 2015 Google Inc.
+
 ## LinqToObjectiveC
 
 Copyright 2013 Colin Eberhardt

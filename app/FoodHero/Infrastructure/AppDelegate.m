@@ -9,6 +9,8 @@
 #import <Typhoon.h>
 #import <Wit/Wit.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <GAI.h>
+#import <GAIFields.h>
 #import "AppDelegate.h"
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
@@ -16,6 +18,19 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Google Analaytics
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
+    [GAI sharedInstance].dispatchInterval = 20;
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-25686837-2"];
+
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    [tracker set:kGAIAppVersion value:version];
+    // [tracker set:kGAISampleRate value:@"50.0"];
+
+
+
+    // Google Map
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
 
     [TyphoonComponents configure:[DefaultAssembly assembly]];

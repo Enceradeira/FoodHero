@@ -1,5 +1,6 @@
 PODS:
   - Google-Maps-iOS-SDK (1.9.2)
+  - GoogleAnalytics (3.12.0)
   - LinqToObjectiveC (2.0.0)
   - OCHamcrest (4.1.1)
   - ReactiveCocoa (2.3.1):
@@ -18,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Google-Maps-iOS-SDK
+  - GoogleAnalytics
   - LinqToObjectiveC
   - OCHamcrest
   - ReactiveCocoa
@@ -34,6 +36,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Google-Maps-iOS-SDK: 4c008abdb68e03ae125c7f674be841d369e2b3de
+  GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
   LinqToObjectiveC: 768f98c62d5b57cb6bdb7ab869e33d0a7a2da29c
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   ReactiveCocoa: 334468a83b2c5f669f7cfb9a084415ee23219b4f
