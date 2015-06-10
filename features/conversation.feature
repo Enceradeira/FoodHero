@@ -68,7 +68,7 @@ Feature: User interacts with app through conversation
    Then FoodHero asks me for the occasion
 
    When I want to have some drinks
-   Then FoodHero suggests something else
+   Then FoodHero suggests something
 
    When I dislike the kind of food
    Then I see my answer DislikesKindOfFood
@@ -84,7 +84,7 @@ Feature: User interacts with app through conversation
     And FoodHero mentions the occasion
 
     When I want to have some drinks
-    Then FoodHero suggests something else
+    Then FoodHero suggests something
 
   Scenario: I don't allow FoodHero to access location-API
     When FoodHero asks for access to the location-services
