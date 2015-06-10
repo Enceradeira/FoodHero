@@ -36,7 +36,7 @@
         _input = input;
         _assembly = assembly;
         _isStarted = NO;
-        _id = [[NSUUID UUID] UUIDString];
+        _id = [UserId id];
     }
     return self;
 }

@@ -358,12 +358,13 @@
     assertThat(occasion, is(equalTo([Occasions dinner])));
 }
 
--(void)test_id_ShouldReturnUniqueIdentifierForConversation{
+-(void)test_id_ShouldAlwaysReturnUserId{
     NSString* id1 = self.conversation.id;
+    assertThat(id1, is(equalTo([UserId id])));
+
     [self resetConversation];
     NSString* id2 = self.conversation.id;
-
-    assertThat(id1, isNot(equalTo(id2)));
+    assertThat(id1, is(equalTo([UserId id])));
 }
 
 @end

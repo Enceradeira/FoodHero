@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
+#import "FoodHero-Swift.h"
 
 @implementation AppDelegate
 
@@ -27,6 +28,7 @@
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
     [tracker set:kGAIAppVersion value:version];
     // [tracker set:kGAISampleRate value:@"50.0"];
+    [tracker set:@"&uid"value:[UserId id]];
 
 
 
