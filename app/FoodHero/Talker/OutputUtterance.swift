@@ -17,7 +17,7 @@ class OutputUtterance: Utterance {
             obj in
             let def = obj as! StringDefinition.Result;
             let text = def.choises.getOne()
-            let customData = def.customData
+            let customData: AnyObject? = def.customData
             output.sendNext(TalkerUtterance(utterance: text, customData: customData), andNotifyMode: TalkerModes.Outputting)
             continuation()
         }

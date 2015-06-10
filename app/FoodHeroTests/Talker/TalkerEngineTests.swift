@@ -22,9 +22,9 @@ public class TalkerEngineTests: XCTestCase {
         _randomizer = TalkerRandomizerFake()
     }
 
-    func async(_ handler: () -> ()) {
+    func async(closure: () -> ()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            handler()
+            closure()
         }
     }
 
@@ -122,9 +122,9 @@ public class TalkerEngineTests: XCTestCase {
         }
     }
 
-    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, whenInputIs generator: (String) -> (Any?) = {
+    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, withNaturalOutput naturalOutput: Bool = true, whenInputIs generator: (String) -> (Any?) = {
         g in return nil
-    }, withNaturalOutput naturalOutput: Bool = true) {
+    }) {
         var utterances = [String]()
 
         let dialog = executeScript(script, withNaturalOutput: naturalOutput)

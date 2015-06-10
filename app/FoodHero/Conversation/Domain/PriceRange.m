@@ -74,7 +74,7 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"[%u-%u]", _min, _max];
+    return [NSString stringWithFormat:@"[%lu-%lu]", (unsigned long)_min, (unsigned long)_max];
 }
 
 

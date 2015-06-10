@@ -48,6 +48,22 @@
     return result == nil ? 0:[result doubleValue];
 }
 
+- (BOOL)doRestaurantsHaveDifferentPriceLevels {
+    return NO;
+}
+
+- (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound {
+
+}
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+
+}
+
+- (void)simulateSlowResponse:(BOOL)enabled {
+
+}
+
 
 - (void)simulateException {
     if (_exception != nil) {

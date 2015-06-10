@@ -6,6 +6,6 @@
 import Foundation
 
 protocol Utterance: class {
-    func execute(_ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ())
+    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ())
     var hasOutput: Bool { get }
 }

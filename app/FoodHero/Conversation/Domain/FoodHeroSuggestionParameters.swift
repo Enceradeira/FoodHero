@@ -5,7 +5,7 @@
 
 import Foundation
 
-class FoodHeroSuggestionParameters: FoodHeroParameters {
+public class FoodHeroSuggestionParameters: FoodHeroParameters {
     private let _restaurant: Restaurant
     public init(semanticId: String, state: String?, restaurant: Restaurant, expectedUserUtterances: ExpectedUserUtterances?) {
         _restaurant = restaurant;

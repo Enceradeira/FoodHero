@@ -52,7 +52,7 @@ public class Script: NSObject {
         return self
     }
 
-    public func continueWith(continuation continuation: ((FutureScript) -> (FutureScript)))->Script{
+    public func continueWith(# continuation: ((FutureScript) -> (FutureScript)))->Script{
         _utterances.append(Continuation(continuation: continuation,context:_context))
         return self;
     }

@@ -133,7 +133,6 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooFarAwayAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
-    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
     CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
     CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
 
@@ -149,7 +148,6 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooFarAway_WhenUserHasAlreadyBeenWarnedBefore {
-    CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
     CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
     CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
 

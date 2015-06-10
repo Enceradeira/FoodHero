@@ -11,7 +11,7 @@ public class ConversationScript: Script {
     let _locationService: LocationService
     let _schedulerFactory: ISchedulerFactory
 
-    public init(context context: TalkerContext,
+    public init(context: TalkerContext,
                 conversation: Conversation,
                 search: RestaurantSearch,
                 locationService: LocationService,

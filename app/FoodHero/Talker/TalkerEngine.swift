@@ -12,7 +12,7 @@ public class TalkerEngine: NSObject {
     private let _script: Script
     private let _input: RACSignal
 
-    public init(script: Script, #input: RACSignal) {
+    public init(script: Script, input: RACSignal) {
         self._script = script
         self._input = input
     }

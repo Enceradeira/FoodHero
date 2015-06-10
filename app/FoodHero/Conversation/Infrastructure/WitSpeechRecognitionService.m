@@ -42,7 +42,7 @@
             [_output sendNext:[NetworkError new]];
         }
         else {
-            NSLog([NSString stringWithFormat:@"WitDelegate detected unexptected error '%@'. It will handle it as UserIntentUnclearError", [error domain]]);
+            NSLog(@"WitDelegate detected unexptected error '%@'. It will handle it as UserIntentUnclearError", [error domain]);
             [_output sendNext:[self userIntentUnclearError]];
         }
     }
@@ -63,7 +63,7 @@
         if([_currState isEqualToString:@"askForSuggestionFeedback"]
                 && ([interpretation.text isEqualToString:@"no"] || [interpretation.text isEqualToString:@"No"])){
 
-            NSLog([NSString stringWithFormat:@"WIT Workaround applied: %@ -> SuggestionFeedback_Dislike ",interpretation.intent]);
+            NSLog(@"WIT Workaround applied: %@ -> SuggestionFeedback_Dislike ",interpretation.intent);
             interpretation.intent = @"SuggestionFeedback_Dislike";
             interpretation.confidence = 1;
         }

@@ -18,7 +18,7 @@ class HelpViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false;
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let controller = segue.destinationViewController as! UserUtterancesController
         controller.setExpectedUserUtterances(_expectedUserUtterances, delegate: _delegate!)
     }

@@ -16,7 +16,7 @@ class OptionalUtterance: Utterance {
         _context = context
     }
 
-    func execute(_ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
         let randomizer = _context.randomizer
         if (randomizer.isTrue(forTag: _tag)) {
             _utterance.execute(input, output, continuation)

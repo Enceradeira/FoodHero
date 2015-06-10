@@ -22,4 +22,21 @@
     return 0;
 }
 
+- (BOOL)doRestaurantsHaveDifferentPriceLevels {
+    return NO;
+}
+
+- (void)simulateNoRestaurantFound:(BOOL)simulateNotRestaurantFound {
+
+}
+
+- (void)simulateNetworkError:(BOOL)simulationEnabled {
+
+}
+
+- (void)simulateSlowResponse:(BOOL)enabled {
+
+}
+
+
 @end

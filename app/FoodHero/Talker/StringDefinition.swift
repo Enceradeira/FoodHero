@@ -12,8 +12,8 @@ public class StringDefinition {
             self.choises = choices
             self.customData = customData
         }
-        public let choises: Choices
-        public let customData: AnyObject?
+        internal let choises: Choices
+        internal let customData: AnyObject?
     }
 
     private let _result: RACSubject = RACReplaySubject()

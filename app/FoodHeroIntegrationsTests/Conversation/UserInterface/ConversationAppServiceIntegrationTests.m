@@ -76,6 +76,18 @@
     return _currState;
 }
 
+- (ExpectedUserUtterances *)expectedUserUtterances {
+    return nil;
+}
+
+- (void)didStopRecordingUserInput {
+
+}
+
+- (void)didStartRecordingUserInput {
+
+}
+
 - (void)didStopProcessingUserInput {
 
 }

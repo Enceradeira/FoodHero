@@ -108,7 +108,7 @@
     double lastDiffFromLastScore = 0;
     for (double distance = distanceMax; distance <= 50 * distanceMax; distance += distanceMax / 3) {
         double score = [preference scorePlace:place normalizedDistance:distance restaurant:nil];
-        NSLog([NSString stringWithFormat:@"Distance: %f Score: %f", distance, score]);
+        NSLog(@"Distance: %f Score: %f", distance, score);
         if (score != lastScore) {
             double diffFromLastScore = lastScore - score;
             if (lastDiffFromLastScore != 0) {

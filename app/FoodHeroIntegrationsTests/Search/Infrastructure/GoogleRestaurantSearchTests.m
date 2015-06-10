@@ -114,7 +114,7 @@
     NSArray *places = [_service findPlaces:_parameter];
     for (NSUInteger i = 1; i < places.count && i < 20; i++) {
         Restaurant *restaurant = [_service getRestaurantForPlace:places[i] currentLocation:york];
-        NSLog([NSString stringWithFormat:@"Name: %@ Vicinity: %@", restaurant.name, restaurant.vicinity]);
+        NSLog(@"Name: %@ Vicinity: %@", restaurant.name, restaurant.vicinity);
     }
 }
 

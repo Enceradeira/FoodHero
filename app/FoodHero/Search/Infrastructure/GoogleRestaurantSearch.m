@@ -70,7 +70,7 @@
                                                        _onlyOpenNow ? @"&opennow" : @""];
 
 
-    NSLog([NSString stringWithFormat:@"GoogleRestaurantSearch.findPlaces: %@",placeString]);
+    NSLog(@"GoogleRestaurantSearch.findPlaces: %@",placeString);
 
     __block NSDictionary *json;
     NSError *error;

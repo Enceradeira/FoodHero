@@ -33,7 +33,7 @@ class UserUtterancesController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let utterance = _expectedUserUtterances.utterances[indexPath.row]
         var height : CGFloat
         height = 30

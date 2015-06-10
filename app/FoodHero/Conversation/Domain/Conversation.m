@@ -63,7 +63,7 @@
         }];
         NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *parameter) {
             return [parameter state];
-        }] linq_where:^(NSString *state) {
+        }] linq_where:^(id state) {
             return (BOOL) (state != [NSNull null]);
         }];
 
@@ -76,7 +76,7 @@
                 linq_select:^(FoodHeroSuggestionParameters *parameter) {
                     return [parameter expectedUserUtterances];
                 }]
-                linq_where:^(ExpectedUserUtterances *expectedUtterances) {
+                linq_where:^(id expectedUtterances) {
                     return (BOOL) (expectedUtterances != [NSNull null]);
                 }] linq_firstOrNil];
 

@@ -48,7 +48,7 @@
         NSString *cuisine = searchPreference.cuisine;
         NSString *distance = searchPreference.distanceRange.description;
         NSString *price = searchPreference.priceRange.description;
-        NSLog([NSString stringWithFormat:@"RestaurantSearch.findBest: occasion=%@ cuisine=%@ distance=%@ price=%@", occasion, cuisine, distance, price]);
+        NSLog(@"RestaurantSearch.findBest: occasion=%@ cuisine=%@ distance=%@ price=%@", occasion, cuisine, distance, price);
         
         
         

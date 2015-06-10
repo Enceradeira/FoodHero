@@ -16,7 +16,7 @@
                     </navigationBar>
                     <connections>
                         <segue destination="Xf7-7W-WAu" kind="relationship" relationship="rootViewController" id="Cdd-kV-dbe"/>
-                        <segue destination="pHo-nb-mpi" kind="push" id="R6w-a1-22P"/>
+                        <segue destination="pHo-nb-mpi" kind="push" identifier="restaurantMap" id="R6w-a1-22P"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROR-5s-y28" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -168,7 +168,7 @@
                                 </connections>
                             </button>
                             <connections>
-                                <segue destination="i91-h0-nMD" kind="push" id="4q4-lp-y3e"/>
+                                <segue destination="i91-h0-nMD" kind="push" identifier="restaurantDetail" id="4q4-lp-y3e"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -647,7 +647,7 @@ Norwich, Norfolk NR1 3DN</string>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tih-h0-3fM">
                                         <rect key="frame" x="0.0" y="125" width="272" height="359"/>
                                         <connections>
-                                            <segue destination="Tkx-OU-aso" kind="embed" id="VNB-pv-Dlf"/>
+                                            <segue destination="Tkx-OU-aso" kind="embed" identifier="userUtterances" id="VNB-pv-Dlf"/>
                                         </connections>
                                     </containerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now you can say or type something like:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ca-kq-ccU">
@@ -656,7 +656,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If Food Hero can&#39;t understand you properly please use the keyboard and not the microphone." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJy-yb-fJh">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If Food Hero can't understand you properly please use the keyboard and not the microphone." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJy-yb-fJh">
                                         <rect key="frame" x="0.0" y="20" width="272" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
