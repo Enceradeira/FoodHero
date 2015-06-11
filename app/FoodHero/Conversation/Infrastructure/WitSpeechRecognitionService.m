@@ -16,6 +16,7 @@
     RACSubject *_output;
     BOOL _simulateNetworkError;
     NSString *_currState;
+    int _engagementCount;
 }
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
@@ -25,6 +26,7 @@
         _audioSession = audioSession;
         _output = [RACSubject new];
         _simulateNetworkError = NO;
+        _engagementCount = 0;
 
         _wit = [Wit sharedInstance];
         _wit.accessToken = _accessToken;
@@ -39,11 +41,16 @@
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
     if (error != nil || _simulateNetworkError) {
         if ([error.domain isEqualToString:@"NSURLErrorDomain"] || _simulateNetworkError) {
-            [self sendNextToOutput:[NetworkError new] GAIAction:[GAIActions witUErrors] GAILabel:@"NSURLErrorDomain"];
+            id value = [NetworkError new];
+            NSString *GAIAction = [GAIActions witUErrors];
+            [_output sendNext:value];
+            [self logGAINegativeExperience:@"NSURLErrorDomain"];
+
         }
         else {
             NSLog(@"WitDelegate detected unexptected error '%@'. It will handle it as UserIntentUnclearError", [error domain]);
-            [self sendNextToOutput:[self userIntentUnclearError] GAIAction:[GAIActions witUErrors] GAILabel:@"Unexpected"];
+            [_output sendNext:[self userIntentUnclearError]];
+            [self logGAINegativeExperience:@"WitUnexpectedError"];
         }
     }
     else if (outcomes.count > 0) {
@@ -69,21 +76,19 @@
         }
 
         if (interpretation.confidence < 0.1 || [interpretation.intent isEqualToString:@"UNKNOWN"]) {
-            [self sendNextToOutput:[self userIntentUnclearError] GAIAction:[GAIActions witUErrors] GAILabel:@"LowConfidence"];
+            [_output sendNext:[self userIntentUnclearError]];
+            [self logGAINegativeExperience:@"WitLowConfidence"];
         }
         else {
-            [self sendNextToOutput:interpretation GAIAction:interpretation.intent GAILabel:@""];
+            [_output sendNext:interpretation];
+            [GAIService logEventWithCategory:[GAICategories witRecognize] action:interpretation.intent label:@"" value:0];
         }
     }
     else {
         [_output sendNext:[self userIntentUnclearError]];
+        [self logGAINegativeExperience:@"WitNoOutcome"];
     }
     [self.stateSource didStopProcessingUserInput];
-}
-
-- (void)sendNextToOutput:(id)value GAIAction:(NSString *)GAIAction GAILabel:(NSString *)GAILabel {
-    [_output sendNext:value];
-    [self logGAIEventWithAction:GAIAction label:GAILabel];
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
@@ -98,7 +103,8 @@
     [self.stateSource didStartProcessingUserInput];
     [self.stateSource didStartRecordingUserInput];
     NSLog(@"WitSpeechRecognitionService.witDidStartRecording: Recording startet");
-    [GAIService logEventWithCategory:[GAICategories uIUsage] action:[GAIActions uIUsageWitInput] label:@"voice" value:0];
+    [self logGAIEventUiUsage:@"voice"];
+    [self logGAIEventEngagement];
 }
 
 - (void)witDidStopRecording {
@@ -109,7 +115,8 @@
 - (void)interpretString:(NSString *)string {
     [self.stateSource didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
-    [GAIService logEventWithCategory:[GAICategories uIUsage] action:[GAIActions uIUsageWitInput] label:@"text" value:0];
+    [self logGAIEventUiUsage:@"text"];
+    [self logGAIEventEngagement];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
@@ -134,8 +141,19 @@
     [_wit setThreadId:id];
 }
 
-- (void)logGAIEventWithAction:(NSString *)action label:(NSString *)label {
-    [GAIService logEventWithCategory:[GAICategories witRecognize] action:action label:label value:0];
+- (void)logGAIEventEngagement {
+    _engagementCount++;
+    NSString *label = [NSString stringWithFormat:@"%i", _engagementCount];
+    [GAIService logEventWithCategory:[GAICategories engagement] action:[GAIActions engagementConversation] label:label value:0];
 }
 
+- (void)logGAIEventUiUsage:(NSString *)label {
+    [GAIService logEventWithCategory:[GAICategories uIUsage] action:[GAIActions uIUsageWitInput] label:label value:0];
+}
+
+
+- (void)logGAINegativeExperience:(NSString *)label {
+    [GAIService logEventWithCategory:[GAICategories negativeExperience] action:[GAIActions negativeExperienceError] label:label value:0];
+}
+ 
 @end

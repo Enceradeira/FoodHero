@@ -313,6 +313,9 @@ public class ConversationScript: Script {
             script.say(oneOf: lastQuestion)
             return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
         } else if error is NoRestaurantsFoundError || error is SearchError {
+            let label = toString(error.dynamicType)
+            GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value:0 )
+
             let lastQuestion = FHUtterances.noRestaurantsFound
             script.say(oneOf: lastQuestion)
             self.waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {

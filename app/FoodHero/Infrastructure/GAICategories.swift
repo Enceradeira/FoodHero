@@ -26,6 +26,14 @@ public class GAICategories: NSObject {
         return "Improvments";
     }
 
+    // How enganged are users
+    public class func engagement()->String{
+        return "Engagement"
+    }
+
+    public class func negativeExperience()->String{
+        return "NegativeExperience"
+    }
 }
 
 public class GAIActions: NSObject {
@@ -64,7 +72,17 @@ public class GAIActions: NSObject {
         return "SearchCuisine"
     }
 
+    /// Event when no occasion could be guessed from cuisine
     public class func improvementNoOccasionGuessedForCuisine() -> String {
         return "NoOccassionGuessedForCuisine";
+    }
+
+    /// Event when a certain progress in the conversation was reached
+    public class func engagementConversation()->String{
+        return "ConversationProgress"
+    }
+
+    public class func negativeExperienceError()->String{
+        return "NegativeExperienceError"
     }
 }
