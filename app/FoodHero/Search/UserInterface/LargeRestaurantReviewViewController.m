@@ -6,6 +6,7 @@
 #import "LargeRestaurantReviewViewController.h"
 #import "FoodHeroColors.h"
 #import "NotebookBackgroundConfigurator.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation LargeRestaurantReviewViewController {
@@ -13,6 +14,10 @@
     __weak IBOutlet UIView *_backgroundView;
     __weak IBOutlet UIView *_containerView;
     UIViewController *_containerContent;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [GAIService logScreenViewed:@"Restaurant Review Large"];
 }
 
 - (void)viewDidLoad {

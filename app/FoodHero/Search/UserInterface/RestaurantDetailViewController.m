@@ -18,6 +18,10 @@
     Restaurant *_restaurant;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [GAIService logScreenViewed:@"Restaurant Detail"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

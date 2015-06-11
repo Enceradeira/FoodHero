@@ -6,6 +6,7 @@
 #import "RestaurantPhotoViewController.h"
 #import "TyphoonComponents.h"
 #import "ISchedulerFactory.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation RestaurantPhotoViewController {
@@ -20,6 +21,10 @@
     leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
 
     [self bind];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [GAIService logScreenViewed:@"Restaurant Photo Small"];
 }
 
 -(void)setSchedulerFactory:(id <ISchedulerFactory>)schedulerFactory{

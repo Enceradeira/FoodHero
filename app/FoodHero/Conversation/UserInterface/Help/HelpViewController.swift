@@ -11,7 +11,10 @@ class HelpViewController: UIViewController {
     var _expectedUserUtterances: ExpectedUserUtterances!
     var _delegate: IHelpViewControllerDelegate!
 
-
+    override func viewDidAppear(animated: Bool) {
+        GAIService.logScreenViewed("Help")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

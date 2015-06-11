@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-392" y="889"/>
         </scene>
-        <!--Food Hero-->
+        <!--Conversation-->
         <scene sceneID="qo0-gW-NQz">
             <objects>
-                <viewController storyboardIdentifier="ConversationViewController" id="Xf7-7W-WAu" customClass="ConversationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConversationViewController" id="Xf7-7W-WAu" userLabel="Conversation" customClass="ConversationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t8J-Rf-q7T"/>
                         <viewControllerLayoutGuide type="bottom" id="AQl-Q3-OdL"/>
@@ -189,10 +189,10 @@
             </objects>
             <point key="canvasLocation" x="165" y="889"/>
         </scene>
-        <!--Restaurant Detail Controller-->
+        <!--Restaurant Detail-->
         <scene sceneID="R00-m1-BaV">
             <objects>
-                <viewController storyboardIdentifier="RestaurantDetail" id="i91-h0-nMD" userLabel="Restaurant Detail Controller" customClass="RestaurantDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantDetail" id="i91-h0-nMD" userLabel="Restaurant Detail" customClass="RestaurantDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sXS-J8-4ml"/>
                         <viewControllerLayoutGuide type="bottom" id="6TC-gc-LIk"/>
@@ -252,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="701" y="1632"/>
         </scene>
-        <!--Large Restaruant Review View Controller-->
+        <!--Restaurant Review Large-->
         <scene sceneID="oui-3y-LSu">
             <objects>
-                <viewController storyboardIdentifier="LargeRestaurantReviewViewController" id="fcW-5q-l0i" userLabel="Large Restaruant Review View Controller" customClass="LargeRestaurantReviewViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LargeRestaurantReviewViewController" id="fcW-5q-l0i" userLabel="Restaurant Review Large" customClass="LargeRestaurantReviewViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ek3-Jn-0JO"/>
                         <viewControllerLayoutGuide type="bottom" id="Yxw-De-e3t"/>
@@ -524,10 +524,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1125.5" y="2233"/>
         </scene>
-        <!--Restaurant Map View Controller-->
+        <!--Restaurant Map-->
         <scene sceneID="zg6-qw-cwy">
             <objects>
-                <viewController storyboardIdentifier="RestaurantMapView" id="pHo-nb-mpi" customClass="RestaurantMapViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantMapView" id="pHo-nb-mpi" userLabel="Restaurant Map" customClass="RestaurantMapViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="U7t-9S-abE"/>
                         <viewControllerLayoutGuide type="bottom" id="Mbp-eV-CCI"/>
@@ -603,10 +603,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="147" y="224"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Login-->
         <scene sceneID="HRM-u1-pSN">
             <objects>
-                <viewController id="hAm-k5-Xt9" userLabel="Login View Controller" sceneMemberID="viewController">
+                <viewController id="hAm-k5-Xt9" userLabel="Login" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Esg-0O-z2l"/>
                         <viewControllerLayoutGuide type="bottom" id="UGu-b5-0Ne"/>
@@ -629,10 +629,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="683" y="250"/>
         </scene>
-        <!--Help View Controller-->
+        <!--Help-->
         <scene sceneID="fxC-fX-uGw">
             <objects>
-                <viewController storyboardIdentifier="HelpController" id="f14-hB-uXh" userLabel="Help View Controller" customClass="HelpViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpController" id="f14-hB-uXh" userLabel="Help" customClass="HelpViewController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nGi-aa-YMO"/>
                         <viewControllerLayoutGuide type="bottom" id="ooR-XY-DDy"/>
@@ -750,10 +750,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1546" y="3323"/>
         </scene>
-        <!--Restaurant Photo View Controller-->
+        <!--Restaurant Photo Small-->
         <scene sceneID="8iY-yM-Ayc">
             <objects>
-                <viewController storyboardIdentifier="RestaurantPhotoViewController" automaticallyAdjustsScrollViewInsets="NO" id="K7t-hI-S0Z" userLabel="Restaurant Photo View Controller" customClass="RestaurantPhotoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantPhotoViewController" automaticallyAdjustsScrollViewInsets="NO" id="K7t-hI-S0Z" userLabel="Restaurant Photo Small" customClass="RestaurantPhotoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kcZ-kb-mPY"/>
                         <viewControllerLayoutGuide type="bottom" id="aak-R9-Anq"/>
@@ -793,10 +793,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1131" y="3339"/>
         </scene>
-        <!--Small Restaurant Review Comment View Controller-->
+        <!--Restaurant Review Small-->
         <scene sceneID="B6y-Ln-b5b">
             <objects>
-                <viewController storyboardIdentifier="SmallRestaurantReviewCommentViewController" id="TRB-BJ-F49" customClass="SmallRestaurantReviewCommentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SmallRestaurantReviewCommentViewController" id="TRB-BJ-F49" userLabel="Restaurant Review Small" customClass="SmallRestaurantReviewCommentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEu-CY-4b9"/>
                         <viewControllerLayoutGuide type="bottom" id="JpX-Rg-Q8j"/>
@@ -866,10 +866,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1131" y="3036"/>
         </scene>
-        <!--Opening Hours Table View Controller-->
+        <!--Opening Hours-->
         <scene sceneID="FkI-pc-7Wr">
             <objects>
-                <tableViewController storyboardIdentifier="OpeningHoursViewController" id="YYu-o7-FVO" userLabel="Opening Hours Table View Controller" customClass="OpeningHoursViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OpeningHoursViewController" id="YYu-o7-FVO" userLabel="Opening Hours" customClass="OpeningHoursViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="20" sectionHeaderHeight="22" sectionFooterHeight="22" id="IIF-bK-Cu2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -923,10 +923,10 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1125" y="2492"/>
         </scene>
-        <!--Restaurant Review Summary Controller-->
+        <!--Restaurant Review Summary-->
         <scene sceneID="35t-qN-8ZF">
             <objects>
-                <viewController storyboardIdentifier="RestaurantReviewSummaryViewController" id="vIg-1n-Knr" userLabel="Restaurant Review Summary Controller" customClass="RestaurantReviewSummaryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RestaurantReviewSummaryViewController" id="vIg-1n-Knr" userLabel="Restaurant Review Summary" customClass="RestaurantReviewSummaryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sLg-y0-2NJ"/>
                         <viewControllerLayoutGuide type="bottom" id="FPf-ia-JxE"/>

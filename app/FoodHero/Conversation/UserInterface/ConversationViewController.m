@@ -51,8 +51,11 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     return backgroundView;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidAppear:(BOOL)animated {
     [GAIService logScreenViewed:@"Conversation"];
+}
+
+- (void)viewDidLoad {
 
     _isLoading = YES;
 

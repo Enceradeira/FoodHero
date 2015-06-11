@@ -5,6 +5,7 @@
 
 #import "SmallRestaurantReviewCommentViewController.h"
 #import "UILabelVisualizer.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation SmallRestaurantReviewCommentViewController {
@@ -20,6 +21,10 @@
     leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
 
     [self bind];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [GAIService logScreenViewed:@"Restaurant Review Small"];
 }
 
 - (void)bind {

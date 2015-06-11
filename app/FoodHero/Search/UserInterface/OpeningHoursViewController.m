@@ -6,6 +6,7 @@
 #import "OpeningHoursViewController.h"
 #import "OpeningHour.h"
 #import "FoodHeroFonts.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation OpeningHoursViewController {
@@ -31,6 +32,9 @@
     return CGSizeMake(width, [self tableView].rowHeight * _hours.count );
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [GAIService logScreenViewed:@"Opening Hours"];
+}
 
 - (CGSize)calculateWidthOfText:(NSString *)text isBold:(BOOL)isBold {
     UIFont *font = [FoodHeroFonts fontOfSize:isBold];

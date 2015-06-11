@@ -20,6 +20,10 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
     func setLocationService(locationService: LocationService) {
         _locationService = locationService
     }
+    
+    override func  viewDidAppear(animated: Bool) {
+        GAIService.logScreenViewed("Restaurant Map")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
