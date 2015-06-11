@@ -52,6 +52,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)viewDidLoad {
+    [GAIService logScreenViewed:@"Conversation"];
+
     _isLoading = YES;
 
     [super viewDidLoad];

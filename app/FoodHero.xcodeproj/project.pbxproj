@@ -104,6 +104,7 @@
 		235255F29200213234B06580 /* RestaurantSearchWithSpyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525BE97D3437FB4736CEA9 /* RestaurantSearchWithSpyTests.m */; };
 		235255F672F835868D4FF3F0 /* AudioSessionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252B0DB009E78C9929858 /* AudioSessionStub.m */; };
 		2352560937EE42CE7AA10F4C /* ConversationIsVeryBusyAtTheMomentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525F8FF534724DA8ECF1CF /* ConversationIsVeryBusyAtTheMomentTests.swift */; };
+		2352560B70CFA3564D40EC73 /* GAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352552C7DFC8CBA62D5FF04 /* GAIService.swift */; };
 		2352562853E6BA0F44218C59 /* TalkerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525407F79FFB018D52A5FE /* TalkerMode.swift */; };
 		2352562BE11E081D6063FD00 /* ScriptResourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352599F52941A5BB81EEFB3 /* ScriptResourcesTests.swift */; };
 		2352564271A15DFB940E7FA2 /* UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352587D28B5ACFCB702EBD3 /* UserId.swift */; };
@@ -430,6 +431,7 @@
 		2352551BB816B89FEDB2A6AD /* CLLocationManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerImpl.m; sourceTree = "<group>"; };
 		2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchProfileTests.m; sourceTree = "<group>"; };
 		23525527D1286C66382364DE /* WitSpeechRecognitionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WitSpeechRecognitionService.m; sourceTree = "<group>"; };
+		2352552C7DFC8CBA62D5FF04 /* GAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAIService.swift; sourceTree = "<group>"; };
 		23525546FAB7D7372E6B7E91 /* ConversationTestsBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTestsBase.m; sourceTree = "<group>"; };
 		23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponentsTests.m; sourceTree = "<group>"; };
 		23525561646F8C911AC0D7F8 /* RestaurantsInRadiusAndPriceRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsInRadiusAndPriceRange.m; sourceTree = "<group>"; };
@@ -1356,6 +1358,7 @@
 				23525A8E490E7857355BCDB1 /* AudioSession.h */,
 				23525126B110D1F4D822D506 /* GenericWrapper.swift */,
 				23525861B6D08CC91A86443E /* NSCalendarExtension.swift */,
+				2352552C7DFC8CBA62D5FF04 /* GAIService.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1903,6 +1906,7 @@
 				235251B2CDEF647A986C8B52 /* IHelpViewControllerDelegate.swift in Sources */,
 				2352558AA261C702BAFBF28B /* RestaurantMapViewController.swift in Sources */,
 				2352564271A15DFB940E7FA2 /* UserId.swift in Sources */,
+				2352560B70CFA3564D40EC73 /* GAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

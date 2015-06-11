@@ -20,17 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Google Analaytics
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
-    [GAI sharedInstance].dispatchInterval = 20;
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-25686837-2"];
-
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-    [tracker set:kGAIAppVersion value:version];
-    // [tracker set:kGAISampleRate value:@"50.0"];
-    [tracker set:@"&uid"value:[UserId id]];
-
-
+    [GAIService configure];
 
     // Google Map
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
