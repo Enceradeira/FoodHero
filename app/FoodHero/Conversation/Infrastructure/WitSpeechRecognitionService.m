@@ -84,7 +84,7 @@
         }
         else {
             [_output sendNext:interpretation];
-            [GAIService logEventWithCategory:[GAICategories witRecognize] action:interpretation.intent label:@"" value:0];
+            // [GAIService logEventWithCategory:[GAICategories witRecognize] action:interpretation.intent label:@"" value:0];
         }
     }
     else {

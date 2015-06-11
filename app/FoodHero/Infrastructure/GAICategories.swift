@@ -7,9 +7,10 @@ import Foundation
 
 public class GAICategories: NSObject {
     /// How does WIT recognize
+    /*
     public class func witRecognize() -> String {
         return "WitRecognize"
-    }
+    } */
 
     /// What UI Elements are used
     public class func uIUsage() -> String {
@@ -51,11 +52,6 @@ public class GAITimingNames:NSObject{
 }
 
 public class GAIActions: NSObject {
-    /// Wit detected an error
-    public class func witRecognizeUErrors() -> String {
-        return "U:Errors"
-    }
-
     /// User-Element for wit input used
     public class func uIUsageWitInput() -> String {
         return "WitInput"
