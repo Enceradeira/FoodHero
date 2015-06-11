@@ -17,6 +17,7 @@
     BOOL _simulateNetworkError;
     NSString *_currState;
     int _engagementCount;
+    NSDate *_startTimeWit;
 }
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
@@ -38,11 +39,13 @@
 }
 
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
+    NSTimeInterval timeElapsed = [_startTimeWit timeIntervalSinceNow];
+    [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames wit] label:@"" interval:timeElapsed];
+
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
     if (error != nil || _simulateNetworkError) {
         if ([error.domain isEqualToString:@"NSURLErrorDomain"] || _simulateNetworkError) {
             id value = [NetworkError new];
-            NSString *GAIAction = [GAIActions witUErrors];
             [_output sendNext:value];
             [self logGAINegativeExperience:@"NSURLErrorDomain"];
 
@@ -109,14 +112,20 @@
 
 - (void)witDidStopRecording {
     [self.stateSource didStopRecordingUserInput];
+    [self startWitTimer];
     NSLog(@"WitSpeechRecognitionService.witDidStopRecording: Recording stopped");
 }
 
 - (void)interpretString:(NSString *)string {
     [self.stateSource didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
+    [self startWitTimer];
     [self logGAIEventUiUsage:@"text"];
     [self logGAIEventEngagement];
+}
+
+- (void)startWitTimer {
+    _startTimeWit = [NSDate date];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {

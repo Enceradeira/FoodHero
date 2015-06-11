@@ -58,7 +58,12 @@
                         [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
 
                         @try {
+                            NSDate *startTime = [NSDate date];
+
                             _placesCached = [self fetchPlaces:parameter currentLocation:currentLocation];
+
+                            NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
+                            [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
                         }
                         @catch (SearchException *exc) {
                             *error = [SearchError new];

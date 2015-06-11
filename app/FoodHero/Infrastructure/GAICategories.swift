@@ -34,11 +34,25 @@ public class GAICategories: NSObject {
     public class func negativeExperience()->String{
         return "NegativeExperience"
     }
+
+    public class func externalCallTimings()->String{
+        return "ExternalCallTimings"
+    }
+}
+
+public class GAITimingNames:NSObject{
+    public class func wit()->String{
+        return "Wit"
+    }
+
+    public class func restaurantRepository()->String{
+        return "RestaurantRepository"
+    }
 }
 
 public class GAIActions: NSObject {
     /// Wit detected an error
-    public class func witUErrors() -> String {
+    public class func witRecognizeUErrors() -> String {
         return "U:Errors"
     }
 

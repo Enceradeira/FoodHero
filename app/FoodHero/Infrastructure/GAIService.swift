@@ -42,4 +42,12 @@ public class GAIService: NSObject {
         _tracker.send(event as [NSObject:AnyObject])
 
     }
+
+    public class func logTimingWithCategory(category: String, name: String, label: String, interval: NSTimeInterval) {
+        if (_tracker == nil) {
+            return;
+        }
+        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: interval * 1000, name: name, label: label).build();
+        _tracker.send(timing as [NSObject:AnyObject])
+    }
 }
