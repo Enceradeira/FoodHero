@@ -364,7 +364,7 @@
 
     [self resetConversation];
     NSString* id2 = self.conversation.id;
-    assertThat(id1, is(equalTo([UserId id])));
+    assertThat(id2, is(equalTo([UserId id])));
 }
 
 @end

@@ -6,10 +6,13 @@
 import Foundation
 
 public class GAIService: NSObject {
-    private static var _tracker:GAITracker! = nil
+    private static var _tracker: GAITracker! = nil
 
-    public class func configure()
-    {
+    public class func configure() -> Bool {
+        if UIDevice.currentDevice().model.rangeOfString("Simulator") != nil {
+            return false
+        }
+
         GAI.sharedInstance().trackUncaughtExceptions = true
         GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
         GAI.sharedInstance().dispatchInterval = 20
@@ -18,18 +21,25 @@ public class GAIService: NSObject {
         let version = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
         let shortVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString" as String) as! String
 
-        _tracker.set(kGAIAppVersion, value:"\(shortVersion).\(version)")
-        _tracker.set("&uid", value:UserId.id())
+        _tracker.set(kGAIAppVersion, value: "\(shortVersion).\(version)")
+        _tracker.set("&uid", value: UserId.id())
+        return true
     }
 
-    public class func logScreenViewed(screenName:String){
+    public class func logScreenViewed(screenName: String) {
+        if (_tracker == nil) {
+            return;
+        }
         _tracker.set(kGAIScreenName, value: screenName)
-        _tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
+        _tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject:AnyObject])
     }
 
-    public class func logEventWithCategory(category: String, action:String, label:String, value:Float){
+    public class func logEventWithCategory(category: String, action: String, label: String, value: Float) {
+        if (_tracker == nil) {
+            return;
+        }
+        let event = GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build();
+        _tracker.send(event as [NSObject:AnyObject])
 
-        let event = GAIDictionaryBuilder.createEventWithCategory(category, action:action, label:label, value:value).build();
-        _tracker.send(event as [NSObject : AnyObject])
     }
 }
