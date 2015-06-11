@@ -30,5 +30,6 @@ class UserUtteranceTableViewCell: UITableViewCell {
 
     func userDidSelectUtterance() {
         _delegate.userDidSelectUtterance(_utterance)
+        GAIService.logEventWithCategory("Help",action:"touch",label:_utterance,value:0)
     }
 }

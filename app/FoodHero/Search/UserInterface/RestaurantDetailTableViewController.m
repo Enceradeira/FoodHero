@@ -109,31 +109,20 @@
     NSString *cleanedString = [[_restaurant.phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
     NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cleanedString]];
     [[UIApplication sharedApplication] openURL:telURL];
+    [GAIService logEventWithCategory:@"Restaurant Detail" action:@"touch" label:@"phone" value:0];
 }
 
 - (IBAction)urlTouched:(UITapGestureRecognizer *)sender {
     NSURL *webUrl = [NSURL URLWithString:_restaurant.url];
     [[UIApplication sharedApplication] openURL:webUrl];
+    [GAIService logEventWithCategory:@"Restaurant Detail" action:@"touch" label:@"url" value:0];
 }
 
 - (IBAction)mapTouched:(UITapGestureRecognizer *)sender {
-
-    /*
-    CLLocationCoordinate2D coordinate = _locationService.lastKnownLocation.coordinate;
-
-    NSArray *encodedComponents = [_restaurant.addressComponents linq_select:^(NSString *component) {
-        return [KeywordEncoder encodeString:component];
-    }];
-    NSString *restaurantAddressEncoded = [encodedComponents componentsJoinedByString:@","];
-
-    NSString *url = [NSString stringWithFormat:@"https://www.google.com/maps/dir/%f,%f/%@", coordinate.latitude, coordinate.longitude, restaurantAddressEncoded];
-    NSURL *webUrl = [NSURL URLWithString:url];
-    [[UIApplication sharedApplication] openURL:webUrl];
-    */
-
     RestaurantMapViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantMapView"];
     [controller setRestaurant:_restaurant];
     [self.navigationController pushViewController:controller animated:YES];
+    [GAIService logEventWithCategory:@"Restaurant Detail" action:@"touch" label:@"map" value:0];
 }
 
 

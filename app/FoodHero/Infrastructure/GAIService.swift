@@ -27,7 +27,7 @@ public class GAIService: NSObject {
         _tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
     }
 
-    public class func logEvent(category: String, action:String, label:String, value:Float){
+    public class func logEventWithCategory(category: String, action:String, label:String, value:Float){
 
         let event = GAIDictionaryBuilder.createEventWithCategory(category, action:action, label:label, value:value).build();
         _tracker.send(event as [NSObject : AnyObject])

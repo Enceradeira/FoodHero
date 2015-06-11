@@ -93,7 +93,7 @@
     [self.stateSource didStartProcessingUserInput];
     [self.stateSource didStartRecordingUserInput];
     NSLog(@"WitSpeechRecognitionService.witDidStartRecording: Recording startet");
-    [GAIService logEvent:@"WitInput" action:@"voice" label:@"" value:0];
+    [GAIService logEventWithCategory:@"Conversation" action:@"input" label:@"voice" value:0];
 }
 
 - (void)witDidStopRecording {
@@ -104,7 +104,7 @@
 - (void)interpretString:(NSString *)string {
     [self.stateSource didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
-    [GAIService logEvent:@"WitInput" action:@"text" label:@"" value:0];
+    [GAIService logEventWithCategory:@"Conversation" action:@"input" label:@"text" value:0];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
