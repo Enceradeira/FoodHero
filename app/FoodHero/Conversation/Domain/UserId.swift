@@ -6,8 +6,17 @@
 import Foundation
 
 public class UserId: NSObject {
-    private static let _id =  NSUUID().UUIDString
     public class func id() -> String{
-        return _id
+        let key = "userId"
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let id = defaults.stringForKey(key)
+        {
+            return id
+        }
+        else{
+            let id = NSUUID().UUIDString
+            defaults.setObject(id, forKey: key)
+            return id
+        }
     }
 }
