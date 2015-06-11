@@ -39,11 +39,11 @@
     SpeechInterpretation *interpretation = [SpeechInterpretation new];
     if (error != nil || _simulateNetworkError) {
         if ([error.domain isEqualToString:@"NSURLErrorDomain"] || _simulateNetworkError) {
-            [_output sendNext:[NetworkError new]];
+            [self sendNextToOutput:[NetworkError new] GAIAction:[GAIActions witUErrors] GAILabel:@"NSURLErrorDomain"];
         }
         else {
             NSLog(@"WitDelegate detected unexptected error '%@'. It will handle it as UserIntentUnclearError", [error domain]);
-            [_output sendNext:[self userIntentUnclearError]];
+            [self sendNextToOutput:[self userIntentUnclearError] GAIAction:[GAIActions witUErrors] GAILabel:@"Unexpected"];
         }
     }
     else if (outcomes.count > 0) {
@@ -60,25 +60,30 @@
 
 
         // Workaround to fix problem that several intents can't have same expression
-        if([_currState isEqualToString:@"askForSuggestionFeedback"]
-                && ([interpretation.text isEqualToString:@"no"] || [interpretation.text isEqualToString:@"No"])){
+        if ([_currState isEqualToString:@"askForSuggestionFeedback"]
+                && ([interpretation.text isEqualToString:@"no"] || [interpretation.text isEqualToString:@"No"])) {
 
-            NSLog(@"WIT Workaround applied: %@ -> SuggestionFeedback_Dislike ",interpretation.intent);
+            NSLog(@"WIT Workaround applied: %@ -> SuggestionFeedback_Dislike ", interpretation.intent);
             interpretation.intent = @"SuggestionFeedback_Dislike";
             interpretation.confidence = 1;
         }
 
         if (interpretation.confidence < 0.1 || [interpretation.intent isEqualToString:@"UNKNOWN"]) {
-            [_output sendNext:[self userIntentUnclearError]];
+            [self sendNextToOutput:[self userIntentUnclearError] GAIAction:[GAIActions witUErrors] GAILabel:@"LowConfidence"];
         }
         else {
-            [_output sendNext:interpretation];
+            [self sendNextToOutput:interpretation GAIAction:interpretation.intent GAILabel:@""];
         }
     }
     else {
         [_output sendNext:[self userIntentUnclearError]];
     }
     [self.stateSource didStopProcessingUserInput];
+}
+
+- (void)sendNextToOutput:(id)value GAIAction:(NSString *)GAIAction GAILabel:(NSString *)GAILabel {
+    [_output sendNext:value];
+    [self logGAIEventWithAction:GAIAction label:GAILabel];
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
@@ -93,7 +98,7 @@
     [self.stateSource didStartProcessingUserInput];
     [self.stateSource didStartRecordingUserInput];
     NSLog(@"WitSpeechRecognitionService.witDidStartRecording: Recording startet");
-    [GAIService logEventWithCategory:@"Conversation" action:@"input" label:@"voice" value:0];
+    [GAIService logEventWithCategory:[GAICategories uIUsage] action:[GAIActions uIUsageWitInput] label:@"voice" value:0];
 }
 
 - (void)witDidStopRecording {
@@ -104,7 +109,7 @@
 - (void)interpretString:(NSString *)string {
     [self.stateSource didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
-    [GAIService logEventWithCategory:@"Conversation" action:@"input" label:@"text" value:0];
+    [GAIService logEventWithCategory:[GAICategories uIUsage] action:[GAIActions uIUsageWitInput] label:@"text" value:0];
 }
 
 - (AVAudioSessionRecordPermission)recordPermission {
@@ -127,6 +132,10 @@
 
 - (void)setThreadId:(NSString *)id {
     [_wit setThreadId:id];
+}
+
+- (void)logGAIEventWithAction:(NSString *)action label:(NSString *)label {
+    [GAIService logEventWithCategory:[GAICategories witRecognize] action:action label:label value:0];
 }
 
 @end

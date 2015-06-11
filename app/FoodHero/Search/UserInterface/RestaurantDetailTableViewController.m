@@ -3,12 +3,10 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantDetailTableViewController.h"
 #import "Restaurant.h"
 #import "TyphoonComponents.h"
 #import "LocationService.h"
-#import "KeywordEncoder.h"
 #import "OpeningHoursViewController.h"
 #import "FoodHero-Swift.h"
 
@@ -19,10 +17,10 @@
 @implementation RestaurantDetailTableViewController {
 
     Restaurant *_restaurant;
-    LocationService * _locationService;
+    LocationService *_locationService;
 }
 
--(void)setLocationService:(LocationService *)locationService{
+- (void)setLocationService:(LocationService *)locationService {
     _locationService = locationService;
 }
 
@@ -78,13 +76,13 @@
     self.name.text = _restaurant.name;
     self.address.text = _restaurant.address;
     self.openingStatus.text = _restaurant.openingStatus;
-    if([_restaurant.openingHoursToday isEqualToString:@""]){
+    if ([_restaurant.openingHoursToday isEqualToString:@""]) {
         self.openingHours.text = @"see opening hours here";
     }
     else {
         self.openingHours.text = _restaurant.openingHoursToday;
     }
-    
+
     NSString *phoneNumber = _restaurant.phoneNumber;
     self.phoneNumber.text = phoneNumber;
     self.phoneButton.hidden = phoneNumber.length == 0;
@@ -95,12 +93,12 @@
 
     double meters = _restaurant.distance;
     double miles = meters / 1000 * 0.621;
-    if( miles >= 0.2){
-        self.map.text = [NSString stringWithFormat:@"%.1f miles away",miles];
+    if (miles >= 0.2) {
+        self.map.text = [NSString stringWithFormat:@"%.1f miles away", miles];
     }
-    else{
+    else {
         double yards = meters * 1.093613;
-        self.map.text = [NSString stringWithFormat:@"%.0f yards away",yards];
+        self.map.text = [NSString stringWithFormat:@"%.0f yards away", yards];
     }
 
 }
@@ -109,20 +107,24 @@
     NSString *cleanedString = [[_restaurant.phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
     NSURL *telURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cleanedString]];
     [[UIApplication sharedApplication] openURL:telURL];
-    [GAIService logEventWithCategory:@"Restaurant Detail" action:@"touch" label:@"phone" value:0];
+    [self logGAIEvent:@"phone"];
 }
 
 - (IBAction)urlTouched:(UITapGestureRecognizer *)sender {
     NSURL *webUrl = [NSURL URLWithString:_restaurant.url];
     [[UIApplication sharedApplication] openURL:webUrl];
-    [GAIService logEventWithCategory:@"Restaurant Detail" action:@"touch" label:@"url" value:0];
+    [self logGAIEvent:@"url"];
 }
 
 - (IBAction)mapTouched:(UITapGestureRecognizer *)sender {
     RestaurantMapViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantMapView"];
     [controller setRestaurant:_restaurant];
     [self.navigationController pushViewController:controller animated:YES];
-    [GAIService logEventWithCategory:@"Restaurant Detail" action:@"touch" label:@"map" value:0];
+    [self logGAIEvent:@"map"];
+}
+
+- (void)logGAIEvent:(NSString *)label {
+    [GAIService logEventWithCategory:[GAICategories uIUsage] action:[GAIActions uIUsageRestaurantDetailInput] label:label value:0];
 }
 
 

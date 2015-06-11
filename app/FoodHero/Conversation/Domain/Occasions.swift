@@ -133,6 +133,7 @@ public class Occasions: NSObject {
             return dinner()
         default:
             NSLog("Occasions.guessFromCuisine: no occasion guessed for \(cuisine)")
+            GAIService.logEventWithCategory(GAICategories.improvements(), action: GAIActions.improvementNoOccasionGuessedForCuisine(), label: cuisine, value:0)
             return ""
         }
     }
@@ -143,7 +144,7 @@ public class Occasions: NSObject {
             return string
         }
 
-        let idx = advance(string.endIndex,-1)
+        let idx = advance(string.endIndex, -1)
         if string[idx] == character {
             return string.substringToIndex(idx)
         } else {

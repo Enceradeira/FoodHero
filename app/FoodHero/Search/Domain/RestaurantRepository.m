@@ -11,6 +11,7 @@
 #import "SearchError.h"
 #import "GoogleDefinitions.h"
 #import "CuisineAndOccasion.h"
+#import "FoodHero-Swift.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
@@ -52,6 +53,10 @@
                     if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
                         _locationAtMomentOfCaching = currentLocation;
                         _paramsAtMomentOfCaching = parameter;
+
+                        [self logGAIEventAction:[GAIActions searchParamsOccasion] label:parameter.occasion];
+                        [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
+
                         @try {
                             _placesCached = [self fetchPlaces:parameter currentLocation:currentLocation];
                         }
@@ -176,4 +181,10 @@
         return result == nil ? 0 : [result doubleValue];
     }
 }
+
+- (void)logGAIEventAction:(NSString *)action label:(NSString *)label {
+    [GAIService logEventWithCategory:[GAICategories searchParams] action:action label:label value:0];
+};
+
+
 @end

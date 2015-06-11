@@ -20,8 +20,8 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
     func setLocationService(locationService: LocationService) {
         _locationService = locationService
     }
-    
-    override func  viewDidAppear(animated: Bool) {
+
+    override func viewDidAppear(animated: Bool) {
         GAIService.logScreenViewed("Restaurant Map")
     }
 
@@ -68,7 +68,7 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         directions.userInteractionEnabled = true
 
         // map button
-        directionsButton.imageView!.highlightedImage = UIImage(named:"directions-icon-transparent@2x.png");
+        directionsButton.imageView!.highlightedImage = UIImage(named: "directions-icon-transparent@2x.png");
     }
 
     @IBAction func directionsTouched(sender: AnyObject) {
@@ -88,8 +88,9 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
          */
         // let url = "https://www.google.com/maps/dir/\(coordinate.latitude),\(coordinate.longitude)/\(restaurantAddressEncoded)"
         let url = "https://www.google.com/maps/dir/\(myCoordinate.latitude),\(myCoordinate.longitude)/\(restaurantCoordinate.latitude),\(restaurantCoordinate.longitude)"
-        let webUrl = NSURL(string:url)!
+        let webUrl = NSURL(string: url)!
         UIApplication.sharedApplication().openURL(webUrl)
+        GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageRestaurantMapInput(), label: "directions", value: 0)
     }
 
 }
