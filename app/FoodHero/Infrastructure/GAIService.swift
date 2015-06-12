@@ -26,8 +26,14 @@ public class GAIService: NSObject {
         return true
     }
 
+    private class var gaiInactive: Bool{
+        get{
+            return _tracker == nil
+        }
+    }
+
     public class func logScreenViewed(screenName: String) {
-        if (_tracker == nil) {
+        if (gaiInactive) {
             return;
         }
         _tracker.set(kGAIScreenName, value: screenName)
@@ -35,7 +41,7 @@ public class GAIService: NSObject {
     }
 
     public class func logEventWithCategory(category: String, action: String, label: String, value: Float) {
-        if (_tracker == nil) {
+        if (gaiInactive) {
             return;
         }
         let event = GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build();
@@ -44,10 +50,17 @@ public class GAIService: NSObject {
     }
 
     public class func logTimingWithCategory(category: String, name: String, label: String, interval: NSTimeInterval) {
-        if (_tracker == nil) {
+        if (gaiInactive) {
             return;
         }
         let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: interval * 1000, name: name, label: label).build();
         _tracker.send(timing as [NSObject:AnyObject])
+    }
+
+    public class func dispatch() {
+        if (gaiInactive) {
+            return;
+        }
+        GAI.sharedInstance().dispatch()
     }
 }

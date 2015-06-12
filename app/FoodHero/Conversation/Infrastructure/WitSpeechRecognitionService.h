@@ -16,4 +16,5 @@
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession;
 
++ (void)sendToGAI;
 @end
