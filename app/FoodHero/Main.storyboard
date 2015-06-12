@@ -592,7 +592,7 @@ Norwich, Norfolk NR1 3DN</string>
                             <constraint firstAttribute="trailing" secondItem="5HR-OT-2rB" secondAttribute="trailing" id="qaf-fG-FxW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="84n-2S-wW8"/>
+                    <navigationItem key="navigationItem" title="Map" id="84n-2S-wW8"/>
                     <connections>
                         <outlet property="directions" destination="FFy-1g-SEz" id="PV6-m9-5Ol"/>
                         <outlet property="directionsButton" destination="fyO-iw-pFv" id="qhT-tS-DQK"/>
@@ -624,13 +624,13 @@ Norwich, Norfolk NR1 3DN</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rx0-ft-OGy"/>
+                    <navigationItem key="navigationItem" title="Login" id="rx0-ft-OGy"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdP-I1-wYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="683" y="250"/>
         </scene>
-        <!--Suggestion Liked Controller-->
+        <!--Share-->
         <scene sceneID="RQW-cl-zyc">
             <objects>
                 <viewController storyboardIdentifier="SuggestionLikedController" id="tLd-lA-6ms" customClass="SuggestionLikedController" sceneMemberID="viewController">
@@ -641,9 +641,63 @@ Norwich, Norfolk NR1 3DN</string>
                     <view key="view" contentMode="scaleToFill" id="itw-FK-gfn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="G8s-iz-XkG">
+                                <rect key="frame" x="54" y="124" width="250" height="281"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="281" id="dfe-Db-Oim"/>
+                                </constraints>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share with friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fd0-xR-7wc">
+                                <rect key="frame" x="54" y="85" width="138" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-id-zTH">
+                                <rect key="frame" x="54" y="405" width="250" height="163"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-Wu-N4I">
+                                        <rect key="frame" x="36" y="59" width="66" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="66" id="Cwu-R8-S7b"/>
+                                        </constraints>
+                                        <state key="normal" image="Facebook-Icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hl-5j-NQZ">
+                                        <rect key="frame" x="139" y="59" width="33" height="33"/>
+                                        <state key="normal" image="Twitter-Icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="7Hl-5j-NQZ" firstAttribute="leading" secondItem="WAa-Wu-N4I" secondAttribute="trailing" constant="37" id="6O2-a0-dkL"/>
+                                    <constraint firstItem="WAa-Wu-N4I" firstAttribute="leading" secondItem="qCb-id-zTH" secondAttribute="leading" constant="36" id="F9G-Hb-xa8"/>
+                                    <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="7Hl-5j-NQZ" secondAttribute="top" id="e6V-FX-AUQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="G8s-iz-XkG" secondAttribute="bottom" constant="59" id="770-uz-d4j"/>
+                            <constraint firstItem="Fd0-xR-7wc" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="21" id="9fU-A3-V2t"/>
+                            <constraint firstItem="G8s-iz-XkG" firstAttribute="top" secondItem="Fd0-xR-7wc" secondAttribute="bottom" constant="18" id="JnD-1f-q3g"/>
+                            <constraint firstItem="owo-Of-cR2" firstAttribute="top" secondItem="qCb-id-zTH" secondAttribute="bottom" id="OAv-42-m2H"/>
+                            <constraint firstItem="G8s-iz-XkG" firstAttribute="leading" secondItem="Fd0-xR-7wc" secondAttribute="leading" id="VW5-Lq-qoG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qCb-id-zTH" secondAttribute="trailing" id="hPv-Ka-8fB"/>
+                            <constraint firstItem="G8s-iz-XkG" firstAttribute="leading" secondItem="Fd0-xR-7wc" secondAttribute="leading" id="kPg-qg-vxe"/>
+                            <constraint firstItem="Fd0-xR-7wc" firstAttribute="leading" secondItem="itw-FK-gfn" secondAttribute="leadingMargin" constant="38" id="lq5-1g-RZR"/>
+                            <constraint firstItem="qCb-id-zTH" firstAttribute="top" secondItem="G8s-iz-XkG" secondAttribute="bottom" id="mwH-JT-w8w"/>
+                            <constraint firstItem="G8s-iz-XkG" firstAttribute="leading" secondItem="qCb-id-zTH" secondAttribute="leading" id="tNy-Ug-l6G"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="G8s-iz-XkG" secondAttribute="trailing" id="wHH-6Q-4a7"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="cRF-Ch-AUR"/>
+                    <navigationItem key="navigationItem" title="Share" id="cRF-Ch-AUR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rl0-tY-hef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -706,7 +760,7 @@ Norwich, Norfolk NR1 3DN</string>
                             <constraint firstItem="Z2H-ZI-hPm" firstAttribute="top" secondItem="nGi-aa-YMO" secondAttribute="bottom" id="rFs-jg-JXt"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nQw-3r-qpc"/>
+                    <navigationItem key="navigationItem" title="Help" id="nQw-3r-qpc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvE-HK-cfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1112,7 +1166,9 @@ Norwich, Norfolk NR1 3DN</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Facebook-Icon.png" width="33" height="33"/>
         <image name="Notebook-small.png" width="25" height="121"/>
+        <image name="Twitter-Icon.png" width="33" height="33"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="map-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>
