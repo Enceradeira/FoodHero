@@ -36,7 +36,7 @@ public class GAIService: NSObject {
     }
 
     public class func logTimingWithCategory(category: String, name: String, label: String, interval: NSTimeInterval) {
-        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: interval * 1000, name: name, label: label).build();
+        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: abs(interval * 1000), name: name, label: label).build();
         _tracker.send(timing as [NSObject:AnyObject])
     }
 
