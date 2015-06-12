@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Wit/WITMicButton.h>
 #import "ConversationAppService.h"
-#import "ConversationBubbleTableViewCellDelegate.h"
 #import "ConversationViewState.h"
 #import "ISpeechRecognitionStateSource.h"
 #import "FoodHero-Swift.h"
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ConversationBubbleTableViewCellDelegate,ISpeechRecognitionStateSource, IHelpViewControllerDelegate>
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ISpeechRecognitionStateSource, IHelpViewControllerDelegate>
 
 @property(weak, nonatomic) IBOutlet UITableView *bubbleView;
 @property(weak, nonatomic) IBOutlet UITextField *userTextField;
@@ -41,6 +40,10 @@
 - (AVAudioSessionRecordPermission)recordPermission;
 
 - (void)setDefaultViewState:(enum UIViewAnimationCurve)animationCurve animationDuration:(double)animationDuration;
+
+- (void)userDidTouchLinkInConversationBubbleWith:(UIViewController *)controller;
+
+- (void)initalizeHelpController:(HelpViewController *)controller;
 
 - (NSInteger)optimalUserInputListHeight;
 

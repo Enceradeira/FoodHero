@@ -204,7 +204,15 @@ ConversationAppServiceTests {
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
     [_service startConversation];
-    [self assertUserFeedbackForLastSuggestedRestaurant:@"That's cool" recognizedIntent:@"Like" fhAnswer:@"FH:WhatToDoNextCommentAfterSuccess"];
+    [self injectInterpretation:@"That's cool" intent:@"SuggestionFeedback_Like" entities:nil];
+    [_service addUserText:@"That's cool"];
+
+    NSArray *statementsReversed = [[self statements] linq_reverse];
+    ConversationBubble *userFeedback = statementsReversed[1];
+    ConversationBubble *newFhSuggestion = statementsReversed[0];
+    assertThat(userFeedback.semanticId, is(equalTo(@"U:SuggestionFeedback=Like")));
+    assertThat(userFeedback.textSource, is(equalTo(@"<a href=''>That's cool</a>")));
+    assertThat(newFhSuggestion.semanticId, containsString(@"FH:WhatToDoNextCommentAfterSuccess"));
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItsTooFarAway {

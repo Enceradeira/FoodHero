@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ConversationBubble.h"
-#import "ConversationBubbleTableViewCellDelegate.h"
+#import "ConversationViewController.h"
 
 @interface ConversationBubbleTableViewCell : UITableViewCell
 
 @property(nonatomic) ConversationBubble *bubble;
 
-@property(nonatomic) id <ConversationBubbleTableViewCellDelegate> delegate;
+@property(nonatomic) ConversationViewController* delegate;
 @end

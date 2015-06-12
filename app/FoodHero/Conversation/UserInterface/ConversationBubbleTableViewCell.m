@@ -9,6 +9,7 @@
 #import "ConversationBubbleTableViewCell.h"
 #import "AccessibilityHelper.h"
 #import "FoodHeroColors.h"
+#import "RestaurantDetailViewController.h"
 
 @interface ConversationBubbleTableViewCell () <UIWebViewDelegate>
 @end
@@ -119,7 +120,22 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked && self.delegate) {
-        [self.delegate userDidTouchLinkInConversationBubbleWith:self.bubble.suggestedRestaurant];
+        if( self.bubble.suggestedRestaurant != nil) {
+            RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+            [controller setRestaurant:self.bubble.suggestedRestaurant];
+            [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
+        }
+        else if([self.bubble.semanticId isEqualToString:@"U:SuggestionFeedback=Like"]){
+            // Like
+            SuggestionLikedController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"SuggestionLikedController"];
+            [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
+        }
+        else{
+            // Help link
+            HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
+            [self.delegate initalizeHelpController:controller];
+            [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
+        }
     }
     return YES;
 }

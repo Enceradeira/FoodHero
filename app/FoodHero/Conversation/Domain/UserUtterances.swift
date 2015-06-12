@@ -81,7 +81,7 @@ public class UserUtterances: NSObject {
     }
 
     public class func suggestionFeedbackForLike(restaurant: Restaurant, text: String) -> TalkerUtterance {
-        return createUtterance("U:SuggestionFeedback=Like", text: text,
+        return createUtterance("U:SuggestionFeedback=Like", text: "<a href=''>\(text)</a>",
                 modelAnswer: "I like it", restaurant: restaurant)
     }
 

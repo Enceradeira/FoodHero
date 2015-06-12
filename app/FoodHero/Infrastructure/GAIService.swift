@@ -8,8 +8,8 @@ import Foundation
 public class GAIService: NSObject {
     private static var _tracker: GAITracker! = nil
 
-    public class func configure() -> Bool {
-        let isInSimulator =  UIDevice.currentDevice().model.rangeOfString("Simulator") != nil
+    public class func configure() {
+        let isInSimulator = UIDevice.currentDevice().model.rangeOfString("Simulator") != nil
 
         GAI.sharedInstance().dryRun = isInSimulator
         GAI.sharedInstance().trackUncaughtExceptions = true
@@ -22,8 +22,8 @@ public class GAIService: NSObject {
 
         _tracker.set(kGAIAppVersion, value: "\(shortVersion).\(version)")
         _tracker.set("&uid", value: UserId.id())
-        return true
     }
+
     public class func logScreenViewed(screenName: String) {
         _tracker.set(kGAIScreenName, value: screenName)
         _tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject:AnyObject])

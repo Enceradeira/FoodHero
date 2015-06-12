@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Nxg-Xv-lPP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Nxg-Xv-lPP">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -17,6 +17,7 @@
                     <connections>
                         <segue destination="Xf7-7W-WAu" kind="relationship" relationship="rootViewController" id="Cdd-kV-dbe"/>
                         <segue destination="pHo-nb-mpi" kind="push" identifier="restaurantMap" id="R6w-a1-22P"/>
+                        <segue destination="tLd-lA-6ms" kind="push" identifier="suggestionLiked" id="MNR-AN-cF6"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROR-5s-y28" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -628,6 +629,25 @@ Norwich, Norfolk NR1 3DN</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdP-I1-wYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="683" y="250"/>
+        </scene>
+        <!--Suggestion Liked Controller-->
+        <scene sceneID="RQW-cl-zyc">
+            <objects>
+                <viewController storyboardIdentifier="SuggestionLikedController" id="tLd-lA-6ms" customClass="SuggestionLikedController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2p5-mB-XkN"/>
+                        <viewControllerLayoutGuide type="bottom" id="owo-Of-cR2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="itw-FK-gfn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cRF-Ch-AUR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rl0-tY-hef" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-363" y="229"/>
         </scene>
         <!--Help-->
         <scene sceneID="fxC-fX-uGw">

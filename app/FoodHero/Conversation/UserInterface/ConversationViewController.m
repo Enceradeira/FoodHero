@@ -268,18 +268,8 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 
-- (void)userDidTouchLinkInConversationBubbleWith:(Restaurant *)restaurant {
-    if (restaurant != nil) {
-        RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
-        [controller setRestaurant:restaurant];
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-    else {
-        // Help link
-        HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
-        [self initalizeHelpController:controller];
-        [self.navigationController pushViewController:controller animated:YES];
-    }
+- (void)userDidTouchLinkInConversationBubbleWith:(UIViewController *)controller {
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)initalizeHelpController:(HelpViewController *)controller {

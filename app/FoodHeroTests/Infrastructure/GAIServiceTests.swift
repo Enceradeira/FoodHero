@@ -9,9 +9,4 @@ import Foundation
 import FoodHero
 
 class GAIServiceTests: XCTestCase {
-    func test_configure_shouldNeverConfigureGAIOnSimulator() {
-        let result = GAIService.configure()
-        XCTAssertEqual(result, false)
-    }
-
 }

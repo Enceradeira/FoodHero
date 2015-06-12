@@ -31,7 +31,7 @@ desc 'Prepare iOS-Simulator for tests'
 task :prepare_iOS_simulator do
   builder = Nokogiri::XML::Builder.new do |xml|
     xml.gpx(:version => '1.1', :creator => 'JJ') {
-      xml.wpt(:lat => "52.631944", :lon => "1.298889")
+      xml.wpt(:lat => '51.507451', :lon => '-0.127742')
     }
   end
 
