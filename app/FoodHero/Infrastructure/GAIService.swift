@@ -13,8 +13,8 @@ public class GAIService: NSObject {
 
         GAI.sharedInstance().dryRun = isInSimulator
         GAI.sharedInstance().trackUncaughtExceptions = true
-        GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
-        GAI.sharedInstance().dispatchInterval = 60
+        // GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
+        // GAI.sharedInstance().dispatchInterval = 60
         _tracker = GAI.sharedInstance().trackerWithTrackingId("UA-25686837-2")
 
         let version = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
