@@ -134,6 +134,7 @@
 		23525795A3651114728273ED /* TalkerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525C6ACAADE8081F988502 /* TalkerEngine.swift */; };
 		235257A9474B5F2B50D8F5A2 /* ConversationResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235252DC074262EDB92F646C /* ConversationResources.swift */; };
 		235257B175028BA0C8E3FE33 /* OpeningHoursViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FCED1C804160C6B734D /* OpeningHoursViewController.m */; };
+		235257BD67EF3FA29CA0AE73 /* SuggestionLikedPostingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352537BC98AC427AF8B73AE /* SuggestionLikedPostingsController.swift */; };
 		235257BD681DD51A49CE731E /* UIButtonWithTouchReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352529A5DD0CAED53DA5741 /* UIButtonWithTouchReaction.m */; };
 		235257BE5E61CA1B23DC6694 /* AlwaysImmediateSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC8C07D9998AC2FE292 /* AlwaysImmediateSchedulerFactory.m */; };
 		235257BEEBCE9084C668C822 /* UITextViewVisualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256B1548FAF97A5846EF4 /* UITextViewVisualizer.m */; };
@@ -404,6 +405,7 @@
 		2352536C6BC6BEB6F761E374 /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
 		2352536F43B5A8E223E0F3FC /* OccasionToGoogleTypeMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OccasionToGoogleTypeMapper.swift; sourceTree = "<group>"; };
 		23525373B4D9491197F53204 /* FHStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FHStates.swift; sourceTree = "<group>"; };
+		2352537BC98AC427AF8B73AE /* SuggestionLikedPostingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionLikedPostingsController.swift; sourceTree = "<group>"; };
 		235253887B7887287277D487 /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		23525392369CC6F3B950A149 /* ConversationDislikesKindOfFoodTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationDislikesKindOfFoodTests.swift; sourceTree = "<group>"; };
 		235253AC3685FAB3459DE094 /* RestaurantDetailTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailTableViewControllerTests.m; sourceTree = "<group>"; };
@@ -927,6 +929,7 @@
 				23525883B16BF826240AF6F5 /* ISpeechRecognitionStateSource.h */,
 				235250A69E63AD81EC08EC4B /* Help */,
 				2352558312373D11BB0E9300 /* SuggestionLikedController.swift */,
+				2352537BC98AC427AF8B73AE /* SuggestionLikedPostingsController.swift */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1924,6 +1927,7 @@
 				2352560B70CFA3564D40EC73 /* GAIService.swift in Sources */,
 				23525415677EA255B41EDCBB /* GAICategories.swift in Sources */,
 				2352507EC0A5006C2E3AB49F /* SuggestionLikedController.swift in Sources */,
+				235257BD67EF3FA29CA0AE73 /* SuggestionLikedPostingsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -642,21 +642,17 @@ Norwich, Norfolk NR1 3DN</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="G8s-iz-XkG">
-                                <rect key="frame" x="54" y="124" width="250" height="281"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7h-PI-28Q">
+                                <rect key="frame" x="40" y="125" width="240" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="281" id="dfe-Db-Oim"/>
+                                    <constraint firstAttribute="height" constant="250" id="b6H-el-S37"/>
                                 </constraints>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share with friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fd0-xR-7wc">
-                                <rect key="frame" x="54" y="85" width="138" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <connections>
+                                    <segue destination="SZ0-WI-Em0" kind="embed" id="yYz-H8-Dbh"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-id-zTH">
-                                <rect key="frame" x="54" y="405" width="250" height="163"/>
+                                <rect key="frame" x="40" y="395" width="264" height="173"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-Wu-N4I">
                                         <rect key="frame" x="36" y="59" width="66" height="33"/>
@@ -668,7 +664,7 @@ Norwich, Norfolk NR1 3DN</string>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hl-5j-NQZ">
-                                        <rect key="frame" x="139" y="59" width="33" height="33"/>
+                                        <rect key="frame" x="139" y="59" width="44" height="44"/>
                                         <state key="normal" image="Twitter-Icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -678,23 +674,20 @@ Norwich, Norfolk NR1 3DN</string>
                                 <constraints>
                                     <constraint firstItem="7Hl-5j-NQZ" firstAttribute="leading" secondItem="WAa-Wu-N4I" secondAttribute="trailing" constant="37" id="6O2-a0-dkL"/>
                                     <constraint firstItem="WAa-Wu-N4I" firstAttribute="leading" secondItem="qCb-id-zTH" secondAttribute="leading" constant="36" id="F9G-Hb-xa8"/>
+                                    <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="qCb-id-zTH" secondAttribute="top" constant="59" id="VIM-2C-8kA"/>
                                     <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="7Hl-5j-NQZ" secondAttribute="top" id="e6V-FX-AUQ"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="G8s-iz-XkG" secondAttribute="bottom" constant="59" id="770-uz-d4j"/>
-                            <constraint firstItem="Fd0-xR-7wc" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="21" id="9fU-A3-V2t"/>
-                            <constraint firstItem="G8s-iz-XkG" firstAttribute="top" secondItem="Fd0-xR-7wc" secondAttribute="bottom" constant="18" id="JnD-1f-q3g"/>
+                            <constraint firstItem="qCb-id-zTH" firstAttribute="leading" secondItem="J7h-PI-28Q" secondAttribute="leading" id="7J1-jJ-QwB"/>
+                            <constraint firstItem="qCb-id-zTH" firstAttribute="top" secondItem="J7h-PI-28Q" secondAttribute="bottom" constant="20" id="Aif-SJ-RKw"/>
                             <constraint firstItem="owo-Of-cR2" firstAttribute="top" secondItem="qCb-id-zTH" secondAttribute="bottom" id="OAv-42-m2H"/>
-                            <constraint firstItem="G8s-iz-XkG" firstAttribute="leading" secondItem="Fd0-xR-7wc" secondAttribute="leading" id="VW5-Lq-qoG"/>
+                            <constraint firstItem="J7h-PI-28Q" firstAttribute="leading" secondItem="itw-FK-gfn" secondAttribute="leadingMargin" constant="24" id="cmf-ZP-zp2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qCb-id-zTH" secondAttribute="trailing" id="hPv-Ka-8fB"/>
-                            <constraint firstItem="G8s-iz-XkG" firstAttribute="leading" secondItem="Fd0-xR-7wc" secondAttribute="leading" id="kPg-qg-vxe"/>
-                            <constraint firstItem="Fd0-xR-7wc" firstAttribute="leading" secondItem="itw-FK-gfn" secondAttribute="leadingMargin" constant="38" id="lq5-1g-RZR"/>
-                            <constraint firstItem="qCb-id-zTH" firstAttribute="top" secondItem="G8s-iz-XkG" secondAttribute="bottom" id="mwH-JT-w8w"/>
-                            <constraint firstItem="G8s-iz-XkG" firstAttribute="leading" secondItem="qCb-id-zTH" secondAttribute="leading" id="tNy-Ug-l6G"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="G8s-iz-XkG" secondAttribute="trailing" id="wHH-6Q-4a7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="J7h-PI-28Q" secondAttribute="trailing" constant="24" id="pdu-Sk-ILe"/>
+                            <constraint firstItem="J7h-PI-28Q" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="61" id="zyV-gb-YTK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Share" id="cRF-Ch-AUR"/>
@@ -1164,11 +1157,91 @@ Norwich, Norfolk NR1 3DN</string>
             </objects>
             <point key="canvasLocation" x="1101.5" y="980"/>
         </scene>
+        <!--Suggestion Liked Postings Controller-->
+        <scene sceneID="QwE-qO-Ltw">
+            <objects>
+                <tableViewController id="SZ0-WI-Em0" customClass="SuggestionLikedPostingsController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FmX-Va-YVn">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="250"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="7RO-x2-ele">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="F1u-VE-Tya" style="IBUITableViewCellStyleDefault" id="R6e-yG-zml">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R6e-yG-zml" id="Xow-LQ-0vn">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anyone joining me?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F1u-VE-Tya">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="W30-ze-0JF" style="IBUITableViewCellStyleDefault" id="oyb-lh-PZz">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oyb-lh-PZz" id="Xq3-dg-wXP">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="I like Namasta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W30-ze-0JF">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Y9Y-gK-qAL" style="IBUITableViewCellStyleDefault" id="5ZY-oK-miS">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5ZY-oK-miS" id="a0b-0t-vZz">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Food Hero is cool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y9Y-gK-qAL">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Hn2-rj-ke8" style="IBUITableViewCellStyleDefault" id="Tci-rE-4tR">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tci-rE-4tR" id="0tw-VK-89G">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Something else" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hn2-rj-ke8">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="SZ0-WI-Em0" id="cdr-vu-drr"/>
+                            <outlet property="delegate" destination="SZ0-WI-Em0" id="Nie-cF-lJ5"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lZP-56-1Zf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="-318"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Facebook-Icon.png" width="33" height="33"/>
         <image name="Notebook-small.png" width="25" height="121"/>
-        <image name="Twitter-Icon.png" width="33" height="33"/>
+        <image name="Twitter-Icon.png" width="44" height="44"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="map-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>

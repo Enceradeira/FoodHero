@@ -5,5 +5,13 @@
 
 import Foundation
 
-class SuggestionLikedController: UIViewController {
+class SuggestionLikedController: UIViewController, UITableViewDelegate {
+    @IBOutlet weak var postsTableView: UITableView!
+
+    override func viewDidLoad() {
+
+        super.viewDidLoad()
+        postsTableView.delegate = self
+    }
+
 }
