@@ -1,7 +1,11 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Google-Maps-iOS-SDK
+## GoogleAnalytics
+
+Copyright 2015 Google Inc.
+
+## GoogleMaps
 
 If you use the Google Maps SDK for iOS in your application, you must
 include the attribution text as part of a legal notices section in your
@@ -11,10 +15,6 @@ part of an "About" menu item, is recommended.
 You can get the attribution text by making a call to
 [GMSServices openSourceLicenseInfo].
 
-
-## GoogleAnalytics
-
-Copyright 2015 Google Inc.
 
 ## LinqToObjectiveC
 

@@ -10,20 +10,20 @@ target :FoodHero do
     pod "UIImageViewAligned", :path => './../UIImageViewAligned'
     # pod 'Wit', '~> 4.0.0'
     pod 'Wit',  :path => './../../wit-ios-sdk'
-    pod 'Google-Maps-iOS-SDK'
+    pod 'GoogleMaps'
     pod 'GoogleAnalytics'
 end
 
 target :FoodHeroTests do
     pod 'OCHamcrest'
     pod 'XCAsyncTestCase'
-    pod 'Google-Maps-iOS-SDK'  # otherwise we get a problem with FoodHero-Bridging-Header.h
+    pod 'GoogleMaps'  # otherwise we get a problem with FoodHero-Bridging-Header.h
 end
 
 target :FoodHeroIntegrationsTests do
     pod 'OCHamcrest'
     pod 'XCAsyncTestCase'
-    pod 'Google-Maps-iOS-SDK'  # otherwise we get a problem with FoodHero-Bridging-Header.h
+    pod 'GoogleMaps'  # otherwise we get a problem with FoodHero-Bridging-Header.h
 end
 
 

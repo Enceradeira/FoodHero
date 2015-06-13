@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Google-Maps-iOS-SDK
+## GoogleMaps
 
 If you use the Google Maps SDK for iOS in your application, you must
 include the attribution text as part of a legal notices section in your

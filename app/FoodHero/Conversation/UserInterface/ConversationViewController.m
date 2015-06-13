@@ -15,7 +15,7 @@
 #import "ConversationBubbleFoodHero.h"
 #import "ConversationViewStateNormal.h"
 #import "CheatTextFieldController.h"
-#import "RestaurantDetailViewController.h"
+#import "FoodHeroColors.h"
 #import "ConversationViewStateTextInput.h"
 
 const UIViewAnimationCurve DEFAULT_ANIMATION_CURVE = UIViewAnimationCurveEaseOut;

@@ -6,17 +6,17 @@
 // project.
 
 
-// Google-Maps-iOS-SDK
-#define COCOAPODS_POD_AVAILABLE_Google_Maps_iOS_SDK
-#define COCOAPODS_VERSION_MAJOR_Google_Maps_iOS_SDK 1
-#define COCOAPODS_VERSION_MINOR_Google_Maps_iOS_SDK 9
-#define COCOAPODS_VERSION_PATCH_Google_Maps_iOS_SDK 2
-
 // GoogleAnalytics
 #define COCOAPODS_POD_AVAILABLE_GoogleAnalytics
 #define COCOAPODS_VERSION_MAJOR_GoogleAnalytics 3
 #define COCOAPODS_VERSION_MINOR_GoogleAnalytics 12
 #define COCOAPODS_VERSION_PATCH_GoogleAnalytics 0
+
+// GoogleMaps
+#define COCOAPODS_POD_AVAILABLE_GoogleMaps
+#define COCOAPODS_VERSION_MAJOR_GoogleMaps 1
+#define COCOAPODS_VERSION_MINOR_GoogleMaps 10
+#define COCOAPODS_VERSION_PATCH_GoogleMaps 1
 
 // LinqToObjectiveC
 #define COCOAPODS_POD_AVAILABLE_LinqToObjectiveC

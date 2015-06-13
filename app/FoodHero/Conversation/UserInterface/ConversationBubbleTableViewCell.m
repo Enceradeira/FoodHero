@@ -9,6 +9,7 @@
 #import "ConversationBubbleTableViewCell.h"
 #import "AccessibilityHelper.h"
 #import "FoodHeroColors.h"
+#import "TyphoonComponents.h"
 #import "RestaurantDetailViewController.h"
 
 @interface ConversationBubbleTableViewCell () <UIWebViewDelegate>

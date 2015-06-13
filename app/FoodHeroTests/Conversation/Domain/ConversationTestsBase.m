@@ -9,6 +9,7 @@
 #import "StubAssembly.h"
 #import "Personas.h"
 #import "ExpectedStatement.h"
+#import "TyphoonComponents.h"
 
 @implementation ConversationTestsBase {
 
