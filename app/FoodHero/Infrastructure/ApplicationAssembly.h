@@ -19,6 +19,8 @@
 
 - (id)conversationViewController;
 
+- (id)suggestionLikedController;
+
 - (id)speechRecognitionService;
 
 - (id)conversationAppService;

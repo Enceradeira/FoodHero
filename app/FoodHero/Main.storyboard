@@ -633,7 +633,7 @@ Norwich, Norfolk NR1 3DN</string>
         <!--Share-->
         <scene sceneID="RQW-cl-zyc">
             <objects>
-                <viewController storyboardIdentifier="SuggestionLikedController" id="tLd-lA-6ms" customClass="SuggestionLikedController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SuggestionLikedController" id="tLd-lA-6ms" customClass="SuggestionLikedController" customModule="FoodHero" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2p5-mB-XkN"/>
                         <viewControllerLayoutGuide type="bottom" id="owo-Of-cR2"/>
@@ -662,12 +662,18 @@ Norwich, Norfolk NR1 3DN</string>
                                         <state key="normal" image="Facebook-Icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="fbPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="jr3-mk-SRh"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hl-5j-NQZ">
                                         <rect key="frame" x="139" y="59" width="44" height="44"/>
                                         <state key="normal" image="Twitter-Icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="twitterPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="xeJ-32-dbi"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -676,6 +682,7 @@ Norwich, Norfolk NR1 3DN</string>
                                     <constraint firstItem="WAa-Wu-N4I" firstAttribute="leading" secondItem="qCb-id-zTH" secondAttribute="leading" constant="36" id="F9G-Hb-xa8"/>
                                     <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="qCb-id-zTH" secondAttribute="top" constant="59" id="VIM-2C-8kA"/>
                                     <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="7Hl-5j-NQZ" secondAttribute="top" id="e6V-FX-AUQ"/>
+                                    <constraint firstAttribute="width" constant="264" id="qBa-EA-aAl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1160,7 +1167,7 @@ Norwich, Norfolk NR1 3DN</string>
         <!--Suggestion Liked Postings Controller-->
         <scene sceneID="QwE-qO-Ltw">
             <objects>
-                <tableViewController id="SZ0-WI-Em0" customClass="SuggestionLikedPostingsController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SuggestionLikedPostingsController" id="SZ0-WI-Em0" customClass="SuggestionLikedPostingsController" customModule="FoodHero" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FmX-Va-YVn">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1176,7 +1183,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anyone joining me?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F1u-VE-Tya">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1190,7 +1197,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="I like Namasta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W30-ze-0JF">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1204,7 +1211,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Food Hero is cool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y9Y-gK-qAL">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1218,7 +1225,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Something else" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hn2-rj-ke8">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13167EADFE7863E6C70123E2"
+               BlueprintIdentifier = "CC9712900D7FC1BACCDDB291"
                BuildableName = "libPods-FoodHero-Wit.a"
                BlueprintName = "Pods-FoodHero-Wit"
                ReferencedContainer = "container:Pods.xcodeproj">

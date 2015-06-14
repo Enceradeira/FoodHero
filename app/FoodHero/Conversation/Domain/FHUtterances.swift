@@ -15,7 +15,7 @@ public class FHUtterances {
 
     class func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
-                          "Hello beautiful.Hello beautiful.",
+                          "Hello beautiful.",
                           "Have you put on your lipstick today?",
                           "‘Sup man?",
                           // "I’m tired.  I need coffee before I can continue.",

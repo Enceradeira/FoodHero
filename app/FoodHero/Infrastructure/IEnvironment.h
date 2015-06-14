@@ -7,4 +7,6 @@
 
 @protocol IEnvironment <NSObject>
 -(NSDate*) now;
+
+- (BOOL)isVersionOrHigher:(unsigned int)major minor:(unsigned int)minor;
 @end

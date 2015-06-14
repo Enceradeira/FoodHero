@@ -78,6 +78,19 @@
     ];
 }
 
+-(id)suggestionLikedController{
+    return [TyphoonDefinition
+            withClass:[SuggestionLikedController class] configuration:^(TyphoonDefinition *definition) {
+                [definition injectMethod:@selector(setEnvironment:) parameters:^(TyphoonMethod *method) {
+                    [method injectParameterWith:[self environment]];
+
+                }];
+            }
+    ];
+}
+
+
+
 - (id)conversationViewController {
     return [TyphoonDefinition
             withClass:[ConversationViewController class] configuration:^(TyphoonDefinition *definition) {

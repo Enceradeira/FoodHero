@@ -11,12 +11,16 @@
     NSDate *_now;
 }
 
--(instancetype)init{
+- (instancetype)init {
     return [super init];
 }
 
 - (NSDate *)now {
     return _now ? _now : [NSDate date];
+}
+
+- (BOOL)isVersionOrHigher:(unsigned int)major minor:(unsigned int)minor {
+    return YES;
 }
 
 - (void)injectNow:(NSDate *)date {

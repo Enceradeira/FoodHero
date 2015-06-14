@@ -8,4 +8,5 @@
 
 
 @interface Environment : NSObject <IEnvironment>
+@property(nonatomic) NSString *systemVersion;
 @end
