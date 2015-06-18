@@ -28,25 +28,25 @@ public class GAICategories: NSObject {
     }
 
     // How enganged are users
-    public class func engagement()->String{
+    public class func engagement() -> String {
         return "Engagement"
     }
 
-    public class func negativeExperience()->String{
+    public class func negativeExperience() -> String {
         return "NegativeExperience"
     }
 
-    public class func externalCallTimings()->String{
+    public class func externalCallTimings() -> String {
         return "ExternalCallTimings"
     }
 }
 
-public class GAITimingNames:NSObject{
-    public class func wit()->String{
+public class GAITimingNames: NSObject {
+    public class func wit() -> String {
         return "Wit"
     }
 
-    public class func restaurantRepository()->String{
+    public class func restaurantRepository() -> String {
         return "RestaurantRepository"
     }
 }
@@ -60,6 +60,21 @@ public class GAIActions: NSObject {
     /// User-Element for help used
     public class func uIUsageHelpInput() -> String {
         return "HelpInput"
+    }
+
+    /// User-Element for share twitter used
+    public class func uIUsageShareTwitter() -> String {
+        return "ShareTwitter"
+    }
+
+    /// User-Element for share used
+    public class func uIUsageShareFb() -> String {
+        return "ShareFb"
+    }
+
+    /// User-Element for share-template used
+    public class func uIUsageShareTemplateSelected() -> String {
+        return "ShareTemplateSelected"
     }
 
     /// User-Element for restaurant detail used
@@ -88,11 +103,11 @@ public class GAIActions: NSObject {
     }
 
     /// Event when a certain progress in the conversation was reached
-    public class func engagementConversation()->String{
+    public class func engagementConversation() -> String {
         return "ConversationProgress"
     }
 
-    public class func negativeExperienceError()->String{
+    public class func negativeExperienceError() -> String {
         return "NegativeExperienceError"
     }
 }

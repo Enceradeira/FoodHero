@@ -26,13 +26,17 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
         automaticallyAdjustsScrollViewInsets = false;
     }
 
+    public override func viewDidAppear(animated: Bool) {
+        GAIService.logScreenViewed("Share")
+    }
+
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         postingsController = segue.destinationViewController as! SuggestionLikedPostingsController
         postingsController.setRestaurant(restaurant)
     }
 
     @IBAction func fbPostTouched(sender: AnyObject) {
-        postTo(SLServiceTypeFacebook, serviceName: "Facebook") {
+        postTo(SLServiceTypeFacebook, serviceName: "Facebook", gaiAction: GAIActions.uIUsageShareFb()) {
             posting in
             posting.setInitialText(self.postingsController.postingTemplate)
 
@@ -43,7 +47,7 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
     }
 
     @IBAction func twitterPostTouched(sender: AnyObject) {
-        postTo(SLServiceTypeTwitter, serviceName: "Twitter") {
+        postTo(SLServiceTypeTwitter, serviceName: "Twitter", gaiAction: GAIActions.uIUsageShareTwitter()) {
             posting in
             posting.setInitialText(self.postingsController.postingTemplate + "\n\n#FoodHero, \(self.foodHeroProductUrl)")
             // posting.addImage(UIImage(named: "AppIcon29x29"))
@@ -53,10 +57,20 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
         }
     }
 
-    func postTo(serviceType: String, serviceName: String, initializer: (SLComposeViewController) -> ()) {
+    func postTo(serviceType: String, serviceName: String, gaiAction: String, initializer: (SLComposeViewController) -> ()) {
         if SLComposeViewController .isAvailableForServiceType(serviceType) {
             let posting = SLComposeViewController(forServiceType: serviceType)
             initializer(posting)
+            posting.completionHandler = {
+                (result: SLComposeViewControllerResult) in
+                var desc = ""
+                if result == .Done {
+                    desc = "Done"
+                } else {
+                    desc = "Cancel"
+                }
+                GAIService.logEventWithCategory(GAICategories.uIUsage(), action: gaiAction, label: desc, value: 0)
+            }
             presentViewController(posting, animated: true, completion: nil)
         } else {
             var alert = UIAlertController(title: "Sharing Failed", message: "You can't post right now, make sure you have at least one \(serviceName) account setup at Settings > \(serviceName).", preferredStyle: UIAlertControllerStyle.Alert)

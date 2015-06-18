@@ -26,10 +26,25 @@ class SuggestionLikedPostingsController: UITableViewController {
         for cell in cells {
             cell.cell.accessoryType = cell.row == indexPath.row ? .Checkmark : .None
         }
+
+        var selectedTemplate: String?
+        if anyoneJoiningMeCell.accessoryType == .Checkmark {
+            selectedTemplate = "AnyoneJoiningMe"
+        } else if iLikeRestaurantCell.accessoryType == .Checkmark {
+            selectedTemplate = "ILikeRestaurant"
+        } else if iLikeFoodHeroCell.accessoryType == .Checkmark {
+            selectedTemplate = "ILikeFoodHero"
+
+        } else if somethingElseCell.accessoryType == .Checkmark {
+            selectedTemplate = "ILikeFoodHero"
+        }
+
+        if selectedTemplate != nil {
+            GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShareTemplateSelected(), label: selectedTemplate!, value: 0)
+        }
     }
 
-    override func viewDidAppear(animated: Bool)
-    {
+    override func viewDidAppear(animated: Bool) {
         let cellDesc = cells[LikedPostings.ILikeFoodHero.rawValue]
         cellDesc.cell.accessoryType = .Checkmark
         let indexPath = NSIndexPath(forRow: cellDesc.row, inSection: 0)
@@ -72,7 +87,7 @@ class SuggestionLikedPostingsController: UITableViewController {
     internal var postingTemplate: String {
         get {
             var url = ""
-            if !restaurant.urlForDisplaying.isEmpty {
+            if let urlForDisplaying = restaurant.urlForDisplaying {
                 url = " (\(restaurant.urlForDisplaying))"
             }
             if anyoneJoiningMeCell.accessoryType == .Checkmark {
