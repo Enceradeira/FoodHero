@@ -6,6 +6,13 @@
 import Foundation
 
 class SuggestionLikedPostingsController: UITableViewController {
+    private var restaurant: Restaurant!
+
+    public func setRestaurant(restaurant: Restaurant) {
+        self.restaurant = restaurant
+
+        iLikeRestaurantCell.textLabel!.text = "I like \(restaurant.name)"
+    }
 
     override func viewDidLoad() {
 
@@ -64,10 +71,14 @@ class SuggestionLikedPostingsController: UITableViewController {
 
     internal var postingTemplate: String {
         get {
+            var url = ""
+            if !restaurant.urlForDisplaying.isEmpty {
+                url = " (\(restaurant.urlForDisplaying))"
+            }
             if anyoneJoiningMeCell.accessoryType == .Checkmark {
-                return "Anyone joining me?"
+                return "I'm going to \(restaurant.name)\(url).\n\nAnyone joining me?"
             } else if iLikeRestaurantCell.accessoryType == .Checkmark {
-                return "I like RESTARUANT"
+                return "I like \(restaurant.name)\(url)"
             } else if iLikeFoodHeroCell.accessoryType == .Checkmark {
                 return "Food Hero is cool"
             }

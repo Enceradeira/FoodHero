@@ -9,9 +9,15 @@ import Social
 public class SuggestionLikedController: UIViewController, UITableViewDelegate {
     private var postingsController: SuggestionLikedPostingsController!
     private var environment: IEnvironment!
+    private var restaurant: Restaurant!
+    private let foodHeroProductUrl = "www.jennius.co.uk"
 
     public func setEnvironment(env: IEnvironment) {
         environment = env
+    }
+
+    public func setRestaurant(restaurant: Restaurant) {
+        self.restaurant = restaurant
     }
 
     public override func viewDidLoad() {
@@ -20,25 +26,35 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         postingsController = segue.destinationViewController as! SuggestionLikedPostingsController
+        postingsController.setRestaurant(restaurant)
     }
 
     @IBAction func fbPostTouched(sender: AnyObject) {
-        postTo(SLServiceTypeFacebook, serviceName: "Facebook")
+        postTo(SLServiceTypeFacebook, serviceName: "Facebook") {
+            posting in
+            posting.setInitialText(self.postingsController.postingTemplate)
+
+            let url = NSURL(string: "www.jennius.co.uk")
+            posting.addURL(url)
+
+        }
     }
 
     @IBAction func twitterPostTouched(sender: AnyObject) {
-        postTo(SLServiceTypeTwitter, serviceName: "Twitter")
+        postTo(SLServiceTypeTwitter, serviceName: "Twitter") {
+            posting in
+            posting.setInitialText(self.postingsController.postingTemplate + "\n\n#FoodHero, \(self.foodHeroProductUrl)")
+            // posting.addImage(UIImage(named: "AppIcon29x29"))
+
+            // let url = NSURL(string: "www.jennius.co.uk")
+            // posting.addURL(url)
+        }
     }
 
-    func postTo(serviceType: String, serviceName: String) {
+    func postTo(serviceType: String, serviceName: String, initializer: (SLComposeViewController) -> ()) {
         if SLComposeViewController .isAvailableForServiceType(serviceType) {
             let posting = SLComposeViewController(forServiceType: serviceType)
-            posting.setInitialText(postingsController.postingTemplate)
-            let url = NSURL(string: "www.jennius.co.uk")
-            let image = UIImage(named: "AppIcon40x40")
-            posting.addImage(image)
-            posting.addURL(url)
-
+            initializer(posting)
             presentViewController(posting, animated: true, completion: nil)
         } else {
             var alert = UIAlertController(title: "Sharing Failed", message: "You can't post right now, make sure you have at least one \(serviceName) account setup at Settings > \(serviceName).", preferredStyle: UIAlertControllerStyle.Alert)

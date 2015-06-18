@@ -121,14 +121,15 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked && self.delegate) {
-        if( self.bubble.suggestedRestaurant != nil) {
-            RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+        if([self.bubble.semanticId isEqualToString:@"U:SuggestionFeedback=Like"]){
+            // Like
+            SuggestionLikedController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"SuggestionLikedController"];
             [controller setRestaurant:self.bubble.suggestedRestaurant];
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
-        else if([self.bubble.semanticId isEqualToString:@"U:SuggestionFeedback=Like"]){
-            // Like
-            SuggestionLikedController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"SuggestionLikedController"];
+        else if( self.bubble.suggestedRestaurant != nil) {
+            RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
+            [controller setRestaurant:self.bubble.suggestedRestaurant];
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
         else{

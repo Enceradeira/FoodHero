@@ -71,6 +71,12 @@
             return [parameter restaurant];
         }] linq_firstOrNil];
 
+        if( restaurant == nil){
+              restaurant = [[[[utterance customData] linq_ofType:USuggestionFeedbackParameters.class] linq_select:^(USuggestionFeedbackParameters *parameter) {
+                  return [parameter restaurant];
+              }] linq_firstOrNil];
+        }
+
         ExpectedUserUtterances *expectedUserUtterances = [[[[[utterance customData]
                 linq_ofType:FoodHeroParameters.class]
                 linq_select:^(FoodHeroSuggestionParameters *parameter) {
