@@ -22,6 +22,8 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        automaticallyAdjustsScrollViewInsets = false;
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

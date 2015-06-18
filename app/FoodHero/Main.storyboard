@@ -643,58 +643,42 @@ Norwich, Norfolk NR1 3DN</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7h-PI-28Q">
-                                <rect key="frame" x="40" y="125" width="240" height="250"/>
+                                <rect key="frame" x="40" y="94" width="240" height="175"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="b6H-el-S37"/>
+                                    <constraint firstAttribute="height" constant="175" id="b6H-el-S37"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="SZ0-WI-Em0" kind="embed" id="yYz-H8-Dbh"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-id-zTH">
-                                <rect key="frame" x="40" y="395" width="264" height="173"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-Wu-N4I">
-                                        <rect key="frame" x="36" y="59" width="66" height="33"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="66" id="Cwu-R8-S7b"/>
-                                        </constraints>
-                                        <state key="normal" image="Facebook-Icon.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="fbPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="jr3-mk-SRh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hl-5j-NQZ">
-                                        <rect key="frame" x="139" y="59" width="44" height="44"/>
-                                        <state key="normal" image="Twitter-Icon.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="twitterPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="xeJ-32-dbi"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="7Hl-5j-NQZ" firstAttribute="leading" secondItem="WAa-Wu-N4I" secondAttribute="trailing" constant="37" id="6O2-a0-dkL"/>
-                                    <constraint firstItem="WAa-Wu-N4I" firstAttribute="leading" secondItem="qCb-id-zTH" secondAttribute="leading" constant="36" id="F9G-Hb-xa8"/>
-                                    <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="qCb-id-zTH" secondAttribute="top" constant="59" id="VIM-2C-8kA"/>
-                                    <constraint firstItem="WAa-Wu-N4I" firstAttribute="top" secondItem="7Hl-5j-NQZ" secondAttribute="top" id="e6V-FX-AUQ"/>
-                                    <constraint firstAttribute="width" constant="264" id="qBa-EA-aAl"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hl-5j-NQZ">
+                                <rect key="frame" x="176" y="319" width="44" height="44"/>
+                                <state key="normal" image="Twitter-Icon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="xeJ-32-dbi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-Wu-N4I">
+                                <rect key="frame" x="100" y="325" width="33" height="33"/>
+                                <state key="normal" image="Facebook-Icon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fbPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="jr3-mk-SRh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qCb-id-zTH" firstAttribute="leading" secondItem="J7h-PI-28Q" secondAttribute="leading" id="7J1-jJ-QwB"/>
-                            <constraint firstItem="qCb-id-zTH" firstAttribute="top" secondItem="J7h-PI-28Q" secondAttribute="bottom" constant="20" id="Aif-SJ-RKw"/>
-                            <constraint firstItem="owo-Of-cR2" firstAttribute="top" secondItem="qCb-id-zTH" secondAttribute="bottom" id="OAv-42-m2H"/>
-                            <constraint firstItem="J7h-PI-28Q" firstAttribute="leading" secondItem="itw-FK-gfn" secondAttribute="leadingMargin" constant="24" id="cmf-ZP-zp2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qCb-id-zTH" secondAttribute="trailing" id="hPv-Ka-8fB"/>
+                            <constraint firstAttribute="centerX" secondItem="J7h-PI-28Q" secondAttribute="centerX" id="9Bk-Pq-ZjZ"/>
+                            <constraint firstItem="J7h-PI-28Q" firstAttribute="trailing" secondItem="7Hl-5j-NQZ" secondAttribute="trailing" constant="60" id="CMT-o4-bZC"/>
+                            <constraint firstItem="7Hl-5j-NQZ" firstAttribute="top" secondItem="J7h-PI-28Q" secondAttribute="bottom" constant="50" id="GzN-h3-eBT"/>
+                            <constraint firstItem="WAa-Wu-N4I" firstAttribute="leading" secondItem="J7h-PI-28Q" secondAttribute="leading" constant="60" id="STP-CL-bL0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J7h-PI-28Q" secondAttribute="trailing" constant="24" id="pdu-Sk-ILe"/>
-                            <constraint firstItem="J7h-PI-28Q" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="61" id="zyV-gb-YTK"/>
+                            <constraint firstItem="WAa-Wu-N4I" firstAttribute="centerY" secondItem="7Hl-5j-NQZ" secondAttribute="centerY" id="xOp-FT-FWQ"/>
+                            <constraint firstItem="J7h-PI-28Q" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="30" id="zyV-gb-YTK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Share" id="cRF-Ch-AUR"/>
@@ -1169,7 +1153,7 @@ Norwich, Norfolk NR1 3DN</string>
             <objects>
                 <tableViewController storyboardIdentifier="SuggestionLikedPostingsController" id="SZ0-WI-Em0" customClass="SuggestionLikedPostingsController" customModule="FoodHero" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FmX-Va-YVn">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="250"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -1182,7 +1166,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anyone joining me?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F1u-VE-Tya">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1196,7 +1180,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="I like Namasta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W30-ze-0JF">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1210,7 +1194,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Food Hero is cool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y9Y-gK-qAL">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1224,7 +1208,7 @@ Norwich, Norfolk NR1 3DN</string>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Something else" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hn2-rj-ke8">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
