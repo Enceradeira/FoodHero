@@ -18,6 +18,12 @@ def expect_help_view
   # expect(text 'You can say or type something like').to be_truthy
 end
 
+def expect_share_view
+  wait_true({:timeout => 30, :interval=>2}) do
+    text 'Food Hero is cool'
+  end
+end
+
 def expect_login_view
   expect(text 'Login is under construction').to be_truthy
 end
@@ -44,6 +50,10 @@ Then(/^I see the conversation view$/) do
   expect_conversation_view
 end
 
+Then(/^I see the share view$/) do
+  expect_share_view
+end
+
 Then(/^I see the help view$/) do
   expect_help_view
 end
@@ -62,4 +72,18 @@ end
 
 When(/^I don't allow access to the location\-services$/) do
   alert_dismiss
+end
+
+When(/^I dismiss alert$/) do
+  alert_dismiss
+end
+
+When(/^I accept alert$/) do
+  alert_accept
+end
+
+Then(/^I see the settings$/) do
+  wait_true({:timeout => 5, :interval=>0.1}) do
+    !find_elements(:xpath, "//UIAApplication[@name='Settings']").empty?
+  end
 end

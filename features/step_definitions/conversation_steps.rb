@@ -270,6 +270,12 @@ When(/^I go to the help view through the link$/) do
   link.click
 end
 
+When(/^I go to the share view through the link$/) do
+  link = find_element(:xpath, "//*[contains(@name,'U:SuggestionFeedback=Like')]//UIALink")
+  expect(link).not_to be_nil
+  link.click
+end
+
 Then(/^I see my answer with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.eql? cuisines_as_string }
   expect(bubble).not_to be_nil
@@ -514,9 +520,17 @@ When(/^I dismiss the week's opening hours$/) do
   execute_script 'mobile: tap', :x => 50, :y => 50
 end
 
-=begin
-When(/^I navigate to next review page$/) do
-  execute_script 'mobile: swipe', :startX => 0.6, :startY => 0.75, :endX => 0.4, :endY => 0.75, :duration=>0.5
+When(/^I share on facebook$/) do
+  element = find_element(:name, 'Facebook Icon')
+  element.click
 end
-=end
+
+When(/^I share on twitter$/) do
+  element = find_element(:name, 'Twitter Icon')
+  element.click
+end
+
+Then(/^I see an alert because I can't share in simulator$/) do
+    expect(text 'Sharing Failed').to be_truthy
+end
 

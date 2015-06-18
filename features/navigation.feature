@@ -45,3 +45,29 @@ Feature: Navigation in app
 
     When I go to the help view through the link
     Then I see the help view
+
+  Scenario: Sharing to twitter of facebook when suggestion liked
+    Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
+    And I like the restaurant
+    And I see my answer "Like"
+
+    When I go to the share view through the link
+    Then I see the share view
+
+    When I share on facebook
+    Then I see an alert because I can't share in simulator
+
+    When I dismiss alert
+    And I share on twitter
+    Then I see an alert because I can't share in simulator
+
+    When I dismiss alert
+    And I go back
+    Then I see the conversation view
+
+    When I go to the share view through the link
+    And I see the share view
+    And I share on twitter
+    And I accept alert
+    Then I see the settings
