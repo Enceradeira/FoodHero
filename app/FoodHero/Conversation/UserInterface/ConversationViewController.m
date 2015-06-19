@@ -237,6 +237,48 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     _userTextField.text = @"";
 }
 
+- (IBAction)sharedTouched:(id)sender {
+    NSMutableArray *sharingItems = [NSMutableArray new];
+
+    NSString *text = [self getTextForSharing];
+
+    [sharingItems addObject:text];
+    // [sharingItems addObject:[NSURL URLWithString:[Constants foodHeroProductUrl]]];
+    // [sharingItems addObject:[UIImage imageNamed:@"AppIcon29x29"]];
+
+    NSArray *activities = nil; /*@[];*/
+
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:activities];
+    activityController.excludedActivityTypes = @[
+            UIActivityTypePrint,
+            UIActivityTypeAssignToContact,
+            UIActivityTypeSaveToCameraRoll,
+            UIActivityTypeAddToReadingList,
+            UIActivityTypeAirDrop];
+    [self presentViewController:activityController animated:YES completion:nil];
+}
+
+- (NSString *)getTextForSharing {
+    NSString *text;
+    ConversationBubbleFoodHero *lastSuggestion = [_appService lastRawSuggestion];
+
+    if (lastSuggestion != nil) {
+        NSString *fhUtterance = lastSuggestion.text;
+        NSString *url = lastSuggestion.suggestedRestaurant.urlForDisplaying;
+        NSString *urlString = @"";
+        if (url.length > 0) {
+            urlString = [NSString stringWithFormat:@"\n%@", url];
+        }
+        text = [NSString stringWithFormat:@"Food Hero said:\n\n%@%@\n\nDownload Food Hero from %@", fhUtterance, urlString, [Constants foodHeroProductUrl]];
+
+    }
+    else {
+        text = [NSString stringWithFormat:@"Food Hero is cool!\n\nDownload it for free from %@", [Constants foodHeroProductUrl]];
+    }
+    return text;
+}
+
+
 - (void)hideKeyboard {
     [(self.userTextField) resignFirstResponder];
 }

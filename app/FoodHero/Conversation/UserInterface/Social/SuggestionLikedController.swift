@@ -10,7 +10,6 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
     private var postingsController: SuggestionLikedPostingsController!
     private var environment: IEnvironment!
     private var restaurant: Restaurant!
-    private let foodHeroProductUrl = "www.jennius.co.uk"
 
     public func setEnvironment(env: IEnvironment) {
         environment = env
@@ -40,7 +39,7 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
             posting in
             posting.setInitialText(self.postingsController.postingTemplate)
 
-            let url = NSURL(string: "www.jennius.co.uk")
+            let url = NSURL(string: Constants.foodHeroProductUrl())
             posting.addURL(url)
 
         }
@@ -49,7 +48,7 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
     @IBAction func twitterPostTouched(sender: AnyObject) {
         postTo(SLServiceTypeTwitter, serviceName: "Twitter", gaiAction: GAIActions.uIUsageShareTwitter()) {
             posting in
-            posting.setInitialText(self.postingsController.postingTemplate + "\n\n#FoodHero, \(self.foodHeroProductUrl)")
+            posting.setInitialText(self.postingsController.postingTemplate + "\n\n#FoodHero, \(Constants.foodHeroProductUrl())")
             // posting.addImage(UIImage(named: "AppIcon29x29"))
 
             // let url = NSURL(string: "www.jennius.co.uk")

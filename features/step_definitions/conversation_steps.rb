@@ -534,3 +534,22 @@ Then(/^I see an alert because I can't share in simulator$/) do
     expect(text 'Sharing Failed').to be_truthy
 end
 
+When(/^I share through Mail$/) do
+  button('Share').click
+
+  mail_xpath = "//UIACollectionCell[@name='Mail']"
+  wait_true({:timeout => 5, :interval=>0.3}) do
+    find_elements(:xpath, mail_xpath).count > 0
+  end
+
+  find_element(:xpath,mail_xpath).click
+
+end
+
+
+Then(/^I see the Mail App with text "([^"]*)"$/) do |text|
+  mail_xpath = "//*[@label='Message body' and contains(@value,'#{text}')]"
+  wait_true({:timeout => 5, :interval=>0.3}) do
+    find_elements(:xpath, mail_xpath).count > 0
+  end
+end

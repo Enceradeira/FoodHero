@@ -71,3 +71,11 @@ Feature: Navigation in app
     And I share on twitter
     And I accept alert
     Then I see the settings
+
+  Scenario: Sharing conversation
+    Given FoodHero has started and can access location-services
+    And FoodHero greets me and suggests something
+
+    When I share through Mail
+    Then I see the Mail App with text "Download Food Hero from www.jennius.co.uk"
+

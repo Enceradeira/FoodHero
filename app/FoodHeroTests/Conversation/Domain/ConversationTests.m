@@ -241,7 +241,7 @@
     assertThat(distanceRange, is(nilValue()));
 }
 
-- (void)test_currentSearchPreferenceDistanceRangeShouldBeMinimal_WhenUserWantsClosestRestaurant{
+- (void)test_currentSearchPreferenceDistanceRangeShouldBeMinimal_WhenUserWantsClosestRestaurant {
     CLLocationDistance distance = [_norwich distanceFromLocation:_london];
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
@@ -252,41 +252,41 @@
     assertThatDouble(range.max, is(equalTo(@0)));
 }
 
--(void)test_currentSearchPreferenceCuisineShouldBeNil_WhenSearchHasBeenRestarted{
+- (void)test_currentSearchPreferenceCuisineShouldBeNil_WhenSearchHasBeenRestarted {
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
     [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
     [self sendInput:[UserUtterances tryAgainNow:@"Try again"]];
 
-    NSString* cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+    NSString *cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
 
     assertThat(cuisine, is(equalTo(@"")));
 }
 
--(void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferred{
+- (void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferred {
     [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
     [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
 
-    NSString* cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+    NSString *cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
 
     assertThat(cuisine, is(equalTo(@"")));
 }
 
--(void)test_currentSearchPreference_ShouldResetOccasionPreference_WhenNewCuisinePreferred{
+- (void)test_currentSearchPreference_ShouldResetOccasionPreference_WhenNewCuisinePreferred {
     [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
     [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
 
-    NSString* occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
+    NSString *occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
 
     assertThat(occasion, is(equalTo(@"")));
 }
 
--(void)test_currentSearchPreference_ShouldGuessOccasionPreference_WhenNewCuisinePreferred{
+- (void)test_currentSearchPreference_ShouldGuessOccasionPreference_WhenNewCuisinePreferred {
     [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
     [self sendInput:[UserUtterances cuisinePreference:@"Cake" text:@"I wanna cake"]];
 
-    NSString* occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
+    NSString *occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
 
     assertThat(occasion, is(equalTo([Occasions snack])));
 }
@@ -344,27 +344,46 @@
     assertThat(lastResponse, is(nilValue()));
 }
 
--(void)test_currentOccasion_ShouldReturnDefaultOccasion_WhenUserHasNotCommentedOccasion{
+- (void)test_currentOccasion_ShouldReturnDefaultOccasion_WhenUserHasNotCommentedOccasion {
     [self.environmentStub injectNow:[NSCalendar dateFromYear:2015 month:3 day:25 hour:23 minute:15 second:14]];
 
     NSString *occasion = [self.conversation currentOccasion];
     assertThat(occasion, is(equalTo([Occasions drink])));
 }
 
--(void)test_currentOccasion_ShouldReturnCorrectOccasion_WhenUserHasCommentedOccasion{
+- (void)test_currentOccasion_ShouldReturnCorrectOccasion_WhenUserHasCommentedOccasion {
     [self sendInput:[UserUtterances occasionPreference:@"dinner" text:@"I want dinner"]];
 
     NSString *occasion = [self.conversation currentOccasion];
     assertThat(occasion, is(equalTo([Occasions dinner])));
 }
 
--(void)test_id_ShouldAlwaysReturnUserId{
-    NSString* id1 = self.conversation.id;
+- (void)test_id_ShouldAlwaysReturnUserId {
+    NSString *id1 = self.conversation.id;
     assertThat(id1, is(equalTo([UserId id])));
 
     [self resetConversation];
-    NSString* id2 = self.conversation.id;
+    NSString *id2 = self.conversation.id;
     assertThat(id2, is(equalTo([UserId id])));
+}
+
+- (void)test_lastRawSuggestion_ShouldReturnLastFHSuggestion {
+    Statement *suggestion = [self.conversation lastRawSuggestion];
+
+    assertThat(suggestion, is(notNilValue()));
+    assertThat(suggestion.text, is(equalTo(@"This is a no brainer.  You should try %@.")));
+    assertThat(suggestion.semanticId, is(equalTo(@"FH:Suggestion=King's Head, Norwich")));
+    Restaurant *suggestedRestaurant = suggestion.suggestedRestaurant;
+    assertThat(suggestedRestaurant.name, is(equalTo(@"King's Head")));
+
+    [self sendInput:[UserUtterances suggestionFeedbackForDislike:suggestedRestaurant text:@"I don't like that restaurant"]];
+    suggestion = [self.conversation lastRawSuggestion];
+
+    assertThat(suggestion, is(notNilValue()));
+    assertThat(suggestion.text, is(equalTo(@"This is a no brainer.  You should try %@.")));
+    assertThat(suggestion.semanticId, is(equalTo(@"FH:Suggestion=Raj Palace, Norwich")));
+    assertThat(suggestion.suggestedRestaurant.name, is(equalTo(@"Raj Palace")));
+
 }
 
 @end

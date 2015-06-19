@@ -36,4 +36,6 @@
 - (NSArray *)suggestedRestaurantsInCurrentSearch;
 
 - (ConversationParameters *)lastUserResponse;
+
+- (Statement *)lastRawSuggestion;
 @end

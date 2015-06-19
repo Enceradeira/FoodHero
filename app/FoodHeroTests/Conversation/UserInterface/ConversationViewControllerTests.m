@@ -10,15 +10,11 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon.h>
 #import "ConversationViewController.h"
-#import "DefaultAssembly.h"
 #import "ControllerFactory.h"
 #import "ConversationBubbleTableViewCell.h"
 #import "TyphoonComponents.h"
 #import "StubAssembly.h"
-#import "SpeechRecognitionServiceStub.h"
-#import "SpeechInterpretation.h"
 #import "IAudioSession.h"
-#import "AudioSessionStub.h"
 
 @interface ConversationViewControllerTests : XCTestCase
 
@@ -27,26 +23,16 @@
 @implementation ConversationViewControllerTests {
     ConversationViewController *_ctrl;
     UITableView *_bubbleView;
-    SpeechRecognitionServiceStub *_speechRegocnitionService;
 }
 
 - (void)setUp {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly assembly]];
-    _ctrl = [ControllerFactory createConversationViewController];
-    _speechRegocnitionService = ((id <ApplicationAssembly>) [TyphoonComponents getAssembly]).speechRecognitionService;
 
+    _ctrl = [ControllerFactory createConversationViewController];
     _ctrl.view.hidden = NO;
     _bubbleView = _ctrl.bubbleView;
-}
-
-- (void)injectInterpretation:(NSString *)text intent:(NSString *)intent entities:(NSArray *)entities {
-    SpeechInterpretation *interpretation = [SpeechInterpretation new];
-    interpretation.intent = intent;
-    interpretation.text = text;
-    interpretation.entities = entities;
-    [_speechRegocnitionService injectInterpretation:interpretation];
 }
 
 - (ConversationBubbleTableViewCell *)assertRow:(NSUInteger)index {
@@ -66,6 +52,12 @@
     ConversationBubbleTableViewCell *firstRow = [self assertRow:0];
 
     assertThat(firstRow.bubble.semanticId, containsString(@"FH:Greeting"));
+}
+
+- (void)test_getTextForSharing_ShouldReturnNicelyFormattedText_WhenRestaurantSuggested {
+    NSString *text = [_ctrl getTextForSharing];
+
+    assertThat(text, is(equalTo(@"Food Hero said:\n\nThis is a no brainer.  You should try King's Head.\nnamaste.co.uk\n\nDownload Food Hero from www.jennius.co.uk")));
 }
 
 @end

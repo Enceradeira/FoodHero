@@ -20,6 +20,7 @@
 		235250E237C2F6036575D296 /* GoogleURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352597F7050F34D8047D44A /* GoogleURL.m */; };
 		2352512545A2BB8EC88047D6 /* EnvironmentStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A1521B0593A2EF13C55 /* EnvironmentStub.m */; };
 		235251278E3E4445D4141CD7 /* TyphoonComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */; };
+		23525136E01F586612A2464E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525DE7E8F3A9C81E4B45B8 /* Constants.swift */; };
 		235251507283E5E1491B9427 /* CLLocationManagerProxyStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253B0E028EFF69C99B59F /* CLLocationManagerProxyStub.m */; };
 		2352515F7F76F1CDF30A18EE /* UILabelVisualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DED82F367B25E3D305 /* UILabelVisualizer.m */; };
 		2352516345414DAFBC4D1664 /* GooglePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352522408BF6073928CCC48 /* GooglePlace.m */; };
@@ -619,6 +620,7 @@
 		23525DD5ABF13A8BA090FC27 /* WitSpeechRecognitionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WitSpeechRecognitionService.h; sourceTree = "<group>"; };
 		23525DDBD0B948D6AA4610CC /* IPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPhoto.h; sourceTree = "<group>"; };
 		23525DDBFFF100FF3FB1B469 /* NoRestaurantsFoundError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoRestaurantsFoundError.m; sourceTree = "<group>"; };
+		23525DE7E8F3A9C81E4B45B8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		23525DEB898BFEC721F7023B /* FoodHeroSuggestionParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodHeroSuggestionParameters.swift; sourceTree = "<group>"; };
 		23525DF8C6B1B3FE8FDB6662 /* SmallRestaurantReviewCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallRestaurantReviewCommentViewController.m; sourceTree = "<group>"; };
 		23525E1A4A34CD5ECA2896F8 /* RestaurantSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchTests.m; sourceTree = "<group>"; };
@@ -1455,6 +1457,7 @@
 				23525F230837ECB7E861B87D /* Infrastructure */,
 				23525BFD9C17808C4AF9CBCC /* simulator_gps_coordinates.gpx */,
 				235255A53A91EFB2F1F12B01 /* Talker */,
+				23525DE7E8F3A9C81E4B45B8 /* Constants.swift */,
 			);
 			path = FoodHero;
 			sourceTree = "<group>";
@@ -1947,6 +1950,7 @@
 				235258385ED1C85581FF1FA6 /* SuggestionLikedController.swift in Sources */,
 				23525DA3C538AFC1A46160EF /* SuggestionLikedPostingsController.swift in Sources */,
 				23525B31A41BA8D8A3450F9F /* LikedPostings.swift in Sources */,
+				23525136E01F586612A2464E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

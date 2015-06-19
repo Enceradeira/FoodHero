@@ -71,10 +71,10 @@
             return [parameter restaurant];
         }] linq_firstOrNil];
 
-        if( restaurant == nil){
-              restaurant = [[[[utterance customData] linq_ofType:USuggestionFeedbackParameters.class] linq_select:^(USuggestionFeedbackParameters *parameter) {
-                  return [parameter restaurant];
-              }] linq_firstOrNil];
+        if (restaurant == nil) {
+            restaurant = [[[[utterance customData] linq_ofType:USuggestionFeedbackParameters.class] linq_select:^(USuggestionFeedbackParameters *parameter) {
+                return [parameter restaurant];
+            }] linq_firstOrNil];
         }
 
         ExpectedUserUtterances *expectedUserUtterances = [[[[[utterance customData]
@@ -100,16 +100,21 @@
 
     [streams.rawOutput subscribeNext:^(TalkerUtterance *utterance) {
         assert([utterance customData].count == 1);
-
-        ConversationParameters *parameters = [utterance customData][0];
-        [_rawConversation addObject:parameters];
+        [_rawConversation addObject:utterance];
     }];
 
     _isStarted = YES;
 }
 
+- (NSArray *)conversationParameters {
+    return [_rawConversation linq_select:^(TalkerUtterance *t) {
+        return [t customData][0];
+    }];
+}
+
 - (NSArray *)parametersOfCurrentSearch {
-    Statement *lastUserUtterance = [[_rawConversation linq_where:^(ConversationParameters *p) {
+    NSArray *parameters = self.conversationParameters;
+    Statement *lastUserUtterance = [[parameters linq_where:^(ConversationParameters *p) {
         return (BOOL) ([p hasSemanticId:@"FH:ConfirmsRestart"] ||
                 [p hasSemanticId:@"FH:Greeting"] ||
                 [p hasSemanticId:@"FH:OpeningQuestion"] ||
@@ -122,10 +127,10 @@
     // -> "lastUserUtterance" is followed by things that belong to next search
     NSUInteger currentSearchBeginCount = 0;
     if (lastUserUtterance != nil) {
-        currentSearchBeginCount = [_rawConversation indexOfObject:lastUserUtterance];
+        currentSearchBeginCount = [parameters indexOfObject:lastUserUtterance];
     }
 
-    return [_rawConversation linq_skip:currentSearchBeginCount];
+    return [parameters linq_skip:currentSearchBeginCount];
 
 }
 
@@ -163,7 +168,7 @@
 }
 
 - (NSArray *)negativeUserFeedback {
-    return [_rawConversation linq_where:^(ConversationParameters *p) {
+    return [self.conversationParameters linq_where:^(ConversationParameters *p) {
         return (BOOL) (
                 [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=Dislike"] ||
                         [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"] ||
@@ -283,5 +288,23 @@
     return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
         return (BOOL) ([p hasSemanticId:@"U:"]);
     }] linq_lastOrNil];
+}
+
+- (Statement *)lastRawSuggestion {
+    TalkerUtterance *lastSuggestion = [[_rawConversation linq_where:^(TalkerUtterance *t) {
+        ConversationParameters *conversationParameter = [t customData][0];
+        return (BOOL) [conversationParameter isKindOfClass:[FoodHeroSuggestionParameters class]];
+    }] linq_lastOrNil];
+
+    if( lastSuggestion == nil){
+        return nil;
+    }
+
+    FoodHeroSuggestionParameters *parameter = [lastSuggestion customData][0];
+    return [Statement createWithSemanticId:parameter.semanticIdInclParameters
+                                      text:lastSuggestion.utterance
+                                     state:nil
+                       suggestedRestaurant:parameter.restaurant
+                    expectedUserUtterances:nil];
 }
 @end

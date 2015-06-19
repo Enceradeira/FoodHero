@@ -15,6 +15,8 @@
 #import "ISpeechRecognitionService.h"
 #import "IRestaurantRepository.h"
 
+@class ConversationBubbleFoodHero;
+
 @interface ConversationAppService : NSObject
 
 @property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
@@ -39,4 +41,6 @@
 - (void)addUserText:(NSString *)string;
 
 - (AVAudioSessionRecordPermission)recordPermission;
+
+- (ConversationBubbleFoodHero *)lastRawSuggestion;
 @end

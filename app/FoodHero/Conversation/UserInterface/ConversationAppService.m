@@ -251,4 +251,14 @@ static UIImage *EmptyImage;
     return _speechRecognitionService.stateSource;
 }
 
+- (ConversationBubbleFoodHero *)lastRawSuggestion {
+    Statement *statement = _conversation.lastRawSuggestion;
+    if (statement != nil) {
+        return [[ConversationBubbleFoodHero alloc] initWithStatement:statement width:0 index:0 doRenderSemanticID:false];
+    }
+    else {
+        return nil;
+    }
+}
+
 @end
