@@ -62,14 +62,9 @@ public class GAIActions: NSObject {
         return "HelpInput"
     }
 
-    /// User-Element for share twitter used
-    public class func uIUsageShareTwitter() -> String {
-        return "ShareTwitter"
-    }
-
-    /// User-Element for share used
-    public class func uIUsageShareFb() -> String {
-        return "ShareFb"
+    /// User-Element for when share is sent or canceled
+    public class func uIUsageShare() -> String {
+        return "ShareSend"
     }
 
     /// User-Element for share-template used

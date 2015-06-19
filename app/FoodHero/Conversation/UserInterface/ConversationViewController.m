@@ -52,6 +52,10 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [self logScreenViewed];
+}
+
+- (void)logScreenViewed {
     [GAIService logScreenViewed:@"Conversation"];
 }
 
@@ -238,7 +242,6 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 }
 
 - (IBAction)sharedTouched:(id)sender {
-    NSMutableArray *sharingItems = [NSMutableArray new];
     ConversationBubbleFoodHero *lastSuggestion = [_appService lastRawSuggestion];
 
     NSString *text;
@@ -250,7 +253,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
         text = [SharingTextBuilder foodHeroIsCool];
     }
 
-    SharingController* sharingController = [[SharingController alloc] initWithText:text];
+    SharingController *sharingController = [[SharingController alloc] initWithText:text completion:^() {
+        [self logScreenViewed];
+    }];
     [self presentViewController:sharingController animated:YES completion:nil];
 }
 

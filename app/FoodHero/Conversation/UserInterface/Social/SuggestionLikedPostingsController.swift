@@ -14,27 +14,44 @@ class SuggestionLikedPostingsController: UITableViewController {
         iLikeRestaurantCell.textLabel!.text = "I like \(restaurant.name)"
     }
 
+    func logScreenViewed() {
+        GAIService.logScreenViewed("ShareSuggestionLiked")
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        logScreenViewed()
+    }
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var sharedText = ""
+        var templateName = ""
         let selectedCell = cells.filter({ $0.row == indexPath.row }).first!
         switch (selectedCell.cell) {
         case anyoneJoiningMeCell:
             sharedText = SharingTextBuilder.anyoneJoiningMe(restaurant)
+            templateName = "AnyoneJoiningMe"
         case iLikeRestaurantCell:
             sharedText = SharingTextBuilder.iLikeRestaurant(restaurant)
+            templateName = "ILikeRestaurant"
         case iLikeFoodHeroCell:
             sharedText = SharingTextBuilder.foodHeroIsCool()
+            templateName = "ILikeFoodHero"
         case somethingElseCell:
             sharedText = "\n\n" + SharingTextBuilder.downloadFoodHero()
+            templateName = "SomethingElse"
         default:
             assert(false, "cell not found")
 
         }
 
-        let sharingController = SharingController(text:sharedText);
-        presentViewController(sharingController, animated:true, completion:nil)
+        GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShareTemplateSelected(), label: templateName, value: 0)
 
-        // GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShareTemplateSelected(), label: selectedTemplate!, value: 0)
+        let sharingController = SharingController(text: sharedText) {
+            self.logScreenViewed()
+        }
+        presentViewController(sharingController, animated: true, completion: nil)
+
+
     }
 
     private var cells: [(cell:UITableViewCell, row:Int)] {

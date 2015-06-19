@@ -14,7 +14,7 @@ public class GAIService: NSObject {
         GAI.sharedInstance().dryRun = isInSimulator
         GAI.sharedInstance().trackUncaughtExceptions = true
         // GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
-        // GAI.sharedInstance().dispatchInterval = 60
+        // GAI.sharedInstance().dispatchInterval = 5
         _tracker = GAI.sharedInstance().trackerWithTrackingId("UA-25686837-2")
 
         let version = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
@@ -25,18 +25,22 @@ public class GAIService: NSObject {
     }
 
     public class func logScreenViewed(screenName: String) {
+        NSLog("GAI:ScreenView: \(screenName)")
         _tracker.set(kGAIScreenName, value: screenName)
         _tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject:AnyObject])
     }
 
     public class func logEventWithCategory(category: String, action: String, label: String, value: Float) {
+        NSLog("GAI:Event: \(category):\(action):\(label):\(value)")
         let event = GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build();
         _tracker.send(event as [NSObject:AnyObject])
 
     }
 
     public class func logTimingWithCategory(category: String, name: String, label: String, interval: NSTimeInterval) {
-        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: abs(interval * 1000), name: name, label: label).build();
+        let absInterval = abs(interval * 1000)
+        NSLog("GAI:Timing: \(category):\(name):\(label):\(absInterval)")
+        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: absInterval, name: name, label: label).build();
         _tracker.send(timing as [NSObject:AnyObject])
     }
 

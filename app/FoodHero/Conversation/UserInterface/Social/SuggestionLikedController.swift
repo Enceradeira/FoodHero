@@ -25,10 +25,6 @@ public class SuggestionLikedController: UIViewController, UITableViewDelegate {
         automaticallyAdjustsScrollViewInsets = false;
     }
 
-    public override func viewDidAppear(animated: Bool) {
-        GAIService.logScreenViewed("Share")
-    }
-
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         postingsController = segue.destinationViewController as! SuggestionLikedPostingsController
         postingsController.setRestaurant(restaurant)
