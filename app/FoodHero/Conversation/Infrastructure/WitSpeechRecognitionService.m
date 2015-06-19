@@ -91,7 +91,7 @@ int _interactionCount = 0;
         [_output sendNext:[self userIntentUnclearError]];
         [self logGAINegativeExperience:@"WitNoOutcome"];
     }
-    [self.stateSource didStopProcessingUserInput];
+    [self didStopProcessingUserInput];
 }
 
 - (UserIntentUnclearError *)userIntentUnclearError {
@@ -108,7 +108,7 @@ int _interactionCount = 0;
 }
 
 - (void)witDidStartRecording {
-    [self.stateSource didStartProcessingUserInput];
+    [self didStartProcessingUserInput];
     [self.stateSource didStartRecordingUserInput];
     NSLog(@"WitSpeechRecognitionService.witDidStartRecording: Recording startet");
     [self logGAIEventUiUsage:@"voice"];
@@ -121,10 +121,21 @@ int _interactionCount = 0;
 }
 
 - (void)interpretString:(NSString *)string {
-    [self.stateSource didStartProcessingUserInput];
+    [self didStartProcessingUserInput];
     [_wit interpretString:string customData:nil];
     [self notifyUserInteraction];
     [self logGAIEventUiUsage:@"text"];
+}
+
+- (void)didStartProcessingUserInput {
+    [self.stateSource didStartProcessingUserInput];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
+}
+
+
+- (void)didStopProcessingUserInput {
+    [self.stateSource didStopProcessingUserInput];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
 }
 
 - (void)notifyUserInteraction {

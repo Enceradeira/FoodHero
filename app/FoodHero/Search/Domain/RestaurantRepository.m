@@ -57,17 +57,19 @@
                         [self logGAIEventAction:[GAIActions searchParamsOccasion] label:parameter.occasion];
                         [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
 
+                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
+                        NSDate *startTime = [NSDate date];
                         @try {
-                            NSDate *startTime = [NSDate date];
-
                             _placesCached = [self fetchPlaces:parameter currentLocation:currentLocation];
-
-                            NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
-                            [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
                         }
                         @catch (SearchException *exc) {
                             *error = [SearchError new];
                             _placesCached = nil; // return nil; therefor error will be returned
+                        }
+                        @finally{
+                            NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
+                            [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
+                            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
                         }
                     }
                     // sleep a bit to test asynchronous behaviour of the app
