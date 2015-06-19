@@ -617,7 +617,7 @@ Norwich, Norfolk NR1 3DN</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7h-PI-28Q">
-                                <rect key="frame" x="40" y="94" width="240" height="175"/>
+                                <rect key="frame" x="13" y="94" width="267" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="175" id="b6H-el-S37"/>
                                 </constraints>
@@ -628,7 +628,7 @@ Norwich, Norfolk NR1 3DN</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="J7h-PI-28Q" secondAttribute="centerX" id="9Bk-Pq-ZjZ"/>
+                            <constraint firstItem="J7h-PI-28Q" firstAttribute="leading" secondItem="itw-FK-gfn" secondAttribute="leading" constant="13" id="1KH-eK-xER"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J7h-PI-28Q" secondAttribute="trailing" constant="24" id="pdu-Sk-ILe"/>
                             <constraint firstItem="J7h-PI-28Q" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="30" id="zyV-gb-YTK"/>
                         </constraints>
@@ -1105,7 +1105,7 @@ Norwich, Norfolk NR1 3DN</string>
             <objects>
                 <tableViewController storyboardIdentifier="SuggestionLikedPostingsController" id="SZ0-WI-Em0" customClass="SuggestionLikedPostingsController" customModule="FoodHero" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FmX-Va-YVn">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="175"/>
+                        <rect key="frame" x="0.0" y="0.0" width="267" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
