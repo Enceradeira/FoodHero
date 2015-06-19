@@ -625,33 +625,11 @@ Norwich, Norfolk NR1 3DN</string>
                                     <segue destination="SZ0-WI-Em0" kind="embed" id="yYz-H8-Dbh"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hl-5j-NQZ">
-                                <rect key="frame" x="176" y="319" width="44" height="44"/>
-                                <state key="normal" image="Twitter-Icon.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="twitterPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="xeJ-32-dbi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-Wu-N4I">
-                                <rect key="frame" x="100" y="325" width="33" height="33"/>
-                                <state key="normal" image="Facebook-Icon.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="fbPostTouched:" destination="tLd-lA-6ms" eventType="touchUpInside" id="jr3-mk-SRh"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="J7h-PI-28Q" secondAttribute="centerX" id="9Bk-Pq-ZjZ"/>
-                            <constraint firstItem="J7h-PI-28Q" firstAttribute="trailing" secondItem="7Hl-5j-NQZ" secondAttribute="trailing" constant="60" id="CMT-o4-bZC"/>
-                            <constraint firstItem="7Hl-5j-NQZ" firstAttribute="top" secondItem="J7h-PI-28Q" secondAttribute="bottom" constant="50" id="GzN-h3-eBT"/>
-                            <constraint firstItem="WAa-Wu-N4I" firstAttribute="leading" secondItem="J7h-PI-28Q" secondAttribute="leading" constant="60" id="STP-CL-bL0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J7h-PI-28Q" secondAttribute="trailing" constant="24" id="pdu-Sk-ILe"/>
-                            <constraint firstItem="WAa-Wu-N4I" firstAttribute="centerY" secondItem="7Hl-5j-NQZ" secondAttribute="centerY" id="xOp-FT-FWQ"/>
                             <constraint firstItem="J7h-PI-28Q" firstAttribute="top" secondItem="2p5-mB-XkN" secondAttribute="bottom" constant="30" id="zyV-gb-YTK"/>
                         </constraints>
                     </view>
@@ -1141,7 +1119,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anyone joining me?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F1u-VE-Tya">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1155,7 +1133,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="I like Namasta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W30-ze-0JF">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1169,7 +1147,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Food Hero is cool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y9Y-gK-qAL">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1183,7 +1161,7 @@ Norwich, Norfolk NR1 3DN</string>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Something else" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hn2-rj-ke8">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.57254904510000004" green="0.14509804549999999" blue="0.1294117719" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1204,9 +1182,7 @@ Norwich, Norfolk NR1 3DN</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Facebook-Icon.png" width="33" height="33"/>
         <image name="Notebook-small.png" width="25" height="121"/>
-        <image name="Twitter-Icon.png" width="44" height="44"/>
         <image name="directions-icon.png" width="22" height="22"/>
         <image name="map-icon.png" width="22" height="22"/>
         <image name="phone-receiver-icon.png" width="22" height="22"/>

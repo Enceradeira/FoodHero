@@ -525,18 +525,11 @@ When(/^I share on facebook$/) do
   element.click
 end
 
-When(/^I share on twitter$/) do
-  element = find_element(:name, 'Twitter Icon')
-  element.click
-end
-
-Then(/^I see an alert because I can't share in simulator$/) do
-    expect(text 'Sharing Failed').to be_truthy
+When(/^I touch share$/) do
+  button('Share').click
 end
 
 When(/^I share through Mail$/) do
-  button('Share').click
-
   mail_xpath = "//UIACollectionCell[@name='Mail']"
   wait_true({:timeout => 5, :interval=>0.3}) do
     find_elements(:xpath, mail_xpath).count > 0
@@ -546,10 +539,27 @@ When(/^I share through Mail$/) do
 
 end
 
-
 Then(/^I see the Mail App with text "([^"]*)"$/) do |text|
   mail_xpath = "//*[@label='Message body' and contains(@value,'#{text}')]"
   wait_true({:timeout => 5, :interval=>0.3}) do
     find_elements(:xpath, mail_xpath).count > 0
   end
 end
+
+When(/^I cancel the Mail App$/) do
+  button('Cancel').click
+
+  delete_draft = 'Delete Draft'
+  wait_true({:timeout => 5, :interval=>0.3}) do
+    find_elements(:xpath, "//*[@name='#{delete_draft}']").count > 0
+  end
+
+  button(delete_draft).click
+
+end
+
+When(/^I share "([^"]*)"$/) do |text|
+  find_element(:xpath, "//*[@name='#{text}']").click
+end
+
+

@@ -54,10 +54,4 @@
     assertThat(firstRow.bubble.semanticId, containsString(@"FH:Greeting"));
 }
 
-- (void)test_getTextForSharing_ShouldReturnNicelyFormattedText_WhenRestaurantSuggested {
-    NSString *text = [_ctrl getTextForSharing];
-
-    assertThat(text, is(equalTo(@"Food Hero said:\n\nThis is a no brainer.  You should try King's Head.\nnamaste.co.uk\n\nDownload Food Hero from www.jennius.co.uk")));
-}
-
 @end

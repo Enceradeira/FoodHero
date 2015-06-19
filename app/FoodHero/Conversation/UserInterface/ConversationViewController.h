@@ -35,8 +35,6 @@
 
 - (IBAction)sharedTouched:(id)sender;
 
-- (NSString *)getTextForSharing;
-
 - (void)hideKeyboard;
 
 - (void)setConversationAppService:(ConversationAppService *)service;

@@ -81,9 +81,3 @@ end
 When(/^I accept alert$/) do
   alert_accept
 end
-
-Then(/^I see the settings$/) do
-  wait_true({:timeout => 5, :interval=>0.1}) do
-    !find_elements(:xpath, "//UIAApplication[@name='Settings']").empty?
-  end
-end

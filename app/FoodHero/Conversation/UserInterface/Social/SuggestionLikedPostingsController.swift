@@ -14,41 +14,27 @@ class SuggestionLikedPostingsController: UITableViewController {
         iLikeRestaurantCell.textLabel!.text = "I like \(restaurant.name)"
     }
 
-    override func viewDidLoad() {
-
-        super.viewDidLoad()
-
-        // make checkmarks red
-        tableView.tintColor = FoodHeroColors.actionColor()
-    }
-
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        for cell in cells {
-            cell.cell.accessoryType = cell.row == indexPath.row ? .Checkmark : .None
+        var sharedText = ""
+        let selectedCell = cells.filter({ $0.row == indexPath.row }).first!
+        switch (selectedCell.cell) {
+        case anyoneJoiningMeCell:
+            sharedText = SharingTextBuilder.anyoneJoiningMe(restaurant)
+        case iLikeRestaurantCell:
+            sharedText = SharingTextBuilder.iLikeRestaurant(restaurant)
+        case iLikeFoodHeroCell:
+            sharedText = SharingTextBuilder.foodHeroIsCool()
+        case somethingElseCell:
+            sharedText = "\n\n" + SharingTextBuilder.downloadFoodHero()
+        default:
+            assert(false, "cell not found")
+
         }
 
-        var selectedTemplate: String?
-        if anyoneJoiningMeCell.accessoryType == .Checkmark {
-            selectedTemplate = "AnyoneJoiningMe"
-        } else if iLikeRestaurantCell.accessoryType == .Checkmark {
-            selectedTemplate = "ILikeRestaurant"
-        } else if iLikeFoodHeroCell.accessoryType == .Checkmark {
-            selectedTemplate = "ILikeFoodHero"
+        let sharingController = SharingController(text:sharedText);
+        presentViewController(sharingController, animated:true, completion:nil)
 
-        } else if somethingElseCell.accessoryType == .Checkmark {
-            selectedTemplate = "ILikeFoodHero"
-        }
-
-        if selectedTemplate != nil {
-            GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShareTemplateSelected(), label: selectedTemplate!, value: 0)
-        }
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        let cellDesc = cells[LikedPostings.ILikeFoodHero.rawValue]
-        cellDesc.cell.accessoryType = .Checkmark
-        let indexPath = NSIndexPath(forRow: cellDesc.row, inSection: 0)
-        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+        // GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShareTemplateSelected(), label: selectedTemplate!, value: 0)
     }
 
     private var cells: [(cell:UITableViewCell, row:Int)] {
@@ -83,22 +69,4 @@ class SuggestionLikedPostingsController: UITableViewController {
             return cells[LikedPostings.SomethingElse.rawValue].cell;
         }
     }
-
-    internal var postingTemplate: String {
-        get {
-            var url = ""
-            if let urlForDisplaying = restaurant.urlForDisplaying {
-                url = " (\(restaurant.urlForDisplaying))"
-            }
-            if anyoneJoiningMeCell.accessoryType == .Checkmark {
-                return "I'm going to \(restaurant.name)\(url).\n\nAnyone joining me?"
-            } else if iLikeRestaurantCell.accessoryType == .Checkmark {
-                return "I like \(restaurant.name)\(url)"
-            } else if iLikeFoodHeroCell.accessoryType == .Checkmark {
-                return "Food Hero is cool"
-            }
-            return "";
-        }
-    }
-
 }

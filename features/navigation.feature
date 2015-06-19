@@ -46,7 +46,7 @@ Feature: Navigation in app
     When I go to the help view through the link
     Then I see the help view
 
-  Scenario: Sharing to twitter of facebook when suggestion liked
+  Scenario: Sharing when suggestion liked
     Given FoodHero has started and can access location-services
     And FoodHero greets me and suggests something
     And I like the restaurant
@@ -55,27 +55,20 @@ Feature: Navigation in app
     When I go to the share view through the link
     Then I see the share view
 
-    When I share on facebook
-    Then I see an alert because I can't share in simulator
+    When I share "Food Hero is cool"
+    And I share through Mail
+    Then I see the Mail App with text "Download it for free from www.jennius.co.uk"
 
-    When I dismiss alert
-    And I share on twitter
-    Then I see an alert because I can't share in simulator
-
-    When I dismiss alert
+    When I cancel the Mail App
+    And I see the share view
     And I go back
     Then I see the conversation view
 
-    When I go to the share view through the link
-    And I see the share view
-    And I share on twitter
-    And I accept alert
-    Then I see the settings
-
-  Scenario: Sharing conversation
+  Scenario: Sharing from conversation
     Given FoodHero has started and can access location-services
     And FoodHero greets me and suggests something
 
-    When I share through Mail
+    When I touch share
+    And I share through Mail
     Then I see the Mail App with text "Download Food Hero from www.jennius.co.uk"
 
