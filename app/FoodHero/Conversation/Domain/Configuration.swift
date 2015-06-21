@@ -25,7 +25,7 @@ public class Configuration: NSObject {
             return completion(defaults.boolForKey(key))
         } else {
             let alertController = UIAlertController(title: "Allow “Food Hero” to collect anonymous data to improve feature version?",
-                    message: "Collected data includes errors, and information about how the App performs and is used. No personal information is collected.",
+                    message: "Collected data includes errors and information about how the App performs and is used. No personal information is collected.",
                     preferredStyle: .Alert)
 
             let gaiCategory = GAICategories.uIUsage()
