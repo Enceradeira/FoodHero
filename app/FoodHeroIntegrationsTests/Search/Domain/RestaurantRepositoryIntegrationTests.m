@@ -47,7 +47,7 @@
     _locationManager = [CLLocationManagerProxyStub new];
     _locationService = [[LocationService alloc] initWithLocationManager:_locationManager schedulerFactory:schedulerFactory];
 
-    id <RestaurantSearchService> restaurantSearch = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
+    id <RestaurantSearchService> restaurantSearch = [[TyphoonComponents getAssembly] restaurantSearchService];
     _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch locationService:_locationService schedulerFactory:schedulerFactory];
 }
 

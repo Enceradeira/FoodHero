@@ -27,7 +27,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _environment = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] environment];
+    _environment = [[TyphoonComponents getAssembly] environment];
 
     _periods = @[
             // Sunday (day 0)

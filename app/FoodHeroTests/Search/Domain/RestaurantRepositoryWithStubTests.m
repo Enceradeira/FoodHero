@@ -36,9 +36,9 @@
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _searchService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
-    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
-    _repository = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantRepository];
+    _searchService = [[TyphoonComponents getAssembly] restaurantSearchService];
+    _locationManager = [[TyphoonComponents getAssembly] locationManagerProxy];
+    _repository = [[TyphoonComponents getAssembly] restaurantRepository];
     _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss"];
 }
 

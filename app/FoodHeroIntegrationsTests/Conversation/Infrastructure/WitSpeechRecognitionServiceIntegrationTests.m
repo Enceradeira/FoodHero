@@ -30,9 +30,9 @@
     [super setUp];
 
     [TyphoonComponents configure:[IntegrationAssembly new]];
-    _service = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] speechRecognitionService];
+    _service = [[TyphoonComponents getAssembly] speechRecognitionService];
     _service.stateSource = self;
-    _audioSessionStub = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] audioSession];
+    _audioSessionStub = [[TyphoonComponents getAssembly] audioSession];
 }
 
 - (void)test_interpretString_ShouldReturnInterpretation_WhenStringMadeSense {

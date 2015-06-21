@@ -52,7 +52,7 @@
     _parameter.radius = 10000;
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
 
-    _assembly = (id <ApplicationAssembly>) [TyphoonComponents getAssembly];
+    _assembly = [TyphoonComponents getAssembly];
     _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[_assembly environment] onlyOpenNow:false /*otherwise tests become unstable*/ ];
 }
 

@@ -41,11 +41,11 @@ ConversationAppServiceTests {
     [super setUp];
 
     [TyphoonComponents configure:[StubAssembly new]];
-    _searchServiceStub = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] restaurantSearchService];
-    _conversationRepository = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] conversationRepository];
-    _service = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] conversationAppService];
-    _locationManager = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] locationManagerProxy];
-    _speechRecognitionService = [(id <ApplicationAssembly>) [TyphoonComponents getAssembly] speechRecognitionService];
+    _searchServiceStub = [[TyphoonComponents getAssembly] restaurantSearchService];
+    _conversationRepository = [[TyphoonComponents getAssembly] conversationRepository];
+    _service = [[TyphoonComponents getAssembly] conversationAppService];
+    _locationManager = [[TyphoonComponents getAssembly] locationManagerProxy];
+    _speechRecognitionService = [[TyphoonComponents getAssembly] speechRecognitionService];
 }
 
 - (ConversationBubble *)getBubble:(NSUInteger)index {
@@ -115,7 +115,7 @@ ConversationAppServiceTests {
     return bubble;
 }
 
-- (void)assertMappingForIntent:(NSString *)intent andEntities:(NSArray*)entities mappedTo:(NSString *)semanticId {
+- (void)assertMappingForIntent:(NSString *)intent andEntities:(NSArray *)entities mappedTo:(NSString *)semanticId {
     [_service startConversation];
 
     [self injectInterpretation:@"I want to have breakfast" intent:intent entities:entities];
@@ -141,7 +141,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_conversationStart_ShouldSetThreadIdOnSpeechRecognitionService {
-    Conversation* onlyConversation = [_conversationRepository getForInput:nil];
+    Conversation *onlyConversation = [_conversationRepository getForInput:nil];
 
     [_service startConversation];
 
@@ -157,7 +157,7 @@ ConversationAppServiceTests {
     assertThat(bubble1, isNot(sameInstance(bubble2)));
 }
 
--(void)test_addOccasionPreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned{
+- (void)test_addOccasionPreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned {
     [_service startConversation];
 
     [self injectInterpretation:@"I want to have" intent:@"OccasionPreference" entities:nil];
@@ -167,7 +167,7 @@ ConversationAppServiceTests {
     assertThat(bubble, is(notNilValue()));
 }
 
--(void)test_addCuisinePreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned{
+- (void)test_addCuisinePreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned {
     [_service startConversation];
 
     [self injectInterpretation:@"I want to have" intent:@"CuisinePreference" entities:nil];
@@ -341,7 +341,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserOccasionPreferenceDrinks_ShouldAddOccasionPreference {
-    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"drink"]  mappedTo:@"U:OccasionPreference=drink"];
+    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"drink"] mappedTo:@"U:OccasionPreference=drink"];
 }
 
 - (void)test_addUserDislikesOccasion_ShouldAddSuggestionFeedbackDislike_WhenOccasionPreferenceUnknown {

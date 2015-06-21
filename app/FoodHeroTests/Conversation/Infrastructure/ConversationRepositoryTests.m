@@ -27,7 +27,7 @@
     [super setUp];
 
     [TyphoonComponents configure:[DefaultAssembly new]];
-    _repository =  [(id<ApplicationAssembly>) [TyphoonComponents getAssembly] conversationRepository ];
+    _repository =  [[TyphoonComponents getAssembly] conversationRepository ];
 }
 
 
