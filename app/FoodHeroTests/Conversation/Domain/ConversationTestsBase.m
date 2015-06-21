@@ -24,7 +24,7 @@
 
     [TyphoonComponents configure:[StubAssembly new]];
     _input = [RACSubject new];
-    _assembly = ([TyphoonComponents getAssembly];
+    _assembly = [TyphoonComponents getAssembly];
     _restaurantSearchStub = [_assembly restaurantSearchService];
     _restaurantRepository = [_assembly restaurantRepository];
     _locationManagerStub = [_assembly locationManagerProxy];

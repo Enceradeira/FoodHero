@@ -8,13 +8,13 @@ import Foundation
 public class GAIService: NSObject {
     private static var _tracker: GAITracker! = nil
 
-    public class func configure(completion:()->()) {
+    public class func configure(completion: () -> ()) {
         let isInSimulator = UIDevice.currentDevice().model.rangeOfString("Simulator") != nil
 
         GAI.sharedInstance().dryRun = isInSimulator
         GAI.sharedInstance().trackUncaughtExceptions = true
         // GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
-        // GAI.sharedInstance().dispatchInterval = 5
+        // GAI.sharedInstance().dispatchInterval = 20
         self._tracker = GAI.sharedInstance().trackerWithTrackingId("UA-25686837-2")
 
         let version = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
@@ -25,8 +25,14 @@ public class GAIService: NSObject {
 
         Configuration.allowDataCollection() {
             allowed in
-            let dry = !allowed
-            GAI.sharedInstance().dryRun = dry
+            // submit data before switching off
+            self.dispatch()
+
+            // wait before switching off in order that dispatch can complete
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                GAI.sharedInstance().optOut = !allowed
+            }
             completion()
         }
     }
