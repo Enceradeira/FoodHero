@@ -16,13 +16,11 @@
 #import "TyphoonComponents.h"
 #import "FoodHero-Swift.h"
 #import "WitSpeechRecognitionService.h"
+#import "ConversationAppService.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Google Analaytics
-    [GAIService configure];
-
     // Google Map
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
 
@@ -31,6 +29,12 @@
 
     self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
+
+    // Google Analytics
+    [GAIService configure:^(){
+        id<ApplicationAssembly> assembly = (id <ApplicationAssembly>)[storyboard factory];
+        [assembly.conversationAppService startConversation];
+    }];
 
     return YES;
 }

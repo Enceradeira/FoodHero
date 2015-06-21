@@ -72,6 +72,11 @@ public class GAIActions: NSObject {
         return "ShareTemplateSelected"
     }
 
+    /// User-Element for share-template used
+    public class func uIUsageAllowDataCollection() -> String {
+        return "AllowDataCollection"
+    }
+
     /// User-Element for restaurant detail used
     public class func uIUsageRestaurantDetailInput() -> String {
         return "RestaurantDetailInput"

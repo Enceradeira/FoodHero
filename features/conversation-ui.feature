@@ -1,7 +1,7 @@
 Feature: User interacts with app through conversation
 
   Background:
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
 
   Scenario: I can't say anything until FoodHero answers
     Then I can't touch the microphone button

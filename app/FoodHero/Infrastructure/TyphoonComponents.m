@@ -14,9 +14,9 @@ TyphoonStoryboard *_storyboard;
 @implementation TyphoonComponents {
 
 }
-+ (TyphoonAssembly *)getAssembly {
++ (id<ApplicationAssembly>)getAssembly {
     [self ensureAssembly];
-    return _assembly;
+    return (id <ApplicationAssembly>) [[TyphoonComponents storyboard] factory];
 }
 
 + (void)reset {

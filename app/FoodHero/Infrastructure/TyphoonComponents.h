@@ -9,7 +9,7 @@
 
 
 @interface TyphoonComponents : NSObject
-+ (TyphoonAssembly *)getAssembly;
++ (id <ApplicationAssembly>)getAssembly;
 
 + (void)reset;
 

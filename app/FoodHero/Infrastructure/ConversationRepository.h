@@ -11,6 +11,8 @@
 
 @interface ConversationRepository : NSObject
 
+- (instancetype)initWithAssembly:(id <ApplicationAssembly>)assembly;
+
 - (Conversation *)getForInput:(RACSignal *)input;
 
 @end

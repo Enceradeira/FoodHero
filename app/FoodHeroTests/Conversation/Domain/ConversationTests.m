@@ -360,11 +360,11 @@
 
 - (void)test_id_ShouldAlwaysReturnUserId {
     NSString *id1 = self.conversation.id;
-    assertThat(id1, is(equalTo([UserId id])));
+    assertThat(id1, is(equalTo([Configuration userId])));
 
     [self resetConversation];
     NSString *id2 = self.conversation.id;
-    assertThat(id2, is(equalTo([UserId id])));
+    assertThat(id2, is(equalTo([Configuration userId])));
 }
 
 - (void)test_lastRawSuggestion_ShouldReturnLastFHSuggestion {

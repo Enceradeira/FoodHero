@@ -7,6 +7,14 @@ def expect_alert_location_services
   expect(text 'Location is required to search for restaurants close to where you are.').to be_truthy
 end
 
+def expect_data_collection_alert
+  expect(text 'Allow “Food Hero” to collect anonymous data to improve feature version?').to be_truthy
+end
+
+def allow_data_collection
+  alert_accept
+end
+
 def expect_conversation_view
   expect(button 'Send').not_to be_nil
 end
@@ -28,10 +36,21 @@ def expect_login_view
   expect(text 'Login is under construction').to be_truthy
 end
 
-Given(/^FoodHero has started and can access location\-services$/) do
+Given(/^FoodHero has started and I accept alerts$/) do
+  expect_and_answer_data_collection_alert
   expect_alert_location_services
   allow_access_to_location_services
   expect_conversation_view
+end
+
+
+def expect_and_answer_data_collection_alert
+  expect_data_collection_alert
+  allow_data_collection
+end
+
+Given(/^I have answered the data collection alert$/) do
+  expect_and_answer_data_collection_alert
 end
 
 When(/^I go to the help view$/) do

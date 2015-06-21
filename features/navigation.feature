@@ -1,7 +1,7 @@
 Feature: Navigation in app
 
   Scenario: I start Food Hero and explore app
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     Then FoodHero greets me and suggests something
 
     When I go to the restaurants-details for the last suggested restaurant
@@ -38,7 +38,7 @@ Feature: Navigation in app
     #Then I see the conversation view
 
   Scenario: Opening help through link
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     And I say nonsense
     And FoodHero says he can't understand me
@@ -47,7 +47,7 @@ Feature: Navigation in app
     Then I see the help view
 
   Scenario: Sharing when suggestion liked
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     And I like the restaurant
     And I see my answer "Like"
@@ -65,7 +65,7 @@ Feature: Navigation in app
     Then I see the conversation view
 
   Scenario: Sharing from conversation
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
 
     When I touch share

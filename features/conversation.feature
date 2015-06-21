@@ -1,7 +1,7 @@
 Feature: User interacts with app through conversation
 
   Scenario: I log in for the first time and go through all suggestion feedback
-    When FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     Then FoodHero greets me and suggests something
 
     When I don't like the restaurant
@@ -35,7 +35,7 @@ Feature: User interacts with app through conversation
     Then FoodHero suggests something else
 
  Scenario: I end conversation and continue later
-    When FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     And I like the restaurant
     Then FoodHero asks if there's anything else
@@ -50,7 +50,7 @@ Feature: User interacts with app through conversation
     Then FoodHero greets me and suggests something
 
  Scenario: I become feed up with Food Hero
-   When FoodHero has started and can access location-services
+   Given FoodHero has started and I accept alerts
    Then FoodHero greets me and suggests something
 
    When I don't like the restaurant
@@ -60,7 +60,7 @@ Feature: User interacts with app through conversation
    Then FoodHero asks if there's anything else after failure
 
  Scenario: I search a restaurant for another occasion and another kind of food
-   When FoodHero has started and can access location-services
+   Given FoodHero has started and I accept alerts
    Then FoodHero greets me and suggests something
    And FoodHero mentions the occasion
 
@@ -79,7 +79,7 @@ Feature: User interacts with app through conversation
    And FoodHero suggests something else
 
   Scenario: I want to search for another occasion without disliking occasion first
-    When FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     Then FoodHero greets me and suggests something
     And FoodHero mentions the occasion
 
@@ -87,6 +87,7 @@ Feature: User interacts with app through conversation
     Then FoodHero suggests something
 
   Scenario: I don't allow FoodHero to access location-API
+    Given I have answered the data collection alert
     When FoodHero asks for access to the location-services
     And I don't allow access to the location-services
     Then FoodHero asks to enable location-services in settings
@@ -96,7 +97,7 @@ Feature: User interacts with app through conversation
     And FoodHero asks to enable location-services in settings
 
   Scenario: FoodHero can't find any restaurants
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     And FoodHero will not find any restaurants
     And I don't like the restaurant
@@ -132,7 +133,7 @@ Feature: User interacts with app through conversation
     Then FoodHero suggests something else
 
   Scenario: FoodHero is offline
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     And FoodHero can't access a network
     And I find the restaurant looks too cheap
@@ -145,7 +146,7 @@ Feature: User interacts with app through conversation
     Then FoodHero asks again what I think about suggestion
 
   Scenario: FoodHero can't understand user
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     When I say nonsense
     Then FoodHero says he can't understand me
@@ -157,7 +158,7 @@ Feature: User interacts with app through conversation
     Then FoodHero suggests something else
 
   Scenario: Internet is very slow
-    Given FoodHero has started and can access location-services
+    Given FoodHero has started and I accept alerts
     And FoodHero greets me and suggests something
     And FoodHero is very slow in responding
     When I don't like the restaurant

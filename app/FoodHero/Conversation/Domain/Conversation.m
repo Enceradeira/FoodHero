@@ -36,7 +36,7 @@
         _input = input;
         _assembly = assembly;
         _isStarted = NO;
-        _id = [UserId id];
+        _id = [Configuration userId];
     }
     return self;
 }

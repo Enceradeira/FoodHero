@@ -8,20 +8,27 @@ import Foundation
 public class GAIService: NSObject {
     private static var _tracker: GAITracker! = nil
 
-    public class func configure() {
+    public class func configure(completion:()->()) {
         let isInSimulator = UIDevice.currentDevice().model.rangeOfString("Simulator") != nil
 
         GAI.sharedInstance().dryRun = isInSimulator
         GAI.sharedInstance().trackUncaughtExceptions = true
         // GAI.sharedInstance().logger.logLevel = GAILogLevel.Verbose
         // GAI.sharedInstance().dispatchInterval = 5
-        _tracker = GAI.sharedInstance().trackerWithTrackingId("UA-25686837-2")
+        self._tracker = GAI.sharedInstance().trackerWithTrackingId("UA-25686837-2")
 
         let version = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
         let shortVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString" as String) as! String
 
-        _tracker.set(kGAIAppVersion, value: "\(shortVersion).\(version)")
-        _tracker.set("&uid", value: UserId.id())
+        self._tracker.set(kGAIAppVersion, value: "\(shortVersion).\(version)")
+        self._tracker.set("&uid", value: Configuration.userId())
+
+        Configuration.allowDataCollection() {
+            allowed in
+            let dry = !allowed
+            GAI.sharedInstance().dryRun = dry
+            completion()
+        }
     }
 
     public class func logScreenViewed(screenName: String) {

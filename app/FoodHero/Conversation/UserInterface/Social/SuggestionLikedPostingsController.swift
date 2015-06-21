@@ -8,7 +8,7 @@ import Foundation
 class SuggestionLikedPostingsController: UITableViewController {
     private var restaurant: Restaurant!
 
-    public func setRestaurant(restaurant: Restaurant) {
+    func setRestaurant(restaurant: Restaurant) {
         self.restaurant = restaurant
 
         iLikeRestaurantCell.textLabel!.text = "I like \(restaurant.name)"
