@@ -48,7 +48,6 @@ task :clean do
   XCodeBuildAction.new(:clean).execute!('FoodHeroTests')
   XCodeBuildAction.new(:clean).execute!('FoodHeroIntegrationsTests')
   BuildAction.execute!("rm -r -f #{AppPaths.dst_root}")
-  BuildAction.execute!("rm -r -f #{AppPaths.archive_path}")
 end
 
 desc 'Run XCode unit-tests'
@@ -97,6 +96,7 @@ end
 
 desc 'Creates an archive for app deployment'
 task :archive do
+  BuildAction.execute!("rm -r -f #{AppPaths.archive_path}")
   XCodeBuildAction.new(:archive).archive!('FoodHero')
   XCodeBuildAction.new(:export_archive!).export_archive!('FoodHero')
 end
