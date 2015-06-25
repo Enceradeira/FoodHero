@@ -24,7 +24,7 @@ public class Configuration: NSObject {
         if defaults.objectForKey(key) != nil {
             return completion(defaults.boolForKey(key))
         } else {
-            let alertController = UIAlertController(title: "Allow “Food Hero” to collect anonymous data to improve feature version?",
+            let alertController = UIAlertController(title: "Allow “Food Hero” to collect anonymous data to improve future versions?",
                     message: "Collected data includes errors and information about how the App performs and is used. No personal information is collected.",
                     preferredStyle: .Alert)
 

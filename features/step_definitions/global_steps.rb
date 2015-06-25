@@ -8,7 +8,7 @@ def expect_alert_location_services
 end
 
 def expect_data_collection_alert
-  expect(text 'Allow “Food Hero” to collect anonymous data to improve feature version?').to be_truthy
+  expect(text 'Allow “Food Hero” to collect anonymous data to improve future versions?').to be_truthy
 end
 
 def allow_data_collection
