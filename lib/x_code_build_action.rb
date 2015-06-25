@@ -8,4 +8,12 @@ class XCodeBuildAction
   def execute!(scheme)
     BuildAction.execute!("xcodebuild #{@build_action} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 5s,OS=#{AppPaths.version}'  -workspace '#{AppPaths.workspace_file}' -scheme '#{scheme}' DSTROOT='#{AppPaths.dst_root}' ONLY_ACTIVE_ARCH=NO")
   end
+
+  def archive!(scheme)
+    BuildAction.execute!("xcodebuild -scheme '#{scheme}' archive -archivePath '#{AppPaths.archive_path}/#{scheme}.xcarchive' -workspace '#{AppPaths.workspace_file}'")
+  end
+
+  def export_archive!(scheme)
+    BuildAction.execute!("xcodebuild -exportArchive -exportFormat ipa -archivePath '#{AppPaths.archive_path}/#{scheme}.xcarchive' -exportPath '#{AppPaths.archive_path}/#{scheme}.ipa' -exportProvisioningProfile '#{AppPaths.provisioning_profile}'")
+  end
 end

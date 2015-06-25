@@ -19,4 +19,12 @@ module AppPaths
     '8.3'
   end
 
+  def self.archive_path
+    'app/archives'
+  end
+
+  def self.provisioning_profile
+    'XC: uk.co.jennius.FoodHero'
+  end
+
 end
