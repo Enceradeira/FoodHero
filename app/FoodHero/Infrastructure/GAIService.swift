@@ -51,9 +51,10 @@ public class GAIService: NSObject {
     }
 
     public class func logTimingWithCategory(category: String, name: String, label: String, interval: NSTimeInterval) {
-        let absInterval: NSNumber = abs(interval * 1000)
+        let absInterval = abs(interval * 1000)
+        let absIntervalInt: Int = Int(absInterval)
         NSLog("GAI:Timing: \(category):\(name):\(label):\(absInterval)")
-        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: absInterval, name: name, label: label).build();
+        let timing = GAIDictionaryBuilder.createTimingWithCategory(category, interval: absIntervalInt, name: name, label: label).build();
         _tracker.send(timing as [NSObject:AnyObject])
     }
 

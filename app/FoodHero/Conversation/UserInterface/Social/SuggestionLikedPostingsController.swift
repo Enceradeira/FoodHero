@@ -8,13 +8,13 @@ import Foundation
 class SuggestionLikedPostingsController: UITableViewController {
     private var restaurant: Restaurant!
 
-    func setRestaurant(restaurant: Restaurant) {
+    internal func setRestaurant(restaurant: Restaurant) {
         self.restaurant = restaurant
 
         iLikeRestaurantCell.textLabel!.text = "I like \(restaurant.name)"
     }
 
-    func logScreenViewed() {
+    private func logScreenViewed() {
         GAIService.logScreenViewed("ShareSuggestionLiked")
     }
 
