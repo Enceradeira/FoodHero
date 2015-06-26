@@ -262,6 +262,7 @@
 		8F72B46E1A03C13B0093B077 /* Notebook-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F72B46D1A03C13B0093B077 /* Notebook-small@2x.png */; };
 		8FA4B9281B2B4D75006A95E6 /* Facebook-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA4B9261B2B4D75006A95E6 /* Facebook-Icon@2x.png */; };
 		8FA4B92A1B2B4F3D006A95E6 /* Twitter-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA4B9291B2B4F3D006A95E6 /* Twitter-Icon@2x.png */; };
+		8FB1496C1B3D5A11001CAA14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FB1496B1B3D5A11001CAA14 /* LaunchScreen.storyboard */; };
 		8FC51ED219DED09A00B39ACC /* world-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC51ED119DED09A00B39ACC /* world-icon@2x.png */; };
 		8FC51ED819DED10700B39ACC /* phone-receiver-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC51ED719DED10700B39ACC /* phone-receiver-icon@2x.png */; };
 		8FC51EDA19DED10B00B39ACC /* directions-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC51ED919DED10B00B39ACC /* directions-icon@2x.png */; };
@@ -682,6 +683,7 @@
 		8F72B46D1A03C13B0093B077 /* Notebook-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Notebook-small@2x.png"; sourceTree = "<group>"; };
 		8FA4B9261B2B4D75006A95E6 /* Facebook-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-Icon@2x.png"; sourceTree = "<group>"; };
 		8FA4B9291B2B4F3D006A95E6 /* Twitter-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-Icon@2x.png"; sourceTree = "<group>"; };
+		8FB1496B1B3D5A11001CAA14 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FC51ED119DED09A00B39ACC /* world-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world-icon@2x.png"; sourceTree = "<group>"; };
 		8FC51ED719DED10700B39ACC /* phone-receiver-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "phone-receiver-icon@2x.png"; sourceTree = "<group>"; };
 		8FC51ED919DED10B00B39ACC /* directions-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "directions-icon@2x.png"; sourceTree = "<group>"; };
@@ -1472,6 +1474,7 @@
 				23525F230837ECB7E861B87D /* Infrastructure */,
 				23525BFD9C17808C4AF9CBCC /* simulator_gps_coordinates.gpx */,
 				235255A53A91EFB2F1F12B01 /* Talker */,
+				8FB1496B1B3D5A11001CAA14 /* LaunchScreen.storyboard */,
 			);
 			path = FoodHero;
 			sourceTree = "<group>";
@@ -1684,6 +1687,7 @@
 				8FD5A1401995FF24009B9E39 /* Empty-Icon@2x.png in Resources */,
 				8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */,
 				8FD5A13A1995F86C009B9E39 /* Like-Icon@2x.png in Resources */,
+				8FB1496C1B3D5A11001CAA14 /* LaunchScreen.storyboard in Resources */,
 				8FE109E11A062D4A0059C4D0 /* rating-stars-4.0@2x.png in Resources */,
 				8F115DC01AFD3DBC004ED9BE /* map-icon-transparent@2x.png in Resources */,
 				8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */,

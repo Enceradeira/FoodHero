@@ -30,6 +30,8 @@
 	<string>Location is required to search for restaurants close to where you are.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The microphone is required for speaking to Food Hero. Without microhpone you can still interact by typing on the keyboard.</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

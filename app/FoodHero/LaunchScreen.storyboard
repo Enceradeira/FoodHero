@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sTx-EW-Qj5">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="skt-90-Ebh">
+            <objects>
+                <navigationController id="sTx-EW-Qj5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="o0P-eT-WQp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="sA6-um-VW4" kind="relationship" relationship="rootViewController" id="hnp-AO-Wbo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pEb-4e-Bmr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2143" y="482"/>
+        </scene>
+        <!--Food Hero-->
+        <scene sceneID="e4W-Rc-9k7">
+            <objects>
+                <viewController id="sA6-um-VW4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Mv-HO-ohb"/>
+                        <viewControllerLayoutGuide type="bottom" id="QAP-Q9-E9E"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LX5-Gc-dp0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lhk-T2-kOu" userLabel="UserInputHeaderView">
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a message here" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iIl-2P-MqB">
+                                        <rect key="frame" x="70" y="15" width="470" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" label="cuisine text"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQy-W3-o6s" userLabel="SendButton">
+                                        <rect key="frame" x="542" y="5" width="56" height="50"/>
+                                        <accessibility key="accessibilityConfiguration" label="send cuisine"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anz-zp-zXv" userLabel="MicContainer">
+                                        <rect key="frame" x="10" y="5" width="50" height="50"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96899999999999997" green="0.96899999999999997" blue="0.96899999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="anz-zp-zXv" secondAttribute="bottom" constant="5" id="4bw-hc-17h"/>
+                                    <constraint firstItem="anz-zp-zXv" firstAttribute="top" secondItem="Lhk-T2-kOu" secondAttribute="top" constant="5" id="9t9-Fw-Qa7"/>
+                                    <constraint firstAttribute="bottom" secondItem="iIl-2P-MqB" secondAttribute="bottom" constant="15" id="CnR-0E-3yR"/>
+                                    <constraint firstAttribute="height" constant="60" id="LOz-VN-bbi"/>
+                                    <constraint firstAttribute="bottom" secondItem="gQy-W3-o6s" secondAttribute="bottom" constant="5" id="OZ4-zZ-Vg8"/>
+                                    <constraint firstItem="gQy-W3-o6s" firstAttribute="top" secondItem="Lhk-T2-kOu" secondAttribute="top" constant="5" id="TRX-JO-nxO"/>
+                                    <constraint firstAttribute="trailing" secondItem="gQy-W3-o6s" secondAttribute="trailing" constant="2" id="Vmb-oN-FX1"/>
+                                    <constraint firstItem="gQy-W3-o6s" firstAttribute="leading" secondItem="iIl-2P-MqB" secondAttribute="trailing" constant="2" id="cyJ-In-bmY"/>
+                                    <constraint firstItem="iIl-2P-MqB" firstAttribute="leading" secondItem="anz-zp-zXv" secondAttribute="trailing" constant="10" id="dWp-wb-Bas"/>
+                                    <constraint firstItem="iIl-2P-MqB" firstAttribute="leading" secondItem="Lhk-T2-kOu" secondAttribute="leading" constant="70" id="dvf-xg-HJ2"/>
+                                    <constraint firstItem="anz-zp-zXv" firstAttribute="leading" secondItem="Lhk-T2-kOu" secondAttribute="leading" constant="10" id="fhD-kL-V3c"/>
+                                    <constraint firstItem="iIl-2P-MqB" firstAttribute="top" secondItem="Lhk-T2-kOu" secondAttribute="top" constant="15" id="lz5-MY-418"/>
+                                    <constraint firstAttribute="trailing" secondItem="iIl-2P-MqB" secondAttribute="trailing" constant="60" id="mnS-Jd-uKx"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cuttlery-Background.png" translatesAutoresizingMaskIntoConstraints="NO" id="FTo-uU-2rd">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Lhk-T2-kOu" firstAttribute="leading" secondItem="LX5-Gc-dp0" secondAttribute="leading" id="3wo-oE-Qrx"/>
+                            <constraint firstAttribute="trailing" secondItem="Lhk-T2-kOu" secondAttribute="trailing" id="98o-zM-OEs"/>
+                            <constraint firstAttribute="trailing" secondItem="FTo-uU-2rd" secondAttribute="trailing" id="Rbf-Kn-ifv"/>
+                            <constraint firstItem="Lhk-T2-kOu" firstAttribute="top" secondItem="FTo-uU-2rd" secondAttribute="bottom" id="Run-rI-anu"/>
+                            <constraint firstItem="QAP-Q9-E9E" firstAttribute="top" secondItem="Lhk-T2-kOu" secondAttribute="bottom" id="i8T-uw-AG8"/>
+                            <constraint firstItem="FTo-uU-2rd" firstAttribute="top" secondItem="LX5-Gc-dp0" secondAttribute="top" id="od4-5W-QZr"/>
+                            <constraint firstItem="FTo-uU-2rd" firstAttribute="leading" secondItem="LX5-Gc-dp0" secondAttribute="leading" id="wha-mE-PRa"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="FTo-uU-2rd"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Run-rI-anu"/>
+                                <exclude reference="Rbf-Kn-ifv"/>
+                                <exclude reference="od4-5W-QZr"/>
+                                <exclude reference="wha-mE-PRa"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="FTo-uU-2rd"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Run-rI-anu"/>
+                                <include reference="Rbf-Kn-ifv"/>
+                                <include reference="od4-5W-QZr"/>
+                                <include reference="wha-mE-PRa"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Food Hero" id="Z2p-aE-7nW">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" id="aqt-fu-P02">
+                            <button key="customView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TCl-yF-DFx">
+                                <rect key="frame" x="16" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Share">
+                                    <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" id="1zU-uV-THH">
+                            <button key="customView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CJl-fr-lVt">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Help">
+                                    <color key="titleColor" red="0.5647059083" green="0.12549020350000001" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yWm-ic-MXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1194" y="481.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Cuttlery-Background.png" width="568" height="568"/>
+    </resources>
+</document>
