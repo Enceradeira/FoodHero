@@ -124,15 +124,20 @@ def microphone_button
   find_element(:name, 'microphone')
 end
 
-def touch_help_entry(method,text)
-  wait_true({:timeout => 30, :interval=>2}) do
+
+def touch_help_entry_containing(text)
+  touch_help_entry(:xpath,%Q(//UIAStaticText[contains(@name,"#{text}")]))
+end
+
+def touch_help_entry(method, parameter )
+  wait_true({:timeout => 30, :interval => 2}) do
     help_button.enabled?
   end
   help_button.click
 
   step 'I see the help view'
   # puts source
-  element = find_element(method, text)
+  element = find_element(method, parameter)
   element.click
   touch_send
 end
@@ -303,22 +308,21 @@ When(/^I touch send without entering anything$/) do
 end
 
 When(/^I dislike the occasion$/) do
-  text = 't want to have'
   # search by xpath because occasion is dynamic
-  touch_help_entry  :xpath, "//UIAStaticText[contains(@name,'#{text}')]"
+  touch_help_entry_containing "I don't want to have"
 end
 
 
 When(/^I dislike the kind of food$/) do
-  touch_help_entry :name, "I don't like this kind of food"
+   touch_help_entry_containing "I don't like this kind of food"
 end
 
 When(/^I want to have some drinks$/) do
-  touch_help_entry :name, 'I want to have Lunch'
+   touch_help_entry_containing 'I want to have Lunch'
 end
 
 When(/^I don't like the restaurant$/) do
-  touch_help_entry :name, "I don't like it"
+   touch_help_entry_containing "I don't like it"
 end
 
 When(/^I don't like the restaurant by typing it$/) do
@@ -327,51 +331,51 @@ When(/^I don't like the restaurant by typing it$/) do
 end
 
 When(/^I find the restaurant too far away$/) do
-  touch_help_entry :name, "It's too far away"
+   touch_help_entry_containing "It's too far away"
 end
 
 When(/^I find the restaurant too far away using help$/) do
-  touch_help_entry(:name, "It's too far away")
+  touch_help_entry_containing "It's too far away"
 end
 
 When(/^I find the restaurant looks too cheap$/) do
-  touch_help_entry :name, 'It looks too cheap'
+   touch_help_entry_containing 'It looks too cheap'
 end
 
 When(/^I find the restaurant looks too expensive$/) do
-  touch_help_entry :name, "It's too expensive"
+   touch_help_entry_containing "It's too expensive"
 end
 
 When(/^I want the closest restaurant now$/) do
-  touch_help_entry :name, 'Give me the closest'
+   touch_help_entry_containing 'Give me the closest'
 end
 
 When(/^I like the restaurant$/) do
-  touch_help_entry :name, 'I like it'
+   touch_help_entry_containing 'I like it'
 end
 
 When(/^I say try again$/) do
-  touch_help_entry :name, 'Try again'
+   touch_help_entry_containing 'Try again'
 end
 
 When(/^I want FoodHero to abort search$/) do
-  touch_help_entry :name, 'Forget about it'
+   touch_help_entry_containing 'Forget about it'
 end
 
 When(/^I want to search for another restaurant$/) do
-  touch_help_entry :name, 'Search for another restaurant'
+   touch_help_entry_containing 'Search for another restaurant'
 end
 
 When(/^I say that problem with location\-service has been fixed$/) do
-    touch_help_entry :name, 'Try again'
+     touch_help_entry_containing 'Try again'
 end
 
 When(/^I want FoodHero to start over again$/) do
-  touch_help_entry :name, "Let's start again"
+  touch_help_entry_containing("Let's start again")
 end
 
 When(/^I greet FoodHero$/) do
-  touch_help_entry :name, 'Hello!'
+   touch_help_entry_containing 'Hello!'
 end
 
 When(/^I say nonsense$/) do
@@ -380,15 +384,15 @@ When(/^I say nonsense$/) do
 end
 
 When(/^I wish to eat "Sushi"/) do
-  touch_help_entry :name, 'Search for Sushi'
+   touch_help_entry_containing 'Search for Sushi'
 end
 
 When(/^I say good bye$/) do
-  touch_help_entry :name, 'Goodbye'
+   touch_help_entry_containing 'Goodbye'
 end
 
 When(/^I say there's nothing else$/) do
-  touch_help_entry :name, 'No'
+   touch_help_entry(:xpath, '//UIAStaticText[@name="No"]')
 end
 
 When(/^I touch input list button$/) do
@@ -493,7 +497,8 @@ Then(/^I see the restaurant\-details for the last suggested restaurant$/) do
     restaurant_name = "BJ's Restaurant & Brewhouse"
   end
 
-  expect(text restaurant_name).to be_truthy
+  # expect(text restaurant_name).to be_truthy
+  expect(find_elements(:xpath,%Q%//UIAStaticText[contains(@name,"#{restaurant_name}")]%).empty?).to be_falsey
 end
 
 Then(/^I see the week's opening hours$/) do
