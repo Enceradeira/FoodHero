@@ -12,7 +12,7 @@
 @implementation NotebookPageHostViewController {
 
     __weak IBOutlet NSLayoutConstraint *leftBorderConstraint;
-    UIViewController<INotebookPageController> *_notebookController;
+    UIViewController <INotebookPageController> *_notebookController;
     NotebookPageMode _pageMode;
 }
 
@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if(_pageMode == NotebookPageModeSmall) {
+    if (_pageMode == NotebookPageModeSmall) {
         // Display a notebook in background
         _notebookController = [ControllerFactory createNotebookPageViewController];
 
@@ -40,9 +40,9 @@
     }
 }
 
-- (CGFloat)notebookPaddingLeft {
+- (RACSignal *)notebookPaddingLeft {
     if (!_notebookController) {
-        return 0;
+        return [RACSignal return:@(0.0)];
     }
     return _notebookController.paddingLeft;
 }

@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <ReactiveCocoa.h>
 #import "SmallRestaurantReviewCommentViewController.h"
 #import "UILabelVisualizer.h"
 #import "FoodHero-Swift.h"
@@ -18,7 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
+    [[[self notebookPaddingLeft] take:1] subscribeNext:^(NSNumber *paddingLeft ){
+        leftBorderConstraint.constant = [paddingLeft floatValue];
+    }];
 
     [self bind];
 }

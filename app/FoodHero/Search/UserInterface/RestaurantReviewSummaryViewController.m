@@ -20,7 +20,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
+    [[[self notebookPaddingLeft] take:1] subscribeNext:^(NSNumber *paddingLeft ){
+        float value = [paddingLeft floatValue];
+        if(value == 0){
+            // When controller is used in container of LargeRestaurantReviewViewController
+            value = 20.0;
+        }
+        leftBorderConstraint.constant = value;
+    }];
+
     self.ratingLabel.accessibilityIdentifier = @"ReviewSummary";
     self.ratingLabel.textColor = [FoodHeroColors darkGrey];
 

@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "NotebookPageHostViewController.h"
 
+@class RACSignal;
+
 typedef enum {
     NotebookPageModeSmall,
     NotebookPageModeLarge
@@ -15,7 +17,7 @@ typedef enum {
 @protocol INotebookPageHostViewController <NSObject>
 - (UIView *)getContainerView;
 
-- (CGFloat)notebookPaddingLeft;
+- (RACSignal *)notebookPaddingLeft;
 
 - (void)embedNotebookWith:(NotebookPageMode)pageMode;
 

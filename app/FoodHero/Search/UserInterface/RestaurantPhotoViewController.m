@@ -18,7 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    leftBorderConstraint.constant = leftBorderConstraint.constant + [self notebookPaddingLeft];
+    [[[self notebookPaddingLeft] take:1] subscribeNext:^(NSNumber *paddingLeft ){
+        leftBorderConstraint.constant = [paddingLeft floatValue];
+    }];
 
     [self bind];
 }

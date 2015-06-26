@@ -3,8 +3,9 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <ReactiveCocoa.h>
 #import <Foundation/Foundation.h>
 
 @protocol INotebookPageController <NSObject>
-- (CGFloat)paddingLeft;
+- (RACSignal *)paddingLeft;
 @end
