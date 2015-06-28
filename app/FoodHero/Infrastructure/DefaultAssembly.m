@@ -107,8 +107,8 @@
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithAccessToken:audioSession:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:@"E2DAN6OIJ62CURVSFO6VRPU7E4DBIAZG"]; // Instance "FoodHero-Prod"
-                                  // FoodHero-Test [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero"
+                                  [method injectParameterWith:@"WRNHXZESF6X6VJYV3GG7EFSVG44GB2XE"]; // Instance "FoodHero-With-All-States"
+//                                  [method injectParameterWith:@"E2DAN6OIJ62CURVSFO6VRPU7E4DBIAZG"]; // Instance "FoodHero-Prod"
                                   [method injectParameterWith:[self audioSession]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
