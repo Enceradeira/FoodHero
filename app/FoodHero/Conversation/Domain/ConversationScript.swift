@@ -93,7 +93,15 @@ public class ConversationScript: Script {
             script: Script,
             forQuestion lastQuestion: (StringDefinition) -> (StringDefinition),
             andContinueWith continuation: ((ConversationParameters, FutureScript) -> (FutureScript))) -> Script {
-        return script.waitUserResponse(andContinueWith: continuation, catch: {
+        return script.waitUserResponse(andContinueWith: {
+            (parameter, futureScript) in
+            // Handle everything here that is accepted in 'All States'
+            if parameter.hasSemanticId("U:CuisinePreference") || parameter.hasSemanticId("U:OccasionPreference") {
+                return self.searchAndWaitResponseAndSearchRepeatably(futureScript)
+            } else {
+                return continuation(parameter, futureScript)
+            }
+        }, catch: {
             self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
         })
     }
@@ -314,7 +322,7 @@ public class ConversationScript: Script {
             return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
         } else if error is NoRestaurantsFoundError || error is SearchError {
             let label = toString(error.dynamicType)
-            GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value:0 )
+            GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
 
             let lastQuestion = FHUtterances.noRestaurantsFound
             script.say(oneOf: lastQuestion)
@@ -325,8 +333,6 @@ public class ConversationScript: Script {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
                 } else if $0.hasSemanticId("U:WantsToStartAgain") {
                     return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
-                } else if $0.hasSemanticId("U:CuisinePreference") || $0.hasSemanticId("U:OccasionPreference") {
-                    return self.searchAndWaitResponseAndSearchRepeatably($1)
                 } else {
                     assert(false, "response \($0.semanticIdInclParameters) not handled")
                     return $1

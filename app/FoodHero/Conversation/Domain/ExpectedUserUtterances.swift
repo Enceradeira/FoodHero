@@ -27,18 +27,20 @@ public class ExpectedUserUtterances: NSObject {
     }
 
     private class func modelAnswersFrom(utterances: [TalkerUtterance?]) -> ExpectedUserUtterances {
-        let modelAnswers = utterances.map {
+        let seperator: [TalkerUtterance?] = count(utterances) == 0 ? [] : [nil]
+        let allPossibleUtterances = utterances + seperator + [
+                // Following utterances are always possible 'All States'
+                UserUtterances.occasionPreference("", text: "") as TalkerUtterance?,
+                UserUtterances.cuisinePreference("", text: "") as TalkerUtterance?
+        ]
+        let modelAnswers = allPossibleUtterances.map {
             $0 == nil ? "" : self.modelAnswerFrom($0!)
         }
         return ExpectedUserUtterances(utterances: modelAnswers)
     }
 
     public class func whenAskedForFoodPreference() -> ExpectedUserUtterances {
-        return modelAnswersFrom(
-        [
-                UserUtterances.occasionPreference("", text: ""),
-                UserUtterances.cuisinePreference("", text: "")
-        ])
+        return modelAnswersFrom([])
     }
 
     public class func whenAskedForSuggestionFeedback(occasion: String) -> ExpectedUserUtterances {
@@ -52,10 +54,8 @@ public class ExpectedUserUtterances: NSObject {
                 UserUtterances.suggestionFeedbackForTooExpensive(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooCheap(dummyRestaurant, text: ""),
                 nil, // creates a visible seperator on the UI
-                UserUtterances.cuisinePreference("", text: ""),
                 UserUtterances.dislikesKindOfFood(""),
                 UserUtterances.dislikesOccasion("", occasion: occasion),
-                UserUtterances.occasionPreference("", text: ""),
                 nil,
                 UserUtterances.wantsToAbort("")
         ])
@@ -80,7 +80,7 @@ public class ExpectedUserUtterances: NSObject {
         return modelAnswersFrom(
         [
                 UserUtterances.cuisinePreference("", text: ""),
-                UserUtterances.occasionPreference("", text:""),
+                UserUtterances.occasionPreference("", text: ""),
                 nil, // creates a visible seperator on the UI
                 UserUtterances.wantsToStartAgain(""),
                 UserUtterances.wantsToAbort("")

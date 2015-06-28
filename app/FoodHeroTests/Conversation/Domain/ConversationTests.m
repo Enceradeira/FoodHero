@@ -291,6 +291,17 @@
     assertThat(occasion, is(equalTo([Occasions snack])));
 }
 
+ - (void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferredAfterAbort {
+    [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
+    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
+    [self sendInput:[UserUtterances wantsToAbort:@"Forget about it"]];
+    [self sendInput:[UserUtterances cuisinePreference:@"Indian" text:@"I want Indian food"]];
+
+    NSString *cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+
+    assertThat(cuisine, is(equalTo(@"Indian")));
+}
+
 - (void)test_lastSuggestionWarning_ShouldReturnNil_WhenNoSuggestionWarningExists {
     assertThat([self.conversation lastSuggestionWarning], is(nilValue()));
 }
