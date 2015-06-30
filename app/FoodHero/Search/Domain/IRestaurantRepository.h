@@ -10,7 +10,7 @@
 #import "CuisineAndOccasion.h"
 
 @protocol IRestaurantRepository <NSObject>
-- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)cuisine;
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine;
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place;
 

@@ -36,7 +36,7 @@
     _searchService = [RestaurantSearchServiceSpy new];
 
     id schedulerFactory = [[TyphoonComponents getAssembly] schedulerFactory];
-    _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService schedulerFactory:schedulerFactory];
+    _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService];
     _location = [[CLLocation alloc] initWithLatitude:12.6259 longitude:1.33212];
     _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:_location];
 }
@@ -45,28 +45,22 @@
     return _repository;
 }
 
-- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine {
-    __block NSMutableArray *places;
-    RACSignal *signal = [_repository getPlacesBy:cuisine];
-    [signal subscribeNext:^(GooglePlace *r) {
-        [places addObject:r];
-    }];
-    return places;
-}
-
 - (void)test_getPlacesBy {
-    [self getPlacesBy:_cuisineAndOccasion];
+    NSArray *result;
+    result= [self.repository getPlacesBy:_cuisineAndOccasion];
     assertThat(_searchService.findPlacesParameter.cuisineAndOccasion, is(equalTo(_cuisineAndOccasion)));
 }
 
 - (void)test_getPlacesByCuisine_shouldSearchWithCurrentLocation {
-    [self getPlacesBy:_cuisineAndOccasion];
+    NSArray *result;
+    result= [self.repository getPlacesBy:_cuisineAndOccasion];
 
     assertThatBool([_searchService findPlacesWasCalledWithLocation:_location.coordinate], is(@(YES)));
 }
 
 - (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {
-    [self getPlacesBy:_cuisineAndOccasion]; // this queries the location which is a precondition for getRestaurantFromPlace
+    NSArray *result;
+    result= [self.repository getPlacesBy:_cuisineAndOccasion]; // this queries the location which is a precondition for getRestaurantFromPlace
 
     Restaurant *place = [[RestaurantBuilder alloc] build];
     assertThat([_repository getRestaurantFromPlace:place], is(notNilValue()));

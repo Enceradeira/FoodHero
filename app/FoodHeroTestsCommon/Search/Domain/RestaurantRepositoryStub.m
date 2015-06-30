@@ -4,15 +4,14 @@
 //
 
 
-#import <ReactiveCocoa.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantRepositoryStub.h"
-#import "SearchException.h"
 
 
 @implementation RestaurantRepositoryStub {
     NSArray *_restaurants;
-    SearchException *_exception;
+    SearchException *_exceptionForGetRestaurantFromPlace;
+    SearchException *_exceptionForGetPlacesBy;
 }
 - (id)init {
     self = [super init];
@@ -27,25 +26,32 @@
     _restaurants = restaurants;
 }
 
-- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)cuisine {
-    return @[_restaurants].rac_sequence.signal;
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine {
+    if (_exceptionForGetPlacesBy != nil) {
+        @throw _exceptionForGetPlacesBy;
+    }
+
+    return _restaurants;
 }
 
 - (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
-    [self simulateException];
+    if (_exceptionForGetRestaurantFromPlace != nil) {
+        @throw _exceptionForGetRestaurantFromPlace;
+    }
+
     return [[_restaurants linq_where:^(Restaurant *r) {
         return [r.placeId isEqualToString:place.placeId];
     }] linq_firstOrNil];
 }
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {
-      NSArray *distances = [_restaurants linq_select:^(Place *p) {
+    NSArray *distances = [_restaurants linq_select:^(Place *p) {
         CLLocation *placeLocation = p.location;
         return @([currLocation distanceFromLocation:placeLocation]);
     }];
-    NSNumber* result = [[distances linq_sort] linq_lastOrNil];
+    NSNumber *result = [[distances linq_sort] linq_lastOrNil];
 
-    return result == nil ? 0:[result doubleValue];
+    return result == nil ? 0 : [result doubleValue];
 }
 
 - (BOOL)doRestaurantsHaveDifferentPriceLevels {
@@ -64,14 +70,11 @@
 
 }
 
-
-- (void)simulateException {
-    if (_exception != nil) {
-        @throw _exception;
-    }
+- (void)injectExceptionForGetRestaurantFromPlace:(SearchException *)exception {
+    _exceptionForGetRestaurantFromPlace = exception;
 }
 
-- (void)injectException:(SearchException *)exception {
-    _exception = exception;
+- (void)injectExceptionForGetPlacesBy:(SearchException *)exception {
+    _exceptionForGetPlacesBy = exception;
 }
 @end

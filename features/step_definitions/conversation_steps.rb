@@ -282,14 +282,14 @@ When(/^I go to the share view through the link$/) do
 end
 
 Then(/^I see my answer with "([^"]*)" food$/) do |cuisines_as_string|
-  bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.eql? cuisines_as_string }
+  bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.include? cuisines_as_string }
   expect(bubble).not_to be_nil
-  expect(parameter).to eq(cuisines_as_string)
+  expect(parameter).to include(cuisines_as_string)
 end
 
 Then(/^I see my answer "([^"]*)"$/) do |answer|
-  bubble, parameter = wait_last_element_and_parameter('U:SuggestionFeedback', 0) { |p| p.eql? answer }
-  expect(parameter).to eq(answer)
+  bubble, parameter = wait_last_element_and_parameter('U:SuggestionFeedback', 0) { |p| p.include? answer }
+  expect(parameter).to include(answer)
   expect(bubble).not_to be_nil
 end
 

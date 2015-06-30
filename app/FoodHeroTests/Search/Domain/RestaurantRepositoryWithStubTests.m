@@ -54,7 +54,8 @@
     Restaurant *restaurant = [[RestaurantBuilder alloc] build];
     [_searchService injectFindResults:@[restaurant]];
 
-    NSArray *places = [self getPlacesBy: [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+    NSArray *places = [self.repository getPlacesBy:cuisine];
     assertThat(places, hasCountOf(1));
     assertThat(((Place *) places[0]).placeId, is(equalTo(restaurant.placeId)));
 }
@@ -63,8 +64,8 @@
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
     CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
-    Place *place1 = [self getPlacesBy:cuisineAndOccasion][0];
-    Place *place2 = [self getPlacesBy:cuisineAndOccasion][0];
+    Place *place1 = [self.repository getPlacesBy:cuisineAndOccasion][0];
+    Place *place2 = [self.repository getPlacesBy:cuisineAndOccasion][0];
 
     assertThat(place1, is(equalTo(place2)));
 }
@@ -75,8 +76,8 @@
 
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
-    Place *place1 = [self getPlacesBy:asian][0];
-    Place *place2 = [self getPlacesBy:swiss][0];
+    Place *place1 = [self.repository getPlacesBy:asian][0];
+    Place *place2 = [self.repository getPlacesBy:swiss][0];
 
     assertThat(place1, isNot(equalTo(place2)));
 }
@@ -85,10 +86,12 @@
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:15.098 longitude:-50.56];
-    Place *place1 = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location1]][0];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location1];
+    Place *place1 = [self.repository getPlacesBy:cuisine][0];
 
     CLLocation *location2 = [[CLLocation alloc] initWithLatitude:30 longitude:-20];
-    Place *place2 = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location2]][0];
+    CuisineAndOccasion *cuisine1 = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location2];
+    Place *place2 = [self.repository getPlacesBy:cuisine1][0];
 
     assertThat(place1, isNot(equalTo(place2)));
 }
@@ -97,10 +100,12 @@
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 
     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:52.631249 longitude:1.299053];
-    Place *place1 = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location1]][0];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location1];
+    Place *place1 = [self.repository getPlacesBy:cuisine][0];
 
     CLLocation *location2 = [[CLLocation alloc] initWithLatitude:52.630813 longitude:1.299279];
-    Place *place2 = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location2]][0];
+    CuisineAndOccasion *cuisine1 = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location2];
+    Place *place2 = [self.repository getPlacesBy:cuisine1][0];
 
     assertThat(place1, is(equalTo(place2)));
 }
@@ -115,7 +120,8 @@
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:GOOGLE_MAX_SEARCH_RADIUS restaurants:listWithMaxNrRestaurants]]];
 
 
-    NSArray *places = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+    NSArray *places = [self.repository getPlacesBy:cuisine];
     assertThat(places, hasCountOf(listWithLessRestaurants.count));
 }
 
@@ -132,7 +138,8 @@
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:medium restaurants:@[mediumPricedRestaurant]],
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
 
-    NSArray *places = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+    NSArray *places = [self.repository getPlacesBy:cuisine];
     assertThat(places, hasCountOf(3));
     NSArray *priceLevels = [places linq_select:^(Place *p) {
         return @(p.priceLevel);
@@ -155,7 +162,8 @@
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:medium restaurants:@[mediumPricedRestaurant]],
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:expensive restaurants:@[expensiveRestaurant]]]];
 
-    NSArray *places = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+    NSArray *places = [self.repository getPlacesBy:cuisine];
 
     Place *foundCheapPlace = [[places linq_where:^(Place *p) {
         return [p.placeId isEqualToString:cheapRestaurant.placeId];
@@ -172,46 +180,12 @@
     assertThatDouble(foundExpensiveRestaurant.cuisineRelevance, is(equalTo(@(2))));
 }
 
-- (void)test_getPlacesByCuisine_ShouldCompleteAfterAllPlacesHaveBeenReturned {
-    __block Place *place;
-    __block BOOL isCompleted;
-
-    [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
-
-    RACSignal *result = [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]];
-    [result subscribeNext:^(Place *p) {
-        place = p;
-    }];
-    [result subscribeCompleted:^() {
-        isCompleted = YES;
-    }];
-
-    assertThat(place, is(notNilValue()));
-    assertThatBool(isCompleted, is(@(YES)));
-}
-
-- (void)test_getPlacesByCuisine_ShouldReturnError_WhenSearchExceptionOccurred {
-    __block NSError *receivedError;
-    __block BOOL isCompleted;
-
-    [_searchService simulateNetworkError:YES];
-    RACSignal *result = [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]];
-    [result subscribeError:^(NSError *error) {
-        receivedError = error;
-    }];
-    [result subscribeCompleted:^() {
-        isCompleted = YES;
-    }];
-
-    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(@(YES)));
-    // assertThatBool(isCompleted, is(equalToBool(YES))); commented because it didn't work under 64bit, but integration tests were ok
-}
-
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantForPlace {
     Restaurant *restaurant = [[RestaurantBuilder alloc] build];
     [_searchService injectFindResults:@[restaurant]];
 
-    Place *place = [self getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]][0];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+    Place *place = [self.repository getPlacesBy:cuisine][0];
 
     Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place];
     assertThat(restaurantFromPlace, is(equalTo(restaurant)));
@@ -231,7 +205,7 @@
     [_searchService injectFindResults:@[restaurant1, restaurant2]];
 
     [_searchService injectFindResultsWithRadiusAndPriceRange:@[[RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:0 restaurants:@[restaurant1, restaurant2]]]];
-    [[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]] waitUntilCompleted:nil]; // loads into cache
+    [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]]; // loads into cache
 
     assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(@(NO)));
 }
@@ -244,7 +218,7 @@
     [_searchService injectFindResultsWithRadiusAndPriceRange:@[
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:0 restaurants:@[restaurant1]],
             [RestaurantsInRadiusAndPriceRange restaurantsInRadius:500 priceLevel:2 restaurants:@[restaurant2]]]];
-    [[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]] waitUntilCompleted:nil]; // loads into cache
+    [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]]; // loads into cache
 
     assertThatBool([_repository doRestaurantsHaveDifferentPriceLevels], is(@(YES)));
 }
@@ -259,7 +233,7 @@
     Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withLocation:closerLocation] build];
     [_searchService injectFindResults:@[restaurant1, restaurant2]];
 
-    [[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]] waitUntilCompleted:nil]; // loads into cache
+    [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]]; // loads into cache
     double maxDistance = [_repository getMaxDistanceOfPlaces:userLocation];
 
     CLLocationDistance expectedMaxDistance = [userLocation distanceFromLocation:farawayLocation];
@@ -278,7 +252,7 @@
     CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:45 longitude:0];
 
     [_searchService injectFindResults:@[]];
-    [[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]] waitUntilCompleted:nil]; // loads 0 places into cache
+    [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil]]; // loads 0 places into cache
     double maxDistance = [_repository getMaxDistanceOfPlaces:userLocation];
 
     assertThatDouble(maxDistance, is(equalToDouble(0)));

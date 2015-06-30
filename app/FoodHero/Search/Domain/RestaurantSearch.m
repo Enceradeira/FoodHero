@@ -43,13 +43,13 @@
         return f.restaurant;
     }] linq_concat:conversation.suggestedRestaurantsInCurrentSearch];
 
-    RACSignal *locationSignal = [self resolvePreferredLocation:conversation.currentSearchLocation];
+    RACSignal *locationSignal = [[self resolvePreferredLocation:conversation.currentSearchLocation] deliverOn:[_schedulerFactory asynchScheduler]];
 
     RACSignal *preferenceSignal = [locationSignal flattenMap:^(CLLocation *location) {
         return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] preferredLocation:location]];
     }];
 
-    RACSignal *placesSignal = [preferenceSignal flattenMap:^(SearchProfile *searchPreference) {
+    RACSignal *placesSignal = [preferenceSignal tryMap:^(SearchProfile *searchPreference, NSError **error) {
 
         NSString *occasion = searchPreference.occasion;
         NSString *cuisine = searchPreference.cuisine;
@@ -57,18 +57,22 @@
         NSString *price = searchPreference.priceRange.description;
         NSLog(@"RestaurantSearch.findBest: occasion=%@ cuisine=%@ distance=%@ price=%@", occasion, cuisine, distance, price);
 
+        NSArray *places;
+        @try {
+            places = [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion
+                                                                                   cuisine:searchPreference.cuisine
+                                                                                  location:searchPreference.location]];
+        }
+        @catch (SearchException *e) {
+            *error = [SearchError new];
+            return (NSArray *) nil;
+        }
 
-        return [[[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion
-                                                                               cuisine:searchPreference.cuisine
-                                                                              location:searchPreference.location]]
-                take:1]
-                map:^(NSArray *places) {
-                    return @[[places linq_where:^(Place *p) {
-                        return (BOOL) ![excludedRestaurants linq_any:^(Restaurant *r) {
-                            return [p.placeId isEqualToString:r.placeId];
-                        }];
-                    }], searchPreference];
-                }];
+        return @[[places linq_where:^(Place *p) {
+            return (BOOL) ![excludedRestaurants linq_any:^(Restaurant *r) {
+                return [p.placeId isEqualToString:r.placeId];
+            }];
+        }], searchPreference];
     }];
 
     RACSignal *moreThan0PlacesSignal = [placesSignal
@@ -104,8 +108,8 @@
         preferredLocationSignal = [RACSignal empty];
     }
     else {
-        preferredLocationSignal = [[[_geocoderService geocodeAddressString:searchLocation] take:1] filter:^(CLLocation* location){
-            return (BOOL)(location != nil);
+        preferredLocationSignal = [[[_geocoderService geocodeAddressString:searchLocation] take:1] filter:^(CLLocation *location) {
+            return (BOOL) (location != nil);
         }];
     }
 

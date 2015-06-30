@@ -11,7 +11,6 @@
 
 
 @interface RestaurantRepositoryTests : XCTestCase
-- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine;
 
 - (RestaurantRepository *)repository;
 @end

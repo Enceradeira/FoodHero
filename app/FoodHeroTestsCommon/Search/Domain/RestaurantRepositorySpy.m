@@ -9,9 +9,9 @@
 @implementation RestaurantRepositorySpy {
 
 }
-- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)cuisine {
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine {
     _getPlacesByCuisineParameter = cuisine;
-    return [RACSignal empty];
+    return @[];
 }
 
 - (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {

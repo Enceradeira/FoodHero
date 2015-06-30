@@ -15,10 +15,6 @@
 
 }
 
-- (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine {
-    return [[self.repository getPlacesBy:cuisine] toArray][0];
-}
-
 -(RestaurantRepository *)repository{
     @throw [DesignByContractException createWithReason:@"methode must be override by subclass"];
 }

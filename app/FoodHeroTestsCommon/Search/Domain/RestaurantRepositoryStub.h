@@ -11,5 +11,7 @@
 @interface RestaurantRepositoryStub : NSObject <IRestaurantRepository>
 - (void)injectRestaurants:(NSArray *)restaurants;
 
-- (void)injectException:(SearchException *)exception;
+- (void)injectExceptionForGetRestaurantFromPlace:(SearchException *)exception;
+
+- (void)injectExceptionForGetPlacesBy:(SearchException *)exception;
 @end

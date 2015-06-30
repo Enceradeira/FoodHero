@@ -26,7 +26,7 @@
     RestaurantRepositoryStub *_restaurantRepository;
     CLLocationManagerProxyStub *_locationManager;
     CLLocation *_london;
-    GeocoderServiceStub * _geocoderServiceStub;
+    id _geocoderServiceStub;
 }
 
 
@@ -36,7 +36,7 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     _locationManager = [[TyphoonComponents getAssembly] locationManagerProxy];
-    _geocoderServiceStub = (GeocoderServiceStub *)[[TyphoonComponents getAssembly] geocoderService];
+    _geocoderServiceStub = (GeocoderServiceStub *) [[TyphoonComponents getAssembly] geocoderService];
     _restaurantRepository = [RestaurantRepositoryStub new];
 
     id locationService = [[TyphoonComponents getAssembly] locationService];
@@ -57,6 +57,27 @@
 
 - (RestaurantSearch *)search {
     return _search;
+}
+
+
+- (void)assertSearchExceptionIsHandledOnFindBest {
+
+    __block NSError *receivedError;
+    __block BOOL isCompleted;
+    [_restaurantRepository injectRestaurants:@[[[[RestaurantBuilder alloc] withName:@"Other restaurant"] build]]];
+
+    RACSignal *signal = [_search findBest:self.conversation];
+    [signal subscribeError:^(NSError *error) {
+        receivedError = error;
+    }];
+    [signal subscribeCompleted:^() {
+        isCompleted = YES;
+    }];
+    [signal asynchronouslyWaitUntilCompleted:nil];
+
+    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(@(YES)));
+    // assertThatBool(isCompleted, is(equalToBool(YES))); commented because it didn't work under 64bit, but integration tests were ok
+
 }
 
 - (void)test_findBest_ShouldAlwaysReturnExactlyOneRestaurant {
@@ -178,24 +199,16 @@
     assertThat(bestRestaurant, is(equalTo(nearerRestaurant)));
 }
 
-- (void)test_findBest_ShouldReturnError_WhenGetRestaurantFromPlaceReturnsSearchException {
-    __block NSError *receivedError;
-    __block BOOL isCompleted;
-    [_restaurantRepository injectRestaurants:@[[[[RestaurantBuilder alloc] withName:@"Other restaurant"] build]]];
-    [_restaurantRepository injectException:[SearchException createWithReason:@"failure"]];
+- (void)test_findBest_ShouldReturnError_WhenRepositoryGetRestaurantFromPlaceReturnsSearchException {
+    [_restaurantRepository injectExceptionForGetRestaurantFromPlace:[SearchException createWithReason:@"failure"]];
 
-    RACSignal *signal = [_search findBest:self.conversation];
-    [signal subscribeError:^(NSError *error) {
-        receivedError = error;
-    }];
-    [signal subscribeCompleted:^() {
-        isCompleted = YES;
-    }];
-    [signal asynchronouslyWaitUntilCompleted:nil];
+    [self assertSearchExceptionIsHandledOnFindBest];
+}
 
-    assertThatBool([receivedError isKindOfClass:[SearchError class]], is(@(YES)));
-    // assertThatBool(isCompleted, is(equalToBool(YES))); commented because it didn't work under 64bit, but integration tests were ok
+- (void)test_findBest_ShouldReturnError_WhenRepositoryGetPlacesByReturnsSearchException {
+    [_restaurantRepository injectExceptionForGetPlacesBy:[SearchException createWithReason:@"failure"]];
 
+    [self assertSearchExceptionIsHandledOnFindBest];
 }
 
 - (void)test_findBest_ShouldReturnSearchPreference {

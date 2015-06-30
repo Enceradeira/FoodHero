@@ -19,68 +19,61 @@
     NSArray *_placesCached;
     NSMutableDictionary *_restaurantsCached;
     BOOL _isSimulatingNoRestaurantFound;
-    id <ISchedulerFactory> _schedulerFactory;
     NSTimeInterval _responseDelay;
 }
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
         _restaurantsCached = [NSMutableDictionary new];
-        _schedulerFactory = schedulerFactory;
         _isSimulatingNoRestaurantFound = NO;
         _responseDelay = 0;
     }
     return self;
 }
 
-- (RACSignal *)getPlacesBy:(CuisineAndOccasion *)parameter {
-    RACSignal *signal = [RACSignal return:parameter.location];
+- (NSArray *)getPlacesBy:(CuisineAndOccasion *)parameter {
 
+    @synchronized (self) {
+        CLLocation *location = parameter.location;
 
-    return [[[signal
-            deliverOn:[_schedulerFactory asynchScheduler]]
-            take:1]
-            tryMap:^(CLLocation *currentLocation, NSError **error) {
-                @synchronized (self) {
-                    BOOL isCuisineOrOccasionStillSame =
-                            [parameter.cuisine isEqualToString:_paramsAtMomentOfCaching.cuisine] &&
-                                    [parameter.occasion isEqualToString:_paramsAtMomentOfCaching.occasion];
+        BOOL isCuisineOrOccasionStillSame =
+                [parameter.cuisine isEqualToString:_paramsAtMomentOfCaching.cuisine] &&
+                        [parameter.occasion isEqualToString:_paramsAtMomentOfCaching.occasion];
 
-                    BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
+        BOOL isLocationStillTheSame = [location distanceFromLocation:_locationAtMomentOfCaching] < 100;
 
-                    if (_isSimulatingNoRestaurantFound) {
-                        return @[];
-                    }
+        if (_isSimulatingNoRestaurantFound) {
+            return @[];
+        }
 
-                    if (_placesCached == nil || !isCuisineOrOccasionStillSame || !isLocationStillTheSame) {
-                        _locationAtMomentOfCaching = currentLocation;
-                        _paramsAtMomentOfCaching = parameter;
+        if (_placesCached == nil || !isCuisineOrOccasionStillSame || !isLocationStillTheSame) {
+            _locationAtMomentOfCaching = location;
+            _paramsAtMomentOfCaching = parameter;
 
-                        [self logGAIEventAction:[GAIActions searchParamsOccasion] label:parameter.occasion];
-                        [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
+            [self logGAIEventAction:[GAIActions searchParamsOccasion] label:parameter.occasion];
+            [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
 
-                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
-                        NSDate *startTime = [NSDate date];
-                        @try {
-                            _placesCached = [self fetchPlaces:parameter currentLocation:currentLocation];
-                        }
-                        @catch (SearchException *exc) {
-                            *error = [SearchError new];
-                            _placesCached = nil; // return nil; therefor error will be returned
-                        }
-                        @finally {
-                            NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
-                            [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
-                            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
-                        }
-                    }
-                    // sleep a bit to test asynchronous behaviour of the app
-                    [NSThread sleepForTimeInterval:_responseDelay];
-                    // yields all places as first element in sequence
-                    return _placesCached;
-                }
-            }];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
+            NSDate *startTime = [NSDate date];
+            @try {
+                _placesCached = [self fetchPlaces:parameter currentLocation:location];
+            }
+            @catch (SearchException *exc) {
+                _placesCached = nil; // return nil; therefor error will be returned
+                @throw;
+            }
+            @finally {
+                NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
+                [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
+            }
+        }
+        // sleep a bit to test asynchronous behaviour of the app
+        [NSThread sleepForTimeInterval:_responseDelay];
+        // yields all places as first element in sequence
+        return _placesCached;
+    }
 }
 
 - (NSArray *)fetchPlaces:(CuisineAndOccasion *)cuisineAndOccasion currentLocation:(CLLocation *)currentLocation {

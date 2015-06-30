@@ -158,9 +158,8 @@
 - (id)restaurantRepository {
     return [TyphoonDefinition withClass:[RestaurantRepository class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSearchService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithSearchService:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantSearchService]];
-                                  [method injectParameterWith:[self schedulerFactory]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];

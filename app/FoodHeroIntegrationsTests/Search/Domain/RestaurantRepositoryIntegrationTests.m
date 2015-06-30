@@ -44,13 +44,13 @@
     id schedulerFactory = [AlwaysImmediateSchedulerFactory new];
 
     id <RestaurantSearchService> restaurantSearch = [[TyphoonComponents getAssembly] restaurantSearchService];
-    _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch schedulerFactory:schedulerFactory];
+    _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch];
 }
 
 - (void)test_getPlacesByCuisine_ShouldReturnCorrectlyInitializedPlaces {
 
     CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian" location:_london];
-    NSArray *places = [[_repository getPlacesBy:cuisineAndOccasion] toArray][0];
+    NSArray *places = [_repository getPlacesBy:cuisineAndOccasion];
     for(Place *p in places){
         CLLocationDistance distance = [p.location distanceFromLocation:_london];
         assertThatUnsignedInt(p.placeId.length, is(greaterThan(@0)));
