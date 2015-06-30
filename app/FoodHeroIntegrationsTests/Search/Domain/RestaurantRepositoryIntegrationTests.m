@@ -30,9 +30,7 @@
     ConversationSourceStub *_conversation;
     CLLocation *_norwich;
     CLLocation *_london;
-    CLLocationManagerProxyStub *_locationManager;
     RestaurantRepository *_repository;
-    LocationService *_locationService;
 }
 
 - (void)setUp {
@@ -44,17 +42,14 @@
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
 
     id schedulerFactory = [AlwaysImmediateSchedulerFactory new];
-    _locationManager = [CLLocationManagerProxyStub new];
-    _locationService = [[LocationService alloc] initWithLocationManager:_locationManager schedulerFactory:schedulerFactory];
 
     id <RestaurantSearchService> restaurantSearch = [[TyphoonComponents getAssembly] restaurantSearchService];
-    _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch locationService:_locationService schedulerFactory:schedulerFactory];
+    _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch schedulerFactory:schedulerFactory];
 }
 
 - (void)test_getPlacesByCuisine_ShouldReturnCorrectlyInitializedPlaces {
-    [_locationManager injectLocations:@[_london]];
 
-    CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian" location:nil];
+    CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian" location:_london];
     NSArray *places = [[_repository getPlacesBy:cuisineAndOccasion] toArray][0];
     for(Place *p in places){
         CLLocationDistance distance = [p.location distanceFromLocation:_london];

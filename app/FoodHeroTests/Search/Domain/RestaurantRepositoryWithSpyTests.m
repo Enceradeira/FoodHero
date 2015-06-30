@@ -24,10 +24,9 @@
 
 @implementation RestaurantRepositoryWithSpyTests {
     RestaurantSearchServiceSpy *_searchService;
-    CLLocationManagerProxyStub *_locationManagerStub;
-    LocationService *_locationService;
     RestaurantRepository *_repository;
     CuisineAndOccasion *_cuisineAndOccasion;
+    CLLocation *_location;
 }
 
 - (void)setUp {
@@ -35,12 +34,11 @@
     [TyphoonComponents configure:[StubAssembly new]];
 
     _searchService = [RestaurantSearchServiceSpy new];
-    _locationManagerStub = [[TyphoonComponents getAssembly] locationManagerProxy];
-    _locationService = [[TyphoonComponents getAssembly] locationService];
 
     id schedulerFactory = [[TyphoonComponents getAssembly] schedulerFactory];
-    _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService locationService:_locationService schedulerFactory:schedulerFactory];
-    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+    _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService schedulerFactory:schedulerFactory];
+    _location = [[CLLocation alloc] initWithLatitude:12.6259 longitude:1.33212];
+    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:_location];
 }
 
 - (RestaurantRepository *)repository {
@@ -62,15 +60,9 @@
 }
 
 - (void)test_getPlacesByCuisine_shouldSearchWithCurrentLocation {
-    CLLocationCoordinate2D location;
-    location.latitude = 12.6259;
-    location.longitude = 1.33212;
-
-    [_locationManagerStub injectLatitude:location.latitude longitude:location.longitude];
-
     [self getPlacesBy:_cuisineAndOccasion];
 
-    assertThatBool([_searchService findPlacesWasCalledWithLocation:location], is(@(YES)));
+    assertThatBool([_searchService findPlacesWasCalledWithLocation:_location.coordinate], is(@(YES)));
 }
 
 - (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {

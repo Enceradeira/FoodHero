@@ -10,12 +10,10 @@
 #import "SearchException.h"
 #import "SearchError.h"
 #import "GoogleDefinitions.h"
-#import "CuisineAndOccasion.h"
 #import "FoodHero-Swift.h"
 
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
-    LocationService *_locationService;
     CLLocation *_locationAtMomentOfCaching;
     CuisineAndOccasion *_paramsAtMomentOfCaching;
     NSArray *_placesCached;
@@ -24,11 +22,10 @@
     id <ISchedulerFactory> _schedulerFactory;
     NSTimeInterval _responseDelay;
 }
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
-        _locationService = locationService;
         _restaurantsCached = [NSMutableDictionary new];
         _schedulerFactory = schedulerFactory;
         _isSimulatingNoRestaurantFound = NO;
@@ -38,19 +35,25 @@
 }
 
 - (RACSignal *)getPlacesBy:(CuisineAndOccasion *)parameter {
-    return [[[[_locationService currentLocation]
+    RACSignal *signal = [RACSignal return:parameter.location];
+
+
+    return [[[signal
             deliverOn:[_schedulerFactory asynchScheduler]]
             take:1]
             tryMap:^(CLLocation *currentLocation, NSError **error) {
                 @synchronized (self) {
-                    BOOL isCuisineStillTheSame = [parameter isEqual:_paramsAtMomentOfCaching];
+                    BOOL isCuisineOrOccasionStillSame =
+                            [parameter.cuisine isEqualToString:_paramsAtMomentOfCaching.cuisine] &&
+                                    [parameter.occasion isEqualToString:_paramsAtMomentOfCaching.occasion];
+
                     BOOL isLocationStillTheSame = [currentLocation distanceFromLocation:_locationAtMomentOfCaching] < 100;
 
                     if (_isSimulatingNoRestaurantFound) {
                         return @[];
                     }
 
-                    if (_placesCached == nil || !isCuisineStillTheSame || !isLocationStillTheSame) {
+                    if (_placesCached == nil || !isCuisineOrOccasionStillSame || !isLocationStillTheSame) {
                         _locationAtMomentOfCaching = currentLocation;
                         _paramsAtMomentOfCaching = parameter;
 
@@ -66,7 +69,7 @@
                             *error = [SearchError new];
                             _placesCached = nil; // return nil; therefor error will be returned
                         }
-                        @finally{
+                        @finally {
                             NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
                             [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
                             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
@@ -142,7 +145,7 @@
     @synchronized (self) {
         Restaurant *restaurant = _restaurantsCached[place.placeId];
         if (restaurant == nil) {
-            restaurant = [_searchService getRestaurantForPlace:place currentLocation:_locationService.lastKnownLocation];
+            restaurant = [_searchService getRestaurantForPlace:place currentLocation:_locationAtMomentOfCaching];
             _restaurantsCached[place.placeId] = restaurant;
         }
         return restaurant;

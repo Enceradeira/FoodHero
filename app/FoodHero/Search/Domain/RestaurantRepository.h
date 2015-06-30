@@ -12,5 +12,5 @@
 
 
 @interface RestaurantRepository : NSObject<IRestaurantRepository>
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory;
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory;
 @end

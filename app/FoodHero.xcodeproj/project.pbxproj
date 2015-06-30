@@ -152,7 +152,6 @@
 		23525819ABCE05B93DF48E51 /* ConversationViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259599DFD1F5796C13F5D /* ConversationViewState.m */; };
 		2352581BE33F4EE755746059 /* Continuation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352509C0005FDB5ACC0DF68 /* Continuation.swift */; };
 		2352581C389716C44EA9CF5D /* StringDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525A7D66B814224736DB5A /* StringDefinition.swift */; };
-		2352582CC5AE2A93252C253C /* ConversationAppServiceIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256C0F845F9953626DD90 /* ConversationAppServiceIntegrationTests.m */; };
 		235258385ED1C85581FF1FA6 /* SuggestionLikedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235251F1DB4040D039F77EC7 /* SuggestionLikedController.swift */; };
 		23525856C97C7C4B8F33A317 /* FoodHeroSuggestionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525DEB898BFEC721F7023B /* FoodHeroSuggestionParameters.swift */; };
 		2352585E85069053B955DB26 /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FFD133B4B57A619342E /* HCIsExceptionOfType.m */; };
@@ -226,6 +225,7 @@
 		23525C9F6400130371368996 /* ConversationDislikeOccasionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525BE6FF92114018318C4B /* ConversationDislikeOccasionTests.swift */; };
 		23525CA0BE93BD13E6CF4CE9 /* SmallRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF8C6B1B3FE8FDB6662 /* SmallRestaurantReviewCommentViewController.m */; };
 		23525CCA5FDC27492D17F0C1 /* LocationServiceAuthorizationStatusDeniedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */; };
+		23525CCAE53B4E3E84AED8BB /* ConversationAppServiceIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B01DBCA5E6C43250A4C /* ConversationAppServiceIntegrationTests.m */; };
 		23525CEB9AE28C4414E7F97D /* LocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525012BAFFB5D43C26BBEC /* LocationServiceTests.m */; };
 		23525CF9B7E00B24D91C7AE7 /* TextAndLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352549987FA609F3C5EE255 /* TextAndLocationTests.swift */; };
 		23525D1538BB2CE77A620DCF /* EnvironmentStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A1521B0593A2EF13C55 /* EnvironmentStub.m */; };
@@ -490,7 +490,6 @@
 		235256AF86A100FB695B7E8E /* DefaultSchedulerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSchedulerFactory.h; sourceTree = "<group>"; };
 		235256B1548FAF97A5846EF4 /* UITextViewVisualizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewVisualizer.m; sourceTree = "<group>"; };
 		235256B67F131FB6E4DA33D8 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
-		235256C0F845F9953626DD90 /* ConversationAppServiceIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceIntegrationTests.m; sourceTree = "<group>"; };
 		235256D8AC6DD9D7A07140EB /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
 		235256DC70637894075BE6D3 /* SpeechRecognitionServiceStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionServiceStub.m; sourceTree = "<group>"; };
 		235256DDA1D7AE62C51BD487 /* RestaurantReviewPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewPageViewController.m; sourceTree = "<group>"; };
@@ -576,6 +575,7 @@
 		23525AAFFB1D73A549EFCE1A /* TalkerRandomizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerRandomizer.swift; sourceTree = "<group>"; };
 		23525AC8355C100D6ED953B0 /* RestaurantReviewPageViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewPageViewControllerTests.m; sourceTree = "<group>"; };
 		23525AED9FB005B543D590C5 /* RadiusCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusCalculator.m; sourceTree = "<group>"; };
+		23525B01DBCA5E6C43250A4C /* ConversationAppServiceIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationAppServiceIntegrationTests.m; sourceTree = "<group>"; };
 		23525B10F0D8215802ECA2CC /* AnonymousUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymousUser.h; sourceTree = "<group>"; };
 		23525B142694A76979C81927 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		23525B154687A334CA31D228 /* TalkerUtterance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerUtterance.swift; sourceTree = "<group>"; };
@@ -1207,13 +1207,20 @@
 			path = Actions;
 			sourceTree = "<group>";
 		};
+		23525A34979C34E39ABBB7BE /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				23525B01DBCA5E6C43250A4C /* ConversationAppServiceIntegrationTests.m */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
 		23525A601DE17C68573B8D4D /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
 				2352519F34D935D1EFCB6A00 /* Domain */,
 				235257CD58198F154D29490A /* UserInterface */,
 				235253B77190D3F88160E909 /* Infrastructure */,
-				235256C0F845F9953626DD90 /* ConversationAppServiceIntegrationTests.m */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -1262,6 +1269,7 @@
 			isa = PBXGroup;
 			children = (
 				23525E9507FE027EEC8ABFBE /* Infrastructure */,
+				23525A34979C34E39ABBB7BE /* UserInterface */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -2124,7 +2132,7 @@
 				235257CF15BECB63CC7ACB3F /* WitSpeechRecognitionServiceIntegrationTests.m in Sources */,
 				23525A7B9425FD139132EB30 /* SpeechRecognitionServiceStub.m in Sources */,
 				235258D9545A1B1425BC6EF7 /* GeocoderServiceTests.swift in Sources */,
-				2352582CC5AE2A93252C253C /* ConversationAppServiceIntegrationTests.m in Sources */,
+				23525CCAE53B4E3E84AED8BB /* ConversationAppServiceIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -58,6 +58,24 @@
     return [self getStatementWithIndex:index];
 }
 
+-(void)assertSearchInBath:(NSString*)utterance{
+    [_service startConversation];
+    [self waitStatementWithIndex:1];
+
+    [_service addUserText:utterance];
+
+    ConversationBubble *bubble = [self waitStatementWithIndex:3];
+    assertThat(bubble.semanticId, containsString(@"FH:Suggestion"));
+
+    CLLocation *location = bubble.suggestedRestaurant.location;
+    CLLocation *locationBath = [[CLLocation alloc] initWithLatitude:51.381566 longitude:-2.357653];
+    CLLocationDistance distanceFromBath = [location distanceFromLocation:locationBath];
+
+    // The restaurant should be somewhere around bath
+    assertThatDouble(distanceFromBath, is(lessThanOrEqualTo(@5000)));
+}
+
+
 - (void)test_addUserSuggestionFeedbackDislike_ShouldAddUCSuggestionFeedbackDislikeToConversation {
     _currState = [FHStates askForSuggestionFeedback];
     [_service startConversation];
@@ -71,21 +89,12 @@
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
 }
 
-- (void)test_addUserPreferenceWithLocation_ShouldSearchAtPreferredLocation {
-    [_service startConversation];
-    [self waitStatementWithIndex:1];
+- (void)test_addUserPreferenceWithLocation_ShouldSearchAtPreferredLocation_WhenCuisinePreference {
+    [self assertSearchInBath:@"I want to have british food in Bath"];
+}
 
-    [_service addUserText:@"I want to have an italian Restaurant in Bath"];
-
-    ConversationBubble *bubble = [self waitStatementWithIndex:3];
-    assertThat(bubble.semanticId, containsString(@"FH:Suggestion"));
-
-    CLLocation *location = bubble.suggestedRestaurant.location;
-    CLLocation *locationBath = [[CLLocation alloc] initWithLatitude:51.381566 longitude:-2.357653];
-    CLLocationDistance distanceFromBath = [location distanceFromLocation:locationBath];
-
-    // The restaurant should be somewhere around bath
-    assertThatDouble(distanceFromBath, is(lessThanOrEqualTo(@5000)));
+- (void)test_addUserPreferenceWithLocation_ShouldSearchAtPreferredLocation_WhenOccasionPreference {
+    [self assertSearchInBath:@"I want lunch in Bath"];
 }
 
 - (NSString *)getState {
