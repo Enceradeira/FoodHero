@@ -298,6 +298,7 @@
 		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
+		8FF7E44D1B426C49004722EA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7E44C1B426C49004722EA /* File.swift */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -724,6 +725,8 @@
 		8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroIntegrationsTests-Info.plist"; sourceTree = "<group>"; };
 		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Prefix.pch"; sourceTree = "<group>"; };
+		8FF7E44B1B426C48004722EA /* FoodHeroIntegrationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		8FF7E44C1B426C49004722EA /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroIntegrationsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1550,6 +1553,8 @@
 				8FEA3BFA19CB4E4D00C67DDD /* Supporting Files */,
 				23525226DACAA43EBB348052 /* Search */,
 				23525ADA69FCD3147CA9D6BC /* Conversation */,
+				8FF7E44C1B426C49004722EA /* File.swift */,
+				8FF7E44B1B426C48004722EA /* FoodHeroIntegrationsTests-Bridging-Header.h */,
 			);
 			path = FoodHeroIntegrationsTests;
 			sourceTree = "<group>";
@@ -2085,6 +2090,7 @@
 				235251CE360230A01337A8AA /* ConversationSourceStub.m in Sources */,
 				235252F4317685D304649450 /* RestaurantBuilder.m in Sources */,
 				23525C256FE1319131FEDFC1 /* RestaurantRepositorySpy.m in Sources */,
+				8FF7E44D1B426C49004722EA /* File.swift in Sources */,
 				235255CA03442CD26C03D37D /* RestaurantRepositoryStub.m in Sources */,
 				235258B380DB8B290FDC11D7 /* RestaurantsInRadiusAndPriceRange.m in Sources */,
 				23525484E20003F76F9CF9F8 /* GoogleRestaurantSearchTests.m in Sources */,
@@ -2320,6 +2326,7 @@
 			baseConfigurationReference = 6D0D1C2736432AF50E41CA0B /* Pods-FoodHeroIntegrationsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -2334,7 +2341,10 @@
 				);
 				INFOPLIST_FILE = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/** $(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources";
 				WRAPPER_EXTENSION = xctest;
@@ -2346,6 +2356,7 @@
 			baseConfigurationReference = 010351527A08BC7FFE9CD449 /* Pods-FoodHeroIntegrationsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FoodHero.app/FoodHero";
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -2356,7 +2367,9 @@
 				GCC_PREFIX_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Prefix.pch";
 				INFOPLIST_FILE = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/** $(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources";
 				WRAPPER_EXTENSION = xctest;
