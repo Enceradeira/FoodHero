@@ -49,6 +49,10 @@ public class GAITimingNames: NSObject {
     public class func restaurantRepository() -> String {
         return "RestaurantRepository"
     }
+
+    public class func geocoderService() -> String {
+        return "geocoderService"
+    }
 }
 
 public class GAIActions: NSObject {
