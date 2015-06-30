@@ -384,7 +384,7 @@ When(/^I say nonsense$/) do
 end
 
 When(/^I wish to eat "Sushi"/) do
-   touch_help_entry_containing 'Search for Sushi'
+   touch_help_entry_containing 'Search for Sushi in Tokyo'
 end
 
 When(/^I say good bye$/) do
