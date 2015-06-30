@@ -13,9 +13,11 @@
 
 - (NSArray *)negativeUserFeedback;
 
-- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location;
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces preferredLocation:(CLLocation *)location;
 
 - (ConversationParameters *)lastSuggestionWarning;
 
 - (NSArray *)suggestedRestaurantsInCurrentSearch;
+
+- (NSString *)currentSearchLocation;
 @end

@@ -21,13 +21,13 @@
 }
 
 - (void)test_UCuisinePreference_ShouldAddUserStatement {
-    [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Test" location:nil ] text:@"Test"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=Test" state:nil];
 }
 
 - (void)test_UCuisinePreference_ShouldTriggerRestaurantSearch {
-    [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Test" location:nil ] text:@"Test"]];
 
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
@@ -57,7 +57,7 @@
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHCanFindRestaurant_WhenAfterConsecutiveProposals {
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
-    [self sendInput:[UserUtterances cuisinePreference:@"Test" text:@"Test"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Test" location:nil ] text:@"Test"]];
 
     [self configureRestaurantSearchForLatitude:12 longitude:44 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
@@ -71,7 +71,7 @@
     [self configureRestaurantSearchForLatitude:22 longitude:1 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self sendInput:[UserUtterances cuisinePreference:@"India" text:@"Indian"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"India" location:nil ] text:@"Indian"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusDenied];
@@ -93,7 +93,7 @@
 
     [self sendInput:[UserUtterances tryAgainNow:@"Again please!"]];
     [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
-    [self sendInput:[UserUtterances cuisinePreference:@"India" text:@"Indian"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"India" location:nil ] text:@"Indian"]];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:cheapRestaurant text:@"It looks too cheap"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];

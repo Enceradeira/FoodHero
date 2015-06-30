@@ -12,8 +12,8 @@ class ConversationDislikesKindOfFoodTests: ConversationTestsBase {
         sendInput(UserUtterances.dislikesKindOfFood("I don't like burgers"))
         assertLastStatementIs("FH:OpeningQuestion", state: FHStates.askForFoodPreference())
 
-        sendInput(UserUtterances.cuisinePreference("British Food", text: "British please"))
-        assertSecondLastStatementIs("U:CuisinePreference=British Food", state:nil)
+        sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "British Food"), text: "British please"))
+        assertSecondLastStatementIs("U:CuisinePreference=British Food", state: nil)
         assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())
         assertLastStatementIs("FH:FollowUpQuestion", state: FHStates.askForSuggestionFeedback())
     }

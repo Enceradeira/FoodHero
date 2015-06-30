@@ -9,11 +9,19 @@
 @implementation SearchProfile {
 
 }
-+ (instancetype)createWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance occasion:(NSString *)occasion {
-    return [[SearchProfile alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance occasion:occasion];
++ (instancetype)createWithCuisine:(NSString *)cuisine
+                       priceRange:(PriceRange *)priceRange
+                      maxDistance:(DistanceRange *)maxDistance
+                         occasion:(NSString *)occasion
+                         location:(NSString *)location {
+    return [[SearchProfile alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance occasion:occasion location:location];
 }
 
-- (id)initWithCuisine:(NSString *)cuisine priceRange:(PriceRange *)priceRange maxDistance:(DistanceRange *)maxDistance occasion:(NSString *)occasion {
+- (id)initWithCuisine:(NSString *)cuisine
+           priceRange:(PriceRange *)priceRange
+          maxDistance:(DistanceRange *)maxDistance
+             occasion:(NSString *)occasion
+             location:(NSString *)location {
     self = [super init];
     if (self != nil) {
 
@@ -21,6 +29,7 @@
         _priceRange = priceRange;
         _distanceRange = maxDistance;
         _occasion = occasion;
+        _location = location;
     }
     return self;
 }

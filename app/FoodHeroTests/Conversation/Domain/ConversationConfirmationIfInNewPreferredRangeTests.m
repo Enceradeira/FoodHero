@@ -33,7 +33,7 @@
 
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:1];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
 }
 
 - (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {

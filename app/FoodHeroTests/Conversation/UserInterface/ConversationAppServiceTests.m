@@ -110,7 +110,7 @@ ConversationAppServiceTests {
 
 - (ConversationBubble *)getBubbleWithSemanticId:(NSString *)semanticId {
     ConversationBubble *bubble = [[[self statements] linq_where:^(ConversationBubble *b) {
-        return (BOOL) ([b.semanticId isEqualToString:semanticId]);
+        return (BOOL) ( [b.semanticId rangeOfString:semanticId].location != NSNotFound);
     }] linq_firstOrNil];
     return bubble;
 }
@@ -240,7 +240,7 @@ ConversationAppServiceTests {
 - (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [_service startConversation];
-    [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[@"Indian"]];
+    [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[[[SpeechEntity alloc] initWithType:@"food_type" value:@"Indian"]]];
 
     [self injectInterpretation:@"I fixed it! Hurray!" intent:@"TryAgainNow" entities:nil];
     [_service addUserText:@"I fixed it! Hurray!"];
@@ -317,7 +317,7 @@ ConversationAppServiceTests {
 
     [self injectInterpretation:@"I dislike American food" intent:@"SuggestionFeedback_DislikesKindOfFood" entities:nil];
     [_service addUserText:@"I dislike American food"];
-    [self addRecognizedUserTextForCuisinePreference:@"I like Indian food" entities:@[@"Indian"]];;
+    [self addRecognizedUserTextForCuisinePreference:@"I like Indian food" entities:@[[[SpeechEntity alloc] initWithType:@"food_type" value:@"Indian"]]];;
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:CuisinePreference=Indian"];
     assertThat(bubble, is(notNilValue()));
@@ -325,29 +325,29 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserOccasionPreferenceBreakfast_ShouldAddOccasionPreference {
-    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"breakfast"] mappedTo:@"U:OccasionPreference=breakfast"];
+    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[[[SpeechEntity alloc] initWithType:@"meal_type" value:@"breakfast"]] mappedTo:@"U:OccasionPreference=breakfast"];
 }
 
 - (void)test_addUserOccasionPreferenceLunch_ShouldAddOccasionPreference {
-    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"lunch"] mappedTo:@"U:OccasionPreference=lunch"];
+    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[[[SpeechEntity alloc] initWithType:@"meal_type" value:@"lunch"]] mappedTo:@"U:OccasionPreference=lunch"];
 }
 
 - (void)test_addUserOccasionPreferenceSnack_ShouldAddOccasionPreference {
-    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"snack"] mappedTo:@"U:OccasionPreference=snack"];
+    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[[[SpeechEntity alloc] initWithType:@"meal_type" value:@"snack"]] mappedTo:@"U:OccasionPreference=snack"];
 }
 
 - (void)test_addUserOccasionPreferenceDinner_ShouldAddOccasionPreference {
-    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"dinner"] mappedTo:@"U:OccasionPreference=dinner"];
+    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[[[SpeechEntity alloc] initWithType:@"meal_type" value:@"dinner"]] mappedTo:@"U:OccasionPreference=dinner"];
 }
 
 - (void)test_addUserOccasionPreferenceDrinks_ShouldAddOccasionPreference {
-    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[@"drink"] mappedTo:@"U:OccasionPreference=drink"];
+    [self assertMappingForIntent:@"OccasionPreference" andEntities:@[[[SpeechEntity alloc] initWithType:@"meal_type" value:@"drink"]] mappedTo:@"U:OccasionPreference=drink"];
 }
 
 - (void)test_addUserDislikesOccasion_ShouldAddSuggestionFeedbackDislike_WhenOccasionPreferenceUnknown {
     [_service startConversation];
 
-    [self injectInterpretation:@"I want to have Indian" intent:@"CuisinePreference" entities:@[@"Indian"]];
+    [self injectInterpretation:@"I want to have Indian" intent:@"CuisinePreference" entities:@[[[SpeechEntity alloc] initWithType:@"food_type" value:@"Indian"]]];
     [_service addUserText:@"I want to have Indian"]; // this removes Occasion Preference
 
     [self injectInterpretation:@"I dont't want to have dinner" intent:@"DislikesOccasion" entities:nil];

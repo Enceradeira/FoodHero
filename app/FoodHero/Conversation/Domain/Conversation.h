@@ -29,7 +29,7 @@
 
 - (RACSignal *)statementIndexes;
 
-- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location;
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces preferredLocation:(CLLocation *)location;
 
 - (NSString *)currentOccasion;
 

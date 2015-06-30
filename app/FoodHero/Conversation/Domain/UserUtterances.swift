@@ -6,8 +6,9 @@
 import Foundation
 
 public class UserUtterances: NSObject {
-    private class func createUtterance(semanticId: String, text: String, modelAnswer: String, parameter: String = "") -> TalkerUtterance {
-        let parameter = UserParameters(semanticId: semanticId, parameter: parameter, modelAnswer: modelAnswer)
+    private class func createUtterance(semanticId: String, text: String, modelAnswer: String, parameter: TextAndLocation? = nil) -> TalkerUtterance {
+        let textAndLocation = parameter == nil ? TextAndLocation(text: "", location: "") : parameter!
+        let parameter = UserParameters(semanticId: semanticId, parameter: textAndLocation, modelAnswer: modelAnswer)
 
         return TalkerUtterance(utterance: text, customData: parameter)
     }
@@ -45,13 +46,13 @@ public class UserUtterances: NSObject {
         return createUtterance("U:GoodBye", text: text, modelAnswer: "Goodbye");
     }
 
-    public class func cuisinePreference(parameter: String, text: String) -> TalkerUtterance {
-        return createUtterance("U:CuisinePreference=\(parameter)", text: text,
+    public class func cuisinePreference(parameter: TextAndLocation, text: String) -> TalkerUtterance {
+        return createUtterance("U:CuisinePreference=\(parameter.text);\(parameter.location)", text: text,
                 modelAnswer: "Search for Sushi", parameter: parameter);
     }
 
-    public class func occasionPreference(parameter: String, text: String) -> TalkerUtterance {
-        return createUtterance("U:OccasionPreference=\(parameter)", text: text,
+    public class func occasionPreference(parameter: TextAndLocation, text: String) -> TalkerUtterance {
+        return createUtterance("U:OccasionPreference=\(parameter.text);\(parameter.location)", text: text,
                 modelAnswer: "I want to have Lunch", parameter: parameter);
     }
 

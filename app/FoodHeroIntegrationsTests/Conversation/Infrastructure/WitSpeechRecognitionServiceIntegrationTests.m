@@ -14,6 +14,7 @@
 #import "SpeechInterpretation.h"
 #import "IntegrationAssembly.h"
 #import "AudioSessionStub.h"
+#import "FoodHero-Swift.h"
 
 @interface WitSpeechRecognitionServiceIntegrationTests : XCTestCase <ISpeechRecognitionStateSource>
 
@@ -35,10 +36,8 @@
     _audioSessionStub = [[TyphoonComponents getAssembly] audioSession];
 }
 
-- (void)test_interpretString_ShouldReturnInterpretation_WhenStringMadeSense {
+- (NSArray *)interpretString:(NSString *)text {
     NSMutableArray *interpretations = [NSMutableArray new];
-    NSString *text = @"I want to eat Indian food";
-
     RACSignal *result = _service.output;
     _state = @"Test";
     [_service interpretString:text];
@@ -51,16 +50,26 @@
     }];
 
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
-
     assertThatBool(_isProcessingUserInput, isFalse());
+    return interpretations;
+}
+
+- (void)test_interpretString_ShouldDecodeLocation {
+    NSString *text = @"I want a french restaurant in Diss";
+
+    NSArray *interpretations = [self interpretString:text];
+
     assertThatInt(interpretations.count, is(equalTo(@1)));
     SpeechInterpretation *interpretation = interpretations[0];
-    assertThatDouble(interpretation.confidence, is(greaterThan(@0)));
-    assertThat(interpretation.text, is(equalTo(text)));
     assertThat(interpretation.intent, is(equalTo(@"CuisinePreference")));
     NSArray *entities = interpretation.entities;
-    assertThatInt(entities.count, is(equalTo(@1)));
-    assertThat(entities[0], is(equalTo(@"Indian")));
+    assertThatInt(entities.count, is(equalTo(@2)));
+    SpeechEntity *entity1 = entities[0];
+    assertThat(entity1.type, is(equalTo(@"food_type")));
+    assertThat(entity1.value, is(equalTo(@"French")));
+    SpeechEntity *entity2 = entities[1];
+    assertThat(entity2.type, is(equalTo(@"location")));
+    assertThat(entity2.value, is(equalTo(@"Diss")));
 }
 
 - (NSString *)getState {
@@ -80,7 +89,7 @@
 }
 
 - (void)didStopProcessingUserInput {
-       _isProcessingUserInput = NO;
+    _isProcessingUserInput = NO;
 }
 
 - (void)didStartProcessingUserInput {

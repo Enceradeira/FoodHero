@@ -49,11 +49,10 @@
 }
 
 - (ConversationBubble *)waitStatementWithIndex:(NSUInteger)index {
-    [_service.statementIndexes subscribeNext:^(id next) {
-        if ([_service getStatementCount] > index) {
-            [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
-        }
+    [[[_service.statementIndexes skip:index] take:1] subscribeNext:^(id next) {
+        [self XCA_notify:XCTAsyncTestCaseStatusSucceeded];
     }];
+
     [self XCA_waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
     [self XCA_notify:XCTAsyncTestCaseStatusUnknown]; // reset in order that we can wait again
     return [self getStatementWithIndex:index];
@@ -70,6 +69,23 @@
     assertThat(bubble, is(notNilValue()));
     assertThat(bubble.semanticId, is(equalTo(@"U:SuggestionFeedback=Dislike")));
     assertThat(bubble.class, is(equalTo(ConversationBubbleUser.class)));
+}
+
+- (void)test_addUserPreferenceWithLocation_ShouldSearchAtPreferredLocation {
+    [_service startConversation];
+    [self waitStatementWithIndex:1];
+
+    [_service addUserText:@"I want to have an italian Restaurant in Bath"];
+
+    ConversationBubble *bubble = [self waitStatementWithIndex:3];
+    assertThat(bubble.semanticId, containsString(@"FH:Suggestion"));
+
+    CLLocation *location = bubble.suggestedRestaurant.location;
+    CLLocation *locationBath = [[CLLocation alloc] initWithLatitude:51.381566 longitude:-2.357653];
+    CLLocationDistance distanceFromBath = [location distanceFromLocation:locationBath];
+
+    // The restaurant should be somewhere around bath
+    assertThatDouble(distanceFromBath, is(lessThanOrEqualTo(@5000)));
 }
 
 - (NSString *)getState {

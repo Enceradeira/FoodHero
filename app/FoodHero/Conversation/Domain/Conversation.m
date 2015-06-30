@@ -178,11 +178,12 @@
     }];
 }
 
-- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location {
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces preferredLocation:(CLLocation *)location {
     return [SearchProfile createWithCuisine:self.cuisine
                                  priceRange:self.priceRange
                                 maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]
-                                   occasion:[self currentOccasion]];
+                                   occasion:[self currentOccasion]
+                                   location:location];
 }
 
 - (NSString *)currentOccasion {
@@ -192,7 +193,7 @@
     }] linq_lastOrNil];
 
     if (preference != nil) {
-        return preference.parameter;
+        return preference.parameter.text;
     }
     else {
         BOOL hasUserUtteredCuisinePreference = [parameters linq_any:^(ConversationParameters *p) {
@@ -218,7 +219,7 @@
     if (preference == nil) {
         return @"";
     }
-    return preference.parameter;
+    return preference.parameter.text;
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -284,6 +285,15 @@
     }];
 }
 
+- (NSString *)currentSearchLocation {
+    return [[[[self.parametersOfCurrentSearch linq_ofType:[UserParameters class]] linq_select:^(UserParameters *s) {
+        return s.parameter.location;
+    }] linq_where:^(id location) {
+        return (BOOL)(location != nil);
+    }] linq_lastOrNil];
+}
+
+
 - (ConversationParameters *)lastUserResponse {
     return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
         return (BOOL) ([p hasSemanticId:@"U:"]);
@@ -296,7 +306,7 @@
         return (BOOL) [conversationParameter isKindOfClass:[FoodHeroSuggestionParameters class]];
     }] linq_lastOrNil];
 
-    if( lastSuggestion == nil){
+    if (lastSuggestion == nil) {
         return nil;
     }
 

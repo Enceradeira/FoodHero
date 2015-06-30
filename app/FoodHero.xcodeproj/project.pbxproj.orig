@@ -24,6 +24,7 @@
 		2352515D66C93F62BF0F6370 /* GeocoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235254E34591E12C286B5027 /* GeocoderService.swift */; };
 		2352515F7F76F1CDF30A18EE /* UILabelVisualizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DED82F367B25E3D305 /* UILabelVisualizer.m */; };
 		2352516345414DAFBC4D1664 /* GooglePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352522408BF6073928CCC48 /* GooglePlace.m */; };
+		235251643B766F1DA2711717 /* GeocoderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235252152EA44F074CF051BD /* GeocoderServiceTests.swift */; };
 		235251684A4E36427359D8C0 /* TalkerEngineRandomnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352519BBE7B7354466726D8 /* TalkerEngineRandomnessTests.swift */; };
 		2352519AA7F771F1331D1C87 /* ConversationUserWantsToAbortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235259391EEE9AD989B3CE8F /* ConversationUserWantsToAbortTests.swift */; };
 		235251ADCB60EA2C03A63E78 /* CheatTextFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253BB86938B89044C8671 /* CheatTextFieldController.m */; };
@@ -244,7 +245,6 @@
 		23525E94717E1F69D0AAB312 /* UserUtterancesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525BDFEF10D27E83CF8818 /* UserUtterancesController.swift */; };
 		23525EC5AD885B61603D25E8 /* EnvironmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B1FA2441BD828A6CCB6 /* EnvironmentTests.m */; };
 		23525ED284E1EDEBE61A5BC4 /* ConversationBubbleFoodHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352573782B74E2013DD4CB2 /* ConversationBubbleFoodHero.m */; };
-		23525EFAC8ABCA9144B18D80 /* GeocoderServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525E56622662FF0D763950 /* GeocoderServiceStub.swift */; };
 		23525EFE393332D76D3AE5C9 /* OutputUtterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235251D4F79464132D2356B8 /* OutputUtterance.swift */; };
 		23525F4595F5BAF0214136C2 /* ConversationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251B83ED57675395C3C84 /* ConversationTests.m */; };
 		23525F5FC84C5F7D14600E21 /* RatingStarsImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525A92BC11AC7FCED48E25 /* RatingStarsImage.m */; };
@@ -305,6 +305,7 @@
 		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
+		8FF7E44D1B426C49004722EA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7E44C1B426C49004722EA /* File.swift */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -392,6 +393,7 @@
 		23525201FA7F81E1EB5A64A7 /* SharingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingController.swift; sourceTree = "<group>"; };
 		23525202B35FD2709974DE80 /* RestaurantReviewSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewSummaryViewController.m; sourceTree = "<group>"; };
 		2352520E989B3D8266666154 /* RestaurantPhotoViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantPhotoViewControllerTests.m; sourceTree = "<group>"; };
+		235252152EA44F074CF051BD /* GeocoderServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocoderServiceTests.swift; sourceTree = "<group>"; };
 		2352522408BF6073928CCC48 /* GooglePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlace.m; sourceTree = "<group>"; };
 		235252243CA79D13851B4AEE /* ConversationBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationBubble.m; sourceTree = "<group>"; };
 		2352523CFCDDAD5FCF9BB560 /* ControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerFactory.m; sourceTree = "<group>"; };
@@ -647,7 +649,6 @@
 		23525E4848878C87D15BDF50 /* NotebookPageHostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotebookPageHostViewController.m; sourceTree = "<group>"; };
 		23525E506810A16E924F23FA /* RestaurantSearchTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchTests.h; sourceTree = "<group>"; };
 		23525E50832CE14E59EF8B42 /* TyphoonComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TyphoonComponents.m; sourceTree = "<group>"; };
-		23525E56622662FF0D763950 /* GeocoderServiceStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocoderServiceStub.swift; sourceTree = "<group>"; };
 		23525E6482CFDF6AA29FFF3A /* Choices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choices.swift; sourceTree = "<group>"; };
 		23525E65898BEFBD35D80998 /* SpeechRecognitionServiceStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionServiceStub.h; sourceTree = "<group>"; };
 		23525E6902366B71F482DBA3 /* OpeningHoursViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpeningHoursViewController.h; sourceTree = "<group>"; };
@@ -739,6 +740,7 @@
 		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Prefix.pch"; sourceTree = "<group>"; };
 		8FF7E44B1B426C48004722EA /* FoodHeroIntegrationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		8FF7E44C1B426C49004722EA /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroIntegrationsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -924,6 +926,7 @@
 				23525554312893EB2BDACE59 /* TyphoonComponentsTests.m */,
 				2352531067F4BC74F471C9FA /* GAIServiceTests.swift */,
 				23525B1FA2441BD828A6CCB6 /* EnvironmentTests.m */,
+				235252152EA44F074CF051BD /* GeocoderServiceTests.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1293,7 +1296,6 @@
 				235257C6322F9539B8F61B30 /* EnvironmentStub.h */,
 				235252B0DB009E78C9929858 /* AudioSessionStub.m */,
 				2352511107CD39D3A759D4B9 /* AudioSessionStub.h */,
-				23525E56622662FF0D763950 /* GeocoderServiceStub.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1571,8 +1573,12 @@
 				8FEA3BFA19CB4E4D00C67DDD /* Supporting Files */,
 				23525226DACAA43EBB348052 /* Search */,
 				23525ADA69FCD3147CA9D6BC /* Conversation */,
-				235255C82BC3AA4AE50DEB73 /* Infrastructure */,
+<<<<<<< Updated upstream
+				8FF7E44C1B426C49004722EA /* File.swift */,
 				8FF7E44B1B426C48004722EA /* FoodHeroIntegrationsTests-Bridging-Header.h */,
+=======
+				235255C82BC3AA4AE50DEB73 /* Infrastructure */,
+>>>>>>> Stashed changes
 			);
 			path = FoodHeroIntegrationsTests;
 			sourceTree = "<group>";
@@ -2000,7 +2006,6 @@
 				23525B887DD07DF42D747DC8 /* SpeechEntity.swift in Sources */,
 				235252C9FAF5019CCBE34270 /* IGeocoderService.swift in Sources */,
 				2352515D66C93F62BF0F6370 /* GeocoderService.swift in Sources */,
-				23525EFAC8ABCA9144B18D80 /* GeocoderServiceStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2094,6 +2099,7 @@
 				23525893E9CAA19C10CDBE80 /* SharingTextBuilderTests.swift in Sources */,
 				235254E9518FC755D28936EB /* ConversationAskForWhatToDoNext.swift in Sources */,
 				23525CF9B7E00B24D91C7AE7 /* TextAndLocationTests.swift in Sources */,
+				235251643B766F1DA2711717 /* GeocoderServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2114,6 +2120,7 @@
 				235251CE360230A01337A8AA /* ConversationSourceStub.m in Sources */,
 				235252F4317685D304649450 /* RestaurantBuilder.m in Sources */,
 				23525C256FE1319131FEDFC1 /* RestaurantRepositorySpy.m in Sources */,
+				8FF7E44D1B426C49004722EA /* File.swift in Sources */,
 				235255CA03442CD26C03D37D /* RestaurantRepositoryStub.m in Sources */,
 				235258B380DB8B290FDC11D7 /* RestaurantsInRadiusAndPriceRange.m in Sources */,
 				23525484E20003F76F9CF9F8 /* GoogleRestaurantSearchTests.m in Sources */,

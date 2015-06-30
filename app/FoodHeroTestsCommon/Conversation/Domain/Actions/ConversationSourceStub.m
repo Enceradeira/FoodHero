@@ -13,6 +13,7 @@
     NSString *_cuisine;
     PriceRange *_range;
     DistanceRange *_maxDistance;
+    NSString *_currentSearchLocation;
 }
 
 - (id)init {
@@ -22,6 +23,7 @@
         _suggestedRestaurants = [NSMutableArray new];
         _range = [PriceRange priceRangeWithoutRestriction];
         _maxDistance = nil;
+        _currentSearchLocation = nil;
     }
 
     return self;
@@ -31,8 +33,8 @@
     return _negativeUserFeedback;
 }
 
-- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location {
-    return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance occasion:[Occasions lunch]];
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces preferredLocation:(CLLocation *)location {
+    return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance occasion:[Occasions lunch] location:location];
 }
 
 - (ConversationParameters *)lastSuggestionWarning {
@@ -41,6 +43,10 @@
 
 - (NSArray *)suggestedRestaurantsInCurrentSearch {
     return _suggestedRestaurants;
+}
+
+- (NSString *)currentSearchLocation {
+    return _currentSearchLocation;
 }
 
 
@@ -75,5 +81,9 @@
 
 - (void)startNewSearch {
     [_suggestedRestaurants removeAllObjects];
+}
+
+- (void)injectCurrentSearchLocation:(NSString *)location {
+    _currentSearchLocation = location;
 }
 @end

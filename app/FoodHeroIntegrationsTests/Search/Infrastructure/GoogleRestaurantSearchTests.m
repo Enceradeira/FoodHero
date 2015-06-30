@@ -50,7 +50,7 @@
     _parameter = [RestaurantSearchParams new];
     _parameter.coordinate = _norwich.coordinate;
     _parameter.radius = 10000;
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian" location:nil];
 
     _assembly = [TyphoonComponents getAssembly];
     _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[_assembly environment] onlyOpenNow:false /*otherwise tests become unstable*/ ];
@@ -63,7 +63,7 @@
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithMatchingCuisineFirst {
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Steak house"];
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Steak house" location:nil];
     NSArray *places = [_service findPlaces:_parameter];
 
     // cuisineRelevance should become smaller when iterating through the results
@@ -88,7 +88,7 @@
 
 - (void)test_findPlaces_ShouldReturnSomething_WhenOnlyPlacesOpenNowAreSearched {
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@""];
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"" location:nil];
     _service = [[GoogleRestaurantSearch alloc] initWithEnvironment:[_assembly environment] onlyOpenNow:true];
 
     NSArray *result = [_service findPlaces:_parameter];
@@ -98,30 +98,16 @@
 
 - (void)test_findPlaces_ShouldReturnCuisineRelevanceGreaterThan0ForMostIrrelevantPlace_WhenSearchRadiusLessThanMaxSearchRadius {
     _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS / 2;
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"French"];
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"French" location:nil];
     GooglePlace *mostIrrelevantPlace = [[_service findPlaces:_parameter] linq_lastOrNil];
 
     assertThatDouble(mostIrrelevantPlace.cuisineRelevance, is(greaterThan(@0)));
 }
 
-- (void)test_search_manually {
-    return; // ignored
-
-    CLLocation *york = [[CLLocation alloc] initWithLatitude:53.963367 longitude:-1.122695];
-    _parameter.radius = GOOGLE_MAX_SEARCH_RADIUS;
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"cheese fondue"];
-    _parameter.coordinate = _london.coordinate;
-    NSArray *places = [_service findPlaces:_parameter];
-    for (NSUInteger i = 1; i < places.count && i < 20; i++) {
-        Restaurant *restaurant = [_service getRestaurantForPlace:places[i] currentLocation:york];
-        NSLog(@"Name: %@ Vicinity: %@", restaurant.name, restaurant.vicinity);
-    }
-}
-
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedRadius {
     NSInteger specifiedRadius = 200;
 
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian" location:nil];
     _parameter.radius = specifiedRadius;
     _parameter.coordinate = _norwich.coordinate;
 
@@ -134,7 +120,7 @@
 }
 
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedPriceRange {
-    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian"];
+    _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian" location:nil];
     _parameter.radius = 5000;
     _parameter.coordinate = _london.coordinate;  // only london supports price range at the moment
     _parameter.minPriceLevel = 4;

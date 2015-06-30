@@ -7,6 +7,8 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
+#import <LinqToObjectiveC/NSDictionary+LinqExtensions.h>
+#import "FoodHero-Swift.h"
 
 int _interactionCount = 0;
 
@@ -62,12 +64,11 @@ int _interactionCount = 0;
         interpretation.text = best[@"_text"];
         interpretation.intent = best[@"intent"];
         NSDictionary *entities = best[@"entities"];
-        interpretation.entities = [[entities.allValues linq_selectMany:^(NSArray *dic) {
-            return dic;
-        }] linq_select:^(NSDictionary *dic) {
-            return dic[@"value"];
-        }];
 
+        interpretation.entities =  [entities linq_select:^(id key, id value){
+            NSDictionary * valueDic = value[0];
+            return [[SpeechEntity alloc] initWithType:key value:valueDic[@"value"]];
+        }].allValues;
 
         // Workaround to fix problem that several intents can't have same expression
         if ([_currState isEqualToString:@"askForSuggestionFeedback"]

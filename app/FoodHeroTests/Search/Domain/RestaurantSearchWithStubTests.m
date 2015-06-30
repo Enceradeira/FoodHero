@@ -26,6 +26,7 @@
     RestaurantRepositoryStub *_restaurantRepository;
     CLLocationManagerProxyStub *_locationManager;
     CLLocation *_london;
+    GeocoderServiceStub * _geocoderServiceStub;
 }
 
 
@@ -35,11 +36,15 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     _locationManager = [[TyphoonComponents getAssembly] locationManagerProxy];
+    _geocoderServiceStub = (GeocoderServiceStub *)[[TyphoonComponents getAssembly] geocoderService];
     _restaurantRepository = [RestaurantRepositoryStub new];
 
     id locationService = [[TyphoonComponents getAssembly] locationService];
     id schedulerFactory = [[TyphoonComponents getAssembly] schedulerFactory];
-    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository locationService:locationService schedulerFactory:schedulerFactory];
+    _search = [[RestaurantSearch alloc] initWithRestaurantRepository:_restaurantRepository
+                                                     locationService:locationService
+                                                    schedulerFactory:schedulerFactory
+                                                     geocoderService:_geocoderServiceStub];
 }
 
 - (NSMutableArray *)restaurants:(NSInteger)nrRestaurants {
@@ -102,7 +107,7 @@
     assertThat([self findBest].restaurant.placeId, is(equalTo(restaurant3.placeId)));
 }
 
--(void)test_findBest_ShouldNotReturnARestaurantThatWasSuggestedInCurrentSearch{
+- (void)test_findBest_ShouldNotReturnARestaurantThatWasSuggestedInCurrentSearch {
     Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
     [_restaurantRepository injectRestaurants:@[restaurant1, restaurant2]];
@@ -114,7 +119,7 @@
     assertThat(firstRestaurant.placeId, isNot(equalTo(secondRestaurant.placeId)));
 }
 
--(void)test_findBest_ShouldReturnARestaurantThatWasSuggestedInPreviousSearch{
+- (void)test_findBest_ShouldReturnARestaurantThatWasSuggestedInPreviousSearch {
     Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
     [_restaurantRepository injectRestaurants:@[restaurant1, restaurant2]];
@@ -193,7 +198,7 @@
 
 }
 
--(void)test_findBest_ShouldReturnSearchPreference{
+- (void)test_findBest_ShouldReturnSearchPreference {
     [_restaurantRepository injectRestaurants:@[[[RestaurantBuilder alloc] build]]];
 
     RestaurantSearchResult *searchResult = [self findBest];

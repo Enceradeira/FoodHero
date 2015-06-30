@@ -27,7 +27,6 @@
 #import "RestaurantPhotoViewController.h"
 #import "RestaurantReviewSummaryViewController.h"
 
-
 @implementation StubAssembly
 
 - (id)navigationViewController {
@@ -135,11 +134,11 @@
 - (id)restaurantSearch {
     return [TyphoonDefinition withClass:[RestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:geocoderService:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantRepository]];
                                   [method injectParameterWith:[self locationService]];
                                   [method injectParameterWith:[self schedulerFactory]];
-
+                                  [method injectParameterWith:[self geocoderService]];
                               }];
                           }];
 }
@@ -206,6 +205,11 @@
     return [TyphoonDefinition withClass:[AudioSessionStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
+}
+
+- (id)geocoderService {
+    [[GeocoderServiceStub alloc] init];
+    return [TyphoonDefinition withClass:[GeocoderServiceStub class]];
 }
 
 

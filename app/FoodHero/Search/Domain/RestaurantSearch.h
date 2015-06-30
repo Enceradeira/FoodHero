@@ -12,8 +12,10 @@
 #import "IRestaurantRepository.h"
 #import "ISchedulerFactory.h"
 
+@protocol IGeocoderService;
+
 @interface RestaurantSearch : NSObject
-- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository locationService:(LocationService *)locationService schedulerFactory:(id<ISchedulerFactory>) schedulerFactory;
+- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository locationService:(LocationService *)locationService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory geocoderService:(id <IGeocoderService>)geocoderService;
 
 - (double)getMaxDistanceOfPlaces;
 

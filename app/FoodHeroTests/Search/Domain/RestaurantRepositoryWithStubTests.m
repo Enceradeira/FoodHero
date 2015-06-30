@@ -39,7 +39,7 @@
     _searchService = [[TyphoonComponents getAssembly] restaurantSearchService];
     _locationManager = [[TyphoonComponents getAssembly] locationManagerProxy];
     _repository = [[TyphoonComponents getAssembly] restaurantRepository];
-    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss"];
+    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
 }
 
 - (RestaurantRepository *)repository {
@@ -73,8 +73,8 @@
 }
 
 - (void)test_getPlacesByCuisine_ShouldFlushCache_WhenCuisineChanges {
-    CuisineAndOccasion *asian = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Asian"];
-    CuisineAndOccasion *swiss = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss"];
+    CuisineAndOccasion *asian = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Asian" location:nil];
+    CuisineAndOccasion *swiss = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
 
     [_searchService injectFindResults:@[[[RestaurantBuilder alloc] build]]];
 

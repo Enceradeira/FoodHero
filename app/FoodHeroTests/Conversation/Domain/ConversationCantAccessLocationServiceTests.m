@@ -31,7 +31,7 @@
     [self resetConversation];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
 
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:[FHStates afterCantAccessLocationService]];
 }

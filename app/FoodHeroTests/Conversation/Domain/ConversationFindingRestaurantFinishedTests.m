@@ -21,7 +21,7 @@
     _restaurant = [[RestaurantBuilder alloc] build];
     _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForLike:_restaurant text:@"I like it"]];
 }
 

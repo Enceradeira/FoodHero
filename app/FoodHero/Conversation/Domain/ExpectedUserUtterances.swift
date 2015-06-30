@@ -28,10 +28,12 @@ public class ExpectedUserUtterances: NSObject {
 
     private class func modelAnswersFrom(utterances: [TalkerUtterance?]) -> ExpectedUserUtterances {
         let seperator: [TalkerUtterance?] = count(utterances) == 0 ? [] : [nil]
+        let empty = TextAndLocation(text:"")
+
         let allPossibleUtterances = utterances + seperator + [
                 // Following utterances are always possible 'All States'
-                UserUtterances.occasionPreference("", text: "") as TalkerUtterance?,
-                UserUtterances.cuisinePreference("", text: "") as TalkerUtterance?
+                UserUtterances.occasionPreference(empty, text: "") as TalkerUtterance?,
+                UserUtterances.cuisinePreference(empty, text: "") as TalkerUtterance?
         ]
         let modelAnswers = allPossibleUtterances.map {
             $0 == nil ? "" : self.modelAnswerFrom($0!)
@@ -77,10 +79,11 @@ public class ExpectedUserUtterances: NSObject {
     }
 
     public class func whenNoRestaurantWasFound() -> ExpectedUserUtterances {
+        let empty = TextAndLocation(text:"")
         return modelAnswersFrom(
         [
-                UserUtterances.cuisinePreference("", text: ""),
-                UserUtterances.occasionPreference("", text: ""),
+                UserUtterances.cuisinePreference(empty, text: ""),
+                UserUtterances.occasionPreference(empty, text: ""),
                 nil, // creates a visible seperator on the UI
                 UserUtterances.wantsToStartAgain(""),
                 UserUtterances.wantsToAbort("")

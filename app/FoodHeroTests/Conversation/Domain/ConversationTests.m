@@ -38,7 +38,7 @@
         [receivedIndexes addObject:next];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I Like British Food"]]; // adds the answer & food-heros response
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I Like British Food"]]; // adds the answer & food-heros response
 
     assertThat(receivedIndexes, contains(@0, @1, @2, nil));
 }
@@ -63,7 +63,7 @@
 }
 
 - (void)test_getStatement_ShouldReturnUserAnswer_WhenUserHasSaidSomething {
-    [self sendInput:[UserUtterances cuisinePreference:@"British or Indian Food" text:@"I like British or Indian Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British or Indian Food" location:nil ] text:@"I like British or Indian Food"]];
 
     [self assertSecondLastStatementIs:@"U:CuisinePreference=British or Indian Food" state:nil];
 }
@@ -71,7 +71,7 @@
 - (void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation {
     assertThatInteger([self.conversation getStatementCount], is(equalToInteger(1)));
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British or Indian Food" text:@"I like British or Indian Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British or Indian Food" location:nil ] text:@"I like British or Indian Food"]];
     assertThatInteger([self.conversation getStatementCount], is(equalToInteger(3)));
 }
 
@@ -81,7 +81,7 @@
         [stub injectFindResults:@[kingsHead]];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
 
     [self assertLastStatementIs:@"FH:Suggestion=King's Head, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
 }
@@ -91,7 +91,7 @@
         [stub injectFindNothing];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like Briish Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like Briish Food"]];
 
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 }
@@ -104,7 +104,7 @@
         [stub injectFindResults:@[kingsHead, lionHeart, kingsbed]];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:kingsHead text:@""]];
 
@@ -121,7 +121,7 @@
     TalkerUtterance *feedback1 = [UserUtterances suggestionFeedbackForTooExpensive:restaurant1 text:@""];
     TalkerUtterance *feedback2 = [UserUtterances suggestionFeedbackForTooFarAway:restaurant2 text:@""];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:feedback1];
     [self sendInput:feedback2];
 
@@ -136,7 +136,7 @@
 }
 
 - (void)test_negativeUserFeedback_ShouldBeEmpty_WhenUserHasOnlyGivenPositiveFeedback {
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForLike:[[RestaurantBuilder alloc] build] text:@"I like it"]];
 
     assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
@@ -156,7 +156,7 @@
 }
 
 - (void)test_currentSearchPreferenceCuisine_ShouldInitializeWithDefaults_WhenUserHasNotSpecifiedCuisineYet {
-    SearchProfile *profile = [[self conversation] currentSearchPreference:0 currUserLocation:_london];
+    SearchProfile *profile = [[self conversation] currentSearchPreference:0 preferredLocation:_london];
 
     assertThat(profile.cuisine, is(equalTo(@"")));
 }
@@ -164,63 +164,63 @@
 - (void)test_currentSearchPreferenceCuisine_ShouldReturnCurrentOccasion_WhenUserHasNotSpecifiedOccasionYet {
     [self.environmentStub injectNow:[NSCalendar dateFromYear:2015 month:3 day:25 hour:13 minute:15 second:14]];
 
-    SearchProfile *profile = [[self conversation] currentSearchPreference:0 currUserLocation:_london];
+    SearchProfile *profile = [[self conversation] currentSearchPreference:0 preferredLocation:_london];
 
     assertThat(profile.occasion, is(equalTo([Occasions lunch])));
 }
 
 - (void)test_currentSearchPreferenceCuisine_ShouldReturnCuisine_WhenUserHasAlreadySpecifiedCuisine {
-    [self sendInput:[UserUtterances cuisinePreference:@"Asian, Swiss" text:@"Asian, Swiss"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Asian, Swiss" location:nil ] text:@"Asian, Swiss"]];
 
-    assertThat([self.conversation currentSearchPreference:0 currUserLocation:_london].cuisine, is(equalTo(@"Asian, Swiss")));
+    assertThat([self.conversation currentSearchPreference:0 preferredLocation:_london].cuisine, is(equalTo(@"Asian, Swiss")));
 }
 
 - (void)test_currentSearchPreferencePriceLevel_ShouldBeFullRange_WhenUserHasNotCommentedOnPriceYet {
-    [self sendInput:[UserUtterances cuisinePreference:@"Sandwich" text:@"I love Sandwich"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Sandwich" location:nil ] text:@"I love Sandwich"]];
 
     PriceRange *fullPriceRange = [PriceRange priceRangeWithoutRestriction];
 
-    assertThat([self.conversation currentSearchPreference:0 currUserLocation:_london].priceRange, is(equalTo(fullPriceRange)));
+    assertThat([self.conversation currentSearchPreference:0 preferredLocation:_london].priceRange, is(equalTo(fullPriceRange)));
 }
 
 - (void)test_currentSearchPreferencePriceLevel_ShouldDecreasePriceLevel_WhenUserFindsRestaurantTooExpensive {
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant text:@""]];
 
-    assertThatUnsignedInt([self.conversation currentSearchPreference:0 currUserLocation:_london].priceRange.max, is(equalTo(@(priceLevel - 1))));
+    assertThatUnsignedInt([self.conversation currentSearchPreference:0 preferredLocation:_london].priceRange.max, is(equalTo(@(priceLevel - 1))));
 }
 
 - (void)test_currentSearchPreferencePriceLevel_ShouldNotDecreasePriceLevel_WhenUserFindsRestaurantTooExpensiveButItsAlreadyTheCheapestPossible {
     NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant text:@"It's far too expensive"]];
 
-    assertThatUnsignedInt([self.conversation currentSearchPreference:0 currUserLocation:_london].priceRange.max, is(equalTo(@(GOOGLE_PRICE_LEVEL_MIN))));
+    assertThatUnsignedInt([self.conversation currentSearchPreference:0 preferredLocation:_london].priceRange.max, is(equalTo(@(GOOGLE_PRICE_LEVEL_MIN))));
 }
 
 - (void)test_currentSearchPreferencePriceLevel_ShouldIncreasePriceLevel_WhenUserFindsRestaurantTooCheap {
     NSUInteger priceLevel = 3;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]];
 
-    assertThatUnsignedInt([self.conversation currentSearchPreference:0 currUserLocation:_norwich].priceRange.min, is(equalTo(@(priceLevel + 1))));
+    assertThatUnsignedInt([self.conversation currentSearchPreference:0 preferredLocation:_norwich].priceRange.min, is(equalTo(@(priceLevel + 1))));
 }
 
 - (void)test_currentSearchPreferencePriceLevel_ShouldNotIncreasePriceLevel_WhenUserFindsRestaurantTooCheapButItsAlreadyTheMostExpensivePossible {
     NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MAX;
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:priceLevel] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]];
 
-    assertThatUnsignedInt([self.conversation currentSearchPreference:0 currUserLocation:_norwich].priceRange.min, is(equalTo(@(GOOGLE_PRICE_LEVEL_MAX))));
+    assertThatUnsignedInt([self.conversation currentSearchPreference:0 preferredLocation:_norwich].priceRange.min, is(equalTo(@(GOOGLE_PRICE_LEVEL_MAX))));
 }
 
 - (void)test_currentSearchPreferenceMaxDistance_ShouldDecrease_WhenUserFindRestaurantTooFarAway {
@@ -228,16 +228,16 @@
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant text:@"It's too far away"]];
 
-    assertThatDouble([self.conversation currentSearchPreference:distance currUserLocation:_london].distanceRange.max, is(lessThan(@(distance))));
+    assertThatDouble([self.conversation currentSearchPreference:distance preferredLocation:_london].distanceRange.max, is(lessThan(@(distance))));
 }
 
 - (void)test_currentSearchPreferenceDistanceRangeShouldBeNil_WhenUserHasNotYetGivenFeedbackRelatedToDistance {
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
 
-    DistanceRange *distanceRange = [self.conversation currentSearchPreference:15688 currUserLocation:_london].distanceRange;
+    DistanceRange *distanceRange = [self.conversation currentSearchPreference:15688 preferredLocation:_london].distanceRange;
     assertThat(distanceRange, is(nilValue()));
 }
 
@@ -247,7 +247,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTheClosestNow:restaurant text:@"Show me the closest"]];
-    DistanceRange *range = [self.conversation currentSearchPreference:distance currUserLocation:_london].distanceRange;
+    DistanceRange *range = [self.conversation currentSearchPreference:distance preferredLocation:_london].distanceRange;
     assertThat(range, is(notNilValue()));
     assertThatDouble(range.max, is(equalTo(@0)));
 }
@@ -256,48 +256,48 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances tryAgainNow:@"Try again"]];
 
-    NSString *cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+    NSString *cuisine = [self.conversation currentSearchPreference:15688 preferredLocation:_london].cuisine;
 
     assertThat(cuisine, is(equalTo(@"")));
 }
 
 - (void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferred {
-    [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
-    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Thai" location:nil ] text:@"I like Thai"]];
+    [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drink" location:nil ] text:@"I want drinks"]];
 
-    NSString *cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+    NSString *cuisine = [self.conversation currentSearchPreference:15688 preferredLocation:_london].cuisine;
 
     assertThat(cuisine, is(equalTo(@"")));
 }
 
 - (void)test_currentSearchPreference_ShouldResetOccasionPreference_WhenNewCuisinePreferred {
-    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
-    [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
+    [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drink" location:nil ] text:@"I want drinks"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Thai" location:nil ] text:@"I like Thai"]];
 
-    NSString *occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
+    NSString *occasion = [self.conversation currentSearchPreference:15688 preferredLocation:_london].occasion;
 
     assertThat(occasion, is(equalTo(@"")));
 }
 
 - (void)test_currentSearchPreference_ShouldGuessOccasionPreference_WhenNewCuisinePreferred {
-    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
-    [self sendInput:[UserUtterances cuisinePreference:@"Cake" text:@"I wanna cake"]];
+    [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drink" location:nil ] text:@"I want drinks"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Cake" location:nil ] text:@"I wanna cake"]];
 
-    NSString *occasion = [self.conversation currentSearchPreference:15688 currUserLocation:_london].occasion;
+    NSString *occasion = [self.conversation currentSearchPreference:15688 preferredLocation:_london].occasion;
 
     assertThat(occasion, is(equalTo([Occasions snack])));
 }
 
- - (void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferredAfterAbort {
-    [self sendInput:[UserUtterances cuisinePreference:@"Thai" text:@"I like Thai"]];
-    [self sendInput:[UserUtterances occasionPreference:@"drink" text:@"I want drinks"]];
+- (void)test_currentSearchPreference_ShouldResetCuisinePreference_WhenNewOccasionPreferredAfterAbort {
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Thai" location:nil ] text:@"I like Thai"]];
+    [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drink" location:nil ] text:@"I want drinks"]];
     [self sendInput:[UserUtterances wantsToAbort:@"Forget about it"]];
-    [self sendInput:[UserUtterances cuisinePreference:@"Indian" text:@"I want Indian food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Indian" location:nil ] text:@"I want Indian food"]];
 
-    NSString *cuisine = [self.conversation currentSearchPreference:15688 currUserLocation:_london].cuisine;
+    NSString *cuisine = [self.conversation currentSearchPreference:15688 preferredLocation:_london].cuisine;
 
     assertThat(cuisine, is(equalTo(@"Indian")));
 }
@@ -309,7 +309,7 @@
 - (void)test_lastSuggestionWarning_ShouldReturnLastSuggestionWarning {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]];
 
     ConversationParameters *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
@@ -330,7 +330,7 @@
 - (void)test_lastUserResponse_ShouldReturnLastUserUtterance {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForLike:restaurant text:@"Looks cool"]];
 
     ConversationParameters *lastResponse = [self.conversation lastUserResponse];
@@ -341,7 +341,7 @@
 - (void)test_lastUserResponse_ShouldIgnoreUtterancesFromPreviousSearch {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:_norwich] build];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I like British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:restaurant text:@"I don't like that restaurant"]];
     [self sendInput:[UserUtterances suggestionFeedbackForLike:restaurant text:@"I like it"]];
     [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Do it again"]];
@@ -363,7 +363,7 @@
 }
 
 - (void)test_currentOccasion_ShouldReturnCorrectOccasion_WhenUserHasCommentedOccasion {
-    [self sendInput:[UserUtterances occasionPreference:@"dinner" text:@"I want dinner"]];
+    [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"dinner" location:nil ] text:@"I want dinner"]];
 
     NSString *occasion = [self.conversation currentOccasion];
     assertThat(occasion, is(equalTo([Occasions dinner])));
@@ -395,6 +395,26 @@
     assertThat(suggestion.semanticId, is(equalTo(@"FH:Suggestion=Raj Palace, Norwich")));
     assertThat(suggestion.suggestedRestaurant.name, is(equalTo(@"Raj Palace")));
 
+}
+
+- (void)test_currentSearchLocation_ShouldBeNil_WhenUserHasNotUtteredAnyPreference {
+    assertThat([self.conversation currentSearchLocation], is(nilValue()));
+}
+
+- (void)test_currentSearchLocation_ShouldReturnLocation_WhenUserHasUtteredOccasionAndLocationPreference {
+    TextAndLocation *parameter = [[TextAndLocation alloc] initWithText:@"Lunch" location:@"Norwich"];
+
+    [self sendInput:[UserUtterances occasionPreference:parameter text:@"I want Lunch in Norwich"]];
+
+    assertThat([self.conversation currentSearchLocation], is(equalTo(@"Norwich")));
+}
+
+- (void)test_currentSearchLocation_ShouldReturnLocation_WhenUserHasUtteredCuisineAndLocationPreference {
+    TextAndLocation *parameter = [[TextAndLocation alloc] initWithText:@"Indian" location:@"Norwich"];
+
+    [self sendInput:[UserUtterances cuisinePreference:parameter text:@"I want indian Food in Norwich"]];
+
+    assertThat([self.conversation currentSearchLocation], is(equalTo(@"Norwich")));
 }
 
 @end

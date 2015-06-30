@@ -45,4 +45,6 @@
 
 - (id)audioSession;
 
+-(id)geocoderService;
+
 @end

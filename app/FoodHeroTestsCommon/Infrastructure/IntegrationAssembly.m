@@ -128,11 +128,11 @@
 - (id)restaurantSearch {
     return [TyphoonDefinition withClass:[RestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:geocoderService:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantRepository]];
                                   [method injectParameterWith:[self locationService]];
                                   [method injectParameterWith:[self schedulerFactory]];
-
+                                  [method injectParameterWith:[self geocoderService]];
                               }];
                           }];
 }
@@ -190,7 +190,8 @@
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithAccessToken:audioSession:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:@"IEOCNANTTA2ZMX7R53QCB3WWTGA6U5XC"]; // Instance "FoodHero-Test"
+                                  [method injectParameterWith:@"WRNHXZESF6X6VJYV3GG7EFSVG44GB2XE"]; // Instance "FoodHero-With-All-States"
+//                                  [method injectParameterWith:@"E2DAN6OIJ62CURVSFO6VRPU7E4DBIAZG"]; // Instance "FoodHero-Prod"
                                   [method injectParameterWith:[self audioSession]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
@@ -207,6 +208,10 @@
     return [TyphoonDefinition withClass:[AudioSessionStub class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
+}
+
+- (id)geocoderService {
+    return [TyphoonDefinition withClass:[GeocoderService class]];
 }
 
 

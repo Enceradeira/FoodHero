@@ -22,4 +22,6 @@
 - (void)injectSuggestion:(Restaurant *)restaurant;
 
 - (void)startNewSearch;
+
+- (void)injectCurrentSearchLocation:(NSString *)location;
 @end

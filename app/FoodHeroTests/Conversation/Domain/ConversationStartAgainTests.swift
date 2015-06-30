@@ -20,7 +20,8 @@ public class ConversationStartAgainTests: ConversationTestsBase {
         configureRestaurantSearchForLatitude(48, longitude: -22) {
             $0.injectFindNothing()
         }
-        sendInput(UserUtterances.cuisinePreference("British Food", text: "British please"))
+        sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "British Food"),
+                text: "British please"))
         sendInput(UserUtterances.wantsToStartAgain("Start again please"))
 
         assertLastStatementIs("FH:ConfirmsRestart;FH:OpeningQuestion", state: FHStates.askForFoodPreference())
@@ -39,7 +40,7 @@ public class ConversationStartAgainTests: ConversationTestsBase {
 
         // Start again
         sendInput(UserUtterances.wantsToStartAgain("Start again please"))
-        sendInput(UserUtterances.cuisinePreference("Sausages", text: "I wanna eat Sausages"))
+        sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "Sausages", location: ""), text: "I wanna eat Sausages"))
 
         // FH suggests "Taj" not "Welcome Inn"
         assertLastStatementIs("FH:Suggestion=Taj, 18 Cathedral Street", state: FHStates.askForSuggestionFeedback());

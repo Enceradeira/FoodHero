@@ -17,14 +17,19 @@
     id <IRestaurantRepository> _repository;
     LocationService *_locationService;
     id <ISchedulerFactory> _schedulerFactory;
+    id <IGeocoderService> _geocoderService;
 }
 
-- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository locationService:(LocationService *)locationService schedulerFactory:(id <ISchedulerFactory>)schedulerFactory {
+- (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository
+                             locationService:(LocationService *)locationService
+                            schedulerFactory:(id <ISchedulerFactory>)schedulerFactory
+                             geocoderService:(id <IGeocoderService>)geocoderService {
     self = [super init];
     if (self != nil) {
         _repository = repository;
         _locationService = locationService;
         _schedulerFactory = schedulerFactory;
+        _geocoderService = geocoderService;
     }
     return self;
 }
@@ -38,8 +43,10 @@
         return f.restaurant;
     }] linq_concat:conversation.suggestedRestaurantsInCurrentSearch];
 
-    RACSignal *preferenceSignal = [[_locationService.currentLocation take:1] flattenMap:^(CLLocation *location) {
-        return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] currUserLocation:location]];
+    RACSignal *locationSignal = [self resolvePreferredLocation:conversation.currentSearchLocation];
+
+    RACSignal *preferenceSignal = [locationSignal flattenMap:^(CLLocation *location) {
+        return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] preferredLocation:location]];
     }];
 
     RACSignal *placesSignal = [preferenceSignal flattenMap:^(SearchProfile *searchPreference) {
@@ -49,11 +56,11 @@
         NSString *distance = searchPreference.distanceRange.description;
         NSString *price = searchPreference.priceRange.description;
         NSLog(@"RestaurantSearch.findBest: occasion=%@ cuisine=%@ distance=%@ price=%@", occasion, cuisine, distance, price);
-        
-        
-        
-        
-        return [[[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion cuisine:searchPreference.cuisine]]
+
+
+        return [[[_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion
+                                                                               cuisine:searchPreference.cuisine
+                                                                              location:searchPreference.location]]
                 take:1]
                 map:^(NSArray *places) {
                     return @[[places linq_where:^(Place *p) {
@@ -87,6 +94,23 @@
         return [[RestaurantSearchResult alloc] initWithRestaurant:restaurantAndSearchPreference[0]
                                                      searchParams:restaurantAndSearchPreference[1]];
     }];
+}
+
+- (RACSignal *)resolvePreferredLocation:(NSString *)preferredLocation {
+    RACSignal *preferredLocationSignal;
+
+    NSString *searchLocation = preferredLocation;
+    if (searchLocation == nil || searchLocation.length == 0) {
+        preferredLocationSignal = [RACSignal empty];
+    }
+    else {
+        preferredLocationSignal = [[[_geocoderService geocodeAddressString:searchLocation] take:1] filter:^(CLLocation* location){
+            return (BOOL)(location != nil);
+        }];
+    }
+
+    // return preferredLocation is it was resolved, other return currentLocation
+    return [[preferredLocationSignal concat:_locationService.currentLocation] take:1];
 };
 
 - (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences excludedRestaurants:(NSArray *)excludedRestaurants {
@@ -100,7 +124,7 @@
 
                 // find best and try to remove restaurant with same name as disliked places
                 NSMutableArray *candidates = [NSMutableArray arrayWithArray:sortedPlaces];
-                while(candidates.count > 0) {
+                while (candidates.count > 0) {
 
                     NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:location candidates:candidates];
 
@@ -148,29 +172,29 @@
     __block double maxScore = 0;
     // determine distance and score
     NSArray *placesAndScore = [candidates linq_select:^(Place *p) {
-                        double distance = [location distanceFromLocation:p.location];
-                        double maxDistance = [_repository getMaxDistanceOfPlaces:location];
-                        double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
-                        Restaurant *r = nil;//[_repository getRestaurantFromPlace:p];
-                        double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
-                        if (score > maxScore) {
-                            maxScore = score;
-                        }
+        double distance = [location distanceFromLocation:p.location];
+        double maxDistance = [_repository getMaxDistanceOfPlaces:location];
+        double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
+        Restaurant *r = nil;//[_repository getRestaurantFromPlace:p];
+        double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
+        if (score > maxScore) {
+            maxScore = score;
+        }
 
-                        return @[p, @(score), @(distance)];
-                    }];
+        return @[p, @(score), @(distance)];
+    }];
 
     // select all with max-score
     NSArray *bestPlaces = [placesAndScore linq_where:^(NSArray *placeScoreAndDistance) {
-                        return (BOOL) ([@(maxScore) compare:(placeScoreAndDistance[1])] == NSOrderedSame);
-                    }];
+        return (BOOL) ([@(maxScore) compare:(placeScoreAndDistance[1])] == NSOrderedSame);
+    }];
 
     // order all mit max-score by distance
     NSArray *bestPlacesOrderedByDistance = [[bestPlaces linq_sort:^(NSArray *placeScoreAndDistance) {
-                        return placeScoreAndDistance[2];
-                    }] linq_select:^(NSArray *placeScoreAndDistance) {
-                        return placeScoreAndDistance[0];
-                    }];
+        return placeScoreAndDistance[2];
+    }] linq_select:^(NSArray *placeScoreAndDistance) {
+        return placeScoreAndDistance[0];
+    }];
     return bestPlacesOrderedByDistance;
 }
 @end

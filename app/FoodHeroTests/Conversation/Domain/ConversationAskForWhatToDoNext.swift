@@ -12,14 +12,14 @@ class ConversationAskForWhatToDoNext: ConversationTestsBase {
 
     func test_UCuisinePreference_WhenAskForWhatToDonext() {
         sendInput(UserUtterances.wantsToAbort("Forget about it"))
-        sendInput(UserUtterances.cuisinePreference("French", text: "I want French food"))
+        sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "French"), text: "I want French food"))
 
         assertLastStatementIs("FH:Suggestion", state: "askForSuggestionFeedback")
     }
 
     func test_UOccasionPreference_WhenAskForWhatToDonext() {
         sendInput(UserUtterances.wantsToAbort("Forget about it"))
-        sendInput(UserUtterances.occasionPreference("Lunch", text: "I need lunch"))
+        sendInput(UserUtterances.occasionPreference(TextAndLocation(text: "Lunch"), text: "I need lunch"))
 
         assertLastStatementIs("FH:Suggestion", state: "askForSuggestionFeedback")
     }

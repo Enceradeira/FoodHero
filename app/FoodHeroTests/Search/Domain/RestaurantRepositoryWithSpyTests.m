@@ -40,7 +40,7 @@
 
     id schedulerFactory = [[TyphoonComponents getAssembly] schedulerFactory];
     _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService locationService:_locationService schedulerFactory:schedulerFactory];
-    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss"];
+    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
 }
 
 - (RestaurantRepository *)repository {

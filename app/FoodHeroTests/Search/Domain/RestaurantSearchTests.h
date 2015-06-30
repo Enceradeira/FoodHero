@@ -28,4 +28,6 @@
 - (void)conversationHasSuggestedRestaurant:(Restaurant *)restaurant;
 
 - (void)conversationStartsNewSearch;
+
+- (void)conversationHasCurrentSearchLocation:(NSString *)location;
 @end

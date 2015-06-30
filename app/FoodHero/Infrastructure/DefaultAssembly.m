@@ -119,6 +119,10 @@
     return [TyphoonDefinition withClass:[AudioSession class]];
 }
 
+- (id)geocoderService {
+    return [TyphoonDefinition withClass:[GeocoderService class]];
+}
+
 - (id)conversationAppService {
     return [TyphoonDefinition
             withClass:[ConversationAppService class]
@@ -149,10 +153,11 @@
 - (id)restaurantSearch {
     return [TyphoonDefinition withClass:[RestaurantSearch class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithRestaurantRepository:locationService:schedulerFactory:geocoderService:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantRepository]];
                                   [method injectParameterWith:[self locationService]];
                                   [method injectParameterWith:[self schedulerFactory]];
+                                  [method injectParameterWith:[self geocoderService]];
 
                               }];
                           }];

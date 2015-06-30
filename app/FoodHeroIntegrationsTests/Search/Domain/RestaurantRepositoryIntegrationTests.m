@@ -54,7 +54,7 @@
 - (void)test_getPlacesByCuisine_ShouldReturnCorrectlyInitializedPlaces {
     [_locationManager injectLocations:@[_london]];
 
-    CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian"];
+    CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian" location:nil];
     NSArray *places = [[_repository getPlacesBy:cuisineAndOccasion] toArray][0];
     for(Place *p in places){
         CLLocationDistance distance = [p.location distanceFromLocation:_london];

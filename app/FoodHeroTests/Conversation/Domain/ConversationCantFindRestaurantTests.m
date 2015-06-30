@@ -15,7 +15,7 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHSuggestion_WhenProblemIsResolvedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
@@ -25,7 +25,7 @@
 
 - (void)test_UDidResolveProblemWithAccessLocationService_ShouldAddFHBecauseUserDeniedAccessToLocationServices_WhenProblemIsStillUnresolved {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
     [self sendInput:[UserUtterances tryAgainNow:@""]];
@@ -38,7 +38,7 @@
         [stub injectFindNothing];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 
     [self sendInput:[UserUtterances tryAgainNow:@""]];
@@ -51,13 +51,13 @@
         [stub injectFindNothing];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self sendInput:[UserUtterances cuisinePreference:@"Swiss Food" text:@"I love fondue"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Swiss Food" location:nil ] text:@"I love fondue"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
@@ -66,13 +66,13 @@
         [stub injectFindNothing];
     }];
 
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindSomething];
     }];
-    [self sendInput:[UserUtterances occasionPreference:@"drinks" text:@"I want drinks"]];
+    [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drinks" location:nil ] text:@"I want drinks"]];
     [self assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
@@ -80,7 +80,7 @@
     [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];
     }];
-    [self sendInput:[UserUtterances cuisinePreference:@"British Food" text:@"I love British Food"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
 
     [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
         [stub injectFindNothing];

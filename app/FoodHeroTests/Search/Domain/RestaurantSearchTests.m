@@ -54,4 +54,9 @@
     [_conversation startNewSearch];
 }
 
- @end
+- (void)conversationHasCurrentSearchLocation:(NSString *)location {
+    [_conversation injectCurrentSearchLocation:location];
+}
+
+
+@end

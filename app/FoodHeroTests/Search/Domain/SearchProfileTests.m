@@ -41,7 +41,7 @@
     priceRange = [priceRange setMinHigherThan:priceMin - 1];
     priceRange = [priceRange setMaxLowerThan:priceMax + 1];
     DistanceRange *distance = [DistanceRange distanceRangeNearerThan:MAX_NORMAL_DISTANCE / DISTANCE_DECREMENT_FACTOR];
-    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance occasion:[Occasions breakfast]];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:distance occasion:[Occasions breakfast] location:nil];
     return preferences;
 }
 
@@ -168,7 +168,7 @@
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     const double MAX_DISTANCE_RANGE = 0.25;
     DistanceRange *range = [DistanceRange distanceRangeNearerThan:MAX_DISTANCE_RANGE / DISTANCE_DECREMENT_FACTOR];
-    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range occasion:[Occasions breakfast]];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range occasion:[Occasions breakfast] location:nil];
 
     // score at max distance is greater than 0
     double scoreAtMaxDistance = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:1 restaurant:nil];
@@ -190,7 +190,7 @@
 - (void)test_ScorePlace_ShouldBe1_WhenDistanceAndMaxDistanceRange0 {
     PriceRange *priceRange = [PriceRange priceRangeWithoutRestriction];
     DistanceRange *range = [DistanceRange distanceRangeNearerThan:0];
-    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range occasion:[Occasions breakfast]];
+    SearchProfile *preferences = [SearchProfile createWithCuisine:@"Asian" priceRange:priceRange maxDistance:range occasion:[Occasions breakfast] location:nil];
 
     double score = [preferences scorePlace:[self placeWithPriceLevel:0] normalizedDistance:0 restaurant:nil];
     assertThatDouble(score, is(equalToDouble(1)));

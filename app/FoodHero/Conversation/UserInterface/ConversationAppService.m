@@ -58,11 +58,14 @@ static UIImage *EmptyImage;
                     }
                     else {
                         SpeechInterpretation *interpretation = output;
+                        NSArray *entities = interpretation.entities;
                         if ([interpretation.intent isEqualToString:@"CuisinePreference"]) {
-                            if (interpretation.entities.count == 0) {
+                            if (entities.count == 0) {
                                 return (id) [_speechRecognitionService userIntentUnclearError];
                             }
-                            TalkerUtterance *utterance = [UserUtterances cuisinePreference:interpretation.entities[0] text:interpretation.text];
+
+                            TextAndLocation *textAndLocation = [self convertToTextAndLocation:entities primaryEntityType:@"food_type"];
+                            TalkerUtterance *utterance = [UserUtterances cuisinePreference:textAndLocation text:interpretation.text];
                             return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"DislikesOccasion"]) {
@@ -77,11 +80,12 @@ static UIImage *EmptyImage;
                             }
                         }
                         else if ([interpretation.intent containsString:@"OccasionPreference"]) {
-                            if (interpretation.entities.count == 0) {
+                            if (entities.count == 0) {
                                 return (id) [_speechRecognitionService userIntentUnclearError];
                             }
-                            NSString *entity = interpretation.entities[0];
-                            TalkerUtterance *utterance = [UserUtterances occasionPreference:entity text:interpretation.text];
+
+                            TextAndLocation *textAndLocation = [self convertToTextAndLocation:entities primaryEntityType:@"meal_type"];
+                            TalkerUtterance *utterance = [UserUtterances occasionPreference:textAndLocation text:interpretation.text];
                             return (id) utterance;
                         }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_Like"]) {
@@ -158,6 +162,22 @@ static UIImage *EmptyImage;
         ];
     }
     return self;
+}
+
+- (TextAndLocation *)convertToTextAndLocation:(NSArray *)entities primaryEntityType:(NSString *)primaryEntityType {
+    NSString *cuisine = [[[entities linq_where:^(SpeechEntity *entity) {
+                                return (BOOL) ([entity.type isEqualToString:primaryEntityType]);
+                            }] linq_select:^(SpeechEntity *entity) {
+                                return entity.value;
+                            }] linq_firstOrNil];
+
+    NSString *location = [[[entities linq_where:^(SpeechEntity *entity) {
+                                return (BOOL) ([entity.type isEqualToString:@"location"]);
+                            }] linq_select:^(SpeechEntity *entity) {
+                                return entity.value;
+                            }] linq_firstOrNil];
+
+    return [[TextAndLocation alloc] initWithText:cuisine location:location];
 }
 
 - (void)startConversation {
