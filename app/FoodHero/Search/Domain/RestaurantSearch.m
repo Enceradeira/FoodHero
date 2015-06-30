@@ -18,6 +18,7 @@
     LocationService *_locationService;
     id <ISchedulerFactory> _schedulerFactory;
     id <IGeocoderService> _geocoderService;
+    CLLocation *_lastSearchLocation;
 }
 
 - (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository
@@ -43,10 +44,15 @@
         return f.restaurant;
     }] linq_concat:conversation.suggestedRestaurantsInCurrentSearch];
 
-    RACSignal *locationSignal = [[self resolvePreferredLocation:conversation.currentSearchLocation] deliverOn:[_schedulerFactory asynchScheduler]];
+    RACSignal *searchLocationSignal = [[self resolvePreferredLocation:conversation.currentSearchLocation] deliverOn:[_schedulerFactory asynchScheduler]];
+    RACSignal *userLocationSignal = [_locationService currentLocation];
+    RACSignal *searchAndUserLocation = [searchLocationSignal zipWith:userLocationSignal];
 
-    RACSignal *preferenceSignal = [locationSignal flattenMap:^(CLLocation *location) {
-        return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:location] preferredLocation:location]];
+    RACSignal *preferenceSignal = [searchAndUserLocation flattenMap:^(RACTuple *tuple) {
+        _lastSearchLocation = tuple.first;
+        CLLocation *userLocation = tuple.second;
+
+        return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:userLocation] searchLocation:_lastSearchLocation]];
     }];
 
     RACSignal *placesSignal = [preferenceSignal tryMap:^(SearchProfile *searchPreference, NSError **error) {
@@ -61,7 +67,7 @@
         @try {
             places = [_repository getPlacesBy:[[CuisineAndOccasion alloc] initWithOccasion:searchPreference.occasion
                                                                                    cuisine:searchPreference.cuisine
-                                                                                  location:searchPreference.location]];
+                                                                                  location:searchPreference.searchLocation]];
         }
         @catch (SearchException *e) {
             *error = [SearchError new];
@@ -100,6 +106,11 @@
     }];
 }
 
+- (CLLocation *)lastSearchLocation {
+    return _lastSearchLocation;
+}
+
+
 - (RACSignal *)resolvePreferredLocation:(NSString *)preferredLocation {
     RACSignal *preferredLocationSignal;
 
@@ -135,7 +146,7 @@
                     // choose nearest that doesn't have same name as previously disliked restaurant
                     for (Place *bestPlace in bestPlacesOrderedByDistance) {
                         @try {
-                            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+                            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace currentLocation:location];
                             // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
 
                             BOOL dislikedWithSameName = [excludedRestaurants linq_any:^(Restaurant *r) {
@@ -160,7 +171,7 @@
                 NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:location candidates:sortedPlaces];
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
                 @try {
-                    Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace];
+                    Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace currentLocation:location];
                     // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
                     return @[restaurant, preferences];
                 }

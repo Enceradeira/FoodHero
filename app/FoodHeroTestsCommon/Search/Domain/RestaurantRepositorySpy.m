@@ -14,7 +14,7 @@
     return @[];
 }
 
-- (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
+- (Restaurant *)getRestaurantFromPlace:(Place *)place currentLocation:(CLLocation *)currentLocation {
     return nil;
 }
 

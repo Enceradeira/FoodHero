@@ -84,13 +84,13 @@
 
     // priceLevels between Places and Restaurant must be the same
     for(Place *p in places){
-        Restaurant *r = [_repository getRestaurantFromPlace:p];
+        Restaurant *r = [_repository getRestaurantFromPlace:p currentLocation:_norwich];
         assertThatUnsignedInt(r.priceLevel, is(equalTo(@(p.priceLevel))));
     }
 
     // cuisineRelevance between Places and Restaurant must be the same
     for(Place *p in places){
-        Restaurant *r = [_repository getRestaurantFromPlace:p];
+        Restaurant *r = [_repository getRestaurantFromPlace:p currentLocation:_norwich];
         assertThatDouble(r.cuisineRelevance, is(equalTo(@(p.cuisineRelevance))));
     }
 

@@ -14,7 +14,7 @@
 @property(nonatomic, readonly) PriceRange *priceRange;
 @property(nonatomic, readonly) DistanceRange *distanceRange;
 @property(nonatomic, readonly) NSString *occasion;
-@property(nonatomic, readonly) CLLocation *location;
+@property(nonatomic, readonly) CLLocation *searchLocation;
 
 + (instancetype)createWithCuisine:(NSString *)cuisine
                        priceRange:(PriceRange *)priceRange

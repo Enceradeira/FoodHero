@@ -178,7 +178,7 @@
     }];
 }
 
-- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces preferredLocation:(CLLocation *)location {
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces searchLocation:(CLLocation *)location {
     return [SearchProfile createWithCuisine:self.cuisine
                                  priceRange:self.priceRange
                                 maxDistance:[self maxDistance:maxDistancePlaces currLocation:location]

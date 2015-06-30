@@ -20,4 +20,6 @@
 - (double)getMaxDistanceOfPlaces;
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation;
+
+- (CLLocation *)lastSearchLocation;
 @end

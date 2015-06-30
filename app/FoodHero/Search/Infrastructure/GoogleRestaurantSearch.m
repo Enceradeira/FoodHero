@@ -218,6 +218,11 @@
         for (NSNumber *distance in distances) {
             meters += [distance doubleValue];
         }
+
+        if(meters == 0){
+            meters = [place.location distanceFromLocation:currentLocation];
+        }
+
         return @(meters);
     }];
 }

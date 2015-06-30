@@ -34,7 +34,7 @@
     return _restaurants;
 }
 
-- (Restaurant *)getRestaurantFromPlace:(GooglePlace *)place {
+- (Restaurant *)getRestaurantFromPlace:(Place *)place currentLocation:(CLLocation *)currentLocation {
     if (_exceptionForGetRestaurantFromPlace != nil) {
         @throw _exceptionForGetRestaurantFromPlace;
     }

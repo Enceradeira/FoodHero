@@ -29,7 +29,7 @@
         _priceRange = priceRange;
         _distanceRange = maxDistance;
         _occasion = occasion;
-        _location = location;
+        _searchLocation = location;
     }
     return self;
 }

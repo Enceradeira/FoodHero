@@ -249,7 +249,7 @@ public class ConversationScript: Script {
         } else {
             if lastFeedback != nil && lastFeedback?.restaurant != nil {
                 let maxDistance = _search.getMaxDistanceOfPlaces()
-                let searchPreference = self._conversation.currentSearchPreference(maxDistance, preferredLocation: _locationService.lastKnownLocation())
+                let searchPreference = self._conversation.currentSearchPreference(maxDistance, searchLocation: _search.lastSearchLocation())
                 let priceRange = searchPreference.priceRange
                 if priceRange.min > restaurant.priceLevel
                         && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooCheap")) {
