@@ -166,18 +166,18 @@ static UIImage *EmptyImage;
 
 - (TextAndLocation *)convertToTextAndLocation:(NSArray *)entities primaryEntityType:(NSString *)primaryEntityType {
     NSString *cuisine = [[[entities linq_where:^(SpeechEntity *entity) {
-                                return (BOOL) ([entity.type isEqualToString:primaryEntityType]);
-                            }] linq_select:^(SpeechEntity *entity) {
-                                return entity.value;
-                            }] linq_firstOrNil];
+        return (BOOL) ([entity.type isEqualToString:primaryEntityType]);
+    }] linq_select:^(SpeechEntity *entity) {
+        return entity.value;
+    }] linq_firstOrNil];
 
     NSString *location = [[[entities linq_where:^(SpeechEntity *entity) {
-                                return (BOOL) ([entity.type isEqualToString:@"location"]);
-                            }] linq_select:^(SpeechEntity *entity) {
-                                return entity.value;
-                            }] linq_firstOrNil];
+        return (BOOL) ([entity.type isEqualToString:@"location"]);
+    }] linq_select:^(SpeechEntity *entity) {
+        return entity.value;
+    }] linq_firstOrNil];
 
-    return [[TextAndLocation alloc] initWithText:cuisine location:location];
+    return [[TextAndLocation alloc] initWithText:cuisine == nil ? @"" : cuisine location:location == nil ? @"" : location];
 }
 
 - (void)startConversation {
