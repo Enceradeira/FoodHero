@@ -129,7 +129,7 @@
     NSArray *places = [[_service findPlaces:_parameter] linq_take:5];  // test on 5 places, not all 200
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
     for (GooglePlace *place in places) {
-        Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
+        Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:nil];
         assertThatUnsignedInt(restaurant.priceLevel, is(equalTo(@4)));
     }
 }
@@ -156,14 +156,14 @@
 
     assertThat(^() {
         GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
-        [_service getRestaurantForPlace:place searchLocation:_norwich];
+        [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@"Norwich"];
     }, throwsExceptionOfType([SearchException class]));
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london cuisineRelevance:34];
 
-    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
+    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@"Norwich"];
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
@@ -183,7 +183,9 @@
     assertThat(restaurant.location, is(notNilValue()));
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
-    assertThatDouble(restaurant.distance, is(greaterThan(@(0))));
+    assertThatDouble(restaurant.distance.distanceFromSearchLocation, is(greaterThan(@(0))));
+    assertThat(restaurant.distance.searchLocation, is(equalTo(_norwich)));
+    assertThat(restaurant.distance.searchLocationDescription, is(equalTo(@"Norwich")));
     assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@1U)));  // there should be more than 1 photo to have a meaningful test here
     for (id <IPhoto> photo in restaurant.photos) {
         NSArray *photos = [[photo image] toArray]; // force loading by enumerating image-Signal
@@ -207,16 +209,16 @@
 - (void)test_getRestaurantForPlace_ShouldReturnCorrectDistanceFromCurrentLocation {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london cuisineRelevance:34];
 
-    Restaurant *restaurantAsSeenInNorwich = [_service getRestaurantForPlace:place searchLocation:_norwich];
-    Restaurant *restaurantAsSeenInLondon = [_service getRestaurantForPlace:place searchLocation:_london];
+    Restaurant *restaurantAsSeenInNorwich = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@""];
+    Restaurant *restaurantAsSeenInLondon = [_service getRestaurantForPlace:place searchLocation:_london searchLocationDescription:@""];
 
-    assertThatDouble(restaurantAsSeenInNorwich.distance, is(greaterThan(@(restaurantAsSeenInLondon.distance))));
+    assertThatDouble(restaurantAsSeenInNorwich.distance.distanceFromSearchLocation, is(greaterThan(@(restaurantAsSeenInLondon.distance.distanceFromSearchLocation))));
 }
 
 - (void)test_getRestaurantForPlace_ShouldSetNoInfoAboutOpeningHours_WhenNoOpeningHoursAvailable {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdEveningRiverCruiseYork location:[CLLocation new] cuisineRelevance:34];
 
-    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
+    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@""];
     assertThat(restaurant.openingHoursToday, is(equalTo(@"")));
     assertThat(restaurant.openingStatus, is(equalTo(@"")));
 }

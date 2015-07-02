@@ -8,7 +8,6 @@
 #import "RadiusCalculator.h"
 #import "SearchProfile.h"
 #import "SearchException.h"
-#import "SearchError.h"
 #import "GoogleDefinitions.h"
 #import "FoodHero-Swift.h"
 
@@ -134,11 +133,11 @@
     return places;
 }
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation*)searchLocation {
+- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)searchLocation searchLocationDescription:(NSString *)searchLocationDescription {
     @synchronized (self) {
         Restaurant *restaurant = _restaurantsCached[place.placeId];
         if (restaurant == nil) {
-            restaurant = [_searchService getRestaurantForPlace:place searchLocation:searchLocation];
+            restaurant = [_searchService getRestaurantForPlace:place searchLocation:searchLocation searchLocationDescription:searchLocationDescription];
             _restaurantsCached[place.placeId] = restaurant;
         }
         return restaurant;

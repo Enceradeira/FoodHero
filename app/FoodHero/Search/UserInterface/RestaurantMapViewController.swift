@@ -6,8 +6,9 @@
 import Foundation
 
 class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
-    var _restaurant: Restaurant!
-    var _locationService: LocationService!
+    private var _restaurant: Restaurant!
+    private var _locationService: LocationService!
+    private var _gmsMapView: GMSMapView!
 
     @IBOutlet weak var directionsButton: UIButton!
     @IBOutlet weak var directions: UILabel!
@@ -25,10 +26,7 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         GAIService.logScreenViewed("Restaurant Map")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let myLocation = _locationService.lastKnownLocation()
+    private func createCameraPosition(myLocation: CLLocation) -> GMSCameraPosition {
         let myCoordinate = myLocation.coordinate
         let restaurantLocation = _restaurant.location;
         let restaurantCoordinate = restaurantLocation.coordinate
@@ -38,27 +36,52 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         let distance = restaurantLocation.distanceFromLocation(myLocation)
 
         let zoom = GMSCameraPosition.zoomAtCoordinate(midpoint, forMeters: distance / 0.6, perPoints: view.bounds.size.width)
-        let camera = GMSCameraPosition.cameraWithLatitude(midpoint.latitude, longitude: midpoint.longitude, zoom: zoom);
+        return GMSCameraPosition.cameraWithLatitude(midpoint.latitude, longitude: midpoint.longitude, zoom: zoom);
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let myLocation = _restaurant.distance.searchLocation
+        let myCoordinate = myLocation.coordinate
+        let restaurantLocation = _restaurant.location;
+        let restaurantCoordinate = restaurantLocation.coordinate
+
+        let midpoint = CLLocation(latitude: (myCoordinate.latitude + restaurantCoordinate.latitude) / 2,
+                longitude: (myCoordinate.longitude + restaurantCoordinate.longitude) / 2).coordinate
+        let distance = restaurantLocation.distanceFromLocation(myLocation)
+
+        let zoom = GMSCameraPosition.zoomAtCoordinate(midpoint, forMeters: distance / 0.6, perPoints: view.bounds.size.width)
+        let camera = createCameraPosition(myLocation)
 
         // Map
-        var subView: GMSMapView = GMSMapView.mapWithFrame(mapView.frame, camera: camera);
-        subView.myLocationEnabled = true
-        subView.settings.myLocationButton = true;
-        subView.settings.compassButton = true;
-        subView.delegate = self
+        _gmsMapView = GMSMapView.mapWithFrame(mapView.frame, camera: camera);
+        _gmsMapView.myLocationEnabled = true
+        _gmsMapView.settings.myLocationButton = true;
+        _gmsMapView.settings.compassButton = true;
+        _gmsMapView.delegate = self
 
-        // Marker
-        let marker = GMSMarker()
-        marker.position = restaurantCoordinate
-        marker.snippet = _restaurant.name // or title
-        marker.icon = GMSMarker.markerImageWithColor(FoodHeroColors.actionColor())
-        marker.map = subView
-        subView.selectedMarker = marker
+        if _restaurant.distance.hasPreferredSearchLocation {
+            // Marker for preferred Search Location (which is not current location)
+            let preferredLocationMarker = GMSMarker()
+            preferredLocationMarker.position = _restaurant.distance.searchLocation.coordinate
+            preferredLocationMarker.title = _restaurant.distance.searchLocationDescription
+            preferredLocationMarker.icon = GMSMarker.markerImageWithColor(FoodHeroColors.yellowColor())
+            preferredLocationMarker.map = _gmsMapView
+        }
+
+        // Marker for Restaurant
+        let restaurantMarker = GMSMarker()
+        restaurantMarker.position = restaurantCoordinate
+        restaurantMarker.title = _restaurant.name // or title
+        restaurantMarker.icon = GMSMarker.markerImageWithColor(FoodHeroColors.actionColor())
+        restaurantMarker.map = _gmsMapView
+        _gmsMapView.selectedMarker = restaurantMarker
 
         // Add Map View
-        subView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        mapView.addSubview(subView)
-        let subViews = ["subView": subView]
+        _gmsMapView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        mapView.addSubview(_gmsMapView)
+        let subViews = ["subView": _gmsMapView]
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
 
@@ -93,4 +116,8 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageRestaurantMapInput(), label: "directions", value: 0)
     }
 
+    func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
+        _gmsMapView.animateToCameraPosition(createCameraPosition(_gmsMapView.myLocation))
+        return true
+    }
 }

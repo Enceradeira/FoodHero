@@ -34,7 +34,7 @@
     return _restaurants;
 }
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)currentLocation {
+- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)currentLocation searchLocationDescription:(NSString *)searchLocationDescription {
     if (_exceptionForGetRestaurantFromPlace != nil) {
         @throw _exceptionForGetRestaurantFromPlace;
     }

@@ -8,6 +8,8 @@
 #import "Place.h"
 #import "RestaurantRating.h"
 
+@class RestaurantDistance;
+
 
 @interface Restaurant : Place
 @property(nonatomic, readonly) NSString *vicinity;
@@ -21,7 +23,7 @@
 @property(nonatomic, readonly) NSString *urlForDisplaying;
 @property(nonatomic, readonly) NSString *url;
 @property(nonatomic, readonly) NSArray *types;
-@property(nonatomic, readonly) double distance;
+@property(nonatomic, readonly) RestaurantDistance *distance;
 @property(nonatomic, readonly) RestaurantRating *rating;
 @property(nonatomic, readonly) NSArray *photos;
 
@@ -37,8 +39,8 @@
               urlForDisplaying:(NSString *)urlForDisplaying
                          types:(NSArray *)types
                        placeId:(NSString *)placeId
-                      location:(CLLocation *)location
-                      distance:(double)distance
+                      location:(CLLocation*)location
+                      distance:(RestaurantDistance *)distance
                     priceLevel:(NSUInteger)priceLevel
               cuisineRelevance:(double)cuisineRelevance
                         rating:(RestaurantRating *)rating

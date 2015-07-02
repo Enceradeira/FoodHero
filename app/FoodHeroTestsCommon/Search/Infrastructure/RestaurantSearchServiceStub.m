@@ -5,7 +5,6 @@
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantSearchServiceStub.h"
-#import "DesignByContractException.h"
 #import "RestaurantBuilder.h"
 #import "RestaurantsInRadiusAndPriceRange.h"
 
@@ -98,7 +97,7 @@
     }
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)location {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)location searchLocationDescription:(NSString *)searchLocationDescription {
     [self simulateException];
     if (!_findReturnsNil) {
         NSArray *restaurants;

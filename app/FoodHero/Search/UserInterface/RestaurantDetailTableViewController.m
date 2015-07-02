@@ -91,14 +91,21 @@
     self.url.text = urlForDisplaying;
     self.urlButton.hidden = urlForDisplaying.length == 0;
 
-    double meters = _restaurant.distance;
+    RestaurantDistance *distance = _restaurant.distance;
+    double meters = distance.distanceFromSearchLocation;
     double miles = meters / 1000 * 0.621;
+
+    NSString *locationDescription = @"away";
+    if (distance.hasPreferredSearchLocation) {
+        locationDescription = [NSString stringWithFormat:@"from %@", distance.searchLocationDescription];
+    }
+
     if (miles >= 0.2) {
-        self.map.text = [NSString stringWithFormat:@"%.1f miles away", miles];
+        self.map.text = [NSString stringWithFormat:@"%.1f miles %@", miles, locationDescription];
     }
     else {
         double yards = meters * 1.093613;
-        self.map.text = [NSString stringWithFormat:@"%.0f yards away", yards];
+        self.map.text = [NSString stringWithFormat:@"%.0f yards %@", yards, locationDescription];
     }
 
 }

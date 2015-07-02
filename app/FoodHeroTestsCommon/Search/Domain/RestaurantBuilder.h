@@ -33,7 +33,7 @@
 
 - (RestaurantBuilder *)withUrlForDisplaying:(NSString *)url;
 
-- (RestaurantBuilder *)withDistance:(double)distance;
+- (RestaurantBuilder *)withDistance:(RestaurantDistance *)distance;
 
 - (RestaurantBuilder *)withReview:(RestaurantRating *)review;
 

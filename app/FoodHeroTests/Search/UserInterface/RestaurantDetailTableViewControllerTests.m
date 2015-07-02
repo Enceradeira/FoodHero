@@ -13,6 +13,7 @@
 #import "TyphoonComponents.h"
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantBuilder.h"
+#import "FoodHero-Swift.h"
 
 @interface RestaurantDetailTableViewControllerTests : XCTestCase
 
@@ -74,17 +75,39 @@
 }
 
 - (void)test_direction_ShouldBeDistanceInMiles_WhenMoreThan1MileAway {
-    _restaurant = [[[RestaurantBuilder alloc] withDistance:2000] build];
+    RestaurantDistance* distance = [[[RestaurantDistanceBuilder alloc] withDistance:2000]build];
+
+    _restaurant = [[[RestaurantBuilder alloc] withDistance:distance] build];
     [_ctrl setRestaurant:_restaurant];
 
     assertThat(_ctrl.map.text, is(equalTo(@"1.2 miles away")));
 }
 
 - (void)test_direction_ShouldBeDistanceInMiles_WhenLessThanHalfAMileAway {
-    _restaurant = [[[RestaurantBuilder alloc] withDistance:300] build];
+    RestaurantDistance* distance = [[[RestaurantDistanceBuilder alloc] withDistance:300]build];
+
+    _restaurant = [[[RestaurantBuilder alloc] withDistance:distance] build];
     [_ctrl setRestaurant:_restaurant];
 
     assertThat(_ctrl.map.text, is(equalTo(@"328 yards away")));
+}
+
+- (void)test_direction_ShouldBeDistanceInMiles_WhenDescriptionForSearchLocationAvailable {
+    RestaurantDistance* distance = [[[[RestaurantDistanceBuilder alloc] withDistance:2000] withSearchLocationDescription:@"Orchard Street Singapoor" ]build];
+
+    _restaurant = [[[RestaurantBuilder alloc] withDistance:distance] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThat(_ctrl.map.text, is(equalTo(@"1.2 miles from Orchard Street Singapoor")));
+}
+
+- (void)test_direction_ShouldBeDistanceInMiles_WhenDescriptionForSearchLocationIsEmpty {
+    RestaurantDistance* distance = [[[[RestaurantDistanceBuilder alloc] withDistance:2000] withSearchLocationDescription:@"" ]build];
+
+    _restaurant = [[[RestaurantBuilder alloc] withDistance:distance] build];
+    [_ctrl setRestaurant:_restaurant];
+
+    assertThat(_ctrl.map.text, is(equalTo(@"1.2 miles away")));
 }
 
 -(void)test_phoneButton_ShouldBeHidden_WhenNoPhoneNumberAvailable{

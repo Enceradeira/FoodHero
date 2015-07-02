@@ -20,7 +20,7 @@
              types:(NSArray *)types
            placeId:(NSString *)placeId
           location:(CLLocation *)location
-          distance:(double)distance
+          distance:(RestaurantDistance *)distance
         priceLevel:(NSUInteger)priceLevel
   cuisineRelevance:(double)cuisineRelevance
             rating:(RestaurantRating *)rating
@@ -58,7 +58,7 @@
                          types:(NSArray *)types
                        placeId:(NSString *)placeId
                       location:(CLLocation *)location
-                      distance:(double)distance
+                      distance:(RestaurantDistance *)distance
                     priceLevel:(NSUInteger)priceLevel
               cuisineRelevance:(double)cuisineRelevance
                         rating:(RestaurantRating *)rating
@@ -83,7 +83,7 @@
                                      photos:photos];
 }
 
-- (NSString*)readableId{
+- (NSString *)readableId {
     return [NSString stringWithFormat:@"%@, %@", _name, _vicinity];
 }
 

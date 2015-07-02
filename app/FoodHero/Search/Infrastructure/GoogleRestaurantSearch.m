@@ -70,7 +70,7 @@
                                                        _onlyOpenNow ? @"&opennow" : @""];
 
 
-    NSLog(@"GoogleRestaurantSearch.findPlaces: %@",placeString);
+    NSLog(@"GoogleRestaurantSearch.findPlaces: %@", placeString);
 
     __block NSDictionary *json;
     NSError *error;
@@ -126,7 +126,7 @@
     return restaurants;
 }
 
-- (Restaurant *)createRestaurantFromPlace:(GooglePlace *)place details:(NSArray *)details distance:(NSNumber *)distance {
+- (Restaurant *)createRestaurantFromPlace:(GooglePlace *)place details:(NSArray *)details distance:(RestaurantDistance *)distance {
     NSDictionary *openingHours = [details valueForKey:@"opening_hours"];
     NSString *openingStatus = @"";
     NSString *openingHoursTodayDescription = @"";
@@ -164,21 +164,26 @@
                                 types:[details valueForKey:@"types"]
                               placeId:[details valueForKey:@"place_id"]
                              location:place.location
-                             distance:distance.doubleValue
+                             distance:distance
                            priceLevel:[[details valueForKey:@"price_level"] unsignedIntValue]
                      cuisineRelevance:place.cuisineRelevance
                                rating:rating
                                photos:photos];
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)searchLocation {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)searchLocation searchLocationDescription:(NSString *)searchLocationDescription {
     __block Restaurant *restaurant;
 
     RACSignal *detailsSignal = [self fetchPlaceDetails:place];
     RACSignal *directionsSignal = [self fetchPlaceDirections:place searchLocation:searchLocation];
     RACSignal *restaurantSignal = [RACSignal combineLatest:@[detailsSignal, directionsSignal]
                                                     reduce:^(NSArray *details, NSNumber *distance) {
-                                                        return [self createRestaurantFromPlace:place details:details distance:distance];
+                                                        NSString *searchLocationDescriptionNormalized = searchLocationDescription == nil ? @"" : searchLocationDescription;
+                                                        RestaurantDistance *restaurantLocation = [[RestaurantDistance alloc] initWithSearchLocation:searchLocation
+                                                                                                                          searchLocationDescription:searchLocationDescriptionNormalized
+                                                                                                                         distanceFromSearchLocation:distance.doubleValue];
+
+                                                        return [self createRestaurantFromPlace:place details:details distance:restaurantLocation];
                                                     }];
 
 
@@ -219,7 +224,7 @@
             meters += [distance doubleValue];
         }
 
-        if(meters == 0){
+        if (meters == 0) {
             meters = [place.location distanceFromLocation:searchLocation];
         }
 

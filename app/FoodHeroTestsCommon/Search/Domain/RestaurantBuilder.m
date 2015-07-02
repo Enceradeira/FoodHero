@@ -7,7 +7,7 @@
 #import "OpeningHour.h"
 #import "RestaurantRatingBuilder.h"
 #import "PhotoBuilder.h"
-
+#import "FoodHero-Swift.h"
 
 @implementation RestaurantBuilder {
 
@@ -26,7 +26,7 @@
     NSString *_urlForDisplaying;
     NSArray *_addressComponents;
     NSArray *_openingHours;
-    double _distance;
+    RestaurantDistance *_distance;
     RestaurantRating *_rating;
     NSArray *_photos;
 }
@@ -53,7 +53,7 @@
     NSString *phoneNumber = _phoneNumber == nil ? @"01603 777885" : _phoneNumber;
     NSString *url = _url == nil ? @"http://www.namaste.co.uk" : _url;
     NSString *urlForDisplaying = _urlForDisplaying == nil ? @"namaste.co.uk" : _urlForDisplaying;
-    double distance = _distance == 0 ? 1.34 : _distance;
+    RestaurantDistance *restaurantDistance = _distance == nil ? [[RestaurantDistanceBuilder alloc]  build]: _distance;
     RestaurantRating *rating = _rating == nil ? [[RestaurantRatingBuilder alloc] build] : _rating;
 
     NSArray *photos = _photos == nil ? [self defaultPhotos] : _photos;
@@ -70,7 +70,7 @@
                                 types:@[@"restaurant"]
                               placeId:[[NSUUID UUID] UUIDString]
                              location:location
-                             distance:distance
+                             distance:restaurantDistance
                            priceLevel:priceLevel
                      cuisineRelevance:cuisineRelevance
                                rating:rating
@@ -152,7 +152,7 @@
     return self;
 }
 
-- (RestaurantBuilder *)withDistance:(double)distance {
+- (RestaurantBuilder *)withDistance:(RestaurantDistance *)distance {
     _distance = distance;
     return self;
 }
