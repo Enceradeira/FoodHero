@@ -18,8 +18,7 @@
     LocationService *_locationService;
     id <ISchedulerFactory> _schedulerFactory;
     id <IGeocoderService> _geocoderService;
-    CLLocation *_lastSearchLocation;
-    NSString *_lastSearchLocationDescription;
+    ResolvedSearchLocation *_lastSearchLocation;
 }
 
 - (instancetype)initWithRestaurantRepository:(id <IRestaurantRepository>)repository
@@ -49,10 +48,10 @@
     RACSignal *searchLocationSignal = [[self resolvePreferredLocation:searchLocation] deliverOn:[_schedulerFactory asynchScheduler]];
 
     RACSignal *preferenceSignal = [searchLocationSignal flattenMap:^(CLLocation *location) {
-        _lastSearchLocation = location;
-        _lastSearchLocationDescription = searchLocation;
+        _lastSearchLocation = [[ResolvedSearchLocation alloc] initWithLocation:location description:searchLocation ==nil ? @"": searchLocation];
 
-        return [RACSignal return:[conversation currentSearchPreference:[_repository getMaxDistanceOfPlaces:_lastSearchLocation] searchLocation:_lastSearchLocation]];
+        double maxDistanceOfPlaces = [_repository getMaxDistanceOfPlaces:_lastSearchLocation.location];
+        return [RACSignal return:[conversation currentSearchPreference:maxDistanceOfPlaces searchLocation:_lastSearchLocation.location]];
     }];
 
     RACSignal *placesSignal = [preferenceSignal tryMap:^(SearchProfile *searchPreference, NSError **error) {
@@ -107,7 +106,7 @@
 }
 
 - (CLLocation *)lastSearchLocation {
-    return _lastSearchLocation;
+    return _lastSearchLocation.location;
 }
 
 
@@ -133,21 +132,21 @@
     return [[[[RACSignal return:_lastSearchLocation]
             deliverOn:_schedulerFactory.asynchScheduler]
             take:1]
-            tryMap:^(CLLocation *location, NSError **error) {
+            tryMap:^(ResolvedSearchLocation *locationDesc, NSError **error) {
                 NSArray *sortedPlaces = [places linq_sort:^(Place *p) {
-                    return @([location distanceFromLocation:p.location]);
+                    return @([locationDesc.location distanceFromLocation:p.location]);
                 }];
 
                 // find best and try to remove restaurant with same name as disliked places
                 NSMutableArray *candidates = [NSMutableArray arrayWithArray:sortedPlaces];
                 while (candidates.count > 0) {
 
-                    NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:location candidates:candidates];
+                    NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc.location candidates:candidates];
 
                     // choose nearest that doesn't have same name as previously disliked restaurant
                     for (Place *bestPlace in bestPlacesOrderedByDistance) {
                         @try {
-                            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:location searchLocationDescription:_lastSearchLocationDescription];
+                            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:locationDesc];
                             // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
 
                             BOOL dislikedWithSameName = [excludedRestaurants linq_any:^(Restaurant *r) {
@@ -169,10 +168,10 @@
                 }
 
                 // no restaurant was found above; we now score again and return even restaurant has same name as disliked place
-                NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:location candidates:sortedPlaces];
+                NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc.location candidates:sortedPlaces];
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
                 @try {
-                    Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:location searchLocationDescription:_lastSearchLocationDescription];
+                    Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:locationDesc];
                     // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
                     return @[restaurant, preferences];
                 }

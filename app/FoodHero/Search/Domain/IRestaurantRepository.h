@@ -9,10 +9,12 @@
 #import "Place.h"
 #import "CuisineAndOccasion.h"
 
+@class ResolvedSearchLocation;
+
 @protocol IRestaurantRepository <NSObject>
 - (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine;
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)currentLocation searchLocationDescription:(NSString *)searchLocationDescription;
+- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(ResolvedSearchLocation *)currentLocation;
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation;
 

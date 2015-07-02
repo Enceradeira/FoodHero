@@ -133,11 +133,11 @@
     return places;
 }
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)searchLocation searchLocationDescription:(NSString *)searchLocationDescription {
+- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(ResolvedSearchLocation *)searchLocation {
     @synchronized (self) {
         Restaurant *restaurant = _restaurantsCached[place.placeId];
         if (restaurant == nil) {
-            restaurant = [_searchService getRestaurantForPlace:place searchLocation:searchLocation searchLocationDescription:searchLocationDescription];
+            restaurant = [_searchService getRestaurantForPlace:place searchLocation:searchLocation];
             _restaurantsCached[place.placeId] = restaurant;
         }
         return restaurant;

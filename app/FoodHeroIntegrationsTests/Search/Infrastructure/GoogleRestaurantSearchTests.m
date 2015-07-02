@@ -27,8 +27,8 @@
     RestaurantSearchParams *_parameter;
     NSString *_placeIdLibraryGrillNorwich;
     NSString *_placeIdMaidsHeadNorwich;
-    CLLocation *_norwich;
-    CLLocation *_london;
+    ResolvedSearchLocation *_norwich;
+    ResolvedSearchLocation *_london;
     NSString *_placeIdVeeraswamyLondon;
     NSString *_placeIdEveningRiverCruiseYork;
     id <ApplicationAssembly> _assembly;
@@ -44,11 +44,13 @@
 
 
     // Maids Head Hotel, Tombland, Norwich
-    _norwich = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
-    _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+    CLLocation *norwichLocation = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
+    _norwich = [[ResolvedSearchLocation alloc] initWithLocation:norwichLocation description:@"Norwich"];
+    CLLocation *londonLocation = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+    _london = [[ResolvedSearchLocation alloc] initWithLocation:londonLocation description:@""];
 
     _parameter = [RestaurantSearchParams new];
-    _parameter.coordinate = _norwich.coordinate;
+    _parameter.coordinate = _norwich.location.coordinate;
     _parameter.radius = 10000;
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian" location:nil];
 
@@ -109,12 +111,12 @@
 
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian" location:nil];
     _parameter.radius = specifiedRadius;
-    _parameter.coordinate = _norwich.coordinate;
+    _parameter.coordinate = _norwich.location.coordinate;
 
     NSArray *places = [_service findPlaces:_parameter];
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
     for (GooglePlace *place in places) {
-        CLLocationDistance distance = [_norwich distanceFromLocation:place.location];
+        CLLocationDistance distance = [_norwich.location distanceFromLocation:place.location];
         assertThatDouble(distance, is(lessThanOrEqualTo(@(specifiedRadius * 3))));
     }
 }
@@ -122,14 +124,14 @@
 - (void)test_findPlaces_ShouldReturnPlacesWithinSpecifiedPriceRange {
     _parameter.cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions dinner] cuisine:@"Indian" location:nil];
     _parameter.radius = 5000;
-    _parameter.coordinate = _london.coordinate;  // only london supports price range at the moment
+    _parameter.coordinate = _london.location.coordinate;  // only london supports price range at the moment
     _parameter.minPriceLevel = 4;
     _parameter.maxPriceLevel = 4;
 
     NSArray *places = [[_service findPlaces:_parameter] linq_take:5];  // test on 5 places, not all 200
     assertThatUnsignedInt(places.count, is(greaterThan(@(1))));
     for (GooglePlace *place in places) {
-        Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:nil];
+        Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
         assertThatUnsignedInt(restaurant.priceLevel, is(equalTo(@4)));
     }
 }
@@ -156,14 +158,14 @@
 
     assertThat(^() {
         GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:[CLLocation new] cuisineRelevance:34];
-        [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@"Norwich"];
+        [_service getRestaurantForPlace:place searchLocation:_norwich];
     }, throwsExceptionOfType([SearchException class]));
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantAtPlace {
-    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london cuisineRelevance:34];
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london.location cuisineRelevance:34];
 
-    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@"Norwich"];
+    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
@@ -184,8 +186,8 @@
     assertThatUnsignedInt(restaurant.priceLevel, is(greaterThan(@(0))));
     assertThatDouble(restaurant.cuisineRelevance, is(equalTo(@(34))));
     assertThatDouble(restaurant.distance.distanceFromSearchLocation, is(greaterThan(@(0))));
-    assertThat(restaurant.distance.searchLocation, is(equalTo(_norwich)));
-    assertThat(restaurant.distance.searchLocationDescription, is(equalTo(@"Norwich")));
+    assertThat(restaurant.distance.searchLocation, is(equalTo(_norwich.location)));
+    assertThat(restaurant.distance.searchLocationDescription, is(equalTo(_norwich.locationDescription)));
     assertThatUnsignedInt([restaurant.photos count], is(greaterThan(@1U)));  // there should be more than 1 photo to have a meaningful test here
     for (id <IPhoto> photo in restaurant.photos) {
         NSArray *photos = [[photo image] toArray]; // force loading by enumerating image-Signal
@@ -207,10 +209,10 @@
 }
 
 - (void)test_getRestaurantForPlace_ShouldReturnCorrectDistanceFromCurrentLocation {
-    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london cuisineRelevance:34];
+    GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdVeeraswamyLondon location:_london.location cuisineRelevance:34];
 
-    Restaurant *restaurantAsSeenInNorwich = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@""];
-    Restaurant *restaurantAsSeenInLondon = [_service getRestaurantForPlace:place searchLocation:_london searchLocationDescription:@""];
+    Restaurant *restaurantAsSeenInNorwich = [_service getRestaurantForPlace:place searchLocation:_norwich];
+    Restaurant *restaurantAsSeenInLondon = [_service getRestaurantForPlace:place searchLocation:_london];
 
     assertThatDouble(restaurantAsSeenInNorwich.distance.distanceFromSearchLocation, is(greaterThan(@(restaurantAsSeenInLondon.distance.distanceFromSearchLocation))));
 }
@@ -218,7 +220,7 @@
 - (void)test_getRestaurantForPlace_ShouldSetNoInfoAboutOpeningHours_WhenNoOpeningHoursAvailable {
     GooglePlace *place = [GooglePlace createWithPlaceId:_placeIdEveningRiverCruiseYork location:[CLLocation new] cuisineRelevance:34];
 
-    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich searchLocationDescription:@""];
+    Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
     assertThat(restaurant.openingHoursToday, is(equalTo(@"")));
     assertThat(restaurant.openingStatus, is(equalTo(@"")));
 }

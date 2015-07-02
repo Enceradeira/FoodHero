@@ -39,6 +39,7 @@
 		23525212BD94431215D98BD3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F1ADB1625EED07D1288 /* AppDelegate.m */; };
 		2352521E11F43BE13CCF74A8 /* RestaurantSearchServiceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525319C0ACF43DBEA2C227 /* RestaurantSearchServiceSpy.m */; };
 		2352523EC8DA980EACDCEC66 /* ConversationFindingRestaurantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252A275392979B2BC9884 /* ConversationFindingRestaurantTests.m */; };
+		2352524873E3EA5891FD9BF9 /* ResolvedSearchLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525811D5B480384C2F6EB5 /* ResolvedSearchLocation.swift */; };
 		235252706234320FC2292311 /* SearchError.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C6413A6A189DF6DB298 /* SearchError.m */; };
 		23525279D190AEB9130696EA /* RestaurantSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352540D3669C11AED4121F8 /* RestaurantSearchResult.m */; };
 		235252941AA6C3F1F382FF37 /* RestaurantDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525871F5597AB825B20E50 /* RestaurantDetailTableViewController.m */; };
@@ -518,6 +519,7 @@
 		235257FD2867070665582F54 /* TalkerEngineNestedConversationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineNestedConversationTests.swift; sourceTree = "<group>"; };
 		2352580237AED4093A3BF06C /* Script.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		23525805D3B4F38868E93662 /* RestaurantRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantRepository.h; sourceTree = "<group>"; };
+		23525811D5B480384C2F6EB5 /* ResolvedSearchLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResolvedSearchLocation.swift; sourceTree = "<group>"; };
 		235258137FBDEA1C27540425 /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
 		2352581FFF78D715E60894EE /* DistanceRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceRange.h; sourceTree = "<group>"; };
 		235258238526A1C664198377 /* ConversationViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewControllerTests.m; sourceTree = "<group>"; };
@@ -1348,6 +1350,7 @@
 				23525C2C50282DC060049D67 /* CuisineAndOccasion.h */,
 				235257DA513E59F52488345E /* IGeocoderService.swift */,
 				23525784EEBA19FD886938CA /* RestaurantDistance.swift */,
+				23525811D5B480384C2F6EB5 /* ResolvedSearchLocation.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2017,6 +2020,7 @@
 				23525EFAC8ABCA9144B18D80 /* GeocoderServiceStub.swift in Sources */,
 				235250CA28119C34558AEED9 /* RestaurantDistance.swift in Sources */,
 				23525CB3FACB6CE86C5B8794 /* RestaurantDistanceBuilder.swift in Sources */,
+				2352524873E3EA5891FD9BF9 /* ResolvedSearchLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

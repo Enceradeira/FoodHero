@@ -171,16 +171,15 @@
                                photos:photos];
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)searchLocation searchLocationDescription:(NSString *)searchLocationDescription {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(ResolvedSearchLocation *)searchLocation {
     __block Restaurant *restaurant;
 
     RACSignal *detailsSignal = [self fetchPlaceDetails:place];
-    RACSignal *directionsSignal = [self fetchPlaceDirections:place searchLocation:searchLocation];
+    RACSignal *directionsSignal = [self fetchPlaceDirections:place searchLocation:searchLocation.location];
     RACSignal *restaurantSignal = [RACSignal combineLatest:@[detailsSignal, directionsSignal]
                                                     reduce:^(NSArray *details, NSNumber *distance) {
-                                                        NSString *searchLocationDescriptionNormalized = searchLocationDescription == nil ? @"" : searchLocationDescription;
-                                                        RestaurantDistance *restaurantLocation = [[RestaurantDistance alloc] initWithSearchLocation:searchLocation
-                                                                                                                          searchLocationDescription:searchLocationDescriptionNormalized
+                                                        RestaurantDistance *restaurantLocation = [[RestaurantDistance alloc] initWithSearchLocation:searchLocation.location
+                                                                                                                          searchLocationDescription:searchLocation.locationDescription
                                                                                                                          distanceFromSearchLocation:distance.doubleValue];
 
                                                         return [self createRestaurantFromPlace:place details:details distance:restaurantLocation];

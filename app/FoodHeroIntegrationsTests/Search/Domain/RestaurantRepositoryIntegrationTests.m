@@ -28,8 +28,8 @@
 
 @implementation RestaurantRepositoryIntegrationTests {
     ConversationSourceStub *_conversation;
-    CLLocation *_norwich;
-    CLLocation *_london;
+    ResolvedSearchLocation *_norwich;
+    ResolvedSearchLocation *_london;
     RestaurantRepository *_repository;
 }
 
@@ -38,8 +38,10 @@
 
     _conversation = [ConversationSourceStub new];
 
-    _norwich = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
-    _london = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+    CLLocation *norwichLocation = [[CLLocation alloc] initWithLatitude:52.631944 longitude:1.298889];
+    _norwich = [[ResolvedSearchLocation alloc] initWithLocation:norwichLocation description:@"Norwich"];
+    CLLocation *londonLocation = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+    _london = [[ResolvedSearchLocation alloc] initWithLocation:londonLocation description:@""];
 
     id schedulerFactory = [AlwaysImmediateSchedulerFactory new];
 
@@ -49,10 +51,10 @@
 
 - (void)test_getPlacesByCuisine_ShouldReturnCorrectlyInitializedPlaces {
 
-    CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian" location:_london];
+    CuisineAndOccasion *cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:[Occasions lunch] cuisine:@"Indian" location:_london.location];
     NSArray *places = [_repository getPlacesBy:cuisineAndOccasion];
     for(Place *p in places){
-        CLLocationDistance distance = [p.location distanceFromLocation:_london];
+        CLLocationDistance distance = [p.location distanceFromLocation:_london.location];
         assertThatUnsignedInt(p.placeId.length, is(greaterThan(@0)));
         assertThatDouble(distance, is(greaterThan(@0)));
         assertThatDouble(distance, is(lessThan(@100000)));  // less than 100 km
@@ -84,13 +86,13 @@
 
     // priceLevels between Places and Restaurant must be the same
     for(Place *p in places){
-        Restaurant *r = [_repository getRestaurantFromPlace:p searchLocation:_norwich searchLocationDescription:nil];
+        Restaurant *r = [_repository getRestaurantFromPlace:p searchLocation:_norwich];
         assertThatUnsignedInt(r.priceLevel, is(equalTo(@(p.priceLevel))));
     }
 
     // cuisineRelevance between Places and Restaurant must be the same
     for(Place *p in places){
-        Restaurant *r = [_repository getRestaurantFromPlace:p searchLocation:_norwich searchLocationDescription:@""];
+        Restaurant *r = [_repository getRestaurantFromPlace:p searchLocation:_norwich];
         assertThatDouble(r.cuisineRelevance, is(equalTo(@(p.cuisineRelevance))));
     }
 

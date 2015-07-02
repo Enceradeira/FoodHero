@@ -7,10 +7,12 @@
 #import "Restaurant.h"
 #import "RestaurantSearchParams.h"
 
+@class ResolvedSearchLocation;
+
 @protocol RestaurantSearchService <NSObject>
 - (NSArray *)findPlaces:(RestaurantSearchParams *)parameter;
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)location searchLocationDescription:(NSString *)searchLocationDescription;
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(ResolvedSearchLocation *)location;
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled;
 @end

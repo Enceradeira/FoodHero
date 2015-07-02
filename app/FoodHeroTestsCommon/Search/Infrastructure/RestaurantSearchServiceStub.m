@@ -97,7 +97,7 @@
     }
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)location searchLocationDescription:(NSString *)searchLocationDescription {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(ResolvedSearchLocation *)location {
     [self simulateException];
     if (!_findReturnsNil) {
         NSArray *restaurants;
