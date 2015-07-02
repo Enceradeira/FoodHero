@@ -63,8 +63,8 @@
     result= [self.repository getPlacesBy:_cuisineAndOccasion]; // this queries the location which is a precondition for getRestaurantFromPlace
 
     Restaurant *place = [[RestaurantBuilder alloc] build];
-    assertThat([_repository getRestaurantFromPlace:place currentLocation:_location], is(notNilValue()));
-    assertThat([_repository getRestaurantFromPlace:place currentLocation:_location], is(notNilValue()));
+    assertThat([_repository getRestaurantFromPlace:place searchLocation:_location], is(notNilValue()));
+    assertThat([_repository getRestaurantFromPlace:place searchLocation:_location], is(notNilValue()));
 
     assertThatUnsignedInt(_searchService.nrCallsToGetRestaurantForPlace, is(equalTo(@(1))));
 }

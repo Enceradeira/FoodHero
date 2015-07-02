@@ -171,11 +171,11 @@
                                photos:photos];
 }
 
-- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
+- (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(CLLocation *)searchLocation {
     __block Restaurant *restaurant;
 
     RACSignal *detailsSignal = [self fetchPlaceDetails:place];
-    RACSignal *directionsSignal = [self fetchPlaceDirections:place currentLocation:currentLocation];
+    RACSignal *directionsSignal = [self fetchPlaceDirections:place searchLocation:searchLocation];
     RACSignal *restaurantSignal = [RACSignal combineLatest:@[detailsSignal, directionsSignal]
                                                     reduce:^(NSArray *details, NSNumber *distance) {
                                                         return [self createRestaurantFromPlace:place details:details distance:distance];
@@ -192,8 +192,8 @@
     return restaurant;
 }
 
-- (RACSignal *)fetchPlaceDirections:(GooglePlace *)place currentLocation:(CLLocation *)currentLocation {
-    CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
+- (RACSignal *)fetchPlaceDirections:(GooglePlace *)place searchLocation:(CLLocation *)searchLocation {
+    CLLocationCoordinate2D currentCoordinate = searchLocation.coordinate;
     CLLocationCoordinate2D placeCoordinate = place.location.coordinate;
     NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/directions/json?origin=%f,%f&destination=%f,%f&key=%@",
                                                        _baseAddress,
@@ -220,7 +220,7 @@
         }
 
         if(meters == 0){
-            meters = [place.location distanceFromLocation:currentLocation];
+            meters = [place.location distanceFromLocation:searchLocation];
         }
 
         return @(meters);

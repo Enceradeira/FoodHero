@@ -12,7 +12,7 @@
 @protocol IRestaurantRepository <NSObject>
 - (NSArray *)getPlacesBy:(CuisineAndOccasion *)cuisine;
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place currentLocation:(CLLocation *)currentLocation;
+- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)currentLocation;
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation;
 

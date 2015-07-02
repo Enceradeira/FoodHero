@@ -263,7 +263,7 @@ public class ConversationScript: Script {
                     let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)
                     script.say(oneOf: lastUtterance)
                     return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
-                } else if searchPreference.distanceRange != nil && searchPreference.distanceRange.max < (restaurant.location.distanceFromLocation(self._locationService.lastKnownLocation()) / maxDistance)
+                } else if searchPreference.distanceRange != nil && searchPreference.distanceRange.max < (restaurant.location.distanceFromLocation(_search.lastSearchLocation()) / maxDistance)
                         && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooFarAway")) {
                     script.say(oneOf: FHUtterances.warningsIfNotInPreferredRangeTooFarAway)
                     let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)

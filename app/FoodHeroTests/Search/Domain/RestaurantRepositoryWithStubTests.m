@@ -188,7 +188,7 @@
     Place *place = [self.repository getPlacesBy:cuisine][0];
 
     CLLocation * currLocation = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
-    Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place currentLocation:currLocation];
+    Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place searchLocation:currLocation];
     assertThat(restaurantFromPlace, is(equalTo(restaurant)));
 }
 
