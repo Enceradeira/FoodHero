@@ -106,8 +106,8 @@ task :upload do
   BuildAction.execute!("'#{AppPaths.altool_path}' --upload-app -f ./#{AppPaths.archive_path}/FoodHero.ipa -u #{AppPaths.i_tunes_connect_user} -p #{AppPaths.i_tunes_connect_pwd}")
 end
 
-desc 'Creates an archive and uploads it to iTunesConnect'
-task :publish => [:archive,:upload] do
+desc 'Tests the app creates an archive and uploads it to iTunesConnect'
+task :publish => [:test_all, :archive, :upload] do
 end
 
 task :default => [:test_all] do
