@@ -11,7 +11,7 @@
 		<key>CFBundleShortVersionString</key>
 		<string>0.1</string>
 		<key>CFBundleVersion</key>
-		<string>7</string>
+		<string>8</string>
 		<key>IconPaths</key>
 		<array>
 			<string>Applications/FoodHero.app/AppIcon29x29@2x.png</string>
@@ -24,7 +24,7 @@
 	<key>ArchiveVersion</key>
 	<integer>2</integer>
 	<key>CreationDate</key>
-	<date>2015-06-25T16:37:23Z</date>
+	<date>2015-07-03T06:25:51Z</date>
 	<key>Name</key>
 	<string>FoodHero</string>
 	<key>SchemeName</key>
