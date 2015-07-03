@@ -27,4 +27,16 @@ module AppPaths
     'XC: uk.co.jennius.FoodHero'
   end
 
+  def self.altool_path
+    '/Applications/Application Loader.app/Contents/Frameworks/ITunesSoftwareService.framework/Support/altool'
+  end
+
+  def self.i_tunes_connect_user
+    'jorg.jenni@jennius.co.uk'
+  end
+
+  def self.i_tunes_connect_pwd
+    'L779XWTjB23e'
+  end
+
 end
