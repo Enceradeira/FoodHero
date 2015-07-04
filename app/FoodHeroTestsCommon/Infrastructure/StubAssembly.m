@@ -206,7 +206,6 @@
 }
 
 - (id)geocoderService {
-    [[GeocoderServiceStub alloc] init];
     return [TyphoonDefinition withClass:[GeocoderServiceStub class]];
 }
 

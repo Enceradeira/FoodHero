@@ -17,6 +17,7 @@
 #import "RestaurantRepositoryTests.h"
 #import "StubAssembly.h"
 #import "RestaurantBuilder.h"
+#import "FoodHero-Swift.h"
 
 @interface RestaurantRepositoryWithSpyTests : RestaurantRepositoryTests
 
@@ -26,7 +27,7 @@
     RestaurantSearchServiceSpy *_searchService;
     RestaurantRepository *_repository;
     CuisineAndOccasion *_cuisineAndOccasion;
-    CLLocation *_location;
+    ResolvedSearchLocation *_location;
 }
 
 - (void)setUp {
@@ -35,10 +36,9 @@
 
     _searchService = [RestaurantSearchServiceSpy new];
 
-    id schedulerFactory = [[TyphoonComponents getAssembly] schedulerFactory];
     _repository = [[RestaurantRepository alloc] initWithSearchService:_searchService];
-    _location = [[CLLocation alloc] initWithLatitude:12.6259 longitude:1.33212];
-    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:_location];
+    _location = [[ResolvedSearchLocation alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:12.6259 longitude:1.33212] description:@"Norwich"];
+    _cuisineAndOccasion = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:_location.location];
 }
 
 - (RestaurantRepository *)repository {
@@ -55,7 +55,7 @@
     NSArray *result;
     result= [self.repository getPlacesBy:_cuisineAndOccasion];
 
-    assertThatBool([_searchService findPlacesWasCalledWithLocation:_location.coordinate], is(@(YES)));
+    assertThatBool([_searchService findPlacesWasCalledWithLocation:_location.location.coordinate], is(@(YES)));
 }
 
 - (void)test_getRestaurantFromPlace_ShouldReturnRestaurantFromCache_WhenCalledMoreThanOnce {

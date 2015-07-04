@@ -20,13 +20,13 @@
                        priceRange:(PriceRange *)priceRange
                       maxDistance:(DistanceRange *)distance
                          occasion:(NSString *)occasion
-                         location:(NSString *)location;
+                         location:(CLLocation *)location;
 
 - (id)initWithCuisine:(NSString *)cuisine
            priceRange:(PriceRange *)priceRange
           maxDistance:(DistanceRange *)distance
              occasion:(NSString *)occasion
-             location:(NSString *)location;
+             location:(CLLocation *)location;
 
 - (double)scorePlace:(Place *)place normalizedDistance:(double)distance restaurant:(Restaurant *)restaurant;
 @end

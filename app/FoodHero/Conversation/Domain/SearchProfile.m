@@ -13,7 +13,7 @@
                        priceRange:(PriceRange *)priceRange
                       maxDistance:(DistanceRange *)maxDistance
                          occasion:(NSString *)occasion
-                         location:(NSString *)location {
+                         location:(CLLocation *)location {
     return [[SearchProfile alloc] initWithCuisine:cuisine priceRange:priceRange maxDistance:maxDistance occasion:occasion location:location];
 }
 
@@ -21,7 +21,7 @@
            priceRange:(PriceRange *)priceRange
           maxDistance:(DistanceRange *)maxDistance
              occasion:(NSString *)occasion
-             location:(NSString *)location {
+             location:(CLLocation *)location {
     self = [super init];
     if (self != nil) {
 

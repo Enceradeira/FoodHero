@@ -18,8 +18,8 @@
 #import "RestaurantsInRadiusAndPriceRange.h"
 #import "RestaurantRepositoryTests.h"
 #import "PriceRange.h"
-#import "SearchError.h"
 #import "GoogleDefinitions.h"
+#import "FoodHero-Swift.h"
 
 @interface RestaurantRepositoryWithStubTests : RestaurantRepositoryTests
 
@@ -187,7 +187,7 @@
     CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
     Place *place = [self.repository getPlacesBy:cuisine][0];
 
-    CLLocation * currLocation = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
+    ResolvedSearchLocation* currLocation = [[ResolvedSearchLocation alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275] description:@"Norwich"];
     Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place searchLocation:currLocation];
     assertThat(restaurantFromPlace, is(equalTo(restaurant)));
 }

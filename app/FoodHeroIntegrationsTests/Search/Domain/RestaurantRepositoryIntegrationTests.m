@@ -43,8 +43,6 @@
     CLLocation *londonLocation = [[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275];
     _london = [[ResolvedSearchLocation alloc] initWithLocation:londonLocation description:@""];
 
-    id schedulerFactory = [AlwaysImmediateSchedulerFactory new];
-
     id <RestaurantSearchService> restaurantSearch = [[TyphoonComponents getAssembly] restaurantSearchService];
     _repository = [[RestaurantRepository alloc] initWithSearchService:restaurantSearch];
 }

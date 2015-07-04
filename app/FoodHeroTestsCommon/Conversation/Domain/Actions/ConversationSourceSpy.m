@@ -24,6 +24,14 @@
     return nil;
 }
 
+- (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces searchLocation:(CLLocation *)location {
+    return nil;
+}
+
+- (NSString *)currentSearchLocation {
+    return nil;
+}
+
 
 - (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces currUserLocation:(CLLocation *)location{
     return nil;
