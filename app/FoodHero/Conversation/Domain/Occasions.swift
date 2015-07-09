@@ -6,6 +6,7 @@
 import Foundation
 
 public class Occasions: NSObject {
+
     static let offset = -900.0
 
     public class func breakfast() -> String {
@@ -120,6 +121,8 @@ public class Occasions: NSObject {
             - Remove trailing s (even it's not plural)
         */
 
+
+        // exact matches
         switch normalizedCuisine {
         case "":
             return ""
@@ -132,10 +135,21 @@ public class Occasions: NSObject {
         case "pizza", "burger", "bbq", "hamburger", "kebab", "fastfood", "macdonald", "burgerking", "wedding", "weddingreception", "reception":
             return dinner()
         default:
-            NSLog("Occasions.guessFromCuisine: no occasion guessed for \(cuisine)")
-            GAIService.logEventWithCategory(GAICategories.improvements(), action: GAIActions.improvementNoOccasionGuessedForCuisine(), label: cuisine, value:0)
-            return ""
+            break
         }
+
+        // composite matches
+        if normalizedCuisine.rangeOfString("bar") != nil {
+            return drink()
+        }
+        if normalizedCuisine.rangeOfString("restaurant") != nil {
+            return dinner()
+        }
+
+        NSLog("Occasions.guessFromCuisine: no occasion guessed for \(cuisine)")
+        GAIService.logEventWithCategory(GAICategories.improvements(), action: GAIActions.improvementNoOccasionGuessedForCuisine(), label: cuisine, value:0)
+        return ""
+
     }
 
     private class func removeCharacterAtTheEndOfAString(character: Character, string: String) -> String {
