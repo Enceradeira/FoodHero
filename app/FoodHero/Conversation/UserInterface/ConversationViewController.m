@@ -282,6 +282,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 
     //[_currentUserInputContainerViewController notifyUserWantsTextInput:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration];
     [self setViewState:[ConversationViewStateTextInput create:self heigth:keyboardHeight animationCurve:animationCurve animationDuration:animationDuration]];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_appService getStatementCount] -1 inSection:0];
+    [_bubbleView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
