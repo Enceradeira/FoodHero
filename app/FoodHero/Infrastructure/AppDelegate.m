@@ -17,8 +17,12 @@
 #import "FoodHero-Swift.h"
 #import "WitSpeechRecognitionService.h"
 #import "ConversationAppService.h"
+#import "ConversationViewController.h"
+#import "ConversationViewController+ViewDimensionCalculator.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    bool _applicationDidFinishLaunching;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Google Map
@@ -35,6 +39,8 @@
         id<ApplicationAssembly> assembly = (id <ApplicationAssembly>)[storyboard factory];
         [assembly.conversationAppService startConversation];
     }];
+    
+    _applicationDidFinishLaunching = true;
 
     return YES;
 }
@@ -62,6 +68,15 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame {
+    [ConversationViewController applicationDidChangeStatusBarFrame:oldStatusBarFrame];
+    if( _applicationDidFinishLaunching ){
+        id <ApplicationAssembly> assembly = [TyphoonComponents getAssembly];
+        ConversationViewController *cvc = [assembly conversationViewController];
+        [cvc redrawCurrentViewState];
+    }
 }
 
 @end

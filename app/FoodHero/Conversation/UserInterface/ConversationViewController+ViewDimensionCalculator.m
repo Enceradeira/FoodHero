@@ -6,15 +6,17 @@
 #import "ConversationViewController+ViewDimensionCalculator.h"
 #import "DesignByContractException.h"
 
+static float CallBarHeight = 0;
 
 @implementation ConversationViewController (ViewDimensionCalculator)
 - (CGFloat)height {
     CGSize rect = [UIScreen mainScreen].bounds.size;
+
     if (self.isPortraitOrientation) {
-        return rect.height;
+        return rect.height - CallBarHeight;
     }
     else {
-        return rect.width;
+        return rect.width - CallBarHeight;
     }
 }
 
@@ -60,4 +62,15 @@
 - (NSInteger)bubbleViewHeight {
     return (NSInteger) self.height - self.userInputHeaderHeight - self.userInputListHeight;
 }
+
++ (void)applicationDidChangeStatusBarFrame:(CGRect)oldStatusBarFrame {
+    CGSize newStatusBarFrame = [UIApplication sharedApplication].statusBarFrame.size;
+    if( newStatusBarFrame.height > oldStatusBarFrame.size.height){
+        CallBarHeight = newStatusBarFrame.height - oldStatusBarFrame.size.height;
+    }
+    else{
+        CallBarHeight = 0;
+    }
+}
+
 @end

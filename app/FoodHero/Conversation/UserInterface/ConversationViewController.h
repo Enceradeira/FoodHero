@@ -54,4 +54,6 @@
 - (BOOL)isNotRecordingUserInput;
 
 - (BOOL)isWaitingForUserInput;
+
+- (void)redrawCurrentViewState;
 @end

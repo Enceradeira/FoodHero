@@ -129,11 +129,15 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
 - (void)setViewState:(ConversationViewState *)viewState {
     if (![viewState isEqual:_currentViewState]) {
         _currentViewState = viewState;
-        [_currentViewState activate];
+        [self redrawCurrentViewState];
     }
     else {
         [_currentViewState update];
     }
+}
+
+- (void)redrawCurrentViewState {
+    [_currentViewState activate];
 }
 
 - (ExpectedUserUtterances *)expectedUserUtterances {

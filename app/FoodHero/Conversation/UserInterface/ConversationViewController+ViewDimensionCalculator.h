@@ -12,4 +12,6 @@
 - (NSInteger)userInputListHeight;
 
 - (NSInteger)bubbleViewHeight;
+
++ (void)applicationDidChangeStatusBarFrame:(CGRect)oldStatusBarFrame;
 @end
