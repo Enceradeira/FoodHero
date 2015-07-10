@@ -287,7 +287,6 @@
 		8FCBADE819614B83001ED357 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FCBADF019614B83001ED357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBADEE19614B83001ED357 /* InfoPlist.strings */; };
 		8FCBBDCB1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */; };
-		8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */; };
 		8FD5316D199CA325002519B1 /* RestaurantSearchWithStubTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5316C199CA325002519B1 /* RestaurantSearchWithStubTests.m */; };
 		8FD5A13A1995F86C009B9E39 /* Like-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */; };
 		8FD5A1401995FF24009B9E39 /* Empty-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */; };
@@ -305,6 +304,7 @@
 		8FE35F1119FAAED8007CE198 /* directions-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE35F0E19FAAED8007CE198 /* directions-icon-transparent@2x.png */; };
 		8FE35F1219FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE35F0F19FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png */; };
 		8FE35F1319FAAED8007CE198 /* world-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE35F1019FAAED8007CE198 /* world-icon-transparent@2x.png */; };
+		8FE935111B4FD2DD00A9AF6E /* Cuttlery-Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE935101B4FD2DD00A9AF6E /* Cuttlery-Background@2x.png */; };
 		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
@@ -722,7 +722,6 @@
 		8FCBADED19614B83001ED357 /* FoodHeroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroTests-Info.plist"; sourceTree = "<group>"; };
 		8FCBADEF19614B83001ED357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConversationBubble-FoodHero@2x.png"; sourceTree = "<group>"; };
-		8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FD5316C199CA325002519B1 /* RestaurantSearchWithStubTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearchWithStubTests.m; sourceTree = "<group>"; };
 		8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Like-Icon@2x.png"; sourceTree = "<group>"; };
 		8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Empty-Icon@2x.png"; sourceTree = "<group>"; };
@@ -740,6 +739,7 @@
 		8FE35F0E19FAAED8007CE198 /* directions-icon-transparent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "directions-icon-transparent@2x.png"; sourceTree = "<group>"; };
 		8FE35F0F19FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "phone-receiver-icon-transparent@2x.png"; sourceTree = "<group>"; };
 		8FE35F1019FAAED8007CE198 /* world-icon-transparent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world-icon-transparent@2x.png"; sourceTree = "<group>"; };
+		8FE935101B4FD2DD00A9AF6E /* Cuttlery-Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cuttlery-Background@2x.png"; sourceTree = "<group>"; };
 		8FEA3BF519CB4E4D00C67DDD /* FoodHeroIntegrationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodHeroIntegrationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroIntegrationsTests-Info.plist"; sourceTree = "<group>"; };
 		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1543,6 +1543,7 @@
 				8FE109D61A062D4A0059C4D0 /* rating-stars-4.0@2x.png */,
 				8FE109D71A062D4A0059C4D0 /* rating-stars-4.5@2x.png */,
 				8FE109D81A062D4A0059C4D0 /* rating-stars-5.0@2x.png */,
+				8FE935101B4FD2DD00A9AF6E /* Cuttlery-Background@2x.png */,
 				8FC51ED119DED09A00B39ACC /* world-icon@2x.png */,
 				8FD5A13F1995FF24009B9E39 /* Empty-Icon@2x.png */,
 				8FD5A1371995F86C009B9E39 /* Like-Icon@2x.png */,
@@ -1553,7 +1554,6 @@
 				8FE35F0F19FAAED8007CE198 /* phone-receiver-icon-transparent@2x.png */,
 				8FE35F1019FAAED8007CE198 /* world-icon-transparent@2x.png */,
 				8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */,
-				8FD0E05519689583002128EB /* Cuttlery-Background@2x.png */,
 				8FCBADD819614B83001ED357 /* main.m */,
 				8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */,
 			);
@@ -1728,7 +1728,6 @@
 				8FE109E01A062D4A0059C4D0 /* rating-stars-3.5@2x.png in Resources */,
 				8FE109DB1A062D4A0059C4D0 /* rating-stars-1.0@2x.png in Resources */,
 				8FD5A1401995FF24009B9E39 /* Empty-Icon@2x.png in Resources */,
-				8FD0E05619689583002128EB /* Cuttlery-Background@2x.png in Resources */,
 				8FD5A13A1995F86C009B9E39 /* Like-Icon@2x.png in Resources */,
 				8FB1496C1B3D5A11001CAA14 /* LaunchScreen.storyboard in Resources */,
 				8FE109E11A062D4A0059C4D0 /* rating-stars-4.0@2x.png in Resources */,
@@ -1742,6 +1741,7 @@
 				8F5474521961797F00843FEE /* Main.storyboard in Resources */,
 				8FE109DA1A062D4A0059C4D0 /* rating-stars-0.5@2x.png in Resources */,
 				8FCBADD719614B83001ED357 /* InfoPlist.strings in Resources */,
+				8FE935111B4FD2DD00A9AF6E /* Cuttlery-Background@2x.png in Resources */,
 				8FE109E31A062D4A0059C4D0 /* rating-stars-5.0@2x.png in Resources */,
 				8FE35F1319FAAED8007CE198 /* world-icon-transparent@2x.png in Resources */,
 				8FE109DE1A062D4A0059C4D0 /* rating-stars-2.5@2x.png in Resources */,

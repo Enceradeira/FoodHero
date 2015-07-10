@@ -48,7 +48,7 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     //backgroundImage = [backgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeTile]; // otherwise picture is displayed compressed if to big
 
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
-    [backgroundView setContentMode:UIViewContentModeScaleAspectFill];
+    [backgroundView setContentMode:UIViewContentModeBottomLeft];
     return backgroundView;
 }
 
