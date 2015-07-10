@@ -74,12 +74,17 @@ task :install do
   XCodeBuildAction.new(:install).execute!('FoodHero')
 end
 
-desc 'Run all fast tests'
-task :test => [:clean, :check_appium_server, :xc_unit_tests, :acceptance_tests, :notify_build_succeeded] do
+desc 'Runs all app tests (without acceptance)'
+task :app_tests => [:clean, :xc_unit_tests, :xc_integration_tests, :notify_build_succeeded] do
+end
+
+desc 'Run all web tests (without acceptance)'
+task :web_tests do
+  BuildAction.execute!('rvm in ./web do rake')
 end
 
 desc 'Run all tests'
-task :test_all => [:clean, :check_appium_server, :xc_unit_tests, :xc_integration_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
+task :test_all => [:clean, :check_appium_server, :xc_unit_tests, :xc_integration_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
 end
 
 desc 'checks appium-server'
