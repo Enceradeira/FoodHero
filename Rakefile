@@ -83,6 +83,11 @@ task :web_tests do
   BuildAction.execute!('rvm in ./web do rake')
 end
 
+desc 'Deploys the web'
+task :deploy_web do
+  BuildAction.execute!('rvm in ./web do rake deploy')
+end
+
 desc 'Run all tests'
 task :test_all => [:clean, :check_appium_server, :xc_unit_tests, :xc_integration_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
 end
@@ -100,19 +105,19 @@ task :check_appium_server do
 end
 
 desc 'Creates an archive for app deployment'
-task :archive do
+task :archive_app do
   BuildAction.execute!("rm -r -f #{AppPaths.archive_path}")
   XCodeBuildAction.new(:archive).archive!('FoodHero')
   XCodeBuildAction.new(:export_archive!).export_archive!('FoodHero')
 end
 
 desc 'Uploads the latest build archive to iTunesConnect'
-task :upload do
+task :upload_app do
   BuildAction.execute!("'#{AppPaths.altool_path}' --upload-app -f ./#{AppPaths.archive_path}/FoodHero.ipa -u #{AppPaths.i_tunes_connect_user} -p #{AppPaths.i_tunes_connect_pwd}")
 end
 
-desc 'Tests the app creates an archive and uploads it to iTunesConnect'
-task :publish => [:test_all, :archive, :upload] do
+desc 'Tests the app creates, archive and uploads it to iTunesConnect, deploys web to Heroku'
+task :publish => [:test_all, :archive_app, :upload_app, :deploy_web] do
 end
 
 task :default => [:test_all] do
