@@ -43,6 +43,10 @@
     assertThatBool([_environment isVersionOrHigher:8 minor:0], is(equalTo(@false)));
 }
 
+-(void)test_isRunningInSimulator_ShouldReturnTrue{
+    assertThatBool([Environment isRunningInSimulator], is(equalTo(@true)));
+}
+
 
 
 @end

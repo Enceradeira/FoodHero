@@ -5,6 +5,8 @@
 
 #import "Environment.h"
 
+NSString * const UrlFhPlacesApiInProduction = @"http://foodheroweb.herokuapp.com";
+NSString * const UrlFhPlacesApiInIntegration = @"http://localhost:3001/";
 
 @implementation Environment {
 
@@ -35,5 +37,12 @@
             return YES;
     }
 }
+
++ (BOOL)isRunningInSimulator {
+    UIDevice *device = [UIDevice currentDevice];
+    NSString *string = [device model];
+    return [string rangeOfString:@"Simulator"].location != NSNotFound;
+}
+
 
 @end

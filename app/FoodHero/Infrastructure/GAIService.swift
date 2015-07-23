@@ -9,7 +9,7 @@ public class GAIService: NSObject {
     private static var _tracker: GAITracker! = nil
 
     public class func configure(completion: () -> ()) {
-        let isInSimulator = UIDevice.currentDevice().model.rangeOfString("Simulator") != nil
+        let isInSimulator = Environment.isRunningInSimulator()
 
         GAI.sharedInstance().dryRun = isInSimulator
         GAI.sharedInstance().trackUncaughtExceptions = true

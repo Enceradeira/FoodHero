@@ -19,7 +19,6 @@
 #import "WITRecordingSession.h"
 #import "WitSpeechRecognitionService.h"
 #import "AudioSession.h"
-#import "FoodHero-Swift.h"
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantPhotoViewController.h"
 #import "RestaurantReviewSummaryViewController.h"
@@ -45,7 +44,7 @@
     ];
 }
 
--(id)restaurantPhotoViewController{
+- (id)restaurantPhotoViewController {
     return [TyphoonDefinition
             withClass:[RestaurantPhotoViewController class] configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setSchedulerFactory:) parameters:^(TyphoonMethod *method) {
@@ -56,7 +55,7 @@
     ];
 }
 
--(id)restaurantReviewSummaryViewController{
+- (id)restaurantReviewSummaryViewController {
     return [TyphoonDefinition
             withClass:[RestaurantReviewSummaryViewController class] configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setSchedulerFactory:) parameters:^(TyphoonMethod *method) {
@@ -67,7 +66,7 @@
     ];
 }
 
--(id)restaurantMapViewController{
+- (id)restaurantMapViewController {
     return [TyphoonDefinition
             withClass:[RestaurantMapViewController class] configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setLocationService:) parameters:^(TyphoonMethod *method) {
@@ -78,7 +77,7 @@
     ];
 }
 
--(id)suggestionLikedController{
+- (id)suggestionLikedController {
     return [TyphoonDefinition
             withClass:[SuggestionLikedController class] configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setEnvironment:) parameters:^(TyphoonMethod *method) {
@@ -88,7 +87,6 @@
             }
     ];
 }
-
 
 
 - (id)conversationViewController {
@@ -124,10 +122,17 @@
 }
 
 - (id)placesAPI {
+    NSString *baseUrl;
+    if ([Environment isRunningInSimulator]) {
+        baseUrl = UrlFhPlacesApiInIntegration;
+    }
+    else {
+        baseUrl = UrlFhPlacesApiInProduction;
+    }
     return [TyphoonDefinition withClass:[FHPlacesAPI class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithBaseUrl:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:@"http://foodheroweb.herokuapp.com"];
+                                  [method injectParameterWith:baseUrl];
                               }];
                           }];
 }

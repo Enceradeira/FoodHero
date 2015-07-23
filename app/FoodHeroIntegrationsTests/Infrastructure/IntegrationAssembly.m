@@ -12,7 +12,6 @@
 #import "DefaultSchedulerFactory.h"
 #import "RestaurantDetailViewController.h"
 #import "Environment.h"
-#import "FoodHero-Swift.h"
 #import "IntegrationAssembly.h"
 #import "CLLocationManagerProxyStub.h"
 #import "AudioSessionStub.h"
@@ -64,7 +63,7 @@
     ];
 }
 
--(id)restaurantMapViewController{
+- (id)restaurantMapViewController {
     return [TyphoonDefinition
             withClass:[RestaurantMapViewController class] configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setLocationService:) parameters:^(TyphoonMethod *method) {
@@ -75,7 +74,7 @@
     ];
 }
 
--(id)suggestionLikedController{
+- (id)suggestionLikedController {
     return [TyphoonDefinition
             withClass:[SuggestionLikedController class] configuration:^(TyphoonDefinition *definition) {
                 [definition injectMethod:@selector(setEnvironment:) parameters:^(TyphoonMethod *method) {
@@ -217,7 +216,7 @@
     return [TyphoonDefinition withClass:[FHPlacesAPI class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithBaseUrl:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:@"http://localhost:3001/"];
+                                  [method injectParameterWith:UrlFhPlacesApiInIntegration];
                               }];
                           }];
 }
