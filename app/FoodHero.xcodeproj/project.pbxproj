@@ -60,7 +60,6 @@
 		2352533AAC70CB3332E4591D /* ConversationSourceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256A426D9D5223B2D9103 /* ConversationSourceSpy.m */; };
 		23525341AEBA67717DB93A76 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525571F0DDE4CE1AB185D9 /* Restaurant.m */; };
 		23525343DA0FC7FD2971253B /* TalkerRandomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525AAFFB1D73A549EFCE1A /* TalkerRandomizer.swift */; };
-		2352536443817FE2A185A44F /* IntegrationAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525F0D9052167CD36FC9FC /* IntegrationAssembly.m */; };
 		23525376A2F25F9B522550D4 /* AlwaysImmediateSchedulerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC8C07D9998AC2FE292 /* AlwaysImmediateSchedulerFactory.m */; };
 		235253888AACFD29818CA386 /* RatingStarsImageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259706EC64A29C0B15763 /* RatingStarsImageRepository.m */; };
 		235253AF3E682DEE15F23D36 /* SearchProfileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */; };
@@ -192,7 +191,6 @@
 		235259C3B1E36DEDE9FF3252 /* OptionalUtterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */; };
 		235259C6504DCFFEDC859572 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525B82B4D5C24B64BE6194 /* NetworkError.swift */; };
 		235259FBBD89F12F72A85435 /* RestaurantReviewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FACC259ED0EB0E1B16A /* RestaurantReviewBuilder.m */; };
-		235259FF480EB6270DEC655A /* StubAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251A6990E7DD0093B2A61 /* StubAssembly.m */; };
 		23525A10E31DC5EC0D5F0AF5 /* ConversationParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352598F1553AECC5A220259 /* ConversationParameters.swift */; };
 		23525A1FA1D5FF8FE4DDDD60 /* RestaurantReviewSummaryViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235255FDE516F11DD004FBD0 /* RestaurantReviewSummaryViewControllerTests.m */; };
 		23525A21DF5C75463697C94F /* ConversationCantAccessLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */; };
@@ -2068,7 +2066,6 @@
 				23525A5C3592B89EE8B116FC /* RestaurantRepositoryTests.m in Sources */,
 				235253AF3E682DEE15F23D36 /* SearchProfileTests.m in Sources */,
 				23525A2F1CA3FAD97EC6DC45 /* KeywordEncoderTests.m in Sources */,
-				2352536443817FE2A185A44F /* IntegrationAssembly.m in Sources */,
 				2352585E85069053B955DB26 /* HCIsExceptionOfType.m in Sources */,
 				23525376A2F25F9B522550D4 /* AlwaysImmediateSchedulerFactory.m in Sources */,
 				235254942B06ED74508069B4 /* StubAssembly.m in Sources */,
@@ -2141,7 +2138,6 @@
 				235257BE5E61CA1B23DC6694 /* AlwaysImmediateSchedulerFactory.m in Sources */,
 				235251EE92383E27DE80754D /* HCIsExceptionOfType.m in Sources */,
 				235259B0D6C763FCF25F830B /* IntegrationAssembly.m in Sources */,
-				235259FF480EB6270DEC655A /* StubAssembly.m in Sources */,
 				23525A8C5D6D2056ADFD9AA9 /* CLLocationManagerProxySpy.m in Sources */,
 				2352554402210AAFC9813ABA /* CLLocationManagerProxyStub.m in Sources */,
 				23525A4E535E7AA1836D506A /* RestaurantSearchServiceSpy.m in Sources */,
