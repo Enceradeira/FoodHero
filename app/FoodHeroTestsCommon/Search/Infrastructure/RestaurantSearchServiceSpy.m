@@ -19,15 +19,6 @@
     return self;
 }
 
-- (bool)findPlacesWasCalledWithLocation:(CLLocationCoordinate2D)location {
-    return self.findPlacesParameter != nil && self.findPlacesParameter.coordinate.latitude == location.latitude && self.findPlacesParameter.coordinate.longitude == location.longitude;
-}
-
-- (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
-    _findPlacesParameter = parameter;
-    return [NSArray new];
-}
-
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(ResolvedSearchLocation *)location {
     _nrCallsToGetRestaurantForPlace++;
     return [[RestaurantBuilder alloc] build];

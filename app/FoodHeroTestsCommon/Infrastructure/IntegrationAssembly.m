@@ -152,8 +152,9 @@
 - (id)restaurantRepository {
     return [TyphoonDefinition withClass:[RestaurantRepository class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSearchService:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithSearchService:placesAPI:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantSearchService]];
+                                  [method injectParameterWith:[self placesAPI]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];
@@ -210,6 +211,15 @@
 
 - (id)geocoderService {
     return [TyphoonDefinition withClass:[GeocoderService class]];
+}
+
+- (id)placesAPI {
+    return [TyphoonDefinition withClass:[FHPlacesAPI class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithBaseUrl:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:@"http://localhost:3001/"];
+                              }];
+                          }];
 }
 
 

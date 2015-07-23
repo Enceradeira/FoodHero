@@ -47,4 +47,6 @@
 
 -(id)geocoderService;
 
+-(id)placesAPI;
+
 @end

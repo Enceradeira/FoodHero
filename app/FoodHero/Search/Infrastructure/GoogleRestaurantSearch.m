@@ -6,9 +6,7 @@
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import <ReactiveCocoa.h>
 #import "GoogleRestaurantSearch.h"
-#import "DesignByContractException.h"
 #import "SearchException.h"
-#import "KeywordEncoder.h"
 #import "GoogleOpeningHours.h"
 #import "GoogleURL.h"
 #import "GoogleDefinitions.h"
@@ -44,86 +42,6 @@
     if (error != nil) {
         @throw [SearchException createWithReason:[NSString stringWithFormat:@"Search failed: %@", error.description]];
     }
-}
-
-- (NSMutableArray *)findPlaces:(RestaurantSearchParams *)parameter {
-    CLLocationDistance radius = parameter.radius;
-    CLLocationCoordinate2D coordinate = parameter.coordinate;
-
-    if (radius > GOOGLE_MAX_SEARCH_RADIUS) {
-        @throw [DesignByContractException createWithReason:[NSString stringWithFormat:@"radius %f is greater that GOOGLE_MAX_SEARCH_RADIUS", radius]];
-    }
-
-    NSArray *types = [OccasionToGoogleTypeMapper map:parameter.cuisineAndOccasion.occasion];
-    NSString *typesAsString = [types componentsJoinedByString:@"%7C" /*pipe-character*/];
-    NSString *keyword = [KeywordEncoder encodeString:parameter.cuisineAndOccasion.cuisine];
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/radarsearch/json?keyword=%@&location=%f,%f&radius=%u&minprice=%u&maxprice=%u&types=%@&key=%@%@",
-                                                       _baseAddress,
-                                                       keyword,
-                                                       coordinate.latitude,
-                                                       coordinate.longitude,
-                                                       (unsigned int) radius,
-                                                       (unsigned int) parameter.minPriceLevel,
-                                                       (unsigned int) parameter.maxPriceLevel,
-                                                       typesAsString,
-                                                       GOOGLE_API_KEY,
-                                                       _onlyOpenNow ? @"&opennow" : @""];
-
-
-    NSLog(@"GoogleRestaurantSearch.findPlaces: %@", placeString);
-
-    __block NSDictionary *json;
-    NSError *error;
-    RACSignal *fetchSignal = [self fetchJSON:placeString];
-    [fetchSignal subscribeNext:^(NSDictionary *j) {
-        json = j;
-    }];
-    [fetchSignal waitUntilCompleted:&error];
-    [self handleError:error];
-
-    NSMutableArray *restaurants = [NSMutableArray new];
-    NSArray *places = json[@"results"];
-
-    /* Following calculations assigns a relevance. The first places in the result-sets are more relevant.
-     * Furthermore it accounts for the fact that when using a greater radius results seem to become less
-     * specific therefore less relevant.
-     *
-     * minRelevance = radius * n + 1
-     * 0            = radius * n + 1 ¦ radius == GOOGLE_MAX_SEARCH_RADIUS
-     * n            = -1 / GOOGLE_MAX_SEARCH_RADIUS
-     * minRelevance = (radius * -1 / GOOGLE_MAX_SEARCH_RADIUS) + 1
-     * */
-    double minRelevance = (-radius / GOOGLE_MAX_SEARCH_RADIUS) + 1;
-
-    /* Following we calculate a linear function that assign relevance 1 to the first
-     *  and relevance minRelevance to the last element
-     *
-     * relevance(place) = n*index(place) + 1
-     * n = (relevance(place) - 1) / index(place)
-    */
-    double n;
-    if (places.count > 1) {
-        n = (minRelevance - 1) / (places.count - 1);  // for most irrelevant place (last one)
-    }
-
-    else {
-        n = 0;
-    }
-
-    for (NSUInteger i = 0; i < places.count; i++) {
-        NSDictionary *place = places[i];
-
-        NSDictionary *geometryDic = [place valueForKey:@"geometry"];
-        NSDictionary *locationDic = [geometryDic valueForKey:@"location"];
-        double relevance = (n * i) + 1;
-
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[locationDic valueForKey:@"lat"] doubleValue]
-                                                          longitude:[[locationDic valueForKey:@"lng"] doubleValue]];
-        [restaurants addObject:[GooglePlace createWithPlaceId:[place valueForKey:@"place_id"]
-                                                     location:location
-                                             cuisineRelevance:relevance]];
-    }
-    return restaurants;
 }
 
 - (Restaurant *)createRestaurantFromPlace:(GooglePlace *)place details:(NSArray *)details distance:(RestaurantDistance *)distance {
@@ -299,61 +217,4 @@
         }];
     }];
 }
-
-
-/*
-- (NSArray *)find2:(RestaurantSearchParams *)parameter {
-
-    CLLocationCoordinate2D coordinate = parameter.location;
-
-    NSArray *types = [NSArray arrayWithObjects:@"restaurant", @"cafe", @"food", nil];
-    NSString *typesAsString = [types componentsJoinedByString:@"%7C"];
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=%u&sensor=false&types=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", coordinate.latitude, coordinate.longitude, parameter.radius, typesAsString];
-    NSURL *placeURL = [NSURL URLWithString:placeString];
-
-    NSError *error;
-    NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
-
-    NSDictionary *json;
-    @try {
-        json = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-    }
-    @catch (NSException *exp) {
-        @throw;
-    }
-
-    NSArray *places = [json objectForKey:@"results"];
-    NSMutableArray *restaurants = [NSMutableArray new];
-
-    for (NSDictionary *place in places) {
-
-        [restaurants addObject:[Restaurant
-                createWithName:[place valueForKey:@"name"]
-                      vicinity:[place valueForKey:@"vicinity"]
-                         types:[place valueForKey:@"types"]
-                       placeId:[place valueForKey:@"place_id"]
-        ]];
-    }
-    return restaurants;
-}
-
-- (void)textsearch {
-    NSString *placeString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=indian+restaurant&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
-    NSURL *placeURL = [NSURL URLWithString:placeString];
-
-    NSError *error;
-    NSData *responseData = [NSData dataWithContentsOfURL:placeURL options:NSDataReadingMappedIfSafe error:&error];
-
-    NSDictionary *json;
-    @try {
-        json = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-    }
-    @catch (NSException *exp) {
-        @throw;
-    }
-}
-
-*/
-
-
 @end

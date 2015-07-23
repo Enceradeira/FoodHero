@@ -10,11 +10,18 @@ import FoodHero
 class FHPlacesAPITests: XCTestCase {
 
     let _norwich = CLLocation(latitude: 52.629539, longitude: 1.302700)
+    var _api: FHPlacesAPI! = nil
+
+    override func setUp() {
+        super.setUp()
+
+        let assembly = IntegrationAssembly()
+        TyphoonComponents.configure(assembly)
+        _api = assembly.placesAPI() as! FHPlacesAPI
+    }
 
     func test_findPlaces_ShouldReturnSomething() {
-        let api = FHPlacesAPI(baseUrl: "http://localhost:3001/")
-
-        let result: AnyObject = api.findPlaces("Indian", occasion: "dinner", location: _norwich)
+        let result: AnyObject = _api.findPlaces("Indian", occasion: "dinner", location: _norwich)
 
         XCTAssertTrue(result is [Place])
         let places = result as! [Place]

@@ -10,8 +10,6 @@
 @class ResolvedSearchLocation;
 
 @protocol RestaurantSearchService <NSObject>
-- (NSArray *)findPlaces:(RestaurantSearchParams *)parameter;
-
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(ResolvedSearchLocation *)location;
 
 - (void)simulateNetworkError:(BOOL)simulationEnabled;

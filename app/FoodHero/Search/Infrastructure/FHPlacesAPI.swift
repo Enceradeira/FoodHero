@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class FHPlacesAPI: NSObject {
+public class FHPlacesAPI: NSObject, IPlacesAPI {
     private let _urlBuilder: FHPlacesUrlBuilder
     private let _queue: NSOperationQueue
 
@@ -24,10 +24,7 @@ public class FHPlacesAPI: NSObject {
 
         let url = NSURL(string: urlString)!
         let request = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 60)
-        /*let conn = NSURLConnection.sendSynchronousRequest(request, queue: _queue) {
-            (response: NSURLResponse!, data: NSData!) in
 
-        } */
         var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
         var error: NSError?
         var dataVal: NSData? = NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: &error)
@@ -53,6 +50,4 @@ public class FHPlacesAPI: NSObject {
             return Place(placeId: placeId, location: location, priceLevel: priceLevel, cuisineRelevance: cuisineRelevance)
         }
     }
-
-
 }

@@ -5,10 +5,7 @@
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantRepository.h"
-#import "RadiusCalculator.h"
-#import "SearchProfile.h"
 #import "SearchException.h"
-#import "GoogleDefinitions.h"
 #import "FoodHero-Swift.h"
 
 @implementation RestaurantRepository {
@@ -19,11 +16,13 @@
     NSMutableDictionary *_restaurantsCached;
     BOOL _isSimulatingNoRestaurantFound;
     NSTimeInterval _responseDelay;
+    id<IPlacesAPI> _placesAPI;
 }
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService {
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService placesAPI:(id<IPlacesAPI>) placesAPI {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
+        _placesAPI = placesAPI;
         _restaurantsCached = [NSMutableDictionary new];
         _isSimulatingNoRestaurantFound = NO;
         _responseDelay = 0;
@@ -56,7 +55,7 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
             NSDate *startTime = [NSDate date];
             @try {
-                _placesCached = [self fetchPlaces:parameter currentLocation:location];
+                _placesCached = [_placesAPI findPlaces:parameter.cuisine occasion:parameter.occasion location:parameter.location];
             }
             @catch (SearchException *exc) {
                 _placesCached = nil; // return nil; therefor error will be returned
@@ -73,67 +72,6 @@
         // yields all places as first element in sequence
         return _placesCached;
     }
-}
-
-- (NSArray *)fetchPlaces:(CuisineAndOccasion *)cuisineAndOccasion currentLocation:(CLLocation *)currentLocation {
-
-
-
-    // Determine optimal Radius by fetching over all price-levels to ensure results specific for cuisine
-    __block double optimalRadius = GOOGLE_MAX_SEARCH_RADIUS;
-    NSArray *placesOfAllPriceLevels = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {
-        RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-        parameter.coordinate = currentLocation.coordinate;
-        parameter.radius = radius;
-        parameter.cuisineAndOccasion = cuisineAndOccasion;
-        parameter.minPriceLevel = GOOGLE_PRICE_LEVEL_MIN;
-        parameter.maxPriceLevel = GOOGLE_PRICE_LEVEL_MAX;
-        optimalRadius = radius;
-        return [_searchService findPlaces:parameter];
-    }];
-
-    GooglePlace *(^getFromPlacesOfAllPriceLevels)(NSString *) = ^(NSString *placeId) {
-        return [[placesOfAllPriceLevels linq_where:^(GooglePlace *p2) {
-            return [p2.placeId isEqualToString:placeId];
-        }] linq_firstOrNil];
-    };
-
-    // Fetch per price Levels 1-4 (0 will be reconstructed below)
-    NSMutableArray *places = [NSMutableArray new];
-    for (NSUInteger priceLevel = GOOGLE_PRICE_LEVEL_MIN + 1; priceLevel <= GOOGLE_PRICE_LEVEL_MAX; priceLevel++) {
-        RestaurantSearchParams *parameter = [RestaurantSearchParams new];
-        parameter.coordinate = currentLocation.coordinate;
-        parameter.radius = optimalRadius;
-        parameter.cuisineAndOccasion = cuisineAndOccasion;
-        parameter.minPriceLevel = priceLevel;
-        parameter.maxPriceLevel = priceLevel;
-
-        NSArray *placesOfLevel = [[[[_searchService findPlaces:parameter]
-                linq_select:^(GooglePlace *p) {
-                    return getFromPlacesOfAllPriceLevels(p.placeId);
-                }]
-                linq_where:^(GooglePlace *p) {
-                    return (BOOL) ![p isKindOfClass:[NSNull class]];
-                }]
-                linq_select:^(GooglePlace *p) {
-                    return [Place create:p.placeId location:p.location priceLevel:priceLevel cuisineRelevance:p.cuisineRelevance];
-                }];
-
-
-        [places addObjectsFromArray:placesOfLevel];
-    }
-
-    // all that were not level 1-4 are level 0 (we get wrong results if we query level 0 directly??)
-    NSArray *placesOfLevel0 = [[placesOfAllPriceLevels linq_where:^(Place *p1) {
-        return (BOOL) ![places linq_any:^(Place *p2) {
-            return [p1.placeId isEqualToString:p2.placeId];
-        }];
-    }] linq_select:^(GooglePlace *p) {
-        return [Place create:p.placeId location:p.location priceLevel:GOOGLE_PRICE_LEVEL_MIN cuisineRelevance:p.cuisineRelevance];
-    }];
-
-    [places addObjectsFromArray:placesOfLevel0];
-    return places;
 }
 
 - (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(ResolvedSearchLocation *)searchLocation {

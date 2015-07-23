@@ -26,6 +26,7 @@
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantPhotoViewController.h"
 #import "RestaurantReviewSummaryViewController.h"
+#import "FoodHeroTests-Swift.h"
 
 @implementation StubAssembly
 
@@ -158,8 +159,9 @@
 - (id)restaurantRepository {
     return [TyphoonDefinition withClass:[RestaurantRepository class]
                           configuration:^(TyphoonDefinition *definition) {
-                              [definition useInitializer:@selector(initWithSearchService:) parameters:^(TyphoonMethod *method) {
+                              [definition useInitializer:@selector(initWithSearchService:placesAPI:) parameters:^(TyphoonMethod *method) {
                                   [method injectParameterWith:[self restaurantSearchService]];
+                                  [method injectParameterWith:[self placesAPI]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
                           }];
@@ -207,6 +209,10 @@
 
 - (id)geocoderService {
     return [TyphoonDefinition withClass:[GeocoderServiceStub class]];
+}
+
+- (id)placesAPI {
+    return [TyphoonDefinition withClass:[PlacesAPIStub class]];
 }
 
 

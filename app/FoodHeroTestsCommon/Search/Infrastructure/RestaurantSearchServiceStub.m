@@ -56,47 +56,6 @@
     _searchResults = restaurantsAtRadius;
 }
 
-- (NSArray *)findPlaces:(RestaurantSearchParams *)parameter {
-    [self simulateException];
-    NSArray *result = [self getRestaurantsByRadius:parameter.radius minPriceLevel:parameter.minPriceLevel maxPricelLevel:parameter.maxPriceLevel];
-    return [result linq_select:^(Restaurant *r) {
-        return [GooglePlace createWithPlaceId:r.placeId location:r.location cuisineRelevance:r.cuisineRelevance];
-    }];
-}
-
-- (NSArray *)getRestaurantsByRadius:(double)searchRadius minPriceLevel:(NSUInteger)minPriceLevel maxPricelLevel:(NSUInteger)maxPriceLevel {
-    if (_findReturnsNil) {
-        return [NSArray new];
-    }
-    if (_searchResults != nil) {
-        NSArray *result = [[_searchResults linq_where:^BOOL(RestaurantsInRadiusAndPriceRange *r) {
-            return r.radius <= searchRadius && r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel;
-        }] linq_selectMany:^(RestaurantsInRadiusAndPriceRange *r) {
-            return r.restaurants;
-        }];
-        return result == nil ? @[] : result;
-    }
-    else {
-        if (_ownSearchResults == nil) {
-            _ownSearchResults = @[
-                    [[[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Raj Palace"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Thai Inn"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Drunken Monk"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Vegi Castle"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Sausages & Cows"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Walumpo"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Chinese Take Away"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Posh Food"] withVicinity:@"Norwich"] build],
-                    [[[[RestaurantBuilder alloc] withName:@"Dal Fury"] withVicinity:@"Norwich"] build]
-            ];
-        }
-        return [_ownSearchResults linq_where:^(Restaurant *r) {
-            return (BOOL) (r.priceLevel >= minPriceLevel && r.priceLevel <= maxPriceLevel);
-        }];
-    }
-}
-
 - (Restaurant *)getRestaurantForPlace:(GooglePlace *)place searchLocation:(ResolvedSearchLocation *)location {
     [self simulateException];
     if (!_findReturnsNil) {
@@ -140,10 +99,6 @@
 - (void)injectFindSomething {
     [self reset];
     _findReturnsNil = NO;
-}
-
-- (void)injectException:(SearchException *)exception {
-    _exception = exception;
 }
 
 - (void)simulateException {

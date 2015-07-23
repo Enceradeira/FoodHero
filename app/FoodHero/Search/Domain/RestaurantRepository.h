@@ -9,8 +9,9 @@
 #import "IRestaurantRepository.h"
 
 @protocol ISchedulerFactory;
+@protocol IPlacesAPI;
 
 
-@interface RestaurantRepository : NSObject<IRestaurantRepository>
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService;
+@interface RestaurantRepository : NSObject <IRestaurantRepository>
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService placesAPI:(id <IPlacesAPI>)placesAPI;
 @end
