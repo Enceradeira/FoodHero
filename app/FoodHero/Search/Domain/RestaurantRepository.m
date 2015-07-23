@@ -76,6 +76,9 @@
 }
 
 - (NSArray *)fetchPlaces:(CuisineAndOccasion *)cuisineAndOccasion currentLocation:(CLLocation *)currentLocation {
+
+
+
     // Determine optimal Radius by fetching over all price-levels to ensure results specific for cuisine
     __block double optimalRadius = GOOGLE_MAX_SEARCH_RADIUS;
     NSArray *placesOfAllPriceLevels = [RadiusCalculator doUntilRightNrOfElementsReturned:^(double radius) {

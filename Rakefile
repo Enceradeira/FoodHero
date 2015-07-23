@@ -4,7 +4,6 @@ require 'nokogiri'
 require_relative 'lib/app_paths'
 require_relative 'lib/build_action'
 require_relative 'lib/x_code_build_action'
-require_relative 'lib/appium_server'
 
 Cucumber::Rake::Task.new do |t|
   t.cucumber_opts = %w{--format pretty --tags ~@ignore}
@@ -43,7 +42,7 @@ task :prepare_iOS_simulator do
 end
 
 desc 'Clean the build'
-task :clean do
+task :clean => [:stop_appium, :stop_web_envs] do
   XCodeBuildAction.new(:clean).execute!('FoodHero')
   XCodeBuildAction.new(:clean).execute!('FoodHeroTests')
   XCodeBuildAction.new(:clean).execute!('FoodHeroIntegrationsTests')
@@ -56,12 +55,12 @@ task :xc_unit_tests => [:prepare_iOS_simulator] do
 end
 
 desc 'Run XCode integration-tests'
-task :xc_integration_tests => [:prepare_iOS_simulator] do
+task :xc_integration_tests => [:prepare_iOS_simulator, :start_web_integration_env] do
   XCodeBuildAction.new(:test).execute!('FoodHeroIntegrationsTests')
 end
 
 desc 'Run Cucumber acceptance-tests'
-task :acceptance_tests => [:check_appium_server, :prepare_iOS_simulator, :install, :cucumber] do
+task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :install, :cucumber] do
 end
 
 desc 'Build everything'
@@ -78,7 +77,7 @@ desc 'Runs all app tests (without acceptance)'
 task :app_tests => [:clean, :xc_unit_tests, :xc_integration_tests, :notify_build_succeeded] do
 end
 
-desc 'Run all web tests (without acceptance)'
+desc 'Run all web tests'
 task :web_tests do
   BuildAction.execute!('rvm in ./web do rake')
 end
@@ -88,20 +87,35 @@ task :deploy_web do
   BuildAction.execute!('rvm in ./web do rake deploy')
 end
 
-desc 'Run all tests'
-task :test_all => [:clean, :check_appium_server, :xc_unit_tests, :xc_integration_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
+desc 'Start web integration environment (localhost:3001)'
+task :start_web_integration_env do
+  BuildAction.execute!('rvm in ./web do rake start_integration_env')
 end
 
-desc 'checks appium-server'
-task :check_appium_server do
+desc 'Start web development environment (localhost:3000)'
+task :start_web_development_env do
+  BuildAction.execute!('rvm in ./web do rake start_development_env')
+end
 
-  unless AppiumServer.is_running?
-    message = "Appium-Server is not running. Start Appium-Server with 'appium'"
-    puts message.red.bold
-    raise StandardError.new message
+desc 'Stop web environments'
+task :stop_web_envs do
+  BuildAction.execute!('rvm in ./web do rake stop_envs')
+end
+
+desc 'Starts appium'
+task :start_appium do
+  fork do
+    `appium`
   end
+end
 
-  #puts "CHECK APPIUM IS DISABLED!".yellow.bold
+desc 'Stops appium'
+task :stop_appium do
+  `ps | grep -e '.*/appium$'| awk '{print "kill " $1}' | sh`
+end
+
+desc 'Run all tests'
+task :test_all => [:app_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
 end
 
 desc 'Creates an archive for app deployment'

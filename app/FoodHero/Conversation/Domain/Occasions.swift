@@ -112,9 +112,9 @@ public class Occasions: NSObject {
     }
 
     public class func guessFromCuisine(cuisine: String) -> String {
-        let normalizedCuisine = removeCharacterAtTheEndOfAString("s", string: cuisine.lowercaseString
-        .stringByReplacingOccurrencesOfString(" ", withString: "")
-        .stringByReplacingOccurrencesOfString("'", withString: ""))
+        let normalizedCuisine = cuisine.lowercaseString
+            .stringByReplacingOccurrencesOfString(" ", withString: "")
+            .stringByReplacingOccurrencesOfString("'", withString: "").stringByRemovingCharacterAtTheEnd("s")
 
         /* NOTE when adding new mappings:
             - Remove Space and Apostroph
@@ -147,22 +147,8 @@ public class Occasions: NSObject {
         }
 
         NSLog("Occasions.guessFromCuisine: no occasion guessed for \(cuisine)")
-        GAIService.logEventWithCategory(GAICategories.improvements(), action: GAIActions.improvementNoOccasionGuessedForCuisine(), label: cuisine, value:0)
+        GAIService.logEventWithCategory(GAICategories.improvements(), action: GAIActions.improvementNoOccasionGuessedForCuisine(), label: cuisine, value: 0)
         return ""
 
-    }
-
-    private class func removeCharacterAtTheEndOfAString(character: Character, string: String) -> String {
-        let len = count(string)
-        if len < 1 {
-            return string
-        }
-
-        let idx = advance(string.endIndex, -1)
-        if string[idx] == character {
-            return string.substringToIndex(idx)
-        } else {
-            return string
-        }
     }
 }
