@@ -21,10 +21,16 @@ public class PlacesAPIStub: NSObject, IPlacesAPI {
             RestaurantBuilder().withName("Dal Fury").withVicinity("Norwich").build(),
     ]
     private var _injectedResults: [Restaurant]? = nil
+    private var _injectedError: NSError? = nil
 
     public func findPlaces(cuisine: String, occasion: String, location: CLLocation) -> AnyObject {
+        if _injectedError != nil
+        {
+            return _injectedError!
+        }
+
         if _findSomething {
-            if _injectedResults != nil{
+            if _injectedResults != nil {
                 return _injectedResults!
             }
             return _ownSearchResult
@@ -36,11 +42,15 @@ public class PlacesAPIStub: NSObject, IPlacesAPI {
         _findSomething = false
     }
 
-    public func injectFindSomething(){
+    public func injectFindSomething() {
         _findSomething = true
     }
 
     public func injectFindResults(results: [Restaurant]) {
         _injectedResults = results;
+    }
+
+    public func injectError() {
+        _injectedError = NSError(domain: "PlacesAPIStub", code: 7, userInfo: nil)
     }
 }

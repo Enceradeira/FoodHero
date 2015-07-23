@@ -16,9 +16,9 @@
     NSMutableDictionary *_restaurantsCached;
     BOOL _isSimulatingNoRestaurantFound;
     NSTimeInterval _responseDelay;
-    id<IPlacesAPI> _placesAPI;
+    id <IPlacesAPI> _placesAPI;
 }
-- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService placesAPI:(id<IPlacesAPI>) placesAPI {
+- (instancetype)initWithSearchService:(id <RestaurantSearchService>)searchService placesAPI:(id <IPlacesAPI>)placesAPI {
     self = [super init];
     if (self != nil) {
         _searchService = searchService;
@@ -53,18 +53,20 @@
             [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
 
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
+
             NSDate *startTime = [NSDate date];
-            @try {
-                _placesCached = [_placesAPI findPlaces:parameter.cuisine occasion:parameter.occasion location:parameter.location];
-            }
-            @catch (SearchException *exc) {
+            id result = [_placesAPI findPlaces:parameter.cuisine occasion:parameter.occasion location:parameter.location];
+            NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
+            [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
+
+            if ([result isKindOfClass:[NSError class]]) {
                 _placesCached = nil; // return nil; therefor error will be returned
-                @throw;
+                NSError *error = result;
+                @throw [SearchException createWithReason:[error description]];
             }
-            @finally {
-                NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
-                [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
+            else {
+                _placesCached = result;
             }
         }
         // sleep a bit to test asynchronous behaviour of the app

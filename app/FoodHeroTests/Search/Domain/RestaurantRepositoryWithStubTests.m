@@ -74,6 +74,19 @@
     assertThat(place1, is(equalTo(place2)));
 }
 
+-(void) test_getPlaces_ShouldThrowSearchException_WhenPlacesAPIReturnsError{
+    [_placesAPI injectError];
+
+    @try{
+        CuisineAndOccasion *parameter = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+        [self.repository getPlacesBy:parameter];
+        assertThatBool(NO, is(equalTo(@YES)));
+    }
+    @catch(SearchException *){
+
+    }
+}
+
 - (void)test_getRestaurantForPlace_ShouldReturnRestaurantForPlace {
     Restaurant *restaurant = [[RestaurantBuilder alloc] build];
     [_placesAPI injectFindResults:@[restaurant]];
