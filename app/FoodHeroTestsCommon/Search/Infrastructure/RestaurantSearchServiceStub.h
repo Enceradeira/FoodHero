@@ -9,12 +9,4 @@
 #import "SearchException.h"
 
 @interface RestaurantSearchServiceStub : NSObject <RestaurantSearchService>
-- (void)injectFindResults:(NSArray *)restaurants;
-
-- (void)injectFindNothing;
-
-- (void)injectFindSomething;
-
-- (void)injectFindResultsWithRadiusAndPriceRange:(NSArray *)restaurantsAtRadius;
-
 @end

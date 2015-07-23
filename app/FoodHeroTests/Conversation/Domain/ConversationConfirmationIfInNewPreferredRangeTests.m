@@ -5,6 +5,7 @@
 
 #import "ConversationTestsBase.h"
 #import "RestaurantBuilder.h"
+#import "FoodHeroTests-Swift.h"
 
 @interface ConversationConfirmationIfInNewPreferredRangeTests : ConversationTestsBase
 @end
@@ -27,7 +28,7 @@
     _cheapRestaurant = [[[[RestaurantBuilder alloc] withPriceLevel:0] withLocation:_london] build];
     _expensiveRestaurant = [[[[RestaurantBuilder alloc] withPriceLevel:4] withLocation:_london] build];
 
-    [self configureRestaurantSearchForLocation:_london configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLocation:_london configuration:^(PlacesAPIStub *stub) {
         [stub injectFindResults:@[_restaurant, _restaurantFarAway, _cheapRestaurant, _expensiveRestaurant]];
     }];
 

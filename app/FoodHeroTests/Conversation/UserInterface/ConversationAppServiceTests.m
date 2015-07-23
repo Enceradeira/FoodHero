@@ -20,6 +20,7 @@
 #import "CLLocationManagerProxyStub.h"
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
+#import "FoodHeroTests-Swift.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -32,6 +33,7 @@ const CGFloat landscapeWidth = 400;
 ConversationAppServiceTests {
     ConversationAppService *_service;
     RestaurantSearchServiceStub *_searchServiceStub;
+    PlacesAPIStub *_placesAPIStub;
     CLLocationManagerProxyStub *_locationManager;
     SpeechRecognitionServiceStub *_speechRecognitionService;
     ConversationRepository *_conversationRepository;
@@ -42,6 +44,7 @@ ConversationAppServiceTests {
 
     [TyphoonComponents configure:[StubAssembly new]];
     _searchServiceStub = [[TyphoonComponents getAssembly] restaurantSearchService];
+    _placesAPIStub = (PlacesAPIStub *)[[TyphoonComponents getAssembly] placesAPI];
     _conversationRepository = [[TyphoonComponents getAssembly] conversationRepository];
     _service = [[TyphoonComponents getAssembly] conversationAppService];
     _locationManager = [[TyphoonComponents getAssembly] locationManagerProxy];
@@ -180,7 +183,7 @@ ConversationAppServiceTests {
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooExpensive {
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Maharaja" withPriceLeel:4 withRelevance:1];
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];
-    [_searchServiceStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
+    [_placesAPIStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
 
     [_service startConversation];
 
@@ -190,7 +193,7 @@ ConversationAppServiceTests {
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenItLooksTooCheap {
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Chippy" withPriceLeel:0 withRelevance:1];
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:4 withRelevance:0.9];
-    [_searchServiceStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
+    [_placesAPIStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
 
     [_service startConversation];
 
@@ -231,7 +234,7 @@ ConversationAppServiceTests {
             withCuisineRelevance:0.1] build];
 
     [_locationManager injectLatitude:45 longitude:0];
-    [_searchServiceStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
+    [_placesAPIStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
     [_service startConversation];
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
@@ -265,7 +268,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUTryAgain_WhenUserSaysTryAgain {
-    [_searchServiceStub injectFindNothing];
+    [_placesAPIStub injectFindNothing];
     [_service startConversation];
 
     [self injectInterpretation:@"again please!!" intent:@"TryAgainNow" entities:nil];
@@ -277,7 +280,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUWantsToAbort_WhenUserWantsToAbort {
-    [_searchServiceStub injectFindNothing];
+    [_placesAPIStub injectFindNothing];
     [_service startConversation];
 
     [self injectInterpretation:@"Forget it" intent:@"WantsToAbort" entities:nil];

@@ -3,9 +3,9 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import "ConversationTestsBase.h"
 #import "RestaurantBuilder.h"
-#import "RestaurantSearchServiceStub.h"
+#import "ConversationTestsBase.h"
+#import "FoodHeroTests-Swift.h"
 
 @interface ConversationProposalTests : ConversationTestsBase
 @end
@@ -27,7 +27,7 @@
     Restaurant *restaurant4 = [[[RestaurantBuilder alloc] withLocation:_london] build];
     Restaurant *restaurant5 = [[[RestaurantBuilder alloc] withLocation:_london] build];
     Restaurant *restaurant6 = [[[RestaurantBuilder alloc] withLocation:_london] build];
-    [self configureRestaurantSearchForLocation:_london configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLocation:_london configuration:^(PlacesAPIStub  *stub) {
         [stub injectFindResults:@[restaurant1, restaurant2, restaurant3, restaurant4, restaurant5, restaurant6]];
     }];
 
@@ -81,7 +81,7 @@
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *service) {
         [service injectFindResults:@[onlyOtherOption]];
     }];
 
@@ -95,7 +95,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
     Restaurant *otherOption2 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Hot cook"] build];
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *service) {
         [service injectFindResults:@[otherOption1, otherOption2]];
     }];
 
@@ -108,7 +108,7 @@
 - (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooExpensiveAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *service) {
         [service injectFindResults:@[onlyOtherOption]];
     }];
 
@@ -122,7 +122,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
     Restaurant *otherOption2 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Hot cook"] build];
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *service) {
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *service) {
         [service injectFindResults:@[otherOption1, otherOption2]];
     }];
 
@@ -138,7 +138,7 @@
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:closerLocation] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withLocation:farawayLocation] withName:@"Chippy"] build];
-    [self configureRestaurantSearchForLatitude:45 longitude:0 configuration:^(RestaurantSearchServiceStub *service) {
+    [self configureRestaurantSearchForLatitude:45 longitude:0 configuration:^(PlacesAPIStub *service) {
         [service injectFindResults:@[onlyOtherOption]];
     }];
 
@@ -154,7 +154,7 @@
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withLocation:closerLocation] build];
     Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withLocation:farawayLocation] withName:@"Chippy"] build];
     Restaurant *otherOption2 = [[[[RestaurantBuilder alloc] withLocation:farawayLocation] withName:@"Hot cook"] build];
-    [self configureRestaurantSearchForLatitude:45 longitude:0 configuration:^(RestaurantSearchServiceStub *service) {
+    [self configureRestaurantSearchForLatitude:45 longitude:0 configuration:^(PlacesAPIStub *service) {
         [service injectFindResults:@[otherOption1, otherOption2]];
     }];
 

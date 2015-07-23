@@ -7,15 +7,23 @@ import Foundation
 import FoodHero
 
 public class PlacesAPISpy: NSObject, IPlacesAPI {
-    var _cuisine: String = ""
-    var _occasion: String = ""
-    var _location: CLLocation! = nil
+    private var _cuisine: String = ""
+    private var _occasion: String = ""
+    private var _location: CLLocation! = nil
+    private var _nrCallsTofindPlacesWasCalledWithCusine = 0
 
     public func findPlaces(cuisine: String, occasion: String, location: CLLocation) -> AnyObject {
         _cuisine = cuisine
         _occasion = occasion
         _location = location
+        _nrCallsTofindPlacesWasCalledWithCusine++
         return []
+    }
+
+    public var NrCallsToFindPlacesWasCalledWithCusine: Int {
+        get {
+            return _nrCallsTofindPlacesWasCalledWithCusine
+        }
     }
 
     public func findPlacesWasCalledWithCusine(cuisine: String, occasion: String, location: CLLocation) -> Bool {

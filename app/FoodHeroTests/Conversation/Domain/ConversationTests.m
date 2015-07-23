@@ -13,6 +13,7 @@
 #import "DesignByContractException.h"
 #import "ConversationTestsBase.h"
 #import "RestaurantBuilder.h"
+#import "FoodHeroTests-Swift.h"
 
 
 @interface ConversationTests : ConversationTestsBase
@@ -77,7 +78,7 @@
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion {
     Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"King's Head"] withVicinity:@"Great Yarmouth"].build;
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindResults:@[kingsHead]];
     }];
 
@@ -87,7 +88,7 @@
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithNoRestaurantsFound_WhenRestaurantServicesYieldsNoResults {
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
 
@@ -97,10 +98,11 @@
 }
 
 - (void)test_USuggestionFeedback_ShouldCauseFoodHeroToSearchAgain {
-    Restaurant *kingsHead = [[RestaurantBuilder alloc] withPriceLevel:4].build;
+    Restaurant *kingsHead = [[[RestaurantBuilder alloc] withName:@"Head of King"]   withPriceLevel:4].build;
     Restaurant *lionHeart = [[[RestaurantBuilder alloc] withName:@"Lion Heart"] withVicinity:@"Great Yarmouth"].build;
     Restaurant *kingsbed = [[[RestaurantBuilder alloc] withName:@"Kings Bed"] withVicinity:@"Great Yarmouth"].build;
-    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(RestaurantSearchServiceStub *stub) {
+
+    [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindResults:@[kingsHead, lionHeart, kingsbed]];
     }];
 
@@ -108,13 +110,13 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:kingsHead text:@""]];
 
-    [self assertLastStatementIs:@"FH:Suggestion=Kings Bed, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
+    [self assertLastStatementIs:@"FH:Suggestion=Lion Heart, Great Yarmouth" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_negativeUserFeedback_ShouldReturnAllNegativeSuggestionFeedback {
     Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
-    [self configureRestaurantSearchForLocation:_london configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLocation:_london configuration:^(PlacesAPIStub *stub) {
         [stub injectFindResults:@[restaurant1, restaurant2]];
     }];
 
@@ -253,7 +255,7 @@
 }
 
 - (void)test_currentSearchPreferenceCuisineShouldBeNil_WhenSearchHasBeenRestarted {
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I like British Food"]];

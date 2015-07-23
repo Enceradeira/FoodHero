@@ -212,7 +212,9 @@
 }
 
 - (id)placesAPI {
-    return [TyphoonDefinition withClass:[PlacesAPIStub class]];
+    return [TyphoonDefinition withClass:[PlacesAPIStub class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeSingleton;
+    }];
 }
 
 

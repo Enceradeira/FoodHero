@@ -9,6 +9,8 @@
 @interface RestaurantBuilder : NSObject
 - (Restaurant *)build;
 
+- (RestaurantBuilder *)withPlaceId:(NSString *)placeId;
+
 - (RestaurantBuilder *)withName:(NSString *)name;
 
 - (RestaurantBuilder *)withVicinity:(NSString *)vicinity;

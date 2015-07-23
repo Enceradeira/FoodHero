@@ -10,11 +10,13 @@
 #import "Personas.h"
 #import "ExpectedStatement.h"
 #import "TyphoonComponents.h"
+#import "FoodHero-Swift.h"
+#import "FoodHeroTests-Swift.h"
 
 @implementation ConversationTestsBase {
 
     NSMutableArray *_expectedStatements;
-    RestaurantSearchServiceStub *_restaurantSearchStub;
+    PlacesAPIStub *_restaurantSearchStub;
     RACSubject *_input;
     TalkerRandomizerFake *_talkerRandomizerFake;
     id <ApplicationAssembly> _assembly;
@@ -25,7 +27,7 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _input = [RACSubject new];
     _assembly = [TyphoonComponents getAssembly];
-    _restaurantSearchStub = [_assembly restaurantSearchService];
+    _restaurantSearchStub = (PlacesAPIStub*)[_assembly placesAPI];
     _restaurantRepository = [_assembly restaurantRepository];
     _locationManagerStub = [_assembly locationManagerProxy];
     [self resetConversation];
@@ -43,14 +45,14 @@
     [_input sendNext:utterance];
 }
 
-- (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration {
+- (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(PlacesAPIStub *))configuration {
     // changing location invalidates cache in RestaurantRepository, otherwise configuration of RestaurantSearchStub has no effect
     [self.locationManagerStub injectLocations:@[[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
     // configure stub
     configuration(_restaurantSearchStub);
 }
 
-- (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(RestaurantSearchServiceStub *))configuration {
+- (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(PlacesAPIStub *))configuration {
     [self configureRestaurantSearchForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude configuration:configuration];
 }
 

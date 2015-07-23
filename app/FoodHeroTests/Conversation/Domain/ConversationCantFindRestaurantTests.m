@@ -4,6 +4,7 @@
 //
 
 #import "ConversationTestsBase.h"
+#import "FoodHeroTests-Swift.h"
 
 
 @interface ConversationCantFindRestaurantTests : ConversationTestsBase
@@ -34,7 +35,7 @@
 }
 
 - (void)test_UTrayAgainNow_ShouldAddFHOpeningQuestion_WhenNoRestaurantsFound {
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
 
@@ -47,14 +48,14 @@
 }
 
 - (void)test_UTrayAgainNow_ShouldAddFHSuggestion_WhenUsersGivesCuisinePreference {
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
 
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindSomething];
     }];
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Swiss Food" location:nil ] text:@"I love fondue"]];
@@ -62,14 +63,14 @@
 }
 
 - (void)test_UTrayAgainNow_ShouldAddFHSuggestion_WhenUsersGivesOccasionPreference {
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
 
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
 
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindSomething];
     }];
     [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drinks" location:nil ] text:@"I want drinks"]];
@@ -77,12 +78,12 @@
 }
 
 - (void)test_UWantsToAbort_ShouldAddWhatToDoNextAfterFailure {
-    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:48.00 longitude:-22.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];
 
-    [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:15.00 longitude:-10.23 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
 

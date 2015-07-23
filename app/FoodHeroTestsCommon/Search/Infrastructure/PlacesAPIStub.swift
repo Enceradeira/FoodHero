@@ -7,6 +7,7 @@ import Foundation
 
 public class PlacesAPIStub: NSObject, IPlacesAPI {
 
+    private var _findSomething = true
     private let _ownSearchResult = [
             RestaurantBuilder().withName("King's Head").withVicinity("Norwich").build(),
             RestaurantBuilder().withName("Raj Palace").withVicinity("Norwich").build(),
@@ -19,8 +20,27 @@ public class PlacesAPIStub: NSObject, IPlacesAPI {
             RestaurantBuilder().withName("Posh Food").withVicinity("Norwich").build(),
             RestaurantBuilder().withName("Dal Fury").withVicinity("Norwich").build(),
     ]
+    private var _injectedResults: [Restaurant]? = nil
 
     public func findPlaces(cuisine: String, occasion: String, location: CLLocation) -> AnyObject {
-        return _ownSearchResult
+        if _findSomething {
+            if _injectedResults != nil{
+                return _injectedResults!
+            }
+            return _ownSearchResult
+        }
+        return []
+    }
+
+    public func injectFindNothing() {
+        _findSomething = false
+    }
+
+    public func injectFindSomething(){
+        _findSomething = true
+    }
+
+    public func injectFindResults(results: [Restaurant]) {
+        _injectedResults = results;
     }
 }

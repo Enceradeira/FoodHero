@@ -17,7 +17,6 @@
 #import "StubAssembly.h"
 #import "RestaurantBuilder.h"
 #import "FoodHeroTests-Swift.h"
-#import "FoodHero-Swift.h"
 
 @interface RestaurantRepositoryWithSpyTests : RestaurantRepositoryTests
 
@@ -47,12 +46,6 @@
     return _repository;
 }
 
-- (void)test_getPlacesBy {
-    NSArray *result;
-    result = [self.repository getPlacesBy:_cuisineAndOccasion];
-    assertThat(_searchService.findPlacesParameter.cuisineAndOccasion, is(equalTo(_cuisineAndOccasion)));
-}
-
 - (void)test_getPlacesByCuisine_shouldSearchWithCorrectParameters {
     NSArray *result;
     result = [self.repository getPlacesBy:_cuisineAndOccasion];
@@ -73,5 +66,41 @@
 
     assertThatUnsignedInt(_searchService.nrCallsToGetRestaurantForPlace, is(equalTo(@(1))));
 }
+
+- (void)test_getPlacesByCuisine_ShouldFlushCache_WhenCuisineChanges {
+    CuisineAndOccasion *asian = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Asian" location:nil];
+    CuisineAndOccasion *swiss = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
+
+    [self.repository getPlacesBy:asian];
+    [self.repository getPlacesBy:swiss];
+
+    assertThatInt(_placesAPI.NrCallsToFindPlacesWasCalledWithCusine, equalTo(@2));
+}
+
+- (void)test_getPlacesByCuisine_ShouldFlushCache_WhenLocationChanges {
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:15.098 longitude:-50.56];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location1];
+    [self.repository getPlacesBy:cuisine];
+
+    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:30 longitude:-20];
+    CuisineAndOccasion *cuisine1 = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location2];
+    [self.repository getPlacesBy:cuisine1];
+
+    assertThatInt(_placesAPI.NrCallsToFindPlacesWasCalledWithCusine, equalTo(@2));
+}
+
+- (void)test_getPlacesByCuisine_ShouldNotFlushCache_WhenLocationDoesNotChangeALot {
+
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:52.631249 longitude:1.299053];
+    CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location1];
+    [self.repository getPlacesBy:cuisine];
+
+    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:52.630813 longitude:1.299279];
+    CuisineAndOccasion *cuisine1 = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:location2];
+    [self.repository getPlacesBy:cuisine1];
+
+    assertThatInt(_placesAPI.NrCallsToFindPlacesWasCalledWithCusine, equalTo(@1));
+}
+
 
 @end

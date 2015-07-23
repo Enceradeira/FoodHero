@@ -12,6 +12,8 @@
 #import "EnvironmentStub.h"
 #import "RestaurantRepository.h"
 
+@class PlacesAPIStub;
+
 @interface ConversationTestsBase : XCTestCase
 
 //@property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
@@ -25,9 +27,9 @@
 
 - (void)sendInput:(id)token;
 
-- (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
+- (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(PlacesAPIStub *))configuration;
 
-- (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(RestaurantSearchServiceStub *))configuration;
+- (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(PlacesAPIStub *))configuration;
 
 - (void)userSetsLocationAuthorizationStatus:(CLAuthorizationStatus)status;
 

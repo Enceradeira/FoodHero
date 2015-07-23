@@ -5,6 +5,7 @@
 
 #import "ConversationTestsBase.h"
 #import "RestaurantBuilder.h"
+#import "FoodHeroTests-Swift.h"
 
 @interface ConversationFindingRestaurantTests : ConversationTestsBase
 @end
@@ -35,7 +36,7 @@
 - (void)test_UDidResolveProblemWithAccessLocationServiceOrUsersTriesAgain_ShouldBeHandledRepeatably {
 
     // Problem with kCLAuthorizationStatusRestricted
-    [self configureRestaurantSearchForLatitude:12 longitude:1 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:12 longitude:1 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindSomething];
     }];
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusRestricted];
@@ -59,7 +60,7 @@
     Restaurant *cheapRestaurant = [[[RestaurantBuilder alloc] withPriceLevel:0] build];
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Test" location:nil ] text:@"Test"]];
 
-    [self configureRestaurantSearchForLatitude:12 longitude:44 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:12 longitude:44 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
 
@@ -68,7 +69,7 @@
     [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];
     [self assertLastStatementIs:@"FH:OpeningQuestion" state:[FHStates askForFoodPreference]];
 
-    [self configureRestaurantSearchForLatitude:22 longitude:1 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:22 longitude:1 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindSomething];
     }];
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"India" location:nil ] text:@"Indian"]];
@@ -82,12 +83,12 @@
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:[FHStates afterCantAccessLocationService]];
 
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
-    [self configureRestaurantSearchForLatitude:25 longitude:-12 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:25 longitude:-12 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindNothing];
     }];
     [self sendInput:[UserUtterances tryAgainNow:@"I fixed it again"]];
     [self assertLastStatementIs:@"FH:NoRestaurantsFound" state:[FHStates noRestaurantWasFound]];
-    [self configureRestaurantSearchForLatitude:-42 longitude:0 configuration:^(RestaurantSearchServiceStub *stub) {
+    [self configureRestaurantSearchForLatitude:-42 longitude:0 configuration:^(PlacesAPIStub *stub) {
         [stub injectFindSomething];
     }];
 

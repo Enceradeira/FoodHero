@@ -29,6 +29,7 @@
     RestaurantDistance *_distance;
     RestaurantRating *_rating;
     NSArray *_photos;
+    NSString *_placeId;
 }
 
 - (Restaurant *)build {
@@ -68,7 +69,7 @@
                                   url:url
                      urlForDisplaying:urlForDisplaying
                                 types:@[@"restaurant"]
-                              placeId:[[NSUUID UUID] UUIDString]
+                              placeId:_placeId == nil ? [[NSUUID UUID] UUIDString] : _placeId
                              location:location
                              distance:restaurantDistance
                            priceLevel:priceLevel
@@ -82,6 +83,11 @@
             [[PhotoBuilder alloc] build],
             [[PhotoBuilder alloc] build]
     ];
+}
+
+- (RestaurantBuilder *)withPlaceId:(NSString *)placeId {
+    _placeId = placeId;
+    return self;
 }
 
 - (RestaurantBuilder *)withName:(NSString *)name {
