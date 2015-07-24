@@ -114,8 +114,8 @@ task :stop_appium do
   `ps | grep -e '.*/appium$'| awk '{print "kill " $1}' | sh`
 end
 
-desc 'Run all tests'
-task :test_all => [:app_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
+desc 'Runs the deployment pipeline up to the acceptance-tests'
+task :up_to_acceptance_tests => [:app_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
 end
 
 desc 'Creates an archive for app deployment'
@@ -131,9 +131,9 @@ task :upload_app do
 end
 
 desc 'Tests the app creates, archive and uploads it to iTunesConnect, deploys web to Heroku'
-task :publish => [:test_all, :archive_app, :upload_app, :deploy_web] do
+task :publish => [:up_to_acceptance_tests, :archive_app, :upload_app, :deploy_web] do
 end
 
-task :default => [:test_all] do
+task :default => [:up_to_acceptance_tests] do
 end
 
