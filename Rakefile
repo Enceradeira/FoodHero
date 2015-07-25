@@ -178,6 +178,19 @@ task :publish => [:check_git_dir_clean, :increment_version, :archive_app, :commi
 
 end
 
+desc 'Splits :publish task to prevent iTunesConnect error: Invalid Swift Support'
+task :publish_workaround1 => [:check_git_dir_clean, :increment_version, :archive_app] do
+  `open ./#{AppPaths.archive_path}/FoodHero.xcarchive`
+  puts "\n NOW manually create the file ./#{AppPaths.archive_path}/FoodHero.ipa".green
+  puts "\t\tand then run 'up_to_publish_workaround2'"
+end
+
+desc 'Splits :publish task to prevent iTunesConnect error: Invalid Swift Support'
+task :up_to_publish_workaround2 => [:commit_version, :check_git_dir_clean, :upload_app, :deploy_web, :smoke_tests, :notify_build_succeeded] do
+
+end
+
+
 task :default => [:up_to_acceptance_tests] do
 end
 
