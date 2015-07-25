@@ -18,6 +18,34 @@ public class Configuration: NSObject {
         }
     }
 
+    public class func productionEnv() -> String {
+        return "Production"
+    }
+
+    public class func developmentEnv() -> String {
+        return "Development"
+    }
+
+    public class func integrationEnv() -> String {
+        return "Integration"
+    }
+
+    public class func environment() -> String {
+        let args = NSProcessInfo.processInfo().arguments as! [String]
+        return parseEnvironment(args)
+    }
+
+    public class func parseEnvironment(args: [String]) -> String {
+        let flag = "-environment="
+        let envs = args.filter {
+            startsWith($0, flag)
+        }
+        if (count(envs) == 1) {
+            return envs[0].stringByReplacingOccurrencesOfString(flag, withString: "")
+        }
+        return productionEnv()
+    }
+
     public class func allowDataCollection(completion: (Bool) -> ()) {
         let key = "allowDataCollection"
         let defaults = NSUserDefaults.standardUserDefaults()
