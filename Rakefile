@@ -174,7 +174,7 @@ task :upload_app do
 end
 
 desc 'Tests the app creates, archive and uploads it to iTunesConnect, deploys web to Heroku'
-task :publish => [:check_git_dir_clean, :increment_version, :archive_app, :commit_version, :check_git_dir_clean, :upload_app, :deploy_web] do
+task :publish_WITH_ITUNES_ERROR => [:check_git_dir_clean, :increment_version, :archive_app, :commit_version, :check_git_dir_clean, :upload_app, :deploy_web] do
 
 end
 
