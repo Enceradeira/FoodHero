@@ -127,6 +127,28 @@ task :increment_version do
   FoodHeroInfoPList.cFBundleVersion = AppVersion.build
 end
 
+desc 'checks that the working directory is clean'
+task :check_git_dir_clean do
+  found = `git status | grep -c 'directory clean'`
+  unless found == "1\n"
+    raise StandardError.new 'git working dir is NOT clean.'
+  end
+
+  found = `cd web && git status | grep -c 'directory clean' && cd ..`
+  unless found == "1\n"
+    raise StandardError.new 'git working dir is NOT clean.'
+  end
+end
+
+desc 'commits the archive and creates a version tag'
+task :commit_version do
+  version = "V#{AppVersion.version}.#{AppVersion.build}"
+  `git add .`
+  `git commit -m "#{version} added"`
+  `git tag #{version}`
+  `cd web && git tag #{version} && cd ..`
+end
+
 desc 'Creates an archive for app deployment'
 task :archive_app do
   BuildAction.execute!("rm -r -f #{AppPaths.archive_path}")
@@ -140,8 +162,8 @@ task :upload_app do
 end
 
 desc 'Tests the app creates, archive and uploads it to iTunesConnect, deploys web to Heroku'
-task :publish => [:increment_version,:archive_app, :upload_app, :deploy_web] do
-  
+task :publish => [:check_git_dir_clean, :increment_version, :archive_app, :commit_version, :check_git_working_dir_clean, :upload_app, :deploy_web] do
+
 end
 
 task :default => [:up_to_acceptance_tests] do
