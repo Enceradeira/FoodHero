@@ -7,8 +7,12 @@ require_relative 'lib/x_code_build_action'
 require_relative 'lib/food_hero_info_p_list'
 require_relative 'lib/app_version'
 
-Cucumber::Rake::Task.new do |t|
-  t.cucumber_opts = %w{--format pretty --tags ~@ignore}
+Cucumber::Rake::Task.new(:cucumber_integration) do |t|
+  t.cucumber_opts = %w{--format pretty --tags ~@ignore --tags ~@smoke_test}
+end
+
+Cucumber::Rake::Task.new(:cucumber_smoke_tests) do |t|
+  t.cucumber_opts = %w{--format pretty --tags ~@ignore --tags @smoke_test}
 end
 
 task :notify_build_succeeded do
@@ -61,8 +65,12 @@ task :xc_integration_tests => [:prepare_iOS_simulator, :start_web_integration_en
   XCodeBuildAction.new(:test).execute!('FoodHeroIntegrationsTests')
 end
 
-desc 'Run Cucumber acceptance-tests'
-task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :install, :cucumber] do
+desc 'Run Acceptance-tests'
+task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :install, :cucumber_integration] do
+end
+
+desc 'Run Smoke-tests'
+task :smoke_tests => [:cucumber_smoke_tests]do
 end
 
 desc 'Build everything'
@@ -118,6 +126,10 @@ end
 
 desc 'Runs the deployment pipeline up to the acceptance-tests'
 task :up_to_acceptance_tests => [:app_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
+end
+
+desc 'Runs the deployment pipeline up to smoke-tests'
+task :up_to_smoke_tests => [:publish, :smoke_tests, :notify_build_succeeded] do
 end
 
 desc 'increments the app/web version'
