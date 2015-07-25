@@ -7,7 +7,7 @@ Then(/^"(.*)" returns a html-body$/) do |url|
     http.request(req)
   }
   online_body = res.body.force_encoding('UTF-8')
-  expect(online_body).to include(text)
+  expect(online_body).to include("We are committed to protected the privacy of “Food Hero”’s users")
 end
 
 Then(/^"(.*)" returns json-data$/) do |url|
