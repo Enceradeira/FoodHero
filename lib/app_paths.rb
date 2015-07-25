@@ -39,4 +39,8 @@ module AppPaths
     'L779XWTjB23e'
   end
 
+  def self.current_version
+
+  end
+
 end

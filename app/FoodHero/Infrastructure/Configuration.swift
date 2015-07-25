@@ -17,6 +17,7 @@ public class Configuration: NSObject {
             return integration
         default:
             assert(false, "unexpected environment \(env)")
+            return production
         }
     }
 
