@@ -12,7 +12,7 @@ module AppPaths
   end
 
   def self.dst_root
-    dst_root ||= File.expand_path 'app/Build/Products/Current'
+    @dst_root ||= File.expand_path 'app/Build/Products/Current'
   end
 
   def self.version
@@ -38,9 +38,4 @@ module AppPaths
   def self.i_tunes_connect_pwd
     'L779XWTjB23e'
   end
-
-  def self.current_version
-
-  end
-
 end

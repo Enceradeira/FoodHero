@@ -4,6 +4,8 @@ require 'nokogiri'
 require_relative 'lib/app_paths'
 require_relative 'lib/build_action'
 require_relative 'lib/x_code_build_action'
+require_relative 'lib/food_hero_info_p_list'
+require_relative 'lib/app_version'
 
 Cucumber::Rake::Task.new do |t|
   t.cucumber_opts = %w{--format pretty --tags ~@ignore}
@@ -118,6 +120,13 @@ desc 'Runs the deployment pipeline up to the acceptance-tests'
 task :up_to_acceptance_tests => [:app_tests, :web_tests, :acceptance_tests, :print_checklist, :notify_build_succeeded] do
 end
 
+desc 'increments the app/web version'
+task :increment_version do
+  AppVersion.build = AppVersion.build + 1
+  FoodHeroInfoPList.cFBundleShortVersionString = AppVersion.version
+  FoodHeroInfoPList.cFBundleVersion = AppVersion.build
+end
+
 desc 'Creates an archive for app deployment'
 task :archive_app do
   BuildAction.execute!("rm -r -f #{AppPaths.archive_path}")
@@ -131,7 +140,8 @@ task :upload_app do
 end
 
 desc 'Tests the app creates, archive and uploads it to iTunesConnect, deploys web to Heroku'
-task :publish => [:archive_app, :upload_app, :deploy_web] do
+task :publish => [:increment_version,:archive_app, :upload_app, :deploy_web] do
+  
 end
 
 task :default => [:up_to_acceptance_tests] do
