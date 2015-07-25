@@ -131,7 +131,7 @@ task :upload_app do
 end
 
 desc 'Tests the app creates, archive and uploads it to iTunesConnect, deploys web to Heroku'
-task :publish => [:up_to_acceptance_tests, :archive_app, :upload_app, :deploy_web] do
+task :publish => [:archive_app, :upload_app, :deploy_web] do
 end
 
 task :default => [:up_to_acceptance_tests] do

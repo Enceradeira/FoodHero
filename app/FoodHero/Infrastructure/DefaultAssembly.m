@@ -105,8 +105,7 @@
     return [TyphoonDefinition withClass:[WitSpeechRecognitionService class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithAccessToken:audioSession:) parameters:^(TyphoonMethod *method) {
-                                  [method injectParameterWith:@"WRNHXZESF6X6VJYV3GG7EFSVG44GB2XE"]; // Instance "FoodHero-Prod-0.1.8"
-//                                  [method injectParameterWith:@"E2DAN6OIJ62CURVSFO6VRPU7E4DBIAZG"]; // Instance "FoodHero-Prod"
+                                  [method injectParameterWith:Configuration.apiKeyWit];
                                   [method injectParameterWith:[self audioSession]];
                               }];
                               definition.scope = TyphoonScopeSingleton; // Because it holds state
@@ -122,13 +121,7 @@
 }
 
 - (id)placesAPI {
-    NSString *baseUrl;
-    if ([Environment isRunningInSimulator]) {
-        baseUrl = UrlFhPlacesApiInIntegration;
-    }
-    else {
-        baseUrl = UrlFhPlacesApiInProduction;
-    }
+    NSString *baseUrl = Configuration.urlFhPlacesApi;
     return [TyphoonDefinition withClass:[FHPlacesAPI class]
                           configuration:^(TyphoonDefinition *definition) {
                               [definition useInitializer:@selector(initWithBaseUrl:) parameters:^(TyphoonMethod *method) {

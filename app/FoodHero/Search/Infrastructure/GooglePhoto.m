@@ -6,6 +6,7 @@
 #import <ReactiveCocoa.h>
 #import "GooglePhoto.h"
 #import "GoogleDefinitions.h"
+#import "FoodHero-Swift.h"
 
 @implementation GooglePhoto {
     NSString *_photoReference;
@@ -15,7 +16,7 @@
     BOOL _isEagerlyLoaded;
 }
 - (NSString *)url {
-    return [NSString stringWithFormat:@"%@/maps/api/place/photo?photoreference=%@&maxheight=%li&maxwidth=%li&key=%@", GOOGLE_BASE_ADDRESS, _photoReference, (long)_originalHeight, (long)_originalWidth, GOOGLE_API_KEY];
+    return [NSString stringWithFormat:@"%@/maps/api/place/photo?photoreference=%@&maxheight=%li&maxwidth=%li&key=%@", Configuration.urlGoogleMapsApi, _photoReference, (long)_originalHeight, (long)_originalWidth, Configuration.apiKeyGoogle];
 }
 
 - (BOOL)isEagerlyLoaded {

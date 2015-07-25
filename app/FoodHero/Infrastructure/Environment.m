@@ -5,9 +5,6 @@
 
 #import "Environment.h"
 
-NSString * const UrlFhPlacesApiInProduction = @"http://foodheroweb.herokuapp.com";
-NSString * const UrlFhPlacesApiInIntegration = @"http://localhost:3001/";
-
 @implementation Environment {
 
 }

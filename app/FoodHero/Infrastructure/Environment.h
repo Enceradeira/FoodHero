@@ -6,9 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "IEnvironment.h"
 
-extern NSString * const UrlFhPlacesApiInProduction;
-extern NSString * const UrlFhPlacesApiInIntegration;
-
 @interface Environment : NSObject <IEnvironment>
 @property(nonatomic) NSString *systemVersion;
 

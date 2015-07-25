@@ -9,7 +9,6 @@
 #import "SearchException.h"
 #import "GoogleOpeningHours.h"
 #import "GoogleURL.h"
-#import "GoogleDefinitions.h"
 #import "GooglePhoto.h"
 #import "FoodHero-Swift.h"
 
@@ -20,12 +19,14 @@
     NSOperationQueue *_queue;
     id <IEnvironment> _environment;
     BOOL _onlyOpenNow;
+    NSString *_apiKey;
 }
 
 - (id)initWithEnvironment:(id <IEnvironment>)environment onlyOpenNow:(BOOL)onlyOpenNow {
     self = [super init];
     if (self) {
-        _baseAddress = GOOGLE_BASE_ADDRESS;
+        _baseAddress = Configuration.urlGoogleMapsApi;
+        _apiKey = Configuration.apiKeyGoogle;
         _timeout = 60;
         _queue = [[NSOperationQueue alloc] init];
         _environment = environment;
@@ -123,7 +124,7 @@
                                                        currentCoordinate.longitude,
                                                        placeCoordinate.latitude,
                                                        placeCoordinate.longitude,
-                                                       GOOGLE_API_KEY];
+                                                       _apiKey];
 
     return [[self fetchJSON:placeString] map:^(NSDictionary *json) {
 

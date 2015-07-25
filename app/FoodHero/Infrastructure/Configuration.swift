@@ -6,6 +6,20 @@
 import Foundation
 
 public class Configuration: NSObject {
+    private class func chooseForEnvironment(# development: String, integration: String, production: String) -> String {
+        let env = environment()
+        switch env {
+        case productionEnv:
+            return production
+        case developmentEnv:
+            return development
+        case integrationEnv:
+            return integration
+        default:
+            assert(false, "unexpected environment \(env)")
+        }
+    }
+
     public class func userId() -> String {
         let key = "userId"
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -18,16 +32,22 @@ public class Configuration: NSObject {
         }
     }
 
-    public class func productionEnv() -> String {
-        return "Production"
+    public class var productionEnv: String {
+        get {
+            return "Production"
+        }
     }
 
-    public class func developmentEnv() -> String {
-        return "Development"
+    public class var developmentEnv: String {
+        get {
+            return "Development"
+        }
     }
 
-    public class func integrationEnv() -> String {
-        return "Integration"
+    public class var integrationEnv: String {
+        get {
+            return "Integration"
+        }
     }
 
     public class func environment() -> String {
@@ -43,7 +63,7 @@ public class Configuration: NSObject {
         if (count(envs) == 1) {
             return envs[0].stringByReplacingOccurrencesOfString(flag, withString: "")
         }
-        return productionEnv()
+        return productionEnv
     }
 
     public class func allowDataCollection(completion: (Bool) -> ()) {
@@ -80,5 +100,40 @@ public class Configuration: NSObject {
             assert(rootController != nil, "RootController was nil")
             rootController?.presentViewController(alertController, animated: true, completion: nil)
         }
+    }
+
+
+    public class var urlFhPlacesApi: String {
+        get {
+            return chooseForEnvironment(
+            development: "http://localhost:3000/",
+                    integration: "http://localhost:3001/",
+                    production: "http://foodheroweb.herokuapp.com")
+        }
+
+    }
+
+    public class var apiKeyWit: String {
+        let defaultKey = "WRNHXZESF6X6VJYV3GG7EFSVG44GB2XE" // Instance "FoodHero-Prod-0.1.8"
+        return chooseForEnvironment(
+        development: defaultKey,
+                integration: defaultKey,
+                production: defaultKey)
+    }
+
+    public class var urlGoogleMapsApi: String {
+        let defaultUrl = "https://maps.googleapis.com"
+        return chooseForEnvironment(
+        development: defaultUrl,
+                integration: defaultUrl,
+                production: defaultUrl)
+    }
+
+    public class var apiKeyGoogle: String {
+        let defaultKey = "AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"
+        return chooseForEnvironment(
+        development: defaultKey,
+                integration: defaultKey,
+                production: defaultKey)
     }
 }
