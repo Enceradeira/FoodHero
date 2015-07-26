@@ -52,13 +52,7 @@
             [self logGAIEventAction:[GAIActions searchParamsOccasion] label:parameter.occasion];
             [self logGAIEventAction:[GAIActions searchParamsCusine] label:parameter.cuisine];
 
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:true];
-
-            NSDate *startTime = [NSDate date];
             id result = [_placesAPI findPlaces:parameter.cuisine occasion:parameter.occasion location:parameter.location];
-            NSTimeInterval timeElapsed = [startTime timeIntervalSinceNow];
-            [GAIService logTimingWithCategory:[GAICategories externalCallTimings] name:[GAITimingNames restaurantRepository] label:@"" interval:timeElapsed];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
 
             if ([result isKindOfClass:[NSError class]]) {
                 _placesCached = nil; // return nil; therefor error will be returned

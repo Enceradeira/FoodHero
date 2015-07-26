@@ -46,8 +46,8 @@ public class GAITimingNames: NSObject {
         return "Wit"
     }
 
-    public class func restaurantRepository() -> String {
-        return "RestaurantRepository"
+    public class func fhPlacesAPI() -> String {
+        return "FHPlacesAPI"
     }
 
     public class func geocoderService() -> String {

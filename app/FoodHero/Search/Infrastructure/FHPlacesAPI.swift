@@ -27,7 +27,7 @@ public class FHPlacesAPI: NSObject, IPlacesAPI {
 
         var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
         var error: NSError?
-        var dataVal: NSData? = NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: &error)
+        var dataVal: NSData? = sendSynchronousRequest(request, returningResponse: response, error: &error)
         if error != nil {
             return error!;
         }
@@ -50,4 +50,18 @@ public class FHPlacesAPI: NSObject, IPlacesAPI {
             return Place(placeId: placeId, location: location, priceLevel: priceLevel, cuisineRelevance: cuisineRelevance)
         }
     }
+
+    private func sendSynchronousRequest(request: NSURLRequest, returningResponse response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>, error: NSErrorPointer) -> NSData?{
+        let startTime = NSDate()
+
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+
+        let timeElapsed = startTime.timeIntervalSinceNow
+        GAIService.logTimingWithCategory(GAICategories.externalCallTimings(), name: GAITimingNames.fhPlacesAPI(), label: "", interval: timeElapsed)
+        return data
+
+    }
+
 }
