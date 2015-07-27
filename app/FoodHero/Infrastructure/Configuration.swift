@@ -107,8 +107,8 @@ public class Configuration: NSObject {
     public class var urlFhPlacesApi: String {
         get {
             return chooseForEnvironment(
-            development: "http://localhost:3000/",
-                    integration: "http://localhost:3001/",
+            development: "http://192.168.0.11:3000/",
+                    integration: "http://192.168.0.11:3001/",
                     production: "http://foodheroweb.herokuapp.com")
         }
 
