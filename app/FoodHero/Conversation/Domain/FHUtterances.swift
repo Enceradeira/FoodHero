@@ -233,13 +233,13 @@ public class FHUtterances {
 
     class func commentChoiceAndTellUserLocation(def: StringDefinition, ofRestaurant restaurant: Restaurant) -> StringDefinition {
         return def.words(["It's at <a href=''>\(restaurant.vicinity)</a>. See you there."],
-                withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:CommentChoiceAndTellRestaurantLocation",
+                withCustomData: FoodHeroRestaurantParameters(semanticId: "FH:CommentChoiceAndTellRestaurantLocation",
                         state: nil, restaurant: restaurant, expectedUserUtterances: nil))
     }
 
     class func tellRestaurantLocation(def: StringDefinition, ofRestaurant restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words(["It's at <a href=''>\(restaurant.vicinity)</a>"],
-                withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:TellRestaurantLocation",
+                withCustomData: FoodHeroRestaurantParameters(semanticId: "FH:TellRestaurantLocation",
                         state: "askForSuggestionFeedback", restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
 

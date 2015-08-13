@@ -67,7 +67,7 @@
             return (BOOL) (state != [NSNull null]);
         }];
 
-        Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroSuggestionParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
+        Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroRestaurantParameters .class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
             return [parameter restaurant];
         }] linq_firstOrNil];
 
@@ -79,7 +79,7 @@
 
         ExpectedUserUtterances *expectedUserUtterances = [[[[[utterance customData]
                 linq_ofType:FoodHeroParameters.class]
-                linq_select:^(FoodHeroSuggestionParameters *parameter) {
+                linq_select:^(FoodHeroParameters *parameter) {
                     return [parameter expectedUserUtterances];
                 }]
                 linq_where:^(id expectedUtterances) {
