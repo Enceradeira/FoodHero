@@ -148,6 +148,10 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances hello:interpretation.text];
                             return (id) utterance;
                         }
+                        else if ([interpretation.intent isEqualToString:@"LocationRequest"]) {
+                            TalkerUtterance *utterance = [UserUtterances locationRequest:interpretation.text];
+                            return (id) utterance;
+                        }
                         assert(false);
                     }
                 }];

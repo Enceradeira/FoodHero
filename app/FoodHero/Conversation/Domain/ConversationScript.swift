@@ -120,15 +120,23 @@ public class ConversationScript: Script {
                 }
             } else if $0.hasSemanticId("U:WantsToAbort") {
                 return self.askWhatToDoNextAfterFailure($1)
+            } else if $0.hasSemanticId("U:LocationRequest") {
+                let restaurants = self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]
+                let lastRestaurant: Restaurant = restaurants.last!
+                let occasion = self._conversation.currentOccasion()
+                return $1.define {
+                    $0.say(oneOf: { FHUtterances.tellRestaurantLocation($0, ofRestaurant: lastRestaurant, currentOccasion: occasion) })
+                    return self.waitResponseAndSearchRepeatably($0, forQuestion: lastQuestion)
+                }
             } else if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
 
             } else {
                 if $0.hasSemanticId("U:SuggestionFeedback=LikeWithLocationRequest") {
                     let restaurants = self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]
-                    let lastRestaurant:Restaurant = restaurants.last!
+                    let lastRestaurant: Restaurant = restaurants.last!
                     return $1.define {
-                        $0.say(oneOf: {FHUtterances.commentChoiceAndTellUserLocation($0, ofRestaurant: lastRestaurant)})
+                        $0.say(oneOf: { FHUtterances.commentChoiceAndTellUserLocation($0, ofRestaurant: lastRestaurant) })
                         return self.askWhatToDoNext($0)
                     }
                 } else {

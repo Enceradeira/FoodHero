@@ -268,6 +268,11 @@ Then(/^FoodHero comments my choice and tells me the restaurants location$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero tells me the restaurants location$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:TellRestaurantLocation', 0)
+  expect(bubble).not_to be_nil
+end
+
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   link = find_element(:xpath, "//*[contains(@name,'FH:Suggestion')]//UIALink")
   expect(link).not_to be_nil
@@ -361,6 +366,10 @@ end
 
 When(/^I like the restaurant and ask where it is$/) do
   touch_help_entry_containing 'That sounds good. Where is it?'
+end
+
+When(/^I ask where it is/) do
+  touch_help_entry_containing 'Where is that restaurant?'
 end
 
 When(/^I say try again$/) do
@@ -575,3 +584,4 @@ end
 When(/^I share "([^"]*)"$/) do |text|
   find_element(:xpath, "//*[@name='#{text}']").click
 end
+

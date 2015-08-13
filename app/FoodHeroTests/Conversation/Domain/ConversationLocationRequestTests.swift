@@ -19,4 +19,13 @@ class ConversationLocationRequestTests: ConversationTestsBase {
         XCTAssertTrue(lastStatement.text().rangeOfString("Norwich") != nil, "No vicinity is told to user")
     }
 
+    func test_ULocationRequest_ShouldTellUserLocationOfRestaurant() {
+        sendInput(UserUtterances.locationRequest("Where is it?"))
+
+        assertLastStatementIs("FH:TellRestaurantLocation", state: "askForSuggestionFeedback")
+
+        let lastStatement = conversation.getStatement(conversation.getStatementCount() - 1)
+        XCTAssertTrue(lastStatement.text().rangeOfString("Norwich") != nil, "No vicinity is told to user")
+    }
+
 }

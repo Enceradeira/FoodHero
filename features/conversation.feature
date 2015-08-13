@@ -8,6 +8,9 @@ Feature: User interacts with app through conversation
     Then I see my answer "Dislike"
     And FoodHero suggests something else
 
+    When I ask where it is
+    Then FoodHero tells me the restaurants location
+
     When I find the restaurant too far away
     Then I see my answer "tooFarAway"
     And FoodHero suggests something else

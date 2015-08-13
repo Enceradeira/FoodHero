@@ -23,7 +23,7 @@ public class UserUtterances: NSObject {
     }
 
     public class func dislikesOccasion(text: String, occasion: String) -> TalkerUtterance {
-        var oocasionToDisplay =  count(occasion) == 0 ? Occasions.snack() : occasion
+        var oocasionToDisplay = count(occasion) == 0 ? Occasions.snack() : occasion
         return createUtterance("U:DislikesOccasion", text: text, modelAnswer: "I don't want to have \(oocasionToDisplay)");
     }
 
@@ -98,6 +98,10 @@ public class UserUtterances: NSObject {
 
     public class func hello(text: String) -> TalkerUtterance {
         return createUtterance("U:Hello", text: text, modelAnswer: "Hello!");
+    }
+
+    public class func locationRequest(text: String) -> TalkerUtterance {
+        return createUtterance("U:LocationRequest", text: text, modelAnswer: "Where is that restaurant?");
     }
 
 }
