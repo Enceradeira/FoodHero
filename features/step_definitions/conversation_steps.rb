@@ -291,6 +291,12 @@ When(/^I go to the share view through the link$/) do
   link.click
 end
 
+When(/^I go to the map through the restaurant location link$/) do
+  link = find_element(:xpath, "//*[contains(@name,'TellRestaurantLocation')]//UIALink")
+  expect(link).not_to be_nil
+  link.click
+end
+
 Then(/^I see my answer with "([^"]*)" food$/) do |cuisines_as_string|
   bubble, parameter = wait_last_element_and_parameter('U:CuisinePreference', 0) { |p| p.include? cuisines_as_string }
   expect(bubble).not_to be_nil

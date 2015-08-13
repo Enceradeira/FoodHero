@@ -10,6 +10,10 @@ Feature: User interacts with app through conversation
 
     When I ask where it is
     Then FoodHero tells me the restaurants location
+    When I go to the map through the restaurant location link
+    Then I see the map
+    When I go back
+    Then I see the conversation view
 
     When I find the restaurant too far away
     Then I see my answer "tooFarAway"
@@ -58,6 +62,11 @@ Feature: User interacts with app through conversation
    And I like the restaurant and ask where it is
    Then FoodHero comments my choice and tells me the restaurants location
    And FoodHero asks if there's anything else
+
+   When I go to the map through the restaurant location link
+   Then I see the map
+   When I go back
+   Then I see the conversation view
 
  Scenario: I become feed up with Food Hero
    Given FoodHero has started and I accept alerts

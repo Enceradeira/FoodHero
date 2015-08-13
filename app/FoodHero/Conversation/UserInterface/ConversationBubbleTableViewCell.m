@@ -121,18 +121,26 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked && self.delegate) {
-        if([self.bubble.semanticId isEqualToString:@"U:SuggestionFeedback=Like"]){
+        NSString *semanticID = self.bubble.semanticId;
+        if ([semanticID rangeOfString:@"FH:TellRestaurantLocation"].location != NSNotFound ||
+                [semanticID rangeOfString:@"FH:CommentChoiceAndTellRestaurantLocation"].location != NSNotFound) {
+
+            RestaurantMapViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantMapView"];
+            [controller setRestaurant:self.bubble.suggestedRestaurant];
+            [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
+        }
+        else if ([semanticID rangeOfString:@"U:SuggestionFeedback=Like"].location != NSNotFound) {
             // Like
             SuggestionLikedController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"SuggestionLikedController"];
             [controller setRestaurant:self.bubble.suggestedRestaurant];
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
-        else if( self.bubble.suggestedRestaurant != nil) {
+        else if (self.bubble.suggestedRestaurant != nil) {
             RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
             [controller setRestaurant:self.bubble.suggestedRestaurant];
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
-        else{
+        else {
             // Help link
             HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
             [self.delegate initalizeHelpController:controller];

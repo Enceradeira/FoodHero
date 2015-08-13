@@ -232,15 +232,15 @@ public class FHUtterances {
     }
 
     class func commentChoiceAndTellUserLocation(def: StringDefinition, ofRestaurant restaurant: Restaurant) -> StringDefinition {
-        return def.words(["It's at \(restaurant.vicinity). See you there."],
-                withCustomData: FoodHeroParameters(semanticId: "FH:CommentChoiceAndTellRestaurantLocation",
-                        state: nil, expectedUserUtterances: nil))
+        return def.words(["It's at <a href=''>\(restaurant.vicinity)</a>. See you there."],
+                withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:CommentChoiceAndTellRestaurantLocation",
+                        state: nil, restaurant: restaurant, expectedUserUtterances: nil))
     }
 
     class func tellRestaurantLocation(def: StringDefinition, ofRestaurant restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
-        return def.words(["It's at \(restaurant.vicinity)"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:TellRestaurantLocation",
-                        state: "askForSuggestionFeedback", expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
+        return def.words(["It's at <a href=''>\(restaurant.vicinity)</a>"],
+                withCustomData: FoodHeroSuggestionParameters(semanticId: "FH:TellRestaurantLocation",
+                        state: "askForSuggestionFeedback", restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
 
     class func whatToDoNext(def: StringDefinition) -> StringDefinition {

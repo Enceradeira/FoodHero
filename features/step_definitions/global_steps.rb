@@ -49,20 +49,27 @@ def expect_and_answer_data_collection_alert
   allow_data_collection
 end
 
+def wait_button_and_click(button_name)
+  wait_true({:timeout => 30, :interval => 2}) do
+    button(button_name) != nil
+  end
+  button(button_name).click
+end
+
 Given(/^I have answered the data collection alert$/) do
   expect_and_answer_data_collection_alert
 end
 
 When(/^I go to the help view$/) do
-  button('Help').click
+  wait_button_and_click('Help')
 end
 
 When(/^I go back$/) do
-  button('Food Hero').click
+  wait_button_and_click('Food Hero')
 end
 
 When(/^I go to the login view$/) do
-  button('Login').click
+  wait_button_and_click('Login')
 end
 
 Then(/^I see the conversation view$/) do
