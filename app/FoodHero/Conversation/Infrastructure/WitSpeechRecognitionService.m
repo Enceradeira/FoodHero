@@ -70,15 +70,6 @@ int _interactionCount = 0;
             return [[SpeechEntity alloc] initWithType:key value:valueDic[@"value"]];
         }].allValues;
 
-        // Workaround to fix problem that several intents can't have same expression
-        if ([_currState isEqualToString:@"askForSuggestionFeedback"]
-                && ([interpretation.text isEqualToString:@"no"] || [interpretation.text isEqualToString:@"No"])) {
-
-            NSLog(@"WIT Workaround applied: %@ -> SuggestionFeedback_Dislike ", interpretation.intent);
-            interpretation.intent = @"SuggestionFeedback_Dislike";
-            interpretation.confidence = 1;
-        }
-
         if (interpretation.confidence < 0.1 || [interpretation.intent isEqualToString:@"UNKNOWN"]) {
             [_output sendNext:[self userIntentUnclearError]];
             [self logGAINegativeExperience:@"WitLowConfidence"];
