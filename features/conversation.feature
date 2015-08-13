@@ -49,6 +49,13 @@ Feature: User interacts with app through conversation
     When I greet FoodHero
     Then FoodHero greets me and suggests something
 
+ Scenario: I ask where the restaurant is
+   Given FoodHero has started and I accept alerts
+   And FoodHero greets me and suggests something
+   And I like the restaurant and ask where it is
+   Then FoodHero comments my choice and tells me the restaurants location
+   And FoodHero asks if there's anything else
+
  Scenario: I become feed up with Food Hero
    Given FoodHero has started and I accept alerts
    Then FoodHero greets me and suggests something

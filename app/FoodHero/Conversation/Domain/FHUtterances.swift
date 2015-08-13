@@ -231,6 +231,13 @@ public class FHUtterances {
                         state: nil, expectedUserUtterances: nil))
     }
 
+    class func commentChoiceAndTellUserLocation(def: StringDefinition, ofRestaurant restaurant:Restaurant) -> StringDefinition {
+        return def.words([
+                "It's at \(restaurant.vicinity). See you there."],
+                withCustomData: FoodHeroParameters(semanticId: "FH:CommentChoiceAndTellRestaurantLocation",
+                        state: nil, expectedUserUtterances: nil))
+    }
+
     class func whatToDoNext(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "Anything else?",

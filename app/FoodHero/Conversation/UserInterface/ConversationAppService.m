@@ -92,6 +92,10 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForLike:[self getLastSuggestedRestaurant] text:interpretation.text];
                             return (id) utterance;
                         }
+                        else if([interpretation.intent isEqualToString:@"SuggestionFeedback_LikeWithLocationRequest"]){
+                            TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForLikeWithLocationRequest:[self getLastSuggestedRestaurant] text:interpretation.text];
+                            return (id) utterance;
+                        }
                         else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_Dislike"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForDislike:[self getLastSuggestedRestaurant] text:interpretation.text];
                             return (id) utterance;

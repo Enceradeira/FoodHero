@@ -124,10 +124,19 @@ public class ConversationScript: Script {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
 
             } else {
-                // "U:SuggestionFeedback=Like"
-                return $1.define {
-                    $0.say(oneOf: FHUtterances.commentChoices)
-                    return self.askWhatToDoNext($0)
+                if $0.hasSemanticId("U:SuggestionFeedback=LikeWithLocationRequest") {
+                    let restaurants = self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]
+                    let lastRestaurant:Restaurant = restaurants.last!
+                    return $1.define {
+                        $0.say(oneOf: {FHUtterances.commentChoiceAndTellUserLocation($0, ofRestaurant: lastRestaurant)})
+                        return self.askWhatToDoNext($0)
+                    }
+                } else {
+                    // "U:SuggestionFeedback=Like"
+                    return $1.define {
+                        $0.say(oneOf: FHUtterances.commentChoices)
+                        return self.askWhatToDoNext($0)
+                    }
                 }
             }
         }

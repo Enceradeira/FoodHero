@@ -183,6 +183,7 @@
 		23525982F3968BAB01EBD813 /* RestaurantRatingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525729BB851260410BB8BC /* RestaurantRatingTests.m */; };
 		2352598464756B926A0483A0 /* ConversationViewState+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */; };
 		23525990B3D4903EF1E3D603 /* SearchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525080E9F5707B526FD461 /* SearchException.m */; };
+		2352599770B0B54C07A4B5E9 /* ConversationLocationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250BCE51FC582534B6FE1 /* ConversationLocationRequestTests.swift */; };
 		2352599A2B879D19E3809267 /* ConversationDislikesKindOfFoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525392369CC6F3B950A149 /* ConversationDislikesKindOfFoodTests.swift */; };
 		235259A4F2C818FD04AEC373 /* FHPlacesUrlBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525C867A5FD447349BDF9B /* FHPlacesUrlBuilderTests.swift */; };
 		235259AE6453AB23050E7A8C /* ConversationViewStateNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */; };
@@ -356,6 +357,7 @@
 		2352509C0005FDB5ACC0DF68 /* Continuation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Continuation.swift; sourceTree = "<group>"; };
 		235250A45B37DCA998FF4B55 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		235250B0CF453E719D51919B /* LocationServiceAuthorizationStatusDeniedError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServiceAuthorizationStatusDeniedError.h; sourceTree = "<group>"; };
+		235250BCE51FC582534B6FE1 /* ConversationLocationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationLocationRequestTests.swift; sourceTree = "<group>"; };
 		235250C6A011141D03463883 /* Utterance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utterance.swift; sourceTree = "<group>"; };
 		235250D31D0B1742AEC73FBD /* FoodHeroFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodHeroFonts.h; sourceTree = "<group>"; };
 		235250D351C14AACE5E7E036 /* UITextViewVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewVisualizer.h; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 				23525F8FF534724DA8ECF1CF /* ConversationIsVeryBusyAtTheMomentTests.swift */,
 				2352533A75A4D92350F6498E /* ConversationAskForWhatToDoNext.swift */,
 				2352549987FA609F3C5EE255 /* TextAndLocationTests.swift */,
+				235250BCE51FC582534B6FE1 /* ConversationLocationRequestTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2132,6 +2135,7 @@
 				235250947595A86592DE1C85 /* IPlacesAPI.swift in Sources */,
 				23525C5A367D945D96B2E31D /* StubAssembly.m in Sources */,
 				23525CC5DD00620FFF56641D /* ConfigurationTests.swift in Sources */,
+				2352599770B0B54C07A4B5E9 /* ConversationLocationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

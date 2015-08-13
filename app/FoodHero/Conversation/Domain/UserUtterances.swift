@@ -87,6 +87,11 @@ public class UserUtterances: NSObject {
                 modelAnswer: "I like it", restaurant: restaurant)
     }
 
+    public class func suggestionFeedbackForLikeWithLocationRequest(restaurant: Restaurant, text: String) -> TalkerUtterance {
+        return createUtterance("U:SuggestionFeedback=LikeWithLocationRequest", text: text,
+                modelAnswer: "That sounds good. Where is it?", restaurant: restaurant)
+    }
+
     public class func wantsToStopConversation(text: String) -> TalkerUtterance {
         return createUtterance("U:WantsToStopConversation", text: text, modelAnswer: "No");
     }
