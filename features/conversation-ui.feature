@@ -13,7 +13,6 @@ Feature: User interacts with app through conversation
     And I touch send without entering anything
     Then FoodHero still greets me and suggests something
 
-    Given FoodHero is very slow in responding
     When I don't like the restaurant
     Then I can't touch the microphone button
     And I can't enter text

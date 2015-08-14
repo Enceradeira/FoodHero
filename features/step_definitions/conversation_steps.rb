@@ -276,7 +276,7 @@ end
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   link = find_element(:xpath, "//*[contains(@name,'FH:Suggestion')]//UIALink")
   expect(link).not_to be_nil
-  link.clickRwGjlOOZuy7y
+  link.click
 end
 
 When(/^I go to the help view through the link$/) do
