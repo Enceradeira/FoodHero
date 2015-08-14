@@ -47,11 +47,11 @@ World(BubbleCacheWorld) do
 end
 
 # let cucumber control driver
-Before do
+Before('@app') do
   driver.start_driver
   driver.no_wait
   BubbleCacheWorld.cache.reset
 end
-After do
+After('@app') do
   driver.driver_quit
 end

@@ -1,3 +1,4 @@
+@app
 Feature: Navigation in app
 
   Scenario: I start Food Hero and explore app

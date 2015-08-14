@@ -1,3 +1,4 @@
+@app
 Feature: User interacts with app through conversation
 
   Scenario: I log in for the first time and go through all suggestion feedback

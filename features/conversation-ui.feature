@@ -1,3 +1,4 @@
+@app
 Feature: User interacts with app through conversation
 
   Background:
