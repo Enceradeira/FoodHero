@@ -11,7 +11,7 @@ class AppiumWorld
           caps: {
               platformName: 'iOS',
               platformVersion: AppPaths.version,
-              deviceName: 'iPhone 5s', # one from 'instruments -s devices'
+              deviceName: 'iPhone 6', # one from 'instruments -s devices'
               #locationServicesEnabled: false,
               #locationServicesAuthorized: false,
               #autoAcceptAlerts: false,
