@@ -29,12 +29,17 @@ end
 Appium.promote_appium_methods AppiumWorld
 
 # BubbleCache
-$cache = BubbleCache.new(driver)
 module BubbleCacheWorld
+  class << self;
+    attr_accessor :cache;
+  end
+
   def bubbles
-    $cache.bubbles
+    BubbleCacheWorld.cache.bubbles
   end
 end
+
+BubbleCacheWorld.cache = BubbleCache.new(driver)
 
 # extend cucumber steps
 World(BubbleCacheWorld) do
@@ -45,7 +50,7 @@ end
 Before do
   driver.start_driver
   driver.no_wait
-  $cache.reset
+  BubbleCacheWorld.cache.reset
 end
 After do
   driver.driver_quit
