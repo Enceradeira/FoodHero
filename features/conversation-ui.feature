@@ -4,6 +4,7 @@ Feature: User interacts with app through conversation
   Background:
     Given FoodHero has started and I accept alerts
 
+  @simulateSlowness
   Scenario: I can't say anything until FoodHero answers
     Then I can't touch the microphone button
     And I can't touch help

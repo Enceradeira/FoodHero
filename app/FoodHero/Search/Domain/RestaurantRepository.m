@@ -8,6 +8,8 @@
 #import "SearchException.h"
 #import "FoodHero-Swift.h"
 
+const int SimulatedResponseDelay = 5;
+
 @implementation RestaurantRepository {
     id <RestaurantSearchService> _searchService;
     CLLocation *_locationAtMomentOfCaching;
@@ -25,7 +27,13 @@
         _placesAPI = placesAPI;
         _restaurantsCached = [NSMutableDictionary new];
         _isSimulatingNoRestaurantFound = NO;
-        _responseDelay = 0;
+        if( [Configuration simulateSlowness]){
+            _responseDelay = SimulatedResponseDelay;
+        }
+        else{
+            _responseDelay = 0;
+        }
+
     }
     return self;
 }
@@ -103,7 +111,7 @@
 }
 
 - (void)simulateSlowResponse:(BOOL)enabled {
-    _responseDelay = enabled ? 5 : 0;
+    _responseDelay = enabled ? SimulatedResponseDelay : 0;
 }
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {

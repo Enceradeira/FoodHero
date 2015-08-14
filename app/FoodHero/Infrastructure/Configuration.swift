@@ -21,6 +21,21 @@ public class Configuration: NSObject {
         }
     }
 
+    private class func parseArgs(args: [String], forName name: String) -> String! {
+        let flag = "-\(name)="
+        let envs = args.filter {
+            startsWith($0, flag)
+        }
+        if (count(envs) == 1) {
+            return envs[0].stringByReplacingOccurrencesOfString(flag, withString: "")
+        }
+        return nil
+    }
+
+    private class func arguments() -> [String] {
+        return NSProcessInfo.processInfo().arguments as! [String]
+    }
+
     public class func userId() -> String {
         let key = "userId"
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -52,19 +67,20 @@ public class Configuration: NSObject {
     }
 
     public class func environment() -> String {
-        let args = NSProcessInfo.processInfo().arguments as! [String]
-        return parseEnvironment(args)
+        return parseEnvironment(arguments())
+    }
+
+    public class func simulateSlowness() -> Bool {
+        return parseSimulateSlowness(arguments())
     }
 
     public class func parseEnvironment(args: [String]) -> String {
-        let flag = "-environment="
-        let envs = args.filter {
-            startsWith($0, flag)
-        }
-        if (count(envs) == 1) {
-            return envs[0].stringByReplacingOccurrencesOfString(flag, withString: "")
-        }
-        return productionEnv
+        return parseArgs(args, forName: "environment") ?? productionEnv
+    }
+
+    public class func parseSimulateSlowness(args: [String]) -> Bool {
+        let string = parseArgs(args, forName: "simulateSlowness") ?? "false"
+        return string.lowercaseString == "true" ? true : false
     }
 
     public class func allowDataCollection(completion: (Bool) -> ()) {

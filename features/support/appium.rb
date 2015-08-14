@@ -5,7 +5,7 @@ require_relative 'bubble_cache'
 # Promote appium methods into the cucumber world
 class AppiumWorld
   class << self
-    def setup_driver
+    def setup_driver(simulate_slowness)
       # setup driver
       caps = {
           caps: {
@@ -18,7 +18,7 @@ class AppiumWorld
               #noReset: false,
               # app: AppPaths.app_path,
               app: AppPaths.build_path, # WORKAROUND: FoodHero.app (with swiftcode) is sometimes invalid when copied from above AppPaths.app_path
-              processArguments: '-environment=Integration'
+              processArguments: "-environment=Integration -simulateSlowness=#{simulate_slowness}"
           },
           appium_lib: {
               sauce_username: nil, # don't run on Sauce
@@ -53,13 +53,22 @@ World(BubbleCacheWorld) do
   AppiumWorld.new
 end
 
-# let cucumber control driver
-Before('@app') do
-  driver = AppiumWorld.setup_driver
+def promote_appium_world(driver)
   Appium.promote_appium_methods AppiumWorld
 
   BubbleCacheWorld.cache = BubbleCache.new(driver)
   BubbleCacheWorld.cache.reset
+end
+
+# let cucumber control driver
+Before('@app','@simulateSlowness') do
+  driver = AppiumWorld.setup_driver(true)
+  promote_appium_world(driver)
+end
+
+Before('@app','~@simulateSlowness') do
+  driver = AppiumWorld.setup_driver(false)
+  promote_appium_world(driver)
 end
 
 After('@app') do
