@@ -14,7 +14,7 @@
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error: nil];
         [[AVAudioSession sharedInstance] setActive:YES error:nil];
     }
     return self;

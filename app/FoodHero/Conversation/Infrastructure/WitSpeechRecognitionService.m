@@ -4,11 +4,9 @@
 //
 
 #import "WITRecordingSession.h"
-#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
 #import <LinqToObjectiveC/NSDictionary+LinqExtensions.h>
-#import "FoodHero-Swift.h"
 
 int _interactionCount = 0;
 
@@ -22,6 +20,8 @@ int _interactionCount = 0;
     NSString *_currState;
 
     NSDate *_startTimeInteraction;
+    AVAudioPlayer *_startRecordingSoundPlayer;
+    AVAudioPlayer *_stopRecordingSoundPlayer;
 }
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
@@ -31,13 +31,27 @@ int _interactionCount = 0;
         _audioSession = audioSession;
         _output = [RACSubject new];
         _simulateNetworkError = NO;
+
         _wit = [Wit sharedInstance];
         _wit.accessToken = _accessToken;
         _wit.detectSpeechStop = WITVadConfigDetectSpeechStop;
         _wit.delegate = self;
+
+        // https://github.com/TUNER88/iOSSystemSoundsLibrary
+        _startRecordingSoundPlayer = [self createSoundPlayerForResource:@"beep_piano_on" ofType:@"wav"];
+        _stopRecordingSoundPlayer = [self createSoundPlayerForResource:@"beep_piano_off" ofType:@"wav"];
     }
 
     return self;
+}
+
+- (AVAudioPlayer *)createSoundPlayerForResource:(NSString *)name ofType:(NSString *)ofType {
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:name ofType:ofType]];
+    NSError *error;
+    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    [player prepareToPlay];
+    [player setVolume:0.6];
+    return player;
 }
 
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
@@ -65,8 +79,8 @@ int _interactionCount = 0;
         interpretation.intent = best[@"intent"];
         NSDictionary *entities = best[@"entities"];
 
-        interpretation.entities =  [entities linq_select:^(id key, id value){
-            NSDictionary * valueDic = value[0];
+        interpretation.entities = [entities linq_select:^(id key, id value) {
+            NSDictionary *valueDic = value[0];
             return [[SpeechEntity alloc] initWithType:key value:valueDic[@"value"]];
         }].allValues;
 
@@ -96,7 +110,7 @@ int _interactionCount = 0;
 }
 
 - (void)witActivityDetectorStarted {
-
+    [_startRecordingSoundPlayer play];
 }
 
 - (void)witDidStartRecording {
@@ -110,6 +124,7 @@ int _interactionCount = 0;
     [self.stateSource didStopRecordingUserInput];
     [self notifyUserInteraction];
     NSLog(@"WitSpeechRecognitionService.witDidStopRecording: Recording stopped");
+    [_stopRecordingSoundPlayer play];
 }
 
 - (void)interpretString:(NSString *)string {
