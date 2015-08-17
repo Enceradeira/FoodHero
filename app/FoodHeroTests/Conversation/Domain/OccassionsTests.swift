@@ -105,6 +105,7 @@ class OccasionsTests: XCTestCase {
     func test_guessFromCuisine_ShouldProcessCompositeWords(){
         XCTAssertEqual(Occasions.guessFromCuisine("Brazilan bar"), Occasions.drink())
         XCTAssertEqual(Occasions.guessFromCuisine("Brazilan restaurant"), Occasions.dinner())
+        XCTAssertEqual(Occasions.guessFromCuisine("chinese takeaway"), Occasions.dinner())
     }
 
     func test_guessFromCuisine_ShouldReturnEmtpy_WhenCuisineEmpty(){

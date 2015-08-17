@@ -145,6 +145,9 @@ public class Occasions: NSObject {
         if normalizedCuisine.rangeOfString("restaurant") != nil {
             return dinner()
         }
+        if normalizedCuisine.rangeOfString("takeaway") != nil {
+            return dinner()
+        }
 
         NSLog("Occasions.guessFromCuisine: no occasion guessed for \(cuisine)")
         GAIService.logEventWithCategory(GAICategories.improvements(), action: GAIActions.improvementNoOccasionGuessedForCuisine(), label: cuisine, value: 0)
