@@ -155,6 +155,7 @@
 		2352581BE33F4EE755746059 /* Continuation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352509C0005FDB5ACC0DF68 /* Continuation.swift */; };
 		2352581C389716C44EA9CF5D /* StringDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525A7D66B814224736DB5A /* StringDefinition.swift */; };
 		2352582A21F9E3374DBDC332 /* IPlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525AA33444D929C17A506A /* IPlacesAPI.swift */; };
+		23525832B1C242A7A1C4FE15 /* AudioSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D2B95D45D696D9F3B26 /* AudioSessionTests.m */; };
 		235258385ED1C85581FF1FA6 /* SuggestionLikedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235251F1DB4040D039F77EC7 /* SuggestionLikedController.swift */; };
 		23525856C97C7C4B8F33A317 /* FoodHeroSuggestionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525DEB898BFEC721F7023B /* FoodHeroSuggestionParameters.swift */; };
 		2352585E85069053B955DB26 /* HCIsExceptionOfType.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FFD133B4B57A619342E /* HCIsExceptionOfType.m */; };
@@ -318,8 +319,6 @@
 		8FEA3BF719CB4E4D00C67DDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADCC19614B83001ED357 /* Foundation.framework */; };
 		8FEA3BF819CB4E4D00C67DDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCBADD019614B83001ED357 /* UIKit.framework */; };
 		8FEA3BFE19CB4E4D00C67DDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA3BFC19CB4E4D00C67DDD /* InfoPlist.strings */; };
-		8FF740AE1B7F933B00F39F23 /* beep_piano_off.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8FF740AC1B7F933B00F39F23 /* beep_piano_off.wav */; };
-		8FF740AF1B7F933B00F39F23 /* beep_piano_on.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8FF740AD1B7F933B00F39F23 /* beep_piano_on.wav */; };
 		CCBEFC2AA51A4FBDA79617D3 /* libPods-FoodHeroTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30424296DB45F0AA881B71 /* libPods-FoodHeroTests.a */; };
 /* End PBXBuildFile section */
 
@@ -656,6 +655,7 @@
 		23525D18AAB9A4164A13FCA6 /* RatingStarsImageRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingStarsImageRepository.h; sourceTree = "<group>"; };
 		23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationManagerProxySpy.m; sourceTree = "<group>"; };
 		23525D2507B15D580B45F108 /* GAICategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAICategories.swift; sourceTree = "<group>"; };
+		23525D2B95D45D696D9F3B26 /* AudioSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioSessionTests.m; sourceTree = "<group>"; };
 		23525D6282DB07A825F147CF /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		23525D63A79559A8109F2F66 /* RestaurantSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchService.h; sourceTree = "<group>"; };
 		23525D71D76A1A6A580A850B /* AnonymousUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnonymousUser.m; sourceTree = "<group>"; };
@@ -764,8 +764,6 @@
 		8FEA3BFB19CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodHeroIntegrationsTests-Info.plist"; sourceTree = "<group>"; };
 		8FEA3BFD19CB4E4D00C67DDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8FEA3C0119CB4E4D00C67DDD /* FoodHeroIntegrationsTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Prefix.pch"; sourceTree = "<group>"; };
-		8FF740AC1B7F933B00F39F23 /* beep_piano_off.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep_piano_off.wav; sourceTree = "<group>"; };
-		8FF740AD1B7F933B00F39F23 /* beep_piano_on.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep_piano_on.wav; sourceTree = "<group>"; };
 		8FF7E44B1B426C48004722EA /* FoodHeroIntegrationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroIntegrationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodHeroIntegrationsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A5EAE4A76C62967BE3398F /* Pods-FoodHero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodHero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodHero/Pods-FoodHero.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1025,6 +1023,7 @@
 				2352539069D36DB6EA0BCAD0 /* GeocoderServiceTests.swift */,
 				235253574D00171FCBEE1779 /* IntegrationAssembly.h */,
 				2352515C9B2A702344B99488 /* IntegrationAssembly.m */,
+				23525D2B95D45D696D9F3B26 /* AudioSessionTests.m */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1547,8 +1546,6 @@
 			children = (
 				8FCBADD419614B83001ED357 /* FoodHero-Info.plist */,
 				8FCBADD519614B83001ED357 /* InfoPlist.strings */,
-				8FF740AC1B7F933B00F39F23 /* beep_piano_off.wav */,
-				8FF740AD1B7F933B00F39F23 /* beep_piano_on.wav */,
 				8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */,
 				8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */,
 				8FCBBDCA1969A3AA00D4B85F /* ConversationBubble-FoodHero@2x.png */,
@@ -1758,8 +1755,6 @@
 				8F115DC01AFD3DBC004ED9BE /* map-icon-transparent@2x.png in Resources */,
 				8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */,
 				8FC51EDA19DED10B00B39ACC /* directions-icon@2x.png in Resources */,
-				8FF740AF1B7F933B00F39F23 /* beep_piano_on.wav in Resources */,
-				8FF740AE1B7F933B00F39F23 /* beep_piano_off.wav in Resources */,
 				8FE35F1119FAAED8007CE198 /* directions-icon-transparent@2x.png in Resources */,
 				8FE109DC1A062D4A0059C4D0 /* rating-stars-1.5@2x.png in Resources */,
 				8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */,
@@ -2181,6 +2176,7 @@
 				23525A67D882D3BD56BACE9B /* PlacesAPIStub.swift in Sources */,
 				23525635EA88727936123494 /* PlacesAPISpy.swift in Sources */,
 				2352588BDACE6FDD7024AEF5 /* IntegrationAssembly.m in Sources */,
+				23525832B1C242A7A1C4FE15 /* AudioSessionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

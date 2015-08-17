@@ -18,6 +18,15 @@
     return _permission;
 }
 
+- (void)playJblBeginSound {
+
+}
+
+- (void)playJblCancelSound {
+
+}
+
+
 - (void)injectRecordPermission:(AVAudioSessionRecordPermission)permission {
     _permission = permission;
 }

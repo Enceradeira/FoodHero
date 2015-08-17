@@ -11,4 +11,9 @@
 - (void)requestRecordPermission:(void (^)(BOOL granted))response;
 
 - (AVAudioSessionRecordPermission)recordPermission;
+
+- (void)playJblBeginSound;
+
+- (void)playJblCancelSound;
+
 @end

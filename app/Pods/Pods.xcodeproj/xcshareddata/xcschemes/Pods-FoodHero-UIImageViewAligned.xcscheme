@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "74EB33B4258BEA7BA24A7514"
+               BlueprintIdentifier = "BA2AF6F63B77915778B06DBD"
                BuildableName = "libPods-FoodHero-UIImageViewAligned.a"
                BlueprintName = "Pods-FoodHero-UIImageViewAligned"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -20,8 +20,6 @@ int _interactionCount = 0;
     NSString *_currState;
 
     NSDate *_startTimeInteraction;
-    AVAudioPlayer *_startRecordingSoundPlayer;
-    AVAudioPlayer *_stopRecordingSoundPlayer;
 }
 
 - (instancetype)initWithAccessToken:(NSString *)accessToken audioSession:(id <IAudioSession>)audioSession {
@@ -36,22 +34,9 @@ int _interactionCount = 0;
         _wit.accessToken = _accessToken;
         _wit.detectSpeechStop = WITVadConfigDetectSpeechStop;
         _wit.delegate = self;
-
-        // https://github.com/TUNER88/iOSSystemSoundsLibrary
-        _startRecordingSoundPlayer = [self createSoundPlayerForResource:@"beep_piano_on" ofType:@"wav"];
-        _stopRecordingSoundPlayer = [self createSoundPlayerForResource:@"beep_piano_off" ofType:@"wav"];
     }
 
     return self;
-}
-
-- (AVAudioPlayer *)createSoundPlayerForResource:(NSString *)name ofType:(NSString *)ofType {
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:name ofType:ofType]];
-    NSError *error;
-    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    [player prepareToPlay];
-    [player setVolume:0.6];
-    return player;
 }
 
 - (void)witDidGraspIntent:(NSArray *)outcomes messageId:(NSString *)messageId customData:(id)customData error:(NSError *)error {
@@ -109,8 +94,12 @@ int _interactionCount = 0;
     [GAIService logEventWithCategory:[GAICategories engagement] action:[GAIActions engagementConversation] label:label value:0];
 }
 
+-(void)witActivityDetectorWillStart {
+    [_audioSession playJblBeginSound];
+}
+
 - (void)witActivityDetectorStarted {
-    [_startRecordingSoundPlayer play];
+
 }
 
 - (void)witDidStartRecording {
@@ -124,7 +113,7 @@ int _interactionCount = 0;
     [self.stateSource didStopRecordingUserInput];
     [self notifyUserInteraction];
     NSLog(@"WitSpeechRecognitionService.witDidStopRecording: Recording stopped");
-    [_stopRecordingSoundPlayer play];
+    [_audioSession playJblCancelSound];
 }
 
 - (void)interpretString:(NSString *)string {
