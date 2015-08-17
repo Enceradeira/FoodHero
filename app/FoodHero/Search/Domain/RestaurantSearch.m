@@ -47,9 +47,8 @@
     NSString *searchLocation = conversation.currentSearchLocation;
     RACSignal *searchLocationSignal = [[self resolvePreferredLocation:searchLocation] deliverOn:[_schedulerFactory asynchScheduler]];
 
-    RACSignal *preferenceSignal = [searchLocationSignal flattenMap:^(CLLocation *location) {
-        _lastSearchLocation = [[ResolvedSearchLocation alloc] initWithLocation:location description:searchLocation ==nil ? @"": searchLocation];
-
+    RACSignal *preferenceSignal = [searchLocationSignal flattenMap:^(NSArray *tuple) {
+        _lastSearchLocation = [[ResolvedSearchLocation alloc] initWithLocation:tuple[0] description:tuple[1]];
         double maxDistanceOfPlaces = [_repository getMaxDistanceOfPlaces:_lastSearchLocation.location];
         return [RACSignal return:[conversation currentSearchPreference:maxDistanceOfPlaces searchLocation:_lastSearchLocation.location]];
     }];
@@ -124,7 +123,13 @@
     }
 
     // return preferredLocation is it was resolved, other return currentLocation
-    return [[preferredLocationSignal concat:_locationService.currentLocation] take:1];
+    RACSignal *preferredLocationAndName = [preferredLocationSignal map:^(CLLocation *location) {
+        return @[location, searchLocation];
+    }];
+    RACSignal *usersLocation = [_locationService.currentLocation map:^(CLLocation *location) {
+        return @[location, @"" /*searchLocation couldn't be resolved, therefor should not be displayed or used anywhere*/];
+    }];
+    return [[preferredLocationAndName concat:usersLocation] take:1];
 };
 
 - (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences excludedRestaurants:(NSArray *)excludedRestaurants {

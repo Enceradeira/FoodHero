@@ -168,7 +168,7 @@
 
     // best restaurant is priceLevel 2 because its the price-level matches and it's not that far away
     Restaurant *bestRestaurant = [self findBest].restaurant;
-    assertThat(bestRestaurant, is(equalTo(priceLevel2Restaurant)));
+    assertThat(bestRestaurant.placeId, is(equalTo(priceLevel2Restaurant.placeId)));
 }
 
 - (void)test_findBest_ShouldReturnRestaurantThatIsNearer_WhenPriceLevelMatchesWorseButOtherRestaurantItsTooFarAway {
@@ -187,7 +187,7 @@
 
     // best restaurant is priceLevel 3 because the priceLevel 2-Restaurant is too far away
     Restaurant *bestRestaurant = [self findBest].restaurant;
-    assertThat(bestRestaurant, is(equalTo(priceLevel3Restaurant)));
+    assertThat(bestRestaurant.placeId, is(equalTo(priceLevel3Restaurant.placeId)));
 }
 
 - (void)test_findBest_ShouldReturnNearestRestaurant_WhenPriceLevelsAreTheSame {
@@ -196,7 +196,7 @@
     [_restaurantRepository injectRestaurants:@[nearerRestaurant, otherRestaurant]];
 
     Restaurant *bestRestaurant = [self findBest].restaurant;
-    assertThat(bestRestaurant, is(equalTo(nearerRestaurant)));
+    assertThat(bestRestaurant.placeId, is(equalTo(nearerRestaurant.placeId)));
 }
 
 - (void)test_findBest_ShouldReturnError_WhenRepositoryGetRestaurantFromPlaceReturnsSearchException {
@@ -217,6 +217,16 @@
     RestaurantSearchResult *searchResult = [self findBest];
 
     assertThat(searchResult.searchParams, is(notNilValue()));
+}
+
+-(void)test_findBest_ShouldReturnRestaurantWithoutPreferredSearchLocation_WhenSearchLocationCouldNotBeResolved{
+    [_restaurantRepository injectRestaurants:@[[[RestaurantBuilder alloc] build]]];
+    [_geocoderServiceStub injectLocation:nil];
+
+    [self.conversation injectCurrentSearchLocation:@"under my table"];
+    RestaurantSearchResult *searchResult = [self findBest];
+
+    assertThatBool(searchResult.restaurant.distance.hasPreferredSearchLocation, is(@false));
 }
 
 @end

@@ -6,6 +6,7 @@
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "RestaurantRepositoryStub.h"
+#import "FoodHero-Swift.h"
 
 
 @implementation RestaurantRepositoryStub {
@@ -39,9 +40,35 @@
         @throw _exceptionForGetRestaurantFromPlace;
     }
 
-    return [[_restaurants linq_where:^(Restaurant *r) {
+    Restaurant *r = [[_restaurants linq_where:^(Restaurant *r) {
         return [r.placeId isEqualToString:place.placeId];
     }] linq_firstOrNil];
+
+    assert(r != nil);
+
+    double distanceFromSearchLocation = r.distance.distanceFromSearchLocation;
+    RestaurantDistance *distance = [[RestaurantDistance alloc] initWithSearchLocation:currentLocation.location
+                                                            searchLocationDescription:currentLocation.locationDescription
+                                                                    distanceFromSearchLocation :distanceFromSearchLocation];
+
+    return [Restaurant createWithName:r.name
+                             vicinity:r.vicinity
+                              address:r.address
+                    addressComponents:r.addressComponents
+                        openingStatus:r.openingStatus
+                    openingHoursToday:r.openingHoursToday
+                         openingHours:r.openingHours
+                          phoneNumber:r.phoneNumber
+                                  url:r.url
+                     urlForDisplaying:r.urlForDisplaying
+                                types:r.types
+                              placeId:r.placeId
+                             location:r.location
+                             distance:distance
+                           priceLevel:r.priceLevel
+                     cuisineRelevance:r.cuisineRelevance
+                               rating:r.rating
+                               photos:r.photos];
 }
 
 - (double)getMaxDistanceOfPlaces:(CLLocation *)currLocation {
