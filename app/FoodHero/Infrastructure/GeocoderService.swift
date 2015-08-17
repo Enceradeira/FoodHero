@@ -32,7 +32,6 @@ public class GeocoderService: NSObject, IGeocoderService {
                 }
                 GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
             }
-            NSLog("GeocoderService result: \(result)")
             subject.sendNext(result)
             subject.sendCompleted()
         }
