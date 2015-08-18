@@ -49,9 +49,10 @@
     double distanceFromSearchLocation = r.distance.distanceFromSearchLocation;
     RestaurantDistance *distance = [[RestaurantDistance alloc] initWithSearchLocation:currentLocation.location
                                                             searchLocationDescription:currentLocation.locationDescription
-                                                                    distanceFromSearchLocation :distanceFromSearchLocation];
+                                                           distanceFromSearchLocation:distanceFromSearchLocation];
 
     return [Restaurant createWithName:r.name
+                           nameUnique:r.nameUnique
                              vicinity:r.vicinity
                               address:r.address
                     addressComponents:r.addressComponents

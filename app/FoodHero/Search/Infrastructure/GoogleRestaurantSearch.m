@@ -70,7 +70,9 @@
         countPhotos++;
         return [GooglePhoto create:photo[@"photo_reference"] height:[photo[@"height"] unsignedIntValue] width:[photo[@"width"] unsignedIntValue] loadEagerly:countPhotos == 1];
     }];
-    return [Restaurant createWithName:[details valueForKey:@"name"]
+    NSString *name = [details valueForKey:@"name"];
+    return [Restaurant createWithName:name
+                           nameUnique:name
                              vicinity:[details valueForKey:@"vicinity"]
                               address:[self buildAddress:details]
                     addressComponents:[self buildAddressComponents:details]

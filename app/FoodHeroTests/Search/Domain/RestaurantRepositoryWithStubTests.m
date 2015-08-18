@@ -30,6 +30,7 @@
     RestaurantRepository *_repository;
     RestaurantSearchServiceStub *_searchService;
     PlacesAPIStub *_placesAPI;
+    ResolvedSearchLocation *_defaultLocation;
 }
 
 - (void)setUp {
@@ -40,6 +41,7 @@
     _placesAPI =  [assembly placesAPI];
     _searchService = [assembly restaurantSearchService];
     _repository = [assembly restaurantRepository];
+    _defaultLocation = [[ResolvedSearchLocation alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275] description:@"Norwich"];        
 }
 
 - (RestaurantRepository *)repository {
@@ -94,9 +96,20 @@
     CuisineAndOccasion *cuisine = [[CuisineAndOccasion alloc] initWithOccasion:@"brunch" cuisine:@"Swiss" location:nil];
     Place *place = [self.repository getPlacesBy:cuisine][0];
 
-    ResolvedSearchLocation* currLocation = [[ResolvedSearchLocation alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:51.5072 longitude:-0.1275] description:@"Norwich"];
-    Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place searchLocation:currLocation];
-    assertThat(restaurantFromPlace, is(equalTo(restaurant)));
+    Restaurant *restaurantFromPlace = [_repository getRestaurantFromPlace:place searchLocation:_defaultLocation];
+    assertThat(restaurantFromPlace.placeId, is(equalTo(restaurant.placeId)));
+}
+
+-(void)test_getRestaurantForPlace_ShouldReturnUniqueNameForRestaurant_WhenRestaurantWithSameNameAlreadyReturned{
+    Restaurant *restaurant1 = [[[[RestaurantBuilder alloc] withName:@"Cafe Valeria"] withVicinity:@"18 Cathedral Rd, Norwich"] build];
+    Restaurant *restaurant2 = [[[[RestaurantBuilder alloc] withName:@"Café Valéria"] withVicinity:@"Upper Market, Norwich"] build];
+    [_placesAPI injectFindResults:@[restaurant1,restaurant2]];
+    
+    Restaurant *restaurant1Retrieved = [_repository getRestaurantFromPlace:restaurant1 searchLocation:_defaultLocation];
+    Restaurant *restaurant2Retrieved = [_repository getRestaurantFromPlace:restaurant2 searchLocation:_defaultLocation];
+
+    assertThat(restaurant1Retrieved.nameUnique, is(equalTo(@"Cafe Valeria")));
+    assertThat(restaurant2Retrieved.nameUnique, is(equalTo(@"Café Valéria, Upper Market, Norwich")));
 }
 
 - (void)test_doRestaurantsHaveDifferentPriceLevels_ShouldReturnNo_WhenRestaurantsAreNotInCache {

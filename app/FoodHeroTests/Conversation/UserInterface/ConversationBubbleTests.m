@@ -43,12 +43,12 @@
 }
 
 - (void)test_textAsHtml_ShouldReturnTextWithLink_WhenSuggestion {
-    Restaurant *restaurant = [[[RestaurantBuilder new] withName:@"Raj Palace"] build];
+    Restaurant *restaurant = [[[RestaurantBuilder new] withNameUnique:@"Raj Palace, Upper Market, Norwich"] build];
     Statement *statement = [Statement createWithSemanticId:@"FH:Greeting" text:@"This is a no brainer.  You should try %@." state:nil suggestedRestaurant:restaurant expectedUserUtterances:nil];
 
     ConversationBubble *bubble = [self createBubbleWithStatement:statement];
 
-    assertThat(bubble.textAsHtml, is(equalTo(@"This is a no brainer.  You should try <a href=''>Raj Palace</a>.")));
+    assertThat(bubble.textAsHtml, is(equalTo(@"This is a no brainer.  You should try <a href=''>Raj Palace, Upper Market, Norwich</a>.")));
 }
 
 @end

@@ -27,15 +27,21 @@ const int SimulatedResponseDelay = 5;
         _placesAPI = placesAPI;
         _restaurantsCached = [NSMutableDictionary new];
         _isSimulatingNoRestaurantFound = NO;
-        if( [Configuration simulateSlowness]){
+        if ([Configuration simulateSlowness]) {
             _responseDelay = SimulatedResponseDelay;
         }
-        else{
+        else {
             _responseDelay = 0;
         }
 
     }
     return self;
+}
+
+- (NSString *)convertToAscii:(NSString *)yourString {
+    return [[NSString alloc] initWithData:
+                    [yourString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+                                 encoding:NSASCIIStringEncoding];
 }
 
 - (NSArray *)getPlacesBy:(CuisineAndOccasion *)parameter {
@@ -82,7 +88,43 @@ const int SimulatedResponseDelay = 5;
     @synchronized (self) {
         Restaurant *restaurant = _restaurantsCached[place.placeId];
         if (restaurant == nil) {
-            restaurant = [_searchService getRestaurantForPlace:place searchLocation:searchLocation];
+            Restaurant *r = [_searchService getRestaurantForPlace:place searchLocation:searchLocation];
+
+            NSString *uniqueName;
+            NSString *nameAsAscii = [self convertToAscii:r.name];
+            if ([[_restaurantsCached allValues] linq_any:^(Restaurant *retrievedRestaurant) {
+                NSString *retrievedName = [self convertToAscii:retrievedRestaurant.name];
+                return (BOOL) ([retrievedName isEqualToString:nameAsAscii]);
+            }]) {
+                // Restaurant with same name was already returned (displayed), therefore we create a unique name here
+                uniqueName = [NSString stringWithFormat:@"%@, %@", r.name, r.vicinity];
+            }
+            else {
+                uniqueName = r.name;
+            }
+
+
+            restaurant = [Restaurant createWithName:r.name
+                                         nameUnique:uniqueName
+                                           vicinity:r.vicinity
+                                            address:r.address
+                                  addressComponents:r.addressComponents
+                                      openingStatus:r.openingStatus
+                                  openingHoursToday:r.openingHoursToday
+                                       openingHours:r.openingHours
+                                        phoneNumber:r.phoneNumber
+                                                url:r.url
+                                   urlForDisplaying:r.urlForDisplaying
+                                              types:r.types
+                                            placeId:r.placeId
+                                           location:r.location
+                                           distance:r.distance
+                                         priceLevel:r.priceLevel
+                                   cuisineRelevance:r.cuisineRelevance
+                                             rating:r.rating
+                                             photos:r.photos];
+
+
             _restaurantsCached[place.placeId] = restaurant;
         }
         return restaurant;

@@ -8,6 +8,7 @@
 
 @implementation Restaurant
 - (id)initWithName:(NSString *)name
+        nameUnique:(NSString *)nameUnique
           vicinity:(NSString *)vicinity
            address:(NSString *)address
  addressComponents:(NSArray *)addressComponents
@@ -28,6 +29,7 @@
     self = [super initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
     if (self != nil) {
         _name = name;
+        _nameUnique = nameUnique;
         _vicinity = vicinity;
         _types = types;
         _address = address;
@@ -46,6 +48,7 @@
 }
 
 + (Restaurant *)createWithName:(NSString *)name
+                    nameUnique:(NSString *)nameUnique
                       vicinity:(NSString *)vicinity
                        address:(NSString *)address
              addressComponents:(NSArray *)addressComponents
@@ -64,6 +67,7 @@
                         rating:(RestaurantRating *)rating
                         photos:(NSArray *)photos {
     return [[Restaurant alloc] initWithName:name
+                                 nameUnique:nameUnique
                                    vicinity:vicinity
                                     address:address
                           addressComponents:addressComponents

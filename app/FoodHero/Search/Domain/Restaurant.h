@@ -14,6 +14,7 @@
 @interface Restaurant : Place
 @property(nonatomic, readonly) NSString *vicinity;
 @property(nonatomic, readonly) NSString *name;
+@property(nonatomic, readonly) NSString *nameUnique;
 @property(nonatomic, readonly) NSString *address;
 @property(nonatomic, readonly) NSArray *addressComponents;
 @property(nonatomic, readonly) NSString *openingStatus;
@@ -28,6 +29,7 @@
 @property(nonatomic, readonly) NSArray *photos;
 
 + (Restaurant *)createWithName:(NSString *)name
+                    nameUnique:(NSString *)nameUnique
                       vicinity:(NSString *)vicinity
                        address:(NSString *)address
              addressComponents:(NSArray *)addressComponents
@@ -39,7 +41,7 @@
               urlForDisplaying:(NSString *)urlForDisplaying
                          types:(NSArray *)types
                        placeId:(NSString *)placeId
-                      location:(CLLocation*)location
+                      location:(CLLocation *)location
                       distance:(RestaurantDistance *)distance
                     priceLevel:(NSUInteger)priceLevel
               cuisineRelevance:(double)cuisineRelevance

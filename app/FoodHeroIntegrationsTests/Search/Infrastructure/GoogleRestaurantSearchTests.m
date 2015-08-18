@@ -80,6 +80,7 @@
     Restaurant *restaurant = [_service getRestaurantForPlace:place searchLocation:_norwich];
 
     assertThatUnsignedInt(restaurant.name.length, is(greaterThan(@0U)));
+    assertThat(restaurant.nameUnique, is(equalTo(restaurant.name)));
     assertThatUnsignedInt(restaurant.vicinity.length, is(greaterThan(@0U)));
     assertThat(restaurant.address, is(equalTo(@"Victory House\n99 Regent Street, London W1B 4EZ")));
     assertThatUnsignedInt([restaurant.addressComponents count], is(greaterThan(@0U)));

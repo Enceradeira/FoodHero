@@ -13,6 +13,8 @@
 
 - (RestaurantBuilder *)withName:(NSString *)name;
 
+- (RestaurantBuilder *)withNameUnique:(NSString *)nameUnique;
+
 - (RestaurantBuilder *)withVicinity:(NSString *)vicinity;
 
 - (RestaurantBuilder *)withLocation:(CLLocation *)location;

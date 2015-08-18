@@ -159,7 +159,7 @@
 
 - (NSString *)substituteRestaurantPlaceHolderWith:(NSString *)format {
     if (self.suggestedRestaurant) {
-        NSString *link = [NSString stringWithFormat:format, self.suggestedRestaurant.name];
+        NSString *link = [NSString stringWithFormat:format, self.suggestedRestaurant.nameUnique];
         return [self.textSource stringByReplacingOccurrencesOfString:@"%@" withString:link];
     }
     else {

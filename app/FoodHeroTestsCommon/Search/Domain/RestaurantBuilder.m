@@ -30,11 +30,13 @@
     RestaurantRating *_rating;
     NSArray *_photos;
     NSString *_placeId;
+    NSString *_nameUnique;
 }
 
 - (Restaurant *)build {
 
     NSString *name = _name == nil ? @"Raj Palace" : _name;
+    NSString *nameUnique = _nameUnique != nil ? _nameUnique : name;
     NSString *vicinity = _vicinity == nil ? @"18 Cathedral Street, Norwich" : _vicinity;
     NSString *address = _address == nil ? @"18 Cathedral Street\nNR1 1LX Norwich" : _address;
     NSArray *addressComponents = _addressComponents == nil ? @[@"18 Cathedral Street", @"Norwich", @"NR1 1LX", @"United Kingdom"] : _addressComponents;
@@ -54,11 +56,12 @@
     NSString *phoneNumber = _phoneNumber == nil ? @"01603 777885" : _phoneNumber;
     NSString *url = _url == nil ? @"http://www.namaste.co.uk" : _url;
     NSString *urlForDisplaying = _urlForDisplaying == nil ? @"namaste.co.uk" : _urlForDisplaying;
-    RestaurantDistance *restaurantDistance = _distance == nil ? [[RestaurantDistanceBuilder alloc]  build]: _distance;
+    RestaurantDistance *restaurantDistance = _distance == nil ? [[RestaurantDistanceBuilder alloc] build] : _distance;
     RestaurantRating *rating = _rating == nil ? [[RestaurantRatingBuilder alloc] build] : _rating;
 
     NSArray *photos = _photos == nil ? [self defaultPhotos] : _photos;
     return [Restaurant createWithName:name
+                           nameUnique:nameUnique
                              vicinity:vicinity
                               address:address
                     addressComponents:addressComponents
@@ -92,6 +95,11 @@
 
 - (RestaurantBuilder *)withName:(NSString *)name {
     _name = name;
+    return self;
+}
+
+- (RestaurantBuilder *)withNameUnique:(NSString *)nameUnique {
+    _nameUnique = nameUnique;
     return self;
 }
 
