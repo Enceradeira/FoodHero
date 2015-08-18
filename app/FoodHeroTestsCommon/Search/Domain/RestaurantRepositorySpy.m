@@ -14,7 +14,7 @@
     return @[];
 }
 
-- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(CLLocation *)currentLocation {
+- (Restaurant *)getRestaurantFromPlace:(Place *)place searchLocation:(ResolvedSearchLocation *)currentLocation {
     return nil;
 }
 

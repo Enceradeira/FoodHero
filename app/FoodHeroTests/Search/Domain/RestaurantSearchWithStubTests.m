@@ -114,20 +114,6 @@
     assertThat([self findBest].restaurant.placeId, isNot(equalTo(firstRestaurant.placeId)));
 }
 
-- (void)test_findBest_ShouldNotReturnARestaurantThatHasTheSameNameAsAnOtherDislikedRestaurantBefore {
-    Restaurant *restaurant1 = [[[RestaurantBuilder alloc] withName:@"Welcome Inn"] build];
-    Restaurant *restaurant2 = [[[RestaurantBuilder alloc] withName:@"Welcome Inn"] build];
-    Restaurant *restaurant3 = [[[RestaurantBuilder alloc] withName:@"King's Head"] build];
-    [_restaurantRepository injectRestaurants:@[restaurant1, restaurant2, restaurant3]];
-
-    Restaurant *firstRestaurant = [self findBest].restaurant;
-
-    USuggestionFeedbackParameters *p = [[UserUtterances suggestionFeedbackForDislike:firstRestaurant text:@"I don't like that restaurant"] customData][0];
-    [self conversationHasNegativeUserFeedback:p];
-
-    assertThat([self findBest].restaurant.placeId, is(equalTo(restaurant3.placeId)));
-}
-
 - (void)test_findBest_ShouldNotReturnARestaurantThatWasSuggestedInCurrentSearch {
     Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];

@@ -95,9 +95,7 @@
 
     return [[moreThan0PlacesSignal
             flattenMap:^(NSArray *placesAndSearchPreference) {
-                return [self getBestPlace:placesAndSearchPreference[0]
-                              preferences:placesAndSearchPreference[1]
-                      excludedRestaurants:excludedRestaurants];
+                return [self getBestPlace:placesAndSearchPreference[0] preferences:placesAndSearchPreference[1]];
             }] map:^(NSArray *restaurantAndSearchPreference) {
         return [[RestaurantSearchResult alloc] initWithRestaurant:restaurantAndSearchPreference[0]
                                                      searchParams:restaurantAndSearchPreference[1]];
@@ -132,7 +130,7 @@
     return [[preferredLocationAndName concat:usersLocation] take:1];
 };
 
-- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences excludedRestaurants:(NSArray *)excludedRestaurants {
+- (RACSignal *)getBestPlace:(NSArray *)places preferences:(SearchProfile *)preferences {
 
     return [[[[RACSignal return:_lastSearchLocation]
             deliverOn:_schedulerFactory.asynchScheduler]
@@ -142,38 +140,7 @@
                     return @([locationDesc.location distanceFromLocation:p.location]);
                 }];
 
-                // find best and try to remove restaurant with same name as disliked places
-                NSMutableArray *candidates = [NSMutableArray arrayWithArray:sortedPlaces];
-                while (candidates.count > 0) {
-
-                    NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc candidates:candidates];
-
-                    // choose nearest that doesn't have same name as previously disliked restaurant
-                    for (Place *bestPlace in bestPlacesOrderedByDistance) {
-                        @try {
-                            Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:locationDesc];
-                            // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
-
-                            BOOL dislikedWithSameName = [excludedRestaurants linq_any:^(Restaurant *r) {
-                                return [r.name isEqualToString:restaurant.name];
-                            }];
-                            if (!dislikedWithSameName) {
-                                return @[restaurant, preferences];
-                            }
-                            else {
-                                [candidates removeObject:bestPlace];
-                                break;
-                            }
-                        }
-                        @catch (SearchException *e) {
-                            *error = [SearchError new];
-                            return (NSArray *) nil;
-                        }
-                    }
-                }
-
-                // no restaurant was found above; we now score again and return even restaurant has same name as disliked place
-                NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc.location candidates:sortedPlaces];
+                NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc candidates:sortedPlaces];
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
                 @try {
                     Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:locationDesc];
