@@ -247,6 +247,22 @@ public class ConversationScript: Script {
         }
     }
 
+    func sayWarning(script: Script, semanticID: String, sayings: (StringDefinition) -> (StringDefinition), lastSuggestionWarning: ConversationParameters?, restaurant: Restaurant, currentOccasion: String) -> Script {
+        let defaultUtterance = FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion)
+        let defaultQuestion = FHUtterances.followUpQuestion(currentOccasion)
+
+        var lastUtterance: (StringDefinition) -> (StringDefinition)
+        if (lastSuggestionWarning == nil || !lastSuggestionWarning!.hasSemanticId(semanticID)) {
+            script.say(oneOf: sayings)
+            lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)
+        } else {
+            script.say(oneOf: defaultUtterance)
+            lastUtterance = defaultQuestion
+        }
+        script.say(oneOf: lastUtterance)
+        return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
+    }
+
     func processSearchResult(result: AnyObject, withScript script: Script) -> (Script) {
         let searchResult = result as! RestaurantSearchResult
         let restaurant = searchResult.restaurant
@@ -254,7 +270,7 @@ public class ConversationScript: Script {
 
         let negativesFeedback = self._conversation.negativeUserFeedback()!
         let lastFeedback = (negativesFeedback.count > 0 ? negativesFeedback.last : nil) as! USuggestionFeedbackParameters?
-        let lastSuggestionWarning = self._conversation.lastSuggestionWarning()
+        let lastSuggestionWarning = self._conversation.lastSuggestionWarning() as ConversationParameters?
         let currentOccasion = _conversation.currentOccasion()!
         let isFirstSuggestion = (self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]).isEmpty && currentOccasion != ""
 
@@ -264,31 +280,21 @@ public class ConversationScript: Script {
             script.say(oneOf: lastUtterance)
             return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
         } else {
+            let defaultUtterance = FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion)
+            let defaultQuestion = FHUtterances.followUpQuestion(currentOccasion)
+
             if lastFeedback != nil && lastFeedback?.restaurant != nil {
                 let maxDistance = _search.getMaxDistanceOfPlaces()
                 let searchPreference = self._conversation.currentSearchPreference(maxDistance, searchLocation: _search.lastSearchLocation())
                 let priceRange = searchPreference.priceRange
-                if priceRange.min > restaurant.priceLevel
-                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooCheap")) {
-                    script.say(oneOf: FHUtterances.warningsIfNotInPreferredRangeTooCheap)
-                    let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)
-                    script.say(oneOf: lastUtterance)
-                    return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
-                } else if priceRange.max < restaurant.priceLevel
-                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooExpensive")) {
-                    script.say(oneOf: FHUtterances.warningsIfNotInPreferredRangeTooExpensive)
-                    let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)
-                    script.say(oneOf: lastUtterance)
-                    return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
-                } else if searchPreference.distanceRange != nil && searchPreference.distanceRange.max < (restaurant.location.distanceFromLocation(_search.lastSearchLocation()) / maxDistance)
-                        && (lastSuggestionWarning == nil || !lastSuggestionWarning.hasSemanticId("FH:WarningIfNotInPreferredRangeTooFarAway")) {
-                    script.say(oneOf: FHUtterances.warningsIfNotInPreferredRangeTooFarAway)
-                    let lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)
-                    script.say(oneOf: lastUtterance)
-                    return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
+                if priceRange.min > restaurant.priceLevel {
+                    return sayWarning(script, semanticID: "FH:WarningIfNotInPreferredRangeTooCheap", sayings: FHUtterances.warningsIfNotInPreferredRangeTooCheap, lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
+                } else if priceRange.max < restaurant.priceLevel {
+                    return sayWarning(script, semanticID: "FH:WarningIfNotInPreferredRangeTooExpensive", sayings: FHUtterances.warningsIfNotInPreferredRangeTooExpensive, lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
+                } else if searchPreference.distanceRange != nil && searchPreference.distanceRange.max < (restaurant.location.distanceFromLocation(_search.lastSearchLocation()) / maxDistance) {
+                    return sayWarning(script, semanticID: "FH:WarningIfNotInPreferredRangeTooFarAway", sayings: FHUtterances.warningsIfNotInPreferredRangeTooFarAway, lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
                 } else {
-                    let defaultUtterance = FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion)
-                    let defaultQuestion = FHUtterances.followUpQuestion(currentOccasion)
+
                     script.chooseOne(from: [
                             {
                                 return $0.define {

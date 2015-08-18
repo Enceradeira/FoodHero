@@ -42,4 +42,6 @@
 - (void)assertSecondLastStatementIs:(NSString *)semanticId state:(NSString *)state;
 
 - (void)asynch:(void (^)())handler;
+
+- (Statement *)getLastStatement;
 @end

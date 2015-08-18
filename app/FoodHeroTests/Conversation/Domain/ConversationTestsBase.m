@@ -113,4 +113,11 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), handler);
 }
 
+- (Statement *)getLastStatement {
+    NSUInteger index = self.conversation.getStatementCount - 1;
+    Statement *last = [self.conversation getStatement:index];
+    return last;
+}
+
+
 @end

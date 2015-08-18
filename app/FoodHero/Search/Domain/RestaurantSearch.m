@@ -144,7 +144,12 @@
                 Place *bestPlace = [bestPlacesOrderedByDistance linq_firstOrNil];
                 @try {
                     Restaurant *restaurant = [_repository getRestaurantFromPlace:bestPlace searchLocation:locationDesc];
-                    // NSLog(@"------> %@, %@", restaurant.name, restaurant.vicinity);
+
+                    CLLocationDistance distance = [locationDesc.location distanceFromLocation:restaurant.location];
+                    NSUInteger priceLevel = restaurant.priceLevel;
+                    double relevane = restaurant.cuisineRelevance;
+                    
+                    NSLog(@"RestaurantSearch.getBetPlace: Name: %@: PriceLevel: %i Relevance: %f Distance: %f", restaurant.nameUnique, priceLevel,relevane,distance);
                     return @[restaurant, preferences];
                 }
                 @catch (SearchException *e) {
