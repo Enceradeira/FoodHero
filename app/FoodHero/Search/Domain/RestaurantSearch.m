@@ -146,7 +146,7 @@
                 NSMutableArray *candidates = [NSMutableArray arrayWithArray:sortedPlaces];
                 while (candidates.count > 0) {
 
-                    NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc.location candidates:candidates];
+                    NSArray *bestPlacesOrderedByDistance = [self scorePlaces:preferences location:locationDesc candidates:candidates];
 
                     // choose nearest that doesn't have same name as previously disliked restaurant
                     for (Place *bestPlace in bestPlacesOrderedByDistance) {
@@ -188,14 +188,14 @@
             }];
 }
 
-- (NSArray *)scorePlaces:(SearchProfile *)preferences location:(CLLocation *)location candidates:(NSArray *)candidates {
+- (NSArray *)scorePlaces:(SearchProfile *)preferences location:(ResolvedSearchLocation *)location candidates:(NSArray *)candidates {
     __block double maxScore = 0;
     // determine distance and score
     NSArray *placesAndScore = [candidates linq_select:^(Place *p) {
-        double distance = [location distanceFromLocation:p.location];
-        double maxDistance = [_repository getMaxDistanceOfPlaces:location];
+        double distance = [location.location distanceFromLocation:p.location];
+        double maxDistance = [_repository getMaxDistanceOfPlaces:location.location];
         double normalizedDistance = distance == 0 ? 0 : distance / maxDistance;
-        Restaurant *r = nil;//[_repository getRestaurantFromPlace:p];
+        Restaurant *r = nil; //[_repository getRestaurantFromPlace:p searchLocation:location];
         double score = [preferences scorePlace:p normalizedDistance:normalizedDistance restaurant:r];
         if (score > maxScore) {
             maxScore = score;

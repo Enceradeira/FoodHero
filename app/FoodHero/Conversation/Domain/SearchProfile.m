@@ -76,7 +76,7 @@
     }
 
     /* Score-function:
-        y = -(x/(a-x))+ 1
+        y = -(x/(a+x))+ 1
         a = -x/(y-1)-x
     */
 
