@@ -84,9 +84,6 @@ public class ExpectedUserUtterances: NSObject {
         let empty = TextAndLocation(text:"")
         return modelAnswersFrom(
         [
-                UserUtterances.cuisinePreference(empty, text: ""),
-                UserUtterances.occasionPreference(empty, text: ""),
-                nil, // creates a visible seperator on the UI
                 UserUtterances.wantsToStartAgain(""),
                 UserUtterances.wantsToAbort("")
         ])
