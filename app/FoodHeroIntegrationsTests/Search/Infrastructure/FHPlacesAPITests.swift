@@ -30,7 +30,11 @@ class FHPlacesAPITests: XCTestCase {
         XCTAssertGreaterThan(count(firstPlace.placeId), 0)
         XCTAssertNotNil(firstPlace.location)
         XCTAssertGreaterThan(firstPlace.cuisineRelevance, 0)
-        XCTAssertGreaterThan(firstPlace.priceLevel, 0)
+
+        let placesWithPriceLevel1 = places.filter {
+            $0.priceLevel == 1
+        }
+        XCTAssertGreaterThan(placesWithPriceLevel1.count, 0, "There should be at least one element with priceLevel 1")
     }
 
     func test_findPlaces_ShouldReturnError_WhenNetworkingError() {
