@@ -153,7 +153,7 @@
 }
 
 - (RACSignal *)fetchPlaceDetails:(GooglePlace *)place {
-    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg", _baseAddress, place.placeId];
+    NSString *placeString = [NSString stringWithFormat:@"%@/maps/api/place/details/json?placeid=%@&key=%@", _baseAddress, place.placeId, _apiKey];
 
     return [[self fetchJSON:placeString] map:^(NSDictionary *json) {
         return json[@"result"];
