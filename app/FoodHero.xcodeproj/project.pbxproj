@@ -10,7 +10,6 @@
 		15FABA1344B84D579A5CCC9E /* libPods-FoodHeroIntegrationsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F515AA88AB0F42EA9F2BBF68 /* libPods-FoodHeroIntegrationsTests.a */; };
 		23525019CAD956B4C6372A5F /* PlacesAPIStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235254149EEF1BFD2C761C63 /* PlacesAPIStub.swift */; };
 		2352505CAD24D7ED820FA375 /* GoogleDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 235252CE3846FC327DC26E96 /* GoogleDefinitions.m */; };
-		2352505F344154F972F78411 /* OccasionToGoogleTypeMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235258DEDDC920CB0450FF0C /* OccasionToGoogleTypeMapperTests.swift */; };
 		235250734CA0CCC931B7EF7B /* ConversationConfirmationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FD43DD4FD87D7427681 /* ConversationConfirmationTests.m */; };
 		23525076AF52DEFDE042B2EB /* GoogleRestaurantSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D061BA4618AC6480CE4 /* GoogleRestaurantSearch.m */; };
 		235250947595A86592DE1C85 /* IPlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525AA33444D929C17A506A /* IPlacesAPI.swift */; };
@@ -55,7 +54,6 @@
 		235252F4317685D304649450 /* RestaurantBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525C72C427D2F532AF2675 /* RestaurantBuilder.m */; };
 		235252F5772A21A737D62EE1 /* SpeechInterpretation.m in Sources */ = {isa = PBXBuildFile; fileRef = 235254D44AC4CC9D0D1F1855 /* SpeechInterpretation.m */; };
 		235252FD400F7004C62210AE /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525E6482CFDF6AA29FFF3A /* Choices.swift */; };
-		2352531B92F7F8026E91D6CD /* OccasionToGoogleTypeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352536F43B5A8E223E0F3FC /* OccasionToGoogleTypeMapper.swift */; };
 		23525336D6CC6ED7D63D9656 /* RestaurantPhotoViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352520E989B3D8266666154 /* RestaurantPhotoViewControllerTests.m */; };
 		2352533AAC70CB3332E4591D /* ConversationSourceSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256A426D9D5223B2D9103 /* ConversationSourceSpy.m */; };
 		23525341AEBA67717DB93A76 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525571F0DDE4CE1AB185D9 /* Restaurant.m */; };
@@ -439,7 +437,6 @@
 		23525346FC989D1AB1AF0541 /* DesignByContractException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignByContractException.m; sourceTree = "<group>"; };
 		235253574D00171FCBEE1779 /* IntegrationAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegrationAssembly.h; sourceTree = "<group>"; };
 		2352536C6BC6BEB6F761E374 /* ConversationAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationAppService.h; sourceTree = "<group>"; };
-		2352536F43B5A8E223E0F3FC /* OccasionToGoogleTypeMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OccasionToGoogleTypeMapper.swift; sourceTree = "<group>"; };
 		23525373B4D9491197F53204 /* FHStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FHStates.swift; sourceTree = "<group>"; };
 		235253887B7887287277D487 /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		2352539069D36DB6EA0BCAD0 /* GeocoderServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocoderServiceTests.swift; sourceTree = "<group>"; };
@@ -555,7 +552,6 @@
 		23525899A1997D5440D5159B /* GoogleURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleURL.h; sourceTree = "<group>"; };
 		235258A6F2540414531B6F6D /* Branch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		235258A8F2F807F9877FA53E /* TextAndLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAndLocation.swift; sourceTree = "<group>"; };
-		235258DEDDC920CB0450FF0C /* OccasionToGoogleTypeMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OccasionToGoogleTypeMapperTests.swift; sourceTree = "<group>"; };
 		235258E9456D24B4F1902530 /* LargeRestaurantReviewCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeRestaurantReviewCommentViewController.h; sourceTree = "<group>"; };
 		235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewState+Protected.m"; sourceTree = "<group>"; };
 		235258F0B360233DE7BEB6E3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -916,7 +912,6 @@
 				235252CE3846FC327DC26E96 /* GoogleDefinitions.m */,
 				23525862D089688CEE92FEB5 /* GoogleDefinitions.h */,
 				2352524D6C029D9EC004B0F0 /* GoogleRestaurantTypes.swift */,
-				2352536F43B5A8E223E0F3FC /* OccasionToGoogleTypeMapper.swift */,
 				23525CBF6B1E93133387E711 /* FHPlacesAPI.swift */,
 				2352551DE0D86B3C720887CB /* FHPlacesUrlBuilder.swift */,
 			);
@@ -1289,7 +1284,6 @@
 				2352551E0045E27A3A04F3B4 /* SearchProfileTests.m */,
 				23525729BB851260410BB8BC /* RestaurantRatingTests.m */,
 				23525BAD71BF953C408F6078 /* CuisineAndOccasionTests.m */,
-				235258DEDDC920CB0450FF0C /* OccasionToGoogleTypeMapperTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2018,7 +2012,6 @@
 				235255BD6DCDB8D6367C5B5B /* NSCalendarExtension.swift in Sources */,
 				23525279D190AEB9130696EA /* RestaurantSearchResult.m in Sources */,
 				23525B5B2ADE61B5376A4315 /* CuisineAndOccasion.m in Sources */,
-				2352531B92F7F8026E91D6CD /* OccasionToGoogleTypeMapper.swift in Sources */,
 				235254556C2F655560521500 /* ExpectedUserUtterances.swift in Sources */,
 				23525E94717E1F69D0AAB312 /* UserUtterancesController.swift in Sources */,
 				23525C3C911C94E69D80A3D7 /* UserUtteranceTableViewCell.swift in Sources */,
@@ -2126,7 +2119,6 @@
 				23525731FCB2A46BF1C1DF87 /* OccassionsTests.swift in Sources */,
 				2352599A2B879D19E3809267 /* ConversationDislikesKindOfFoodTests.swift in Sources */,
 				235254CBA88D80B48A70CD75 /* CuisineAndOccasionTests.m in Sources */,
-				2352505F344154F972F78411 /* OccasionToGoogleTypeMapperTests.swift in Sources */,
 				23525C9F6400130371368996 /* ConversationDislikeOccasionTests.swift in Sources */,
 				2352519AA7F771F1331D1C87 /* ConversationUserWantsToAbortTests.swift in Sources */,
 				23525DFDF8C992D576392A59 /* ConversationEndedTests.swift in Sources */,
