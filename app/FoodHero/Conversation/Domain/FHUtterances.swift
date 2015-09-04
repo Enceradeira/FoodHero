@@ -200,7 +200,15 @@ public class FHUtterances {
 
     class func suggestionsIfNotInPreferredRangeTooFarAway(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words([
-                "It's further away unfortunately but go to %@"],
+                "Well, %@ is another option, but it’s even further away.",
+                "You could try %@.  It’s even further away, but the walk will make you hungry!",
+                "There’s another option, %@.  I’m afraid it’s far away too.",
+                "How about %@?  It's far away but remember that your ancient forebears walked 50 miles between meals.",
+                "How about %@?  It’s just a hop, skip, and a jump, a couple of plane flights and a rather long bike ride away.",
+                "What about %@?  You could walk, but I’m not sure you’d make it.",
+                "%@?  It’ll take more commitment than a long-term relationship does to get there, though.",
+                "%@?  It's far away! You’ve got a smart phone — use Uber."
+        ],
                 withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooFarAway",
                         state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
@@ -306,7 +314,16 @@ public class FHUtterances {
     }
 
     class func whatToDoNextAfterFailure(def: StringDefinition) -> StringDefinition {
-        return def.words(["I’m sorry it didn’t work out!\n\nIs there anything else?"],
+        return def.words([
+                "I’m sorry it didn’t work out!\n\nIs there anything else?",
+                //"I’m sorry your taste buds haven’t evolved.\n\nCan I help you with anything else?",
+                "I was looking forward to meeting you, but I guess I’ll have to eat alone.\n\nAnything else?",
+                "It’s not me, it’s you.\n\nAnything else?",
+                "I think we should see other people.\n\nCan I help you with anything else before I pack up and go?",
+                "Are you cheating on me with Yelp?\n\nCan I help you with anything else?",
+                "Are you cheating on me with TripAdvisor?\n\nWhat more can little old me do for you?",
+                "Are you getting a little Urban Spoon on the side?\n\nCan I help you with anything else?"
+        ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterFailure",
                         state: FHStates.askForWhatToDoNext(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForWhatToDoNext()))
     }
