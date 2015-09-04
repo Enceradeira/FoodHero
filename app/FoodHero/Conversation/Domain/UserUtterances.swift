@@ -54,7 +54,7 @@ public class UserUtterances: NSObject {
 
     public class func occasionPreference(parameter: TextAndLocation, text: String) -> TalkerUtterance {
         return createUtterance("U:OccasionPreference=\(parameter.text);\(parameter.location)", text: text,
-                modelAnswer: "I want to have Lunch", parameter: parameter);
+                modelAnswer: "I want to have lunch", parameter: parameter);
     }
 
     public class func suggestionFeedbackForTooFarAway(restaurant: Restaurant, text: String) -> TalkerUtterance {
@@ -69,12 +69,12 @@ public class UserUtterances: NSObject {
 
     public class func suggestionFeedbackForTooExpensive(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooExpensive", text: text,
-                modelAnswer: "It's too expensive", restaurant: restaurant)
+                modelAnswer: "Is there something more affordable?", restaurant: restaurant)
     }
 
     public class func suggestionFeedbackForTooCheap(restaurant: Restaurant, text: String) -> TalkerUtterance {
         return createUtterance("U:SuggestionFeedback=tooCheap", text: text,
-                modelAnswer: "It looks too cheap", restaurant: restaurant)
+                modelAnswer: "I want something nicer", restaurant: restaurant)
     }
 
     public class func suggestionFeedbackForDislike(restaurant: Restaurant, text: String) -> TalkerUtterance {

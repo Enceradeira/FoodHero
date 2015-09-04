@@ -334,7 +334,7 @@ When(/^I dislike the kind of food$/) do
 end
 
 When(/^I want to have some drinks$/) do
-   touch_help_entry_containing 'I want to have Lunch'
+   touch_help_entry_containing 'I want to have lunch'
 end
 
 When(/^I don't like the restaurant$/) do
@@ -355,11 +355,11 @@ When(/^I find the restaurant too far away using help$/) do
 end
 
 When(/^I find the restaurant looks too cheap$/) do
-   touch_help_entry_containing 'It looks too cheap'
+   touch_help_entry_containing 'I want something nicer'
 end
 
 When(/^I find the restaurant looks too expensive$/) do
-   touch_help_entry_containing "It's too expensive"
+   touch_help_entry_containing 'Is there something more affordable?'
 end
 
 When(/^I want the closest restaurant now$/) do
