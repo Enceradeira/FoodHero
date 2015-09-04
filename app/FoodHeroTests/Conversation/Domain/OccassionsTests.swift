@@ -81,34 +81,45 @@ class OccasionsTests: XCTestCase {
         }
     }
 
-    func test_guessFromCuisine_ShouldProcessUpperAndLowerCase(){
+    func test_guessFromCuisine_ShouldProcessUpperAndLowerCase() {
         XCTAssertEqual(Occasions.guessFromCuisine("beer"), Occasions.drink())
         XCTAssertEqual(Occasions.guessFromCuisine("Beer"), Occasions.drink())
         XCTAssertEqual(Occasions.guessFromCuisine("BEER"), Occasions.drink())
     }
 
-    func test_guessFromCuisine_ShouldProcessPluralAndSingular(){
+    func test_guessFromCuisine_ShouldProcessPluralAndSingular() {
         XCTAssertEqual(Occasions.guessFromCuisine("beer"), Occasions.drink())
         XCTAssertEqual(Occasions.guessFromCuisine("beers"), Occasions.drink())
     }
 
-    func test_guessFromCuisine_ShouldIngoreApostroph(){
+    func test_guessFromCuisine_ShouldIngoreApostroph() {
         XCTAssertEqual(Occasions.guessFromCuisine("Mac Donalds"), Occasions.dinner())
         XCTAssertEqual(Occasions.guessFromCuisine("Mac Donald's"), Occasions.dinner())
     }
 
-    func test_guessFromCuisine_ShouldIgnoreWhiteSpace(){
+    func test_guessFromCuisine_ShouldIgnoreWhiteSpace() {
         XCTAssertEqual(Occasions.guessFromCuisine("hamburger"), Occasions.dinner())
         XCTAssertEqual(Occasions.guessFromCuisine("ham burger"), Occasions.dinner())
     }
 
-    func test_guessFromCuisine_ShouldProcessCompositeWords(){
+    func test_guessFromCuisine_ShouldProcessCompositeWords() {
         XCTAssertEqual(Occasions.guessFromCuisine("Brazilan bar"), Occasions.drink())
         XCTAssertEqual(Occasions.guessFromCuisine("Brazilan restaurant"), Occasions.dinner())
         XCTAssertEqual(Occasions.guessFromCuisine("chinese takeaway"), Occasions.dinner())
     }
 
-    func test_guessFromCuisine_ShouldReturnEmtpy_WhenCuisineEmpty(){
+    func test_guessFromCuisine_ShouldReturnEmtpy_WhenCuisineEmpty() {
         XCTAssertEqual(Occasions.guessFromCuisine(""), "")
     }
+
+    func test_describeOtherOccasions_ShouldReturnListOfOtherOccasion_WhenBreakfast() {
+        let others = Occasions.describeOtherOccasions(Occasions.breakfast())
+        XCTAssertEqual(others, "lunch, snacks, dinner, drinks")
+    }
+
+    func test_describeOtherOccasions_ShouldReturnListOfOtherOccasion_WhenDinner() {
+        let others = Occasions.describeOtherOccasions(Occasions.dinner())
+        XCTAssertEqual(others, "breakfast, lunch, snacks, drinks")
+    }
+
 }

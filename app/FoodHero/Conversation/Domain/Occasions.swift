@@ -9,6 +9,10 @@ public class Occasions: NSObject {
 
     static let offset = -900.0
 
+    private class func occasions() -> [String] {
+       return [breakfast(), lunch(), snack(), dinner(), drink()]
+    }
+
     public class func breakfast() -> String {
         return "breakfast"
     }
@@ -27,6 +31,13 @@ public class Occasions: NSObject {
 
     public class func drink() -> String {
         return "drinks"
+    }
+
+    public class func describeOtherOccasions(occasion: String) -> String {
+        let others = occasions().filter {
+            $0 != occasion
+        }
+        return ", ".join(others)
     }
 
     public class func getCurrent(env: IEnvironment) -> String {
@@ -113,8 +124,8 @@ public class Occasions: NSObject {
 
     public class func guessFromCuisine(cuisine: String) -> String {
         let normalizedCuisine = cuisine.lowercaseString
-            .stringByReplacingOccurrencesOfString(" ", withString: "")
-            .stringByReplacingOccurrencesOfString("'", withString: "").stringByRemovingCharacterAtTheEnd("s")
+        .stringByReplacingOccurrencesOfString(" ", withString: "")
+        .stringByReplacingOccurrencesOfString("'", withString: "").stringByRemovingCharacterAtTheEnd("s")
 
         /* NOTE when adding new mappings:
             - Remove Space and Apostroph
