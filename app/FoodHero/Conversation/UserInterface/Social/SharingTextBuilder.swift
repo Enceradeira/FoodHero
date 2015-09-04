@@ -19,13 +19,13 @@ public class SharingTextBuilder: NSObject {
     }
 
     public class func foodHeroIsCool() -> String {
-        return "Food Hero is cool!\n\nDownload it for free from \(productUrl)"
+        return "Food Hero is cool!\n\nDownload it for free from \(productUrl)."
     }
 
     public class func foodHeroSuggested(utterance: String, restaurant: Restaurant) -> String {
         var url = getRestaurantUrlOrEmpty(restaurant)
         if !url.isEmpty{
-            url = "\n\(url)"
+            url = "\n\(url)."
         }
 
         return "Food Hero said:\n\n\(utterance)\(url)\n\n\(downloadFoodHero())"
@@ -48,7 +48,7 @@ public class SharingTextBuilder: NSObject {
     }
 
     public class func downloadFoodHero() -> String {
-        return "Download Food Hero from \(productUrl)"
+        return "Download Food Hero from \(productUrl)."
     }
 
 }

@@ -50,8 +50,8 @@ public class ExpectedUserUtterances: NSObject {
         return modelAnswersFrom(
         [
                 UserUtterances.suggestionFeedbackForLike(dummyRestaurant, text: ""),
-                UserUtterances.suggestionFeedbackForLikeWithLocationRequest(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForDislike(dummyRestaurant, text: ""),
+                UserUtterances.suggestionFeedbackForLikeWithLocationRequest(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooFarAway(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTheClosestNow(dummyRestaurant, text: ""),
                 UserUtterances.suggestionFeedbackForTooExpensive(dummyRestaurant, text: ""),

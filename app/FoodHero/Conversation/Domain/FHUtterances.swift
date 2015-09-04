@@ -15,8 +15,8 @@ public class FHUtterances {
 
     class func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
-                          "Hey dude",
-                          "Hi mate",
+                          "Hey dude.",
+                          "Hi mate.",
                           "Hello beautiful.",
                           "Have you put on your lipstick today?",
                           "‘Sup man?",
@@ -254,7 +254,7 @@ public class FHUtterances {
 
     class func confirmationRestart(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "OK, let's start over again",
+                "OK, let's start over again.",
                 "OK, let’s try it again.",
                 "Alright.  Once more, from the top… .",
                 "Fine.  Let’s start over.  So we beat on, boats against the current, borne back ceaselessly to the same old restaurants."
