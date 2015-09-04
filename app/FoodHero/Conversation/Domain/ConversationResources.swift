@@ -109,12 +109,12 @@ public class ConversationResources: ScriptResources {
         add(parameter: "femaleCelebrity", withValues: femaleCelebrities)
         add(parameter: "maleCelebrity", withValues: maleCelebrities)
         add(parameter: "celebrity", withValues: maleCelebrities + femaleCelebrities)
-        add(parameter: "food", withValues: ["ice cream",
-                                            "wienerschnitzel",
-                                            "samosas",
-                                            "a chocolate fondue",
-                                            "lasagne",
-                                            "cheese burgers"])
+        add(parameter: "food", withValues: ["Ice Cream",
+                                            "Wienerschnitzel",
+                                            "Samosas",
+                                            "a Chocolate Fondue",
+                                            "Lasagne",
+                                            "Cheese Burgers"])
         add(parameter: "place", withValues: ["Machu Picchu",
                                              "the toilet",
                                              "Llanfairpwllgwyngyll",

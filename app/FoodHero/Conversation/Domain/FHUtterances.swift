@@ -88,7 +88,7 @@ public class FHUtterances {
     class func askForOccasion(currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
-                    "So no \(currentOccasion). Would you like \(Occasions.describeOtherOccasions(currentOccasion)), what?",
+                    "So no \(currentOccasion).\n\nWould you like \(Occasions.describeOtherOccasions(currentOccasion)), what?",
                     "What are you in the mood for?",
                     "What do you feel like?"
             ],
@@ -104,20 +104,20 @@ public class FHUtterances {
                     "Did you really need me to tell you that you should go to %@?",
                     "Obviously, %@.",
                     "%@, duh!",
-                    "Are you serious?\n\n%@.",
-                    "Seriously?\n\n%@.",
-                    "How dumb can you get?\n\n%@.",
+                    "Are you serious? %@.",
+                    "Seriously? %@.",
+                    "How dumb can you get? %@.",
                     "Easy… . Go here %@.",
-                    "%@.\n\n(I have n (how many?) circuits.  I feel like a sledgehammer cracking a nut.)",
-                    "%@.\n\nAll the cool kids are going there.",
-                    "%@.\n\nI’m there every Wednesday at 5:15 AM.",
-                    "%@.\n\nWho farted?",
-                    "Go to %@.\n\nI’ll go with you.",
-                    "%@.\n\nIt’s {celebrity}’s favorite.",
-                    "Go to %@.\n\nCan I come too?",
+                    "%@.\n(I have n (how many?) circuits.  I feel like a sledgehammer cracking a nut.)",
+                    "%@.\nAll the cool kids are going there.",
+                    "%@.\nI’m there every Wednesday at 5:15 AM.",
+                    "%@. Who farted?",
+                    "Go to %@.\nI’ll go with you.",
+                    "%@.\nIt’s {celebrity}’s favorite.",
+                    "Go to %@. Can I come too?",
                     "Go to %@, and prosper.",
-                    "%@.\n\nWelcome to food paradise.",
-                    "%@.\n\nDid you know there is a pool in the back?  Me neither.",
+                    "%@.\nWelcome to food paradise.",
+                    "%@.\nDid you know there is a pool in the back?  Me neither.",
                     "Choose life, choose %@.",
                     "%@. It is your destiny.",
                     "Go to %@ you must.  Enjoy it you might."
@@ -135,7 +135,7 @@ public class FHUtterances {
                     "So?",
                     "Na und?",
                     "Does that approach your impossibly high standards?",
-                    "What are you thinking? Having \(occasion) there is sometimes a good idea... really!",
+                    "What are you thinking?\nHaving \(occasion) there is sometimes a good idea... really!",
                     "Tell me your thoughts…your innermost thoughts.",
                     "Yes…no…maybe so?",
                     "Go ask your mother and tell me what you think.",
@@ -162,8 +162,8 @@ public class FHUtterances {
                     "What about %@ then?",
                     "Of course you don’t want to go to McDonalds. You are a person of taste.\nNow go to %@.",
                     "Good.  I like people who know their own minds.  And people who know their own minds go to %@.",
-                    "You are right.  It isn’t a '\(lastRestaurant.name)' sort of day.  It’s a %@ sort of day.",
-                    "I do so, so want to please you.  Would you try %@?"
+                    "You are right.  It isn’t a '\(lastRestaurant.name)' sort of day.  It’s a '%@' sort of day.",
+                    "I do so, so want to please you.\nWould you try %@?"
 
             ],
                     withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionAsFollowUp",
@@ -173,21 +173,24 @@ public class FHUtterances {
 
     class func suggestionsIfNotInPreferredRangeTooCheap(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words([
-                "It's cheaper than you wanted it to be but go to %@"],
+                "What about %@, then?\nThough it might not be as nice as you wanted.",
+                "What about %@?\nI know.  A person like you does not deserve a restaurant like this.  But it is the finest restaurant in your area.",
+                "This neighborhood is not exactly chock full of fancy restaurants, I am afraid.  %@ is the best you can do.",
+                "Sorry, you will have to slum it.  %@ is the best you can do.",
+                "%@ or nothing.  Nothing fancier, at least.",
+                "Give %@ a try.\nThere is nothing fancier. If you steal the silverware, it will be airplane-safe.",
+                "How about %@?\nIt may not have cloth napkins.  Come to think of it, maybe you should bring along a roll of paper towels."
+        ],
                 withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooCheap",
                         state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
 
     class func suggestionsIfNotInPreferredRangeTooExpensive(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
+
         return def.words([
-                "What about %@, then?  Though it might not be as nice as you wanted.",
-                "What about %@?  I know.  A person like you does not deserve a restaurant like this.  But it is the finest restaurant in your area.",
-                "This neighborhood is not exactly chock full of fancy restaurants, I am afraid.  %@ is the best you can do.",
-                "Sorry, you will have to slum it.  %@ is the best you can do.",
-                "%@ or nothing.  Nothing fancier, at least.",
-                "Give %@ a try.  There is nothing fancier. If you steal the silverware, it will be airplane-safe.",
-                "How about %@? It may not have cloth napkins.  Come to think of it, maybe you should bring along a roll of paper towels."
-        ],
+                "It might be too nice, but you could try %@.\n\nHow does that sound?",
+                "There is nothing more affordable but you can go to %@. Ok?"
+            ],
                 withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooExpensive",
                         state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
@@ -195,11 +198,11 @@ public class FHUtterances {
     class func suggestionsIfNotInPreferredRangeTooFarAway(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words([
                 "Well, %@ is another option, but it’s even further away.",
-                "You could try %@.  It’s even further away, but the walk will make you hungry!",
-                "There’s another option, %@.  I’m afraid it’s far away too.",
-                "How about %@?  It's far away but remember that your ancient forebears walked 50 miles between meals.",
-                "How about %@?  It’s just a hop, skip, and a jump, a couple of plane flights and a rather long bike ride away.",
-                "What about %@?  You could walk, but I’m not sure you’d make it.",
+                "You could try %@.\nIt’s even further away, but the walk will make you hungry!",
+                "There’s another option, %@.\nI’m afraid it’s far away too.",
+                "How about %@?\nIt's far away but remember that your ancient forebears walked 50 miles between meals.",
+                "How about %@?\nIt’s just a hop, skip, and a jump, a couple of plane flights and a rather long bike ride away.",
+                "What about %@?\nYou could walk, but I’m not sure you’d make it.",
                 "%@?  It’ll take more commitment than a long-term relationship does to get there, though.",
                 "%@?  It's far away! You’ve got a smart phone — use Uber."
         ],
@@ -212,19 +215,18 @@ public class FHUtterances {
         return {
             if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
                 return $0.words([
-                        "%@ looks nicer than the last one. How does that sound?",
-                        "Ooh.  You are the sort of person I would like to eat with.  If I had a mouth, and a digestive system.  Try %@.",
-                        "%@ is fancy.  Would you please, please take me with you, and wave me around in the delicious aromas?",
+                        "%@ looks nicer than the last one.\n\nHow does that sound?",
+                        "Ooh.  You are the sort of person I would like to eat with.  If I had a mouth, and a digestive system.\nTry %@.",
+                        "%@ is fancy.\nWould you please, please take me with you, and wave me around in the delicious aromas?",
                         "%@ is reassuringly expensive.",
-                        "%@ is more expensive, so it must be better.  Let’s go to %@."
+                        "%@ is more expensive, so it must be better.\nLet’s go to %@."
                 ],
                         withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeMoreExpensive",
                                 state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
                 return $0.words([
-                        "If you like it cheaper, %@ could be a good choice. What to you think?",
+                        "If you want something more affordable, %@ could work.\n\nHow about that?",
                         "If you want to go to a really good restaurant without paying too much…get famous!\n\nOtherwise why not %@?",
-                        "If you want something cheaper, %@ could work. How about that?",
                         "Well, you could go to %@, close your eyes, and pretend that you are in \(lastRestaurant.name).  That’s what I do when I am hurting for cash.",
                         "More calories for less dosh!  Go to %@!",
                         "For refined clients who wish to maximize their satisfaction/expenditure ratio, I recommend %@."
@@ -233,12 +235,12 @@ public class FHUtterances {
                                 state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
             } else if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
                 return $0.words([
-                        "%@ is closer. Do you like it?",
+                        "%@ is closer.\n\nDo you like it?",
                         "What about %@?  It's closer than the other one.",
                         "No worries.  There’s a closer option.  %@.  Yum yum yum.",
-                        "I won’t judge you.  I don’t walk much either.  I don’t even have feet.  %@ is closer.",
-                        "You could go to %@. It's closer, but it won’t help much with your 10,000 daily steps.",
-                        "You could go to %@. It's closer, but that’s not going to give you anything to brag about on Strava.",
+                        "I won’t judge you.  I don’t walk much either.  I don’t even have feet.\n%@ is closer.",
+                        "You could go to %@.\nIt's closer, but it won’t help much with your 10,000 daily steps.",
+                        "You could go to %@.\nIt's closer, but that’s not going to give you anything to brag about on Strava.",
                         "%@ is closer — your fitbit will be disappointed."
                 ],
                         withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfInNewPreferredRangeCloser",
@@ -368,10 +370,10 @@ public class FHUtterances {
 
     class func noRestaurantsFound(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "I can’t find a suitable place for you. Should we try again?",
-                "I can’t find any place around here that meets your needs.  Shall we try again?",
-                "Nothing found! It is not that you are picky.  It is that the pickings are scarce.  Can you have another go?",
-                "Nothing found! Sorry, sorry.  I want you to be happy.  Can we try again?",
+                "I can’t find a suitable place for you.\n\nShould we try again?",
+                "I can’t find any place around here that meets your needs.\n\nShall we try again?",
+                "Nothing found! It is not that you are picky.  It is that the pickings are scarce.\n\nCan we have another go?",
+                "Nothing found! Sorry, sorry.  I want you to be happy.\n\nCan we try again?",
         ]
                 , withCustomData: FoodHeroParameters(semanticId: "FH:NoRestaurantsFound",
                 state: FHStates.noRestaurantWasFound(), expectedUserUtterances: ExpectedUserUtterances.whenNoRestaurantWasFound()))
@@ -381,8 +383,8 @@ public class FHUtterances {
     class func hasNetworkErrorAndAsksIfShouldTryAgain(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "Oops... I'm struggling to access the internet. Make sure you've got a connection.\n\nShould I try again?",
-                "I’m having trouble connecting.  Shall I try again?",
-                "I’m having trouble accessing the internet.   Do you want me to keep trying?"
+                "I’m having trouble connecting.\n\nShall I try again?",
+                "I’m having trouble accessing the internet.\n\nDo you want me to keep trying?"
         ]
                 , withCustomData: FoodHeroParameters(semanticId: "FH:HasNetworkError",
                 state: FHStates.networkError(), expectedUserUtterances: ExpectedUserUtterances.whenNetworkError()))
