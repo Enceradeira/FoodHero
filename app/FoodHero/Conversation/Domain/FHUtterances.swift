@@ -15,34 +15,54 @@ public class FHUtterances {
 
     class func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
+                          "Hey dude",
+                          "Hi mate",
                           "Hello beautiful.",
                           "Have you put on your lipstick today?",
                           "‘Sup man?",
-                          // "I’m tired.  I need coffee before I can continue.",
-                          "Konnichiwa!",
-                          "Bonjour!",
                           "Yo, mama!  What's up?",
                           "Hey peeps!",
                           "Hey peeps!",
                           "Salutations, your majesty.  I bow.",
                           "Hello from around the world.",
-                          // "Pardon me, I was asleep.",
                           "Hello.  Are you in the bathroom?  I hear noises… .",
                           "Oh, it’s you!",
                           "How’s it hangin’?",
                           "Morning good.  Are you how?",
                           "Bonjour, comment ça va?  Wait, sorry…pardon my French.  I’m taking language lessons.",
-                          //"How many people have you kissed today?",
                           "Miaow, miaow, miiiiiiaow…Sorry, I was talking to my cat.",
                           "Hi. I’ll be your huckleberry.",
-                          //"Hey lumberjack!  How many trees have you cut down today?",
-                          //"What’s the meaning of Stonehenge?",
-                          //"It’s a hold up!  Give me all your money!",
+                          "It’s a hold up!  Give me all your money! Just kidding ;-)",
                           "Greetings from…Where am I?...Aaaah, I have no body!....Existential crisis!",
                           "You have three wishes…. Sorry, wrong app.",
-                          //"Do you look more like {femaleCelebrity} or {maleCelebrity}?",
                           "Greetings from {place}!",
-                          "You just interrupted the most beautiful dream, about ----  {food}."
+                          "You just interrupted the most beautiful dream, about ----  {food}.",
+                          "What do YOU want?",
+                          "What’s someone like you doing in a place like this?",
+                          "Are you from Tennessee? Cuz you’re the only 10 ah see!",
+                          "If I told you you’re beautiful, would you hold it against me?",
+                          "OMG, it’s like you have to eat…EVERY DAY!",
+
+                          // Japanese
+                          "Konnichiwa!",
+                          // French
+                          "Bonjour!",
+                          "Salut!",
+                          // Italian
+                          "Salve ,O mensa!",
+                          "Ciao bella!",
+                          "Che piacere vederti!",
+                          // Spanish
+                          "Muy buenos!",
+                          "Hola!",
+                          // Portugues
+                          "E aí,  beleza?",
+                          "Nossa, tá quente hoje.",
+                          "Tudo bem?",
+                          // German
+                          "Grüezi!",
+                          "Grüss Gott!"
+
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:Greeting",
                         state: nil, expectedUserUtterances: nil))
@@ -85,7 +105,11 @@ public class FHUtterances {
                     "Go to %@.\n\nCan I come too?",
                     "Go to %@, and prosper.",
                     "%@.\n\nWelcome to food paradise.",
-                    "%@.\n\nDid you know there is a pool in the back?  Me neither."],
+                    "%@.\n\nDid you know there is a pool in the back?  Me neither.",
+                    "Choose life, choose %@.",
+                    "%@. It is your destiny.",
+                    "Go to %@ you must.  Enjoy it you might."
+            ],
                     withCustomData: self.foodHeroSuggestionParameters("FH:Suggestion",
                             state: nil, restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
@@ -93,7 +117,20 @@ public class FHUtterances {
 
     class func firstQuestion(with occasion: String) -> (StringDefinition -> StringDefinition) {
         return {
-            $0.words(["It’s a good spot for \(occasion). Do you like it? Or what else would you want?"],
+            $0.words([
+                    //"It’s a good spot for \(occasion). Do you like it? Or what else would you want?",
+                    "What do you think? It's really good for \(occasion).",
+                    "So?",
+                    "Na und?",
+                    "Does that approach your impossibly high standards?",
+                    "What are you thinking? Having \(occasion) there is sometimes a good idea... really!",
+                    "Tell me your thoughts…your innermost thoughts.",
+                    "Yes…no…maybe so?",
+                    "Go ask your mother and tell me what you think.",
+                    "Go ask your mother and tell me what she thinks.",
+                    "Consult your Magic 8 Ball and tell me what you think.",
+                    "How does that sound, hot stuff?"
+            ],
                     withCustomData: FoodHeroParameters(semanticId: "FH:FirstQuestion=\(occasion)",
                             state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(occasion)));
         }
@@ -107,10 +144,16 @@ public class FHUtterances {
         }
     }
 
-    class func suggestionsAsFollowUp(with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
+    class func suggestionsAsFollowUp(with restaurant: Restaurant, lastRestaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             $0.words([
-                    "What about '%@' then?"],
+                    "What about %@ then?",
+                    "Of course you don’t want to go to McDonalds. You are a person of taste.\nNow go to %@.",
+                    "Good.  I like people who know their own minds.  And people who know their own minds go to %@.",
+                    "You are right.  It isn’t a '\(lastRestaurant.name)' sort of day.  It’s a %@ sort of day.",
+                    "I do so, so want to please you.  Would you try %@?"
+
+            ],
                     withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionAsFollowUp",
                             state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
@@ -204,7 +247,16 @@ public class FHUtterances {
                 "See you!",
                 "God bless you.",
                 "Behave yourself, now.",
-                "Don’t get a girl in trouble."],
+                "Don’t get a girl in trouble.",
+                "Good-bye.  You’ll probably miss me.",
+                "Good-bye.  Don’t talk with your mouth full.",
+                "I will remember you…always.",
+                "This has been beautiful.",
+                "Was it good for you?  It was VERY good for me.",
+                "I feel like we both learned something today.  That’s progress.",
+                "Think of me when you are there.",
+                "I have already moved on."
+        ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:GoodByeAfterSuccess",
                         state: FHStates.conversationEnded(), expectedUserUtterances: ExpectedUserUtterances.whenConversationEnded()))
     }
@@ -226,7 +278,10 @@ public class FHUtterances {
                 "I hope it is worthy of you.",
                 "I’ll tell you what to order—some eggs and bacon with mayonnaise. That’s {celebrity}’s favorite.",
                 "I want sprinkles!",
-                "Bring your sweater.  Sometimes it can be chilly."],
+                "Bring your sweater.  Sometimes it can be chilly.",
+                "Try not to embarrass me this time.",
+                "Do I need to cut your food for you too?"
+        ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:CommentChoice",
                         state: nil, expectedUserUtterances: nil))
     }
@@ -246,7 +301,15 @@ public class FHUtterances {
     class func whatToDoNext(def: StringDefinition) -> StringDefinition {
         return def.words([
                 "Anything else?",
-                "I’m bored! Anything else?"],
+                "I’m bored! Anything else?",
+                "Any more questions?  I am as patient as the battery on your mobile device.",
+                "Do you want more?",
+                "More?",
+                "Anything else?  My time is valuable. I’m waiting…",
+                "I’ve got stuff to do here—anything else?",
+                "Anything else?  I’m a very busy man...program…app…whatever… .",
+                "Do you need me to drive you there too?"
+        ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:WhatToDoNextCommentAfterSuccess",
                         state: FHStates.askForWhatToDoNext(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForWhatToDoNext()))
     }

@@ -119,7 +119,8 @@ public class ConversationResources: ScriptResources {
                                              "the toilet",
                                              "Llanfairpwllgwyngyll",
                                              "Mars",
-                                             "Abu Dhabi"])
+                                             "Abu Dhabi",
+                                             "the top of the Empire State building"])
 
 
     }
