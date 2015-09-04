@@ -159,15 +159,6 @@ public class FHUtterances {
         }
     }
 
-    class func suggestionsAfterWarning(with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
-        return {
-            $0.words([
-                    "But '%@' would be another option. Do you fancy it?"],
-                    withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionAfterWarning",
-                            state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
-        }
-    }
-
     class func confirmationIfInNewPreferedRange(relatedTo lastFeedback: USuggestionFeedbackParameters, with restaurant: Restaurant, currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
             if lastFeedback.hasSemanticId("U:SuggestionFeedback=tooCheap") {
@@ -193,25 +184,25 @@ public class FHUtterances {
         }
     }
 
-    class func warningsIfNotInPreferredRangeTooCheap(def: StringDefinition) -> StringDefinition {
+    class func suggestionsIfNotInPreferredRangeTooCheap(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words([
-                "It's cheaper than you wanted it to be"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooCheap",
-                        state: nil, expectedUserUtterances: nil))
+                "It's cheaper than you wanted it to be but go to %@"],
+                withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooCheap",
+                        state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
 
-    class func warningsIfNotInPreferredRangeTooExpensive(def: StringDefinition) -> StringDefinition {
+    class func suggestionsIfNotInPreferredRangeTooExpensive(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words([
-                "That one might be too classy though"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooExpensive",
-                        state: nil, expectedUserUtterances: nil))
+                "That one might be too classy though but go to %@"],
+                withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooExpensive",
+                        state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
 
-    class func warningsIfNotInPreferredRangeTooFarAway(def: StringDefinition) -> StringDefinition {
+    class func suggestionsIfNotInPreferredRangeTooFarAway(def: StringDefinition, restaurant: Restaurant, currentOccasion: String) -> StringDefinition {
         return def.words([
-                "It's further away unfortunately"],
-                withCustomData: FoodHeroParameters(semanticId: "FH:WarningIfNotInPreferredRangeTooFarAway",
-                        state: nil, expectedUserUtterances: nil))
+                "It's further away unfortunately but go to %@"],
+                withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooFarAway",
+                        state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
 
     class func confirmationsIfInNewPreferredRangeMoreExpensive(def: StringDefinition) -> StringDefinition {
@@ -365,4 +356,5 @@ public class FHUtterances {
                 withCustomData: FoodHeroParameters(semanticId: "FH:IsVeryBusyAtTheMoment",
                         state: nil, expectedUserUtterances: nil))
     }
+
 }

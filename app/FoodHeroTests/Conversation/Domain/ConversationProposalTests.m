@@ -77,7 +77,7 @@
     [super assertLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooCheapAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooCheap {
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionIfNotInPreferredRangeTooCheap_WhenFoundRestaurantIsTooCheap {
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
@@ -87,10 +87,10 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]];
 
-    [super assertLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooCheap;FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionIfNotInPreferredRangeTooCheap=Chippy, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooCheap_WhenUserHasAlreadyBeenWarnedBefore {
+- (void)test_USuggestionFeedback_ShouldNotTriggerFHSuggestionIfNotInPreferredRangeTooCheap_WhenUserHasAlreadyBeenWarnedBefore {
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
@@ -99,13 +99,13 @@
         [service injectFindResults:@[otherOption1, otherOption2]];
     }];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]]; // User is going to be warned with FH:WarningIfNotInPreferredRangeTooCheap"
+    [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]]; // User is going to be warned with FH:SuggestionIfNotInPreferredRangeTooCheap"
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooExpensiveAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooExpensive {
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionIfNotInPreferredRangeTooExpensive_WhenFoundRestaurantIsTooExpensive {
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *onlyOtherOption = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
     [self configureRestaurantSearchForLatitude:12 longitude:12 configuration:^(PlacesAPIStub *service) {
@@ -114,10 +114,10 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant text:@""]];
 
-    [super assertLastStatementIs:@"FH:WarningIfNotInPreferredRangeTooExpensive;FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionIfNotInPreferredRangeTooExpensive=Chippy, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooExpensive_WhenUserHasAlreadyBeenWarnedBefore {
+- (void)test_USuggestionFeedback_ShouldNotTriggerFHSuggestionIfNotInPreferredRangeTooExpensive_WhenUserHasAlreadyBeenWarnedBefore {
 
     Restaurant *restaurant = [[[RestaurantBuilder alloc] withPriceLevel:3] build];
     Restaurant *otherOption1 = [[[[RestaurantBuilder alloc] withPriceLevel:3] withName:@"Chippy"] build];
@@ -126,13 +126,13 @@
         [service injectFindResults:@[otherOption1, otherOption2]];
     }];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant text:@""]]; // User is going to be warned with FH:WarningIfNotInPreferredRangeTooExpensive
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant text:@""]]; // User is going to be warned with FH:SuggestionIfNotInPreferredRangeTooExpensive
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedback_ShouldTriggerFHWarningIfNotInPreferredRangeTooFarAwayAndFHSuggestionAfterWarning_WhenFoundRestaurantIsTooFarAway {
+- (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionIfNotInPreferredRangeTooFarAway_WhenFoundRestaurantIsTooFarAway {
     CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
     CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
 
@@ -144,10 +144,10 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant text:@""]];
 
-    [super assertLastStatementIs:@"FH:SuggestionAfterWarning=Chippy, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionIfNotInPreferredRangeTooFarAway=Chippy, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedback_ShouldNotTriggerFHWarningIfNotInPreferredRangeTooFarAway_WhenUserHasAlreadyBeenWarnedBefore {
+- (void)test_USuggestionFeedback_ShouldNotTriggerFHSuggestionIfNotInPreferredRangeTooFarAway_WhenUserHasAlreadyBeenWarnedBefore {
     CLLocation *farawayLocation = [[CLLocation alloc] initWithLatitude:60 longitude:-45];
     CLLocation *closerLocation = [[CLLocation alloc] initWithLatitude:45 longitude:1];
 
@@ -158,7 +158,7 @@
         [service injectFindResults:@[otherOption1, otherOption2]];
     }];
 
-    [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant text:@""]];       // User is going to be warned with FH:WarningIfNotInPreferredRangeTooFarAway
+    [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant text:@""]];       // User is going to be warned with FH:SuggestionIfNotInPreferredRangeTooFarAway
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 text:@"I don't like that restaurant"]];
 
     [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];

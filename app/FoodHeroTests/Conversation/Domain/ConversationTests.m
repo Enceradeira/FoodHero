@@ -316,7 +316,7 @@
 
     ConversationParameters *lastSuggestionWarning = [self.conversation lastSuggestionWarning];
     assertThat(lastSuggestionWarning, is(notNilValue()));
-    assertThatBool([lastSuggestionWarning hasSemanticId:@"FH:WarningIfNotInPreferredRangeTooCheap"], isTrue());
+    assertThatBool([lastSuggestionWarning hasSemanticId:@"FH:SuggestionIfNotInPreferredRangeTooCheap"], isTrue());
 }
 
 - (void)test_statementIndexes_ShouldYieldGreetingAndOpeningQuestion {

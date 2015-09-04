@@ -225,9 +225,9 @@
 - (ConversationParameters *)lastSuggestionWarning {
     return [[self.parametersOfCurrentSearch linq_where:^(ConversationParameters *p) {
         return (BOOL) (
-                [p.semanticIdInclParameters isEqualToString:@"FH:WarningIfNotInPreferredRangeTooCheap"] ||
-                        [p.semanticIdInclParameters isEqualToString:@"FH:WarningIfNotInPreferredRangeTooExpensive"] ||
-                        [p.semanticIdInclParameters isEqualToString:@"FH:WarningIfNotInPreferredRangeTooFarAway"]
+                [p.semanticIdInclParameters hasPrefix:@"FH:SuggestionIfNotInPreferredRangeTooCheap"] ||
+                        [p.semanticIdInclParameters hasPrefix:@"FH:SuggestionIfNotInPreferredRangeTooExpensive"] ||
+                        [p.semanticIdInclParameters hasPrefix:@"FH:SuggestionIfNotInPreferredRangeTooFarAway"]
         );
     }] linq_lastOrNil];
 }

@@ -247,17 +247,16 @@ public class ConversationScript: Script {
         }
     }
 
-    func sayWarning(script: Script, semanticID: String, sayings: (StringDefinition) -> (StringDefinition), lastSuggestionWarning: ConversationParameters?, restaurant: Restaurant, currentOccasion: String) -> Script {
-        let defaultUtterance = FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion)
-        let defaultQuestion = FHUtterances.followUpQuestion(currentOccasion)
+    func sayWarning(script: Script, semanticID: String, sayings: (StringDefinition, Restaurant, String) -> (StringDefinition), lastSuggestionWarning: ConversationParameters?, restaurant: Restaurant, currentOccasion: String) -> Script {
 
         var lastUtterance: (StringDefinition) -> (StringDefinition)
         if (lastSuggestionWarning == nil || !lastSuggestionWarning!.hasSemanticId(semanticID)) {
-            script.say(oneOf: sayings)
-            lastUtterance = FHUtterances.suggestionsAfterWarning(with: restaurant, currentOccasion: currentOccasion)
+            lastUtterance = {
+                sayings($0, restaurant, currentOccasion)
+            }
         } else {
-            script.say(oneOf: defaultUtterance)
-            lastUtterance = defaultQuestion
+            script.say(oneOf: FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion))
+            lastUtterance = FHUtterances.followUpQuestion(currentOccasion)
         }
         script.say(oneOf: lastUtterance)
         return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
@@ -288,11 +287,20 @@ public class ConversationScript: Script {
                 let searchPreference = self._conversation.currentSearchPreference(maxDistance, searchLocation: _search.lastSearchLocation())
                 let priceRange = searchPreference.priceRange
                 if priceRange.min > restaurant.priceLevel {
-                    return sayWarning(script, semanticID: "FH:WarningIfNotInPreferredRangeTooCheap", sayings: FHUtterances.warningsIfNotInPreferredRangeTooCheap, lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
+                    return sayWarning(script,
+                            semanticID: "FH:SuggestionIfNotInPreferredRangeTooCheap",
+                            sayings: FHUtterances.suggestionsIfNotInPreferredRangeTooCheap,
+                            lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
                 } else if priceRange.max < restaurant.priceLevel {
-                    return sayWarning(script, semanticID: "FH:WarningIfNotInPreferredRangeTooExpensive", sayings: FHUtterances.warningsIfNotInPreferredRangeTooExpensive, lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
+                    return sayWarning(script,
+                            semanticID: "FH:SuggestionIfNotInPreferredRangeTooExpensive",
+                            sayings: FHUtterances.suggestionsIfNotInPreferredRangeTooExpensive,
+                            lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
                 } else if searchPreference.distanceRange != nil && searchPreference.distanceRange.max < (restaurant.location.distanceFromLocation(_search.lastSearchLocation()) / maxDistance) {
-                    return sayWarning(script, semanticID: "FH:WarningIfNotInPreferredRangeTooFarAway", sayings: FHUtterances.warningsIfNotInPreferredRangeTooFarAway, lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
+                    return sayWarning(script,
+                            semanticID: "FH:SuggestionIfNotInPreferredRangeTooFarAway",
+                            sayings: FHUtterances.suggestionsIfNotInPreferredRangeTooFarAway,
+                            lastSuggestionWarning: lastSuggestionWarning, restaurant: restaurant, currentOccasion: currentOccasion);
                 } else {
 
                     script.chooseOne(from: [
