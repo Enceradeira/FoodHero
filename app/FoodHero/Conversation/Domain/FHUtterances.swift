@@ -13,6 +13,21 @@ public class FHUtterances {
                 restaurant: restaurant, expectedUserUtterances: expectedUserUtterances)
     }
 
+    private class func doYouLikeIt() -> [String] {
+        return [
+                "Do you like it?",
+                "So?",
+                "Na und?",
+                "Does that approach your impossibly high standards?",
+                "Tell me your thoughts…your innermost thoughts.",
+                "Yes…no…maybe so?",
+                "Go ask your mother and tell me what you think.",
+                "Go ask your mother and tell me what she thinks.",
+                "Consult your Magic 8 Ball and tell me what you think.",
+                "How does that sound, hot stuff?"
+        ];
+    }
+
     class func greetings(def: StringDefinition) -> StringDefinition {
         return def.words(["Hi there.",
                           "Hey dude.",
@@ -132,17 +147,8 @@ public class FHUtterances {
             $0.words([
                     //"It’s a good spot for \(occasion). Do you like it? Or what else would you want?",
                     "What do you think? It's really good for \(occasion).",
-                    "So?",
-                    "Na und?",
-                    "Does that approach your impossibly high standards?",
-                    "What are you thinking?\nHaving \(occasion) there is sometimes a good idea... really!",
-                    "Tell me your thoughts…your innermost thoughts.",
-                    "Yes…no…maybe so?",
-                    "Go ask your mother and tell me what you think.",
-                    "Go ask your mother and tell me what she thinks.",
-                    "Consult your Magic 8 Ball and tell me what you think.",
-                    "How does that sound, hot stuff?"
-            ],
+                    "What are you thinking?\nHaving \(occasion) there is sometimes a good idea... really!"
+            ] + self.doYouLikeIt(),
                     withCustomData: FoodHeroParameters(semanticId: "FH:FirstQuestion=\(occasion)",
                             state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(occasion)));
         }
@@ -150,9 +156,8 @@ public class FHUtterances {
 
     class func followUpQuestion(currentOccasion: String) -> (StringDefinition -> StringDefinition) {
         return {
-            $0.words(["Do you like it?"],
-                    withCustomData: FoodHeroParameters(semanticId: "FH:FollowUpQuestion",
-                            state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)));
+            $0.words(self.doYouLikeIt(), withCustomData: FoodHeroParameters(semanticId: "FH:FollowUpQuestion",
+                    state: FHStates.askForSuggestionFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)));
         }
     }
 
@@ -179,7 +184,7 @@ public class FHUtterances {
                 "Sorry, you will have to slum it.  %@ is the best you can do.",
                 "%@ or nothing.  Nothing fancier, at least.",
                 "Give %@ a try.\nThere is nothing fancier. If you steal the silverware, it will be airplane-safe.",
-                "How about %@?\nIt may not have cloth napkins.  Come to think of it, maybe you should bring along a roll of paper towels."
+                "How about %@?\nIt may also not have cloth napkins.  Come to think of it, maybe you should bring along a roll of paper towels."
         ],
                 withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooCheap",
                         state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
@@ -190,7 +195,7 @@ public class FHUtterances {
         return def.words([
                 "It might be too nice, but you could try %@.\n\nHow does that sound?",
                 "There is nothing more affordable but you can go to %@. Ok?"
-            ],
+        ],
                 withCustomData: self.foodHeroSuggestionParameters("FH:SuggestionIfNotInPreferredRangeTooExpensive",
                         state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
     }
