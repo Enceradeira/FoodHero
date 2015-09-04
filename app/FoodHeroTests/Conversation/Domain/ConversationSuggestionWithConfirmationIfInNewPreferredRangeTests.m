@@ -38,19 +38,19 @@
 }
 
 
-- (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHConfirmationIfInNewPreferredRangeCheaper {
+- (void)test_USuggestionFeedbackForTooExpensive_ShouldTriggerFHSuggestionIfInNewPreferredRangeCheaper {
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:_expensiveRestaurant text:@"Way to expensive"]];
 
     [super assertLastStatementIs:@"FH:SuggestionIfInNewPreferredRangeCheaper" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHConfirmationIfInNewPreferredRangeCloser {
+- (void)test_USuggestionFeedbackForTooFarAways_ShouldTriggerFHSuggestionIfInNewPreferredRangeCloser {
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:_restaurant text:@"too far"]];
 
     [super assertLastStatementIs:@"FH:SuggestionIfInNewPreferredRangeCloser" state:[FHStates askForSuggestionFeedback]];
 }
 
-- (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHConfirmationIfInNewPreferredRangeMoreExpensive {
+- (void)test_USuggestionFeedbackForTooCheap_ShouldTriggerFHSuggestionIfInNewPreferredRangeMoreExpensive {
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:_cheapRestaurant text:@"It looks cheap"]];
 
     [super assertLastStatementIs:@"FH:SuggestionIfInNewPreferredRangeMoreExpensive" state:[FHStates askForSuggestionFeedback]];

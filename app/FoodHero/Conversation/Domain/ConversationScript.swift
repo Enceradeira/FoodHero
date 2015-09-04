@@ -313,13 +313,6 @@ public class ConversationScript: Script {
                             {
                                 return $0.define {
                                     $0.say(oneOf: FHUtterances.suggestionsAsFollowUp(with: restaurant, lastRestaurant: lastFeedback!.restaurant, currentOccasion: currentOccasion))
-                                    if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooCheap") {
-                                        return $0.saySometimes(oneOf: FHUtterances.confirmationsIfInNewPreferredRangeMoreExpensive, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
-                                    } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooExpensive") {
-                                        return $0.saySometimes(oneOf: FHUtterances.confirmationIfInNewPreferredRangeCheaper, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
-                                    } else if lastFeedback!.hasSemanticId("U:SuggestionFeedback=tooFarAway") {
-                                        return $0.saySometimes(oneOf: FHUtterances.confirmationIfInNewPreferredRangeCloser, withTag: RandomizerConstants.confirmationIfInNewPreferredRange())
-                                    }
                                     return $0
                                 }
 
