@@ -388,6 +388,7 @@ end
 
 When(/^I want to search for another restaurant$/) do
    touch_help_entry_containing 'Search for another restaurant'
+   last_suggestions.clear()
 end
 
 When(/^I say that problem with location\-service has been fixed$/) do
