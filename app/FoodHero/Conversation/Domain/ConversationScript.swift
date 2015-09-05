@@ -272,16 +272,15 @@ public class ConversationScript: Script {
         let lastSuggestionWarning = self._conversation.lastSuggestionWarning() as ConversationParameters?
         let currentOccasion = _conversation.currentOccasion()!
         let isFirstSuggestion = (self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]).isEmpty && currentOccasion != ""
+        let defaultUtterance = FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion)
+        let defaultQuestion = FHUtterances.followUpQuestion(currentOccasion)
 
         if isFirstSuggestion {
             script.say(oneOf: FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion))
             let lastUtterance = FHUtterances.firstQuestion(with: searchParams.occasion)
             script.say(oneOf: lastUtterance)
             return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
-        } else {
-            let defaultUtterance = FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion)
-            let defaultQuestion = FHUtterances.followUpQuestion(currentOccasion)
-
+        } else if (!_conversation.wasChatty) {
             if lastFeedback != nil && lastFeedback?.restaurant != nil {
                 let maxDistance = _search.getMaxDistanceOfPlaces()
                 let searchPreference = self._conversation.currentSearchPreference(maxDistance, searchLocation: _search.lastSearchLocation())
@@ -321,7 +320,13 @@ public class ConversationScript: Script {
                                 return $0.define {
                                     return $0.say(oneOf: FHUtterances.confirmationIfInNewPreferedRange(relatedTo: lastFeedback!, with: restaurant, currentOccasion: currentOccasion))
                                 }
-                            }], withTag: RandomizerConstants.proposal())
+                            },
+                            {
+                                return $0.define {
+                                    return $0.say(oneOf: FHUtterances.simpleSuggestion(with: restaurant, currentOccasion: currentOccasion))
+                                }
+                            }
+                    ], withTag: RandomizerConstants.proposal())
                     return self.waitResponseAndSearchRepeatably(script, forQuestion: defaultQuestion)
                 }
             } else {
@@ -332,6 +337,9 @@ public class ConversationScript: Script {
                 script.say(oneOf: question)
                 return self.waitResponseAndSearchRepeatably(script, forQuestion: question)
             }
+        } else {
+            script.say(oneOf: FHUtterances.simpleSuggestion(with: restaurant, currentOccasion: currentOccasion))
+            return self.waitResponseAndSearchRepeatably(script, forQuestion: defaultQuestion )
         }
     }
 

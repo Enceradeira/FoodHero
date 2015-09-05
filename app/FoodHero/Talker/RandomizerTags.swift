@@ -21,4 +21,8 @@ public class RandomizerConstants: NSObject {
     public class func proposal() -> String {
         return "Proposal"
     }
+
+    public class func chattyThreshold() -> String {
+        return "chattyThreshold"
+    }
 }

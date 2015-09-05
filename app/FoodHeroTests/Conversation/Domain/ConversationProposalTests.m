@@ -37,7 +37,7 @@
     [super assertLastStatementIs:@"FH:SuggestionAsFollowUp" state:[FHStates askForSuggestionFeedback]];
 
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant2 text:@""]];
-    [super assertLastStatementIs:@"FH:SuggestionAsFollowUp" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionSimple" state:[FHStates askForSuggestionFeedback]];
 
     // 1. branch (FH:Suggestion)
     [self.talkerRandomizerFake willChooseForTag:[RandomizerConstants proposal] index:0];
@@ -65,7 +65,7 @@
 
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:[[RestaurantBuilder alloc] build] text:@"I don't like that restaurant"]];
 
-    [super assertSecondLastStatementIs:@"FH:Suggestion" state:nil];
+    [super assertSecondLastStatementIs:@"FH:Suggestion" state:[FHStates askForSuggestionFeedback]];
     [super assertLastStatementIs:@"FH:FollowUpQuestion" state:[FHStates askForSuggestionFeedback]];
 }
 
@@ -102,7 +102,7 @@
     [self sendInput:[UserUtterances suggestionFeedbackForTooCheap:restaurant text:@"It looks too cheap"]]; // User is going to be warned with FH:SuggestionIfNotInPreferredRangeTooCheap"
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionSimple=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionIfNotInPreferredRangeTooExpensive_WhenFoundRestaurantIsTooExpensive {
@@ -129,7 +129,7 @@
     [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant text:@""]]; // User is going to be warned with FH:SuggestionIfNotInPreferredRangeTooExpensive
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionSimple=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 - (void)test_USuggestionFeedback_ShouldTriggerFHSuggestionIfNotInPreferredRangeTooFarAway_WhenFoundRestaurantIsTooFarAway {
@@ -161,7 +161,7 @@
     [self sendInput:[UserUtterances suggestionFeedbackForTooFarAway:restaurant text:@""]];       // User is going to be warned with FH:SuggestionIfNotInPreferredRangeTooFarAway
     [self sendInput:[UserUtterances suggestionFeedbackForDislike:otherOption1 text:@"I don't like that restaurant"]];
 
-    [super assertLastStatementIs:@"FH:Suggestion=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
+    [super assertLastStatementIs:@"FH:SuggestionSimple=Hot cook, 18 Cathedral Street, Norwich" state:[FHStates askForSuggestionFeedback]];
 }
 
 @end

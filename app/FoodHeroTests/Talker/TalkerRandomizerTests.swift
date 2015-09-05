@@ -53,5 +53,4 @@ class TalkerRandomizerTests: XCTestCase {
         XCTAssertGreaterThan(nrTrue, 0)
         XCTAssertLessThan(nrTrue, nrTests)
     }
-
 }

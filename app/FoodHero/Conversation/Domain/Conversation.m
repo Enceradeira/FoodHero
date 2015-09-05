@@ -26,6 +26,7 @@
     id <ApplicationAssembly> _assembly;
     bool _isStarted;
     id <IEnvironment> _environment;
+    id <IRandomizer> _randomizer;
 }
 
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly {
@@ -45,12 +46,12 @@
     assert(!_isStarted);
 
     _environment = [_assembly environment];
-    id <IRandomizer> randomizer = [_assembly talkerRandomizer];
+    _randomizer = [_assembly talkerRandomizer];
     RestaurantSearch *search = [_assembly restaurantSearch];
     LocationService *locationService = [_assembly locationService];
     id <ISchedulerFactory> schedulerFactory = [_assembly schedulerFactory];
-    ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:randomizer];
-    TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:randomizer resources:resources];
+    ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:_randomizer];
+    TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:_randomizer resources:resources];
     ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService schedulerFactory:schedulerFactory];
 
     TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
@@ -61,13 +62,13 @@
         NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
             return [parameter semanticIdInclParameters];
         }];
-        NSArray *states = [[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *parameter) {
+        NSArray *states = [[[[[utterance customData] linq_ofType:FoodHeroParameters.class] linq_select:^(FoodHeroParameters *parameter) {
             return [parameter state];
         }] linq_where:^(id state) {
             return (BOOL) (state != [NSNull null]);
-        }];
+        }] linq_distinct];
 
-        Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroRestaurantParameters .class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
+        Restaurant *restaurant = [[[[utterance customData] linq_ofType:FoodHeroRestaurantParameters.class] linq_select:^(FoodHeroSuggestionParameters *parameter) {
             return [parameter restaurant];
         }] linq_firstOrNil];
 
@@ -132,6 +133,11 @@
 
     return [parameters linq_skip:currentSearchBeginCount];
 
+}
+
+
+- (NSArray *)suggestionParametersOfCurrentSearch {
+    return [self.parametersOfCurrentSearch linq_ofType:[FoodHeroSuggestionParameters class]];
 }
 
 - (void)addStatement:(Statement *)statement {
@@ -289,7 +295,7 @@
     return [[[[self.parametersOfCurrentSearch linq_ofType:[UserParameters class]] linq_select:^(UserParameters *s) {
         return s.parameter.location;
     }] linq_where:^(id location) {
-        return (BOOL)(location != nil);
+        return (BOOL) (location != nil);
     }] linq_lastOrNil];
 }
 
@@ -317,4 +323,38 @@
                        suggestedRestaurant:parameter.restaurant
                     expectedUserUtterances:nil];
 }
+
+
+- (BOOL)wasChatty {
+    NSInteger nrConsecutiveChattyMsgs = 0;
+    NSInteger upperThreshold = 2;   // FH starts with some funny sentences before coming more quiet
+    NSInteger underThreshold = [self getRandomChattyUnderThreshold];
+    BOOL isChatty = NO;
+    for (FoodHeroSuggestionParameters *p in self.suggestionParametersOfCurrentSearch) {
+        if ([p hasSemanticId:@"FH:SuggestionSimple"]) {
+            nrConsecutiveChattyMsgs--;
+        }
+        else {
+            nrConsecutiveChattyMsgs++;
+        }
+        if (nrConsecutiveChattyMsgs >= upperThreshold) {
+            isChatty = YES;
+            upperThreshold = [self getRandomChattyUpperThreshold];
+        }
+        else if (nrConsecutiveChattyMsgs <= underThreshold) {
+            isChatty = NO;
+            underThreshold = [self getRandomChattyUnderThreshold];
+        }
+    }
+    return isChatty;
+}
+
+- (int)getRandomChattyUnderThreshold {
+    return [_randomizer isTrueForTag:[RandomizerConstants chattyThreshold]] ? 0 : 1;
+}
+
+- (int)getRandomChattyUpperThreshold {
+    return [_randomizer isTrueForTag:[RandomizerConstants chattyThreshold]] ? 2 : 1;
+}
+
 @end

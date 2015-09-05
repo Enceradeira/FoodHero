@@ -18,6 +18,7 @@
 @interface Conversation : NSObject <ConversationSource>
 
 @property(nonatomic, readonly) NSString *id;
+@property(nonatomic, readonly) BOOL wasChatty;
 
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly;
 
