@@ -123,7 +123,7 @@ public class FHUtterances {
                     "Seriously? %@.",
                     "How dumb can you get? %@.",
                     "Easy… . Go here %@.",
-                    "%@.\n(I have n (how many?) circuits.  I feel like a sledgehammer cracking a nut.)",
+                    //"%@.\n(I have n (how many?) circuits.  I feel like a sledgehammer cracking a nut.)",
                     "%@.\nAll the cool kids are going there.",
                     "%@.\nI’m there every Wednesday at 5:15 AM.",
                     "%@. Who farted?",
@@ -138,7 +138,7 @@ public class FHUtterances {
                     "Go to %@ you must.  Enjoy it you might."
             ],
                     withCustomData: self.foodHeroSuggestionParameters("FH:Suggestion",
-                            state: nil, restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
+                            state: FHStates.askForSuggestionFeedback(), restaurant: restaurant, expectedUserUtterances: ExpectedUserUtterances.whenAskedForSuggestionFeedback(currentOccasion)))
         }
     }
 
