@@ -175,10 +175,9 @@
 
 - (LINQCondition)isNegativeUserFeedback {
     return ^(ConversationParameters *parameter) {
-        return (BOOL) ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=Dislike"] ||
-                [parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"] ||
-                [parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"] ||
-                [parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]);
+        return (BOOL) (
+                [parameter isKindOfClass:USuggestionFeedbackParameters.class] &&
+                        ![parameter.semanticIdInclParameters hasPrefix:@"U:SuggestionFeedback=Like"]);
     };
 }
 
