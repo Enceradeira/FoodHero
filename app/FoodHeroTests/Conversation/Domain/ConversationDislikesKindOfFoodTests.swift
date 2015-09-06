@@ -8,9 +8,9 @@ import FoodHero
 
 class ConversationDislikesKindOfFoodTests: ConversationTestsBase {
 
-    func test_Conversation_ShouldAskUserOpeningQuestion_WhenKindOfFoodDisliked() {
+    func test_Conversation_ShouldAskUserForKindOfFood_WhenKindOfFoodDisliked() {
         sendInput(UserUtterances.dislikesKindOfFood("I don't like burgers"))
-        assertLastStatementIs("FH:OpeningQuestion", state: FHStates.askForFoodPreference())
+        assertLastStatementIs("FH:AskForKindOfFood", state: FHStates.askForFoodPreference())
 
         sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "British Food"), text: "British please"))
         assertSecondLastStatementIs("U:CuisinePreference=British Food", state: nil)

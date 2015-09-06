@@ -91,11 +91,20 @@ public class FHUtterances {
     }
 
     class func openingQuestions(def: StringDefinition) -> StringDefinition {
+        return def.words(["What would you like to have?",
+                          "What kind of food would you like?"
+        ],
+                withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion",
+                        state: FHStates.askForFoodPreference(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForFoodPreference()))
+
+    }
+
+    class func askForKindOfFood(def: StringDefinition) -> StringDefinition {
         return def.words(["What would you like to have, then?",
                           "What kind of food would you like, then?",
                           "What would you prefer, then?"
         ],
-                withCustomData: FoodHeroParameters(semanticId: "FH:OpeningQuestion",
+                withCustomData: FoodHeroParameters(semanticId: "FH:AskForKindOfFood",
                         state: FHStates.askForFoodPreference(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForFoodPreference()))
 
     }

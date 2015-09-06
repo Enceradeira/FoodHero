@@ -24,7 +24,7 @@ class ConversationEndedTests: ConversationTestsBase {
         assertLastStatementIs("U:GoodBye", state: nil)
     }
 
-    func test_UHello_ShouldTriggerFHGreetingAndOpeningQuestion(){
+    func test_UHello_ShouldTriggerFHGreetingAndSuggestion(){
         sendInput(UserUtterances.hello("Hello!"))
         assertLastStatementIs("FH:Greeting", state: FHStates.askForSuggestionFeedback())
         assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())

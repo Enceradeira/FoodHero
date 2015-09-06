@@ -194,6 +194,10 @@ Then(/^FoodHero asks what I wished to eat$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero asks what kind of food I wished to eat$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:AskForKindOfFood', 0)
+  expect(bubble).not_to be_nil
+end
 
 Then(/^FoodHero asks me for the occasion$/) do
   bubble, _ = wait_last_element_and_parameter('FH:AskForOccasion', 0)

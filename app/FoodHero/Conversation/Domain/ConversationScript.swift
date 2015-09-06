@@ -40,6 +40,12 @@ public class ConversationScript: Script {
         return self.waitResponseAndSearchRepeatably(script, forQuestion: openingQuestion)
     }
 
+    func askForKindOfFoodWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
+        let question = FHUtterances.askForKindOfFood
+        script.say(oneOf: question)
+        return self.waitResponseAndSearchRepeatably(script, forQuestion: question)
+    }
+
     func askForOccasionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let currentOccasion = self._conversation.currentOccasion()
         let question = FHUtterances.askForOccasion(currentOccasion)
@@ -112,7 +118,7 @@ public class ConversationScript: Script {
                 return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
             } else if $0.hasSemanticId("U:DislikesKindOfFood") {
                 return $1.define {
-                    return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
+                    return self.askForKindOfFoodWaitResponseAndSearchRepeatably($0)
                 }
             } else if $0.hasSemanticId("U:DislikesOccasion") {
                 return $1.define {

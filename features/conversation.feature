@@ -92,7 +92,7 @@ Feature: User interacts with app through conversation
 
    When I dislike the kind of food
    Then I see my answer DislikesKindOfFood
-   And FoodHero asks what I wished to eat
+   And FoodHero asks what kind of food I wished to eat
 
    When I wish to eat "Sushi"
    Then I see my answer with "Sushi" food
