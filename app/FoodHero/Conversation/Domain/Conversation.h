@@ -14,6 +14,7 @@
 #import "ApplicationAssembly.h"
 
 @class ConversationParameters;
+@class TalkerUtterance;
 
 @interface Conversation : NSObject <ConversationSource>
 
@@ -23,6 +24,8 @@
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly;
 
 - (void)start;
+
+- (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError;
 
 - (Statement *)getStatement:(NSUInteger)index;
 

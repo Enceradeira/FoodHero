@@ -38,4 +38,26 @@ class ConversationWithNetworkErrorTests: ConversationTestsBase {
         XCTAssertGreaterThan(conversation.getStatementCount(), statementCount, "No new suggestion was added")
         assertLastStatementIs("FH:FollowUpQuestion", state: FHStates.askForSuggestionFeedback())
     }
+
+    func test_lastFoodHeroUtteranceBeforeNetworkError_ShouldReturnLastUtteranceBeforeNetworkError() {
+        sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, text: "Too cheap"))
+        sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "French"), text: "I want French food"))
+        sendInput(NetworkError())
+
+        let utterance = conversation.lastFoodHeroUtteranceBeforeNetworkError()
+        XCTAssertEqual(utterance.utterance, "Do you like it?", "Food Hero asked a question before Networkerror")
+        XCTAssertEqual(utterance.customData.count, 1, "customData must be returend")
+    }
+
+    func test_lastFoodHeroUtteranceBeforeNetworkError_ShouldReturnLastUtteranceBeforeNetworkError_WhenServeralTimesRetried() {
+        sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, text: "Too cheap"))
+        sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "French"), text: "I want French food"))
+        sendInput(NetworkError())
+        sendInput(NetworkError())
+        sendInput(NetworkError())
+
+        let utterance = conversation.lastFoodHeroUtteranceBeforeNetworkError()
+        XCTAssertEqual(utterance.utterance, "Do you like it?", "Food Hero asked a question before Networkerror")
+        XCTAssertEqual(utterance.customData.count, 1, "customData must be returend")
+    }
 }

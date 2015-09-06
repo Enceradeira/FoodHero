@@ -113,6 +113,20 @@
     }];
 }
 
+- (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError {
+    NSUInteger idxLastNetworkError = [[self.conversationParameters linq_reverse] indexOfObjectPassingTest:^BOOL(ConversationParameters *p, NSUInteger idx, BOOL *stop) {
+        return [p hasSemanticId:@"FH:HasNetworkError"];
+    }];
+    assert(idxLastNetworkError != NSNotFound);
+
+    return [[[[_rawConversation linq_reverse] linq_skip:idxLastNetworkError + 1] linq_where:^(TalkerUtterance *utterance) {
+        ConversationParameters *p = utterance.customData[0];
+        BOOL isFoodHero = [p isKindOfClass:[FoodHeroParameters class]];
+        BOOL isNotRelatedToNetworkError = ![p hasSemanticId:@"FH:HasNetworkError"];
+        return (BOOL) (isFoodHero && isNotRelatedToNetworkError);
+    }] linq_firstOrNil];
+}
+
 - (NSArray *)parametersOfCurrentSearch {
     NSArray *parameters = self.conversationParameters;
     Statement *lastUserUtterance = [[parameters linq_where:^(ConversationParameters *p) {

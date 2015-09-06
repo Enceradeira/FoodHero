@@ -37,20 +37,20 @@ public class ConversationScript: Script {
     func sayOpeningQuestionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let openingQuestion = FHUtterances.openingQuestions
         script.say(oneOf: openingQuestion)
-        return self.waitResponseAndSearchRepeatably(script, forQuestion: openingQuestion)
+        return self.waitResponseAndSearchRepeatably(script)
     }
 
     func askForKindOfFoodWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let question = FHUtterances.askForKindOfFood
         script.say(oneOf: question)
-        return self.waitResponseAndSearchRepeatably(script, forQuestion: question)
+        return self.waitResponseAndSearchRepeatably(script)
     }
 
     func askForOccasionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let currentOccasion = self._conversation.currentOccasion()
         let question = FHUtterances.askForOccasion(currentOccasion)
         script.say(oneOf: question)
-        return self.waitResponseAndSearchRepeatably(script, forQuestion: question)
+        return self.waitResponseAndSearchRepeatably(script)
     }
 
     func confirmRestartSayOpeningQuestionAndSearchRepeatably(futureScript: FutureScript) -> FutureScript {
@@ -63,7 +63,6 @@ public class ConversationScript: Script {
     func catchError(
             error: NSError,
             errorScript: Script,
-            lastQuestion: (StringDefinition) -> (StringDefinition),
             andContinueWith continuation: ((ConversationParameters, FutureScript) -> (FutureScript))) -> Script {
 
         if error is NetworkError {
@@ -72,11 +71,12 @@ public class ConversationScript: Script {
                 parameter, futureScript in
                 return futureScript.define {
                     $0.say(oneOf: FHUtterances.beforeRepeatingUtteranceAfterError)
-                    $0.say(oneOf: lastQuestion)
-                    return self.waitUserResponseAndHandleErrors($0, forQuestion: lastQuestion, andContinueWith: continuation)
+                    let lastUtteranceBeforeError = self._conversation.lastFoodHeroUtteranceBeforeNetworkError()
+                    $0.say(oneOf: { $0.words([lastUtteranceBeforeError.utterance], withCustomData: lastUtteranceBeforeError.customData[0]) })
+                    return self.waitUserResponseAndHandleErrors($0, andContinueWith: continuation)
                 }
             }, catch: {
-                self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
+                self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
         } else if error is UserIntentUnclearError {
             errorScript.say(oneOf: {
@@ -87,7 +87,7 @@ public class ConversationScript: Script {
                 return FHUtterances.didNotUnderstandAndAsksForRepetition($0, state: currentState, expectedUserUtterances: expectedUserUtterances)
             })
             return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
-                self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
+                self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
         } else {
             assert(false, "unexpected error of type \(reflect(error).summary)")
@@ -97,7 +97,6 @@ public class ConversationScript: Script {
 
     public func waitUserResponseAndHandleErrors(
             script: Script,
-            forQuestion lastQuestion: (StringDefinition) -> (StringDefinition),
             andContinueWith continuation: ((ConversationParameters, FutureScript) -> (FutureScript))) -> Script {
         return script.waitUserResponse(andContinueWith: {
             (parameter, futureScript) in
@@ -108,12 +107,12 @@ public class ConversationScript: Script {
                 return continuation(parameter, futureScript)
             }
         }, catch: {
-            self.catchError($0, errorScript: $1, lastQuestion: lastQuestion, andContinueWith: continuation)
+            self.catchError($0, errorScript: $1, andContinueWith: continuation)
         })
     }
 
-    func waitResponseAndSearchRepeatably(script: Script, forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> (Script) {
-        return waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
+    func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
+        return waitUserResponseAndHandleErrors(script) {
             if $0.hasSemanticId("U:WantsToStartAgain") {
                 return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
             } else if $0.hasSemanticId("U:DislikesKindOfFood") {
@@ -132,7 +131,7 @@ public class ConversationScript: Script {
                 let occasion = self._conversation.currentOccasion()
                 return $1.define {
                     $0.say(oneOf: { FHUtterances.tellRestaurantLocation($0, ofRestaurant: lastRestaurant, currentOccasion: occasion) })
-                    return self.waitResponseAndSearchRepeatably($0, forQuestion: lastQuestion)
+                    return self.waitResponseAndSearchRepeatably($0)
                 }
             } else if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
                 return self.searchAndWaitResponseAndSearchRepeatably($1)
@@ -199,41 +198,39 @@ public class ConversationScript: Script {
     func askWhatToDoNext(script: Script) -> (Script) {
         let question = FHUtterances.whatToDoNext
         script.say(oneOf: question)
-        return waitResponseForWhatToDoNext(script, forQuestion: question)
+        return waitResponseForWhatToDoNext(script)
     }
 
     func askWhatToDoNextAfterFailure(script: FutureScript) -> (FutureScript) {
         return script.define {
             let whatToDoNextAfterFailure = FHUtterances.whatToDoNextAfterFailure
             $0.say(oneOf: whatToDoNextAfterFailure)
-            return self.waitResponseForWhatToDoNext($0, forQuestion: whatToDoNextAfterFailure)
+            return self.waitResponseForWhatToDoNext($0)
         }
     }
 
     func sayGoodbyeAndWaitResponse(script: Script) -> (Script) {
         let question = FHUtterances.goodbyes
         script.say(oneOf: question)
-        return waitUserHelloAndHandleErrors(script, forQuestion: question)
+        return waitUserHelloAndHandleErrors(script)
     }
 
-    public func waitUserHelloAndHandleErrors(
-            script: Script,
-            forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> Script {
-        return waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
+    public func waitUserHelloAndHandleErrors(script: Script) -> Script {
+        return waitUserResponseAndHandleErrors(script) {
             if $0.hasSemanticId("U:Hello") {
                 return $1.define {
                     return self.sayGreetingAndAndSearchRepeatably($0)
                 }
             } else {
                 return $1.define {
-                    return self.waitUserHelloAndHandleErrors($0, forQuestion: lastQuestion)
+                    return self.waitUserHelloAndHandleErrors($0)
                 }
             }
         }
     }
 
-    func waitResponseForWhatToDoNext(script: Script, forQuestion lastQuestion: (StringDefinition) -> (StringDefinition)) -> (Script) {
-        return waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
+    func waitResponseForWhatToDoNext(script: Script) -> (Script) {
+        return waitUserResponseAndHandleErrors(script) {
             if $0.hasSemanticId("U:WantsToStopConversation") {
                 return $1.define {
                     return self.sayGoodbyeAndWaitResponse($0)
@@ -265,7 +262,7 @@ public class ConversationScript: Script {
             lastUtterance = FHUtterances.followUpQuestion(currentOccasion)
         }
         script.say(oneOf: lastUtterance)
-        return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
+        return self.waitResponseAndSearchRepeatably(script)
     }
 
     func processSearchResult(result: AnyObject, withScript script: Script) -> (Script) {
@@ -285,7 +282,7 @@ public class ConversationScript: Script {
             script.say(oneOf: FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion))
             let lastUtterance = FHUtterances.firstQuestion(with: searchParams.occasion)
             script.say(oneOf: lastUtterance)
-            return self.waitResponseAndSearchRepeatably(script, forQuestion: lastUtterance)
+            return self.waitResponseAndSearchRepeatably(script)
         } else if (!_conversation.wasChatty) {
             if lastFeedback != nil && lastFeedback?.restaurant != nil {
                 let maxDistance = _search.getMaxDistanceOfPlaces()
@@ -333,7 +330,7 @@ public class ConversationScript: Script {
                                 }
                             }
                     ], withTag: RandomizerConstants.proposal())
-                    return self.waitResponseAndSearchRepeatably(script, forQuestion: defaultQuestion)
+                    return self.waitResponseAndSearchRepeatably(script)
                 }
             } else {
                 /* it's not the first time but user has not yet commented a restaurant (because he disliked the
@@ -341,11 +338,11 @@ public class ConversationScript: Script {
                 script.say(oneOf: FHUtterances.suggestions(with: restaurant, currentOccasion: currentOccasion))
                 let question = FHUtterances.followUpQuestion(currentOccasion)
                 script.say(oneOf: question)
-                return self.waitResponseAndSearchRepeatably(script, forQuestion: question)
+                return self.waitResponseAndSearchRepeatably(script)
             }
         } else {
             script.say(oneOf: FHUtterances.simpleSuggestion(with: restaurant, currentOccasion: currentOccasion))
-            return self.waitResponseAndSearchRepeatably(script, forQuestion: defaultQuestion )
+            return self.waitResponseAndSearchRepeatably(script)
         }
     }
 
@@ -353,18 +350,18 @@ public class ConversationScript: Script {
         if error is LocationServiceAuthorizationStatusDeniedError {
             let lastQuestion = FHUtterances.cantAccessLocationServiceBecauseUserDeniedAccessToLocationServices
             script.say(oneOf: lastQuestion)
-            return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
+            return self.waitResponseAndSearchRepeatably(script)
         } else if error is LocationServiceAuthorizationStatusRestrictedError {
             let lastQuestion = FHUtterances.cantAccessLocationServiceBecauseUserIsNotAllowedToUseLocationServices
             script.say(oneOf: lastQuestion)
-            return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
+            return self.waitResponseAndSearchRepeatably(script)
         } else if error is NoRestaurantsFoundError || error is SearchError {
             let label = toString(error.dynamicType)
             GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
 
             let lastQuestion = FHUtterances.noRestaurantsFound
             script.say(oneOf: lastQuestion)
-            self.waitUserResponseAndHandleErrors(script, forQuestion: lastQuestion) {
+            self.waitUserResponseAndHandleErrors(script) {
                 if $0.hasSemanticId("U:WantsToAbort") {
                     return self.askWhatToDoNextAfterFailure($1)
                 } else if $0.hasSemanticId("U:TryAgainNow") {
@@ -377,7 +374,7 @@ public class ConversationScript: Script {
                 }
             }
 
-            return self.waitResponseAndSearchRepeatably(script, forQuestion: lastQuestion)
+            return self.waitResponseAndSearchRepeatably(script)
         } else {
             assert(false, "no error-handler for class \(reflect(error).summary) found")
             return script
