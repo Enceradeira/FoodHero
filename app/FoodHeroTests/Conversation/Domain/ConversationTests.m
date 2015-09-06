@@ -144,6 +144,32 @@
     assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
 }
 
+-(void)test_negativeUserFeedback_SholdBeEmpty_WhenNewSearchStarted{
+    Restaurant *kingsHead = [[RestaurantBuilder alloc] build];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:kingsHead text:@""]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:kingsHead text:@"Cool"]];
+    [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Search for another restaurant"]];
+
+    assertThatInteger(self.conversation.negativeUserFeedback.count, is(equalToInteger(0)));
+}
+
+-(void)test_dislikedRestaurants_ShouldReturnDislikedRestaurantsOfWholeConversation{
+    Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
+    Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];
+    Restaurant *restaurant3 = [[RestaurantBuilder alloc] build];
+    [self configureRestaurantSearchForLocation:_london configuration:^(PlacesAPIStub *stub) {
+        [stub injectFindResults:@[restaurant1, restaurant2,restaurant3]];
+    }];
+
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant1 text:@""]];
+    [self sendInput:[UserUtterances suggestionFeedbackForLike:restaurant2 text:@"Cool"]];
+    [self sendInput:[UserUtterances wantsToSearchForAnotherRestaurant:@"Search for another restaurant"]];
+    [self sendInput:[UserUtterances suggestionFeedbackForTooExpensive:restaurant3 text:@""]];
+
+    assertThatInteger(self.conversation.dislikedRestaurants.count, is(equalToInteger(2)));
+    assertThat(self.conversation.dislikedRestaurants, contains(restaurant1, restaurant3, nil));
+}
+
 - (void)test_suggestedRestaurants_ShouldNotBeEmpty_WhenFHHasSuggestedRestaurants {
     Restaurant *restaurant1 = [[RestaurantBuilder alloc] build];
     Restaurant *restaurant2 = [[RestaurantBuilder alloc] build];

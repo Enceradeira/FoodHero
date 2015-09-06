@@ -3,6 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "ConversationSourceStub.h"
 
 
@@ -32,6 +33,13 @@
 - (NSArray *)negativeUserFeedback {
     return _negativeUserFeedback;
 }
+
+- (NSArray *)dislikedRestaurants {
+    return [_negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *p) {
+        return p.restaurant;
+    }];
+}
+
 
 - (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces searchLocation:(CLLocation *)location {
     return [SearchProfile createWithCuisine:_cuisine priceRange:_range maxDistance:_maxDistance occasion:[Occasions lunch] location:location];

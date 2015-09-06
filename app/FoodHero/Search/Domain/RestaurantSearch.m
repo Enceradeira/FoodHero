@@ -40,9 +40,7 @@
 }
 
 - (RACSignal *)findBest:(id <ConversationSource>)conversation {
-    NSArray *excludedRestaurants = [[conversation.negativeUserFeedback linq_select:^(USuggestionFeedbackParameters *f) {
-        return f.restaurant;
-    }] linq_concat:conversation.suggestedRestaurantsInCurrentSearch];
+    NSArray *excludedRestaurants = [[conversation dislikedRestaurants] linq_concat:conversation.suggestedRestaurantsInCurrentSearch];
 
     NSString *searchLocation = conversation.currentSearchLocation;
     RACSignal *searchLocationSignal = [[self resolvePreferredLocation:searchLocation] deliverOn:[_schedulerFactory asynchScheduler]];

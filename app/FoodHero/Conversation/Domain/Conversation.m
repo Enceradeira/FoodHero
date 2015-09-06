@@ -173,14 +173,23 @@
     return nextIndexSignal;
 }
 
+- (LINQCondition)isNegativeUserFeedback {
+    return ^(ConversationParameters *parameter) {
+        return (BOOL) ([parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=Dislike"] ||
+                [parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"] ||
+                [parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"] ||
+                [parameter.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]);
+    };
+}
+
 - (NSArray *)negativeUserFeedback {
-    return [self.conversationParameters linq_where:^(ConversationParameters *p) {
-        return (BOOL) (
-                [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=Dislike"] ||
-                        [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooCheap"] ||
-                        [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooExpensive"] ||
-                        [p.semanticIdInclParameters isEqualToString:@"U:SuggestionFeedback=tooFarAway"]
-        );
+    return [self.parametersOfCurrentSearch linq_where:[self isNegativeUserFeedback]];
+}
+
+- (NSArray *)dislikedRestaurants {
+
+    return [[self.conversationParameters linq_where:[self isNegativeUserFeedback]] linq_select:^(USuggestionFeedbackParameters *p) {
+        return p.restaurant;
     }];
 }
 

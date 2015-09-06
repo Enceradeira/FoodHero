@@ -24,6 +24,11 @@
     return nil;
 }
 
+- (NSArray *)dislikedRestaurants {
+    return @[];
+}
+
+
 - (SearchProfile *)currentSearchPreference:(double)maxDistancePlaces searchLocation:(CLLocation *)location {
     return nil;
 }

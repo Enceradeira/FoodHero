@@ -29,10 +29,12 @@ public class FHPlacesAPI: NSObject, IPlacesAPI {
         var error: NSError?
         var dataVal: NSData? = sendSynchronousRequest(request, returningResponse: response, error: &error)
         if error != nil {
+            NSLog("FHPlacesAPI.findPlaces: \(error!.description)")
             return error!;
         }
         var jsonResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(dataVal!, options: NSJSONReadingOptions.MutableContainers, error: &error)
         if error != nil {
+            NSLog("FHPlacesAPI.findPlaces: \(error!.description)")
             return error!;
         }
 
