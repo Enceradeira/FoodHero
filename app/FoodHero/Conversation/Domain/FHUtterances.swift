@@ -201,7 +201,7 @@ public class FHUtterances {
             $0.words([
                     "What about %@ then?",
                     "Maybe %@ is better?",
-                    "Of course you don’t want to go to McDonalds. You are a person of taste.\nNow go to %@.",
+                    "Of course you don’t want to go to '\(lastRestaurant.name)'. You are a person of taste.\nNow go to %@.",
                     "Good.  I like people who know their own minds.  And people who know their own minds go to %@.",
                     "You are right.  It isn’t a '\(lastRestaurant.name)' sort of day.  It’s a '%@' sort of day.",
                     "I do so, so want to please you.\nWould you try %@?"
