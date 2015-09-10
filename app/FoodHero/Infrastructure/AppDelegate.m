@@ -20,8 +20,7 @@
 
 @implementation AppDelegate {
     bool _applicationDidFinishLaunching;
-    TyphoonStoryboard *_storyboard;
-    id <ApplicationAssembly> _assembly;
+    ConversationAppService *_conversationAppService;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -29,10 +28,11 @@
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
 
     [TyphoonComponents configure:[DefaultAssembly assembly]];
-    _storyboard = [TyphoonComponents storyboard];
-    _assembly =  (id <ApplicationAssembly>) [_storyboard factory];
+    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+    id <ApplicationAssembly> assembly = (id <ApplicationAssembly>) [storyboard factory];
+    _conversationAppService =  (ConversationAppService *)[assembly conversationAppService];
 
-    self.window.rootViewController = [_storyboard instantiateInitialViewController];
+    self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
 
     // Google Analytics
@@ -52,7 +52,7 @@
 }
 
 -(void)application :(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [_assembly.conversationAppService startConversation];
+    [_conversationAppService startConversation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -64,12 +64,14 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
+    [_conversationAppService pauseConversation];
     [WitSpeechRecognitionService sendToGAI];
     [GAIService dispatch];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [_conversationAppService resumeConversation];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

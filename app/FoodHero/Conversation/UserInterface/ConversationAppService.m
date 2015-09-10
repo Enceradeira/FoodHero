@@ -169,6 +169,7 @@ static UIImage *EmptyImage;
         }
         ];
     }
+
     return self;
 }
 
@@ -289,4 +290,11 @@ static UIImage *EmptyImage;
     }
 }
 
+- (void)pauseConversation {
+
+}
+
+- (void)resumeConversation {
+
+}
 @end

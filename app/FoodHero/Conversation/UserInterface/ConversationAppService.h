@@ -43,4 +43,8 @@
 - (AVAudioSessionRecordPermission)recordPermission;
 
 - (ConversationBubbleFoodHero *)lastRawSuggestion;
+
+- (void)pauseConversation;
+
+- (void)resumeConversation;
 @end
