@@ -108,6 +108,7 @@ Feature: User interacts with app through conversation
 
   Scenario: I don't allow FoodHero to access location-API
     Given I have answered the data collection alert
+    And I have answered the notification alert
     When FoodHero asks for access to the location-services
     And I don't allow access to the location-services
     Then FoodHero asks to enable location-services in settings

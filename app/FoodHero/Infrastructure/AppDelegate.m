@@ -9,8 +9,6 @@
 #import <Typhoon.h>
 #import <Wit/Wit.h>
 #import <GoogleMaps/GoogleMaps.h>
-#import <GAI.h>
-#import <GAIFields.h>
 #import "AppDelegate.h"
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
@@ -22,6 +20,8 @@
 
 @implementation AppDelegate {
     bool _applicationDidFinishLaunching;
+    TyphoonStoryboard *_storyboard;
+    id <ApplicationAssembly> _assembly;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -29,20 +29,30 @@
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
 
     [TyphoonComponents configure:[DefaultAssembly assembly]];
-    TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
+    _storyboard = [TyphoonComponents storyboard];
+    _assembly =  (id <ApplicationAssembly>) [_storyboard factory];
 
-    self.window.rootViewController = [storyboard instantiateInitialViewController];
+    self.window.rootViewController = [_storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
 
     // Google Analytics
-    [GAIService configure:^(){
-        id<ApplicationAssembly> assembly = (id <ApplicationAssembly>)[storyboard factory];
-        [assembly.conversationAppService startConversation];
+    [GAIService configure:^() {
+        [self configureUserNotification:application];
     }];
-    
+
     _applicationDidFinishLaunching = true;
 
     return YES;
+}
+
+- (void)configureUserNotification:(const UIApplication *)application {
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [application registerUserNotificationSettings:mySettings]; // this will trigger didRegisterForRemoteNotificationsWithDeviceToken
+}
+
+-(void)application :(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [_assembly.conversationAppService startConversation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -72,7 +82,7 @@
 
 - (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame {
     [ConversationViewController applicationDidChangeStatusBarFrame:oldStatusBarFrame];
-    if( _applicationDidFinishLaunching ){
+    if (_applicationDidFinishLaunching) {
         id <ApplicationAssembly> assembly = [TyphoonComponents getAssembly];
         ConversationViewController *cvc = [assembly conversationViewController];
         [cvc redrawCurrentViewState];

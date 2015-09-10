@@ -9,9 +9,17 @@ end
 
 def expect_data_collection_alert
   expect(text 'Allow “Food Hero” to collect anonymous data to improve future versions?').to be_truthy
+  end
+
+def expect_alert_notifications
+  expect(text '“Food Hero” Would Like to Send You Notifications').to be_truthy
 end
 
 def allow_data_collection
+  alert_accept
+end
+
+def allow_notifications
   alert_accept
 end
 
@@ -36,10 +44,20 @@ def expect_login_view
   expect(text 'Login is under construction').to be_truthy
 end
 
-Given(/^FoodHero has started and I accept alerts$/) do
-  expect_and_answer_data_collection_alert
+def expect_and_answer_location_services_alert
   expect_alert_location_services
   allow_access_to_location_services
+end
+
+def expect_and_answer_notifications_alert
+  expect_alert_notifications
+  allow_notifications
+end
+
+Given(/^FoodHero has started and I accept alerts$/) do
+  expect_and_answer_data_collection_alert
+  expect_and_answer_notifications_alert
+  expect_and_answer_location_services_alert
   expect_conversation_view
 end
 
@@ -58,6 +76,10 @@ end
 
 Given(/^I have answered the data collection alert$/) do
   expect_and_answer_data_collection_alert
+end
+
+Given(/^I have answered the notification alert$/) do
+  expect_and_answer_notifications_alert
 end
 
 When(/^I go to the help view$/) do
