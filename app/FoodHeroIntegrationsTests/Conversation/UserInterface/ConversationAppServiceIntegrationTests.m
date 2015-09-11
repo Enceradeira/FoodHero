@@ -61,7 +61,7 @@
 
 - (void)test_addUserSuggestionFeedbackDislike_ShouldAddUCSuggestionFeedbackDislikeToConversation {
     _currState = [FHStates askForSuggestionFeedback];
-    [_service startConversation];
+    [_service startConversationWithFeedbackRequest:NO];
     [self waitStatementWithIndex:1];
 
     [_service addUserText:@"I don't like it"];

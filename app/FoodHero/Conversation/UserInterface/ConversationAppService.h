@@ -28,7 +28,7 @@
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 
-- (void)startConversation;
+- (void)startConversationWithFeedbackRequest:(BOOL)isWithFeedbackRequest;
 
 + (UIImage *)emptyImage;
 
@@ -47,4 +47,6 @@
 - (void)pauseConversation;
 
 - (void)resumeConversation;
+
+- (void)requestUserFeedback;
 @end

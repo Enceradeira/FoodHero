@@ -35,7 +35,7 @@
     _ctrl.view.hidden = NO;
     _bubbleView = _ctrl.bubbleView;
 
-    [appService startConversation];
+    [appService startConversationWithFeedbackRequest:NO];
 }
 
 - (ConversationBubbleTableViewCell *)assertRow:(NSUInteger)index {

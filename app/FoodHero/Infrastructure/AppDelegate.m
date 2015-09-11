@@ -21,16 +21,20 @@
 @implementation AppDelegate {
     bool _applicationDidFinishLaunching;
     ConversationAppService *_conversationAppService;
+    UILocalNotification* _notification;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Evaluate launch Options
+    _notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+
     // Google Map
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
 
     [TyphoonComponents configure:[DefaultAssembly assembly]];
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
     id <ApplicationAssembly> assembly = (id <ApplicationAssembly>) [storyboard factory];
-    _conversationAppService =  (ConversationAppService *)[assembly conversationAppService];
+    _conversationAppService = (ConversationAppService *) [assembly conversationAppService];
 
     self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
@@ -51,8 +55,12 @@
     [application registerUserNotificationSettings:mySettings]; // this will trigger didRegisterForRemoteNotificationsWithDeviceToken
 }
 
--(void)application :(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [_conversationAppService startConversation];
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+    [_conversationAppService requestUserFeedback];
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [_conversationAppService startConversationWithFeedbackRequest:_notification != nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -92,7 +92,7 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForLike:[self getLastSuggestedRestaurant] text:interpretation.text];
                             return (id) utterance;
                         }
-                        else if([interpretation.intent isEqualToString:@"SuggestionFeedback_LikeWithLocationRequest"]){
+                        else if ([interpretation.intent isEqualToString:@"SuggestionFeedback_LikeWithLocationRequest"]) {
                             TalkerUtterance *utterance = [UserUtterances suggestionFeedbackForLikeWithLocationRequest:[self getLastSuggestedRestaurant] text:interpretation.text];
                             return (id) utterance;
                         }
@@ -189,7 +189,7 @@ static UIImage *EmptyImage;
     return [[TextAndLocation alloc] initWithText:cuisine == nil ? @"" : cuisine location:location == nil ? @"" : location];
 }
 
-- (void)startConversation {
+- (void)startConversationWithFeedbackRequest:(BOOL)isWithFeedbackRequest {
     [_conversation start];
 }
 
@@ -291,10 +291,39 @@ static UIImage *EmptyImage;
 }
 
 - (void)pauseConversation {
+    // setup notification
+    return;
 
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+
+    NSDateComponents *dateComps = [[NSDateComponents alloc] init];
+
+    NSDate *itemDate = [NSDate date];
+
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+
+    localNotif.fireDate = [itemDate dateByAddingTimeInterval:5];
+
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+
+    localNotif.alertBody = @"Food Hero has sent you a message";
+
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+
+    localNotif.applicationIconBadgeNumber = 1;
+
+    NSDictionary *infoDict = @{@"Hello" : @"TestMessage"};
+
+    localNotif.userInfo = infoDict;
+
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 
 - (void)resumeConversation {
+    // purse notification (reason ????... message arrived?)
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+}
 
+- (void)requestUserFeedback {
 }
 @end
