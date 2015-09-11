@@ -136,10 +136,7 @@
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
         else if ([semanticID rangeOfString:@"FH:ThanksForProductFeedback"].location != NSNotFound) {
-
-
-            HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
-            [self.delegate initalizeHelpController:controller];
+            FeedbackController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"FeedbackController"];
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
         else if (self.bubble.suggestedRestaurant != nil) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Nxg-Xv-lPP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Nxg-Xv-lPP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -18,6 +18,7 @@
                         <segue destination="Xf7-7W-WAu" kind="relationship" relationship="rootViewController" id="Cdd-kV-dbe"/>
                         <segue destination="pHo-nb-mpi" kind="push" identifier="restaurantMap" id="R6w-a1-22P"/>
                         <segue destination="tLd-lA-6ms" kind="push" identifier="suggestionLiked" id="MNR-AN-cF6"/>
+                        <segue destination="spe-lB-0BO" kind="push" id="URS-uZ-esC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROR-5s-y28" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -602,7 +603,41 @@ Norwich, Norfolk NR1 3DN</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHA-1O-eXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="147" y="224"/>
+            <point key="canvasLocation" x="406" y="222"/>
+        </scene>
+        <!--Feedback-->
+        <scene sceneID="Lwb-fy-Rlq">
+            <objects>
+                <viewController storyboardIdentifier="FeedbackController" id="spe-lB-0BO" customClass="FeedbackController" customModule="FoodHero" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FSV-Hv-O7X"/>
+                        <viewControllerLayoutGuide type="bottom" id="x3H-KS-09W"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jOL-kh-ybj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEQ-5o-giu">
+                                <rect key="frame" x="136" y="269" width="49" height="30"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didClickSubmit:" destination="spe-lB-0BO" eventType="touchUpInside" id="iay-bb-Cr0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="aEQ-5o-giu" secondAttribute="centerX" id="9m1-qs-AaS"/>
+                            <constraint firstAttribute="centerY" secondItem="aEQ-5o-giu" secondAttribute="centerY" id="bDb-uA-Avd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Feedback" id="TeN-9m-JVr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fC-8Y-tL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-35" y="1616"/>
         </scene>
         <!--Share-->
         <scene sceneID="RQW-cl-zyc">
@@ -1178,7 +1213,7 @@ Norwich, Norfolk NR1 3DN</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lZP-56-1Zf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="38" y="-318"/>
+            <point key="canvasLocation" x="19.5" y="228.5"/>
         </scene>
     </scenes>
     <resources>
