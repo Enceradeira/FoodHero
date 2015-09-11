@@ -116,19 +116,30 @@
     }];
 }
 
-- (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError {
+- (TalkerUtterance *)getLastUtteranceBefore:(NSString *)semanticId {
     NSUInteger idxLastNetworkError = [[self.conversationParameters linq_reverse] indexOfObjectPassingTest:^BOOL(ConversationParameters *p, NSUInteger idx, BOOL *stop) {
-        return [p hasSemanticId:@"FH:HasNetworkError"];
+        return [p hasSemanticId:semanticId];
     }];
     assert(idxLastNetworkError != NSNotFound);
 
     return [[[[_rawConversation linq_reverse] linq_skip:idxLastNetworkError + 1] linq_where:^(TalkerUtterance *utterance) {
         ConversationParameters *p = utterance.customData[0];
         BOOL isFoodHero = [p isKindOfClass:[FoodHeroParameters class]];
-        BOOL isNotRelatedToNetworkError = ![p hasSemanticId:@"FH:HasNetworkError"];
+        BOOL isNotRelatedToNetworkError = ![p hasSemanticId:
+                semanticId];
         return (BOOL) (isFoodHero && isNotRelatedToNetworkError);
     }] linq_firstOrNil];
 }
+
+- (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError {
+    return [self getLastUtteranceBefore:@"FH:HasNetworkError"];
+
+}
+
+- (TalkerUtterance *)lastFoodHeroUtteranceProductFeedback {
+    return [self getLastUtteranceBefore:@"FH:AskForProductFeedback"];
+}
+
 
 - (NSArray *)parametersOfCurrentSearch {
     NSArray *parameters = self.conversationParameters;
@@ -383,7 +394,7 @@
 }
 
 - (void)interruptWithUserFeedbackRequest {
-    UserFeedbackScript *feedbackRequest = [[UserFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
+    ProductFeedbackScript *feedbackRequest = [[ProductFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
     [_engine interruptWith:feedbackRequest];
 }
 @end

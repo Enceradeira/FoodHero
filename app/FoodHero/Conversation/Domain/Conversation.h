@@ -27,6 +27,8 @@
 
 - (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError;
 
+- (TalkerUtterance *)lastFoodHeroUtteranceProductFeedback;
+
 - (Statement *)getStatement:(NSUInteger)index;
 
 - (NSUInteger)getStatementCount;

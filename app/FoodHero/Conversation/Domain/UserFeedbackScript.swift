@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class UserFeedbackScript: Script {
+public class ProductFeedbackScript: Script {
     let _conversation: Conversation
     let _schedulerFactory: ISchedulerFactory
 
@@ -17,27 +17,25 @@ public class UserFeedbackScript: Script {
 
         super.init(talkerContext: context)
 
-
         say(oneOf: FHUtterances.askForProductFeedback)
-        waitUserResponse(andContinueWith: {
-            (parameter, futureScript) in
-            if( parameter.hasSemanticId("U:ProductFeedback=Yes")){
-                return futureScript.define{
-                    return $0.say(oneOf:FHUtterances.thankForProductFeedback)
-                }
-            }
-            else{
-                return futureScript.defineEmpty()
-            }
-
-
-        }, catch: {
-            self.catchError($0, errorScript: $1, andContinueWith: {
-                (parameter, futureScript) in
-                return futureScript.defineEmpty()
-            })
+        waitUserResponse(andContinueWith: processProductFeedbackAnswerForParameter, catch: {
+            self.catchError($0, errorScript: $1, andContinueWith: self.processProductFeedbackAnswerForParameter)
         })
 
+    }
+
+    func processProductFeedbackAnswerForParameter(parameter: ConversationParameters, futureScript: FutureScript) -> FutureScript {
+        let utteranceBeforeInterrupting = self._conversation.lastFoodHeroUtteranceProductFeedback()
+        var utterance: (StringDefinition) -> (StringDefinition)
+        if (parameter.hasSemanticId("U:ProductFeedback=Yes")) {
+            utterance = FHUtterances.thankForProductFeedback
+        } else {
+            utterance = FHUtterances.regrestsUserNotGivingProductFeedback
+        }
+        return futureScript.define {
+            return $0.say(oneOf: utterance)
+            .say(oneOf: { $0.words([utteranceBeforeInterrupting.utterance], withCustomData: utteranceBeforeInterrupting.customData[0]) })
+        }
     }
 
     func catchError(
