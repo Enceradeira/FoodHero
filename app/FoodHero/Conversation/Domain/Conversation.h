@@ -16,12 +16,16 @@
 @class ConversationParameters;
 @class TalkerUtterance;
 
-@interface Conversation : NSObject <ConversationSource>
+@interface Conversation : NSObject <ConversationSource, NSCoding>
 
 @property(nonatomic, readonly) NSString *id;
 @property(nonatomic, readonly) BOOL wasChatty;
 
-- (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly;
+- (void)setInput:(RACSignal *)input;
+
+- (void)setAssembly:(id <ApplicationAssembly>)assembly;
+
+- (instancetype)initWithCoder:(NSCoder *)coder;
 
 - (void)start;
 

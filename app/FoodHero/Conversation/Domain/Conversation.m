@@ -32,17 +32,32 @@
     id _schedulerFactory;
 }
 
-- (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
         _statements = [NSMutableArray new];
         _rawConversation = [NSMutableArray new];
-        _input = input;
-        _assembly = assembly;
         _isStarted = NO;
         _id = [Configuration userId];
     }
     return self;
+}
+
+- (void)setInput:(RACSignal *)input {
+    _input = input;
+}
+
+- (void)setAssembly:(id <ApplicationAssembly>)assembly {
+    _assembly = assembly;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+
 }
 
 - (void)start {

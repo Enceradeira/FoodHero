@@ -10,7 +10,6 @@
 #import "Personas.h"
 #import "ExpectedStatement.h"
 #import "TyphoonComponents.h"
-#import "FoodHero-Swift.h"
 #import "FoodHeroTests-Swift.h"
 
 @implementation ConversationTestsBase {
@@ -27,7 +26,7 @@
     [TyphoonComponents configure:[StubAssembly new]];
     _input = [RACSubject new];
     _assembly = [TyphoonComponents getAssembly];
-    _restaurantSearchStub = (PlacesAPIStub*)[_assembly placesAPI];
+    _restaurantSearchStub = (PlacesAPIStub *) [_assembly placesAPI];
     _restaurantRepository = [_assembly restaurantRepository];
     _locationManagerStub = [_assembly locationManagerProxy];
     [self resetConversation];
@@ -37,7 +36,9 @@
 }
 
 - (void)resetConversation {
-    _conversation = [[Conversation alloc] initWithInput:_input assembly:_assembly];
+    _conversation = [[Conversation alloc] init];
+    [_conversation setInput:_input];
+    [_conversation setAssembly:_assembly];
     [_conversation start];
 }
 
@@ -60,11 +61,11 @@
     [_locationManagerStub injectAuthorizationStatus:status];
 }
 
-- (void)expectedStatementIs:(NSString *)text userAction:(NSString*)action {
+- (void)expectedStatementIs:(NSString *)text userAction:(NSString *)action {
     [self expectedStatementIs:text userAction:action inList:_expectedStatements];
 }
 
-- (void)expectedStatementIs:(NSString *)text userAction:(NSString*)action inList:(NSMutableArray *)list {
+- (void)expectedStatementIs:(NSString *)text userAction:(NSString *)action inList:(NSMutableArray *)list {
     ExpectedStatement *statement = [[ExpectedStatement alloc] initWithText:text inputAction:action];
     [list addObject:statement];
 }

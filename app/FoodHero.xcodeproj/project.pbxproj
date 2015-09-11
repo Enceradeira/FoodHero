@@ -233,6 +233,7 @@
 		23525C9F6400130371368996 /* ConversationDislikeOccasionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525BE6FF92114018318C4B /* ConversationDislikeOccasionTests.swift */; };
 		23525CA0BE93BD13E6CF4CE9 /* SmallRestaurantReviewCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525DF8C6B1B3FE8FDB6662 /* SmallRestaurantReviewCommentViewController.m */; };
 		23525CB3FACB6CE86C5B8794 /* RestaurantDistanceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235251C962159D8847E0A9C3 /* RestaurantDistanceBuilder.swift */; };
+		23525CC0E80C74ADE99C0F8E /* ConversationRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235258C62DB953415934FAB5 /* ConversationRepositoryTests.swift */; };
 		23525CC5DD00620FFF56641D /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235258614C11CE58D177B05E /* ConfigurationTests.swift */; };
 		23525CCA5FDC27492D17F0C1 /* LocationServiceAuthorizationStatusDeniedError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2352516E299872702952490A /* LocationServiceAuthorizationStatusDeniedError.m */; };
 		23525CCAE53B4E3E84AED8BB /* ConversationAppServiceIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525B01DBCA5E6C43250A4C /* ConversationAppServiceIntegrationTests.m */; };
@@ -553,6 +554,7 @@
 		23525899A1997D5440D5159B /* GoogleURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleURL.h; sourceTree = "<group>"; };
 		235258A6F2540414531B6F6D /* Branch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		235258A8F2F807F9877FA53E /* TextAndLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAndLocation.swift; sourceTree = "<group>"; };
+		235258C62DB953415934FAB5 /* ConversationRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationRepositoryTests.swift; sourceTree = "<group>"; };
 		235258E9456D24B4F1902530 /* LargeRestaurantReviewCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeRestaurantReviewCommentViewController.h; sourceTree = "<group>"; };
 		235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewState+Protected.m"; sourceTree = "<group>"; };
 		235258F0B360233DE7BEB6E3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -890,6 +892,7 @@
 			isa = PBXGroup;
 			children = (
 				2352596D6773526DDCA6F07A /* ConversationRepositoryTests.m */,
+				235258C62DB953415934FAB5 /* ConversationRepositoryTests.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -2149,6 +2152,7 @@
 				23525CC5DD00620FFF56641D /* ConfigurationTests.swift in Sources */,
 				2352599770B0B54C07A4B5E9 /* ConversationLocationRequestTests.swift in Sources */,
 				23525E993F3F176E1C028ED6 /* ConversationProductFeedbackTests.swift in Sources */,
+				23525CC0E80C74ADE99C0F8E /* ConversationRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
