@@ -42,4 +42,6 @@
 - (ConversationParameters *)lastUserResponse;
 
 - (Statement *)lastRawSuggestion;
+
+- (void)interruptWithUserFeedbackRequest;
 @end

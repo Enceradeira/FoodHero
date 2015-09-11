@@ -27,6 +27,9 @@
     bool _isStarted;
     id <IEnvironment> _environment;
     id <IRandomizer> _randomizer;
+    TalkerEngine *_engine;
+    TalkerContext *_context;
+    id _schedulerFactory;
 }
 
 - (instancetype)initWithInput:(RACSignal *)input assembly:(id <ApplicationAssembly>)assembly {
@@ -49,14 +52,14 @@
     _randomizer = [_assembly talkerRandomizer];
     RestaurantSearch *search = [_assembly restaurantSearch];
     LocationService *locationService = [_assembly locationService];
-    id <ISchedulerFactory> schedulerFactory = [_assembly schedulerFactory];
+    _schedulerFactory = [_assembly schedulerFactory];
     ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:_randomizer];
-    TalkerContext *context = [[TalkerContext alloc] initWithRandomizer:_randomizer resources:resources];
-    ConversationScript *script = [[ConversationScript alloc] initWithContext:context conversation:self search:search locationService:locationService schedulerFactory:schedulerFactory];
+    _context = [[TalkerContext alloc] initWithRandomizer:_randomizer resources:resources];
+    ConversationScript *script = [[ConversationScript alloc] initWithContext:_context conversation:self search:search locationService:locationService schedulerFactory:_schedulerFactory];
 
-    TalkerEngine *engine = [[TalkerEngine alloc] initWithScript:script input:_input];
+    _engine = [[TalkerEngine alloc] initWithScript:script input:_input];
 
-    TalkerStreams *streams = [engine execute];
+    TalkerStreams *streams = [_engine execute];
 
     [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
         NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
@@ -379,4 +382,8 @@
     return [_randomizer isTrueForTag:[RandomizerConstants chattyThreshold]] ? 2 : 1;
 }
 
+- (void)interruptWithUserFeedbackRequest {
+    UserFeedbackScript *feedbackRequest = [[UserFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
+    [_engine interruptWith:feedbackRequest];
+}
 @end

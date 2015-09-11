@@ -104,4 +104,10 @@ public class ExpectedUserUtterances: NSObject {
         ])
     }
 
+    public class func whenAskedForProductFeedback() -> ExpectedUserUtterances {
+        return ExpectedUserUtterances(utterances: [
+                modelAnswerFrom(UserUtterances.wantsToGiveProductFeedback("")),
+                modelAnswerFrom(UserUtterances.doesnWantToGiveProductFeedback(""))
+        ])
+    }
 }

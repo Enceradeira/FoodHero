@@ -152,6 +152,14 @@ static UIImage *EmptyImage;
                             TalkerUtterance *utterance = [UserUtterances locationRequest:interpretation.text];
                             return (id) utterance;
                         }
+                        else if ([interpretation.intent isEqualToString:@"ProductFeedback_Yes"]) {
+                            TalkerUtterance *utterance = [UserUtterances wantsToGiveProductFeedback:interpretation.text];
+                            return (id) utterance;
+                        }
+                        else if ([interpretation.intent isEqualToString:@"ProductFeedback_No"]) {
+                            TalkerUtterance *utterance = [UserUtterances doesnWantToGiveProductFeedback:interpretation.text];
+                            return (id) utterance;
+                        }
                         assert(false);
                     }
                 }];
@@ -292,7 +300,6 @@ static UIImage *EmptyImage;
 
 - (void)pauseConversation {
     // setup notification
-    return;
 
     NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
 
@@ -325,5 +332,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)requestUserFeedback {
+    [_conversation interruptWithUserFeedbackRequest];
+
 }
 @end

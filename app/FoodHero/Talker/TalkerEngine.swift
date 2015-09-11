@@ -34,9 +34,7 @@ public class TalkerEngine: NSObject {
         return TalkerStreams(rawOutput: _rawOutput, naturalOutput: _naturalOutput)
     }
 
-    public func interrupt(with script: (Script) -> (Script)) {
-        let subscribt = script(Script(talkerContext: _script.context))
-
+    public func interrupt(with subscribt: Script) {
         // cut off scripts that are listing on standard input
         _talkerInput.stop()
 

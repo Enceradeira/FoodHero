@@ -331,6 +331,16 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         .waitResponse(catch: nil)
         .say(oneOf: { $0.words("OK") })
 
+        let subScript = TestScript().say(oneOf: { $0.words("Sorry, what's your name by the way?") })
+        .waitResponse(andContinueWith: {
+            return $1.define {
+                $0.say {
+                    $0.words("Ok. So, what do you want?")
+                }
+            }
+        }, catch: nil)
+
+
         assert(dialog: ["What do you want?", "Sorry, what's your name by the way?", "My name is John", "Ok. So, what do you want?", "a beer", "OK"],
                 forExecutedScript: script,
                 whenInputIs: {
@@ -338,16 +348,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     switch utterance {
                     case "What do you want?":
                         self.async {
-                            engine.interrupt(with: {
-                                return $0.say(oneOf: { $0.words("Sorry, what's your name by the way?") })
-                                .waitResponse(andContinueWith: {
-                                    return $1.define {
-                                        $0.say {
-                                            $0.words("Ok. So, what do you want?")
-                                        }
-                                    }
-                                }, catch: nil)
-                            })
+                            engine.interrupt(with: subScript)
                         }
                         return nil
                     case "Sorry, what's your name by the way?":return "My name is John"

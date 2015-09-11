@@ -469,4 +469,21 @@ public class FHUtterances {
                         state: nil, expectedUserUtterances: nil))
     }
 
+    class func askForProductFeedback(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "Would you want to give me some feedback, please?"
+        ],
+                withCustomData: FoodHeroParameters(semanticId: "FH:AskForProductFeedback",
+                        state: FHStates.askForProductFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForProductFeedback()))
+    }
+
+    class func thankForProductFeedback(def: StringDefinition) -> StringDefinition {
+        return def.words([
+                "Please click <a href=''>here</a> to give feedback.\n\nThank you so much!!!"
+        ],
+                withCustomData: FoodHeroParameters(semanticId: "FH:ThanksForProductFeedback",
+                        state: nil, expectedUserUtterances: ExpectedUserUtterances.whenAskedForProductFeedback()))
+    }
+
+
 }

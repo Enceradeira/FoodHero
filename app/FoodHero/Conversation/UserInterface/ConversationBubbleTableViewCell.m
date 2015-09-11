@@ -135,6 +135,13 @@
             [controller setRestaurant:self.bubble.suggestedRestaurant];
             [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
         }
+        else if ([semanticID rangeOfString:@"FH:ThanksForProductFeedback"].location != NSNotFound) {
+
+
+            HelpViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"HelpController"];
+            [self.delegate initalizeHelpController:controller];
+            [self.delegate userDidTouchLinkInConversationBubbleWith:controller];
+        }
         else if (self.bubble.suggestedRestaurant != nil) {
             RestaurantDetailViewController *controller = [[TyphoonComponents storyboard] instantiateViewControllerWithIdentifier:@"RestaurantDetail"];
             [controller setRestaurant:self.bubble.suggestedRestaurant];

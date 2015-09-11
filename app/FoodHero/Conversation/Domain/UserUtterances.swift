@@ -104,4 +104,11 @@ public class UserUtterances: NSObject {
         return createUtterance("U:LocationRequest", text: text, modelAnswer: "Where is that restaurant?");
     }
 
+    public class func wantsToGiveProductFeedback(text: String) -> TalkerUtterance {
+        return createUtterance("U:ProductFeedback=Yes", text: text, modelAnswer: "Yes");
+    }
+
+    public class func doesnWantToGiveProductFeedback(text: String) -> TalkerUtterance {
+        return createUtterance("U:ProductFeedback=No", text: text, modelAnswer: "No");
+    }
 }
