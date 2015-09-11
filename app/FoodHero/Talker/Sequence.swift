@@ -11,11 +11,11 @@ class Sequence {
 
     }
 
-    private class func produceSequence(utterances: [Utterance], _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    private class func produceSequence(utterances: [IUtterance], _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
         self.produceNext(utterances, input, output, continuation)
     }
 
-    private class func produceNext(utterances: [Utterance], _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    private class func produceNext(utterances: [IUtterance], _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
         if (utterances.isEmpty) {
             continuation()
         } else {

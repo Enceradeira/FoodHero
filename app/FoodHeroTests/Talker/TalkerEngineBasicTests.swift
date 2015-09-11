@@ -188,7 +188,8 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         assert(dialog: ["How are you?", "Good, and you?", "Very good\n\nSo, what did you do yesterday?"],
                 forExecutedScript: script,
                 whenInputIs: {
-                    switch $0 {
+                    utterance, engine in
+                    switch utterance {
                     case "How are you?": return "Good, and you?"
                     default: return nil
                     }
@@ -205,7 +206,8 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         assert(dialog: ["Hello", "Error is not good\n\nWorld"],
                 forExecutedScript: script,
                 whenInputIs: {
-                    switch $0 {
+                    utterance, engine in
+                    switch utterance {
                     case "Hello": return NSError(domain: "is not good", code: 0, userInfo: nil)
                     default: return nil
                     }
@@ -222,7 +224,8 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         assert(dialog: ["Hello", "World"],
                 forExecutedScript: script,
                 whenInputIs: {
-                    switch $0 {
+                    utterance, engine in
+                    switch utterance {
                     case "Hello": return NSError(domain: "Hello Error", code: 0, userInfo: nil)
                     default: return nil
                     }
@@ -243,7 +246,8 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         assert(dialog: ["1", "Catch 1: Error A\n\n2", "3", "Catch 2: Error C\n\n5"],
                 forExecutedScript: script,
                 whenInputIs: {
-                    switch $0 {
+                    utterance, engine in
+                    switch utterance {
                     case "1": return NSError(domain: "Error A", code: 0, userInfo: nil)
                     case "Catch 1: Error A\n\n2": return NSError(domain: "Error B", code: 0, userInfo: nil)
                     case "3": return NSError(domain: "Error C", code: 0, userInfo: nil)
@@ -307,7 +311,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         let script = TestScript()
         .say(oneOf: { $0.words("Hello") })
         .waitResponse(andContinueWith: {
-            return $1.define{
+            return $1.define {
                 // Waiting for another response without producing output
                 $0.waitResponse(andContinueWith: {
                     return $1.defineEmpty() // No output produced
@@ -319,5 +323,39 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         sendInput("World")
 
         assert(utterance: "World", exists: true, inExecutedScript: script, atPosition: 1)
+    }
+
+    func test_talk_ShouldInterruptAndResumeConversation_WhenThereIsAnInteruption() {
+        let script = TestScript()
+        .say(oneOf: { $0.words("What do you want?") })
+        .waitResponse(catch: nil)
+        .say(oneOf: { $0.words("OK") })
+
+        assert(dialog: ["What do you want?", "Sorry, what's your name by the way?", "My name is John", "Ok. So, what do you want?", "a beer", "OK"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    utterance, engine in
+                    switch utterance {
+                    case "What do you want?":
+                        self.async {
+                            engine.interrupt(with: {
+                                return $0.say(oneOf: { $0.words("Sorry, what's your name by the way?") })
+                                .waitResponse(andContinueWith: {
+                                    return $1.define {
+                                        $0.say {
+                                            $0.words("Ok. So, what do you want?")
+                                        }
+                                    }
+                                }, catch: nil)
+                            })
+                        }
+                        return nil
+                    case "Sorry, what's your name by the way?":return "My name is John"
+                    case "Ok. So, what do you want?": return "a beer"
+                    default: return nil
+                    }
+                }
+        )
+
     }
 }

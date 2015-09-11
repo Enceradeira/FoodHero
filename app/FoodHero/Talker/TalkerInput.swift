@@ -10,12 +10,16 @@ class TalkerInput {
     private var _currCallback: (TalkerUtterance) -> () = {
         utterance in }
     private var _currErrorHandler: ((NSError) -> ())? = nil
+    private var _isStopped = false
 
     init(_ input: RACSignal, _ talkerMode: TalkerMode) {
         _talkerMode = talkerMode
 
         input.subscribeNext {
             object in
+            if self._isStopped {
+                return;
+            }
             if let utterance = object! as? TalkerUtterance {
                 self.sendNext(utterance)
             } else if let error = object! as? NSError {
@@ -33,7 +37,6 @@ class TalkerInput {
             errorHandler!(error)
         }
     }
-
 
     private func sendNext(utterance: TalkerUtterance) {
         let callback = _currCallback
@@ -55,4 +58,11 @@ class TalkerInput {
         _talkerMode.Mode = TalkerModes.Inputting
     }
 
+    func stop() {
+        _isStopped = true
+    }
+
+    func resume() {
+        _isStopped = false
+    }
 }

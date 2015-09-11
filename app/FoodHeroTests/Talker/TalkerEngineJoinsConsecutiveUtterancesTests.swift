@@ -25,7 +25,8 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
                 "OK\n\nGood bye"],
                 forExecutedScript: script,
                 whenInputIs: {
-                    switch $0 {
+                    utterance, engine in
+                    switch utterance {
                     case "Good Morning\n\nJohn":
                         return "Hello"
                     case "How are you?\n\nDid you sleep well?":

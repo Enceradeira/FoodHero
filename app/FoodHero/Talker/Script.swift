@@ -7,21 +7,21 @@ import Foundation
 
 
 public class Script: NSObject {
-    private var _utterances: [Utterance] = []
-    private let _context: TalkerContext
+    private var _utterances: [IUtterance] = []
+    internal let context: TalkerContext
 
-    public init(context: TalkerContext) {
-        _context = context;
+    public init(talkerContext: TalkerContext) {
+        context = talkerContext;
     }
 
-    var utterances: [Utterance] {
+    var utterances: [IUtterance] {
         return _utterances
     }
 
     private func createOutputUtterance(texts: (StringDefinition) -> (StringDefinition)) -> OutputUtterance {
-        let definition = StringDefinition(context: _context)
+        let definition = StringDefinition(context: context)
         texts(definition)
-        return OutputUtterance(definition: definition)
+        return OutputUtterance(definition: definition, context: context)
     }
 
 
@@ -31,7 +31,7 @@ public class Script: NSObject {
     }
 
     public func saySometimes(oneOf texts: (StringDefinition) -> (StringDefinition), withTag tag: String) -> Script {
-        _utterances.append(OptionalUtterance(utterance: createOutputUtterance(texts), tag: tag, context: _context))
+        _utterances.append(OptionalUtterance(utterance: createOutputUtterance(texts), tag: tag, context: context))
         return self
     }
 
@@ -43,17 +43,17 @@ public class Script: NSObject {
     },
                              catch: ((NSError, Script) -> Script)?
     ) -> Script {
-        _utterances.append(ResponseUtterance(continuation!, catch, _context))
+        _utterances.append(ResponseUtterance(continuation!, catch, context))
         return self;
     }
 
     public func chooseOne(from branches: [((FutureScript) -> (FutureScript))], withTag tag: String) -> Script {
-        _utterances.append(Branch(tag: tag, branches: branches, context: _context))
+        _utterances.append(Branch(tag: tag, branches: branches, context: context))
         return self
     }
 
-    public func continueWith(# continuation: ((FutureScript) -> (FutureScript)))->Script{
-        _utterances.append(Continuation(continuation: continuation,context:_context))
+    public func continueWith(# continuation: ((FutureScript) -> (FutureScript))) -> Script {
+        _utterances.append(Continuation(continuation: continuation, context: context))
         return self;
     }
 }

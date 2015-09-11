@@ -8,11 +8,11 @@ import Foundation
 class OutputUtterance: Utterance {
     private let _definition: StringDefinition
 
-    init(definition: StringDefinition) {
+    init(definition: StringDefinition, context:TalkerContext) {
         _definition = definition
     }
 
-    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         _definition.text.subscribeNext {
             obj in
             let def = obj as! StringDefinition.Result;
@@ -23,7 +23,7 @@ class OutputUtterance: Utterance {
         }
     }
 
-    var hasOutput : Bool {
+    override var hasOutput : Bool {
         get{
             // produces output
             return true;

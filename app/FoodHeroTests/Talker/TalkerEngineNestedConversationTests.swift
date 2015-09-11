@@ -69,7 +69,8 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
         assert(dialog: ["*##!!", "What?", "I mean hello", "Now I get it\n\nGood bye then"],
                 forExecutedScript: script,
                 whenInputIs: {
-                    switch $0 {
+                    utterance, engine in
+                    switch utterance {
                     case "": return "*##!!"
                     case "What?": return "I mean hello"
                     default: return nil

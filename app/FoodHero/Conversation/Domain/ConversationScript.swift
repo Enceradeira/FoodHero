@@ -21,7 +21,7 @@ public class ConversationScript: Script {
         _locationService = locationService
         _schedulerFactory = schedulerFactory
 
-        super.init(context: context)
+        super.init(talkerContext: context)
 
         sayGreetingAndAndSearchRepeatably(self)
     }

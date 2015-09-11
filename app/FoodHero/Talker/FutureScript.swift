@@ -17,7 +17,7 @@ public class FutureScript: NSObject {
     public func define(definition: Script -> Script) -> FutureScript {
         assert(_script == nil, "the FutureScript has been defined twice")
 
-        _script = Script(context: _context)
+        _script = Script(talkerContext: _context)
         definition(_script!)
 
         _scriptSignal.sendNext(_script)

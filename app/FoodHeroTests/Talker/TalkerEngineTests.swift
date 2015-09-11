@@ -22,7 +22,7 @@ public class TalkerEngineTests: XCTestCase {
         _randomizer = TalkerRandomizerFake()
     }
 
-    func async(closure: () -> ()) {
+    public func async(closure: () -> ()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             closure()
         }
@@ -31,15 +31,18 @@ public class TalkerEngineTests: XCTestCase {
     func TestScript(_ resources: ScriptResources? = nil) -> Script {
         let resolvedResources = resources ?? ScriptResources(randomizer: _randomizer!)
         var context = TalkerContext(randomizer: _randomizer!, resources: resolvedResources)
-        return Script(context: context)
+        return Script(talkerContext: context)
     }
 
     func TestScriptResources() -> ScriptResources {
         return ScriptResources(randomizer: _randomizer!)
     }
 
-    func executeScript(script: Script, withNaturalOutput naturalOutput: Bool = true) -> RACSignal {
-        let stream = TalkerEngine(script: script, input: _input!).execute();
+    func executeScript(script: Script, var onEngine engine: TalkerEngine? = nil, withNaturalOutput naturalOutput: Bool = true) -> RACSignal {
+        if (engine == nil) {
+            engine = TalkerEngine(script: script, input: _input!)
+        }
+        let stream = engine!.execute();
         if (naturalOutput) {
             return stream.naturalOutput
         } else {
@@ -48,19 +51,20 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     func executeDialogFor(script: Script) -> [String] {
-        let dialog = executeScript(script)
+        let dialog = executeScript(script, onEngine: TalkerEngine(script: script, input: _input!))
         return (dialog.toArray() as! [String])
     }
 
     func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil, withNaturalOutput naturalOutput: Bool = true) {
-        assert(utterance: utterance, exists: exists, inDialog: executeScript(script, withNaturalOutput: naturalOutput), atPosition: expectedPosition)
+        let engine = TalkerEngine(script: script, input: _input!)
+        assert(utterance: utterance, exists: exists, inDialog: executeScript(script, onEngine: engine, withNaturalOutput: naturalOutput), atPosition: expectedPosition)
     }
 
     func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
         var positionCount: Int = 0
         var actualPosition: Int? = nil
         var error: NSError? = nil
-        var utterances : [String] = []
+        var utterances: [String] = []
 
         let signal = dialog.map {
             (object: AnyObject?) in
@@ -122,15 +126,16 @@ public class TalkerEngineTests: XCTestCase {
         }
     }
 
-    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, withNaturalOutput naturalOutput: Bool = true, whenInputIs generator: (String) -> (Any?) = {
+    func assert(dialog expectedDialog: [NSString], forExecutedScript script: Script, withNaturalOutput naturalOutput: Bool = true, whenInputIs generator: (String, TalkerEngine) -> (Any?) = {
         g in return nil
     }) {
         var utterances = [String]()
 
-        let dialog = executeScript(script, withNaturalOutput: naturalOutput)
+        let engine = TalkerEngine(script: script, input: _input!)
+        let dialog = executeScript(script, onEngine: engine, withNaturalOutput: naturalOutput)
 
         // see if input is to be generated befor scipt is subscribed (evaluated)
-        let initialInput = generator("")
+        let initialInput = generator("", engine)
         if initialInput != nil {
             sendInput(initialInput!, nil)
         }
@@ -144,7 +149,7 @@ public class TalkerEngineTests: XCTestCase {
             utterances.append(utterance)
 
             // generate input from utterance
-            let response = generator(utterance)
+            let response = generator(utterance, engine)
             if response != nil {
                 self.sendInput(response!, nil)
             }

@@ -16,7 +16,7 @@ class Branch: Utterance {
         _context = context
     }
 
-    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         let futureScript = FutureScript(context: self._context)
 
         if _branches.count > 0 {
@@ -33,8 +33,8 @@ class Branch: Utterance {
         }
     }
 
-    var hasOutput : Bool {
-        get{
+    override var hasOutput: Bool {
+        get {
             // Produces output
             return true;
         }

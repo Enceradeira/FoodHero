@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class Continuation: Utterance {
+class Continuation: Utterance {
     private let _continuation: (FutureScript) -> (FutureScript)
     private let _context: TalkerContext
     public init(continuation: ((FutureScript) -> (FutureScript)), context: TalkerContext) {
@@ -13,7 +13,7 @@ public class Continuation: Utterance {
         _context = context
     }
 
-    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         let futureScript = FutureScript(context: self._context)
         self._continuation(futureScript)
         futureScript.script.subscribeNext {
@@ -22,7 +22,7 @@ public class Continuation: Utterance {
         output.flush()
     }
 
-    var hasOutput: Bool {
+    override var hasOutput: Bool {
         get {
             // Produces output
             return true;

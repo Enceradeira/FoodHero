@@ -16,12 +16,12 @@ class ResponseUtterance: Utterance {
         _errorHandler = errorHandler
     }
 
-    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         input.getNext({
             error in
             if let errorHandler = self._errorHandler {
                 // build & execute error script & continue
-                let errorScript = Script(context: self._context)
+                let errorScript = Script(talkerContext: self._context)
                 errorHandler(error, errorScript)
                 Sequence.execute(errorScript, input, output, continuation);
             } else {
@@ -48,7 +48,7 @@ class ResponseUtterance: Utterance {
         })
     }
 
-    var hasOutput : Bool {
+    override var hasOutput : Bool {
         get{
             // Only reads input
             return false;
