@@ -22,6 +22,7 @@
     bool _applicationDidFinishLaunching;
     ConversationAppService *_conversationAppService;
     UILocalNotification* _notification;
+    ConversationRepository *_conversationRepository;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -35,6 +36,7 @@
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
     id <ApplicationAssembly> assembly = (id <ApplicationAssembly>) [storyboard factory];
     _conversationAppService = (ConversationAppService *) [assembly conversationAppService];
+    _conversationRepository = (ConversationRepository *)[assembly conversationRepository];
 
     self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
@@ -88,6 +90,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [_conversationRepository persist];
 }
 
 - (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame {

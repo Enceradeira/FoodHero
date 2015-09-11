@@ -14,6 +14,7 @@
 #import "Personas.h"
 #import "DesignByContractException.h"
 #import "SpeechInterpretation.h"
+#import "Conversation.h"
 
 
 static UIImage *LikeImage;

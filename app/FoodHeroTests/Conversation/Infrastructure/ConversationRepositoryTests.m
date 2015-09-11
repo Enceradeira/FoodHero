@@ -11,7 +11,8 @@
 #import <Typhoon.h>
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
-#import "ConversationRepository.h"
+#import "Conversation.h"
+#import "FoodHero-Swift.h"
 
 @interface ConversationRepositoryTests : XCTestCase
 

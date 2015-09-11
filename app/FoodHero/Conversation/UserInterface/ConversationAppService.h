@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ConversationBubble.h"
-#import "ConversationRepository.h"
 #import "LocationService.h"
 #import "ISpeechRecognitionService.h"
 #import "IRestaurantRepository.h"
