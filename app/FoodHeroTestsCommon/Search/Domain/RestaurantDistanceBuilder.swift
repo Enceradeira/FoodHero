@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import FoodHero
 
 public class RestaurantDistanceBuilder: NSObject {
 

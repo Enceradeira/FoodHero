@@ -42,6 +42,7 @@ ConversationAppServiceTests {
 - (void)setUp {
     [super setUp];
 
+    [ConversationRepository deletePersistedData];
     [TyphoonComponents configure:[StubAssembly new]];
     _searchServiceStub = [[TyphoonComponents getAssembly] restaurantSearchService];
     _placesAPIStub = (PlacesAPIStub *)[[TyphoonComponents getAssembly] placesAPI];

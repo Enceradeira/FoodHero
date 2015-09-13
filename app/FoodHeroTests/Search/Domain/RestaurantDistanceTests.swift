@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import FoodHero
 
 class RestaurantDistanceTests: XCTestCase {
     func test_encodeDecode_ShouldRestoreObject() {

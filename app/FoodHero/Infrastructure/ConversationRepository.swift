@@ -12,7 +12,7 @@ public class ConversationRepository: NSObject {
     private let _filePath: String
     private let _fileManager = NSFileManager()
 
-    public class func DataPath() -> String {
+    private class func DataPath() -> String {
         return NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)[0] as! String
     }
 
@@ -32,6 +32,10 @@ public class ConversationRepository: NSObject {
         if err != nil {
             NSLog("ConversationRepository.init: \(err!.localizedDescription)")
         }
+    }
+
+    public class func deletePersistedData(){
+        NSFileManager.defaultManager().removeItemAtPath(ConversationRepository.DataPath(), error: nil)
     }
 
     public func getForInput(input: RACSignal) -> Conversation {
