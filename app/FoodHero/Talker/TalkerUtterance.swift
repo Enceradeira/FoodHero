@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class TalkerUtterance: NSObject {
+public class TalkerUtterance: NSObject, NSCoding {
     public let utterance: String;
     public let customData: [AnyObject]
 
@@ -21,6 +21,29 @@ public class TalkerUtterance: NSObject {
     private init(utterance: String, customData: [AnyObject]) {
         self.utterance = utterance;
         self.customData = customData
+    }
+
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(utterance, forKey: "utterance");
+        aCoder.encodeObject(customData, forKey: "customData");
+    }
+
+    public required init(coder aDecoder: NSCoder) {
+        utterance = aDecoder.decodeObjectForKey("utterance") as! String
+        customData = aDecoder.decodeObjectForKey("customData") as! [AnyObject]
+    }
+
+    public override func isEqual(other: AnyObject?) -> Bool {
+        if let other = other as? TalkerUtterance {
+            if utterance != other.utterance {
+                return false;
+            }
+            if !(customData as NSArray).isEqualToArray(other.customData) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     public func concat(other: TalkerUtterance) -> TalkerUtterance {

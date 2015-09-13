@@ -8,6 +8,7 @@
 #import "RestaurantRatingBuilder.h"
 #import "PhotoBuilder.h"
 #import "FoodHero-Swift.h"
+#import "FoodHeroTests-Swift.h"
 
 @implementation RestaurantBuilder {
 

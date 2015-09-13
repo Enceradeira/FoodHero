@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface RestaurantReview : NSObject
+@interface RestaurantReview : NSObject <NSCoding>
 
 @property(nonatomic, readonly) NSString *text;
 @property(nonatomic, readonly) double rating;
@@ -16,4 +16,14 @@
 + (instancetype)create:(NSString *)review rating:(double)rating author:(NSString *)author date:(NSDate *)date;
 
 - (id)init:(NSString *)review rating:(double)rating author:(NSString *)author date:(NSDate *)date;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToReview:(RestaurantReview *)review;
+
+- (NSUInteger)hash;
 @end

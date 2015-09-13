@@ -65,4 +65,11 @@ public class TalkerUtteranceTests: XCTestCase {
         XCTAssertEqual(customData[0] as! String, "SomeData")
         XCTAssertEqual(customData[1] as! String, "OtherData")
     }
+
+    func test_encodeAndDecode_ShouldRestoreObject() {
+        let utterance = TalkerUtterance(utterance: "Hello", customData: "SomeData")
+        let decodedUtterance = CodingHelper.encodeAndDecode(utterance)
+
+        XCTAssertEqual(utterance, decodedUtterance)
+    }
 }

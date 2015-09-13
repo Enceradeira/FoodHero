@@ -8,8 +8,8 @@
 #import "Place.h"
 #import "RestaurantRating.h"
 
-@class RestaurantDistance;
 
+@class RestaurantDistance;
 
 @interface Restaurant : Place
 @property(nonatomic, readonly) NSString *vicinity;
@@ -49,4 +49,14 @@
                         photos:(NSArray *)photos;
 
 - (NSString *)readableId;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToRestaurant:(Restaurant *)restaurant;
+
+- (NSUInteger)hash;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
 @end

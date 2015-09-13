@@ -7,18 +7,31 @@
 #import "IPhoto.h"
 
 
-@interface PhotoStub : NSObject <IPhoto>
-- (id)init:(UIImage *)image;
+@interface PhotoStub : NSObject <IPhoto, NSCoding>
+- (id)initWithReference:(NSString *)photoReference image:(UIImage *)image;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToStub:(PhotoStub *)stub;
+
+- (NSUInteger)hash;
+
 @end
 
 @implementation PhotoStub {
     UIImage *_image;
+    NSString *_photoReference;
 }
 
-- (id)init:(UIImage *)image {
+- (id)initWithReference:(NSString *)photoReference image:(UIImage *)image {
     self = [super init];
     if (self) {
         _image = image;
+        _photoReference = photoReference;
     }
     return self;
 }
@@ -43,9 +56,54 @@
 
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        _image = [coder decodeObjectForKey:@"_image"];
+        _photoReference = [coder decodeObjectForKey:@"_photoReference"];
+    }
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_image forKey:@"_image"];
+    [coder encodeObject:_photoReference forKey:@"_photoReference"];
+}
+
+- (BOOL)isEqual:(id)other {
+    if (other == self)
+        return YES;
+    if (!other || ![[other class] isEqual:[self class]])
+        return NO;
+
+    return [self isEqualToStub:other];
+}
+
+- (BOOL)isEqualToStub:(PhotoStub *)stub {
+    if (self == stub)
+        return YES;
+    if (stub == nil)
+        return NO;
+
+    // decoded image is never equal to same original image
+    /*
+    if (_image != stub->_image && ![_image isEqual:stub->_image])
+        return NO;*/
+    if (_photoReference != stub->_photoReference && ![_photoReference isEqualToString:stub->_photoReference])
+        return NO;
+    return YES;
+}
+
+- (NSUInteger)hash {
+    NSUInteger hash = [_image hash];
+    hash = hash * 31u + [_photoReference hash];
+    return hash;
+}
+
 
 + (instancetype)create:(UIImage *)image {
-    return [[PhotoStub alloc] init:image];
+    return [[PhotoStub alloc] initWithReference:@"4488813-ABDD" image:image];
 }
 
 @end

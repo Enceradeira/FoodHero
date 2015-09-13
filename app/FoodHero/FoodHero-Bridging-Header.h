@@ -24,3 +24,5 @@
 #import "FoodHeroColors.h"
 #import "KeywordEncoder.h"
 #import "Environment.h"
+#import "OpeningHour.h"
+#import "GooglePhoto.h"

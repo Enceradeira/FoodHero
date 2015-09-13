@@ -12,5 +12,15 @@
 
 - (instancetype)initWithPlaceId:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(double)cuisineRelevance;
 
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToPlace1:(Place *)place;
+
+- (NSUInteger)hash;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
 + (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(double)cuisineRelevance;
 @end

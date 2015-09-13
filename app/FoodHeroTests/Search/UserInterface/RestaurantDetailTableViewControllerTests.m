@@ -14,6 +14,7 @@
 #import "RestaurantDetailTableViewController.h"
 #import "RestaurantBuilder.h"
 #import "FoodHero-Swift.h"
+#import "FoodHeroTests-Swift.h"
 
 @interface RestaurantDetailTableViewControllerTests : XCTestCase
 

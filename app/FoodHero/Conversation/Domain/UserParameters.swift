@@ -14,4 +14,24 @@ public class UserParameters: ConversationParameters {
         self.modelAnswer = modelAnswer
         super.init(semanticId: semanticId)
     }
+
+    public override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(parameter, forKey: "parameter");
+        aCoder.encodeObject(modelAnswer, forKey: "modelAnswer");
+    }
+
+    public required init(coder aDecoder: NSCoder) {
+        parameter = aDecoder.decodeObjectForKey("parameter") as! TextAndLocation
+        modelAnswer = aDecoder.decodeObjectForKey("modelAnswer") as! String
+        super.init(coder: aDecoder)
+    }
+
+    public override func isEqual(object: AnyObject?) -> Bool {
+        if let other = object as? UserParameters {
+            return parameter == other.parameter && modelAnswer == other.modelAnswer
+        } else {
+            return false
+        }
+    }
 }

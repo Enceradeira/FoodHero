@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class TextAndLocation: NSObject {
+public class TextAndLocation: NSObject, NSCoding {
     let location: String
     let text: String
     public init(text: String, location: String? = nil) {
@@ -19,5 +19,15 @@ public class TextAndLocation: NSObject {
         } else {
             return false
         }
+    }
+
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(location, forKey: "location");
+        aCoder.encodeObject(text, forKey: "text");
+    }
+
+    public required init(coder aDecoder: NSCoder) {
+        location = aDecoder.decodeObjectForKey("location") as! String
+        text = aDecoder.decodeObjectForKey("text") as! String
     }
 }

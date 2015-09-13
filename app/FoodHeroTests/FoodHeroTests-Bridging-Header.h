@@ -7,3 +7,5 @@
 #import "RestaurantBuilder.h"
 #import "EnvironmentStub.h"
 #import "StubAssembly.h"
+#import "RestaurantRatingBuilder.h"
+#import "RestaurantReviewBuilder.h"

@@ -53,11 +53,16 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
+    if( self != nil){
+        _statements = [coder decodeObjectForKey:@"_statements"];
+        _rawConversation = [coder decodeObjectForKey:@"_rawConversation"];
+    }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-
+   [coder encodeObject:_statements forKey:@"_statements"];
+   [coder encodeObject:_rawConversation forKey:@"_rawConversation"];
 }
 
 - (void)start {

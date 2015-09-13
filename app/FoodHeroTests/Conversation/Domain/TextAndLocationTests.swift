@@ -20,4 +20,12 @@ class TextAndLocationTests: XCTestCase {
         XCTAssertNotEqual(TextAndLocation(text: "French", location: "Norwich"), TextAndLocation(text: "French", location: "York"))
         XCTAssertNotEqual(TextAndLocation(text: "Italian", location: "Norwich"), TextAndLocation(text: "Indian", location: "Norwich"))
     }
+
+    func test_encodeAndDecode_ShouldRestoreObject() {
+        let textAndLocation = TextAndLocation(text: "I want Indian food in York", location: "York")
+
+        let decodedTextAndLocation = CodingHelper.encodeAndDecode(textAndLocation)
+
+        XCTAssertEqual(decodedTextAndLocation, textAndLocation)
+    }
 }

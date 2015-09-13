@@ -28,7 +28,7 @@
 }
 
 
-- (id)init:(NSString *)reference height:(NSUInteger)height width:(NSUInteger)width loadEagerly:(BOOL)loadEagerly {
+- (id)initWithReference:(NSString *)reference height:(NSUInteger)height width:(NSUInteger)width loadEagerly:(BOOL)loadEagerly {
     self = [super init];
     if (self != nil) {
         _photoReference = reference;
@@ -43,7 +43,7 @@
 }
 
 + (instancetype)create:(NSString *)photoReference height:(NSUInteger)height width:(NSUInteger)width loadEagerly:(BOOL)loadEagerly {
-    return [[GooglePhoto alloc] init:photoReference height:height width:width loadEagerly:loadEagerly];
+    return [[GooglePhoto alloc] initWithReference:photoReference height:height width:width loadEagerly:loadEagerly];
 }
 
 - (RACSignal *)image {
@@ -62,4 +62,65 @@
         }
     }];
 }
+
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        _photoReference = [coder decodeObjectForKey:@"_photoReference"];
+        _originalHeight = [coder decodeInt64ForKey:@"_originalHeight"];
+        _originalWidth = [coder decodeInt64ForKey:@"_originalWidth"];
+        _loadedImage = [coder decodeObjectForKey:@"_loadedImage"];
+        _isEagerlyLoaded = [coder decodeBoolForKey:@"_isEagerlyLoaded"];
+    }
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_photoReference forKey:@"_photoReference"];
+    [coder encodeInt64:_originalHeight forKey:@"_originalHeight"];
+    [coder encodeInt64:_originalWidth forKey:@"_originalWidth"];
+    [coder encodeObject:_loadedImage forKey:@"_loadedImage"];
+    [coder encodeBool:_isEagerlyLoaded forKey:@"_isEagerlyLoaded"];
+}
+
+- (BOOL)isEqual:(id)other {
+    if (other == self)
+        return YES;
+    if (!other || ![[other class] isEqual:[self class]])
+        return NO;
+
+    return [self isEqualToPhoto:other];
+}
+
+- (BOOL)isEqualToPhoto:(GooglePhoto *)photo {
+    if (self == photo)
+        return YES;
+    if (photo == nil)
+        return NO;
+    if (_photoReference != photo->_photoReference && ![_photoReference isEqualToString:photo->_photoReference])
+        return NO;
+    if (_originalHeight != photo->_originalHeight)
+        return NO;
+    if (_originalWidth != photo->_originalWidth)
+        return NO;
+    // Same image decoded is not equal even thought containing same picture. Comparing only _photoReference is ok.
+    /*
+    if (_loadedImage != photo->_loadedImage && ![_loadedImage isEqual:photo->_loadedImage])
+        return NO;*/
+    if (_isEagerlyLoaded != photo->_isEagerlyLoaded)
+        return NO;
+    return YES;
+}
+
+- (NSUInteger)hash {
+    NSUInteger hash = [_photoReference hash];
+    hash = hash * 31u + _originalHeight;
+    hash = hash * 31u + _originalWidth;
+    hash = hash * 31u + [_loadedImage hash];
+    hash = hash * 31u + _isEagerlyLoaded;
+    return hash;
+}
+
+
 @end

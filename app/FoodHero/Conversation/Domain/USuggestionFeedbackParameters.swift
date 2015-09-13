@@ -15,6 +15,31 @@ public class USuggestionFeedbackParameters: ConversationParameters {
         super.init(semanticId: semanticId)
     }
 
+    public override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(_restaurant, forKey: "_restaurant");
+        aCoder.encodeObject(modelAnswer, forKey: "modelAnswer");
+    }
+
+    public required init(coder aDecoder: NSCoder) {
+        _restaurant = aDecoder.decodeObjectForKey("_restaurant") as! Restaurant
+        modelAnswer = aDecoder.decodeObjectForKey("modelAnswer") as! String
+        super.init(coder: aDecoder)
+    }
+
+    public override func isEqual(other: AnyObject?) -> Bool {
+        if let other = other as? USuggestionFeedbackParameters {
+            if _restaurant != other._restaurant {
+                return false;
+            }
+            if modelAnswer != modelAnswer{
+                return false
+            }
+            return super.isEqual(other);
+        }
+        return false;
+    }
+
     public var restaurant: Restaurant {
         get {
             return _restaurant

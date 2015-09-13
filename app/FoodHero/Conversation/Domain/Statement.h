@@ -12,7 +12,9 @@
 
 @class ExpectedUserUtterances;
 
-@interface Statement : NSObject
+@interface Statement : NSObject<NSCoding>
+
+- (instancetype)initWithSemanticId:(NSString *)semanticId text:(NSString *)text state:(NSString *)state suggestedRestaurant:(Restaurant *)restaurant expectedUserUtterances:(ExpectedUserUtterances *)expectedUserUtterances;
 
 - (NSString *)text;
 
@@ -31,5 +33,11 @@
 - (Restaurant *)suggestedRestaurant;
 
 - (ExpectedUserUtterances *)expectedUserUtterances;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToStatement:(Statement *)statement;
+
+- (NSUInteger)hash;
 
 @end

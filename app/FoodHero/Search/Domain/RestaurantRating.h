@@ -6,12 +6,22 @@
 #import <Foundation/Foundation.h>
 #import "RestaurantReview.h"
 
-@interface RestaurantRating : NSObject
+@interface RestaurantRating : NSObject <NSCoding>
 @property(readonly, nonatomic) double rating;
 @property(readonly, nonatomic) NSArray *reviews;
 
 + (instancetype)createRating:(double)rating withReviews:(NSArray *)reviews;
 
-- (id)initRating:(double)rating withReviews:(NSArray *)reviews;
+- (id)initWithRating:(double)rating withReviews:(NSArray *)reviews;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToRating:(RestaurantRating *)rating;
+
+- (NSUInteger)hash;
 
 @end

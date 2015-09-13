@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class ExpectedUserUtterances: NSObject {
+public class ExpectedUserUtterances: NSObject, NSCoding {
     let _utterances: [String]
 
     public init(utterances: [String]) {
@@ -16,6 +16,24 @@ public class ExpectedUserUtterances: NSObject {
         get {
             return _utterances
         }
+    }
+
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(_utterances, forKey: "_utterances");
+    }
+
+    public required init(coder aDecoder: NSCoder) {
+        _utterances = aDecoder.decodeObjectForKey("_utterances") as! [String]
+    }
+
+    public override func isEqual(other: AnyObject?) -> Bool {
+        if let other = other as? ExpectedUserUtterances {
+            if _utterances != other._utterances {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     private class func modelAnswerFrom(utterance: TalkerUtterance) -> String {

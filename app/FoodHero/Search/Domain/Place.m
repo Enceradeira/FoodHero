@@ -17,9 +17,50 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)other {
+    if (other == self)
+        return YES;
+    if (!other || ![[other class] isEqual:[self class]])
+        return NO;
+
+    return [self isEqualToPlace1:other];
+}
+
+- (BOOL)isEqualToPlace1:(Place *)place {
+    if (self == place)
+        return YES;
+    if (place == nil)
+        return NO;
+    if (![super isEqual:place])
+        return NO;
+    return self.priceLevel == place.priceLevel;
+}
+
+- (NSUInteger)hash {
+    NSUInteger hash = [super hash];
+    hash = hash * 31u + self.priceLevel;
+    return hash;
+}
+
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        _priceLevel = [coder decodeInt64ForKey:@"_priceLevel"];
+    }
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeInt64:self.priceLevel forKey:@"_priceLevel"];
+}
+
+
 + (instancetype)create:(NSString *)placeId location:(CLLocation *)location priceLevel:(NSUInteger)priceLevel cuisineRelevance:(double)cuisineRelevance {
     return [[Place alloc] initWithPlaceId:placeId location:location priceLevel:priceLevel cuisineRelevance:cuisineRelevance];
 }
+
 
 
 @end
