@@ -14,20 +14,32 @@ public class FutureScript: NSObject {
         _context = context;
     }
 
+    private func sendScript() {
+        _scriptSignal.sendNext(_script)
+        _scriptSignal.sendCompleted()
+    }
+
     public func define(definition: Script -> Script) -> FutureScript {
         assert(_script == nil, "the FutureScript has been defined twice")
 
         _script = Script(talkerContext: _context)
         definition(_script!)
+        sendScript()
 
-        _scriptSignal.sendNext(_script)
-        _scriptSignal.sendCompleted()
         return self
+    }
+
+    public func defineWithScript(script: Script) -> FutureScript {
+        _script = script
+        sendScript()
+        return self;
     }
 
     public var hasNoOutput: Bool {
         get {
-            return _script == nil || count(_script!.utterances.filter{$0.hasOutput}) == 0
+            return _script == nil || count(_script!.utterances.filter {
+                $0.hasOutput
+            }) == 0
         }
     }
 

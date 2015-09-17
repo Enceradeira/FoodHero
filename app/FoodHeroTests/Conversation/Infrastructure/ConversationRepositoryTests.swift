@@ -21,7 +21,7 @@ class ConversationRepositoryTests: XCTestCase {
     func test_getForInput_ShouldRestorePersistedSentences() {
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.start() // creates some statements
+        conv.startForFeedbackRequest(false) // creates some statements
         let origStmtCount = conv.getStatementCount()
 
         repo.persist()
@@ -35,7 +35,7 @@ class ConversationRepositoryTests: XCTestCase {
         // create Conversation with some statements
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.start()
+        conv.startForFeedbackRequest(false)
         let origStmtCount = conv.getStatementCount()
 
         // send Input to Conversation
@@ -59,7 +59,7 @@ class ConversationRepositoryTests: XCTestCase {
         // create Conversation with some statements
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.start()
+        conv.startForFeedbackRequest(false)
         let origStmtCount = conv.getStatementCount()
         repo.persist()
 
@@ -67,7 +67,7 @@ class ConversationRepositoryTests: XCTestCase {
         let restoredInput = RACSubject()
         let restoredRepo = createRepo()
         let restoredConv = restoredRepo.getForInput(restoredInput)
-        restoredConv.start()
+        restoredConv.startForFeedbackRequest(false)
 
         // send Input to restored Conversation
         let expectation = expectationWithDescription("")

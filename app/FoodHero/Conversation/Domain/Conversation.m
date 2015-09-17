@@ -53,7 +53,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
-    if( self != nil){
+    if (self != nil) {
         _statements = [coder decodeObjectForKey:@"_statements"];
         _rawConversation = [coder decodeObjectForKey:@"_rawConversation"];
     }
@@ -61,24 +61,46 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-   [coder encodeObject:_statements forKey:@"_statements"];
-   [coder encodeObject:_rawConversation forKey:@"_rawConversation"];
+    [coder encodeObject:_statements forKey:@"_statements"];
+    [coder encodeObject:_rawConversation forKey:@"_rawConversation"];
 }
 
-- (void)start {
+- (ProductFeedbackScript *)createProductFeedbackScript {
+    return [[ProductFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
+}
+
+- (ConversationScript *)createConversationScript {
+    RestaurantSearch *search = [_assembly restaurantSearch];
+    LocationService *locationService = [_assembly locationService];
+    ConversationScript *script = [[ConversationScript alloc] initWithContext:_context conversation:self search:search locationService:locationService schedulerFactory:_schedulerFactory];
+    return script;
+}
+
+- (void)startForFeedbackRequest:(BOOL)isForFeedbackRequest {
     assert(!_isStarted);
 
     _environment = [_assembly environment];
     _randomizer = [_assembly talkerRandomizer];
-    RestaurantSearch *search = [_assembly restaurantSearch];
-    LocationService *locationService = [_assembly locationService];
+
     _schedulerFactory = [_assembly schedulerFactory];
     ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:_randomizer];
     _context = [[TalkerContext alloc] initWithRandomizer:_randomizer resources:resources];
-    ConversationScript *script = [[ConversationScript alloc] initWithContext:_context conversation:self search:search locationService:locationService schedulerFactory:_schedulerFactory];
+
+    Script *script;
+    if (isForFeedbackRequest) {
+        script = [self createProductFeedbackScript];
+        ConversationScript *conversationScript = [self createConversationScript];
+
+        [script continueWithContinuation:^(FutureScript *fs) {
+            return [fs defineWithScript:conversationScript];
+        }];
+    }
+    else {
+        script = [self createConversationScript];
+    }
+
 
     _engine = [[TalkerEngine alloc] initWithScript:script input:_input];
-
     TalkerStreams *streams = [_engine execute];
 
     [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
@@ -414,7 +436,7 @@
 }
 
 - (void)interruptWithUserFeedbackRequest {
-    ProductFeedbackScript *feedbackRequest = [[ProductFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
+    ProductFeedbackScript *feedbackRequest = [self createProductFeedbackScript];
     [_engine interruptWith:feedbackRequest];
 }
 @end

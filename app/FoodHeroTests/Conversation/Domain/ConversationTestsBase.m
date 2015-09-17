@@ -39,7 +39,7 @@
     _conversation = [[Conversation alloc] init];
     [_conversation setInput:_input];
     [_conversation setAssembly:_assembly];
-    [_conversation start];
+    [_conversation startForFeedbackRequest:NO];
 }
 
 - (void)sendInput:(id)utterance {

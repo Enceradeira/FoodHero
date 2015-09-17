@@ -27,7 +27,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder;
 
-- (void)start;
+- (void)startForFeedbackRequest:(BOOL)isForFeedbackRequest;
 
 - (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError;
 
