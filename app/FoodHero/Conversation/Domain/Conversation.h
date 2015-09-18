@@ -23,6 +23,8 @@
 
 - (void)setInput:(RACSignal *)input;
 
+- (void)sendControlInput:(id)input;
+
 - (void)setAssembly:(id <ApplicationAssembly>)assembly;
 
 - (instancetype)initWithCoder:(NSCoder *)coder;

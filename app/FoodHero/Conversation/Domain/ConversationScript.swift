@@ -171,13 +171,7 @@ public class ConversationScript: Script {
             if searchHasEnded {
                 return;
             }
-            currentFutureScript.define {
-                $0.say(oneOf: FHUtterances.isVeryBusyAtTheMoment)
-                return $0.continueWith {
-                    currentFutureScript = $0
-                    return $0
-                }
-            }
+            self._conversation.sendControlInput(IsVeryBusyAtTheMomentInterruption())
         }
 
         bestRestaurant.subscribeError {
@@ -390,10 +384,8 @@ public class ConversationScript: Script {
     func processControlInput(input: Any) {
         if input is RequestProductFeedbackInterruption {
             self.interrupt(with: ProductFeedbackScript(context: context, conversation: _conversation, schedulerFactory: _schedulerFactory))
-            /*return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
-                self.catchError($0, errorScript: $1, andContinueWith: continuation)
-            })*/
-
+        } else if input is IsVeryBusyAtTheMomentInterruption {
+            self.interrupt(with: Script(talkerContext: context).say(oneOf: FHUtterances.isVeryBusyAtTheMoment))
         } else {
             assert(false, "unexpected control input of type \(reflect(input).summary)")
         }

@@ -34,7 +34,7 @@ public class ConversationRepository: NSObject {
         }
     }
 
-    public class func deletePersistedData(){
+    public class func deletePersistedData() {
         NSFileManager.defaultManager().removeItemAtPath(ConversationRepository.DataPath(), error: nil)
     }
 

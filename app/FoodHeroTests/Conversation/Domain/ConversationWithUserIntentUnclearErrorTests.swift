@@ -37,7 +37,7 @@ class ConversationWithUserIntentUnclearErrorTests: ConversationTestsBase {
     func test_UserIntentUnclearError_ShouldTriggerFHDidNotUnderstandAndAsksForRepetitionRepeatably_WhenInterruptWithUserFeedbackRequest() {
         let currState = FHStates.askForProductFeedback()
 
-        sendInput(RequestProductFeedbackInterruption())
+        conversation.sendControlInput(RequestProductFeedbackInterruption())
         sendInput(UserIntentUnclearError(state: currState, expectedUserUtterances: ExpectedUserUtterances(utterances: [])))
 
         assertLastStatementIs("FH:DidNotUnderstandAndAsksForRepetition", state: currState)
@@ -55,7 +55,7 @@ class ConversationWithUserIntentUnclearErrorTests: ConversationTestsBase {
         let currState = FHStates.askForProductFeedback()
         let expectedUserUtterances = ExpectedUserUtterances(utterances: [])
 
-        sendInput(RequestProductFeedbackInterruption())
+        conversation.sendControlInput(RequestProductFeedbackInterruption())
         sendInput(UserIntentUnclearError(state: currState, expectedUserUtterances: expectedUserUtterances))
 
         assertLastStatementIs("FH:DidNotUnderstandAndAsksForRepetition", state: currState)

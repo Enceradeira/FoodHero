@@ -12,7 +12,7 @@ class ConversationProductFeedbackTests: ConversationTestsBase {
     func test_interruptWithUserFeedbackRequest_ShouldAskUserForFeedback_WhenUserSaysYes() {
         assertLastStatementIs("FH:FirstQuestion", state: FHStates.askForSuggestionFeedback())
 
-        sendInput(RequestProductFeedbackInterruption())
+        conversation.sendControlInput(RequestProductFeedbackInterruption())
         assertLastStatementIs("FH:AskForProductFeedback", state: FHStates.askForProductFeedback())
 
         sendInput(UserUtterances.wantsToGiveProductFeedback("Yes"))
@@ -21,7 +21,7 @@ class ConversationProductFeedbackTests: ConversationTestsBase {
     }
 
     func test_interruptWithUserFeedbackRequest_ShouldAskUserForFeedback_WhenUserSaysNo() {
-        sendInput(RequestProductFeedbackInterruption())
+        conversation.sendControlInput(RequestProductFeedbackInterruption())
         assertLastStatementIs("FH:AskForProductFeedback", state: FHStates.askForProductFeedback())
 
         sendInput(UserUtterances.doesnWantToGiveProductFeedback("No"))
@@ -34,7 +34,7 @@ class ConversationProductFeedbackTests: ConversationTestsBase {
         sendInput(UserUtterances.suggestionFeedbackForTooCheap(_restaurant, text: "Too cheap"))
         sendInput(UserUtterances.cuisinePreference(TextAndLocation(text: "French"), text: "I want French food"))
 
-        sendInput(RequestProductFeedbackInterruption())
+        conversation.sendControlInput(RequestProductFeedbackInterruption())
 
         let utterance = conversation.lastFoodHeroUtteranceProductFeedback()
         XCTAssertEqual(utterance.utterance, "Do you like it?", "Food Hero asked a question before interrupting with product feedback")

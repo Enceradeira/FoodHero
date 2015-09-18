@@ -31,7 +31,6 @@ static UIImage *EmptyImage;
     BOOL _doRenderSemanticID;
     id <ISpeechRecognitionService> _speechRecognitionService;
     NSString *_currState;
-    RACSubject *_controlInput;
 }
 
 
@@ -52,7 +51,6 @@ static UIImage *EmptyImage;
         _locationService = locationService;
         _restaurantRepository = restaurantRepository;
         _speechRecognitionService = speechRecognitionService;
-        _controlInput = [RACSubject new];
 
         RACSignal *speechInput = [speechRecognitionService.output
                 map:^(id output) {
@@ -166,7 +164,7 @@ static UIImage *EmptyImage;
                         assert(false);
                     }
                 }];
-        _conversation = [conversationRepository getForInput:[speechInput merge:_controlInput]];
+        _conversation = [conversationRepository getForInput:speechInput];
         [_speechRecognitionService setThreadId:_conversation.id];
 
         // forward states to speech recognition
@@ -335,7 +333,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)requestUserFeedback {
-    [_controlInput sendNext:[RequestProductFeedbackInterruption new]];
+    [_conversation sendControlInput:[RequestProductFeedbackInterruption new]];
 
 }
 @end

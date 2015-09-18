@@ -22,7 +22,7 @@
 @implementation Conversation {
 
     RACSubject *_talkerInput;
-    RACSubject *_controlInput;
+    RACSubject *_scriptInput;
     NSMutableArray *_rawConversation;
     NSMutableArray *_recordedInput;
     RACDisposable *_inputSubscription;
@@ -60,32 +60,29 @@
 - (void)initCommon {
     _isStarted = NO;
     _id = [Configuration userId];
-    _controlInput = [RACSubject new];
+    _scriptInput = [RACSubject new];
     _talkerInput = [RACSubject new];
 }
 
 - (void)setInput:(RACSignal *)input {
-    if(_inputSubscription != nil){
+    if (_inputSubscription != nil) {
         [_inputSubscription dispose];
         _inputSubscription = nil;
     }
-    _inputSubscription = [input subscribeNext:^(id in){
+    _inputSubscription = [input subscribeNext:^(id in) {
         [_recordedInput addObject:in];
-        if([in isKindOfClass:NSError.class] || [in isKindOfClass:TalkerUtterance.class] ){
-            // dispatch to TalkerEngine
-            [_talkerInput sendNext:in];
-        }
-        else{
-            // dispatch to ConversationScript
-            [_controlInput sendNext:in];
-        }
+        [_talkerInput sendNext:in];
     }];
+}
+
+- (void)sendControlInput:(id)input {
+    [_recordedInput addObject:input];
+    [_scriptInput sendNext:input];
 }
 
 - (void)setAssembly:(id <ApplicationAssembly>)assembly {
     _assembly = assembly;
 }
-
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:_statements forKey:@"_statements"];
@@ -102,7 +99,7 @@
     LocationService *locationService = [_assembly locationService];
     ConversationScript *script = [[ConversationScript alloc] initWithContext:_context
                                                                 conversation:self
-                                                                controlInput:_controlInput
+                                                                controlInput:_scriptInput
                                                                       search:search
                                                              locationService:locationService
                                                             schedulerFactory:_schedulerFactory];
