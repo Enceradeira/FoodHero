@@ -20,6 +20,24 @@ public class UserIntentUnclearError: NSError {
         super.init(coder: coder)
     }
 
+    public override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(_expectedUserUtterances, forKey: "_expectedUserUtterances");
+        aCoder.encodeObject(_state, forKey: "_state");
+    }
+
+    public override func isEqual(other: AnyObject?) -> Bool {
+        if let other = other as? UserIntentUnclearError {
+            if _state != other._state {
+                return false;
+            }
+            if _expectedUserUtterances != other._expectedUserUtterances {
+                return false;
+            }
+        }
+        return super.isEqual(other);
+    }
+
     public var state: String {
         get {
             return _state;

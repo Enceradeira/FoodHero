@@ -23,6 +23,8 @@
 
     RACSignal *_input;
     NSMutableArray *_rawConversation;
+    NSMutableArray *_talkerInput;
+    RACDisposable *_talkerInputSubscription;
     id <ApplicationAssembly> _assembly;
     bool _isStarted;
     id <IEnvironment> _environment;
@@ -37,6 +39,7 @@
     if (self != nil) {
         _statements = [NSMutableArray new];
         _rawConversation = [NSMutableArray new];
+        _talkerInput = [NSMutableArray new];
         _isStarted = NO;
         _id = [Configuration userId];
     }
@@ -45,6 +48,13 @@
 
 - (void)setInput:(RACSignal *)input {
     _input = input;
+    if(_talkerInputSubscription != nil){
+        [_talkerInputSubscription dispose];
+        _talkerInputSubscription = nil;
+    }
+    _talkerInputSubscription = [_input subscribeNext:^(id talkerInput){
+        [_talkerInput addObject:talkerInput];
+    }];
 }
 
 - (void)setAssembly:(id <ApplicationAssembly>)assembly {
@@ -56,6 +66,7 @@
     if (self != nil) {
         _statements = [coder decodeObjectForKey:@"_statements"];
         _rawConversation = [coder decodeObjectForKey:@"_rawConversation"];
+        _talkerInput = [coder decodeObjectForKey:@"_talkerInput"];
     }
     return self;
 }
@@ -63,6 +74,7 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:_statements forKey:@"_statements"];
     [coder encodeObject:_rawConversation forKey:@"_rawConversation"];
+    [coder encodeObject:_talkerInput forKey:@"_talkerInput"];
 }
 
 - (ProductFeedbackScript *)createProductFeedbackScript {

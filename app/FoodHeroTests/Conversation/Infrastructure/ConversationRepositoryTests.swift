@@ -91,4 +91,26 @@ class ConversationRepositoryTests: XCTestCase {
 
         repo.persist() // no exception ok
     }
+
+    func test_getForInput_ShouldRestoreStateOfConversation(){
+        // create conversation with some statements
+        let repo = createRepo()
+        let conv = repo.getForInput(input)
+        conv.startForFeedbackRequest(false)
+        input.sendNext(UserIntentUnclearError(state: FHStates.askForFoodPreference(), expectedUserUtterances: ExpectedUserUtterances(utterances: [])))
+        repo.persist()
+
+        // restore conversation
+        let restoredInput = RACSubject()
+        let restoredRepo = createRepo()
+        let restoredConv = restoredRepo.getForInput(restoredInput)
+        // restoredConv.startForFeedbackRequest(false)
+
+        // continue conversation on restored conversation
+        let statement1 = restoredConv.getStatement(restoredConv.getStatementCount()-1) as! Statement
+        XCTAssertEqual(statement1.semanticId(),"FH:DidNotUnderstandAndAsksForRepetition" )
+        input.sendNext(UserUtterances.dislikesKindOfFood("I dont like that"))
+        let statement2 = restoredConv.getStatement(restoredConv.getStatementCount()-1) as! Statement
+        XCTAssertEqual(statement2.semanticId(),"FH:AskForKindOfFood" )
+    }
 }
