@@ -13,6 +13,7 @@ public class ConversationScript: Script {
 
     public init(context: TalkerContext,
                 conversation: Conversation,
+                controlInput: RACSignal,
                 search: RestaurantSearch,
                 locationService: LocationService,
                 schedulerFactory: ISchedulerFactory) {
@@ -22,6 +23,10 @@ public class ConversationScript: Script {
         _schedulerFactory = schedulerFactory
 
         super.init(talkerContext: context)
+
+        controlInput.subscribeNext {
+            self.processControlInput($0)
+        }
 
         sayGreetingAndAndSearchRepeatably(self)
     }
@@ -86,11 +91,6 @@ public class ConversationScript: Script {
                 assert(count(currentState) > 0, "UserIntentUnclearError.state was nil or empty")
                 return FHUtterances.didNotUnderstandAndAsksForRepetition($0, state: currentState, expectedUserUtterances: expectedUserUtterances)
             })
-            return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
-                self.catchError($0, errorScript: $1, andContinueWith: continuation)
-            })
-        } else if error is RequestProductFeedbackInterruption {
-            errorScript.interrupt(with: ProductFeedbackScript(context: context, conversation: _conversation, schedulerFactory: _schedulerFactory))
             return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
                 self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
@@ -385,5 +385,17 @@ public class ConversationScript: Script {
             return script
         }
 
+    }
+
+    func processControlInput(input: Any) {
+        if input is RequestProductFeedbackInterruption {
+            self.interrupt(with: ProductFeedbackScript(context: context, conversation: _conversation, schedulerFactory: _schedulerFactory))
+            /*return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
+                self.catchError($0, errorScript: $1, andContinueWith: continuation)
+            })*/
+
+        } else {
+            assert(false, "unexpected control input of type \(reflect(input).summary)")
+        }
     }
 }

@@ -21,10 +21,11 @@
 
 @implementation Conversation {
 
-    RACSignal *_input;
+    RACSubject *_talkerInput;
+    RACSubject *_controlInput;
     NSMutableArray *_rawConversation;
-    NSMutableArray *_talkerInput;
-    RACDisposable *_talkerInputSubscription;
+    NSMutableArray *_recordedInput;
+    RACDisposable *_inputSubscription;
     id <ApplicationAssembly> _assembly;
     bool _isStarted;
     id <IEnvironment> _environment;
@@ -39,26 +40,10 @@
     if (self != nil) {
         _statements = [NSMutableArray new];
         _rawConversation = [NSMutableArray new];
-        _talkerInput = [NSMutableArray new];
-        _isStarted = NO;
-        _id = [Configuration userId];
+        _recordedInput = [NSMutableArray new];
+        [self initCommon];
     }
     return self;
-}
-
-- (void)setInput:(RACSignal *)input {
-    _input = input;
-    if(_talkerInputSubscription != nil){
-        [_talkerInputSubscription dispose];
-        _talkerInputSubscription = nil;
-    }
-    _talkerInputSubscription = [_input subscribeNext:^(id talkerInput){
-        [_talkerInput addObject:talkerInput];
-    }];
-}
-
-- (void)setAssembly:(id <ApplicationAssembly>)assembly {
-    _assembly = assembly;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -66,15 +51,46 @@
     if (self != nil) {
         _statements = [coder decodeObjectForKey:@"_statements"];
         _rawConversation = [coder decodeObjectForKey:@"_rawConversation"];
-        _talkerInput = [coder decodeObjectForKey:@"_talkerInput"];
+        _recordedInput = [coder decodeObjectForKey:@"_recordedInput"];
+        [self initCommon];
     }
     return self;
 }
 
+- (void)initCommon {
+    _isStarted = NO;
+    _id = [Configuration userId];
+    _controlInput = [RACSubject new];
+    _talkerInput = [RACSubject new];
+}
+
+- (void)setInput:(RACSignal *)input {
+    if(_inputSubscription != nil){
+        [_inputSubscription dispose];
+        _inputSubscription = nil;
+    }
+    _inputSubscription = [input subscribeNext:^(id in){
+        [_recordedInput addObject:in];
+        if([in isKindOfClass:NSError.class] || [in isKindOfClass:TalkerUtterance.class] ){
+            // dispatch to TalkerEngine
+            [_talkerInput sendNext:in];
+        }
+        else{
+            // dispatch to ConversationScript
+            [_controlInput sendNext:in];
+        }
+    }];
+}
+
+- (void)setAssembly:(id <ApplicationAssembly>)assembly {
+    _assembly = assembly;
+}
+
+
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:_statements forKey:@"_statements"];
     [coder encodeObject:_rawConversation forKey:@"_rawConversation"];
-    [coder encodeObject:_talkerInput forKey:@"_talkerInput"];
+    [coder encodeObject:_recordedInput forKey:@"_recordedInput"];
 }
 
 - (ProductFeedbackScript *)createProductFeedbackScript {
@@ -84,7 +100,12 @@
 - (ConversationScript *)createConversationScript {
     RestaurantSearch *search = [_assembly restaurantSearch];
     LocationService *locationService = [_assembly locationService];
-    ConversationScript *script = [[ConversationScript alloc] initWithContext:_context conversation:self search:search locationService:locationService schedulerFactory:_schedulerFactory];
+    ConversationScript *script = [[ConversationScript alloc] initWithContext:_context
+                                                                conversation:self
+                                                                controlInput:_controlInput
+                                                                      search:search
+                                                             locationService:locationService
+                                                            schedulerFactory:_schedulerFactory];
     return script;
 }
 
@@ -111,7 +132,7 @@
         script = [self createConversationScript];
     }
 
-    _engine = [[TalkerEngine alloc] initWithInput:_input];
+    _engine = [[TalkerEngine alloc] initWithInput:_talkerInput];
     TalkerStreams *streams = [_engine execute:script];
 
     [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {

@@ -5,5 +5,5 @@
 
 import Foundation
 
-public class RequestProductFeedbackInterruption: NSError {
+public class RequestProductFeedbackInterruption: NSObject {
 }
