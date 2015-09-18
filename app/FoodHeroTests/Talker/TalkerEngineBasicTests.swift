@@ -357,6 +357,43 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     }
                 }
         )
+    }
 
+    func test_talk_ShouldDisposeInterruptingConversation_WhenFinished() {
+        var wasErrorReceivedBySubscript = false
+
+        let script = TestScript()
+        .say(oneOf: { $0.words("Utterance 1") })
+        .waitResponse(catch: nil)
+
+        let subScript = TestScript()
+        .say(oneOf: { $0.words("Utterance 2") })
+        .waitResponse(catch: {
+            error, script in
+            wasErrorReceivedBySubscript = true
+            return script
+        })
+
+        assert(dialog: ["Utterance 1", "Utterance 2", "Utterance 3"],
+                forExecutedScript: script,
+                whenInputIs: {
+                    utterance, engine in
+                    switch utterance {
+                    case "Utterance 1":
+                        self.async {
+                            engine.interrupt(with: subScript)
+                        }
+                        return nil
+                    case "Utterance 2":
+                        self.async {
+                            self.sendInput(NSError()) // This error should not be received by subScript since it finished with "Utterance 3"
+                        }
+                        return "Utterance 3" // Utternace 3 finishes subscript
+                    default: return nil
+                    }
+                }
+        )
+
+        XCTAssertEqual(wasErrorReceivedBySubscript, false, "Das Subscript wurde nicht disposed und deshalb den NSError noch empfangen")
     }
 }

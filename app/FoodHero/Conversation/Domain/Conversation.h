@@ -49,5 +49,4 @@
 
 - (Statement *)lastRawSuggestion;
 
-- (void)interruptWithUserFeedbackRequest;
 @end

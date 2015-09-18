@@ -10,24 +10,14 @@ class TalkerInput {
     private var _currCallback: (TalkerUtterance) -> () = {
         utterance in }
     private var _currErrorHandler: ((NSError) -> ())? = nil
-    private var _isStopped = false
+    private var _subscription: RACDisposable!
+    private let _input: RACSignal
 
     init(_ input: RACSignal, _ talkerMode: TalkerMode) {
         _talkerMode = talkerMode
+        _input = input
 
-        input.subscribeNext {
-            object in
-            if self._isStopped {
-                return;
-            }
-            if let utterance = object! as? TalkerUtterance {
-                self.sendNext(utterance)
-            } else if let error = object! as? NSError {
-                self.sendError(error)
-            } else {
-                assert(false, "unexpected type \(reflect(object).summary) on input stream")
-            }
-        }
+        resume()
     }
 
     private func sendError(error: NSError) {
@@ -59,10 +49,23 @@ class TalkerInput {
     }
 
     func stop() {
-        _isStopped = true
+        if _subscription != nil {
+            _subscription.dispose()
+        }
+        _subscription = nil
     }
 
     func resume() {
-        _isStopped = false
+        stop()
+        _subscription = _input.subscribeNext {
+            object in
+            if let utterance = object! as? TalkerUtterance {
+                self.sendNext(utterance)
+            } else if let error = object! as? NSError {
+                self.sendError(error)
+            } else {
+                assert(false, "unexpected type \(reflect(object).summary) on input stream")
+            }
+        }
     }
 }

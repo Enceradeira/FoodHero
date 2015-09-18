@@ -40,9 +40,9 @@ public class TalkerEngineTests: XCTestCase {
 
     func executeScript(script: Script, var onEngine engine: TalkerEngine? = nil, withNaturalOutput naturalOutput: Bool = true) -> RACSignal {
         if (engine == nil) {
-            engine = TalkerEngine(script: script, input: _input!)
+            engine = TalkerEngine(input: _input!)
         }
-        let stream = engine!.execute();
+        let stream = engine!.execute(script);
         if (naturalOutput) {
             return stream.naturalOutput
         } else {
@@ -51,12 +51,12 @@ public class TalkerEngineTests: XCTestCase {
     }
 
     func executeDialogFor(script: Script) -> [String] {
-        let dialog = executeScript(script, onEngine: TalkerEngine(script: script, input: _input!))
+        let dialog = executeScript(script, onEngine: TalkerEngine(input: _input!))
         return (dialog.toArray() as! [String])
     }
 
     func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil, withNaturalOutput naturalOutput: Bool = true) {
-        let engine = TalkerEngine(script: script, input: _input!)
+        let engine = TalkerEngine(input: _input!)
         assert(utterance: utterance, exists: exists, inDialog: executeScript(script, onEngine: engine, withNaturalOutput: naturalOutput), atPosition: expectedPosition)
     }
 
@@ -131,7 +131,7 @@ public class TalkerEngineTests: XCTestCase {
     }) {
         var utterances = [String]()
 
-        let engine = TalkerEngine(script: script, input: _input!)
+        let engine = TalkerEngine(input: _input!)
         let dialog = executeScript(script, onEngine: engine, withNaturalOutput: naturalOutput)
 
         // see if input is to be generated befor scipt is subscribed (evaluated)

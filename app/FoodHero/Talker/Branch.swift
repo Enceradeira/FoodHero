@@ -16,8 +16,8 @@ class Branch: Utterance {
         _context = context
     }
 
-    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
-        let futureScript = FutureScript(context: self._context)
+    override func executeWith(engine: TalkerEngine, input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
+        let futureScript = FutureScript(context: self._context, engine: engine)
 
         if _branches.count > 0 {
             let surrogate = Array(0 ..< _branches.count) // surrogate because chooseOne doesn't accept [((Script) -> (Script))]

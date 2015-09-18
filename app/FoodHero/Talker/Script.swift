@@ -9,6 +9,7 @@ import Foundation
 public class Script: NSObject {
     private var _utterances: [IUtterance] = []
     internal let context: TalkerContext
+    internal var engine: TalkerEngine!
 
     public init(talkerContext: TalkerContext) {
         context = talkerContext;
@@ -23,7 +24,6 @@ public class Script: NSObject {
         texts(definition)
         return OutputUtterance(definition: definition, context: context)
     }
-
 
     public func say(oneOf texts: (StringDefinition) -> (StringDefinition)) -> Script {
         _utterances.append(createOutputUtterance(texts))
@@ -55,6 +55,11 @@ public class Script: NSObject {
     public func continueWith(# continuation: ((FutureScript) -> (FutureScript))) -> Script {
         _utterances.append(Continuation(continuation: continuation, context: context))
         return self;
+    }
+
+    public func interrupt(with subscribt: Script) -> Script {
+        engine.interrupt(with: subscribt)
+        return self
     }
 }
 

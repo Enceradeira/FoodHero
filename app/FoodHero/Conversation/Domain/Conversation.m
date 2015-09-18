@@ -99,9 +99,8 @@
         script = [self createConversationScript];
     }
 
-
-    _engine = [[TalkerEngine alloc] initWithScript:script input:_input];
-    TalkerStreams *streams = [_engine execute];
+    _engine = [[TalkerEngine alloc] initWithInput:_input];
+    TalkerStreams *streams = [_engine execute:script];
 
     [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
         NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
@@ -435,8 +434,4 @@
     return [_randomizer isTrueForTag:[RandomizerConstants chattyThreshold]] ? 2 : 1;
 }
 
-- (void)interruptWithUserFeedbackRequest {
-    ProductFeedbackScript *feedbackRequest = [self createProductFeedbackScript];
-    [_engine interruptWith:feedbackRequest];
-}
 @end

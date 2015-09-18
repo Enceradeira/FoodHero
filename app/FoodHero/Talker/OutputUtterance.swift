@@ -12,7 +12,7 @@ class OutputUtterance: Utterance {
         _definition = definition
     }
 
-    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
+    override func executeWith(engine: TalkerEngine, input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         _definition.text.subscribeNext {
             obj in
             let def = obj as! StringDefinition.Result;

@@ -16,12 +16,14 @@ class ResponseUtterance: Utterance {
         _errorHandler = errorHandler
     }
 
-    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
+    override func executeWith(engine: TalkerEngine, input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         input.getNext({
             error in
             if let errorHandler = self._errorHandler {
                 // build & execute error script & continue
                 let errorScript = Script(talkerContext: self._context)
+                errorScript.engine = engine
+
                 errorHandler(error, errorScript)
                 Sequence.execute(errorScript, input, output, continuation);
             } else {
@@ -33,7 +35,7 @@ class ResponseUtterance: Utterance {
 
             output.sendNext(utterance, andNotifyMode: TalkerModes.Inputting)
 
-            let futureScript = FutureScript(context: self._context)
+            let futureScript = FutureScript(context: self._context, engine: engine)
             self._continuation(response: utterance, script: futureScript)
             if futureScript.hasNoOutput {
                 // no output, therefore input is flushed immediatly. This would normally be triggered by
@@ -48,8 +50,8 @@ class ResponseUtterance: Utterance {
         })
     }
 
-    override var hasOutput : Bool {
-        get{
+    override var hasOutput: Bool {
+        get {
             // Only reads input
             return false;
         }

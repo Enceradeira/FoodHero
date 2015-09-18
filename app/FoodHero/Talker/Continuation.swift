@@ -13,8 +13,8 @@ class Continuation: Utterance {
         _context = context
     }
 
-    override func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
-        let futureScript = FutureScript(context: self._context)
+    override func executeWith(engine: TalkerEngine, input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
+        let futureScript = FutureScript(context: self._context, engine: engine)
         self._continuation(futureScript)
         futureScript.script.subscribeNext {
             Sequence.execute($0 as! Script, input, output, continuation);

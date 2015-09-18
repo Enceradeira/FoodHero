@@ -16,10 +16,10 @@ class OptionalUtterance: Utterance {
         _context = context
     }
 
-    override func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+    override func execute(engine: TalkerEngine, _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
         let randomizer = _context.randomizer
         if (randomizer.isTrue(forTag: _tag)) {
-            _utterance.execute(input, output, continuation)
+            _utterance.execute(engine, input, output, continuation)
         } else {
             continuation()
         }

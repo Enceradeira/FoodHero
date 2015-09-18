@@ -6,16 +6,16 @@
 import Foundation
 
 protocol IUtterance: class {
-    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ())
+    func execute(engine: TalkerEngine, _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ())
     var hasOutput: Bool { get }
 }
 
 class Utterance: IUtterance {
-    func execute(input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
-        executeWith(input, output: output, continuation: continuation)
+    func execute(engine: TalkerEngine, _ input: TalkerInput, _ output: TalkerOutput, _ continuation: () -> ()) {
+        executeWith(engine, input: input, output: output, continuation: continuation)
     }
 
-    func executeWith(input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
+    func executeWith(engine: TalkerEngine, input: TalkerInput, output: TalkerOutput, continuation: () -> ()) {
         assert(false, "executeWith must be overwritten by subclass")
     }
 

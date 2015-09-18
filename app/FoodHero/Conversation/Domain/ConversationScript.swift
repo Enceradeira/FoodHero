@@ -89,6 +89,11 @@ public class ConversationScript: Script {
             return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
                 self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
+        } else if error is RequestProductFeedbackInterruption {
+            errorScript.interrupt(with: ProductFeedbackScript(context: context, conversation: _conversation, schedulerFactory: _schedulerFactory))
+            return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
+                self.catchError($0, errorScript: $1, andContinueWith: continuation)
+            })
         } else {
             assert(false, "unexpected error of type \(reflect(error).summary)")
             return errorScript
