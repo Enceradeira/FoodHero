@@ -18,4 +18,14 @@ class ConversationGreetingTests: ConversationTestsBase {
         assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())
         assertLastStatementIs("FH:FirstQuestion=lunch", state: FHStates.askForSuggestionFeedback())
     }
+
+    func test_Conversation_ShouldNotGreetAndNotSuggestAnything_WhenConversationIsRestored(){
+        resetConversation()
+
+        let nrStatements = conversation.getStatementCount()
+        codeAndDecodeConversation()
+
+        let nrStatementsAfterRestore = conversation.getStatementCount()
+        XCTAssertEqual(nrStatementsAfterRestore, nrStatements)
+    }
 }

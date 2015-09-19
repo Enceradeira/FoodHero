@@ -8,10 +8,20 @@
 #import "SearchProfile.h"
 
 
-@interface RestaurantSearchResult : NSObject
+@interface RestaurantSearchResult : NSObject <NSCoding>
 @property (nonatomic, readonly) Restaurant* restaurant;
 @property (nonatomic, readonly) SearchProfile* searchParams;
 
 -(instancetype)initWithRestaurant:(Restaurant*)restaurant searchParams:(SearchProfile*)searchParams;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToResult:(RestaurantSearchResult *)result;
+
+- (NSUInteger)hash;
 
 @end

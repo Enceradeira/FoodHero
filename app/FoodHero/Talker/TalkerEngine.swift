@@ -15,23 +15,23 @@ public class TalkerEngine: NSObject {
     private let _talkerOutput: TalkerOutput
     private let _rawOutput = RACReplaySubject()
     private let _naturalOutput = RACReplaySubject()
+    public let output: TalkerStreams
 
     public init(input: RACSignal) {
         self._input = input
 
         _talkerInput = TalkerInput(self._input, _talkerMode)
         _talkerOutput = TalkerOutput(rawOutput: _rawOutput, naturalOutput: _naturalOutput, mode: _talkerMode)
+        output =  TalkerStreams(rawOutput: _rawOutput, naturalOutput: _naturalOutput)
     }
 
-    public func execute(script: Script) -> TalkerStreams {
+    public func execute(script: Script) {
         script.engine = self
 
         Sequence.execute(script, _talkerInput, _talkerOutput, {
             self._talkerMode.Mode = TalkerModes.Finishing
             self._talkerOutput.sendCompleted()
         })
-
-        return TalkerStreams(rawOutput: _rawOutput, naturalOutput: _naturalOutput)
     }
 
     public func interrupt(with subscribt: Script) {

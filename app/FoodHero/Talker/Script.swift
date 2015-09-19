@@ -58,6 +58,7 @@ public class Script: NSObject {
     }
 
     public func interrupt(with subscribt: Script) -> Script {
+        subscribt.engine = engine
         engine.interrupt(with: subscribt)
         return self
     }

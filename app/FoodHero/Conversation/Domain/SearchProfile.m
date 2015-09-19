@@ -119,4 +119,63 @@
     return nrIncrementsBelowMinPrice;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        _cuisine = [coder decodeObjectForKey:@"_cuisine"];
+        _priceRange = [coder decodeObjectForKey:@"_priceRange"];
+        _occasion = [coder decodeObjectForKey:@"_occasion"];
+        _distanceRange = [coder decodeObjectForKey:@"_distanceRange"];
+        _searchLocation = [coder decodeObjectForKey:@"_searchLocation"];
+    }
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_cuisine forKey:@"_cuisine"];
+    [coder encodeObject:_priceRange forKey:@"_priceRange"];
+    [coder encodeObject:_occasion forKey:@"_occasion"];
+    [coder encodeObject:_distanceRange forKey:@"_distanceRange"];
+    [coder encodeObject:_searchLocation forKey:@"_searchLocation"];
+}
+
+- (BOOL)isEqual:(id)other {
+    if (other == self)
+        return YES;
+    if (!other || ![[other class] isEqual:[self class]])
+        return NO;
+
+    return [self isEqualToProfile:other];
+}
+
+- (BOOL)isEqualToProfile:(SearchProfile *)profile {
+    if (self == profile)
+        return YES;
+    if (profile == nil)
+        return NO;
+    if (self.cuisine != profile.cuisine && ![self.cuisine isEqualToString:profile.cuisine])
+        return NO;
+    if (self.priceRange != profile.priceRange && ![self.priceRange isEqual:profile.priceRange])
+        return NO;
+    if (self.distanceRange != profile.distanceRange && ![self.distanceRange isEqualToRange:profile.distanceRange])
+        return NO;
+    if (self.occasion != profile.occasion && ![self.occasion isEqualToString:profile.occasion])
+        return NO;
+    if ([self.searchLocation distanceFromLocation:profile.searchLocation] != 0) {
+        return NO;
+    }
+    return YES;
+}
+
+- (NSUInteger)hash {
+    NSUInteger hash = [self.cuisine hash];
+    hash = hash * 31u + [self.priceRange hash];
+    hash = hash * 31u + [self.distanceRange hash];
+    hash = hash * 31u + [self.occasion hash];
+    hash = hash * 31u + [self.searchLocation hash];
+    return hash;
+}
+
+
 @end

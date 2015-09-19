@@ -10,6 +10,7 @@ public class ConversationScript: Script {
     let _search: RestaurantSearch
     let _locationService: LocationService
     let _schedulerFactory: ISchedulerFactory
+    var _processSearchRequests = false
 
     public init(context: TalkerContext,
                 conversation: Conversation,
@@ -27,45 +28,56 @@ public class ConversationScript: Script {
         controlInput.subscribeNext {
             self.processControlInput($0)
         }
+    }
 
-        sayGreetingAndAndSearchRepeatably(self)
+    public func sayGreetingAndStartSearch() {
+        sayGreetingAndSearchRepeatably(self)
+    }
+
+    public func startProcessingSearchRequests() {
+        _processSearchRequests = true
     }
 
     // The time before FoodHero informs user that he's busy/delayed
     public static var searchTimeout: Double = 15
 
-    func sayGreetingAndAndSearchRepeatably(script: Script) -> Script {
+    private func sayGreetingAndSearchRepeatably(script: Script) -> Script {
         script.say(oneOf: FHUtterances.greetings)
-        return script.continueWith(continuation: searchAndWaitResponseAndSearchRepeatably)
+        script.continueWith(continuation: {
+            self.searchAndWaitResponseAndSearchRepeatably()
+            return $0.defineEmpty()
+        })
+
+        return script
     }
 
-    func sayOpeningQuestionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
+    private func sayOpeningQuestionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let openingQuestion = FHUtterances.openingQuestions
         script.say(oneOf: openingQuestion)
         return self.waitResponseAndSearchRepeatably(script)
     }
 
-    func askForKindOfFoodWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
+    private func askForKindOfFoodWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let question = FHUtterances.askForKindOfFood
         script.say(oneOf: question)
         return self.waitResponseAndSearchRepeatably(script)
     }
 
-    func askForOccasionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
+    private func askForOccasionWaitResponseAndSearchRepeatably(script: Script) -> (Script) {
         let currentOccasion = self._conversation.currentOccasion()
         let question = FHUtterances.askForOccasion(currentOccasion)
         script.say(oneOf: question)
         return self.waitResponseAndSearchRepeatably(script)
     }
 
-    func confirmRestartSayOpeningQuestionAndSearchRepeatably(futureScript: FutureScript) -> FutureScript {
+    private func confirmRestartSayOpeningQuestionAndSearchRepeatably(futureScript: FutureScript) -> FutureScript {
         return futureScript.define {
             $0.say(oneOf: FHUtterances.confirmationRestart)
             return self.sayOpeningQuestionWaitResponseAndSearchRepeatably($0)
         }
     }
 
-    func catchError(
+    private func catchError(
             error: NSError,
             errorScript: Script,
             andContinueWith continuation: ((ConversationParameters, FutureScript) -> (FutureScript))) -> Script {
@@ -107,7 +119,8 @@ public class ConversationScript: Script {
             (parameter, futureScript) in
             // Handle everything here that is accepted in 'All States'
             if parameter.hasSemanticId("U:CuisinePreference") || parameter.hasSemanticId("U:OccasionPreference") {
-                return self.searchAndWaitResponseAndSearchRepeatably(futureScript)
+                self.searchAndWaitResponseAndSearchRepeatably()
+                return futureScript
             } else {
                 return continuation(parameter, futureScript)
             }
@@ -116,7 +129,7 @@ public class ConversationScript: Script {
         })
     }
 
-    func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
+    private func waitResponseAndSearchRepeatably(script: Script) -> (Script) {
         return waitUserResponseAndHandleErrors(script) {
             if $0.hasSemanticId("U:WantsToStartAgain") {
                 return self.confirmRestartSayOpeningQuestionAndSearchRepeatably($1)
@@ -139,8 +152,8 @@ public class ConversationScript: Script {
                     return self.waitResponseAndSearchRepeatably($0)
                 }
             } else if !$0.hasSemanticId("U:SuggestionFeedback=Like") {
-                return self.searchAndWaitResponseAndSearchRepeatably($1)
-
+                self.searchAndWaitResponseAndSearchRepeatably()
+                return $1
             } else {
                 if $0.hasSemanticId("U:SuggestionFeedback=LikeWithLocationRequest") {
                     let restaurants = self._conversation.suggestedRestaurantsInCurrentSearch() as! [Restaurant]
@@ -160,9 +173,11 @@ public class ConversationScript: Script {
         }
     }
 
-    func searchAndWaitResponseAndSearchRepeatably(futureScript: FutureScript) -> (FutureScript) {
-        var currentFutureScript = futureScript
+    private func searchAndWaitResponseAndSearchRepeatably() {
         var searchHasEnded = false
+        if !_processSearchRequests {
+            return
+        }
 
         let bestRestaurant = _search.findBest(self._conversation).deliverOn(_schedulerFactory.mainThreadScheduler()).take(1)
 
@@ -177,30 +192,25 @@ public class ConversationScript: Script {
         bestRestaurant.subscribeError {
             (error: NSError!) in
             searchHasEnded = true
-            currentFutureScript.define {
-                return self.processSearchError(error!, withScript: $0)
-            }
+            self._conversation.sendControlInput(SearchErrorControlInput(error: error))
             return
         }
 
         bestRestaurant.subscribeNext {
             (obj) in
             searchHasEnded = true
-            currentFutureScript.define {
-                return self.processSearchResult(obj, withScript: $0)
-            }
+            self._conversation.sendControlInput(SearchResultControlInput(result: obj as! RestaurantSearchResult))
             return
         }
-        return futureScript
     }
 
-    func askWhatToDoNext(script: Script) -> (Script) {
+    private func askWhatToDoNext(script: Script) -> (Script) {
         let question = FHUtterances.whatToDoNext
         script.say(oneOf: question)
         return waitResponseForWhatToDoNext(script)
     }
 
-    func askWhatToDoNextAfterFailure(script: FutureScript) -> (FutureScript) {
+    private func askWhatToDoNextAfterFailure(script: FutureScript) -> (FutureScript) {
         return script.define {
             let whatToDoNextAfterFailure = FHUtterances.whatToDoNextAfterFailure
             $0.say(oneOf: whatToDoNextAfterFailure)
@@ -208,7 +218,7 @@ public class ConversationScript: Script {
         }
     }
 
-    func sayGoodbyeAndWaitResponse(script: Script) -> (Script) {
+    private func sayGoodbyeAndWaitResponse(script: Script) -> (Script) {
         let question = FHUtterances.goodbyes
         script.say(oneOf: question)
         return waitUserHelloAndHandleErrors(script)
@@ -218,7 +228,7 @@ public class ConversationScript: Script {
         return waitUserResponseAndHandleErrors(script) {
             if $0.hasSemanticId("U:Hello") {
                 return $1.define {
-                    return self.sayGreetingAndAndSearchRepeatably($0)
+                    return self.sayGreetingAndSearchRepeatably($0)
                 }
             } else {
                 return $1.define {
@@ -228,7 +238,7 @@ public class ConversationScript: Script {
         }
     }
 
-    func waitResponseForWhatToDoNext(script: Script) -> (Script) {
+    private func waitResponseForWhatToDoNext(script: Script) -> (Script) {
         return waitUserResponseAndHandleErrors(script) {
             if $0.hasSemanticId("U:WantsToStopConversation") {
                 return $1.define {
@@ -242,14 +252,14 @@ public class ConversationScript: Script {
         }
     }
 
-    func userResponseIs(semanticId: String) -> () -> Bool {
+    private func userResponseIs(semanticId: String) -> () -> Bool {
         return {
             let lastResponse = self._conversation.lastUserResponse()
             return lastResponse != nil && lastResponse!.hasSemanticId(semanticId)
         }
     }
 
-    func sayWarning(script: Script, semanticID: String, sayings: (StringDefinition, Restaurant, String) -> (StringDefinition), lastSuggestionWarning: ConversationParameters?, restaurant: Restaurant, currentOccasion: String) -> Script {
+    private func sayWarning(script: Script, semanticID: String, sayings: (StringDefinition, Restaurant, String) -> (StringDefinition), lastSuggestionWarning: ConversationParameters?, restaurant: Restaurant, currentOccasion: String) -> Script {
 
         var lastUtterance: (StringDefinition) -> (StringDefinition)
         if (lastSuggestionWarning == nil || !lastSuggestionWarning!.hasSemanticId(semanticID)) {
@@ -264,7 +274,7 @@ public class ConversationScript: Script {
         return self.waitResponseAndSearchRepeatably(script)
     }
 
-    func processSearchResult(result: AnyObject, withScript script: Script) -> (Script) {
+    private func processSearchResult(result: AnyObject, withScript script: Script) -> (Script) {
         let searchResult = result as! RestaurantSearchResult
         let restaurant = searchResult.restaurant
         let searchParams = searchResult.searchParams
@@ -345,7 +355,7 @@ public class ConversationScript: Script {
         }
     }
 
-    func processSearchError(error: NSError, withScript script: Script) -> (Script) {
+    private func processSearchError(error: NSError, withScript script: Script) -> (Script) {
         if error is LocationServiceAuthorizationStatusDeniedError {
             let lastQuestion = FHUtterances.cantAccessLocationServiceBecauseUserDeniedAccessToLocationServices
             script.say(oneOf: lastQuestion)
@@ -381,11 +391,19 @@ public class ConversationScript: Script {
 
     }
 
-    func processControlInput(input: Any) {
+    private func processControlInput(input: Any) {
         if input is RequestProductFeedbackInterruption {
             self.interrupt(with: ProductFeedbackScript(context: context, conversation: _conversation, schedulerFactory: _schedulerFactory))
         } else if input is IsVeryBusyAtTheMomentInterruption {
             self.interrupt(with: Script(talkerContext: context).say(oneOf: FHUtterances.isVeryBusyAtTheMoment))
+        } else if let searchError = input as? SearchErrorControlInput {
+            let errorScript = Script(talkerContext: context)
+            self.processSearchError(searchError.error, withScript: errorScript)
+            self.interrupt(with: errorScript)
+        } else if let searchResult = input as? SearchResultControlInput {
+            let resultScript = Script(talkerContext: context)
+            self.processSearchResult(searchResult.result, withScript: resultScript)
+            self.interrupt(with: resultScript)
         } else {
             assert(false, "unexpected control input of type \(reflect(input).summary)")
         }

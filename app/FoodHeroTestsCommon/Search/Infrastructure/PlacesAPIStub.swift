@@ -7,6 +7,7 @@ import Foundation
 
 public class PlacesAPIStub: NSObject, IPlacesAPI {
 
+    public var NrCallsToFindPlaces = 0
     private var _findSomething = true
     private let _ownSearchResult = [
             RestaurantBuilder().withName("King's Head").withVicinity("Norwich").build(),
@@ -24,6 +25,7 @@ public class PlacesAPIStub: NSObject, IPlacesAPI {
     private var _injectedError: NSError? = nil
 
     public func findPlaces(cuisine: String, occasion: String, location: CLLocation) -> AnyObject {
+        NrCallsToFindPlaces = NrCallsToFindPlaces + 1
         if _injectedError != nil
         {
             return _injectedError!

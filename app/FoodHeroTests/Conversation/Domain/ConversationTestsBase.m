@@ -15,7 +15,6 @@
 @implementation ConversationTestsBase {
 
     NSMutableArray *_expectedStatements;
-    PlacesAPIStub *_restaurantSearchStub;
     RACSubject *_input;
     TalkerRandomizerFake *_talkerRandomizerFake;
     id <ApplicationAssembly> _assembly;
@@ -35,11 +34,20 @@
     _expectedStatements = [NSMutableArray new];
 }
 
-- (void)resetConversation {
-    _conversation = [[Conversation alloc] init];
+- (void)initalizeConversation {
     [_conversation setInput:_input];
     [_conversation setAssembly:_assembly];
     [_conversation startForFeedbackRequest:NO];
+}
+
+- (void)resetConversation {
+    _conversation = [[Conversation alloc] init];
+    [self initalizeConversation];
+}
+
+-(void)codeAndDecodeConversation {
+    _conversation = [CodingHelper encodeAndDecodeUntyped:_conversation];
+    [self initalizeConversation];
 }
 
 - (void)sendInput:(id)utterance {
@@ -51,6 +59,10 @@
     [self.locationManagerStub injectLocations:@[[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
     // configure stub
     configuration(_restaurantSearchStub);
+}
+
+-(void)resetRepositoryCache{
+    [self.locationManagerStub moveLocation];
 }
 
 - (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(PlacesAPIStub *))configuration {

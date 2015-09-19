@@ -38,4 +38,41 @@ const double SCORE_AT_MAX_DISTANCE_RANGE = 0.2;
     return [NSString stringWithFormat:@"%f", _max];
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        _max = [coder decodeDoubleForKey:@"_max"];
+    }
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeDouble:self.max forKey:@"_max"];
+}
+
+- (BOOL)isEqual:(id)other {
+    if (other == self)
+        return YES;
+    if (!other || ![[other class] isEqual:[self class]])
+        return NO;
+
+    return [self isEqualToRange:other];
+}
+
+- (BOOL)isEqualToRange:(DistanceRange *)range {
+    if (self == range)
+        return YES;
+    if (range == nil)
+        return NO;
+    if (self.max != range.max)
+        return NO;
+    return YES;
+}
+
+- (NSUInteger)hash {
+    return [[NSNumber numberWithDouble:self.max] hash];
+}
+
+
 @end

@@ -42,7 +42,8 @@ public class TalkerEngineTests: XCTestCase {
         if (engine == nil) {
             engine = TalkerEngine(input: _input!)
         }
-        let stream = engine!.execute(script);
+        engine!.execute(script)
+        let stream = engine!.output
         if (naturalOutput) {
             return stream.naturalOutput
         } else {

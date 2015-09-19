@@ -1,5 +1,5 @@
 //
-//  PriceLevelRangeTests.m
+//  PriceRangeTests.m
 //  FoodHero
 //
 //  Created by Jorg on 16/08/2014.
@@ -13,11 +13,11 @@
 #import "HCIsExceptionOfType.h"
 #import "DesignByContractException.h"
 
-@interface PriceLevelRangeTests : XCTestCase
+@interface PriceRangeTests : XCTestCase
 
 @end
 
-@implementation PriceLevelRangeTests
+@implementation PriceRangeTests
 
 - (void)test_isEqual_ShouldBeYes_WhenEqualValues {
     assertThat([PriceRange priceRangeWithoutRestriction], is(equalTo([PriceRange priceRangeWithoutRestriction])));

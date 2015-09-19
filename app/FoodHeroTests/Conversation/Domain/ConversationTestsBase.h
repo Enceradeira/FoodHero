@@ -16,7 +16,7 @@
 
 @interface ConversationTestsBase : XCTestCase
 
-//@property(nonatomic, readonly) RestaurantSearchServiceStub *restaurantSearchStub;
+@property(nonatomic, readonly) PlacesAPIStub *restaurantSearchStub;
 @property(nonatomic, readonly) Conversation *conversation;
 @property(nonatomic, readonly) CLLocationManagerProxyStub *locationManagerStub;
 @property(nonatomic, readonly) TalkerRandomizerFake *talkerRandomizerFake;
@@ -25,9 +25,13 @@
 
 - (void)resetConversation;
 
+- (void)codeAndDecodeConversation;
+
 - (void)sendInput:(id)token;
 
 - (void)configureRestaurantSearchForLatitude:(double)latitude longitude:(double)longitude configuration:(void (^)(PlacesAPIStub *))configuration;
+
+- (void)resetRepositoryCache;
 
 - (void)configureRestaurantSearchForLocation:(CLLocation *)location configuration:(void (^)(PlacesAPIStub *))configuration;
 

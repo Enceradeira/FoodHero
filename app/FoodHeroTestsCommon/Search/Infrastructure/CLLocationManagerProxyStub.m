@@ -72,4 +72,9 @@
     }
 
 }
+
+- (void)moveLocation {
+    CLLocation *last = _locations[_locations.count - 1];
+    [self injectLocations:@[[[CLLocation alloc] initWithLatitude:last.coordinate.latitude + 1 longitude:last.coordinate.longitude + 1]]];
+}
 @end

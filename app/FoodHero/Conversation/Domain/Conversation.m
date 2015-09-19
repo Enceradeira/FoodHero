@@ -23,9 +23,10 @@
 
     RACSubject *_talkerInput;
     RACSubject *_scriptInput;
+    RACSignal *_input;
+    RACSubject *_controlInput;
     NSMutableArray *_rawConversation;
     NSMutableArray *_recordedInput;
-    RACDisposable *_inputSubscription;
     id <ApplicationAssembly> _assembly;
     bool _isStarted;
     id <IEnvironment> _environment;
@@ -62,22 +63,15 @@
     _id = [Configuration userId];
     _scriptInput = [RACSubject new];
     _talkerInput = [RACSubject new];
+    _controlInput = [RACSubject new];
 }
 
 - (void)setInput:(RACSignal *)input {
-    if (_inputSubscription != nil) {
-        [_inputSubscription dispose];
-        _inputSubscription = nil;
-    }
-    _inputSubscription = [input subscribeNext:^(id in) {
-        [_recordedInput addObject:in];
-        [_talkerInput sendNext:in];
-    }];
+    _input = input;
 }
 
 - (void)sendControlInput:(id)input {
-    [_recordedInput addObject:input];
-    [_scriptInput sendNext:input];
+    [_controlInput sendNext:input];
 }
 
 - (void)setAssembly:(id <ApplicationAssembly>)assembly {
@@ -94,7 +88,7 @@
     return [[ProductFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
 }
 
-- (ConversationScript *)createConversationScript {
+- (ConversationScript *)createConversationScriptWithGreeting:(BOOL)isNotRestoredConversation {
     RestaurantSearch *search = [_assembly restaurantSearch];
     LocationService *locationService = [_assembly locationService];
     ConversationScript *script = [[ConversationScript alloc] initWithContext:_context
@@ -103,6 +97,11 @@
                                                                       search:search
                                                              locationService:locationService
                                                             schedulerFactory:_schedulerFactory];
+
+    if(isNotRestoredConversation){
+        [script startProcessingSearchRequests];
+        [script sayGreetingAndStartSearch];
+    }
     return script;
 }
 
@@ -116,23 +115,49 @@
     ConversationResources *resources = [[ConversationResources alloc] initWithRandomizer:_randomizer];
     _context = [[TalkerContext alloc] initWithRandomizer:_randomizer resources:resources];
 
-    Script *script;
+    // Create Script
+    __block BOOL isRestoringStatements = _statements.count > 0;
+    Script *startScript;
+    ConversationScript *conversationScript;
     if (isForFeedbackRequest) {
-        script = [self createProductFeedbackScript];
-        ConversationScript *conversationScript = [self createConversationScript];
+        startScript = [self createProductFeedbackScript];
+        conversationScript = [self createConversationScriptWithGreeting:!isRestoringStatements];
 
-        [script continueWithContinuation:^(FutureScript *fs) {
+        [startScript continueWithContinuation:^(FutureScript *fs) {
             return [fs defineWithScript:conversationScript];
         }];
     }
     else {
-        script = [self createConversationScript];
+        conversationScript = [self createConversationScriptWithGreeting:!isRestoringStatements];
+        startScript = conversationScript;
     }
 
-    _engine = [[TalkerEngine alloc] initWithInput:_talkerInput];
-    TalkerStreams *streams = [_engine execute:script];
+    // Create Inputs
+    [[_input merge:_controlInput] subscribeNext:^(id input) {
+        [_recordedInput addObject:input];
+        [self dispatchInputToTalkerOfScript:input];
+    }];
 
+
+    // Create Talker
+    NSArray *recordedInputBeforeScriptStarted = [_recordedInput copy];
+
+    _engine = [[TalkerEngine alloc] initWithInput:_talkerInput];
+    TalkerStreams *streams = _engine.output;
+    [_engine interruptWith:startScript];
+
+
+    // Restore State of conversation
+    for (id input in recordedInputBeforeScriptStarted) {
+        [self dispatchInputToTalkerOfScript:input];
+    }
+
+    // Create Outputs
     [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
+        if (isRestoringStatements){
+            // Ignore signals when Conversation is being restored
+            return;
+        }
         NSArray *semanticIds = [[utterance customData] linq_select:^(ConversationParameters *parameter) {
             return [parameter semanticIdInclParameters];
         }];
@@ -179,6 +204,17 @@
     }];
 
     _isStarted = YES;
+    isRestoringStatements = NO;
+    [conversationScript startProcessingSearchRequests];
+}
+
+- (void)dispatchInputToTalkerOfScript:(const id)input {
+    if ([input isKindOfClass:NSError.class] || [input isKindOfClass:[TalkerUtterance class]]) {
+            [_talkerInput sendNext:input];
+        }
+        else {
+            [_scriptInput sendNext:input];
+        }
 }
 
 - (NSArray *)conversationParameters {

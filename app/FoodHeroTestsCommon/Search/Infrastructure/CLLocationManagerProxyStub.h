@@ -13,4 +13,6 @@
 - (void)injectLatitude:(double)latitude longitude:(double)longitude;
 
 - (void)injectAuthorizationStatus:(CLAuthorizationStatus)status;
+
+- (void)moveLocation;
 @end

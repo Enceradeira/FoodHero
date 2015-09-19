@@ -9,7 +9,7 @@
 #import "DistanceRange.h"
 #import "Restaurant.h"
 
-@interface SearchProfile : NSObject
+@interface SearchProfile : NSObject <NSCoding>
 @property(nonatomic, readonly) NSString *cuisine;
 @property(nonatomic, readonly) PriceRange *priceRange;
 @property(nonatomic, readonly) DistanceRange *distanceRange;
@@ -29,4 +29,14 @@
              location:(CLLocation *)location;
 
 - (double)scorePlace:(Place *)place normalizedDistance:(double)distance restaurant:(Restaurant *)restaurant;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
+- (BOOL)isEqual:(id)other;
+
+- (BOOL)isEqualToProfile:(SearchProfile *)profile;
+
+- (NSUInteger)hash;
 @end

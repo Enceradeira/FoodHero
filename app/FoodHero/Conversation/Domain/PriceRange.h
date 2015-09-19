@@ -9,7 +9,7 @@ const extern NSUInteger GOOGLE_PRICE_LEVEL_MIN;
 const extern NSUInteger GOOGLE_PRICE_LEVEL_MAX;
 
 
-@interface PriceRange : NSObject
+@interface PriceRange : NSObject <NSCoding>
 @property(nonatomic, readonly) NSUInteger min;
 @property(nonatomic, readonly) NSUInteger max;
 
@@ -20,5 +20,9 @@ const extern NSUInteger GOOGLE_PRICE_LEVEL_MAX;
 - (PriceRange *)setMaxLowerThan:(NSUInteger)value;
 
 - (PriceRange *)setMinHigherThan:(NSUInteger)value;
+
+- (id)initWithCoder:(NSCoder *)coder;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
 
 @end
