@@ -29,7 +29,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder;
 
-- (void)startForFeedbackRequest:(BOOL)isForFeedbackRequest;
+- (void)startWithGreeting:(BOOL)isWithGreeting;
 
 - (TalkerUtterance *)lastFoodHeroUtteranceBeforeNetworkError;
 

@@ -361,5 +361,20 @@ ConversationAppServiceTests {
     assertThat(bubble, is(notNilValue()));
 }
 
+-(void)test_startConversationWithFeedbackRequest_ShouldNotUtterFeedbackRequest_WhenNoFeedbackRequested{
+    [_service startConversationWithFeedbackRequest:NO];
+
+    assertThatInteger(self.statements.count, is(equalTo(@1)));
+    Statement *lastStmt = self.statements[self.statements.count-1];
+    assertThat(lastStmt.semanticId, containsString(@"FH:Greeting"));
+}
+
+-(void)test_startConversationWithFeedbackRequest_ShouldUtterFeedbackRequest_WhenFeedbackRequested{
+    [_service startConversationWithFeedbackRequest:YES];
+
+    assertThatInteger(self.statements.count, is(equalTo(@1)));
+    Statement *lastStmt = self.statements[self.statements.count-1];
+    assertThat(lastStmt.semanticId, containsString(@"FH:AskForProductFeedback"));
+}
 
 @end

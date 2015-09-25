@@ -37,7 +37,7 @@
 - (void)initalizeConversation {
     [_conversation setInput:_input];
     [_conversation setAssembly:_assembly];
-    [_conversation startForFeedbackRequest:NO];
+    [_conversation startWithGreeting:YES];
 }
 
 - (void)resetConversation {

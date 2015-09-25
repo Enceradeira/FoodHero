@@ -21,7 +21,7 @@ class ConversationRepositoryTests: XCTestCase {
     func test_getForInput_ShouldRestorePersistedSentences() {
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.startForFeedbackRequest(false) // creates some statements
+        conv.startWithGreeting(true) // creates some statements
         let origStmtCount = conv.getStatementCount()
 
         repo.persist()
@@ -35,7 +35,7 @@ class ConversationRepositoryTests: XCTestCase {
         // create Conversation with some statements
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.startForFeedbackRequest(false)
+        conv.startWithGreeting(true)
         let origStmtCount = conv.getStatementCount()
 
         // send Input to Conversation
@@ -59,7 +59,7 @@ class ConversationRepositoryTests: XCTestCase {
         // create Conversation with some statements
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.startForFeedbackRequest(false)
+        conv.startWithGreeting(true)
         let origStmtCount = conv.getStatementCount()
         repo.persist()
 
@@ -67,7 +67,7 @@ class ConversationRepositoryTests: XCTestCase {
         let restoredInput = RACSubject()
         let restoredRepo = createRepo()
         let restoredConv = restoredRepo.getForInput(restoredInput)
-        restoredConv.startForFeedbackRequest(false)
+        restoredConv.startWithGreeting(true)
 
         // send Input to restored Conversation
         let expectation = expectationWithDescription("")
@@ -96,7 +96,7 @@ class ConversationRepositoryTests: XCTestCase {
         // create conversation with some statements
         let repo = createRepo()
         let conv = repo.getForInput(input)
-        conv.startForFeedbackRequest(false)
+        conv.startWithGreeting(true)
         input.sendNext(UserIntentUnclearError(state: FHStates.askForFoodPreference(), expectedUserUtterances: ExpectedUserUtterances(utterances: [])))
         repo.persist()
 
@@ -104,7 +104,7 @@ class ConversationRepositoryTests: XCTestCase {
         let restoredInput = RACSubject()
         let restoredRepo = createRepo()
         let restoredConv = restoredRepo.getForInput(restoredInput)
-        restoredConv.startForFeedbackRequest(false)
+        restoredConv.startWithGreeting(true)
 
         // continue conversation on restored conversation
         let statement1 = restoredConv.getStatement(restoredConv.getStatementCount()-1) as! Statement

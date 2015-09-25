@@ -98,14 +98,14 @@
                                                              locationService:locationService
                                                             schedulerFactory:_schedulerFactory];
 
-    if(isNotRestoredConversation){
+    if (isNotRestoredConversation) {
         [script startProcessingSearchRequests];
         [script sayGreetingAndStartSearch];
     }
     return script;
 }
 
-- (void)startForFeedbackRequest:(BOOL)isForFeedbackRequest {
+- (void)startWithGreeting:(BOOL)isWithGreeting {
     assert(!_isStarted);
 
     _environment = [_assembly environment];
@@ -117,20 +117,7 @@
 
     // Create Script
     __block BOOL isRestoringStatements = _statements.count > 0;
-    Script *startScript;
-    ConversationScript *conversationScript;
-    if (isForFeedbackRequest) {
-        startScript = [self createProductFeedbackScript];
-        conversationScript = [self createConversationScriptWithGreeting:!isRestoringStatements];
-
-        [startScript continueWithContinuation:^(FutureScript *fs) {
-            return [fs defineWithScript:conversationScript];
-        }];
-    }
-    else {
-        conversationScript = [self createConversationScriptWithGreeting:!isRestoringStatements];
-        startScript = conversationScript;
-    }
+    ConversationScript *script = [self createConversationScriptWithGreeting:!isRestoringStatements && isWithGreeting];
 
     // Create Inputs
     [[_input merge:_controlInput] subscribeNext:^(id input) {
@@ -144,8 +131,7 @@
 
     _engine = [[TalkerEngine alloc] initWithInput:_talkerInput];
     TalkerStreams *streams = _engine.output;
-    [_engine interruptWith:startScript];
-
+    [_engine interruptWith:script];
 
     // Restore State of conversation
     for (id input in recordedInputBeforeScriptStarted) {
@@ -154,7 +140,7 @@
 
     // Create Outputs
     [streams.naturalOutput subscribeNext:^(TalkerUtterance *utterance) {
-        if (isRestoringStatements){
+        if (isRestoringStatements) {
             // Ignore signals when Conversation is being restored
             return;
         }
@@ -205,16 +191,16 @@
 
     _isStarted = YES;
     isRestoringStatements = NO;
-    [conversationScript startProcessingSearchRequests];
+    [script startProcessingSearchRequests];
 }
 
 - (void)dispatchInputToTalkerOfScript:(const id)input {
     if ([input isKindOfClass:NSError.class] || [input isKindOfClass:[TalkerUtterance class]]) {
-            [_talkerInput sendNext:input];
-        }
-        else {
-            [_scriptInput sendNext:input];
-        }
+        [_talkerInput sendNext:input];
+    }
+    else {
+        [_scriptInput sendNext:input];
+    }
 }
 
 - (NSArray *)conversationParameters {
