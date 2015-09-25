@@ -21,6 +21,7 @@
 #import "SpeechRecognitionServiceStub.h"
 #import "SpeechInterpretation.h"
 #import "FoodHeroTests-Swift.h"
+#import "FoodHero-Swift.h"
 
 @interface ConversationAppServiceTests : XCTestCase
 
@@ -37,10 +38,14 @@ ConversationAppServiceTests {
     CLLocationManagerProxyStub *_locationManager;
     SpeechRecognitionServiceStub *_speechRecognitionService;
     ConversationRepository *_conversationRepository;
+    UIApplication *_application;
 }
 
 - (void)setUp {
     [super setUp];
+
+    _application = [UIApplication sharedApplication];
+    [_application cancelAllLocalNotifications];
 
     [ConversationRepository deletePersistedData];
     [TyphoonComponents configure:[StubAssembly new]];

@@ -303,35 +303,12 @@ static UIImage *EmptyImage;
 }
 
 - (void)pauseConversation {
-    // setup notification
-
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-
-    NSDateComponents *dateComps = [[NSDateComponents alloc] init];
-
-    NSDate *itemDate = [NSDate date];
-
-    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-
-    localNotif.fireDate = [itemDate dateByAddingTimeInterval:5];
-
-    localNotif.timeZone = [NSTimeZone defaultTimeZone];
-
-    localNotif.alertBody = @"Food Hero has sent you a message";
-
-    localNotif.soundName = UILocalNotificationDefaultSoundName;
-
-    localNotif.applicationIconBadgeNumber = 1;
-
-    NSDictionary *infoDict = @{@"Hello" : @"TestMessage"};
-
-    localNotif.userInfo = infoDict;
-
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+    UILocalNotification *notification = [NotificationBuilder buildRequestUserFeedbackNotification];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 - (void)resumeConversation {
-    // purse notification (reason ????... message arrived?)
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 

@@ -21,7 +21,7 @@
 @implementation AppDelegate {
     bool _applicationDidFinishLaunching;
     ConversationAppService *_conversationAppService;
-    UILocalNotification* _notification;
+    UILocalNotification *_notification;
     ConversationRepository *_conversationRepository;
 }
 
@@ -36,7 +36,7 @@
     TyphoonStoryboard *storyboard = [TyphoonComponents storyboard];
     id <ApplicationAssembly> assembly = (id <ApplicationAssembly>) [storyboard factory];
     _conversationAppService = (ConversationAppService *) [assembly conversationAppService];
-    _conversationRepository = (ConversationRepository *)[assembly conversationRepository];
+    _conversationRepository = (ConversationRepository *) [assembly conversationRepository];
 
     self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
@@ -52,9 +52,7 @@
 }
 
 - (void)configureUserNotification:(const UIApplication *)application {
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    [application registerUserNotificationSettings:mySettings]; // this will trigger didRegisterForRemoteNotificationsWithDeviceToken
+    [NotificationBuilder registerUserNotificationSettings:application];
 }
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
