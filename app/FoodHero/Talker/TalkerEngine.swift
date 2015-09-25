@@ -11,7 +11,7 @@ import Foundation
 public class TalkerEngine: NSObject {
     private let _input: RACSignal
     private let _talkerMode = TalkerMode()
-    private let _talkerInput: TalkerInput
+    private var _talkerInputs: [TalkerInput] = []
     private let _talkerOutput: TalkerOutput
     private let _rawOutput = RACReplaySubject()
     private let _naturalOutput = RACReplaySubject()
@@ -20,15 +20,17 @@ public class TalkerEngine: NSObject {
     public init(input: RACSignal) {
         self._input = input
 
-        _talkerInput = TalkerInput(self._input, _talkerMode)
         _talkerOutput = TalkerOutput(rawOutput: _rawOutput, naturalOutput: _naturalOutput, mode: _talkerMode)
-        output =  TalkerStreams(rawOutput: _rawOutput, naturalOutput: _naturalOutput)
+        output = TalkerStreams(rawOutput: _rawOutput, naturalOutput: _naturalOutput)
     }
 
     public func execute(script: Script) {
         script.engine = self
 
-        Sequence.execute(script, _talkerInput, _talkerOutput, {
+        let talkerInput = TalkerInput(self._input, _talkerMode)
+        _talkerInputs.append(talkerInput)
+
+        Sequence.execute(script, talkerInput, _talkerOutput, {
             self._talkerMode.Mode = TalkerModes.Finishing
             self._talkerOutput.sendCompleted()
         })
@@ -37,17 +39,26 @@ public class TalkerEngine: NSObject {
     public func interrupt(with subscribt: Script) {
         subscribt.engine = self
 
-        // cut off scripts that are listing on standard input
-        _talkerInput.stop()
+        // cut off scripts that are listening on standard input
+        for input in _talkerInputs {
+            input.stop()
+        }
 
         // create tmp input on which events are forwarded to listener
         let tmpInput = TalkerInput(_input, _talkerMode)
+        _talkerInputs.append(tmpInput)
+
         Sequence.execute(subscribt, tmpInput, _talkerOutput, {
             tmpInput.stop()
+            self._talkerInputs = self._talkerInputs.filter {
+                $0 !== tmpInput
+            }
 
             self._talkerOutput.flush()
-            // reactive script that were listing on input
-            self._talkerInput.resume()
+            // reactive last script that was listing on input
+            if self._talkerInputs.count > 0 {
+                self._talkerInputs[self._talkerInputs.count - 1].resume()
+            }
         })
     }
 }
