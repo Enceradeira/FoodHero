@@ -198,11 +198,8 @@ static UIImage *EmptyImage;
     return [[TextAndLocation alloc] initWithText:cuisine == nil ? @"" : cuisine location:location == nil ? @"" : location];
 }
 
-- (void)startConversationWithFeedbackRequest:(BOOL)isWithFeedbackRequest {
-    [_conversation startWithGreeting:!isWithFeedbackRequest];
-    if( isWithFeedbackRequest){
-        [self requestUserFeedback];
-    }
+- (void)startConversationWithGreeting:(BOOL)isWithGreeting {
+    [_conversation startWithGreeting:isWithGreeting];
 }
 
 - (Restaurant *)getLastSuggestedRestaurant {
@@ -300,16 +297,6 @@ static UIImage *EmptyImage;
     else {
         return nil;
     }
-}
-
-- (void)pauseConversation {
-    UILocalNotification *notification = [NotificationBuilder buildRequestUserFeedbackNotification];
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-}
-
-- (void)resumeConversation {
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)requestUserFeedback {

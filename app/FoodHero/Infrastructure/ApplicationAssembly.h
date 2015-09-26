@@ -49,4 +49,7 @@
 
 -(id)placesAPI;
 
+-(id)uiApplication;
+
+- (id)feedbackNotificationEventManager;
 @end

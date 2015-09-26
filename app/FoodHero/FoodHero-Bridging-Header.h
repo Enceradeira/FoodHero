@@ -26,3 +26,4 @@
 #import "Environment.h"
 #import "OpeningHour.h"
 #import "GooglePhoto.h"
+#import "IConversationAppService.h"

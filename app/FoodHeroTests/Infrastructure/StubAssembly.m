@@ -217,5 +217,24 @@
     }];
 }
 
+- (id)uiApplication {
+    return [TyphoonDefinition withClass:[UIApplicationStub class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithEnvironment:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self environment]];
+                              }];
+                          }];
+}
+
+- (id)feedbackNotificationEventManager {
+    return [TyphoonDefinition withClass:[FeedbackNotificationEventManager class]
+                          configuration:^(TyphoonDefinition *definition) {
+                              [definition useInitializer:@selector(initWithAppService:app:env:) parameters:^(TyphoonMethod *method) {
+                                  [method injectParameterWith:[self conversationAppService]];
+                                  [method injectParameterWith:[self uiApplication]];
+                                  [method injectParameterWith:[self environment]];
+                              }];
+                          }];
+}
 
 @end

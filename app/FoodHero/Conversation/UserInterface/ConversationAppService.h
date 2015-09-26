@@ -13,10 +13,11 @@
 #import "LocationService.h"
 #import "ISpeechRecognitionService.h"
 #import "IRestaurantRepository.h"
+#import "IConversationAppService.h"
 
 @class ConversationBubbleFoodHero;
 
-@interface ConversationAppService : NSObject
+@interface ConversationAppService : NSObject<IConversationAppService>
 
 @property(weak, nonatomic) id <ISpeechRecognitionStateSource> stateSource;
 
@@ -27,7 +28,7 @@
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 
-- (void)startConversationWithFeedbackRequest:(BOOL)isWithFeedbackRequest;
+- (void)startConversationWithGreeting:(BOOL)isWithGreeting;
 
 + (UIImage *)emptyImage;
 
@@ -42,10 +43,6 @@
 - (AVAudioSessionRecordPermission)recordPermission;
 
 - (ConversationBubbleFoodHero *)lastRawSuggestion;
-
-- (void)pauseConversation;
-
-- (void)resumeConversation;
 
 - (void)requestUserFeedback;
 @end

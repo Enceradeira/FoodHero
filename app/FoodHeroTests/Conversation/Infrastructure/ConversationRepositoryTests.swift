@@ -31,7 +31,7 @@ class ConversationRepositoryTests: XCTestCase {
         XCTAssertEqual(restoredConv.getStatementCount(), origStmtCount)
     }
 
-    func test_getForInput_SholdReturnWorkingConversation_WhenNotPersistedBefore() {
+    func test_getForInput_ShouldReturnWorkingConversation_WhenNotPersistedBefore() {
         // create Conversation with some statements
         let repo = createRepo()
         let conv = repo.getForInput(input)

@@ -21,14 +21,12 @@
 @implementation AppDelegate {
     bool _applicationDidFinishLaunching;
     ConversationAppService *_conversationAppService;
-    UILocalNotification *_notification;
     ConversationRepository *_conversationRepository;
+    FeedbackNotificationEventManager *_feedbackNotificationEventManager;
+    id <IUIApplication> _uiApplication;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Evaluate launch Options
-    _notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-
     // Google Map
     [GMSServices provideAPIKey:@"AIzaSyDL2sUACGU8SipwKgj-mG-cl3Sik1qJGjg"];
 
@@ -37,6 +35,8 @@
     id <ApplicationAssembly> assembly = (id <ApplicationAssembly>) [storyboard factory];
     _conversationAppService = (ConversationAppService *) [assembly conversationAppService];
     _conversationRepository = (ConversationRepository *) [assembly conversationRepository];
+    _uiApplication =  (id<IUIApplication>) [assembly uiApplication];
+    _feedbackNotificationEventManager =  (FeedbackNotificationEventManager*) [assembly feedbackNotificationEventManager];
 
     self.window.rootViewController = [storyboard instantiateInitialViewController];
     [self.window makeKeyAndVisible];
@@ -60,7 +60,8 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [_conversationAppService startConversationWithFeedbackRequest:_notification != nil];
+    [_conversationAppService startConversationWithGreeting:NO];
+    [_feedbackNotificationEventManager activate];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -72,14 +73,14 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
-    [_conversationAppService pauseConversation];
+    [_feedbackNotificationEventManager deactivate];
     [WitSpeechRecognitionService sendToGAI];
     [GAIService dispatch];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [_conversationAppService resumeConversation];
+    [_feedbackNotificationEventManager activate];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
