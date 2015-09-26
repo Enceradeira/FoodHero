@@ -84,11 +84,7 @@
     [coder encodeObject:_recordedInput forKey:@"_recordedInput"];
 }
 
-- (ProductFeedbackScript *)createProductFeedbackScript {
-    return [[ProductFeedbackScript alloc] initWithContext:_context conversation:self schedulerFactory:_schedulerFactory];
-}
-
-- (ConversationScript *)createConversationScriptWithGreeting:(BOOL)isNotRestoredConversation {
+- (ConversationScript *)createConversationScriptWithGreeting {
     RestaurantSearch *search = [_assembly restaurantSearch];
     LocationService *locationService = [_assembly locationService];
     ConversationScript *script = [[ConversationScript alloc] initWithContext:_context
@@ -97,15 +93,10 @@
                                                                       search:search
                                                              locationService:locationService
                                                             schedulerFactory:_schedulerFactory];
-
-    if (isNotRestoredConversation) {
-        [script startProcessingSearchRequests];
-        [script sayGreetingAndStartSearch];
-    }
     return script;
 }
 
-- (void)startWithGreeting:(BOOL)isWithGreeting {
+- (void)startWithFeedbackRequest:(BOOL)isForFeedbackRequest {
     assert(!_isStarted);
 
     _environment = [_assembly environment];
@@ -117,7 +108,7 @@
 
     // Create Script
     __block BOOL isRestoringStatements = _statements.count > 0;
-    ConversationScript *script = [self createConversationScriptWithGreeting:!isRestoringStatements && isWithGreeting];
+    ConversationScript *script = [self createConversationScriptWithGreeting];
 
     // Create Inputs
     [[_input merge:_controlInput] subscribeNext:^(id input) {
@@ -192,6 +183,16 @@
     _isStarted = YES;
     isRestoringStatements = NO;
     [script startProcessingSearchRequests];
+
+    if (_statements.count == 0) {
+        [self sendControlInput:[SayGreetingControlInput new]];
+        if (!isForFeedbackRequest) {
+            [self sendControlInput:[StartSearchControlInput new]];
+        }
+    }
+    if (isForFeedbackRequest) {
+        [self sendControlInput:[RequestProductFeedbackInterruption new]];
+    }
 }
 
 - (void)dispatchInputToTalkerOfScript:(const id)input {

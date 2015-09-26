@@ -23,9 +23,9 @@
 @property(nonatomic, readonly) EnvironmentStub *environmentStub;
 @property(nonatomic, readonly) RestaurantRepository *restaurantRepository;
 
-- (void)resetConversation;
+- (void)resetConversationWhenIsWithFeedbackRequest:(BOOL)isWithFeedbackRequest;
 
-- (void)codeAndDecodeConversation;
+- (void)codeAndDecodeWhenIsWithFeedbackRequest:(BOOL)isWithFeedbackRequest;
 
 - (void)sendInput:(id)token;
 

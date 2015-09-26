@@ -6,4 +6,11 @@
 import Foundation
 
 public class RequestProductFeedbackInterruption: NSObject {
+    public override init() {
+    }
+    public required init(coder: NSCoder) {
+    }
+
+    public func encodeWithCoder(aCoder: NSCoder) {
+    }
 }

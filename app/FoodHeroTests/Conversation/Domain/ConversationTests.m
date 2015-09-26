@@ -41,7 +41,7 @@
 
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil] text:@"I Like British Food"]]; // adds the answer & food-heros response
 
-    assertThat(receivedIndexes, contains(@0, @1, @2, nil));
+    assertThat(receivedIndexes, contains(@0, @1, @2, @3, nil));
 }
 
 
@@ -51,7 +51,7 @@
     assertThat(statement, is(notNilValue()));
     assertThat(statement.semanticId, containsString(@"FH:Greeting"));
     assertThat(statement.persona, is(equalTo(Personas.foodHero)));
-    assertThat(statement.state, is(equalTo([FHStates askForSuggestionFeedback])));
+    assertThat(statement.state, is(nilValue()));
 }
 
 - (void)test_getStatement_ShouldReturnException_WhenUserHasNeverSaidAnythingAndWhenAskedForThirdStatement {
@@ -70,10 +70,10 @@
 }
 
 - (void)test_getStatementCount_ShouldReturnNrOfStatementsInConversation {
-    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(1)));
+    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(2)));
 
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British or Indian Food" location:nil] text:@"I like British or Indian Food"]];
-    assertThatInteger([self.conversation getStatementCount], is(equalToInteger(3)));
+    assertThatInteger([self.conversation getStatementCount], is(greaterThan(@2)));
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithSuggestion {
@@ -352,7 +352,7 @@
         nrIndexes++;
     }];
 
-    assertThatInteger(nrIndexes, is(equalTo(@(1))));
+    assertThatInteger(nrIndexes, is(equalTo(@(2))));
 }
 
 - (void)test_lastUserResponse_ShouldReturnLastUserUtterance {
@@ -401,7 +401,7 @@
     NSString *id1 = self.conversation.id;
     assertThat(id1, is(equalTo([Configuration userId])));
 
-    [self resetConversation];
+    [self resetConversationWhenIsWithFeedbackRequest:YES];
     NSString *id2 = self.conversation.id;
     assertThat(id2, is(equalTo([Configuration userId])));
 }

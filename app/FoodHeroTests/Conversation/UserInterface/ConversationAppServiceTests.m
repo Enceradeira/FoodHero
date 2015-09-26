@@ -125,7 +125,7 @@ ConversationAppServiceTests {
 }
 
 - (void)assertMappingForIntent:(NSString *)intent andEntities:(NSArray *)entities mappedTo:(NSString *)semanticId {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"I want to have breakfast" intent:intent entities:entities];
     [_service addUserText:@"I want to have breakfast"];
@@ -135,7 +135,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_getFirstStatement_ShouldAlwaysReturnSameInstanceOfBubble {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     ConversationBubble *bubble1 = [self getBubble:0];
     ConversationBubble *bubble2 = [self getBubble:0];
@@ -144,7 +144,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_conversationStart_ShouldSetStateOnSpeechRecognitionService {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     assertThat(_speechRecognitionService.state, is(equalTo(@"askForSuggestionFeedback")));
 }
@@ -152,13 +152,13 @@ ConversationAppServiceTests {
 - (void)test_conversationStart_ShouldSetThreadIdOnSpeechRecognitionService {
     Conversation *onlyConversation = [_conversationRepository getForInput:nil];
 
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     assertThat(_speechRecognitionService.threadId, is(equalTo(onlyConversation.id)));
 }
 
 - (void)test_getFirstStatement_ShouldReturnDifferentInstanceOfBubble_WhenWidthChanges {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     ConversationBubble *bubble1 = [_service getStatement:0 bubbleWidth:portraitWidth];
     ConversationBubble *bubble2 = [_service getStatement:0 bubbleWidth:landscapeWidth];
@@ -167,7 +167,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addOccasionPreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"I want to have" intent:@"OccasionPreference" entities:nil];
     [_service addUserText:@"I want to have"];
@@ -177,7 +177,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addCuisinePreference_ShouldTriggerFHDidNotUnderstandAndAsksForRepetition_WhenNoEntitiesReturned {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"I want to have" intent:@"CuisinePreference" entities:nil];
     [_service addUserText:@"I want to have"];
@@ -191,7 +191,7 @@ ConversationAppServiceTests {
     Restaurant *cheapRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:0 withRelevance:0.8];
     [_placesAPIStub injectFindResults:@[expensiveRestaurant, cheapRestaurant]];
 
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"too expensive!!" recognizedIntent:@"tooExpensive" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
@@ -201,18 +201,18 @@ ConversationAppServiceTests {
     Restaurant *expensiveRestaurant = [self restaurantWithName:@"Raj Palace" withPriceLeel:4 withRelevance:0.9];
     [_placesAPIStub injectFindResults:@[cheapRestaurant, expensiveRestaurant]];
 
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"I'm not that cheap" recognizedIntent:@"tooCheap" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"]; // lets FH suggest "Raj Palace"
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenIrDontLikeThatRestaurant {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
     [self assertUserFeedbackForLastSuggestedRestaurant:@"What a crap place" recognizedIntent:@"Dislike" fhAnswer:@"FH:Suggestion=Raj Palace, Norwich"];
 }
 
 - (void)test_addUserFeedbackForLastSuggestedRestaurant_ShouldAddFeedbackForLastSuggestedRestaurant_WhenILikeIt {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
     [self injectInterpretation:@"That's cool" intent:@"SuggestionFeedback_Like" entities:nil];
     [_service addUserText:@"That's cool"];
 
@@ -241,14 +241,14 @@ ConversationAppServiceTests {
 
     [_locationManager injectLatitude:45 longitude:0];
     [_placesAPIStub injectFindResults:@[restaurantWithHigherRelevance, closerRestaurant]];
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self assertUserFeedbackForLastSuggestedRestaurant:@"too far away" recognizedIntent:@"tooFarAway" fhAnswer:@"FH:Suggestion=Chippy, Norwich"];
 }
 
 - (void)test_addUserSolvedProblemWithAccessLocationService_ShouldAddUDidResolveProblemWithAccessLocationService {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
     [self addRecognizedUserTextForCuisinePreference:@"I love Indian food" entities:@[[[SpeechEntity alloc] initWithType:@"food_type" value:@"Indian"]]];
 
     [self injectInterpretation:@"I fixed it! Hurray!" intent:@"TryAgainNow" entities:nil];
@@ -260,7 +260,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addAnswerAfterForWhatToAfterGoodBye_ShouldAddUWantsToSearchForAnotherRestaurant {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
     [self addRecognizedUserTextForAnswerToWhatToDoNext:@"Good bye mi love" intent:@"GoodBye"];
@@ -275,7 +275,7 @@ ConversationAppServiceTests {
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUTryAgain_WhenUserSaysTryAgain {
     [_placesAPIStub injectFindNothing];
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"again please!!" intent:@"TryAgainNow" entities:nil];
     [_service addUserText:@"again please!!"];
@@ -287,7 +287,7 @@ ConversationAppServiceTests {
 
 - (void)test_addUserAnswerAfterNoRestaurantWasFound_ShouldAddUWantsToAbort_WhenUserWantsToAbort {
     [_placesAPIStub injectFindNothing];
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"Forget it" intent:@"WantsToAbort" entities:nil];
     [_service addUserText:@"Forget it"];
@@ -298,7 +298,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserAnswerForWhatToDoNext_ShouldAddUWantsToSearchForAnotherRestaurant_WhenUserWantsToSearchForAnotherRestaurant {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
     [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
 
     [self injectInterpretation:@"Search again" intent:@"WantsToSearchForAnotherRestaurant" entities:nil];
@@ -310,7 +310,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserAnswerForWhatToDoNext_ShouldAddUGoodBye_WhenUserSaysGoodBye {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
     [self addRecognizedUserTextForSuggestionFeedback:@"I like it" intent:@"SuggestionFeedback_Like"];
 
     [self injectInterpretation:@"No thanks!" intent:@"GoodBye" entities:nil];
@@ -322,7 +322,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserVoiceForInputAction_ShouldAddUCuisinePreference_WhenAskUserCuisinePreferenceAction {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"I dislike American food" intent:@"SuggestionFeedback_DislikesKindOfFood" entities:nil];
     [_service addUserText:@"I dislike American food"];
@@ -354,7 +354,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_addUserDislikesOccasion_ShouldAddSuggestionFeedbackDislike_WhenOccasionPreferenceUnknown {
-    [_service startConversationWithGreeting:YES];
+    [_service startWithFeedbackRequest:NO];
 
     [self injectInterpretation:@"I want to have Indian" intent:@"CuisinePreference" entities:@[[[SpeechEntity alloc] initWithType:@"food_type" value:@"Indian"]]];
     [_service addUserText:@"I want to have Indian"]; // this removes Occasion Preference
@@ -364,14 +364,6 @@ ConversationAppServiceTests {
 
     ConversationBubble *bubble = [self getBubbleWithSemanticId:@"U:SuggestionFeedback=Dislike"];
     assertThat(bubble, is(notNilValue()));
-}
-
--(void)test_startConversationWithFeedbackRequest_ShouldNotUtterFeedbackRequest_WhenNoFeedbackRequested{
-    [_service startConversationWithGreeting:YES];
-
-    assertThatInteger(self.statements.count, is(equalTo(@1)));
-    Statement *lastStmt = self.statements[self.statements.count-1];
-    assertThat(lastStmt.semanticId, containsString(@"FH:Greeting"));
 }
 
 @end

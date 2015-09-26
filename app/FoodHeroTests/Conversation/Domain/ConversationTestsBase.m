@@ -28,26 +28,26 @@
     _restaurantSearchStub = (PlacesAPIStub *) [_assembly placesAPI];
     _restaurantRepository = [_assembly restaurantRepository];
     _locationManagerStub = [_assembly locationManagerProxy];
-    [self resetConversation];
+    [self resetConversationWhenIsWithFeedbackRequest:NO];
     _talkerRandomizerFake = [_assembly talkerRandomizer];
     _environmentStub = [_assembly environment];
     _expectedStatements = [NSMutableArray new];
 }
 
-- (void)initalizeConversation {
+- (void)initalizeConversation:(BOOL)isWithFeedbackRequest {
     [_conversation setInput:_input];
     [_conversation setAssembly:_assembly];
-    [_conversation startWithGreeting:YES];
+    [_conversation startWithFeedbackRequest:isWithFeedbackRequest];
 }
 
-- (void)resetConversation {
+- (void)resetConversationWhenIsWithFeedbackRequest:(BOOL)isWithFeedbackRequest {
     _conversation = [[Conversation alloc] init];
-    [self initalizeConversation];
+    [self initalizeConversation:isWithFeedbackRequest];
 }
 
--(void)codeAndDecodeConversation {
+- (void)codeAndDecodeWhenIsWithFeedbackRequest:(BOOL)isWithFeedbackRequest {
     _conversation = [CodingHelper encodeAndDecodeUntyped:_conversation];
-    [self initalizeConversation];
+    [self initalizeConversation:isWithFeedbackRequest];
 }
 
 - (void)sendInput:(id)utterance {
@@ -61,7 +61,7 @@
     configuration(_restaurantSearchStub);
 }
 
--(void)resetRepositoryCache{
+- (void)resetRepositoryCache {
     [self.locationManagerStub moveLocation];
 }
 

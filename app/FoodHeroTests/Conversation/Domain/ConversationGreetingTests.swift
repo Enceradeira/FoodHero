@@ -12,18 +12,18 @@ class ConversationGreetingTests: ConversationTestsBase {
         let now = NSCalendar.dateFrom(year: 2015, month: 3, day: 25, hour: 13, minute: 0, second: 0)
         self.environmentStub.injectNow(now)
 
-        resetConversation()
+        resetConversationWhenIsWithFeedbackRequest(false)
 
-        assertLastStatementIs("FH:Greeting", state: FHStates.askForSuggestionFeedback())
+        assertSecondLastStatementIs("FH:Greeting", state: nil)
         assertLastStatementIs("FH:Suggestion", state: FHStates.askForSuggestionFeedback())
         assertLastStatementIs("FH:FirstQuestion=lunch", state: FHStates.askForSuggestionFeedback())
     }
 
     func test_Conversation_ShouldNotGreetAndNotSuggestAnything_WhenConversationIsRestored(){
-        resetConversation()
+        resetConversationWhenIsWithFeedbackRequest(false)
 
         let nrStatements = conversation.getStatementCount()
-        codeAndDecodeConversation()
+        codeAndDecodeWhenIsWithFeedbackRequest(false)
 
         let nrStatementsAfterRestore = conversation.getStatementCount()
         XCTAssertEqual(nrStatementsAfterRestore, nrStatements)

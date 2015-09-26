@@ -6,5 +6,5 @@
 #import <Foundation/Foundation.h>
 
 @protocol IConversationAppService <NSObject>
-- (void)requestUserFeedback;
+- (void)startWithFeedbackRequest:(BOOL)isWithFeedbackRequest;
 @end

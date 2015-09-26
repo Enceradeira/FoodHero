@@ -32,15 +32,16 @@ public class FeedbackNotificationEventManager: NSObject {
         _app.cancelAllLocalNotifications()
         _app.applicationIconBadgeNumber = 0
 
+        var startWithProductFeedback = false
         if wasProductFeedbackRequested {
-            return
-        }
-        if let fireDate = _userDefaults.objectForKey(_userDefaultsFireDateKey) as! NSDate? {
+            startWithProductFeedback = false
+        } else if let fireDate = _userDefaults.objectForKey(_userDefaultsFireDateKey) as! NSDate? {
             if fireDate.compare(_env.now()) == .OrderedAscending {
-                _appService.requestUserFeedback()
+                startWithProductFeedback = true
                 _userDefaults.setBool(true, forKey: _userDefaultsProductFeedbackRequestedKey)
             }
         }
+        _appService.startWithFeedbackRequest(startWithProductFeedback)
     }
 
 

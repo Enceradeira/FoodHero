@@ -35,7 +35,7 @@ public class ConversationStartAgainTests: ConversationTestsBase {
         }
 
         // FH suggestes "Welcome Inn"
-        resetConversation()
+        resetConversationWhenIsWithFeedbackRequest(false)
         sendInput(UserUtterances.suggestionFeedbackForDislike(welcomeInn, text: "crap"))
 
         // Start again

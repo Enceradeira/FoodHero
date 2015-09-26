@@ -7,8 +7,13 @@ import Foundation
 import FoodHero
 
 public class ConversationAppServiceSpy: NSObject, IConversationAppService {
-    public var NrCallsToRequestUserFeedback = 0
-    public func requestUserFeedback(){
-        NrCallsToRequestUserFeedback = NrCallsToRequestUserFeedback + 1
+    public var NrCallsToStartWithFeedbackRequestTrue = 0
+    public var NrCallsToStartWithFeedbackRequestFalse = 0
+    public func startWithFeedbackRequest(isWithFeedbackRequest: Bool) {
+        if isWithFeedbackRequest {
+            NrCallsToStartWithFeedbackRequestTrue = NrCallsToStartWithFeedbackRequestTrue + 1
+        } else {
+            NrCallsToStartWithFeedbackRequestFalse = NrCallsToStartWithFeedbackRequestFalse + 1
+        }
     }
 }

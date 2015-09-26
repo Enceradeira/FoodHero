@@ -28,7 +28,7 @@
 
 - (ConversationBubble *)getStatement:(NSUInteger)index bubbleWidth:(CGFloat)bubbleWidth;
 
-- (void)startConversationWithGreeting:(BOOL)isWithGreeting;
+- (void)startWithFeedbackRequest:(BOOL)isWithFeedbackRequest;
 
 + (UIImage *)emptyImage;
 
@@ -44,5 +44,4 @@
 
 - (ConversationBubbleFoodHero *)lastRawSuggestion;
 
-- (void)requestUserFeedback;
 @end

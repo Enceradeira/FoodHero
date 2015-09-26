@@ -41,7 +41,7 @@
     }];
     [self.locationManagerStub injectAuthorizationStatus:kCLAuthorizationStatusRestricted];
 
-    [self resetConversation];
+    [self resetConversationWhenIsWithFeedbackRequest:NO];
     [self sendInput:[UserUtterances tryAgainNow:@"Again please"]];  // tries again but not no authorization present
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:[FHStates afterCantAccessLocationService]];
 

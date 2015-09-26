@@ -198,8 +198,8 @@ static UIImage *EmptyImage;
     return [[TextAndLocation alloc] initWithText:cuisine == nil ? @"" : cuisine location:location == nil ? @"" : location];
 }
 
-- (void)startConversationWithGreeting:(BOOL)isWithGreeting {
-    [_conversation startWithGreeting:isWithGreeting];
+- (void)startWithFeedbackRequest:(BOOL)isWithFeedbackRequest {
+    [_conversation startWithFeedbackRequest:isWithFeedbackRequest];
 }
 
 - (Restaurant *)getLastSuggestedRestaurant {
@@ -299,8 +299,4 @@ static UIImage *EmptyImage;
     }
 }
 
-- (void)requestUserFeedback {
-    [_conversation sendControlInput:[RequestProductFeedbackInterruption new]];
-
-}
 @end

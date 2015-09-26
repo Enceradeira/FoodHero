@@ -61,7 +61,8 @@ class FeedbackNotificationEventManagerTests: XCTestCase {
         _mgr.deactivate()
         moveNowRelativeToNotificationFireDate(1)
         _mgr.activate()
-        XCTAssertEqual(_appServiceSpy.NrCallsToRequestUserFeedback, 1, "No additonal request have been made because the product feedback has been requested in activate() above")
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestFalse, 1, "2. time it should have been called without feedback request")
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestTrue, 1, "1. time it should have been called with feedback request")
     }
 
     func test_activate_ShouldCancelNotification() {
@@ -87,7 +88,8 @@ class FeedbackNotificationEventManagerTests: XCTestCase {
 
         _mgr.activate()
 
-        XCTAssertEqual(_appServiceSpy.NrCallsToRequestUserFeedback, 1)
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestTrue, 1, "it should have been called with feedback request")
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestFalse, 0, "it should have been called with feedback request")
     }
 
     func test_activate_ShouldNotRequestProductFeedback_TimeForFeedbackHasNotPassed() {
@@ -97,13 +99,15 @@ class FeedbackNotificationEventManagerTests: XCTestCase {
 
         _mgr.activate()
 
-        XCTAssertEqual(_appServiceSpy.NrCallsToRequestUserFeedback, 0)
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestTrue, 0, "it should have been called without feedback request")
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestFalse, 1, "it should have been called without feedback request")
     }
 
     func test_activate_ShouldNotRequestProductFeedback_WhenItHasNotBeenDeactivated() {
         _mgr.activate()
 
-        XCTAssertEqual(_appServiceSpy.NrCallsToRequestUserFeedback, 0)
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestTrue, 0, "it should have been called without feedback request")
+        XCTAssertEqual(_appServiceSpy.NrCallsToStartWithFeedbackRequestFalse, 1, "it should have been called without feedback request")
     }
 
 

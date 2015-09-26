@@ -8,14 +8,14 @@ import FoodHero
 
 class ConversationOccasionPreferenceTests: ConversationTestsBase {
     func test_Conversation_ShouldNotTriggerNewSearch_WhenConversationIsRestored() {
-        resetConversation()
+        resetConversationWhenIsWithFeedbackRequest(false)
 
         sendInput(UserUtterances.occasionPreference(TextAndLocation(text: "lunch"), text: "I want to have lunch"))
 
         let nrSearches = self.restaurantSearchStub.NrCallsToFindPlaces
 
         resetRepositoryCache()
-        codeAndDecodeConversation()
+        codeAndDecodeWhenIsWithFeedbackRequest(false)
 
         let nrSearchesAfterRestore = self.restaurantSearchStub.NrCallsToFindPlaces
         XCTAssertEqual(nrSearches, nrSearchesAfterRestore)

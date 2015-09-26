@@ -30,10 +30,6 @@ public class ConversationScript: Script {
         }
     }
 
-    public func sayGreetingAndStartSearch() {
-        sayGreetingAndSearchRepeatably(self)
-    }
-
     public func startProcessingSearchRequests() {
         _processSearchRequests = true
     }
@@ -404,6 +400,10 @@ public class ConversationScript: Script {
             let resultScript = Script(talkerContext: context)
             self.processSearchResult(searchResult.result, withScript: resultScript)
             self.interrupt(with: resultScript)
+        } else if let sayGreeting = input as? SayGreetingControlInput {
+            self.interrupt(with: Script(talkerContext: context).say(oneOf: FHUtterances.greetings))
+        } else if let startSearch = input as? StartSearchControlInput {
+            self.searchAndWaitResponseAndSearchRepeatably()
         } else {
             assert(false, "unexpected control input of type \(reflect(input).summary)")
         }

@@ -75,6 +75,7 @@
 		2352543537F84ABE6E25CE28 /* FHPlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525CBF6B1E93133387E711 /* FHPlacesAPI.swift */; };
 		235254391E2649CA0700A114 /* ConversationFindingRestaurantFinishedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525EB802A7CB6042FB4C86 /* ConversationFindingRestaurantFinishedTests.m */; };
 		2352544215B037983A160A12 /* KeywordEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253C71436B4EE5682A346 /* KeywordEncoder.m */; };
+		235254457F481C997CF1D781 /* StartSearchControlInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525FE07AB40AA4D6D9878E /* StartSearchControlInput.swift */; };
 		2352544F613F19228EFE634A /* Utterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525C2C192641D0AB54E76F /* Utterance.swift */; };
 		2352544FE14AE948C0BAAAC8 /* TalkerUtteranceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525680913FA35EDE292B23 /* TalkerUtteranceTests.swift */; };
 		235254556C2F655560521500 /* ExpectedUserUtterances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525FC282BAC87A62BE4918 /* ExpectedUserUtterances.swift */; };
@@ -229,6 +230,7 @@
 		23525A8C5D6D2056ADFD9AA9 /* CLLocationManagerProxySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525D19DDF256D645D25047 /* CLLocationManagerProxySpy.m */; };
 		23525A91F0E7FE8257B5E794 /* FHStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525373B4D9491197F53204 /* FHStates.swift */; };
 		23525A9397E6DF40988AE898 /* RestaurantReviewPageViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525AC8355C100D6ED953B0 /* RestaurantReviewPageViewControllerTests.m */; };
+		23525A95345440E87C0C4CBB /* SayGreetingControlInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525131FA54C964B2B9B0F2 /* SayGreetingControlInput.swift */; };
 		23525AC685E1E5D109E27C17 /* FHPlacesUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2352551DE0D86B3C720887CB /* FHPlacesUrlBuilder.swift */; };
 		23525AD674F92A7FCD80EFA0 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 235253F117606594F4E18A31 /* Place.m */; };
 		23525AE21B03770AF024D9C2 /* LargeRestaurantReviewCommentViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 235259ECD4FA42D01FB54C0E /* LargeRestaurantReviewCommentViewControllerTests.m */; };
@@ -255,6 +257,7 @@
 		23525BC0A2D0686DDEBA9345 /* RestaurantRepositorySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525268BF30AF7FE1E2D743 /* RestaurantRepositorySpy.m */; };
 		23525BCFF28AFA3149B227FC /* FoodHeroRestaurantParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525C4442331AC72A941B90 /* FoodHeroRestaurantParametersTests.swift */; };
 		23525BD58D5807C151B50185 /* FoodHeroRestaurantParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235259A8AD8A51DC8FF19E9C /* FoodHeroRestaurantParameters.swift */; };
+		23525C0C0C65D337802D82AF /* ConversationStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250477E732B70F706AFC6 /* ConversationStartTests.swift */; };
 		23525C256FE1319131FEDFC1 /* RestaurantRepositorySpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525268BF30AF7FE1E2D743 /* RestaurantRepositorySpy.m */; };
 		23525C2EBBCF652A2548C697 /* RestaurantReviewPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235256DDA1D7AE62C51BD487 /* RestaurantReviewPageViewController.m */; };
 		23525C3C911C94E69D80A3D7 /* UserUtteranceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525ECB9E539C6088B599A0 /* UserUtteranceTableViewCell.swift */; };
@@ -392,6 +395,7 @@
 		23525020FC84A3708E149B4F /* UILabelWithTouchReaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelWithTouchReaction.m; sourceTree = "<group>"; };
 		23525027E6296572F52630CB /* ExpectedStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpectedStatement.m; sourceTree = "<group>"; };
 		2352502AF9D8532548087BC4 /* ConversationWithNetworkErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationWithNetworkErrorTests.swift; sourceTree = "<group>"; };
+		235250477E732B70F706AFC6 /* ConversationStartTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStartTests.swift; sourceTree = "<group>"; };
 		235250670F0E7F51A6EEFFBD /* RestaurantRepositoryWithSpyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantRepositoryWithSpyTests.m; sourceTree = "<group>"; };
 		235250759EF52B9D1AADD6B8 /* CLLocationManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationManagerImpl.h; sourceTree = "<group>"; };
 		2352507C77C0B9EEF4FFE580 /* SearchProfileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchProfileTests.swift; sourceTree = "<group>"; };
@@ -419,6 +423,7 @@
 		235251274ABEFD53C0953584 /* ConversationCantAccessLocationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCantAccessLocationServiceTests.m; sourceTree = "<group>"; };
 		23525129D661BF310556513F /* ConversationViewController+ViewDimensionCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewController+ViewDimensionCalculator.m"; sourceTree = "<group>"; };
 		23525130B25B176B9F80F98E /* LargeRestaurantReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeRestaurantReviewViewController.m; sourceTree = "<group>"; };
+		23525131FA54C964B2B9B0F2 /* SayGreetingControlInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SayGreetingControlInput.swift; sourceTree = "<group>"; };
 		23525132C0958085B76D1916 /* RestaurantReviewCommentViewBinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantReviewCommentViewBinder.m; sourceTree = "<group>"; };
 		2352513653EC64CAD2882E3E /* RestaurantSearchParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantSearchParams.h; sourceTree = "<group>"; };
 		2352514337513B73AAC39A5F /* KeywordEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeywordEncoderTests.m; sourceTree = "<group>"; };
@@ -781,6 +786,7 @@
 		23525FCED1C804160C6B734D /* OpeningHoursViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpeningHoursViewController.m; sourceTree = "<group>"; };
 		23525FD43DD4FD87D7427681 /* ConversationConfirmationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationConfirmationTests.m; sourceTree = "<group>"; };
 		23525FDAE231E6A0CCFF3025 /* UIApplicationAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationAdapter.swift; sourceTree = "<group>"; };
+		23525FE07AB40AA4D6D9878E /* StartSearchControlInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartSearchControlInput.swift; sourceTree = "<group>"; };
 		23525FE9DF6C8DE4515ACD72 /* UserParametersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserParametersTests.swift; sourceTree = "<group>"; };
 		23525FECD63793C56983F634 /* NotebookBackgroundConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotebookBackgroundConfigurator.h; sourceTree = "<group>"; };
 		23525FF079BDEA8159C866E2 /* TalkerEngineBasicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkerEngineBasicTests.swift; sourceTree = "<group>"; };
@@ -946,6 +952,7 @@
 				2352585871EBF6F192A5BB7A /* SearchProfileTests.m */,
 				23525AC56637BC87627F911E /* DistanceRangeTests.swift */,
 				23525EBE0D4C494080A09C27 /* ConversationOccasionPreferenceTests.swift */,
+				235250477E732B70F706AFC6 /* ConversationStartTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1270,6 +1277,8 @@
 				23525B84B1FAB43AC19F2956 /* IsVeryBusyAtTheMomentInterruption.swift */,
 				23525382E699D2097B357EB6 /* SearchErrorControlInput.swift */,
 				235255743CCD5310284057A0 /* SearchResultControlInput.swift */,
+				23525131FA54C964B2B9B0F2 /* SayGreetingControlInput.swift */,
+				23525FE07AB40AA4D6D9878E /* StartSearchControlInput.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2218,6 +2227,8 @@
 				2352557123AF37F3BC5AA49A /* UIApplicationAdapter.swift in Sources */,
 				23525760705B62F775A247A9 /* UIApplicationStub.swift in Sources */,
 				23525B9465A676075FD8992C /* NSUserDefaultsExtension.swift in Sources */,
+				23525A95345440E87C0C4CBB /* SayGreetingControlInput.swift in Sources */,
+				235254457F481C997CF1D781 /* StartSearchControlInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2344,6 +2355,7 @@
 				23525675652133272E819E8B /* NotificationBuilderTests.swift in Sources */,
 				2352528DADA829BFE9F927FD /* FeedbackNotificationEventManagerTests.swift in Sources */,
 				23525CFA7130DE6EDD54C44D /* ConversationAppServiceSpy.swift in Sources */,
+				23525C0C0C65D337802D82AF /* ConversationStartTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

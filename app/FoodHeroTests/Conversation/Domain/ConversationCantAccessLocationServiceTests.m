@@ -14,21 +14,21 @@
 
 - (void)test_FHBecauseUserDeniedAccessToLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
-    [self resetConversation];
+    [self resetConversationWhenIsWithFeedbackRequest:NO];
 
     [self assertLastStatementIs:@"FH:BecauseUserDeniedAccessToLocationServices" state:[FHStates afterCantAccessLocationService]];
 }
 
 - (void)test_FHBecauseUserIfNotAllowedToUseLocationServices_ShouldAddFHStatement {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusRestricted];
-    [self resetConversation];
+    [self resetConversationWhenIsWithFeedbackRequest:NO];
 
     [self assertLastStatementIs:@"FH:BecauseUserIsNotAllowedToUseLocationServices" state:[FHStates afterCantAccessLocationService]];
 }
 
 - (void)test_UCuisinePreference_ShouldCauseFoodHeroToRespondWithCantAccessLocation_WhenUserDeniesAccessWhileBeingAskedNow {
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusNotDetermined];
-    [self resetConversation];
+    [self resetConversationWhenIsWithFeedbackRequest:NO];
 
     [self userSetsLocationAuthorizationStatus:kCLAuthorizationStatusDenied];
     [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"British Food" location:nil ] text:@"I love British Food"]];

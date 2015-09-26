@@ -56,11 +56,9 @@
 }
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
-    [_conversationAppService requestUserFeedback];
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [_conversationAppService startConversationWithGreeting:NO];
     [_feedbackNotificationEventManager activate];
 }
 

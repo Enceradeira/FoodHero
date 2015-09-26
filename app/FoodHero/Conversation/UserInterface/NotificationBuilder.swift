@@ -17,6 +17,7 @@ public class NotificationBuilder: NSObject {
         let hoursAfterNine = Int(arc4random_uniform(13))
         let nowComponents = NSCalendar.currentCalendar().components(.YearCalendarUnit | .MonthCalendarUnit | .DayCalendarUnit | .HourCalendarUnit | .MinuteCalendarUnit | .SecondCalendarUnit, fromDate: now);
         let tomorrowBetween9AmAnd9Pm = NSCalendar.dateFrom(year: nowComponents.year, month: nowComponents.month, day: nowComponents.day + 1, hour: 9 + hoursAfterNine, minute: 0, second: 0)
+        // let tomorrowBetween9AmAnd9Pm = NSCalendar.dateFrom(year: nowComponents.year, month: nowComponents.month, day: nowComponents.day, hour: nowComponents.hour, minute: nowComponents.minute, second: nowComponents.second+5)
 
         let notification = UILocalNotification()
         notification.fireDate = tomorrowBetween9AmAnd9Pm
