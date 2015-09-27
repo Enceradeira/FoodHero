@@ -37,7 +37,7 @@
 - (void)initalizeConversation:(BOOL)isWithFeedbackRequest {
     [_conversation setInput:_input];
     [_conversation setAssembly:_assembly];
-    [_conversation startWithFeedbackRequest:isWithFeedbackRequest];
+    [_conversation resumeWithFeedbackRequest:isWithFeedbackRequest];
 }
 
 - (void)resetConversationWhenIsWithFeedbackRequest:(BOOL)isWithFeedbackRequest {

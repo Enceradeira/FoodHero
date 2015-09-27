@@ -199,7 +199,7 @@ static UIImage *EmptyImage;
 }
 
 - (void)startWithFeedbackRequest:(BOOL)isWithFeedbackRequest {
-    [_conversation startWithFeedbackRequest:isWithFeedbackRequest];
+    [_conversation resumeWithFeedbackRequest:isWithFeedbackRequest];
 }
 
 - (Restaurant *)getLastSuggestedRestaurant {

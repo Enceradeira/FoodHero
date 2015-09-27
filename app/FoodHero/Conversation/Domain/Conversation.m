@@ -96,9 +96,16 @@
     return script;
 }
 
-- (void)startWithFeedbackRequest:(BOOL)isForFeedbackRequest {
-    assert(!_isStarted);
+- (void)resumeWithFeedbackRequest:(BOOL)isForFeedbackRequest {
+    if (_isStarted) {
+        [self sendRequestProductFeedbackInterruption:isForFeedbackRequest];
+    }
+    else {
+        [self startWithFeedbackRequest:isForFeedbackRequest];
+    }
+}
 
+- (void)startWithFeedbackRequest:(BOOL)isForFeedbackRequest {
     _environment = [_assembly environment];
     _randomizer = [_assembly talkerRandomizer];
 
@@ -190,7 +197,11 @@
             [self sendControlInput:[StartSearchControlInput new]];
         }
     }
-    if (isForFeedbackRequest) {
+    [self sendRequestProductFeedbackInterruption:isForFeedbackRequest];
+}
+
+- (void)sendRequestProductFeedbackInterruption:(BOOL)doSend {
+    if (doSend) {
         [self sendControlInput:[RequestProductFeedbackInterruption new]];
     }
 }
