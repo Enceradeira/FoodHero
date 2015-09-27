@@ -22,8 +22,9 @@ class HelpViewController: UIViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        let controller = segue.destinationViewController as! UserUtterancesController
-        controller.setExpectedUserUtterances(_expectedUserUtterances, delegate: _delegate!)
+        if let controller = segue.destinationViewController as? UserUtterancesController {
+            controller.setExpectedUserUtterances(_expectedUserUtterances, delegate: _delegate!)
+        }
     }
 
     func setFhUtterance(
