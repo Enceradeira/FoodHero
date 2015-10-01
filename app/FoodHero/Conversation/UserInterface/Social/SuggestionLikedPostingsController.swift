@@ -49,8 +49,12 @@ class SuggestionLikedPostingsController: UITableViewController {
         let sharingController = SharingController(text: sharedText) {
             self.logScreenViewed()
         }
-        presentViewController(sharingController, animated: true, completion: nil)
 
+        if sharingController.respondsToSelector("popoverPresentationController") && sharingController.popoverPresentationController != nil {
+            sharingController.popoverPresentationController!.sourceView = view
+        }
+
+        presentViewController(sharingController, animated: true, completion: nil)
 
     }
 

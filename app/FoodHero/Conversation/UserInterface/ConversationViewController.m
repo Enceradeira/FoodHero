@@ -260,6 +260,9 @@ const double DEFAULT_ANIMATION_DELAY = 0.0;
     SharingController *sharingController = [[SharingController alloc] initWithText:text completion:^() {
         [self logScreenViewed];
     }];
+    if ( [sharingController respondsToSelector:@selector(popoverPresentationController)] ) {
+        sharingController.popoverPresentationController.sourceView = self.view;
+    }
     [self presentViewController:sharingController animated:YES completion:nil];
 }
 
