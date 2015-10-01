@@ -271,6 +271,10 @@ static UIImage *EmptyImage;
         ConversationScript.searchTimeout = 0.5;
         [_restaurantRepository simulateSlowResponse:YES];
     }
+    else if ([command isEqualToString:@"C:RF"]) {
+        // request feedback
+        [_conversation sendControlInput:[RequestProductFeedbackInterruption new]];
+    }
 }
 
 - (void)addUserText:(NSString *)string {

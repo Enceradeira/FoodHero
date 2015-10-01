@@ -73,3 +73,29 @@ Feature: Navigation in app
     And I share through Mail
     Then I see the Mail App with text "Download Food Hero from www.jennius.co.uk"
 
+  Scenario: Giving product feedback through help
+    Given FoodHero has started and I accept alerts
+    And FoodHero greets me and suggests something
+    And I go to the help view
+    And I see the help view
+    When I go to the feedback view
+    Then I see the feedback view
+
+    When I cancel the feedback view
+    Then I see the help view
+
+    When I go to the feedback view
+    And I see the feedback view
+    When I send feedback in the feedback view
+    Then I see the help view
+
+  Scenario: Giving product feedback when Food Hero asks for
+    Given FoodHero has started and I accept alerts
+    And FoodHero greets me and suggests something
+    And FoodHero asks for product feedback
+    And I want to give product feedback
+    Then FoodHero says Thank you for giving product feedback
+
+    When I go to the feedback view through the link
+    Then I see the feedback view
+

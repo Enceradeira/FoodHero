@@ -11,6 +11,9 @@ class FeedbackController: UIViewController, MFMailComposeViewControllerDelegate 
     @IBOutlet weak var containerView: UIView!
     private var _mailController: MFMailComposeViewController!
 
+    override func viewDidAppear(animated: Bool) {
+        GAIService.logScreenViewed("Feedback")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +38,9 @@ class FeedbackController: UIViewController, MFMailComposeViewControllerDelegate 
     }
 
     private func initEMail() {
-        _mailController.setSubject("My opinion about FoodHero")
+        _mailController.setSubject("My opinion about Food Hero")
         _mailController.setToRecipients(["foodhero@jennius.co.uk"])
-        _mailController.setMessageBody("", isHTML: false)
+        _mailController.setMessageBody("What do you think about me?", isHTML: false)
     }
 
 

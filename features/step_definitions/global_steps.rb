@@ -40,6 +40,13 @@ def expect_share_view
   end
 end
 
+def expect_feedback_view
+  wait_true({:timeout => 30, :interval=>2}) do
+    text = 'What do you think about me?'
+    !find_elements(:xpath, "//UIATextView[@value='#{text}']").empty?
+  end
+end
+
 def expect_login_view
   expect(text 'Login is under construction').to be_truthy
 end
@@ -94,6 +101,10 @@ When(/^I go to the login view$/) do
   wait_button_and_click('Login')
 end
 
+When(/^I go to the feedback view$/) do
+  wait_button_and_click('Feedback')
+end
+
 Then(/^I see the conversation view$/) do
   expect_conversation_view
 end
@@ -129,3 +140,16 @@ end
 When(/^I accept alert$/) do
   alert_accept
 end
+
+When(/^I cancel the feedback view$/) do
+  step 'I cancel the Mail App'
+end
+
+When(/^I send feedback in the feedback view$/) do
+  button('Send').click
+end
+
+Then(/^I see the feedback view$/) do
+  expect_feedback_view
+end
+

@@ -255,6 +255,11 @@ Then(/^FoodHero asks to enable location\-services in settings$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero says Thank you for giving product feedback$/) do
+  bubble, _ = wait_last_element_and_parameter('FH:ThanksForProductFeedback', 0)
+  expect(bubble).not_to be_nil
+end
+
 Then(/^FoodHero suggests something else$/) do
   # wait until next suggestion appears
   bubble, next_suggestion = wait_last_element_and_parameter('FH:Suggestion', [0,1]) {
@@ -272,6 +277,13 @@ Then(/^FoodHero comments my choice and tells me the restaurants location$/) do
   expect(bubble).not_to be_nil
 end
 
+Then(/^FoodHero asks for product feedback$/) do
+  send_cheat 'C:RF'
+
+  bubble, _ = wait_last_element_and_parameter('FH:AskForProductFeedback', 0)
+  expect(bubble).not_to be_nil
+end
+
 Then(/^FoodHero tells me the restaurants location$/) do
   bubble, _ = wait_last_element_and_parameter('FH:TellRestaurantLocation', 0)
   expect(bubble).not_to be_nil
@@ -279,6 +291,12 @@ end
 
 When(/^I go to the restaurants\-details for the last suggested restaurant$/) do
   link = find_element(:xpath, "//*[contains(@name,'FH:Suggestion')]//UIALink")
+  expect(link).not_to be_nil
+  link.click
+end
+
+When(/^I go to the feedback view through the link$/) do
+  link = find_element(:xpath, "//*[contains(@name,'FH:ThanksForProductFeedback')]//UIALink")
   expect(link).not_to be_nil
   link.click
 end
@@ -388,6 +406,10 @@ end
 
 When(/^I want FoodHero to abort search$/) do
    touch_help_entry_containing 'Forget about it'
+end
+
+And(/^I want to give product feedback$/) do
+  touch_help_entry_containing 'Yes'
 end
 
 When(/^I want to search for another restaurant$/) do
@@ -596,3 +618,7 @@ When(/^I share "([^"]*)"$/) do |text|
   find_element(:xpath, "//*[@name='#{text}']").click
 end
 
+
+And(/^FoodHero ask for feedback$/) do
+  send_cheat('')
+end
