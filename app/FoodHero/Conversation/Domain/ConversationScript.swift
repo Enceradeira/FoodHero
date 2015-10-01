@@ -362,7 +362,7 @@ public class ConversationScript: Script {
             return self.waitResponseAndSearchRepeatably(script)
         } else if error is NoRestaurantsFoundError || error is SearchError {
             let label = toString(error.dynamicType)
-            GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
+            logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
 
             let lastQuestion = FHUtterances.noRestaurantsFound
             script.say(oneOf: lastQuestion)
@@ -406,6 +406,13 @@ public class ConversationScript: Script {
             self.searchAndWaitResponseAndSearchRepeatably()
         } else {
             assert(false, "unexpected control input of type \(reflect(input).summary)")
+        }
+    }
+
+    private func logEventWithCategory(category: String, action: String, label: String, value: Float) {
+        if _processSearchRequests {
+            // only send events when conversation is not beeing restored
+            GAIService.logEventWithCategory(category, action: action, label: label, value: value)
         }
     }
 }
