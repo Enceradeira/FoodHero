@@ -42,8 +42,8 @@ end
 
 def expect_feedback_view
   wait_true({:timeout => 30, :interval=>2}) do
-    text = 'What do you think about me?'
-    !find_elements(:xpath, "//UIATextView[@value='#{text}']").empty?
+    text = 'Any other comments?'
+    !find_elements(:xpath, "//UIATextView[contains(@value,'#{text}')]").empty?
   end
 end
 

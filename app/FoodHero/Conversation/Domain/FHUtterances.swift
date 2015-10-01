@@ -471,7 +471,9 @@ public class FHUtterances {
 
     class func askForProductFeedback(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "Would you want to give me some feedback, please?"
+                "Could you give me some feedback about me, please?"  ,
+                "Can I kindly ask you to give me some feedback about me, please?"  ,
+                "Please can you give me some feedback about me? "
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:AskForProductFeedback",
                         state: FHStates.askForProductFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForProductFeedback()))
@@ -479,7 +481,7 @@ public class FHUtterances {
 
     class func thankForProductFeedback(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "Please click <a href=''>here</a> to give feedback.\n\nThank you so much!!!\n\nWhere were we? ... "
+                "Please click <a href=''>here</a> for feedback.\n\nThank you very much!!!\n\nWhere were we? ... "
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:ThanksForProductFeedback",
                         state: nil, expectedUserUtterances: nil))
@@ -487,7 +489,7 @@ public class FHUtterances {
 
     class func regrestsUserNotGivingProductFeedback(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "Ok. You can still give feedback later using the <a href=''>Help</a> menu.\n\nWhere were we? ...."
+                "No worries... You can still give me feedback later by using the <a href=''>Help</a> menu.\n\nWhere were we? ...."
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:RegretsUserNotGivingProductFeedback",
                         state: nil, expectedUserUtterances: nil))

@@ -40,7 +40,7 @@ class FeedbackController: UIViewController, MFMailComposeViewControllerDelegate 
     private func initEMail() {
         _mailController.setSubject("My opinion about Food Hero")
         _mailController.setToRecipients(["foodhero@jennius.co.uk"])
-        _mailController.setMessageBody("What do you think about me?", isHTML: false)
+        _mailController.setMessageBody("What did you like most about Food Hero?\n...\n\nWhat was not so good?\n...\n\nAny other comments?\n...", isHTML: false)
     }
 
 
