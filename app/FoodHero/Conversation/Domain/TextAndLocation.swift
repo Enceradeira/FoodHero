@@ -26,7 +26,7 @@ public class TextAndLocation: NSObject, NSCoding {
         aCoder.encodeObject(text, forKey: "text");
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         location = aDecoder.decodeObjectForKey("location") as! String
         text = aDecoder.decodeObjectForKey("text") as! String
     }

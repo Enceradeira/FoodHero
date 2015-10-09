@@ -52,7 +52,7 @@ task :clean => [:stop_appium, :stop_web_envs] do
   XCodeBuildAction.new(:clean).execute!('FoodHero')
   XCodeBuildAction.new(:clean).execute!('FoodHeroTests')
   XCodeBuildAction.new(:clean).execute!('FoodHeroIntegrationsTests')
-  BuildAction.execute!("rm -r -f #{AppPaths.dst_root}")
+  BuildAction.execute!("rm -r -f #{AppPaths.build_path}")
 end
 
 desc 'Run XCode unit-tests'
@@ -66,7 +66,7 @@ task :xc_integration_tests => [:prepare_iOS_simulator, :start_web_integration_en
 end
 
 desc 'Run Acceptance-tests'
-task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :install, :cucumber_integration] do
+task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :cucumber_integration] do
 end
 
 desc 'Run Smoke-tests'
@@ -76,11 +76,6 @@ end
 desc 'Build everything'
 task :build do
   XCodeBuildAction.new(:build).execute!('FoodHero')
-end
-
-desc 'Install build'
-task :install do
-  XCodeBuildAction.new(:install).execute!('FoodHero')
 end
 
 desc 'Runs all app tests (without acceptance)'
@@ -117,6 +112,7 @@ task :start_appium do
   fork do
     `appium`
   end
+  sleep 5
 end
 
 desc 'Stops appium'

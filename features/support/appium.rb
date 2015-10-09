@@ -11,13 +11,13 @@ class AppiumWorld
           caps: {
               platformName: 'iOS',
               platformVersion: AppPaths.version,
-              deviceName: 'iPhone 6', # one from 'instruments -s devices'
+              deviceName: AppPaths.device, # one from 'instruments -s devices'
               #locationServicesEnabled: false,
               #locationServicesAuthorized: false,
               #autoAcceptAlerts: false,
               #noReset: false,
               # app: AppPaths.app_path,
-              app: AppPaths.build_path, # WORKAROUND: FoodHero.app (with swiftcode) is sometimes invalid when copied from above AppPaths.app_path
+              app: AppPaths.file_path_app_bin, # WORKAROUND: FoodHero.app (with swiftcode) is sometimes invalid when copied from above AppPaths.app_path
               processArguments: "-environment=Integration -simulateSlowness=#{simulate_slowness}"
           },
           appium_lib: {

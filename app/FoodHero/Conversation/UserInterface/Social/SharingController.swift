@@ -20,8 +20,9 @@ public class SharingController: UIActivityViewController {
 
         completionWithItemsHandler = {
             activity, success, items, error in
+            let activityName = activity ?? ""
             if success {
-                GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShare(), label: activity, value: 0)
+                GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShare(), label: activityName, value: 0)
             } else {
                 GAIService.logEventWithCategory(GAICategories.uIUsage(), action: GAIActions.uIUsageShare(), label: "Cancel", value: 0)
             }
@@ -33,12 +34,13 @@ public class SharingController: UIActivityViewController {
         GAIService.logScreenViewed("Share")
     }
 
+    /*
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nil, bundle: nil)
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
+    }*/
 
 }

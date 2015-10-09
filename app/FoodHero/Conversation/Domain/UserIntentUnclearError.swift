@@ -14,7 +14,7 @@ public class UserIntentUnclearError: NSError {
         super.init(domain: "uk.co.jennius", code: 1, userInfo: nil)
     }
 
-    public required init(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         _state = coder.decodeObjectForKey("_state") as! String
         _expectedUserUtterances = coder.decodeObjectForKey("_expectedUserUtterances") as! ExpectedUserUtterances
         super.init(coder: coder)

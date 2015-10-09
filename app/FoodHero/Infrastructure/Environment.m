@@ -37,7 +37,7 @@
 
 + (BOOL)isRunningInSimulator {
     UIDevice *device = [UIDevice currentDevice];
-    NSString *string = [device model];
+    NSString *string = [device name];
     return [string rangeOfString:@"Simulator"].location != NSNotFound;
 }
 

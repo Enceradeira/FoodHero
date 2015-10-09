@@ -6,7 +6,7 @@ class XCodeBuildAction
   end
 
   def execute!(scheme)
-    BuildAction.execute!("xcodebuild #{@build_action} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 5s,OS=#{AppPaths.version}'  -workspace '#{AppPaths.workspace_file}' -scheme '#{scheme}' DSTROOT='#{AppPaths.dst_root}' ONLY_ACTIVE_ARCH=NO")
+    BuildAction.execute!("xcodebuild #{@build_action} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{AppPaths.device},OS=#{AppPaths.version}'  -workspace '#{AppPaths.workspace_file}' -scheme '#{scheme}' ONLY_ACTIVE_ARCH=NO")
   end
 
   def archive!(scheme)

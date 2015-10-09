@@ -11,7 +11,7 @@ public class SharingTextBuilder: NSObject {
 
     private class func getRestaurantUrlOrEmpty(restaurant: Restaurant) -> String {
         if let urlForDisplaying = restaurant.urlForDisplaying {
-            if count(urlForDisplaying) > 0 {
+            if urlForDisplaying.characters.count > 0 {
                 return urlForDisplaying
             }
         }

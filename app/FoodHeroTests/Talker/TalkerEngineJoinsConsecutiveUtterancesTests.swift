@@ -11,9 +11,9 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
     func test_talk_shouldJoinConsecutiveUtterancesTogehter_WhenNaturalOutput() {
         let script = TestScript()
         .say(oneOf: { $0.words("Good Morning") }).say(oneOf: { $0.words("John") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("How are you?") }).say(oneOf: { $0.words("Did you sleep well?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("OK") }).say(oneOf: { $0.words("Good bye") })
 
 
@@ -41,7 +41,7 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
     func test_talk_shouldJoinConsecutiveUtterancesTogehterBeforeWaitingForResponse_WhenNaturalOutput() {
         let script = TestScript()
         .say(oneOf: { $0.words("Good Morning") }).say(oneOf: { $0.words("How are you?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
 
 
         assert(utterance: "Good Morning\n\nHow are you?", exists: true, inExecutedScript: script)
@@ -50,7 +50,7 @@ public class TalkerEngineJoinsConsecutiveUtterancesTests: TalkerEngineTests {
     func test_talk_shouldNotJoinConsecutiveUtterancesTogehter_WhenRawOutput() {
         let script = TestScript()
         .say(oneOf: { $0.words("Good Morning") }).say(oneOf: { $0.words("How are you?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
 
 
         assert(utterance: "Good Morning", exists: true, inExecutedScript: script, atPosition: 0, withNaturalOutput: false)

@@ -13,14 +13,15 @@ public class ConversationRepository: NSObject {
     private let _fileManager = NSFileManager()
 
     private class func DataPath() -> String {
-        return NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)[0] as! String
+        return NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)[0] 
     }
 
     public init(assembly: ApplicationAssembly) {
         _assembly = assembly
 
         let path = ConversationRepository.DataPath()
-        _filePath = path.stringByAppendingPathComponent("conversation.dat")
+        let url = NSURL.fileURLWithPath(path)
+        _filePath = url.URLByAppendingPathComponent("conversation.dat").filePathURL!.path!
         super.init()
 
         ensurePathExists(path)
@@ -28,14 +29,21 @@ public class ConversationRepository: NSObject {
 
     private func ensurePathExists(path: String) {
         var err: NSError?
-        _fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &err)
+        do {
+            try _fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        } catch let error as NSError {
+            err = error
+        }
         if err != nil {
             NSLog("ConversationRepository.init: \(err!.localizedDescription)")
         }
     }
 
     public class func deletePersistedData() {
-        NSFileManager.defaultManager().removeItemAtPath(ConversationRepository.DataPath(), error: nil)
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(ConversationRepository.DataPath())
+        } catch _ {
+        }
     }
 
     public func getForInput(input: RACSignal) -> Conversation {

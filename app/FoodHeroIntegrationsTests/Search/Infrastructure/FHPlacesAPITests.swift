@@ -25,9 +25,9 @@ class FHPlacesAPITests: XCTestCase {
 
         XCTAssertTrue(result is [Place])
         let places = result as! [Place]
-        XCTAssertGreaterThan(count(places), 1)
+        XCTAssertGreaterThan(places.count, 1)
         let firstPlace = places[0]
-        XCTAssertGreaterThan(count(firstPlace.placeId), 0)
+        XCTAssertGreaterThan(firstPlace.placeId.characters.count, 0)
         XCTAssertNotNil(firstPlace.location)
         XCTAssertGreaterThan(firstPlace.cuisineRelevance, 0)
 

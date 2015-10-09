@@ -88,7 +88,7 @@ public class ConversationScript: Script {
                     $0.say(oneOf: { $0.words([lastUtteranceBeforeError.utterance], withCustomData: lastUtteranceBeforeError.customData[0]) })
                     return self.waitUserResponseAndHandleErrors($0, andContinueWith: continuation)
                 }
-            }, catch: {
+            }, `catch`: {
                 self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
         } else if error is UserIntentUnclearError {
@@ -96,14 +96,14 @@ public class ConversationScript: Script {
                 let intentUnclearError = error as! UserIntentUnclearError
                 let currentState = intentUnclearError.state
                 let expectedUserUtterances = intentUnclearError.expectedUserUtterances
-                assert(count(currentState) > 0, "UserIntentUnclearError.state was nil or empty")
+                assert(currentState.characters.count > 0, "UserIntentUnclearError.state was nil or empty")
                 return FHUtterances.didNotUnderstandAndAsksForRepetition($0, state: currentState, expectedUserUtterances: expectedUserUtterances)
             })
-            return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
+            return errorScript.waitUserResponse(andContinueWith: continuation, `catch`: {
                 self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
         } else {
-            assert(false, "unexpected error of type \(reflect(error).summary)")
+            assert(false, "unexpected error of type \(Mirror(reflecting: error).description)")
             return errorScript
         }
     }
@@ -120,7 +120,7 @@ public class ConversationScript: Script {
             } else {
                 return continuation(parameter, futureScript)
             }
-        }, catch: {
+        }, `catch`: {
             self.catchError($0, errorScript: $1, andContinueWith: continuation)
         })
     }
@@ -361,7 +361,7 @@ public class ConversationScript: Script {
             script.say(oneOf: lastQuestion)
             return self.waitResponseAndSearchRepeatably(script)
         } else if error is NoRestaurantsFoundError || error is SearchError {
-            let label = toString(error.dynamicType)
+            let label = String(error.dynamicType)
             logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
 
             let lastQuestion = FHUtterances.noRestaurantsFound
@@ -381,7 +381,7 @@ public class ConversationScript: Script {
 
             return self.waitResponseAndSearchRepeatably(script)
         } else {
-            assert(false, "no error-handler for class \(reflect(error).summary) found")
+            assert(false, "no error-handler for class \(Mirror(reflecting: error).description) found")
             return script
         }
 
@@ -405,7 +405,7 @@ public class ConversationScript: Script {
         } else if let startSearch = input as? StartSearchControlInput {
             self.searchAndWaitResponseAndSearchRepeatably()
         } else {
-            assert(false, "unexpected control input of type \(reflect(input).summary)")
+            assert(false, "unexpected control input of type \(Mirror(reflecting: input).description)")
         }
     }
 

@@ -28,7 +28,7 @@ public class TalkerUtterance: NSObject, NSCoding {
         aCoder.encodeObject(customData, forKey: "customData");
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         utterance = aDecoder.decodeObjectForKey("utterance") as! String
         customData = aDecoder.decodeObjectForKey("customData") as! [AnyObject]
     }
@@ -48,14 +48,14 @@ public class TalkerUtterance: NSObject, NSCoding {
 
     public func concat(other: TalkerUtterance) -> TalkerUtterance {
         var utteranceArray: [String] = []
-        if count(utterance) > 0 {
+        if utterance.characters.count > 0 {
             utteranceArray.append(utterance)
         }
-        if count(other.utterance) > 0 {
+        if other.utterance.characters.count > 0 {
             utteranceArray.append(other.utterance)
         }
 
-        let utterances = "\n\n".join(utteranceArray)
+        let utterances = utteranceArray.joinWithSeparator("\n\n")
         let customData = self.customData + other.customData
         return TalkerUtterance(utterance: utterances, customData: customData)
     }

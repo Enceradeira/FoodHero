@@ -18,7 +18,7 @@ public class ProductFeedbackScript: Script {
         super.init(talkerContext: context)
 
         say(oneOf: FHUtterances.askForProductFeedback)
-        waitUserResponse(andContinueWith: processProductFeedbackAnswerForParameter, catch: {
+        waitUserResponse(andContinueWith: processProductFeedbackAnswerForParameter, `catch`: {
             self.catchError($0, errorScript: $1, andContinueWith: self.processProductFeedbackAnswerForParameter)
         })
 
@@ -48,14 +48,14 @@ public class ProductFeedbackScript: Script {
                 let intentUnclearError = error as! UserIntentUnclearError
                 let currentState = intentUnclearError.state
                 let expectedUserUtterances = intentUnclearError.expectedUserUtterances
-                assert(count(currentState) > 0, "UserIntentUnclearError.state was nil or empty")
+                assert(currentState.characters.count > 0, "UserIntentUnclearError.state was nil or empty")
                 return FHUtterances.didNotUnderstandAndAsksForRepetition($0, state: currentState, expectedUserUtterances: expectedUserUtterances)
             })
-            return errorScript.waitUserResponse(andContinueWith: continuation, catch: {
+            return errorScript.waitUserResponse(andContinueWith: continuation, `catch`: {
                 self.catchError($0, errorScript: $1, andContinueWith: continuation)
             })
         } else {
-            assert(false, "unexpected error of type \(reflect(error).summary)")
+            assert(false, "unexpected error of type \(Mirror(reflecting: error).description)")
             return errorScript
         }
     }

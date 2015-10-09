@@ -211,7 +211,6 @@
 		235259A4F2C818FD04AEC373 /* FHPlacesUrlBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525C867A5FD447349BDF9B /* FHPlacesUrlBuilderTests.swift */; };
 		235259AE6453AB23050E7A8C /* ConversationViewStateNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525903C4EAD79AFDA95F51 /* ConversationViewStateNormal.m */; };
 		235259C3B1E36DEDE9FF3252 /* OptionalUtterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235250DB6A3BE1522D23FAF4 /* OptionalUtterance.swift */; };
-		235259C6504DCFFEDC859572 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525B82B4D5C24B64BE6194 /* NetworkError.swift */; };
 		235259DF84DACFF14B0FB3AB /* IsVeryBusyAtTheMomentInterruption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525B84B1FAB43AC19F2956 /* IsVeryBusyAtTheMomentInterruption.swift */; };
 		235259E270572949CEB5ABF1 /* SearchResultControlInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23525AACDC802A689F9FEBDA /* SearchResultControlInputTests.swift */; };
 		235259FBBD89F12F72A85435 /* RestaurantReviewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23525FACC259ED0EB0E1B16A /* RestaurantReviewBuilder.m */; };
@@ -323,6 +322,7 @@
 		8F115DC01AFD3DBC004ED9BE /* map-icon-transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F115DBF1AFD3DBC004ED9BE /* map-icon-transparent@2x.png */; };
 		8F2F337F199238EF00FCEAF4 /* Checkmark-Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */; };
 		8F2F3380199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */; };
+		8F2F56811BC7C33400E4A0EE /* NetworkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F56801BC7C33400E4A0EE /* NetworkError.m */; settings = {ASSET_TAGS = (); }; };
 		8F5474521961797F00843FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F5474511961797F00843FEE /* Main.storyboard */; };
 		8F54745B19619C0D00843FEE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F54745A19619C0D00843FEE /* NavigationController.m */; };
 		8F60D0E31969ABC3007324B6 /* ConversationBubble-User@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */; };
@@ -686,7 +686,6 @@
 		23525B5F5E4316BC68FCCFBF /* USuggestionFeedbackParametersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USuggestionFeedbackParametersTests.swift; sourceTree = "<group>"; };
 		23525B606EA734C3976F26B1 /* Statement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statement.m; sourceTree = "<group>"; };
 		23525B80261B3766FA8C59DD /* RestaurantSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantSearch.m; sourceTree = "<group>"; };
-		23525B82B4D5C24B64BE6194 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		23525B84B1FAB43AC19F2956 /* IsVeryBusyAtTheMomentInterruption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsVeryBusyAtTheMomentInterruption.swift; sourceTree = "<group>"; };
 		23525B86AD8E88E6D148D212 /* IUITextVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUITextVisualizer.h; sourceTree = "<group>"; };
 		23525BA572C567B96301AB8E /* WitSpeechRecognitionServiceIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WitSpeechRecognitionServiceIntegrationTests.m; sourceTree = "<group>"; };
@@ -806,6 +805,8 @@
 		8F1C96F61A73A8C6009369BE /* FoodHeroTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodHeroTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F2F337D199238EF00FCEAF4 /* Checkmark-Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Checked@2x.png"; sourceTree = "<group>"; };
 		8F2F337E199238EF00FCEAF4 /* Checkmark-Unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-Unchecked@2x.png"; sourceTree = "<group>"; };
+		8F2F567F1BC7C33400E4A0EE /* NetworkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkError.h; sourceTree = "<group>"; };
+		8F2F56801BC7C33400E4A0EE /* NetworkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkError.m; sourceTree = "<group>"; };
 		8F5474511961797F00843FEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8F54745919619C0D00843FEE /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		8F54745A19619C0D00843FEE /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -1268,7 +1269,6 @@
 				2352579CCB7947ADF5584AB2 /* UserUtterances.swift */,
 				235255C57629B14FAAE6957F /* FHUtterances.swift */,
 				23525F0A0C674E21770D3E3C /* ScriptExtension.swift */,
-				23525B82B4D5C24B64BE6194 /* NetworkError.swift */,
 				23525373B4D9491197F53204 /* FHStates.swift */,
 				2352562F67CD9EC1C8F7C84D /* UserIntentUnclearError.swift */,
 				23525BF7AF1F3EB7F4E1B339 /* Occasions.swift */,
@@ -1282,6 +1282,8 @@
 				235255743CCD5310284057A0 /* SearchResultControlInput.swift */,
 				23525131FA54C964B2B9B0F2 /* SayGreetingControlInput.swift */,
 				23525FE07AB40AA4D6D9878E /* StartSearchControlInput.swift */,
+				8F2F567F1BC7C33400E4A0EE /* NetworkError.h */,
+				8F2F56801BC7C33400E4A0EE /* NetworkError.m */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1880,7 +1882,9 @@
 		8FCBADC119614B83001ED357 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "JENNIUS LTD";
 				TargetAttributes = {
 					8FCBADC819614B83001ED357 = {
@@ -2181,7 +2185,6 @@
 				235251E55863869A8BE176E9 /* UserUtterances.swift in Sources */,
 				23525D5ACC5B725A34960749 /* FHUtterances.swift in Sources */,
 				235256E78FFF0D4E6F14F6F8 /* ScriptExtension.swift in Sources */,
-				235259C6504DCFFEDC859572 /* NetworkError.swift in Sources */,
 				23525A91F0E7FE8257B5E794 /* FHStates.swift in Sources */,
 				2352588B46ED45D760431BE6 /* UserIntentUnclearError.swift in Sources */,
 				2352581BE33F4EE755746059 /* Continuation.swift in Sources */,
@@ -2221,6 +2224,7 @@
 				23525DD46B5445404A4C34A9 /* ConversationRepository.swift in Sources */,
 				235255B2BED9A27688B3ED87 /* RestaurantDistanceBuilder.swift in Sources */,
 				23525AEFC9DEA8875BAB6AD0 /* RequestProductFeedbackInterruption.swift in Sources */,
+				8F2F56811BC7C33400E4A0EE /* NetworkError.m in Sources */,
 				235259DF84DACFF14B0FB3AB /* IsVeryBusyAtTheMomentInterruption.swift in Sources */,
 				2352514647B43C993CB08542 /* SearchErrorControlInput.swift in Sources */,
 				235256DE3E7D253BCB8AE417 /* SearchResultControlInput.swift in Sources */,
@@ -2459,6 +2463,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2473,7 +2478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2506,7 +2511,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2523,11 +2528,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.jennius.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FoodHero/FoodHero-Bridging-Header.h";
@@ -2547,11 +2554,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHero/FoodHero-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.jennius.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FoodHero/FoodHero-Bridging-Header.h";
@@ -2579,12 +2588,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "FoodHeroTests/FoodHeroTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.jennius.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroTests/FoodHeroTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2609,12 +2619,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHero/FoodHero-Prefix.pch";
 				INFOPLIST_FILE = "FoodHeroTests/FoodHeroTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.jennius.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroTests/FoodHeroTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -2642,8 +2653,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.jennius.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2668,8 +2680,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Prefix.pch";
 				INFOPLIST_FILE = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.jennius.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "FoodHeroIntegrationsTests/FoodHeroIntegrationsTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";

@@ -22,7 +22,7 @@ public class ExpectedUserUtterances: NSObject, NSCoding {
         aCoder.encodeObject(_utterances, forKey: "_utterances");
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         _utterances = aDecoder.decodeObjectForKey("_utterances") as! [String]
     }
 
@@ -45,7 +45,7 @@ public class ExpectedUserUtterances: NSObject, NSCoding {
     }
 
     private class func modelAnswersFrom(utterances: [TalkerUtterance?]) -> ExpectedUserUtterances {
-        let seperator: [TalkerUtterance?] = count(utterances) == 0 ? [] : [nil]
+        let seperator: [TalkerUtterance?] = utterances.count == 0 ? [] : [nil]
         let empty = TextAndLocation(text:"")
 
         let allPossibleUtterances = utterances + seperator + [

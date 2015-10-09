@@ -53,7 +53,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         var utterance: TalkerUtterance? = nil
         let script = TestScript()
         .say(oneOf: { $0.words("How are you?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
 
 
         let expectation = expectationWithDescription("")
@@ -81,7 +81,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                 expectation.fulfill()
             }
             return script
-        }, catch: nil)
+        }, `catch`: nil)
         sendInput("Good, and you?", "Context-Response");
 
         executeScript(script)
@@ -116,7 +116,13 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldComplete_WhenNothingIsToBeSaid() {
         let dialog = executeScript(TestScript());
 
-        let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
+        let hasCompleted: Bool
+        do {
+            try dialog.asynchronouslyWaitUntilCompleted()
+            hasCompleted = true
+        } catch _ {
+            hasCompleted = false
+        }
 
         XCTAssertEqual(hasCompleted, true)
     }
@@ -127,7 +133,13 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         .say(oneOf: { $0.words("World") })
         );
 
-        let hasCompleted = dialog.asynchronouslyWaitUntilCompleted(nil)
+        let hasCompleted: Bool
+        do {
+            try dialog.asynchronouslyWaitUntilCompleted()
+            hasCompleted = true
+        } catch _ {
+            hasCompleted = false
+        }
 
         XCTAssertEqual(hasCompleted, true)
     }
@@ -135,7 +147,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldListenToReponse() {
         let script = TestScript()
         .say(oneOf: { $0.words("How are you?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
 
         assert(dialog: ["How are you?", "Good"],
                 forExecutedScript: script,
@@ -145,7 +157,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldYieldPreviousUtterance_WhenNoResponseYetGiven() {
         let script = TestScript()
         .say(oneOf: { $0.words("How are you?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("Brilliant!") })
 
 
@@ -155,7 +167,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldWaitResponseAndThenContinue() {
         let script = TestScript()
         .say(oneOf: { $0.words("How are you?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("I'm fine, thanks!") })
 
 
@@ -181,7 +193,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     return definition
                 })
             }
-        }, catch: nil)
+        }, `catch`: nil)
         .say(oneOf: { $0.words("So, what did you do yesterday?") })
 
 
@@ -200,7 +212,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldHandleErrorsOnInputStream_WhenCatched() {
         let script = TestScript()
         .say(oneOf: { $0.words("Hello") })
-        .waitResponse(catch: { e, s in s.say(oneOf: { $0.words("Error \(e.domain)") }) })
+        .waitResponse(`catch`: { e, s in s.say(oneOf: { $0.words("Error \(e.domain)") }) })
         .say(oneOf: { $0.words("World") })
 
         assert(dialog: ["Hello", "Error is not good\n\nWorld"],
@@ -218,7 +230,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldIgnoreErorsOnInputStream_WhenNotCatched() {
         let script = TestScript()
         .say(oneOf: { $0.words("Hello") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("World") })
 
         assert(dialog: ["Hello", "World"],
@@ -236,11 +248,11 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_shouldHandleEveryErrorOnInputStream_WhenSeveralErrors() {
         let script = TestScript()
         .say(oneOf: { $0.words("1") })
-        .waitResponse(catch: { e, s in s.say(oneOf: { $0.words("Catch 1: \(e.domain)") }) })
+        .waitResponse(`catch`: { e, s in s.say(oneOf: { $0.words("Catch 1: \(e.domain)") }) })
         .say(oneOf: { $0.words("2") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("3") })
-        .waitResponse(catch: { e, s in s.say(oneOf: { $0.words("Catch 2: \(e.domain)") }) })
+        .waitResponse(`catch`: { e, s in s.say(oneOf: { $0.words("Catch 2: \(e.domain)") }) })
         .say(oneOf: { $0.words("5") })
 
         assert(dialog: ["1", "Catch 1: Error A\n\n2", "3", "Catch 2: Error C\n\n5"],
@@ -265,7 +277,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     $0.words("That shouldn't be said")
                 }
             }
-        }, catch: { e, s in s.say(oneOf: { $0.words("This should be said") }) })
+        }, `catch`: { e, s in s.say(oneOf: { $0.words("This should be said") }) })
 
         assert(dialog: ["This should be said"],
                 forExecutedScript: script,
@@ -299,8 +311,8 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         .say(oneOf: { $0.words("Hello") })
         .waitResponse(andContinueWith: {
             return $1.defineEmpty() // No output produced
-        }, catch: nil)
-        .waitResponse(catch: nil)
+        }, `catch`: nil)
+        .waitResponse(`catch`: nil)
 
         sendInput("World")
 
@@ -315,10 +327,10 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                 // Waiting for another response without producing output
                 $0.waitResponse(andContinueWith: {
                     return $1.defineEmpty() // No output produced
-                }, catch: nil)
+                }, `catch`: nil)
             }
-        }, catch: nil)
-        .waitResponse(catch: nil)
+        }, `catch`: nil)
+        .waitResponse(`catch`: nil)
 
         sendInput("World")
 
@@ -328,7 +340,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     func test_talk_ShouldInterruptAndResumeConversation_WhenThereIsAnInteruption() {
         let script = TestScript()
         .say(oneOf: { $0.words("What do you want?") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
         .say(oneOf: { $0.words("OK") })
 
         let subScript = TestScript().say(oneOf: { $0.words("Sorry, what's your name by the way?") })
@@ -338,7 +350,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                     $0.words("Ok. So, what do you want?")
                 }
             }
-        }, catch: nil)
+        }, `catch`: nil)
 
 
         assert(dialog: ["What do you want?", "Sorry, what's your name by the way?", "My name is John", "Ok. So, what do you want?", "a beer", "OK"],
@@ -364,11 +376,11 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
         let script = TestScript()
         .say(oneOf: { $0.words("Utterance 1") })
-        .waitResponse(catch: nil)
+        .waitResponse(`catch`: nil)
 
         let subScript = TestScript()
         .say(oneOf: { $0.words("Utterance 2") })
-        .waitResponse(catch: {
+        .waitResponse(`catch`: {
             error, script in
             wasErrorReceivedBySubscript = true
             return script
@@ -386,7 +398,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
                         return nil
                     case "Utterance 2":
                         self.async {
-                            self.sendInput(NSError()) // This error should not be received by subScript since it finished with "Utterance 3"
+                            self.sendInput(NSError(domain: "Hello Error", code: 0, userInfo: nil)) // This error should not be received by subScript since it finished with "Utterance 3"
                         }
                         return "Utterance 3" // Utternace 3 finishes subscript
                     default: return nil

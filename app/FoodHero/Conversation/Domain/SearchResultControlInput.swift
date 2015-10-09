@@ -12,7 +12,7 @@ public class SearchResultControlInput: NSObject, NSCoding {
         self.result = result
     }
 
-    public required init(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         result = coder.decodeObjectForKey("result") as! RestaurantSearchResult
     }
 

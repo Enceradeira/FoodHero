@@ -79,11 +79,11 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         _gmsMapView.selectedMarker = restaurantMarker
 
         // Add Map View
-        _gmsMapView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        _gmsMapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.addSubview(_gmsMapView)
         let subViews = ["subView": _gmsMapView]
-        mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
-        mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: subViews))
+        mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: subViews))
+        mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: subViews))
 
         //  map
         var tapGesture = UITapGestureRecognizer(target: self, action: "userDidTapDirections")

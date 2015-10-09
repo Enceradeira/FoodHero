@@ -19,7 +19,7 @@ class UserUtteranceTableViewCell: UITableViewCell {
         _delegate = delegate;
 
         if !_gestureInitalized {
-            var tapGesture = UITapGestureRecognizer(target: self, action: "userDidSelectUtterance")
+            let tapGesture = UITapGestureRecognizer(target: self, action: "userDidSelectUtterance")
             self.utteranceLabel.addGestureRecognizer(tapGesture)
             self.utteranceLabel.userInteractionEnabled = true
 

@@ -18,8 +18,8 @@ public class GeocoderService: NSObject, IGeocoderService {
             GAIService.logTimingWithCategory(GAICategories.externalCallTimings(), name: GAITimingNames.geocoderService(), label: "", interval: timeElapsed)
 
             var result: CLLocation? = nil
-            if error == nil && count(anyObjects) > 0 {
-                let placeMarks = anyObjects as! [CLPlacemark]
+            if error == nil && anyObjects != nil && anyObjects!.count > 0 {
+                let placeMarks = anyObjects! as [CLPlacemark]
                 let placeMark = placeMarks[0]
                 result = placeMark.location
             } else {
@@ -28,7 +28,7 @@ public class GeocoderService: NSObject, IGeocoderService {
                     label = "GeocoderService-NoResult"
                 }
                 else{
-                    label = "GeocoderService-\(error.domain)-\(error.code)"
+                    label = "GeocoderService-\(error!.domain)-\(error!.code)"
                 }
                 GAIService.logEventWithCategory(GAICategories.negativeExperience(), action: GAIActions.negativeExperienceError(), label: label, value: 0)
             }
