@@ -471,9 +471,9 @@ public class FHUtterances {
 
     class func askForProductFeedback(def: StringDefinition) -> StringDefinition {
         return def.words([
-                "Could you give me some feedback about me, please?"  ,
-                "Can I kindly ask you to give me some feedback about me, please?"  ,
-                "Please can you give me some feedback about me? "
+                "Could you give me some feedback about me, please? [Yes/No]"  ,
+                "Please, can you give me some feedback about me? [Yes/No]",
+                "Would you give me some feedback please? [Yes/No]"
         ],
                 withCustomData: FoodHeroParameters(semanticId: "FH:AskForProductFeedback",
                         state: FHStates.askForProductFeedback(), expectedUserUtterances: ExpectedUserUtterances.whenAskedForProductFeedback()))
