@@ -17,7 +17,7 @@ class AppiumWorld
               #autoAcceptAlerts: false,
               #noReset: false,
               # app: AppPaths.app_path,
-              app: AppPaths.file_path_app_bin, # WORKAROUND: FoodHero.app (with swiftcode) is sometimes invalid when copied from above AppPaths.app_path
+              app: AppPaths.file_path_app_bin,
               processArguments: "-environment=Integration -simulateSlowness=#{simulate_slowness}"
           },
           appium_lib: {
