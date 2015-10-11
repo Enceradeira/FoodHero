@@ -24,7 +24,7 @@ class FeedbackController: UIViewController, MFMailComposeViewControllerDelegate 
 
         let mailView = _mailController.view
         // controllerView which becomes the container content, should not resize because we control resizing with constraints
-        mailView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        mailView.translatesAutoresizingMaskIntoConstraints = false
 
         addChildViewController(_mailController)
         containerView.addSubview(mailView)
@@ -44,7 +44,7 @@ class FeedbackController: UIViewController, MFMailComposeViewControllerDelegate 
     }
 
 
-    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         self.navigationController!.popViewControllerAnimated(true)
     }
 

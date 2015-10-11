@@ -7,7 +7,7 @@ import Foundation
 
 extension NSCalendar {
 
-    public class func dateFrom(#year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) -> NSDate {
+    public class func dateFrom(year year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) -> NSDate {
         let component = NSDateComponents()
         component.year = year
         component.month = month

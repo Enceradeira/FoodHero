@@ -7,6 +7,7 @@
 #import "WitSpeechRecognitionService.h"
 #import "SpeechInterpretation.h"
 #import <LinqToObjectiveC/NSDictionary+LinqExtensions.h>
+#import "NetworkError.h"
 
 int _interactionCount = 0;
 

@@ -6,7 +6,7 @@
 import Foundation
 
 public class Configuration: NSObject {
-    private class func chooseForEnvironment(# development: String, integration: String, production: String) -> String {
+    private class func chooseForEnvironment(development  development: String, integration: String, production: String) -> String {
         let env = environment()
         switch env {
         case productionEnv:
@@ -24,16 +24,16 @@ public class Configuration: NSObject {
     private class func parseArgs(args: [String], forName name: String) -> String! {
         let flag = "-\(name)="
         let envs = args.filter {
-            startsWith($0, flag)
+            $0.characters.startsWith(flag.characters)
         }
-        if (count(envs) == 1) {
+        if (envs.count == 1) {
             return envs[0].stringByReplacingOccurrencesOfString(flag, withString: "")
         }
         return nil
     }
 
     private class func arguments() -> [String] {
-        return NSProcessInfo.processInfo().arguments as! [String]
+        return NSProcessInfo.processInfo().arguments 
     }
 
     public class func userId() -> String {

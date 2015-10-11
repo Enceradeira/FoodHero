@@ -41,9 +41,9 @@ public class FutureScript: NSObject {
 
     public var hasNoOutput: Bool {
         get {
-            return _script == nil || count(_script!.utterances.filter {
+            return _script == nil || _script!.utterances.filter {
                 $0.hasOutput
-            }) == 0
+            }.count == 0
         }
     }
 

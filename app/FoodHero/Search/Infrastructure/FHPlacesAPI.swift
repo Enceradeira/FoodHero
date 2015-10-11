@@ -25,14 +25,26 @@ public class FHPlacesAPI: NSObject, IPlacesAPI {
         let url = NSURL(string: urlString)!
         let request = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 60)
 
-        var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
         var error: NSError?
-        var dataVal: NSData? = sendSynchronousRequest(request, returningResponse: response, error: &error)
+        var dataVal: NSData?
+        do {
+            dataVal = try sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error = error1
+            dataVal = nil
+        }
         if error != nil {
             NSLog("FHPlacesAPI.findPlaces: \(error!.description)")
             return error!;
         }
-        var jsonResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(dataVal!, options: NSJSONReadingOptions.MutableContainers, error: &error)
+        var jsonResult: AnyObject?
+        do {
+            jsonResult = try NSJSONSerialization.JSONObjectWithData(dataVal!, options: NSJSONReadingOptions.MutableContainers)
+        } catch let error1 as NSError {
+            error = error1
+            jsonResult = nil
+        }
         if error != nil {
             NSLog("FHPlacesAPI.findPlaces: \(error!.description)")
             return error!;
@@ -53,16 +65,26 @@ public class FHPlacesAPI: NSObject, IPlacesAPI {
         }
     }
 
-    private func sendSynchronousRequest(request: NSURLRequest, returningResponse response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>, error: NSErrorPointer) -> NSData?{
+    private func sendSynchronousRequest(request: NSURLRequest, returningResponse response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>) throws -> NSData{
+        var error: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
         let startTime = NSDate()
 
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        let data: NSData?
+        do {
+            data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error = error1
+            data = nil
+        }
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 
         let timeElapsed = startTime.timeIntervalSinceNow
         GAIService.logTimingWithCategory(GAICategories.externalCallTimings(), name: GAITimingNames.fhPlacesAPI(), label: "", interval: timeElapsed)
-        return data
+        if let value = data {
+            return value
+        }
+        throw error
 
     }
 

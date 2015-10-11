@@ -41,9 +41,9 @@ public class Script: NSObject {
             $0
         }
     },
-                             catch: ((NSError, Script) -> Script)?
+                             `catch`: ((NSError, Script) -> Script)?
     ) -> Script {
-        _utterances.append(ResponseUtterance(continuation!, catch, context))
+        _utterances.append(ResponseUtterance(continuation!, `catch`, context))
         return self;
     }
 
@@ -52,7 +52,7 @@ public class Script: NSObject {
         return self
     }
 
-    public func continueWith(# continuation: ((FutureScript) -> (FutureScript))) -> Script {
+    public func continueWith(continuation  continuation: ((FutureScript) -> (FutureScript))) -> Script {
         _utterances.append(Continuation(continuation: continuation, context: context))
         return self;
     }

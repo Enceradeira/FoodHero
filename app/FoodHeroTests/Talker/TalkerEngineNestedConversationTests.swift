@@ -19,7 +19,7 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
                 default: return $0.say(oneOf: { $0.words("What did you say?") })
                 }
             }
-        }, catch: nil)
+        }, `catch`: nil)
 
 
         assert(dialog: ["How are you?", "Good", "I'm glad to hear"],
@@ -40,7 +40,7 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
                 default: return $0.say(oneOf: { $0.words("What did you say?") })
                 }
             }
-        }, catch: nil)
+        }, `catch`: nil)
 
 
         assert(dialog: ["How are you?", "*##!!", "What did you say?"],
@@ -60,9 +60,9 @@ public class TalkerEngineNestedConversationTests: TalkerEngineTests {
                     return continuedFuture.define {
                         $0.say(oneOf: { $0.words("Now I get it") })
                     }
-                }, catch: nil)
+                }, `catch`: nil)
             }
-        }, catch: nil)
+        }, `catch`: nil)
         .say(oneOf: { $0.words("Good bye then") })
 
 

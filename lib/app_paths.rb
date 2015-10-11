@@ -3,20 +3,32 @@ module AppPaths
     @workspace_file ||=File.expand_path 'app/FoodHero.xcworkspace'
   end
 
+=begin
   def self.app_path
     @app_path ||= File.expand_path 'Applications/FoodHero.app', self.dst_root
   end
+=end
 
   def self.build_path
-    @build_path ||= '~/Library/Developer/Xcode/DerivedData/FoodHero-goqmcyugajoinecnvixklnogussq/Build/Products/Debug-iphonesimulator/FoodHero.app'
+    @build_path ||= '~/Library/Developer/Xcode/DerivedData/FoodHero-goqmcyugajoinecnvixklnogussq/Build/Products/Debug-iphonesimulator'
   end
 
+  def self.app_bin
+    'FoodHero.app'
+  end
+
+  def self.file_path_app_bin
+    File.join(self.build_path,self.app_bin)
+  end
+
+=begin
   def self.dst_root
     @dst_root ||= File.expand_path 'app/Build/Products/Current'
   end
+=end
 
   def self.version
-    '8.4'
+    '9.0'
   end
 
   def self.archive_path
@@ -37,5 +49,9 @@ module AppPaths
 
   def self.i_tunes_connect_pwd
     'L779XWTjB23e'
+  end
+
+  def self.device
+    'iPhone 6s'
   end
 end

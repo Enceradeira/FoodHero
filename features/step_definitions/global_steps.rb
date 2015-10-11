@@ -1,8 +1,3 @@
-
-def allow_access_to_location_services
-  alert_accept
-end
-
 def expect_alert_location_services
   expect(text 'Location is required to search for restaurants close to where you are.').to be_truthy
 end
@@ -15,12 +10,16 @@ def expect_alert_notifications
   expect(text '“Food Hero” Would Like to Send You Notifications').to be_truthy
 end
 
+def allow_access_to_location_services
+  find_element(:xpath,"//UIAButton[@name='Allow']").click
+end
+
 def allow_data_collection
-  alert_accept
+  find_element(:xpath,"//UIAButton[@name='Allow']").click
 end
 
 def allow_notifications
-  alert_accept
+  find_element(:xpath,"//UIAButton[@name='OK']").click
 end
 
 def expect_conversation_view

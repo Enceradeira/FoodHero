@@ -64,7 +64,8 @@ class TalkerInput {
             } else if let error = object! as? NSError {
                 self.sendError(error)
             } else {
-                assert(false, "unexpected type \(reflect(object).summary) on input stream")
+                let mirror = Mirror(reflecting: object)
+                assert(false, "unexpected type \(mirror.description) on input stream")
             }
         }
     }

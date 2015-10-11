@@ -28,7 +28,7 @@ public class RestaurantDistance: NSObject, NSCoding {
         aCoder.encodeObject(_searchLocationDescription, forKey: "_searchLocationDescription");
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         distanceFromSearchLocation = aDecoder.decodeDoubleForKey("distanceFromSearchLocation")
         _searchLocationDescription = aDecoder.decodeObjectForKey("_searchLocationDescription") as! String
         searchLocation = aDecoder.decodeObjectForKey("searchLocation") as! CLLocation
@@ -47,7 +47,7 @@ public class RestaurantDistance: NSObject, NSCoding {
 
     public var hasPreferredSearchLocation: Bool {
         get {
-            return count(_searchLocationDescription) > 0
+            return _searchLocationDescription.characters.count > 0
         }
     }
 

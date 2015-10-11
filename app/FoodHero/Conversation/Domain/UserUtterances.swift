@@ -23,7 +23,7 @@ public class UserUtterances: NSObject {
     }
 
     public class func dislikesOccasion(text: String, occasion: String) -> TalkerUtterance {
-        var oocasionToDisplay = count(occasion) == 0 ? Occasions.snack() : occasion
+        let oocasionToDisplay = occasion.characters.count == 0 ? Occasions.snack() : occasion
         return createUtterance("U:DislikesOccasion", text: text, modelAnswer: "I don't want to have \(oocasionToDisplay)");
     }
 

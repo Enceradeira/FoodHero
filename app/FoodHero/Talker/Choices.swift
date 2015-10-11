@@ -34,7 +34,7 @@ class Choices: NSObject {
         let texts = collectConcatenation(self).map {
             choices in self._context.resources.resolve(self._context.randomizer.chooseOne(from: choices._texts, forTag: RandomizerConstants.texts()) as! String)
         }
-        return "\n\n".join(texts)
+        return texts.joinWithSeparator("\n\n")
     }
 
 }

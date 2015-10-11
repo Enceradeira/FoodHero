@@ -56,12 +56,12 @@ public class TalkerEngineTests: XCTestCase {
         return (dialog.toArray() as! [String])
     }
 
-    func assert(#utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil, withNaturalOutput naturalOutput: Bool = true) {
+    func assert(utterance utterance: String, exists: Bool, inExecutedScript script: Script, atPosition expectedPosition: Int? = nil, withNaturalOutput naturalOutput: Bool = true) {
         let engine = TalkerEngine(input: _input!)
         assert(utterance: utterance, exists: exists, inDialog: executeScript(script, onEngine: engine, withNaturalOutput: naturalOutput), atPosition: expectedPosition)
     }
 
-    func assert(#utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
+    func assert(utterance utterance: String, exists: Bool, inDialog dialog: RACSignal, atPosition expectedPosition: Int? = nil) {
         var positionCount: Int = 0
         var actualPosition: Int? = nil
         var error: NSError? = nil
@@ -172,7 +172,7 @@ public class TalkerEngineTests: XCTestCase {
         XCTAssertEqual(utterances.count, expectedDialog.count, "The number of utterances in the exectued script is wrong")
         for index in 0 ... min(expectedDialog.count, utterances.count) - 1 {
             let actual: String = utterances[index]
-            let expected: String = expectedDialog[index] as! String
+            let expected: String = expectedDialog[index] as String
             sometingWrong = sometingWrong || actual != expected
             XCTAssertEqual(actual, expected, "The utterance is wrong")
         }

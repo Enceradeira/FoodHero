@@ -8,6 +8,7 @@
 #import <GAI.h>
 #import <GAIFields.h>
 #import <GAIDictionaryBuilder.h>
+#import "NetworkError.h"
 #import "Conversation.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
@@ -27,3 +28,4 @@
 #import "OpeningHour.h"
 #import "GooglePhoto.h"
 #import "IConversationAppService.h"
+

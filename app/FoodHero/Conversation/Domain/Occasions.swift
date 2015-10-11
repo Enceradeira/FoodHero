@@ -37,7 +37,7 @@ public class Occasions: NSObject {
         let others = occasions().filter {
             $0 != occasion
         }
-        return ", ".join(others)
+        return others.joinWithSeparator(", ")
     }
 
     public class func getCurrent(env: IEnvironment) -> String {
@@ -100,12 +100,12 @@ public class Occasions: NSObject {
 
     private class func getNowFromComponents(env: IEnvironment) -> NSDate {
         let calendar = getCalendar()
-        let nowComponents = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: env.now())
+        let nowComponents = calendar.components([.Hour, .Minute], fromDate: env.now())
         return calendar.dateFromComponents(nowComponents)!
 
     }
 
-    private class func compontens(# hour: Int, minute: Int) -> NSDate {
+    private class func compontens(hour  hour: Int, minute: Int) -> NSDate {
         let component = NSDateComponents();
         component.hour = hour
         component.minute = minute
@@ -118,7 +118,7 @@ public class Occasions: NSObject {
 
     private class func getDayOfWeek(env: IEnvironment) -> Int {
         let calendar = getCalendar()
-        let components = calendar.components(.CalendarUnitWeekday, fromDate: env.now())
+        let components = calendar.components(.Weekday, fromDate: env.now())
         return components.weekday
     }
 

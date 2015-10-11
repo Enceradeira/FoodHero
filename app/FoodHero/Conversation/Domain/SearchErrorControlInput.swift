@@ -12,7 +12,7 @@ public class SearchErrorControlInput: NSObject, NSCoding {
         self.error = error
     }
 
-    public required init(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         error = coder.decodeObjectForKey("error") as! NSError
     }
 

@@ -13,7 +13,7 @@ public class ScriptResources: NSObject {
         _randomizer = randomizer
     }
 
-    public func add(#parameter: String, withValues values: [String]) -> ScriptResources {
+    public func add(parameter parameter: String, withValues values: [String]) -> ScriptResources {
         precondition(values.count > 0, "values must have at least one element")
         _parameters[parameter] = values
         return self
@@ -22,16 +22,16 @@ public class ScriptResources: NSObject {
     public func resolve(text: String) -> String {
         var result = text
 
-        let regex = NSRegularExpression(pattern: "\\{(\\w+)\\}", options: .CaseInsensitive, error: nil)!
-        let matches = regex.matchesInString(text, options: nil, range: NSMakeRange(0, count(text))) as! [NSTextCheckingResult]
+        let regex = try! NSRegularExpression(pattern: "\\{(\\w+)\\}", options: .CaseInsensitive)
+        let matches = regex.matchesInString(text, options: [], range: NSMakeRange(0, text.characters.count)) 
 
         for match in matches {
             let matchedString = (text as NSString).substringWithRange(NSMakeRange(match.range.location + 1, match.range.length - 2))
             let values = _parameters[matchedString]
             assert(values != nil, "ScriptResources don't contain values for parameter '\(matchedString)'")
             let resolvedString = _randomizer.chooseOne(from: values!, forTag: RandomizerConstants.textParameters()) as! String
-            let replaceRegex = NSRegularExpression(pattern: "\\{\(matchedString)\\}", options: .CaseInsensitive, error: nil)!
-            result = replaceRegex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, count(result)), withTemplate: resolvedString)
+            let replaceRegex = try! NSRegularExpression(pattern: "\\{\(matchedString)\\}", options: .CaseInsensitive)
+            result = replaceRegex.stringByReplacingMatchesInString(result, options: [], range: NSMakeRange(0, result.characters.count), withTemplate: resolvedString)
         }
         return result
     }
