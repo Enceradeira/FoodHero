@@ -24,6 +24,9 @@ task :print_checklist do
   puts '*** CHECKLIST *********'.yellow
   puts ' Does the microphone work?'.yellow.bold
   puts ' Are Twitter/FB postings correctly formatted?'.yellow.bold
+  puts ' Does sending email work from conversation->share'.yellow.bold
+  puts ' Does sending email work from conversation->like (bubble) ...'.yellow.bold
+  puts ' Does sending email work from help->feedback'.yellow.bold
 
   puts "\n If CHECKLIST is OK then all is OK".green
 end

@@ -43,14 +43,17 @@ def wait_last_element_and_parameter(id, reverse_position)
 
   bubble, parameter = nil
   # :interval=>0.3 triggers find_elements sometimes not to return all elements
-  wait_true({:timeout => 30, :interval=>2}) do
+  sleep 1 # because otherwise wait_true always runs twice which is a problem when instruments has a terrible performance (like XCode 7)
+  wait_true({:timeout => 60, :interval=>10}) do
     bubble, parameter = get_last_element_and_parameter(id, reverse_position)
     if block_given?
       block_test = parameter != nil && yield(parameter)
     else
       block_test = true
     end
-    bubble != nil && block_test
+    result  = bubble != nil && block_test
+    puts '------------- wait_last_element_and_parameter was FALSE' unless result
+    result
   end
 
   #json = source # this seems to make things more stable ?????
@@ -242,7 +245,7 @@ Then(/^FoodHero says he can't understand me$/) do
 end
 
 Then(/^FoodHero says that he's busy right now$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:IsVeryBusyAtTheMoment', 0)
+  bubble, _ = wait_last_element_and_parameter('FH:IsVeryBusyAtTheMoment', [0,1,2])
   expect(bubble).not_to be_nil
 end
 
