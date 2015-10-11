@@ -1,0 +1,44 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6DE2AE291B93473E07E6F0A71392995499BD0356",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0D8DA30E7E7E610BAB9F19955472E75EF090257C" : 0,
+    "499E827FA8916741FAB7E636F89A79F20FEBB772" : 0,
+    "D0DAAD0155CAC270C5C4E987DBAC99448419DAB3" : 0,
+    "6DE2AE291B93473E07E6F0A71392995499BD0356" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D55EB0D4-BD16-4C3A-A223-648C7580CB1C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0D8DA30E7E7E610BAB9F19955472E75EF090257C" : "FoodHero\/UIImageViewAligned",
+    "499E827FA8916741FAB7E636F89A79F20FEBB772" : "wit-ios-sdk",
+    "D0DAAD0155CAC270C5C4E987DBAC99448419DAB3" : "Talker",
+    "6DE2AE291B93473E07E6F0A71392995499BD0356" : "FoodHero"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FoodHero",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "app\/FoodHero.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:reydanro\/UIImageViewAligned.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0D8DA30E7E7E610BAB9F19955472E75EF090257C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Enceradeira\/wit-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "499E827FA8916741FAB7E636F89A79F20FEBB772"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Enceradeira\/FoodHero.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6DE2AE291B93473E07E6F0A71392995499BD0356"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Enceradeira\/Talker.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D0DAAD0155CAC270C5C4E987DBAC99448419DAB3"
+    }
+  ]
+}
