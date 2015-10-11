@@ -51,7 +51,7 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
                 longitude: (myCoordinate.longitude + restaurantCoordinate.longitude) / 2).coordinate
         let distance = restaurantLocation.distanceFromLocation(myLocation)
 
-        let zoom = GMSCameraPosition.zoomAtCoordinate(midpoint, forMeters: distance / 0.6, perPoints: view.bounds.size.width)
+        GMSCameraPosition.zoomAtCoordinate(midpoint, forMeters: distance / 0.6, perPoints: view.bounds.size.width)
         let camera = createCameraPosition(myLocation)
 
         // Map
@@ -86,7 +86,7 @@ class RestaurantMapViewController: UIViewController, GMSMapViewDelegate {
         mapView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0.0-[subView]-0.0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: subViews))
 
         //  map
-        var tapGesture = UITapGestureRecognizer(target: self, action: "userDidTapDirections")
+        let tapGesture = UITapGestureRecognizer(target: self, action: "userDidTapDirections")
         directions.addGestureRecognizer(tapGesture)
         directions.userInteractionEnabled = true
 

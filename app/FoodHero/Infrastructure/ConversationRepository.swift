@@ -69,7 +69,6 @@ public class ConversationRepository: NSObject {
         archiver.encodeObject(_conversation, forKey: ConversationRepository.RootKey)
         archiver.finishEncoding()
 
-        let result = data.writeToFile(_filePath, atomically: true)
-
+        data.writeToFile(_filePath, atomically: true)
     }
 }

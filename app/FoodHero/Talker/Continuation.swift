@@ -8,7 +8,7 @@ import Foundation
 class Continuation: Utterance {
     private let _continuation: (FutureScript) -> (FutureScript)
     private let _context: TalkerContext
-    public init(continuation: ((FutureScript) -> (FutureScript)), context: TalkerContext) {
+    internal init(continuation: ((FutureScript) -> (FutureScript)), context: TalkerContext) {
         _continuation = continuation
         _context = context
     }

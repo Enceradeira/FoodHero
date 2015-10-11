@@ -99,7 +99,6 @@ public class ExpectedUserUtterances: NSObject, NSCoding {
     }
 
     public class func whenNoRestaurantWasFound() -> ExpectedUserUtterances {
-        let empty = TextAndLocation(text:"")
         return modelAnswersFrom(
         [
                 UserUtterances.wantsToStartAgain(""),

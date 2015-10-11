@@ -147,7 +147,7 @@
                     NSUInteger priceLevel = restaurant.priceLevel;
                     double relevane = restaurant.cuisineRelevance;
                     
-                    NSLog(@"RestaurantSearch.getBetPlace: Name: %@: PriceLevel: %i Relevance: %f Distance: %f", restaurant.nameUnique, priceLevel,relevane,distance);
+                    NSLog(@"RestaurantSearch.getBetPlace: Name: %@: PriceLevel: %lu Relevance: %f Distance: %f", restaurant.nameUnique, (unsigned long)priceLevel,relevane,distance);
                     return @[restaurant, preferences];
                 }
                 @catch (SearchException *e) {

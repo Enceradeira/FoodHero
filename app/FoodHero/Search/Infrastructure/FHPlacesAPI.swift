@@ -15,11 +15,6 @@ public class FHPlacesAPI: NSObject, IPlacesAPI {
     }
 
     public func findPlaces(cuisine: String, occasion: String, location: CLLocation) -> AnyObject {
-        let cuisineEncoded = cuisine
-        let occasionEncoded = occasion
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
-
         let urlString = _urlBuilder.buildUrlWithCuisine(cuisine, occasion: occasion, location: location)
 
         let url = NSURL(string: urlString)!

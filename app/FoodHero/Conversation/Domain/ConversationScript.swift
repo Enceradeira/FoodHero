@@ -400,9 +400,9 @@ public class ConversationScript: Script {
             let resultScript = Script(talkerContext: context)
             self.processSearchResult(searchResult.result, withScript: resultScript)
             self.interrupt(with: resultScript)
-        } else if let sayGreeting = input as? SayGreetingControlInput {
+        } else if let _ = input as? SayGreetingControlInput {
             self.interrupt(with: Script(talkerContext: context).say(oneOf: FHUtterances.greetings))
-        } else if let startSearch = input as? StartSearchControlInput {
+        } else if let _ = input as? StartSearchControlInput {
             self.searchAndWaitResponseAndSearchRepeatably()
         } else {
             assert(false, "unexpected control input of type \(Mirror(reflecting: input).description)")

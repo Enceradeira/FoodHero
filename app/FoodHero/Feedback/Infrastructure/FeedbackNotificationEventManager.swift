@@ -21,10 +21,7 @@ public class FeedbackNotificationEventManager: NSObject {
 
     private var wasProductFeedbackRequested: Bool {
         get {
-            if let wasRequested = _userDefaults.boolForKey(_userDefaultsProductFeedbackRequestedKey) as? Bool {
-                return wasRequested
-            }
-            return false
+            return _userDefaults.boolForKey(_userDefaultsProductFeedbackRequestedKey)
         }
     }
 

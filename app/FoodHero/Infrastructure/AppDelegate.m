@@ -51,7 +51,7 @@
     return YES;
 }
 
-- (void)configureUserNotification:(const UIApplication *)application {
+- (void)configureUserNotification:(UIApplication *)application {
     [NotificationBuilder registerUserNotificationSettings:application];
 }
 
