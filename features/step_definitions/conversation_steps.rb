@@ -178,7 +178,7 @@ Given(/^FoodHero is very slow in responding$/) do
 end
 
 Then(/^FoodHero(?: still)? greets me and suggests something$/) do
-  bubble, _ = wait_last_element_and_parameter('FH:Greeting', 1)
+  bubble, _ = wait_last_element_and_parameter('FH:Greeting', [1,2])
   expect(bubble).not_to be_nil
   expect_fh_suggestion
 end

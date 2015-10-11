@@ -66,7 +66,7 @@ task :xc_integration_tests => [:prepare_iOS_simulator, :start_web_integration_en
 end
 
 desc 'Run Acceptance-tests'
-task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :cucumber_integration] do
+task :acceptance_tests => [:start_appium, :prepare_iOS_simulator, :start_web_integration_env, :cucumber_integration] do
 end
 
 desc 'Run Smoke-tests'
@@ -112,7 +112,7 @@ task :start_appium do
   fork do
     `appium`
   end
-  sleep 5
+  sleep 2
 end
 
 desc 'Stops appium'
