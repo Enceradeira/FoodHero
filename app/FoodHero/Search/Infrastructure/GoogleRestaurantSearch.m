@@ -4,7 +4,7 @@
 //
 
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "GoogleRestaurantSearch.h"
 #import "SearchException.h"
 #import "GoogleOpeningHours.h"

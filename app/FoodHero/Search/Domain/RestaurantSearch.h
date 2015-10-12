@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "Restaurant.h"
 #import "RestaurantSearchService.h"
 #import "LocationService.h"

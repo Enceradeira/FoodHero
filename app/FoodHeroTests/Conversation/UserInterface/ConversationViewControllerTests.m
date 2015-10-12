@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <Typhoon.h>
+#import <Typhoon/Typhoon.h>
 #import "ConversationViewController.h"
 #import "ControllerFactory.h"
 #import "ConversationBubbleTableViewCell.h"

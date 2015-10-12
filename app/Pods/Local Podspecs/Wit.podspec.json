@@ -2,7 +2,7 @@
   "name": "Wit",
   "version": "4.1.0",
   "summary": "Wit.AI Official SDK",
-  "description": "                     Official Wit SDK, https://wit.ai/docs/ios-tutorial/\n",
+  "description": "Official Wit SDK, https://wit.ai/docs/ios-tutorial/",
   "homepage": "https://github.com/wit-ai/wit-ios-sdk",
   "authors": {
     "Willy Blandin": "willy@wit.ai"

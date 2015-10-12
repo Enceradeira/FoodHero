@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <XCTestCase+AsyncTesting.h>
 #import "GooglePhoto.h"

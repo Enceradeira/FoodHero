@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Typhoon.h>
+#import <Typhoon/Typhoon.h>
 #import "ApplicationAssembly.h"
 
 

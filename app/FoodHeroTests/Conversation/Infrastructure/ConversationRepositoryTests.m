@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <Typhoon.h>
+#import <Typhoon/Typhoon.h>
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
 #import "Conversation.h"

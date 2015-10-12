@@ -4,7 +4,7 @@
 //
 
 #import "AlwaysImmediateSchedulerFactory.h"
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 
 @implementation AlwaysImmediateSchedulerFactory {

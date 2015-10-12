@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "GoogleRestaurantSearch.h"
 #import "LocationService.h"
 #import "CLLocationManagerProxyStub.h"

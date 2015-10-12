@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "ConversationAppService.h"
 #import "ConversationBubbleFoodHero.h"

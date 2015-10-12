@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "ISpeechRecognitionStateSource.h"
 
 @protocol ISpeechRecognitionService <NSObject>

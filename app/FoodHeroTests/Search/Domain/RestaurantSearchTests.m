@@ -3,7 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <XCTest/XCTest.h>
 #import "RestaurantSearchTests.h"
 #import "DesignByContractException.h"

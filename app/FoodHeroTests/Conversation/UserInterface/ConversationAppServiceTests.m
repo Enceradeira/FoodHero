@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
-#import <Typhoon.h>
+#import <Typhoon/Typhoon.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
 #import "DefaultAssembly.h"
 #import "ConversationBubbleUser.h"

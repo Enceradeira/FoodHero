@@ -8,7 +8,7 @@
 
 @import AVFoundation;
 
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <Wit/WITMicButton.h>
 #import "ConversationViewController.h"
 #import "ConversationBubbleTableViewCell.h"

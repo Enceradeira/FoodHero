@@ -3,13 +3,11 @@
 //
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import <ReactiveCocoa/RACBacktrace.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <GAI.h>
 #import <GAIFields.h>
 #import <GAIDictionaryBuilder.h>
 #import "NetworkError.h"
-#import "Conversation.h"
 #import "TyphoonComponents.h"
 #import "RestaurantSearch.h"
 #import "RestaurantSearchResult.h"
@@ -28,4 +26,5 @@
 #import "OpeningHour.h"
 #import "GooglePhoto.h"
 #import "IConversationAppService.h"
+#import "Conversation.h"
 

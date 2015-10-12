@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ReactiveCocoa.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "Statement.h"
 #import "RestaurantSearchService.h"
 #import "ConversationSource.h"

@@ -3,8 +3,8 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "DefaultSchedulerFactory.h"
-#import "RACScheduler.h"
 
 
 @implementation DefaultSchedulerFactory {

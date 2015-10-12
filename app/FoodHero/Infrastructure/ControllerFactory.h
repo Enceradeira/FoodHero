@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <Typhoon.h>
+#import <Typhoon/Typhoon.h>
 #import "ConversationViewController.h"
 #import "RestaurantPhotoViewController.h"
 #import "OpeningHoursViewController.h"

@@ -3,7 +3,7 @@
 // Copyright (c) 2014 JENNIUS LTD. All rights reserved.
 //
 
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 #import "LocationService.h"
 #import "LocationServiceAuthorizationStatusDeniedError.h"
 #import "LocationServiceAuthorizationStatusRestrictedError.h"
