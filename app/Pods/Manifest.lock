@@ -1,6 +1,6 @@
 PODS:
   - GoogleAnalytics (3.12.0)
-  - GoogleMaps (1.10.1)
+  - GoogleMaps (1.10.3)
   - LinqToObjectiveC (2.0.0)
   - OCHamcrest (4.1.1)
   - ReactiveCocoa (2.3.1):
@@ -36,7 +36,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
-  GoogleMaps: ebf08677f181d9c2dcdbd1721d206f02beccc9b1
+  GoogleMaps: 945e4ac3b74bcca3ddada51df256eb7beddb474d
   LinqToObjectiveC: 768f98c62d5b57cb6bdb7ab869e33d0a7a2da29c
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   ReactiveCocoa: 334468a83b2c5f669f7cfb9a084415ee23219b4f

@@ -115,7 +115,7 @@ task :start_appium do
   fork do
     `appium`
   end
-  sleep 2
+  sleep 3
 end
 
 desc 'Stops appium'
