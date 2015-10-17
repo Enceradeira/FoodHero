@@ -14,6 +14,6 @@ class XCodeBuildAction
   end
 
   def export_archive!(scheme)
-    BuildAction.execute!("xcodebuild -exportArchive -exportFormat ipa -archivePath '#{AppPaths.archive_path}/#{scheme}.xcarchive' -exportPath '#{AppPaths.archive_path}/#{scheme}.ipa' -exportProvisioningProfile '#{AppPaths.provisioning_profile}'")
+    BuildAction.execute!("xcodebuild -exportArchive -archivePath '#{AppPaths.archive_path}/#{scheme}.xcarchive' -exportPath '#{AppPaths.archive_path}/#{scheme}.ipa' -exportOptionsPlist '#{AppPaths.export_options_plist}' ")
   end
 end

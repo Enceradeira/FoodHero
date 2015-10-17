@@ -619,6 +619,7 @@
 		23525899A1997D5440D5159B /* GoogleURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleURL.h; sourceTree = "<group>"; };
 		235258A6F2540414531B6F6D /* Branch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		235258A8F2F807F9877FA53E /* TextAndLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAndLocation.swift; sourceTree = "<group>"; };
+		235258C3EDA790B6DE9F1E63 /* exportOptionPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = exportOptionPList.plist; sourceTree = "<group>"; };
 		235258C62DB953415934FAB5 /* ConversationRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationRepositoryTests.swift; sourceTree = "<group>"; };
 		235258E9456D24B4F1902530 /* LargeRestaurantReviewCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeRestaurantReviewCommentViewController.h; sourceTree = "<group>"; };
 		235258EA62D758D04E90B2B1 /* ConversationViewState+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConversationViewState+Protected.m"; sourceTree = "<group>"; };
@@ -1750,6 +1751,7 @@
 				8F60D0E21969ABC3007324B6 /* ConversationBubble-User@2x.png */,
 				8FCBADD819614B83001ED357 /* main.m */,
 				8FCBADDA19614B83001ED357 /* FoodHero-Prefix.pch */,
+				235258C3EDA790B6DE9F1E63 /* exportOptionPList.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

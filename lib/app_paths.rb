@@ -35,10 +35,6 @@ module AppPaths
     'app/archives'
   end
 
-  def self.provisioning_profile
-    'XC: uk.co.jennius.FoodHero'
-  end
-
   def self.altool_path
     '/Applications/Application Loader.app/Contents/Frameworks/ITunesSoftwareService.framework/Support/altool'
   end
@@ -53,5 +49,9 @@ module AppPaths
 
   def self.device
     'iPhone 6s'
+  end
+
+  def self.export_options_plist
+    'app/FoodHero/exportOptionPList.plist'
   end
 end
