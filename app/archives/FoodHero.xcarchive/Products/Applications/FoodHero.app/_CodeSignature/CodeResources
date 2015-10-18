@@ -78,39 +78,39 @@
 		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
-		qO41v/eeD8b//CPzJOCnCPvx/V8=
+		INnkg9amvxg4msxBZ34wsSFhTXo=
 		</data>
 		<key>Frameworks/libswiftCoreGraphics.dylib</key>
 		<data>
-		9WN2aW9T93lH+VSEGebOffxNVYw=
+		JLkFGNvl9huIV5FJlxqkzJsSLJ0=
 		</data>
 		<key>Frameworks/libswiftCoreImage.dylib</key>
 		<data>
-		xUNYUMWOhmmKVNrAMSPl/d1vK3E=
+		rxV0uRCoYgsDAxixv7egpHKGGhc=
 		</data>
 		<key>Frameworks/libswiftCoreLocation.dylib</key>
 		<data>
-		VrnQwyizWEZ6k22pSPKyoE/xcAs=
+		buQboIEpsx/YflkYvIvYA96+3/M=
 		</data>
 		<key>Frameworks/libswiftDarwin.dylib</key>
 		<data>
-		jo8oq40Bd3YUmV5aXEoxceNeeFY=
+		CuaEMQK5+prDk/7Xp/kseaSk9fA=
 		</data>
 		<key>Frameworks/libswiftDispatch.dylib</key>
 		<data>
-		N5oUOJQsgt4h6sXd8BA4F39j2W8=
+		nr1j4klpRQOalBGrIp+Md9R4Z+k=
 		</data>
 		<key>Frameworks/libswiftFoundation.dylib</key>
 		<data>
-		ecR8Duzyc6kDBZBODWG3KKvcrR8=
+		DfcpnZa5VstgaV5ESBogGx4skDk=
 		</data>
 		<key>Frameworks/libswiftObjectiveC.dylib</key>
 		<data>
-		fawrKPSSwTxJ+NuNvMZCcRo6FHU=
+		NqzMU+i06ev/TYDPJoIdgnJ5I2s=
 		</data>
 		<key>Frameworks/libswiftUIKit.dylib</key>
 		<data>
-		gLknRYrZUfp7zK9SjSbCKYGDKrM=
+		Jde3ppqkEWATWaoVX8DzRR8GL2w=
 		</data>
 		<key>GoogleMaps.bundle/GMSCacheStorage.momd/Storage.mom</key>
 		<data>
@@ -781,7 +781,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		rQwxB+2clJRQGR/Z4H9p+yL+v34=
+		Y5DFN6TDy89HbtRArLkxc/AnZ0k=
 		</data>
 		<key>LaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -789,11 +789,11 @@
 		</data>
 		<key>LaunchScreen.storyboardc/UINavigationController-sTx-EW-Qj5.nib</key>
 		<data>
-		77aD/fDmQJNn8YwXppxQpKylDso=
+		+gtkEEBhS6l6k3ijp1ioETFxIZ8=
 		</data>
 		<key>LaunchScreen.storyboardc/sA6-um-VW4-view-LX5-Gc-dp0.nib</key>
 		<data>
-		evt7l29Z5MoY4LB51MoNb64A0Yo=
+		OJCq2H84Lh4av3xed5AMlyn77BA=
 		</data>
 		<key>Like-Icon@2x.png</key>
 		<data>
@@ -801,143 +801,143 @@
 		</data>
 		<key>Main.storyboardc/ConversationViewController.nib</key>
 		<data>
-		BqQ0e72a5WQshV5DZq75qpTjhJE=
+		dnygkiQzMdVZv0UAhKEPmugmKUk=
 		</data>
 		<key>Main.storyboardc/FeedbackController.nib</key>
 		<data>
-		K3wJz1l/ot5OhjXCFIXCObcTMfg=
+		8pEkiabLN3YFzeoS6nBddC+9rkM=
 		</data>
 		<key>Main.storyboardc/HelpController.nib</key>
 		<data>
-		bNYP0Du65siE5OJ9ZOnJWxlXqT4=
+		nYzz2TS8uNnfB4oQel5LMVvb1s4=
 		</data>
 		<key>Main.storyboardc/Info.plist</key>
 		<data>
-		AJGWDWfB8ECKYL5daRvhV9g4hgs=
+		TcpfSkZlzIkzR5kB0Tj0z2UQinM=
 		</data>
 		<key>Main.storyboardc/K7t-hI-S0Z-view-yms-F4-5Ke.nib</key>
 		<data>
-		XRnfyKmIb/cqGKXYEvZb4/TrL8E=
+		jdf8hPizVgtt4VGa7SxNIgqCU0g=
 		</data>
 		<key>Main.storyboardc/LargeRestaurantReviewCommentViewController.nib</key>
 		<data>
-		BqDrYOoGXX2JMQoXgaXq07XtyXI=
+		RwmLsGeypa9Lre0H0Wp6woBdsrs=
 		</data>
 		<key>Main.storyboardc/LargeRestaurantReviewViewController.nib</key>
 		<data>
-		In0x5h/J3BOhubWrekKxdUwTm98=
+		NaRe8bJGN6u6J3pxKqAdcvTIZjQ=
 		</data>
 		<key>Main.storyboardc/NotebookPageViewController.nib</key>
 		<data>
-		FIHTstlPGiqESaRZgqBRkOqVduw=
+		kyRniFDH5o5ZNiYvQ2U4CTnsLHA=
 		</data>
 		<key>Main.storyboardc/OpeningHoursViewController.nib</key>
 		<data>
-		GbfZVbNCGl+xx1q/ZXyVRDotJww=
+		iGF8+1gWZMxkil9uTi1kdOcsjNE=
 		</data>
 		<key>Main.storyboardc/RestaurantDetail.nib</key>
 		<data>
-		6Fam7nj4RXGCuTKLFO9sM35w2R0=
+		SDUxnl8n3KesNu/1IvN/jHD1YlY=
 		</data>
 		<key>Main.storyboardc/RestaurantDetailTableViewController.nib</key>
 		<data>
-		k9VrX/TYSo52vvcIOevMmOeK5KQ=
+		p68Hh2ZAocx94VMIBL+txH3cUaE=
 		</data>
 		<key>Main.storyboardc/RestaurantMapView.nib</key>
 		<data>
-		KEUf+Rywyjyif0zcy3fNPuAVMeo=
+		rLvKO+l3eEQjzS5HaIxFKIUgYBg=
 		</data>
 		<key>Main.storyboardc/RestaurantPhotoViewController.nib</key>
 		<data>
-		FI4OG6tXAxJffWe9a0p6tABJSYA=
+		lKGWP/tCRrslfHQNT2PzJm6RcNE=
 		</data>
 		<key>Main.storyboardc/RestaurantReviewPageViewController.nib</key>
 		<data>
-		4WimDqEnaFjfsSANLyAWCHrHgwM=
+		nQ6y7KHugLKSx5Riv7oPdzEzkSw=
 		</data>
 		<key>Main.storyboardc/RestaurantReviewSummaryViewController.nib</key>
 		<data>
-		sfiTT7XdWC8cHVC2CibmA9IUCLY=
+		m2T9TpVsaUwZg0ANOuPOF8CMu7o=
 		</data>
 		<key>Main.storyboardc/SZ0-WI-Em0-view-FmX-Va-YVn.nib</key>
 		<data>
-		5QgkPlQkOMDDn7uzjA/sX8j0Bk0=
+		OGlE/EOt68opVxRdni5c03LCmEQ=
 		</data>
 		<key>Main.storyboardc/SmallRestaurantReviewCommentViewController.nib</key>
 		<data>
-		eIsGCerbOv8vuuQY+1NrNUfZOUI=
+		cIJ6CusGdAzsfdevp6t8tWJgt7k=
 		</data>
 		<key>Main.storyboardc/SuggestionLikedController.nib</key>
 		<data>
-		NvdRtrDfYmnSO4cMlJ8xMPc97tc=
+		mBFAEbZm+0uFILB9Na4jCTsgyT8=
 		</data>
 		<key>Main.storyboardc/SuggestionLikedPostingsController.nib</key>
 		<data>
-		v/brcFPxz+pYlWCN5hW/PYqdk+0=
+		9jPv+cbLgrS5F2ccSj+6Cny3c9A=
 		</data>
 		<key>Main.storyboardc/TRB-BJ-F49-view-YZb-mf-DsF.nib</key>
 		<data>
-		YowZZxemhk097sDRV34OhCNnFXc=
+		65oo4LwIywc7HizoMXF5QSlrvio=
 		</data>
 		<key>Main.storyboardc/Tkx-OU-aso-view-I5w-md-C8L.nib</key>
 		<data>
-		uNYrAtFBNFBQWLj4H3jzh/O135E=
+		3SEyPwiGdyNHOFy74TQy3J2dMj4=
 		</data>
 		<key>Main.storyboardc/UINavigationController-Nxg-Xv-lPP.nib</key>
 		<data>
-		O6dXPXbp2NnNqXkyCwVE9bvhPX4=
+		+mBQ1Hrw3tqwJMjZyZaD9AVK134=
 		</data>
 		<key>Main.storyboardc/UITableViewController-Tkx-OU-aso.nib</key>
 		<data>
-		IwTygq/PRp/VWy5sCXPUI3MJuhU=
+		M/CSy3MV00B0Y6fsBysrTSUqXLQ=
 		</data>
 		<key>Main.storyboardc/Xf7-7W-WAu-view-THN-YY-zNG.nib</key>
 		<data>
-		BxD5HWa3rOT7Lr0HJStJ9ErTbUI=
+		1r8K+O5vgXItoALCFZ+Zm8IkB/o=
 		</data>
 		<key>Main.storyboardc/YYu-o7-FVO-view-IIF-bK-Cu2.nib</key>
 		<data>
-		9atukTpE22wCtyldZeKw3R8Mu18=
+		aWOn/1k3oTyGp4CcVhhxCxdMpNM=
 		</data>
 		<key>Main.storyboardc/Z2V-Vj-Uj5-view-4Tc-sk-lQd.nib</key>
 		<data>
-		76xgbRD2VBYm/0g6k9Dds/Knqu8=
+		g9bYZvRBL5OmR668Sn7hQwBKRLs=
 		</data>
 		<key>Main.storyboardc/f14-hB-uXh-view-HXB-N5-54d.nib</key>
 		<data>
-		INXIMag4Ri63ZFfabQq9HSEhC4k=
+		Mcv2i76ju459IqOeQmRcKt192/A=
 		</data>
 		<key>Main.storyboardc/fcW-5q-l0i-view-fpj-8P-DZQ.nib</key>
 		<data>
-		mnONI3Yxtb4SctyF9bAO+b3OOkk=
+		1Vfe/Uzps5tA+kPY48Lt8uD8sNg=
 		</data>
 		<key>Main.storyboardc/i91-h0-nMD-view-YHr-bq-rcQ.nib</key>
 		<data>
-		0VyG58IwpvSlQMlgyJpZ8nhflIs=
+		9ewxXa3g6VEyInzqz69i/ympwBQ=
 		</data>
 		<key>Main.storyboardc/ihR-Mp-2f8-view-4oA-KK-ebg.nib</key>
 		<data>
-		aX2/2kSAQiTEye6xAahIZIpWFSg=
+		tNeXY2qWHZ98YTiPwtLJx9efCGA=
 		</data>
 		<key>Main.storyboardc/mMt-4t-Vct-view-imA-Mu-26N.nib</key>
 		<data>
-		ZKIL3OiCSCNdXKFdtuxjl+kIsvg=
+		OM6ChApPg3RuuW16hDiD0om4xWc=
 		</data>
 		<key>Main.storyboardc/pHo-nb-mpi-view-F3D-2p-6V5.nib</key>
 		<data>
-		BI0yilL3xxRcHKRGq0k2y0TEmKU=
+		AAt2BWfih2YhOtZWGzNwkTnFkSU=
 		</data>
 		<key>Main.storyboardc/spe-lB-0BO-view-jOL-kh-ybj.nib</key>
 		<data>
-		rANgCD5JPsHJJnWlWoeZph9HuQk=
+		GFzNHIe2TChmTCvv+dHBgeLmWN8=
 		</data>
 		<key>Main.storyboardc/tLd-lA-6ms-view-itw-FK-gfn.nib</key>
 		<data>
-		eph4mwE6uVFkEfmVHSp0uwIrpyk=
+		skGvLQvuYQQXRkGNvglt3QpireQ=
 		</data>
 		<key>Main.storyboardc/vIg-1n-Knr-view-5ln-xF-N0h.nib</key>
 		<data>
-		cxzTsGVvqOxlAjdjyHabKtSP0mk=
+		WP11Hf7M/jbOKu/K8xGB2Zl68eU=
 		</data>
 		<key>Notebook-small@2x.png</key>
 		<data>
@@ -1129,39 +1129,39 @@
 		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
-		qO41v/eeD8b//CPzJOCnCPvx/V8=
+		INnkg9amvxg4msxBZ34wsSFhTXo=
 		</data>
 		<key>Frameworks/libswiftCoreGraphics.dylib</key>
 		<data>
-		9WN2aW9T93lH+VSEGebOffxNVYw=
+		JLkFGNvl9huIV5FJlxqkzJsSLJ0=
 		</data>
 		<key>Frameworks/libswiftCoreImage.dylib</key>
 		<data>
-		xUNYUMWOhmmKVNrAMSPl/d1vK3E=
+		rxV0uRCoYgsDAxixv7egpHKGGhc=
 		</data>
 		<key>Frameworks/libswiftCoreLocation.dylib</key>
 		<data>
-		VrnQwyizWEZ6k22pSPKyoE/xcAs=
+		buQboIEpsx/YflkYvIvYA96+3/M=
 		</data>
 		<key>Frameworks/libswiftDarwin.dylib</key>
 		<data>
-		jo8oq40Bd3YUmV5aXEoxceNeeFY=
+		CuaEMQK5+prDk/7Xp/kseaSk9fA=
 		</data>
 		<key>Frameworks/libswiftDispatch.dylib</key>
 		<data>
-		N5oUOJQsgt4h6sXd8BA4F39j2W8=
+		nr1j4klpRQOalBGrIp+Md9R4Z+k=
 		</data>
 		<key>Frameworks/libswiftFoundation.dylib</key>
 		<data>
-		ecR8Duzyc6kDBZBODWG3KKvcrR8=
+		DfcpnZa5VstgaV5ESBogGx4skDk=
 		</data>
 		<key>Frameworks/libswiftObjectiveC.dylib</key>
 		<data>
-		fawrKPSSwTxJ+NuNvMZCcRo6FHU=
+		NqzMU+i06ev/TYDPJoIdgnJ5I2s=
 		</data>
 		<key>Frameworks/libswiftUIKit.dylib</key>
 		<data>
-		gLknRYrZUfp7zK9SjSbCKYGDKrM=
+		Jde3ppqkEWATWaoVX8DzRR8GL2w=
 		</data>
 		<key>GoogleMaps.bundle/GMSCacheStorage.momd/Storage.mom</key>
 		<data>
@@ -1836,11 +1836,11 @@
 		</data>
 		<key>LaunchScreen.storyboardc/UINavigationController-sTx-EW-Qj5.nib</key>
 		<data>
-		77aD/fDmQJNn8YwXppxQpKylDso=
+		+gtkEEBhS6l6k3ijp1ioETFxIZ8=
 		</data>
 		<key>LaunchScreen.storyboardc/sA6-um-VW4-view-LX5-Gc-dp0.nib</key>
 		<data>
-		evt7l29Z5MoY4LB51MoNb64A0Yo=
+		OJCq2H84Lh4av3xed5AMlyn77BA=
 		</data>
 		<key>Like-Icon@2x.png</key>
 		<data>
@@ -1848,143 +1848,143 @@
 		</data>
 		<key>Main.storyboardc/ConversationViewController.nib</key>
 		<data>
-		BqQ0e72a5WQshV5DZq75qpTjhJE=
+		dnygkiQzMdVZv0UAhKEPmugmKUk=
 		</data>
 		<key>Main.storyboardc/FeedbackController.nib</key>
 		<data>
-		K3wJz1l/ot5OhjXCFIXCObcTMfg=
+		8pEkiabLN3YFzeoS6nBddC+9rkM=
 		</data>
 		<key>Main.storyboardc/HelpController.nib</key>
 		<data>
-		bNYP0Du65siE5OJ9ZOnJWxlXqT4=
+		nYzz2TS8uNnfB4oQel5LMVvb1s4=
 		</data>
 		<key>Main.storyboardc/Info.plist</key>
 		<data>
-		AJGWDWfB8ECKYL5daRvhV9g4hgs=
+		TcpfSkZlzIkzR5kB0Tj0z2UQinM=
 		</data>
 		<key>Main.storyboardc/K7t-hI-S0Z-view-yms-F4-5Ke.nib</key>
 		<data>
-		XRnfyKmIb/cqGKXYEvZb4/TrL8E=
+		jdf8hPizVgtt4VGa7SxNIgqCU0g=
 		</data>
 		<key>Main.storyboardc/LargeRestaurantReviewCommentViewController.nib</key>
 		<data>
-		BqDrYOoGXX2JMQoXgaXq07XtyXI=
+		RwmLsGeypa9Lre0H0Wp6woBdsrs=
 		</data>
 		<key>Main.storyboardc/LargeRestaurantReviewViewController.nib</key>
 		<data>
-		In0x5h/J3BOhubWrekKxdUwTm98=
+		NaRe8bJGN6u6J3pxKqAdcvTIZjQ=
 		</data>
 		<key>Main.storyboardc/NotebookPageViewController.nib</key>
 		<data>
-		FIHTstlPGiqESaRZgqBRkOqVduw=
+		kyRniFDH5o5ZNiYvQ2U4CTnsLHA=
 		</data>
 		<key>Main.storyboardc/OpeningHoursViewController.nib</key>
 		<data>
-		GbfZVbNCGl+xx1q/ZXyVRDotJww=
+		iGF8+1gWZMxkil9uTi1kdOcsjNE=
 		</data>
 		<key>Main.storyboardc/RestaurantDetail.nib</key>
 		<data>
-		6Fam7nj4RXGCuTKLFO9sM35w2R0=
+		SDUxnl8n3KesNu/1IvN/jHD1YlY=
 		</data>
 		<key>Main.storyboardc/RestaurantDetailTableViewController.nib</key>
 		<data>
-		k9VrX/TYSo52vvcIOevMmOeK5KQ=
+		p68Hh2ZAocx94VMIBL+txH3cUaE=
 		</data>
 		<key>Main.storyboardc/RestaurantMapView.nib</key>
 		<data>
-		KEUf+Rywyjyif0zcy3fNPuAVMeo=
+		rLvKO+l3eEQjzS5HaIxFKIUgYBg=
 		</data>
 		<key>Main.storyboardc/RestaurantPhotoViewController.nib</key>
 		<data>
-		FI4OG6tXAxJffWe9a0p6tABJSYA=
+		lKGWP/tCRrslfHQNT2PzJm6RcNE=
 		</data>
 		<key>Main.storyboardc/RestaurantReviewPageViewController.nib</key>
 		<data>
-		4WimDqEnaFjfsSANLyAWCHrHgwM=
+		nQ6y7KHugLKSx5Riv7oPdzEzkSw=
 		</data>
 		<key>Main.storyboardc/RestaurantReviewSummaryViewController.nib</key>
 		<data>
-		sfiTT7XdWC8cHVC2CibmA9IUCLY=
+		m2T9TpVsaUwZg0ANOuPOF8CMu7o=
 		</data>
 		<key>Main.storyboardc/SZ0-WI-Em0-view-FmX-Va-YVn.nib</key>
 		<data>
-		5QgkPlQkOMDDn7uzjA/sX8j0Bk0=
+		OGlE/EOt68opVxRdni5c03LCmEQ=
 		</data>
 		<key>Main.storyboardc/SmallRestaurantReviewCommentViewController.nib</key>
 		<data>
-		eIsGCerbOv8vuuQY+1NrNUfZOUI=
+		cIJ6CusGdAzsfdevp6t8tWJgt7k=
 		</data>
 		<key>Main.storyboardc/SuggestionLikedController.nib</key>
 		<data>
-		NvdRtrDfYmnSO4cMlJ8xMPc97tc=
+		mBFAEbZm+0uFILB9Na4jCTsgyT8=
 		</data>
 		<key>Main.storyboardc/SuggestionLikedPostingsController.nib</key>
 		<data>
-		v/brcFPxz+pYlWCN5hW/PYqdk+0=
+		9jPv+cbLgrS5F2ccSj+6Cny3c9A=
 		</data>
 		<key>Main.storyboardc/TRB-BJ-F49-view-YZb-mf-DsF.nib</key>
 		<data>
-		YowZZxemhk097sDRV34OhCNnFXc=
+		65oo4LwIywc7HizoMXF5QSlrvio=
 		</data>
 		<key>Main.storyboardc/Tkx-OU-aso-view-I5w-md-C8L.nib</key>
 		<data>
-		uNYrAtFBNFBQWLj4H3jzh/O135E=
+		3SEyPwiGdyNHOFy74TQy3J2dMj4=
 		</data>
 		<key>Main.storyboardc/UINavigationController-Nxg-Xv-lPP.nib</key>
 		<data>
-		O6dXPXbp2NnNqXkyCwVE9bvhPX4=
+		+mBQ1Hrw3tqwJMjZyZaD9AVK134=
 		</data>
 		<key>Main.storyboardc/UITableViewController-Tkx-OU-aso.nib</key>
 		<data>
-		IwTygq/PRp/VWy5sCXPUI3MJuhU=
+		M/CSy3MV00B0Y6fsBysrTSUqXLQ=
 		</data>
 		<key>Main.storyboardc/Xf7-7W-WAu-view-THN-YY-zNG.nib</key>
 		<data>
-		BxD5HWa3rOT7Lr0HJStJ9ErTbUI=
+		1r8K+O5vgXItoALCFZ+Zm8IkB/o=
 		</data>
 		<key>Main.storyboardc/YYu-o7-FVO-view-IIF-bK-Cu2.nib</key>
 		<data>
-		9atukTpE22wCtyldZeKw3R8Mu18=
+		aWOn/1k3oTyGp4CcVhhxCxdMpNM=
 		</data>
 		<key>Main.storyboardc/Z2V-Vj-Uj5-view-4Tc-sk-lQd.nib</key>
 		<data>
-		76xgbRD2VBYm/0g6k9Dds/Knqu8=
+		g9bYZvRBL5OmR668Sn7hQwBKRLs=
 		</data>
 		<key>Main.storyboardc/f14-hB-uXh-view-HXB-N5-54d.nib</key>
 		<data>
-		INXIMag4Ri63ZFfabQq9HSEhC4k=
+		Mcv2i76ju459IqOeQmRcKt192/A=
 		</data>
 		<key>Main.storyboardc/fcW-5q-l0i-view-fpj-8P-DZQ.nib</key>
 		<data>
-		mnONI3Yxtb4SctyF9bAO+b3OOkk=
+		1Vfe/Uzps5tA+kPY48Lt8uD8sNg=
 		</data>
 		<key>Main.storyboardc/i91-h0-nMD-view-YHr-bq-rcQ.nib</key>
 		<data>
-		0VyG58IwpvSlQMlgyJpZ8nhflIs=
+		9ewxXa3g6VEyInzqz69i/ympwBQ=
 		</data>
 		<key>Main.storyboardc/ihR-Mp-2f8-view-4oA-KK-ebg.nib</key>
 		<data>
-		aX2/2kSAQiTEye6xAahIZIpWFSg=
+		tNeXY2qWHZ98YTiPwtLJx9efCGA=
 		</data>
 		<key>Main.storyboardc/mMt-4t-Vct-view-imA-Mu-26N.nib</key>
 		<data>
-		ZKIL3OiCSCNdXKFdtuxjl+kIsvg=
+		OM6ChApPg3RuuW16hDiD0om4xWc=
 		</data>
 		<key>Main.storyboardc/pHo-nb-mpi-view-F3D-2p-6V5.nib</key>
 		<data>
-		BI0yilL3xxRcHKRGq0k2y0TEmKU=
+		AAt2BWfih2YhOtZWGzNwkTnFkSU=
 		</data>
 		<key>Main.storyboardc/spe-lB-0BO-view-jOL-kh-ybj.nib</key>
 		<data>
-		rANgCD5JPsHJJnWlWoeZph9HuQk=
+		GFzNHIe2TChmTCvv+dHBgeLmWN8=
 		</data>
 		<key>Main.storyboardc/tLd-lA-6ms-view-itw-FK-gfn.nib</key>
 		<data>
-		eph4mwE6uVFkEfmVHSp0uwIrpyk=
+		skGvLQvuYQQXRkGNvglt3QpireQ=
 		</data>
 		<key>Main.storyboardc/vIg-1n-Knr-view-5ln-xF-N0h.nib</key>
 		<data>
-		cxzTsGVvqOxlAjdjyHabKtSP0mk=
+		WP11Hf7M/jbOKu/K8xGB2Zl68eU=
 		</data>
 		<key>Notebook-small@2x.png</key>
 		<data>

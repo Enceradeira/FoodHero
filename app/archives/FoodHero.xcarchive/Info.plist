@@ -11,14 +11,14 @@
 		<key>CFBundleShortVersionString</key>
 		<string>0.1</string>
 		<key>CFBundleVersion</key>
-		<string>27</string>
+		<string>28</string>
 		<key>SigningIdentity</key>
 		<string>iPhone Developer: Jorg Jenni Cafe Marcal (NF2DL98SPS)</string>
 	</dict>
 	<key>ArchiveVersion</key>
 	<integer>2</integer>
 	<key>CreationDate</key>
-	<date>2015-10-18T08:29:55Z</date>
+	<date>2015-10-18T08:50:44Z</date>
 	<key>Name</key>
 	<string>FoodHero</string>
 	<key>SchemeName</key>
