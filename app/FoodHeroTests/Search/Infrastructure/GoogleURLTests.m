@@ -25,7 +25,7 @@
     assertThat([self userFriendlyURL:@""], is(equalTo(@"")));
     assertThat([self userFriendlyURL:@"http"], is(equalTo(@"http")));
     assertThat([self userFriendlyURL:@"ffdhttp:/"], is(equalTo(@"ffdhttp:/")));
-    assertThat([self userFriendlyURL:@"ww.jennius.co.uk"], is(equalTo(@"ww.jennius.co.uk")));
+    assertThat([self userFriendlyURL:@"ww.thefoodhero.com"], is(equalTo(@"ww.thefoodhero.com")));
 }
 
 - (void)test_userFriendlyURL_ShouldRemoveHTTP {

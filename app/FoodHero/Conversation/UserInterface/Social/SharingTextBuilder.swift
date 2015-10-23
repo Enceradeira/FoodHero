@@ -7,7 +7,7 @@ import Foundation
 
 public class SharingTextBuilder: NSObject {
 
-    private static let productUrl = "www.jennius.co.uk"
+    private static let productUrl = "www.thefoodhero.com"
 
     private class func getRestaurantUrlOrEmpty(restaurant: Restaurant) -> String {
         if let urlForDisplaying = restaurant.urlForDisplaying {
