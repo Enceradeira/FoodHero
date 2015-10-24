@@ -1,13 +1,14 @@
 require 'net/http'
 
-Then(/^"(.*)" returns a html-body$/) do |url|
+Then(/^"(.*)" returns in html-body "(.*)"$/) do |url,text|
   url = URI.parse(url)
   req = Net::HTTP::Get.new(url.to_s)
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)
   }
+  sleep 5
   online_body = res.body.force_encoding('UTF-8')
-  expect(online_body).to include("We are committed to protecting the privacy of “Food Hero”’s users")
+  expect(online_body).to include(text)
 end
 
 Then(/^"(.*)" returns json-data$/) do |url|
