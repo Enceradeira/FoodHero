@@ -28,7 +28,7 @@ module AppPaths
 =end
 
   def self.version
-    '9.0'
+    '9.1'
   end
 
   def self.archive_path
@@ -48,7 +48,7 @@ module AppPaths
   end
 
   def self.device
-    'iPhone 6s'
+    'iPhone 6 Plus'
   end
 
   def self.export_options_plist
