@@ -303,7 +303,7 @@
 
 - (void)test_currentSearchPreference_ShouldResetOccasionPreference_WhenNewCuisinePreferred {
     [self sendInput:[UserUtterances occasionPreference:[[TextAndLocation alloc] initWithText:@"drink" location:nil] text:@"I want drinks"]];
-    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"Thai" location:nil] text:@"I like Thai"]];
+    [self sendInput:[UserUtterances cuisinePreference:[[TextAndLocation alloc] initWithText:@"eggs" location:nil] text:@"I like eggs"]];
 
     NSString *occasion = [self.conversation currentSearchPreference:15688 searchLocation:_london].occasion;
 

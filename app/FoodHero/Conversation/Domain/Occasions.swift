@@ -143,7 +143,8 @@ public class Occasions: NSObject {
             return snack()
         case "bread", "breakfast", "fry-up", "fry up":
             return breakfast()
-        case "pizza", "burger", "bbq", "hamburger", "kebab", "fastfood", "macdonald", "burgerking", "wedding", "weddingreception", "reception":
+        case "pizza", "burger", "bbq", "hamburger", "kebab", "fastfood", "macdonald", "burgerking", "wedding", "weddingreception",
+                "reception", "chinese", "sushi", "thai":
             return dinner()
         default:
             break
