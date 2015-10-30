@@ -150,7 +150,7 @@ ConversationAppServiceTests {
 }
 
 - (void)test_conversationStart_ShouldSetThreadIdOnSpeechRecognitionService {
-    Conversation *onlyConversation = [_conversationRepository getForInput:nil];
+    Conversation *onlyConversation = [_conversationRepository getForInput:[RACSignal new]];
 
     [_service startWithFeedbackRequest:NO];
 

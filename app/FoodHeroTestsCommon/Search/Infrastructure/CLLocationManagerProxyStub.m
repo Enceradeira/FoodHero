@@ -39,7 +39,7 @@
 
 - (void)startUpdatingLocation {
     if (_delegate != nil && _authorizationStatus == kCLAuthorizationStatusAuthorizedAlways && _locations != nil) {
-        [_delegate locationManager:nil didUpdateLocations:_locations];
+        [_delegate locationManager:[CLLocationManager new] didUpdateLocations:_locations];
     }
 }
 
@@ -68,7 +68,7 @@
     CLAuthorizationStatus oldStatus = _authorizationStatus;
     _authorizationStatus = status;
     if (oldStatus != _authorizationStatus && _delegate != nil) {
-        [_delegate locationManager:nil didChangeAuthorizationStatus:_authorizationStatus];
+        [_delegate locationManager:[CLLocationManager new] didChangeAuthorizationStatus:_authorizationStatus];
     }
 
 }

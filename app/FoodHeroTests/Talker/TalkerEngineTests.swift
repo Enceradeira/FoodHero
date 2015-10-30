@@ -28,9 +28,9 @@ public class TalkerEngineTests: XCTestCase {
         }
     }
 
-    func TestScript(_ resources: ScriptResources? = nil) -> Script {
+    func TestScript(resources: ScriptResources? = nil) -> Script {
         let resolvedResources = resources ?? ScriptResources(randomizer: _randomizer!)
-        var context = TalkerContext(randomizer: _randomizer!, resources: resolvedResources)
+        let context = TalkerContext(randomizer: _randomizer!, resources: resolvedResources)
         return Script(talkerContext: context)
     }
 

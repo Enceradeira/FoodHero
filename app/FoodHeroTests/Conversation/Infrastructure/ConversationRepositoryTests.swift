@@ -107,10 +107,10 @@ class ConversationRepositoryTests: XCTestCase {
         restoredConv.resumeWithFeedbackRequest(false)
 
         // continue conversation on restored conversation
-        let statement1 = restoredConv.getStatement(restoredConv.getStatementCount()-1) as! Statement
+        let statement1 = restoredConv.getStatement(restoredConv.getStatementCount()-1)
         XCTAssertEqual(statement1.semanticId(),"FH:DidNotUnderstandAndAsksForRepetition" )
         restoredInput.sendNext(UserUtterances.dislikesKindOfFood("I dont like that"))
-        let statement2 = restoredConv.getStatement(restoredConv.getStatementCount()-1) as! Statement
+        let statement2 = restoredConv.getStatement(restoredConv.getStatementCount()-1)
         XCTAssertEqual(statement2.semanticId(),"FH:AskForKindOfFood" )
     }
 }

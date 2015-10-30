@@ -8,7 +8,6 @@ import FoodHero
 
 class SearchProfileTests: XCTestCase {
     func test_encodeAndDecode_ShouldRestoreObject() {
-        let restaurant = RestaurantBuilder().build()
         let range = PriceRange.priceRangeWithoutRestriction()
         let distance = DistanceRange(nearerThan: 0.56)
         let location = CLLocation(latitude: 52.631944, longitude: 1.2988)

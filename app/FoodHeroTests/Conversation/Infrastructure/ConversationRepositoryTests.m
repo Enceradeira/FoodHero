@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <Typhoon/Typhoon.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "DefaultAssembly.h"
 #import "TyphoonComponents.h"
 #import "Conversation.h"
@@ -34,10 +35,10 @@
 
 - (void)test_get_shouldAlwaysReturnSameConversation
 {
-    Conversation *conversation = [_repository getForInput:nil];
+    Conversation *conversation = [_repository getForInput:[RACSignal new]];
     assertThat(conversation, is(notNilValue()));
     
-    Conversation *conversation2 = [_repository getForInput:nil];
+    Conversation *conversation2 = [_repository getForInput:[RACSignal new]];
     assertThat(conversation, is(sameInstance(conversation2)));
 }
 

@@ -7,7 +7,7 @@ import Foundation
 import FoodHero
 
 class NotificationBuilderTests: XCTestCase {
-    public func test_buildRequestUserFeedbackNotification_ShouldScheduleNotification() {
+    internal func test_buildRequestUserFeedbackNotification_ShouldScheduleNotification() {
         let now = NSDate()
         let nowComponents = NSCalendar.currentCalendar().components([.NSYearCalendarUnit, .NSMonthCalendarUnit, .NSDayCalendarUnit, .NSHourCalendarUnit, .NSMinuteCalendarUnit, .NSSecondCalendarUnit], fromDate: now);
 
@@ -15,7 +15,7 @@ class NotificationBuilderTests: XCTestCase {
         let tomorrowNinePm = NSCalendar.dateFrom(year: nowComponents.year, month: nowComponents.month, day: nowComponents.day + 1, hour: 21, minute: 0, second: 0)
 
         // check many time because the result is random
-        for i in 1 ... 50 {
+        for _ in 1 ... 50 {
             let notification = NotificationBuilder.buildRequestUserFeedbackNotification()
 
             let compareNineAM = notification.fireDate!.compare(tomorrowNineAm)

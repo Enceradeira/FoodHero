@@ -29,7 +29,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
 
         let customData = utterance!.customData
         XCTAssertEqual(customData.count, 1)
-        XCTAssertEqual(customData[0] as! String, "Context-Greeting")
+        XCTAssertEqual(customData[0] as? String, "Context-Greeting")
     }
 
     func test_talk_shouldUtterSomethingJustSometimes() {
@@ -72,8 +72,6 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
     }
 
     func test_talk_shouldSendCustomDataToContinueWith_WhenWaitingResponse() {
-        var utterance: TalkerUtterance? = nil
-
         let expectation = expectationWithDescription("")
         let script = TestScript().say(oneOf: { $0.words("How are you?") }).waitResponse(andContinueWith: {
             response, script in
@@ -108,7 +106,7 @@ public class TalkerEngineBasicTests: TalkerEngineTests {
         .say(oneOf: { $0.words("Hello") })
 
 
-        for index in 1 ... 2 {
+        for _ in 1 ... 2 {
             assert(dialog: ["Hello"], forExecutedScript: script)
         }
     }
