@@ -34,7 +34,7 @@
 }
 
 - (void)playSoundWithId:(SystemSoundID)id {
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient withOptions:nil error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
     @try {
         AudioServicesPlaySystemSound(id);
     }

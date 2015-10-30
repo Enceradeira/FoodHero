@@ -67,8 +67,8 @@
     self = [super init];
     if (self) {
         _photoReference = [coder decodeObjectForKey:@"_photoReference"];
-        _originalHeight = [coder decodeInt64ForKey:@"_originalHeight"];
-        _originalWidth = [coder decodeInt64ForKey:@"_originalWidth"];
+        _originalHeight = [coder decodeInt32ForKey:@"_originalHeight"];
+        _originalWidth = [coder decodeInt32ForKey:@"_originalWidth"];
         _loadedImage = [coder decodeObjectForKey:@"_loadedImage"];
         _isEagerlyLoaded = [coder decodeBoolForKey:@"_isEagerlyLoaded"];
     }
@@ -78,8 +78,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:_photoReference forKey:@"_photoReference"];
-    [coder encodeInt64:_originalHeight forKey:@"_originalHeight"];
-    [coder encodeInt64:_originalWidth forKey:@"_originalWidth"];
+    [coder encodeInt32:_originalHeight forKey:@"_originalHeight"];
+    [coder encodeInt32:_originalWidth forKey:@"_originalWidth"];
     [coder encodeObject:_loadedImage forKey:@"_loadedImage"];
     [coder encodeBool:_isEagerlyLoaded forKey:@"_isEagerlyLoaded"];
 }

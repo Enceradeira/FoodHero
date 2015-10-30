@@ -45,7 +45,7 @@
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        _priceLevel = [coder decodeInt64ForKey:@"_priceLevel"];
+        _priceLevel = [coder decodeInt32ForKey:@"_priceLevel"];
     }
 
     return self;
@@ -53,7 +53,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
-    [coder encodeInt64:self.priceLevel forKey:@"_priceLevel"];
+    [coder encodeInt32:self.priceLevel forKey:@"_priceLevel"];
 }
 
 

@@ -80,16 +80,16 @@ const NSUInteger GOOGLE_PRICE_LEVEL_MAX = 4;
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
-        _min = [coder decodeInt64ForKey:@"_min"];
-        _max = [coder decodeInt64ForKey:@"_max"];
+        _min = [coder decodeInt32ForKey:@"_min"];
+        _max = [coder decodeInt32ForKey:@"_max"];
     }
 
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeInt64:self.min forKey:@"_min"];
-    [coder encodeInt64:self.max forKey:@"_max"];
+    [coder encodeInt32:self.min forKey:@"_min"];
+    [coder encodeInt32:self.max forKey:@"_max"];
 }
 
 
