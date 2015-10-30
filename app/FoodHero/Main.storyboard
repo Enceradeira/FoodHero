@@ -796,7 +796,7 @@ Norwich, Norfolk NR1 3DN</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Help" id="nQw-3r-qpc">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="XrN-1k-HGt">
+                        <barButtonItem key="rightBarButtonItem" id="XrN-1k-HGt">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5tL-BW-wp4">
                                 <rect key="frame" x="233" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
