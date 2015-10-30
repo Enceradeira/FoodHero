@@ -9,7 +9,7 @@ import FoodHero
 class NotificationBuilderTests: XCTestCase {
     internal func test_buildRequestUserFeedbackNotification_ShouldScheduleNotification() {
         let now = NSDate()
-        let nowComponents = NSCalendar.currentCalendar().components([.NSYearCalendarUnit, .NSMonthCalendarUnit, .NSDayCalendarUnit, .NSHourCalendarUnit, .NSMinuteCalendarUnit, .NSSecondCalendarUnit], fromDate: now);
+        let nowComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: now);
 
         let tomorrowNineAm = NSCalendar.dateFrom(year: nowComponents.year, month: nowComponents.month, day: nowComponents.day + 1, hour: 9, minute: 0, second: 0)
         let tomorrowNinePm = NSCalendar.dateFrom(year: nowComponents.year, month: nowComponents.month, day: nowComponents.day + 1, hour: 21, minute: 0, second: 0)
