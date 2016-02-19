@@ -8,4 +8,4 @@ Feature: App runs correctly in production
     Then "http://foodheroweb.herokuapp.com/api/v1/places?cuisine=Indian%20Food&occasion=lunch&location=51.500152,-0.126236" returns json-data
 
   Scenario: Product-Website can be read
-    Then "http://www.thefoodhero.com" returns in html-body "Important Note About This Website's SEO"
+    Then "http://www.thefoodhero.com" returns in html-body "Fun searching for a restaurant"
